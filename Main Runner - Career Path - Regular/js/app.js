@@ -594,22 +594,14 @@ function computeLandingDifficultyDistribution(totalQuestions) {
     };
 }
 
-function setLandingDifficultySpan(id, value) {
-    const el = document.getElementById(id);
-    if (!el || el.getAttribute("contenteditable") === "true") return;
-    el.textContent = value;
-}
-
 export function updateLanding() {
     const { els } = appState;
     const title = document.getElementById("landing-title");
 
     title.innerHTML = t("landingTitle");
     renderLandingTitleVoiceControls();
-    setLandingDifficultySpan("val-easy", els.inEasy.value);
-    setLandingDifficultySpan("val-medium", els.inMedium.value);
-    setLandingDifficultySpan("val-hard", els.inHard.value);
-    setLandingDifficultySpan("val-impossible", els.inImpossible.value);
+    const landingQuestionsCount = document.getElementById("landing-questions-count");
+    if (landingQuestionsCount) landingQuestionsCount.textContent = String(landingDifficultyTotalQuestionsForLevels());
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
@@ -635,49 +627,6 @@ export function updateLanding() {
         iconSpan.textContent = iconVal;
         iconSpan.hidden = false;
         iconImg.hidden = true;
-    }
-}
-
-function wireLandingDifficultyValEditors(els) {
-    const pairs = [
-        ["val-easy", els.inEasy],
-        ["val-medium", els.inMedium],
-        ["val-hard", els.inHard],
-        ["val-impossible", els.inImpossible],
-    ];
-    for (const [spanId, input] of pairs) {
-        const span = document.getElementById(spanId);
-        if (!span || !input) continue;
-        span.addEventListener("dblclick", () => {
-            span.contentEditable = "true";
-            span.focus();
-            const sel = window.getSelection();
-            if (sel) {
-                sel.removeAllRanges();
-                const r = document.createRange();
-                r.selectNodeContents(span);
-                sel.addRange(r);
-            }
-        });
-        const commit = () => {
-            if (span.getAttribute("contenteditable") !== "true") return;
-            span.contentEditable = "false";
-            let n = parseInt(String(span.textContent || "").replace(/\D/g, ""), 10);
-            if (!Number.isFinite(n) || n < 0) n = 0;
-            input.value = String(n);
-            updateLanding();
-        };
-        span.addEventListener("blur", commit);
-        span.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                span.blur();
-            } else if (e.key === "Escape") {
-                e.preventDefault();
-                span.textContent = input.value;
-                span.contentEditable = "false";
-            }
-        });
     }
 }
 
@@ -885,7 +834,6 @@ async function init() {
     els.inMedium.oninput = updateLanding;
     els.inHard.oninput = updateLanding;
     els.inImpossible.oninput = updateLanding;
-    wireLandingDifficultyValEditors(els);
     els.inSpecificTitleToggle.onchange = updateLanding;
     els.inSpecificTitleText.oninput = updateLanding;
     els.inSpecificTitleIcon.onchange = updateLanding;

@@ -8,10 +8,7 @@ const TRANSLATIONS = {
   english: {
     landingTitle: "GUESS THE&nbsp;PLAYER<br>BY CAREER PATH",
     landingSubtitle: "2025/6 SEASON",
-    diffEasy: "EASY",
-    diffMedium: "MEDIUM",
-    diffHard: "HARD",
-    diffImpossible: "IMPOSSIBLE",
+    landingQuestionsLabel: "QUESTIONS",
     progressDiffEasy: "EASY",
     progressDiffHard: "HARD",
     bonus: "BONUS",
@@ -23,10 +20,7 @@ const TRANSLATIONS = {
   spanish: {
     landingTitle: "ADIVINA AL&nbsp;JUGADOR<br>POR SU TRAYECTORIA",
     landingSubtitle: "TEMPORADA 2025/6",
-    diffEasy: "FÁCIL",
-    diffMedium: "MEDIO",
-    diffHard: "DIFÍCIL",
-    diffImpossible: "IMPOSIBLE",
+    landingQuestionsLabel: "PREGUNTAS",
     progressDiffEasy: "FÁCIL",
     progressDiffHard: "DIFÍCIL",
     bonus: "BONUS",
@@ -69,13 +63,10 @@ export function applyTranslations() {
 
   /* Difficulty labels in the landing difficulty box. Order in the DOM is
      EASY, MEDIUM, HARD, IMPOSSIBLE. */
-  const labels = document.querySelectorAll("#landing-page .diff-label");
-  if (labels.length === 4) {
-    labels[0].textContent = t("diffEasy");
-    labels[1].textContent = t("diffMedium");
-    labels[2].textContent = t("diffHard");
-    labels[3].textContent = t("diffImpossible");
-  }
+  const landingQuestionsLabel = document.getElementById("landing-questions-label");
+  if (landingQuestionsLabel) landingQuestionsLabel.textContent = t("landingQuestionsLabel");
+  const landingQuestionsBonus = document.getElementById("landing-questions-bonus");
+  if (landingQuestionsBonus) landingQuestionsBonus.textContent = t("bonus");
 
   /* Progress bar EASY / HARD labels at the ends of the progress track. */
   const progressLabels = document.querySelectorAll(".quiz-progress .difficulty-label");

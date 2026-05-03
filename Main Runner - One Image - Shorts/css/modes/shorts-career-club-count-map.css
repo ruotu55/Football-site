@@ -1,0 +1,161 @@
+/* css/modes/shorts-career-club-count-map.css
+ *
+ * SHORTS MODE — career club layout by total number of clubs (1–12)
+ * ================================================================
+ * Loaded after shorts.css (see css/styles.css). The grid element gets
+ * data-team-count="N" from js/pitch-render.js when a player is selected.
+ *
+ * GLOBAL TUNING (year pill + gaps track circle size)
+ * --------------------------------------------------
+ * When --shorts-team-size equals --shorts-layout-ref-team-size, the year box
+ * matches --shorts-year-box-default-size and spacing matches --shorts-gap-default.
+ * Larger/smaller circles scale year typography and all layout gaps together.
+ *
+ * HOW TO EDIT
+ * -----------
+ * 1. Tune body.shorts-mode vars below (ref size + the two defaults).
+ * 2. Per count, usually only set --shorts-team-size; gaps and year box follow.
+ * 3. Optional on a count block: --shorts-team-row-gap, --shorts-team-column-gap,
+ *    --shorts-team-inline-gap, --shorts-team-row-multiplier, --shorts-club-grid-shift-y,
+ *    --shorts-club-grid-scale
+ * 4. Count 13+: duplicate a block; bump Math.min(n, 12) in pitch-render.js if needed.
+ */
+body.shorts-mode {
+    /* Reference circle: when --shorts-team-size matches this, defaults below apply exactly. */
+    --shorts-layout-ref-team-size: 4.1rem;
+    /* Year pill font size at the reference circle (padding/radius use em → grow/shrink with this). */
+    --shorts-year-box-default-size: 0.86rem;
+    /* Base gap at the reference circle; row / inline / >> column scale with circle vs ref. */
+    --shorts-gap-default: 0.82rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 1 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="1"] {
+    --shorts-team-size: 10rem;
+    /* Single club: no >> column */
+    --shorts-team-column-gap: 0rem;
+    --shorts-club-grid-shift-y: 0px;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 2 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="2"] {
+    --shorts-team-size: 8rem;
+    --shorts-club-grid-shift-y: 0px;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 3 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="3"] {
+    --shorts-team-size: 6.4rem;
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 4 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="4"] {
+    --shorts-team-size: 6.4rem;
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 5  (e.g. 3 clubs top row + 2 bottom) */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="5"] {
+    --shorts-team-size: 5rem;
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-second-row-shift-y: calc(var(--shorts-team-size) * 0.2);
+    --shorts-club-grid-shift-y: 0px;
+    --shorts-club-grid-scale: 0.95;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 6 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="6"] {
+    --shorts-team-size: 5rem;
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-second-row-shift-y: calc(var(--shorts-team-size) * 0.2);
+    --shorts-club-grid-shift-y: 0px;
+    --shorts-club-grid-scale: 0.95;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 7 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="7"] {
+    --shorts-team-size: 4.18rem;
+    --shorts-team-row-multiplier: 1.12;
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 8 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="8"] {
+    --shorts-team-size: 4.18rem;
+    --shorts-team-row-multiplier: 1.12;
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 9 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="9"] {
+    --shorts-team-size: 4.18rem;
+    --shorts-team-row-multiplier: 1.12;
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 10 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="10"] {
+    --shorts-team-size: 3.25rem;
+    --shorts-team-row-multiplier: 1.08;
+    --shorts-team-inline-gap: calc(var(--shorts-gap-scaled) + 1.5rem);
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 11 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="11"] {
+    --shorts-team-size: 3.25rem;
+    --shorts-team-row-multiplier: 1.08;
+    --shorts-team-inline-gap: calc(var(--shorts-gap-scaled) + 1.5rem);
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/* COUNT 12 */
+/* -------------------------------------------------------------------------- */
+body.shorts-mode .career-grid[data-team-count="12"] {
+    --shorts-team-size: 3.25rem;
+    --shorts-team-row-multiplier: 1.08;
+    --shorts-team-inline-gap: calc(var(--shorts-gap-scaled) + 1.5rem);
+    --shorts-club-grid-shift-x: 0rem;
+    --shorts-club-grid-shift-y: -5vh;
+    --shorts-club-grid-scale: 1;
+}

@@ -215,35 +215,75 @@ body.play-video-active #landing-title-voice-controls {
   animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
 }
 
-.difficulty-box {
+.landing-questions-line {
   position: relative;
   z-index: 10;
-  display: flex;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10.4px);
-  -webkit-backdrop-filter: blur(10.4px);
-  border: 2.6px solid rgba(255, 255, 255, 0.8);
-  border-radius: 39px;
-  padding: 1.3rem 2.34rem;
-  gap: 2.86rem;
-  box-shadow: 0 19.5px 45.5px rgba(0,0,0,0.5), inset 0 0 13px rgba(255,255,255,0.1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.91rem;
+  background: linear-gradient(180deg, rgba(15,15,15,0.82) 0%, rgba(32,32,32,0.82) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 3px solid var(--bg-stage, #FFD60A);
+  border-radius: 999px;
+  padding: 0.91rem 2.34rem;
+  box-shadow:
+    0 19.5px 45.5px rgba(0,0,0,0.55),
+    inset 0 0 20px rgba(0,0,0,0.35);
   animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
 }
-.diff-item { display: flex; align-items: center; gap: 1.04rem; position: relative; }
-.diff-item:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: -1.43rem; 
-  top: 15%;
-  height: 70%;
-  width: 2.6px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 2.6px;
+.landing-questions-count {
+  color: #ffffff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 5.2rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  text-shadow:
+    0 0 20px var(--bg-stage, #FFD60A),
+    0 0 40px var(--bg-stage, #FFD60A),
+    0 4px 8px rgba(0,0,0,0.7);
 }
-.diff-icon { font-size: 3.12rem; line-height: 1; filter: drop-shadow(0 2.6px 5.2px rgba(0,0,0,0.4)); }
-.diff-info { display: flex; flex-direction: column; align-items: flex-start; }
-.diff-val { color: #fff; font-family: "Barlow Condensed"; font-size: 2.6rem; font-weight: 800; line-height: 1; text-shadow: 0 2.6px 5.2px rgba(0,0,0,0.5); }
-.diff-label { color: rgba(255,255,255,0.9); font-size: 1.105rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.3px; margin-top: 0.26rem; text-shadow: 0 1.3px 2.6px rgba(0,0,0,0.5);}
+.landing-questions-label {
+  color: #ffffff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+}
+.landing-questions-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.86rem;
+  height: 2.86rem;
+  border-radius: 50%;
+  background: var(--bg-stage, #ffffff);
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.34rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: inset 0 -2.6px 5.2px rgba(0,0,0,0.2);
+}
+.landing-questions-bonus {
+  color: #ffffff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.86rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  text-shadow:
+    0 0 16px var(--bg-stage, #FFD60A),
+    0 0 32px var(--bg-stage, #FFD60A),
+    0 2px 4px rgba(0,0,0,0.7);
+}
 
 /* Logo page → landing: quiz copy sits above the fold until logo shift-top-right finishes, then slides in from top (no opacity fade) */
 .landing-page.landing-content-awaiting-shift,
@@ -252,7 +292,7 @@ body.play-video-active #landing-title-voice-controls {
 }
 .landing-page.landing-content-awaiting-shift .landing-title,
 .landing-page.landing-content-awaiting-shift .landing-subtitle,
-.landing-page.landing-content-awaiting-shift .difficulty-box {
+.landing-page.landing-content-awaiting-shift .landing-questions-line {
   animation: none;
   transform: translateY(-120vh);
 }
@@ -283,7 +323,7 @@ body.play-video-active #landing-title-voice-controls {
   animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
     float-up-down 3.2s ease-in-out 0.65s infinite;
 }
-.landing-page.landing-content-slide-in .difficulty-box {
+.landing-page.landing-content-slide-in .landing-questions-line {
   animation: landing-info-slide-from-top 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards,
     float-up-down 3.2s ease-in-out 0.65s infinite;
 }

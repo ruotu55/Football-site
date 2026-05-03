@@ -9,10 +9,7 @@ const TRANSLATIONS = {
     landingTitleNatByClub: "GUESS THE FOOTBALL<br>NATIONAL TEAM NAME<br>BY PLAYERS' CLUB",
     landingTitleNatByClubShorts: "GUESS THE FOOTBALL<br>NATIONAL TEAM<br>NAME BY<br>PLAYERS' CLUB",
     landingSubtitle: "2025/6 SEASON",
-    diffEasy: "EASY",
-    diffMedium: "MEDIUM",
-    diffHard: "HARD",
-    diffImpossible: "IMPOSSIBLE",
+    landingQuestionsLabel: "QUESTIONS",
     progressDiffEasy: "EASY",
     progressDiffHard: "HARD",
     bonus: "BONUS",
@@ -27,10 +24,7 @@ const TRANSLATIONS = {
     landingTitleNatByClub: "ADIVINA EL NOMBRE DEL<br>EQUIPO NACIONAL POR<br>EL CLUB DE LOS JUGADORES",
     landingTitleNatByClubShorts: "ADIVINA EL EQUIPO<br>NACIONAL POR<br>EL CLUB DE<br>LOS JUGADORES",
     landingSubtitle: "TEMPORADA 2025/6",
-    diffEasy: "FÁCIL",
-    diffMedium: "MEDIO",
-    diffHard: "DIFÍCIL",
-    diffImpossible: "IMPOSIBLE",
+    landingQuestionsLabel: "PREGUNTAS",
     progressDiffEasy: "FÁCIL",
     progressDiffHard: "DIFÍCIL",
     bonus: "BONUS",
@@ -59,13 +53,10 @@ export function applyTranslations() {
     if (subtitle) subtitle.textContent = t("landingSubtitle");
   }
 
-  const labels = document.querySelectorAll("#landing-page .diff-label");
-  if (labels.length === 4) {
-    labels[0].textContent = t("diffEasy");
-    labels[1].textContent = t("diffMedium");
-    labels[2].textContent = t("diffHard");
-    labels[3].textContent = t("diffImpossible");
-  }
+  const landingQuestionsLabel = document.getElementById("landing-questions-label");
+  if (landingQuestionsLabel) landingQuestionsLabel.textContent = t("landingQuestionsLabel");
+  const landingQuestionsBonus = document.getElementById("landing-questions-bonus");
+  if (landingQuestionsBonus) landingQuestionsBonus.textContent = t("bonus");
 
   const progressLabels = document.querySelectorAll(".quiz-progress .difficulty-label");
   if (progressLabels.length === 2) {

@@ -222,11 +222,11 @@ const COLORS = [
   { id: "extra-orange", label: "Extra 1", hex: "#FFB74D" },
   { id: "extra-slate", label: "Extra 2", hex: "#78909C" },
   { id: "extra-ocean-green", label: "Extra 3", hex: "#4DB6AC" },
-  { id: "extra-deep-lavender", label: "Extra 4", hex: "#9575CD" },
+  { id: "extra-deep-lavender", label: "#9575CD - Football Player Name", hex: "#9575CD" },
   { id: "extra-sky-indigo", label: "Extra 5", hex: "#7986CB" },
   { id: "extra-warm-slate", label: "Extra 6", hex: "#90A4AE" },
   { id: "extra-burnt-orange", label: "Extra 7", hex: "#FF8A65" },
-  { id: "extra-soft-green", label: "Extra 8", hex: "#81C784" },
+  { id: "extra-soft-green", label: "#81C784 - Football Team Name", hex: "#81C784" },
   { id: "extra-cornflower-blue", label: "Extra 9", hex: "#64B5F6" },
 ];
 
