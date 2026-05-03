@@ -26,6 +26,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
+import { initUpdateData } from "./update-data.js";
 import {
     isProdMode,
     toggleProdMode,
@@ -780,6 +781,7 @@ async function init() {
         updateLanding,
         syncShortsCirclePreviewPanel,
     });
+    initUpdateData();
 
     const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 4);
     initLevels(initialLevelCount);

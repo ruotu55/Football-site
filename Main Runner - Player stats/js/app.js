@@ -28,6 +28,7 @@ import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
+import { initUpdateData } from "./update-data.js";
 import {
     isProdMode,
     toggleProdMode,
@@ -784,6 +785,7 @@ async function init() {
         updateLanding,
         syncShortsCirclePreviewPanel,
     });
+    initUpdateData();
 
     const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 29);
     initLevels(initialLevelCount);
