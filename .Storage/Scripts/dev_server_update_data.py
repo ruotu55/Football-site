@@ -124,16 +124,20 @@ import re as _re_gk
 
 
 _GK_HEADER_GC_PATTERNS = [
-    r"\bgoals?\s*conceded\b",   # English
-    r"\bgegentore?\b",          # German
-    r"\bg\.?\s*against\b",      # alt English
+    r"\bgoals?\s*conceded\b",
+    r"\bgegentore?\b",
+    r"\bg\.?\s*against\b",
     r"\bgoals?\s*against\b",
+    r"\bconceded\s*goals?\b",
+    r"^\s*ga\s*$",       # abbreviation
+    r"^\s*gc\s*$",
 ]
 _GK_HEADER_CS_PATTERNS = [
-    r"\bclean\s*sheets?\b",     # English
-    r"\bzu\s*null\b",           # German
-    r"\bohne\s*gegentor\b",     # German alt
-    r"\bsh(?:eet|t)s?\s*ohne",  # mixed
+    r"\bclean\s*sheets?\b",
+    r"\bzu\s*null\b",
+    r"\bohne\s*gegentor\b",
+    r"\bsh(?:eet|t)s?\s*ohne",
+    r"^\s*cs\s*$",
 ]
 
 
@@ -158,96 +162,150 @@ def _gk_parse_int(cell: str) -> int | None:
 
 
 def _gk_extract_totals_from_html(html: str) -> tuple[int | None, int | None]:
-    """Return (goals_conceded, clean_sheets) parsed from a leistungsdatendetails HTML.
+    """Extract (goals_conceded, clean_sheets) from a leistungsdatendetails HTML.
 
-    Strategy: find the table whose header row contains a 'Goals conceded' (or
-    German equivalent) column. Look up the column indices for goals_conceded
-    and clean_sheets. Then find the Total row (footer or first data row labelled
-    "Total") and read those columns.
-
-    Returns (None, None) if the page is empty / blocked / shape unrecognized.
+    Tries three strategies and picks the one with the highest goals_conceded:
+    - Strategy A: match column headers by text (English/German variants).
+    - Strategy B: find every <tr> containing 'Total'/'Gesamt'/'Insgesamt' and parse
+      cells positionally using the cards-column anchor (matches \\d+/\\d+/\\d+).
+    - Strategy C: rightmost minutes-shaped cell as anchor, scan leftward.
     """
     if not html or _tm_html_blocked_local(html):
         return (None, None)
 
-    # Find every <table>...</table> chunk and try each one.
+    # Collect all candidates from every table in the page.
+    candidates: list[tuple[int, int]] = []  # (goals_conceded, clean_sheets)
+
+    # Strategy A: header-based across all tables
     for table_match in _re_gk.finditer(r"(?is)<table[^>]*>(.*?)</table>", html):
         table = table_match.group(1)
+        gc, cs = _gk_extract_strategy_a(table)
+        if gc is not None and gc > 0:
+            candidates.append((gc, cs if cs is not None else 0))
 
-        # First, locate header rows. They may live inside <thead> or be the first <tr>.
-        thead_match = _re_gk.search(r"(?is)<thead[^>]*>(.*?)</thead>", table)
-        header_block = thead_match.group(1) if thead_match else table
-        header_tr_iter = _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", header_block)
+    # Strategy B + C: scan all <tr> for Total rows
+    total_label_re = _re_gk.compile(r"(?i)\b(?:Total|Gesamt|Insgesamt|Summe)\b")
+    cards_re = _re_gk.compile(r"(?:\d+|-|–|—)\s*/\s*(?:\d+|-|–|—)\s*/\s*(?:\d+|-|–|—)")
+    minutes_re = _re_gk.compile(r"^\d{1,3}(?:[.,]\d{3})+\s*(?:'|’|′)?$|^\d+\s*(?:'|’|′)$")
 
-        gc_col: int | None = None
-        cs_col: int | None = None
-        n_cols = 0
-
-        for tr_match in header_tr_iter:
-            tr_inner = tr_match.group(1)
-            cells = _re_gk.findall(r"(?is)<th[^>]*>(.*?)</th>", tr_inner)
-            if not cells:
-                continue
-            # Strip nested HTML and whitespace from each header cell text.
-            texts = []
-            for c in cells:
-                t = _re_gk.sub(r"<[^>]+>", " ", c)
-                t = _re_gk.sub(r"\s+", " ", t).strip()
-                texts.append(t)
-            n_cols = max(n_cols, len(texts))
-            for i, t in enumerate(texts):
-                if gc_col is None and _gk_match_header(t, _GK_HEADER_GC_PATTERNS):
-                    gc_col = i
-                if cs_col is None and _gk_match_header(t, _GK_HEADER_CS_PATTERNS):
-                    cs_col = i
-
-        if gc_col is None and cs_col is None:
-            continue  # not a GK-relevant table
-
-        # Find the Total row — look in <tfoot> first, then for any <tr> whose first
-        # cell text contains "Total" or "Gesamt".
-        total_tr: str | None = None
-        tfoot_match = _re_gk.search(r"(?is)<tfoot[^>]*>(.*?)</tfoot>", table)
-        if tfoot_match:
-            for tr_match in _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", tfoot_match.group(1)):
-                total_tr = tr_match.group(1)
-                break  # first tr in tfoot is the totals row
-
-        if total_tr is None:
-            for tr_match in _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", table):
-                tr_inner = tr_match.group(1)
-                first_cell = _re_gk.search(r"(?is)<t[dh][^>]*>(.*?)</t[dh]>", tr_inner)
-                if not first_cell:
-                    continue
-                ft = _re_gk.sub(r"<[^>]+>", " ", first_cell.group(1))
-                ft = _re_gk.sub(r"\s+", " ", ft).strip().lower()
-                if ft.startswith("total") or ft.startswith("gesamt") or ft.startswith("zusammen"):
-                    total_tr = tr_inner
-                    break
-
-        if not total_tr:
+    for tr_match in _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", html):
+        tr_inner = tr_match.group(1)
+        plain = _re_gk.sub(r"<[^>]+>", " ", tr_inner)
+        plain = _re_gk.sub(r"\s+", " ", plain).strip()
+        if not total_label_re.search(plain):
+            continue
+        cells = _gk_td_texts(tr_inner)
+        if len(cells) < 5:
             continue
 
-        # Extract td texts from the Total row.
-        td_chunks = _re_gk.findall(r"(?is)<t[dh][^>]*>(.*?)</t[dh]>", total_tr)
-        td_texts: list[str] = []
-        for c in td_chunks:
-            t = _re_gk.sub(r"<[^>]+>", " ", c)
-            t = _re_gk.sub(r"\s+", " ", t).strip()
-            td_texts.append(t)
+        # Strategy B: cards-column anchor
+        for i in range(len(cells) - 1, -1, -1):
+            t = (cells[i] or "").strip().replace("–", "-").replace("—", "-")
+            if cards_re.search(t):
+                # cells[i] = cards. Try i+1=conceded, i+2=clean.
+                if i + 2 < len(cells):
+                    gc = _gk_parse_int(cells[i + 1])
+                    cs = _gk_parse_int(cells[i + 2])
+                    if gc is not None and gc > 0:
+                        candidates.append((gc, cs if cs is not None else 0))
+                # Also try i+2=conceded, i+3=clean (in case there's an extra column)
+                if i + 3 < len(cells):
+                    gc2 = _gk_parse_int(cells[i + 2])
+                    cs2 = _gk_parse_int(cells[i + 3])
+                    if gc2 is not None and gc2 > 0:
+                        candidates.append((gc2, cs2 if cs2 is not None else 0))
+                break
 
-        gc_val: int | None = None
-        cs_val: int | None = None
-        if gc_col is not None and gc_col < len(td_texts):
-            gc_val = _gk_parse_int(td_texts[gc_col])
-        if cs_col is not None and cs_col < len(td_texts):
-            cs_val = _gk_parse_int(td_texts[cs_col])
+        # Strategy C: rightmost minutes cell as anchor
+        mi = None
+        for i in range(len(cells) - 1, -1, -1):
+            t = (cells[i] or "").strip()
+            if minutes_re.match(t):
+                mi = i
+                break
+        if mi is not None and mi >= 2:
+            # Try mi-2=clean, mi-3=conceded (legacy GK layout)
+            gc = _gk_parse_int(cells[mi - 3]) if mi >= 3 else None
+            cs = _gk_parse_int(cells[mi - 2]) if mi >= 2 else None
+            if gc is not None and gc > 0:
+                candidates.append((gc, cs if cs is not None else 0))
+            # Also try mi-1=clean, mi-2=conceded (alternate layout)
+            gc2 = _gk_parse_int(cells[mi - 2]) if mi >= 2 else None
+            cs2 = _gk_parse_int(cells[mi - 1]) if mi >= 1 else None
+            if gc2 is not None and gc2 > 0:
+                candidates.append((gc2, cs2 if cs2 is not None else 0))
 
-        # Only accept if at least one was found.
-        if gc_val is not None or cs_val is not None:
-            return (gc_val, cs_val)
+    if not candidates:
+        return (None, None)
+    # Pick the candidate with the highest goals_conceded (career total >> single season).
+    best = max(candidates, key=lambda t: t[0])
+    return (best[0], best[1] if best[1] > 0 else None)
 
-    return (None, None)
+
+def _gk_td_texts(tr_inner: str) -> list[str]:
+    """Extract clean text from each <td>/<th> cell in a tr's inner HTML."""
+    cells: list[str] = []
+    for chunk in _re_gk.findall(r"(?is)<t[dh][^>]*>(.*?)</t[dh]>", tr_inner):
+        t = _re_gk.sub(r"<[^>]+>", " ", chunk)
+        t = _re_gk.sub(r"\s+", " ", t).strip()
+        cells.append(t)
+    return cells
+
+
+def _gk_extract_strategy_a(table_html: str) -> tuple[int | None, int | None]:
+    """Header-text-based extraction within a single <table>."""
+    thead_match = _re_gk.search(r"(?is)<thead[^>]*>(.*?)</thead>", table_html)
+    header_block = thead_match.group(1) if thead_match else table_html
+    gc_col: int | None = None
+    cs_col: int | None = None
+
+    for tr_match in _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", header_block):
+        tr_inner = tr_match.group(1)
+        cells = _re_gk.findall(r"(?is)<th[^>]*>(.*?)</th>", tr_inner)
+        if not cells:
+            continue
+        texts: list[str] = []
+        for c in cells:
+            # Also gather title= attributes from any tag inside, in case headers
+            # are icon-only (TM sometimes uses <span title="Goals conceded">).
+            titles = _re_gk.findall(r'(?i)\btitle\s*=\s*"([^"]*)"', c)
+            txt = _re_gk.sub(r"<[^>]+>", " ", c)
+            txt = _re_gk.sub(r"\s+", " ", txt).strip()
+            combined = " ".join([txt] + titles).strip()
+            texts.append(combined)
+        for i, t in enumerate(texts):
+            if gc_col is None and _gk_match_header(t, _GK_HEADER_GC_PATTERNS):
+                gc_col = i
+            if cs_col is None and _gk_match_header(t, _GK_HEADER_CS_PATTERNS):
+                cs_col = i
+
+    if gc_col is None and cs_col is None:
+        return (None, None)
+
+    # Find Total row (tfoot first, then any tr starting with "Total"/"Gesamt").
+    total_tr: str | None = None
+    tfoot_match = _re_gk.search(r"(?is)<tfoot[^>]*>(.*?)</tfoot>", table_html)
+    if tfoot_match:
+        m = _re_gk.search(r"(?is)<tr[^>]*>(.*?)</tr>", tfoot_match.group(1))
+        if m:
+            total_tr = m.group(1)
+    if total_tr is None:
+        for tr_match in _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", table_html):
+            tr_inner = tr_match.group(1)
+            first = _re_gk.search(r"(?is)<t[dh][^>]*>(.*?)</t[dh]>", tr_inner)
+            if not first:
+                continue
+            ft = _re_gk.sub(r"<[^>]+>", " ", first.group(1))
+            ft = _re_gk.sub(r"\s+", " ", ft).strip().lower()
+            if ft.startswith("total") or ft.startswith("gesamt") or ft.startswith("insgesamt") or ft.startswith("zusammen"):
+                total_tr = tr_inner
+                break
+    if not total_tr:
+        return (None, None)
+    td_texts = _gk_td_texts(total_tr)
+    gc = _gk_parse_int(td_texts[gc_col]) if gc_col is not None and gc_col < len(td_texts) else None
+    cs = _gk_parse_int(td_texts[cs_col]) if cs_col is not None and cs_col < len(td_texts) else None
+    return (gc, cs)
 
 
 def _tm_html_blocked_local(html: str) -> bool:
@@ -303,7 +361,9 @@ async def _patch_gk_career_totals(
     player_cache: dict,
     legacy,
 ) -> None:
-    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets."""
+    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets via the
+    same proven name->pid mapping the shirt-fill uses.
+    """
     try:
         data = json.loads(jp.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
@@ -313,11 +373,40 @@ async def _patch_gk_career_totals(
     if not isinstance(gks, list) or not gks:
         _gk_log(f"{jp.name}: no goalkeepers, skip")
         return
+    cid_raw = data.get("transfermarktClubId")
+    if cid_raw is None:
+        _gk_log(f"{jp.name}: no transfermarktClubId, skip GK refresh")
+        return
+    try:
+        cid = int(cid_raw)
+    except (TypeError, ValueError):
+        _gk_log(f"{jp.name}: bad transfermarktClubId={cid_raw!r}, skip")
+        return
 
-    _gk_log(
-        f"{jp.name}: starting GK refresh "
-        f"({len(gks)} goalkeepers, {len(player_cache)} player_cache entries)"
-    )
+    _gk_log(f"{jp.name}: starting GK refresh ({len(gks)} goalkeepers, cid={cid})")
+
+    # Use the same approach the shirt-fill uses for reliable name->pid mapping.
+    import asyncio as _ud_asyncio_local
+    sem = _ud_asyncio_local.Semaphore(2)
+    try:
+        squad = await tmkt.get_club_squad(cid)
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  get_club_squad({cid}) raised {type(exc).__name__}: {exc}")
+        return
+    if not isinstance(squad, dict) or not squad.get("success"):
+        _gk_log(f"  get_club_squad({cid}) did not return success, skip")
+        return
+    pids = (squad.get("data") or {}).get("playerIds") or []
+    if not pids:
+        _gk_log(f"  get_club_squad({cid}) returned no playerIds, skip")
+        return
+    try:
+        name_meta = await fill_module._build_name_to_meta(tmkt, pids, sem=sem)
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  _build_name_to_meta raised {type(exc).__name__}: {exc}")
+        return
+
+    _gk_log(f"  built name_meta with {len(name_meta)} entries from {len(pids)} pids")
 
     changed = False
     for gk in gks:
@@ -325,72 +414,26 @@ async def _patch_gk_career_totals(
             continue
         gk_name = (gk.get("name") or "").strip()
         if not gk_name:
-            _gk_log(f"  GK entry has no name, skip")
             continue
         old_gc = (gk.get("club_career_totals") or {}).get("goals_conceded")
-        _gk_log(f"  matching '{gk_name}' (current goals_conceded={old_gc})...")
-
-        matched_pid = None
-        matched_rel = None
-        for pid_s, pr in player_cache.items():
-            if not isinstance(pr, dict) or not pr.get("success"):
-                continue
-            d = pr.get("data") or {}
-            full = (d.get("name") or "").strip()
-            if full == gk_name:
-                matched_pid = pid_s
-                matched_rel = d.get("relativeUrl")
-                break
-
-        if matched_pid is None:
-            # Try a fuzzy fallback on a few common variants before giving up.
-            simple = gk_name.lower()
-            for pid_s, pr in player_cache.items():
-                if not isinstance(pr, dict) or not pr.get("success"):
-                    continue
-                d = pr.get("data") or {}
-                full = (d.get("name") or "").strip().lower()
-                if full and (full == simple or full in simple or simple in full):
-                    matched_pid = pid_s
-                    matched_rel = d.get("relativeUrl")
-                    _gk_log(f"    fuzzy matched '{gk_name}' -> player_cache name={d.get('name')!r}")
+        meta = name_meta.get(gk_name)
+        if not meta:
+            # Try simple fuzzy: case-insensitive equality, then substring matches.
+            low = gk_name.lower()
+            for k, v in name_meta.items():
+                if k.lower() == low or low in k.lower() or k.lower() in low:
+                    meta = v
+                    _gk_log(f"  '{gk_name}' fuzzy matched '{k}'")
                     break
-
-        if matched_pid is None:
-            # Final fallback: scan player_cache for any entry whose data.lastName
-            # is a suffix of gk_name (handles abbreviations like 'G. Donnarumma').
-            for pid_s, pr in player_cache.items():
-                if not isinstance(pr, dict) or not pr.get("success"):
-                    continue
-                d = pr.get("data") or {}
-                last = (d.get("lastName") or "").strip().lower()
-                if last and last in gk_name.lower():
-                    matched_pid = pid_s
-                    matched_rel = d.get("relativeUrl")
-                    _gk_log(f"    last-name matched '{gk_name}' -> player_cache lastName={d.get('lastName')!r}")
-                    break
-
-        if matched_pid is None:
-            # Show what names ARE in the cache so we can see what we missed
-            names = []
-            for pr in player_cache.values():
-                if isinstance(pr, dict) and pr.get("success"):
-                    n = (pr.get("data") or {}).get("name")
-                    if n:
-                        names.append(n)
-            sample = ", ".join(names[:8])
-            _gk_log(f"    NO MATCH in player_cache for '{gk_name}'. cache has {len(names)} named entries. first 8: {sample}")
+        if not meta:
+            sample = ", ".join(list(name_meta.keys())[:8])
+            _gk_log(f"  '{gk_name}': NO MATCH in name_meta. sample names: {sample}")
             continue
+        pid_int_local, rel = meta
+        _gk_log(f"  '{gk_name}': matched pid={pid_int_local}, rel={rel!r}, current goals_conceded={old_gc}")
 
-        try:
-            pid_int_local = int(matched_pid)
-        except (TypeError, ValueError):
-            _gk_log(f"    pid_s={matched_pid!r} not int, skip")
-            continue
-
-        _gk_log(f"    matched: pid_s={matched_pid} relativeUrl={matched_rel!r}")
         gc, cs = await _refresh_gk_totals_for_player(
-            fill_module, tmkt, pid=pid_int_local, relative_url=matched_rel,
+            fill_module, tmkt, pid=pid_int_local, relative_url=rel,
         )
         cct = gk.setdefault("club_career_totals", {})
         before_gc = cct.get("goals_conceded")
@@ -407,7 +450,7 @@ async def _patch_gk_career_totals(
         if applied:
             _gk_log(f"    applied: {', '.join(applied)}")
         else:
-            _gk_log(f"    no patch applied (gc={gc}, cs={cs}, before_gc={before_gc}, before_cs={before_cs})")
+            _gk_log(f"    no patch applied (gc={gc}, cs={cs})")
 
     if changed:
         jp.write_text(
@@ -416,7 +459,7 @@ async def _patch_gk_career_totals(
         )
         _gk_log(f"{jp.name}: wrote file with patched GK totals")
     else:
-        _gk_log(f"{jp.name}: no changes to write")
+        _gk_log(f"{jp.name}: no changes")
 
 
 class JobAlreadyRunningError(RuntimeError):
