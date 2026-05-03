@@ -66,6 +66,53 @@ def _validate_and_resolve_path(project_root: Path, path: str) -> Path:
     return candidate
 
 
+def _apply_career_totals_monotonic_guard(new_payload: dict, old_payload: dict) -> None:
+    """Mutate new_payload in place so career totals never regress vs old_payload.
+
+    For every player matched by name across the four position buckets, ensures that
+    `club_career_totals` and `national_team_career_totals` fields (`appearances`,
+    `goals`, `assists`, `goals_conceded`, `clean_sheets`) never go down. If the new
+    value is None or numerically less than the old value, the old value wins.
+
+    The legacy scraper occasionally returns 0/None for goalkeeper goals_conceded and
+    clean_sheets when the HTML page is partially blocked or the parser misaligns;
+    this guard keeps career stats monotonic without trying to fix the legacy code.
+    """
+    if not isinstance(new_payload, dict) or not isinstance(old_payload, dict):
+        return
+    fields = ("appearances", "goals", "assists", "goals_conceded", "clean_sheets")
+    totals_keys = ("club_career_totals", "national_team_career_totals")
+    for bucket in ("goalkeepers", "defenders", "midfielders", "attackers"):
+        new_list = new_payload.get(bucket)
+        old_list = old_payload.get(bucket)
+        if not isinstance(new_list, list) or not isinstance(old_list, list):
+            continue
+        old_by_name = {}
+        for op in old_list:
+            if isinstance(op, dict):
+                name = op.get("name")
+                if isinstance(name, str):
+                    old_by_name[name] = op
+        for np in new_list:
+            if not isinstance(np, dict):
+                continue
+            op = old_by_name.get(np.get("name"))
+            if not isinstance(op, dict):
+                continue
+            for tk in totals_keys:
+                nt = np.get(tk)
+                ot = op.get(tk)
+                if not isinstance(nt, dict) or not isinstance(ot, dict):
+                    continue
+                for f in fields:
+                    nv = nt.get(f)
+                    ov = ot.get(f)
+                    if not isinstance(ov, (int, float)):
+                        continue
+                    if nv is None or (isinstance(nv, (int, float)) and nv < ov):
+                        nt[f] = ov
+
+
 class JobAlreadyRunningError(RuntimeError):
     def __init__(self, job_id: str) -> None:
         super().__init__(f"a job is already running: {job_id}")
@@ -501,6 +548,11 @@ async def _refresh_all_async(
                             _record_failure(job_id, str(jp), f"unsupported kind: {kind!r}")
                             return
 
+                        # Career totals are monotonic — never let a re-fetch regress
+                        # them. Defends against legacy scraper quirks (zeroed
+                        # goals_conceded for GKs, off-by-one clean_sheets, etc).
+                        _apply_career_totals_monotonic_guard(payload, raw)
+
                         jp.write_text(
                             json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
                             encoding="utf-8",
@@ -550,6 +602,7 @@ __all__ = [
     "InvalidPathError",
     "JobAlreadyRunningError",
     "_validate_and_resolve_path",
+    "_apply_career_totals_monotonic_guard",
     "_register_job",
     "_set_current",
     "_record_ok",

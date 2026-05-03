@@ -284,5 +284,130 @@ class HttpRoutesTest(unittest.TestCase):
         block.set()  # let the worker thread finish
 
 
+class CareerTotalsMonotonicTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.mod = _load()
+
+    def test_preserves_old_when_new_is_zero(self) -> None:
+        old = {
+            "goalkeepers": [{
+                "name": "David Raya",
+                "club_career_totals": {"appearances": 462, "goals": 0, "assists": 0, "goals_conceded": 479, "clean_sheets": 161},
+            }],
+        }
+        new = {
+            "goalkeepers": [{
+                "name": "David Raya",
+                "club_career_totals": {"appearances": 470, "goals": 0, "assists": 0, "goals_conceded": 0, "clean_sheets": 165},
+            }],
+        }
+        self.mod._apply_career_totals_monotonic_guard(new, old)
+        gk = new["goalkeepers"][0]["club_career_totals"]
+        self.assertEqual(gk["goals_conceded"], 479)  # old preserved
+        self.assertEqual(gk["clean_sheets"], 165)    # new (higher) kept
+        self.assertEqual(gk["appearances"], 470)     # new (higher) kept
+
+    def test_preserves_old_when_new_is_lower(self) -> None:
+        old = {
+            "goalkeepers": [{
+                "name": "Kepa",
+                "club_career_totals": {"appearances": 392, "goals_conceded": 422, "clean_sheets": 134},
+            }],
+        }
+        new = {
+            "goalkeepers": [{
+                "name": "Kepa",
+                "club_career_totals": {"appearances": 392, "goals_conceded": 422, "clean_sheets": 133},
+            }],
+        }
+        self.mod._apply_career_totals_monotonic_guard(new, old)
+        self.assertEqual(new["goalkeepers"][0]["club_career_totals"]["clean_sheets"], 134)
+
+    def test_preserves_old_when_new_is_null(self) -> None:
+        old = {
+            "defenders": [{
+                "name": "Saliba",
+                "club_career_totals": {"appearances": 295, "goals": 9},
+            }],
+        }
+        new = {
+            "defenders": [{
+                "name": "Saliba",
+                "club_career_totals": {"appearances": None, "goals": 9},
+            }],
+        }
+        self.mod._apply_career_totals_monotonic_guard(new, old)
+        self.assertEqual(new["defenders"][0]["club_career_totals"]["appearances"], 295)
+
+    def test_higher_new_value_wins(self) -> None:
+        old = {
+            "attackers": [{
+                "name": "Saka",
+                "club_career_totals": {"appearances": 358, "goals": 101, "assists": 94},
+            }],
+        }
+        new = {
+            "attackers": [{
+                "name": "Saka",
+                "club_career_totals": {"appearances": 365, "goals": 105, "assists": 99},
+            }],
+        }
+        self.mod._apply_career_totals_monotonic_guard(new, old)
+        nt = new["attackers"][0]["club_career_totals"]
+        self.assertEqual(nt["appearances"], 365)
+        self.assertEqual(nt["goals"], 105)
+        self.assertEqual(nt["assists"], 99)
+
+    def test_unmatched_player_unchanged(self) -> None:
+        # New player not in old — leave as-is.
+        old = {"goalkeepers": []}
+        new = {
+            "goalkeepers": [{
+                "name": "Tommy Setford",
+                "club_career_totals": {"goals_conceded": None, "clean_sheets": None},
+            }],
+        }
+        self.mod._apply_career_totals_monotonic_guard(new, old)
+        self.assertIsNone(new["goalkeepers"][0]["club_career_totals"]["goals_conceded"])
+
+    def test_handles_national_totals_too(self) -> None:
+        old = {
+            "goalkeepers": [{
+                "name": "Raya",
+                "national_team_career_totals": {"appearances": 12, "goals_conceded": 5, "clean_sheets": 7},
+            }],
+        }
+        new = {
+            "goalkeepers": [{
+                "name": "Raya",
+                "national_team_career_totals": {"appearances": 13, "goals_conceded": 0, "clean_sheets": 7},
+            }],
+        }
+        self.mod._apply_career_totals_monotonic_guard(new, old)
+        nt = new["goalkeepers"][0]["national_team_career_totals"]
+        self.assertEqual(nt["goals_conceded"], 5)
+        self.assertEqual(nt["clean_sheets"], 7)
+        self.assertEqual(nt["appearances"], 13)
+
+    def test_outfield_null_old_stays_null(self) -> None:
+        # Outfield players have goals_conceded=null in the old JSON; should stay null.
+        old = {
+            "defenders": [{
+                "name": "Gabriel",
+                "club_career_totals": {"appearances": 368, "goals_conceded": None, "clean_sheets": None},
+            }],
+        }
+        new = {
+            "defenders": [{
+                "name": "Gabriel",
+                "club_career_totals": {"appearances": 370, "goals_conceded": None, "clean_sheets": None},
+            }],
+        }
+        self.mod._apply_career_totals_monotonic_guard(new, old)
+        ct = new["defenders"][0]["club_career_totals"]
+        self.assertIsNone(ct["goals_conceded"])
+        self.assertIsNone(ct["clean_sheets"])
+
+
 if __name__ == "__main__":
     unittest.main()
