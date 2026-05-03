@@ -390,7 +390,6 @@ async def _refresh_all_async(
                 cid_raw = raw.get("transfermarktClubId")
                 rel_img = (raw.get("imagePath") or "").strip().replace("\\", "/")
                 label = str(raw.get("name") or jp.stem)
-                _set_current(job_id, label)
 
                 try:
                     cid = int(cid_raw)
@@ -399,6 +398,7 @@ async def _refresh_all_async(
                     return
 
                 async with sem:
+                    _set_current(job_id, label)
                     try:
                         if kind == "club":
                             cdata = await legacy._get_club_safe(tmkt, cid)
