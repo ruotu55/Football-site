@@ -113,6 +113,243 @@ def _apply_career_totals_monotonic_guard(new_payload: dict, old_payload: dict) -
                         nt[f] = ov
 
 
+import re as _re_gk
+
+
+_GK_HEADER_GC_PATTERNS = [
+    r"\bgoals?\s*conceded\b",   # English
+    r"\bgegentore?\b",          # German
+    r"\bg\.?\s*against\b",      # alt English
+    r"\bgoals?\s*against\b",
+]
+_GK_HEADER_CS_PATTERNS = [
+    r"\bclean\s*sheets?\b",     # English
+    r"\bzu\s*null\b",           # German
+    r"\bohne\s*gegentor\b",     # German alt
+    r"\bsh(?:eet|t)s?\s*ohne",  # mixed
+]
+
+
+def _gk_match_header(text: str, patterns: list[str]) -> bool:
+    """Case-insensitive whole-word match against any of the patterns."""
+    s = (text or "").strip()
+    for pat in patterns:
+        if _re_gk.search(pat, s, _re_gk.IGNORECASE):
+            return True
+    return False
+
+
+def _gk_parse_int(cell: str) -> int | None:
+    """Parse a Transfermarkt-style stat cell like '252', '1.234', '-' into int (or None)."""
+    s = (cell or "").strip().replace("–", "-").replace("—", "-")
+    if s in ("", "-", "—"):
+        return None
+    s = s.replace(".", "").replace(",", "")
+    if s.isdigit():
+        return int(s)
+    return None
+
+
+def _gk_extract_totals_from_html(html: str) -> tuple[int | None, int | None]:
+    """Return (goals_conceded, clean_sheets) parsed from a leistungsdatendetails HTML.
+
+    Strategy: find the table whose header row contains a 'Goals conceded' (or
+    German equivalent) column. Look up the column indices for goals_conceded
+    and clean_sheets. Then find the Total row (footer or first data row labelled
+    "Total") and read those columns.
+
+    Returns (None, None) if the page is empty / blocked / shape unrecognized.
+    """
+    if not html or _tm_html_blocked_local(html):
+        return (None, None)
+
+    # Find every <table>...</table> chunk and try each one.
+    for table_match in _re_gk.finditer(r"(?is)<table[^>]*>(.*?)</table>", html):
+        table = table_match.group(1)
+
+        # First, locate header rows. They may live inside <thead> or be the first <tr>.
+        thead_match = _re_gk.search(r"(?is)<thead[^>]*>(.*?)</thead>", table)
+        header_block = thead_match.group(1) if thead_match else table
+        header_tr_iter = _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", header_block)
+
+        gc_col: int | None = None
+        cs_col: int | None = None
+        n_cols = 0
+
+        for tr_match in header_tr_iter:
+            tr_inner = tr_match.group(1)
+            cells = _re_gk.findall(r"(?is)<th[^>]*>(.*?)</th>", tr_inner)
+            if not cells:
+                continue
+            # Strip nested HTML and whitespace from each header cell text.
+            texts = []
+            for c in cells:
+                t = _re_gk.sub(r"<[^>]+>", " ", c)
+                t = _re_gk.sub(r"\s+", " ", t).strip()
+                texts.append(t)
+            n_cols = max(n_cols, len(texts))
+            for i, t in enumerate(texts):
+                if gc_col is None and _gk_match_header(t, _GK_HEADER_GC_PATTERNS):
+                    gc_col = i
+                if cs_col is None and _gk_match_header(t, _GK_HEADER_CS_PATTERNS):
+                    cs_col = i
+
+        if gc_col is None and cs_col is None:
+            continue  # not a GK-relevant table
+
+        # Find the Total row — look in <tfoot> first, then for any <tr> whose first
+        # cell text contains "Total" or "Gesamt".
+        total_tr: str | None = None
+        tfoot_match = _re_gk.search(r"(?is)<tfoot[^>]*>(.*?)</tfoot>", table)
+        if tfoot_match:
+            for tr_match in _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", tfoot_match.group(1)):
+                total_tr = tr_match.group(1)
+                break  # first tr in tfoot is the totals row
+
+        if total_tr is None:
+            for tr_match in _re_gk.finditer(r"(?is)<tr[^>]*>(.*?)</tr>", table):
+                tr_inner = tr_match.group(1)
+                first_cell = _re_gk.search(r"(?is)<t[dh][^>]*>(.*?)</t[dh]>", tr_inner)
+                if not first_cell:
+                    continue
+                ft = _re_gk.sub(r"<[^>]+>", " ", first_cell.group(1))
+                ft = _re_gk.sub(r"\s+", " ", ft).strip().lower()
+                if ft.startswith("total") or ft.startswith("gesamt") or ft.startswith("zusammen"):
+                    total_tr = tr_inner
+                    break
+
+        if not total_tr:
+            continue
+
+        # Extract td texts from the Total row.
+        td_chunks = _re_gk.findall(r"(?is)<t[dh][^>]*>(.*?)</t[dh]>", total_tr)
+        td_texts: list[str] = []
+        for c in td_chunks:
+            t = _re_gk.sub(r"<[^>]+>", " ", c)
+            t = _re_gk.sub(r"\s+", " ", t).strip()
+            td_texts.append(t)
+
+        gc_val: int | None = None
+        cs_val: int | None = None
+        if gc_col is not None and gc_col < len(td_texts):
+            gc_val = _gk_parse_int(td_texts[gc_col])
+        if cs_col is not None and cs_col < len(td_texts):
+            cs_val = _gk_parse_int(td_texts[cs_col])
+
+        # Only accept if at least one was found.
+        if gc_val is not None or cs_val is not None:
+            return (gc_val, cs_val)
+
+    return (None, None)
+
+
+def _tm_html_blocked_local(html: str) -> bool:
+    """Cheap WAF detection without depending on the legacy module."""
+    if not html:
+        return True
+    head = html[:8000].lower()
+    return ("human verification" in head) or ("captcha-container" in head)
+
+
+async def _refresh_gk_totals_for_player(
+    fill_module,
+    tmkt,
+    *,
+    pid: int,
+    relative_url: str | None,
+) -> tuple[int | None, int | None]:
+    """Fetch a goalkeeper's leistungsdatendetails page and extract (goals_conceded, clean_sheets).
+
+    Returns (None, None) if URL/slug not derivable, the HTML is WAF-blocked,
+    or the table headers don't match. Uses the legacy fill module's existing
+    HTTP session + cookie handling.
+    """
+    if not relative_url:
+        return (None, None)
+    # Extract slug + pid from a /<slug>/profil/spieler/<pid> URL.
+    m = _re_gk.search(r"/([^/]+)/profil/spieler/(\d+)", relative_url)
+    if not m:
+        return (None, None)
+    slug = m.group(1)
+    pid_s = m.group(2)
+    path_on_site = f"/{slug}/leistungsdatendetails/spieler/{pid_s}"
+    try:
+        html = await fill_module._fetch_tm_html_prefer_session(tmkt, path_on_site)
+    except Exception:  # noqa: BLE001
+        return (None, None)
+    return _gk_extract_totals_from_html(html or "")
+
+
+async def _patch_gk_career_totals(
+    jp: Path,
+    fill_module,
+    tmkt,
+    *,
+    player_cache: dict,
+    legacy,
+) -> None:
+    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets from
+    their TM leistungsdatendetails page, and patch the JSON on disk.
+
+    Only updates fields where the new value is a positive int; leaves null /
+    zero / parse-failure cases alone (they'll fall through to the monotonic
+    guard on the next refresh). Reads the file fresh, mutates, writes back.
+    """
+    try:
+        data = json.loads(jp.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return
+    gks = data.get("goalkeepers")
+    if not isinstance(gks, list) or not gks:
+        return
+
+    changed = False
+    for gk in gks:
+        if not isinstance(gk, dict):
+            continue
+        # Resolve the player's relativeUrl (we need slug + pid).
+        # First try player_cache (already populated by the squad refresh).
+        rel: str | None = None
+        # The legacy uses tmkt.get_player(pid) responses keyed by pid_s.
+        # We need to find this player's pid via the squad API again, OR look
+        # them up in player_cache by (name, club). The simplest: use the
+        # roster API for this team's transfermarktClubId.
+        # Fallback: skip if we can't resolve the URL.
+        # We'll reach into player_cache: keys are pid_s strings, values are
+        # the player API response. If a cache entry's name matches our GK's
+        # name, use its relativeUrl.
+        gk_name = (gk.get("name") or "").strip()
+        if not gk_name:
+            continue
+        for pid_s, pr in player_cache.items():
+            if not isinstance(pr, dict) or not pr.get("success"):
+                continue
+            d = pr.get("data") or {}
+            full = (d.get("name") or "").strip()
+            if full == gk_name:
+                rel = d.get("relativeUrl")
+                pid_int_local = int(pid_s) if pid_s.isdigit() else None
+                if pid_int_local is None:
+                    continue
+                gc, cs = await _refresh_gk_totals_for_player(
+                    fill_module, tmkt, pid=pid_int_local, relative_url=rel,
+                )
+                cct = gk.setdefault("club_career_totals", {})
+                if gc is not None and gc > 0 and cct.get("goals_conceded") != gc:
+                    cct["goals_conceded"] = gc
+                    changed = True
+                if cs is not None and cs > 0 and cct.get("clean_sheets") != cs:
+                    cct["clean_sheets"] = cs
+                    changed = True
+                break
+
+    if changed:
+        jp.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+
+
 class JobAlreadyRunningError(RuntimeError):
     def __init__(self, job_id: str) -> None:
         super().__init__(f"a job is already running: {job_id}")
@@ -588,6 +825,26 @@ async def _refresh_all_async(
                                 file=_sys.stderr,
                                 flush=True,
                             )
+                        # Fix goalkeeper club_career_totals: the legacy parser
+                        # leaves goals_conceded/clean_sheets at 0 because TM's
+                        # column layout shifted. We re-fetch the GK's
+                        # leistungsdatendetails page and extract by header.
+                        try:
+                            await _patch_gk_career_totals(
+                                jp,
+                                fill_module,
+                                tmkt,
+                                player_cache=player_cache,
+                                legacy=legacy,
+                            )
+                        except Exception as gk_exc:  # noqa: BLE001
+                            import sys as _sys
+                            print(
+                                f"[update-data] gk-totals refresh failed for {jp.name}: "
+                                f"{type(gk_exc).__name__}: {gk_exc}",
+                                file=_sys.stderr,
+                                flush=True,
+                            )
                         _record_ok(job_id)
                     except Exception as exc:  # noqa: BLE001
                         _record_failure(job_id, str(jp), f"{type(exc).__name__}: {exc}")
@@ -613,4 +870,7 @@ __all__ = [
     "try_handle_get",
     "try_handle_post",
     "_set_runner_for_tests",
+    "_gk_extract_totals_from_html",
+    "_refresh_gk_totals_for_player",
+    "_patch_gk_career_totals",
 ]

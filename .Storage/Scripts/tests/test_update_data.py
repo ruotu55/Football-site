@@ -409,5 +409,88 @@ class CareerTotalsMonotonicTest(unittest.TestCase):
         self.assertIsNone(ct["clean_sheets"])
 
 
+class GkTotalsExtractorTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.mod = _load()
+
+    def test_extracts_from_typical_thead_tfoot(self) -> None:
+        html = """
+        <table>
+          <thead>
+            <tr>
+              <th>Season</th><th>Comp</th><th>Apps</th><th>Goals</th>
+              <th>Cards</th><th>Goals conceded</th><th>Clean sheets</th><th>Minutes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>25/26</td><td>L1</td><td>16</td><td>0</td><td>1</td><td>14</td><td>5</td><td>1.440</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td>Total</td><td></td><td>235</td><td>0</td><td>20</td><td>252</td><td>79</td><td>21.000</td></tr>
+          </tfoot>
+        </table>
+        """
+        gc, cs = self.mod._gk_extract_totals_from_html(html)
+        self.assertEqual(gc, 252)
+        self.assertEqual(cs, 79)
+
+    def test_extracts_when_total_row_starts_data_section(self) -> None:
+        html = """
+        <table>
+          <tr><th>Season</th><th>Apps</th><th>Goals conceded</th><th>Clean sheets</th></tr>
+          <tr><td>Total</td><td>180</td><td>200</td><td>50</td></tr>
+          <tr><td>25/26</td><td>10</td><td>15</td><td>2</td></tr>
+        </table>
+        """
+        gc, cs = self.mod._gk_extract_totals_from_html(html)
+        self.assertEqual(gc, 200)
+        self.assertEqual(cs, 50)
+
+    def test_german_headers(self) -> None:
+        html = """
+        <table>
+          <thead><tr><th>Saison</th><th>Spiele</th><th>Gegentore</th><th>Zu Null</th></tr></thead>
+          <tbody><tr><td>25/26</td><td>30</td><td>40</td><td>10</td></tr></tbody>
+          <tfoot><tr><td>Gesamt</td><td>300</td><td>400</td><td>100</td></tr></tfoot>
+        </table>
+        """
+        gc, cs = self.mod._gk_extract_totals_from_html(html)
+        self.assertEqual(gc, 400)
+        self.assertEqual(cs, 100)
+
+    def test_returns_none_when_no_gk_columns(self) -> None:
+        html = """
+        <table>
+          <thead><tr><th>Season</th><th>Apps</th><th>Goals</th><th>Assists</th></tr></thead>
+          <tbody><tr><td>25/26</td><td>30</td><td>5</td><td>2</td></tr></tbody>
+        </table>
+        """
+        gc, cs = self.mod._gk_extract_totals_from_html(html)
+        self.assertIsNone(gc)
+        self.assertIsNone(cs)
+
+    def test_returns_none_on_blocked_html(self) -> None:
+        html = "<html><body>human verification required</body></html>"
+        gc, cs = self.mod._gk_extract_totals_from_html(html)
+        self.assertIsNone(gc)
+        self.assertIsNone(cs)
+
+    def test_returns_none_on_empty_html(self) -> None:
+        gc, cs = self.mod._gk_extract_totals_from_html("")
+        self.assertIsNone(gc)
+        self.assertIsNone(cs)
+
+    def test_handles_dotted_thousands(self) -> None:
+        html = """
+        <table>
+          <thead><tr><th>Season</th><th>Apps</th><th>Goals conceded</th><th>Clean sheets</th></tr></thead>
+          <tfoot><tr><td>Total</td><td>500</td><td>1.234</td><td>200</td></tr></tfoot>
+        </table>
+        """
+        gc, cs = self.mod._gk_extract_totals_from_html(html)
+        self.assertEqual(gc, 1234)
+        self.assertEqual(cs, 200)
+
+
 if __name__ == "__main__":
     unittest.main()
