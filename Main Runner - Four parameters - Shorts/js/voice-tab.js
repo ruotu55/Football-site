@@ -142,6 +142,12 @@ function getCurrentQuizType() {
   return raw in langMap ? raw : "";
 }
 
+/* In the team-name quiz the "name" stored on each level is actually the team's name —
+   route those clips to the Teams Names folder instead of the Players Names folder. */
+export function voiceKindForQuiz(quizType) {
+  return quizType === "player-by-fake-info" ? "team" : "player";
+}
+
 function getSpecificTitle() {
   const { els } = appState;
   if (!els?.inSpecificTitleToggle?.checked) return "";
@@ -189,9 +195,9 @@ async function fetchEndingStatus(endingType) {
   } catch { return { exists: false, src: "" }; }
 }
 
-async function fetchPlayerStatus(name) {
+async function fetchPlayerStatus(name, kind) {
   try {
-    const params = new URLSearchParams({ name, language: getCurrentLanguage() });
+    const params = new URLSearchParams({ name, language: getCurrentLanguage(), kind: kind || "player" });
     const res = await fetch(`${endpointUrl("__player-voice/status")}?${params}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
     return { exists: !!body?.exists, src: String(body?.src || "") };
@@ -428,7 +434,7 @@ export async function renderVoiceTab() {
     fakeStats: quizType === "player-by-fake-info" ? fetchFakeStatsStatus() : Promise.resolve({}),
     endingThink: fetchEndingStatus("think-you-know"),
     endingHowMany: fetchEndingStatus("how-many"),
-    playerNames: Promise.all(players.map((n) => fetchPlayerStatus(n).then(({ exists, src }) => ({ name: n, exists, src })))),
+    playerNames: Promise.all(players.map((n) => fetchPlayerStatus(n, voiceKindForQuiz(quizType)).then(({ exists, src }) => ({ name: n, exists, src })))),
   };
 
   const [quizTitleStatus, fakeStats, endingThinkStatus, endingHowManyStatus, playerStatuses] = await Promise.all([
@@ -484,7 +490,9 @@ export async function renderVoiceTab() {
   }
   root.appendChild(buildSection(titles.quizIntro, quizRows));
 
-  /* Section 2 — Players. */
+  /* Section 2 — Players. The kind parameter routes the file to either the
+     Players Names or Teams Names folder. */
+  const sectionVoiceKind = voiceKindForQuiz(quizType);
   const playerRows = playerStatuses.map(({ name, exists, src }) => {
     const indices = playerLevelMap.get(name) || [];
     const playsAt = indices.length ? levelLabel(indices) : plays("player");
@@ -495,16 +503,19 @@ export async function renderVoiceTab() {
         cachedExists: exists,
         cachedSrc: src,
         generateEndpoint: "__player-voice/generate",
-        generateBody: { name },
+        generateBody: { name, kind: sectionVoiceKind },
       }),
       onDelete: () => onDeletePressed({
         rowKey: `player:${name}:${lang}`,
         deleteEndpoint: "__player-voice/delete",
-        deleteBody: { name },
+        deleteBody: { name, kind: sectionVoiceKind },
       }),
     });
   });
-  root.appendChild(buildSection(titles.players, playerRows));
+  /* Section title reflects the answer type: Players for player-name quizzes,
+     Teams for the team-name (player-by-fake-info) quiz. */
+  const playersSectionTitle = quizType === "player-by-fake-info" ? "Teams" : titles.players;
+  root.appendChild(buildSection(playersSectionTitle, playerRows));
 
   /* Section 3 — Endings. Only show the ending matching the Ending type select on the
      Quiz (Landing) tab. If none is selected yet, show both so either can be generated. */

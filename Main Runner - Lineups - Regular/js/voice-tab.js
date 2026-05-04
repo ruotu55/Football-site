@@ -56,7 +56,9 @@ const PLAYS_AT = {
 function plays(key) { const p = PLAYS_AT[key]; const lang = getCurrentLanguage(); return (p && (p[lang] || p.english)) || ""; }
 function bundledText(b)    { return b.text[getCurrentLanguage()]    || b.text.english; }
 function bundledPlaysAt(b) { return b.playsAt[getCurrentLanguage()] || b.playsAt.english; }
-function levelLabel(idx)   { return getCurrentLanguage() === "spanish" ? `Nivel ${idx.join(", ")}` : `Level ${idx.join(", ")}`; }
+/* Display indices are 1-based question numbers. levelsData index 0 = logo page, index 1 =
+   landing page, so the first question lives at array-index 2; subtract 1 to convert. */
+function levelLabel(idx)   { const adj = idx.map(i => i - 1); return getCurrentLanguage() === "spanish" ? `Nivel ${adj.join(", ")}` : `Level ${adj.join(", ")}`; }
 
 const busyByKey = new Set();
 let audioEl = null;

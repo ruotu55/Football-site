@@ -787,8 +787,23 @@ async function init() {
     // Listeners
     els.inQuizType.onchange = () => {
         updateSetupUI();
+        /* Switching quiz type discards any loaded levels so the new quiz starts from a
+           clean slate (same as a fresh run_site open). */
+        let levels = parseInt(els.quizLevelsInput.value, 10);
+        if (isNaN(levels) || levels < 1) levels = 30;
+        appState.levelsData = [];
+        initLevels(levels - 1);
+        appState.currentLevelIndex = FIXED_SHORTS_MODE ? 0 : 1;
+        const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
+        const { easy, medium, hard, impossible } =
+            computeLandingDifficultyDistribution(totalQuestions);
+        els.inEasy.value = String(easy);
+        els.inMedium.value = String(medium);
+        els.inHard.value = String(hard);
+        els.inImpossible.value = String(impossible);
         updateLanding();
         renderSavedScripts();
+        switchLevel(appState.currentLevelIndex);
     };
 
     els.inEndingType.onchange = () => {

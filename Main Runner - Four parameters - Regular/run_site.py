@@ -27,7 +27,13 @@ from urllib.parse import quote, unquote, urlparse
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
 PLAYER_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Players Names"
+TEAM_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Teams Names"
 PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
+
+
+def _voice_dir_for_kind(kind):
+    """`kind="team"` → Teams Names folder; anything else → Players Names."""
+    return TEAM_VOICE_DIR if str(kind or "").strip().lower() == "team" else PLAYER_VOICE_DIR
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
 RUNNER_VARIANT = "Four Params Regular"
 SUPPORTED_LANGUAGES = ("english", "spanish")
@@ -293,9 +299,12 @@ def _normalize_player_voice_name(name: str | None) -> str:
     return player_name
 
 
-def _player_voice_paths_for_name(player_name: str, language: str | None = None) -> list[Path]:
+def _player_voice_paths_for_name(
+    player_name: str, language: str | None = None, kind: str | None = None
+) -> list[Path]:
     del language
-    return [PLAYER_VOICE_DIR / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
+    base = _voice_dir_for_kind(kind)
+    return [base / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
 
 
 def _tts_prompt_name(name: str) -> str:
@@ -645,8 +654,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
+        kind = query.get("kind")
         existing_path = None
-        for file_path in _player_voice_paths_for_name(player_name):
+        for file_path in _player_voice_paths_for_name(player_name, kind=kind):
             if file_path.is_file():
                 existing_path = file_path
                 break
@@ -673,9 +683,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return True
 
         language = _normalize_language(body.get("language"))
-        PLAYER_VOICE_DIR.mkdir(parents=True, exist_ok=True)
-        out_path = PLAYER_VOICE_DIR / f"{player_name}.mp3"
-        for old_path in _player_voice_paths_for_name(player_name):
+        kind = body.get("kind")
+        target_dir = _voice_dir_for_kind(kind)
+        target_dir.mkdir(parents=True, exist_ok=True)
+        out_path = target_dir / f"{player_name}.mp3"
+        for old_path in _player_voice_paths_for_name(player_name, kind=kind):
             if old_path == out_path:
                 continue
             if old_path.exists():
@@ -721,8 +733,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        kind = body.get("kind")
         removed = 0
-        for file_path in _player_voice_paths_for_name(player_name):
+        for file_path in _player_voice_paths_for_name(player_name, kind=kind):
             if file_path.exists():
                 file_path.unlink(missing_ok=True)
                 removed += 1

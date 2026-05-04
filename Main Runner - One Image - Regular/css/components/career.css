@@ -2346,6 +2346,14 @@ body.career-play-video-answer-reveal .career-team-quiz-card__logo {
   transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* During the reveal crossfade, the punch holds its opacity high at the start then drops fast
+   at the end (ease-in), while the logo (ease-out) ramps up fast. With these complementary
+   curves, at any moment one layer is near full opacity, so the alpha-composited result stays
+   close to 1 — no mid-crossfade dim that reads as a "blink". */
+body.career-play-video-answer-reveal .career-team-quiz-card__logo-punch {
+  transition: opacity 1s cubic-bezier(0.42, 0, 1, 1);
+}
+
 body:not(.shorts-mode) .career-team-quiz-card__logo-punch {
   position: absolute;
   inset: 0;
@@ -2696,6 +2704,25 @@ body.career-team-card-mode .career-team-quiz-card__logo-wrap {
   position: relative;
 }
 
+/* White card frame around the team logo. Lives in a ::before that extends OUTSIDE the wrap
+   (negative inset) so the wrap's content area — and therefore the punch/mask canvas size —
+   stays identical whether or not the editor is in background-mask mode. The frame is behind
+   everything (z-index: -1) so it doesn't intercept clicks or cover the logo content. */
+body.career-team-card-mode .career-team-quiz-card__logo-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(226, 232, 240, 0.28) 100%);
+  border-radius: 1.4rem;
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.32),
+    0 4px 14px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  z-index: -1;
+  pointer-events: none;
+}
+
 body.career-team-card-mode .career-team-quiz-card__logo {
   position: relative;
   z-index: 0;
@@ -2764,6 +2791,7 @@ body.career-team-card-mode .career-team-quiz-card__reveal {
   padding: 0.35rem 1rem;
   box-sizing: border-box;
   overflow: hidden;
+  margin-top: 2vh;
 }
 
 body.career-team-card-mode .career-team-quiz-card__reveal-text {
@@ -2853,6 +2881,60 @@ body.play-video-active .career-team-quiz-card__brush-cursor {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
+}
+
+/* Player-name quiz uses the same boxed card as team-name. Hide every legacy player-stats
+   layer (silhouette, four-param grid, portrait card, reveal overlay/name, flag) so only the
+   boxed card renders — identical visual surface to the team-name quiz. The card sizing comes
+   from the existing `body.career-team-card-mode .career-team-quiz-card*` rules above, which
+   apply because we toggle `career-team-card-mode` for both modes. */
+body.career-player-card-mode .career-svg,
+body.career-player-card-mode .career-param-grid,
+body.career-player-card-mode .career-param-cluster,
+body.career-player-card-mode .career-portrait-card,
+body.career-player-card-mode .career-player-controls-row,
+body.career-player-card-mode #career-reveal-overlay,
+body.career-player-card-mode #career-reveal-name,
+body.career-player-card-mode #career-reveal-photo,
+body.career-player-card-mode .player-stats-national-flag {
+  display: none !important;
+}
+
+/* Player-name: box ~5% larger than team card (min(64vh, 78vw, 36rem) × 1.05). */
+body.career-player-card-mode .career-team-quiz-card {
+  width: min(67.2vh, 81.9vw, 37.8rem) !important;
+}
+
+body.career-player-card-mode .career-team-quiz-card__reveal {
+  width: min(100%, 37.8rem) !important;
+}
+
+body.career-player-card-mode .career-team-quiz-card__logo-wrap {
+  /* Hard lock: height must always equal width. */
+  width: 100% !important;
+  height: min(67.2vh, 81.9vw, 37.8rem) !important;
+  min-height: min(67.2vh, 81.9vw, 37.8rem) !important;
+  max-height: min(67.2vh, 81.9vw, 37.8rem) !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 1.4rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Player photo uses CSS transforms — keep frosted frame inside the clip rect (team mode uses
+   negative inset for mask alignment; not needed here). */
+body.career-player-card-mode .career-team-quiz-card__logo-wrap::before {
+  inset: 0;
+}
+
+body.career-player-card-mode .career-team-quiz-card__logo {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  clip-path: none;
 }
 
 body.play-video-active .career-team-quiz-card__logo-punch,

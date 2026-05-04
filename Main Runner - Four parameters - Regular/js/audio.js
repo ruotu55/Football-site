@@ -421,8 +421,10 @@ export function playRules(quizType, delayMs = 1000) {
 
 export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
 
-export function revealPlayerVoiceDir() {
-  return "../.Storage/Voices/Players Names/";
+export function revealPlayerVoiceDir(kind) {
+  return kind === "team"
+    ? "../.Storage/Voices/Teams Names/"
+    : "../.Storage/Voices/Players Names/";
 }
 
 function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
@@ -458,23 +460,23 @@ function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
   tryNext();
 }
 
-export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3") {
+export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3", kind) {
   const cleanName = String(displayName || "").trim();
   if (!cleanName) return "";
   const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
-  return `${revealPlayerVoiceDir()}${encodeURIComponent(cleanName)}${cleanExt}`;
+  return `${revealPlayerVoiceDir(kind)}${encodeURIComponent(cleanName)}${cleanExt}`;
 }
 
-export function playPlayerNameVoiceIfExists(displayName, delayMs = 0) {
-  playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir());
+export function playPlayerNameVoiceIfExists(displayName, delayMs = 0, kind) {
+  playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir(kind));
 }
 
-export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
+export function playTheAnswerIs(includeVoice = true, playerDisplayName = "", kind) {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
 
   if (includeVoice && appState.isVideoPlaying) {
-    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
+    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir(kind));
   }
 }
 

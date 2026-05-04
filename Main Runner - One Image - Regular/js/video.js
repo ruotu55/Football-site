@@ -3,7 +3,7 @@ import { switchLevel } from "./levels.js";
 import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking, playVoice } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderCareer, renderHeader, syncCareerSlotControlsVisibility, refreshCareerRevealStateOnly } from "./pitch-render.js";
-import { isFakeInfoQuiz, fakeInfoPickForLevel, fakeInfoVoiceUrlForStat } from "./fake-info-mode.js";
+import { isFakeInfoQuiz } from "./fake-info-mode.js";
 import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
@@ -489,11 +489,12 @@ function revealCurrentLevel() {
     if (!skipBonusReveal) {
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
       if (isFakeInfoQuiz()) {
-        /* Fake-info: blur all 5 boxes + announce which stat was fake — play immediately. */
-        document.body.classList.add("fake-info-reveal");
-        const pick = fakeInfoPickForLevel(state, appState.currentLevelIndex);
-        const clipUrl = pick?.stat ? fakeInfoVoiceUrlForStat(pick.stat) : "";
-        if (clipUrl) playVoice(clipUrl, 0);
+        /* Team-name quiz: announce the team's name (no fake-stats clip — this quiz has no
+           fake-stat reveal sound, the answer is the team name itself). */
+        const teamName = String(
+          state?.careerPlayer?.club || state?.careerPlayer?.name || "",
+        ).trim();
+        playTheAnswerIs(true, teamName, "team");
       } else {
         // In Play Video mode, always announce the revealed player when a name clip exists.
         playTheAnswerIs(true, playerDisplayName);

@@ -1,7 +1,12 @@
 import { appState } from "./state.js";
-import { getCurrentLanguage } from "./voice-tab.js";
+import { getCurrentLanguage, voiceKindForQuiz } from "./voice-tab.js";
 import { buildPlayerNameVoiceSrc, playPlayerNameVoiceIfExists } from "./audio.js";
 import { projectAssetUrl } from "./paths.js";
+
+function currentVoiceKind() {
+  const raw = String(appState.els?.inQuizType?.value || "").trim();
+  return voiceKindForQuiz(raw);
+}
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const VOICE_STATUS_ENDPOINT = "__player-voice/status";
@@ -49,7 +54,7 @@ async function refreshVoiceStatus() {
     setBusy(uiState.busy, uiState.busy ? "..." : "Vol");
     return;
   }
-  const params = new URLSearchParams({ name: playerName, language: getCurrentLanguage() });
+  const params = new URLSearchParams({ name: playerName, language: getCurrentLanguage(), kind: currentVoiceKind() });
   try {
     const res = await fetch(`${endpointUrl(VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
     if (!res.ok) {
@@ -67,7 +72,7 @@ async function refreshVoiceStatus() {
 }
 
 function playExistingVoice() {
-  playPlayerNameVoiceIfExists(uiState.playerName, 0);
+  playPlayerNameVoiceIfExists(uiState.playerName, 0, currentVoiceKind());
 }
 
 async function generateVoice() {
@@ -75,6 +80,7 @@ async function generateVoice() {
     name: uiState.playerName,
     voice: FIXED_VOICE,
     language: getCurrentLanguage(),
+    kind: currentVoiceKind(),
   };
   const res = await fetch(endpointUrl(VOICE_GENERATE_ENDPOINT), {
     method: "POST",
@@ -119,7 +125,7 @@ async function deleteCurrentVoice() {
     const res = await fetch(endpointUrl(VOICE_DELETE_ENDPOINT), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: playerName, language: getCurrentLanguage() }),
+      body: JSON.stringify({ name: playerName, language: getCurrentLanguage(), kind: currentVoiceKind() }),
     });
     const payload = await res.json().catch(() => ({}));
     if (!res.ok || !payload?.ok) {
@@ -167,7 +173,7 @@ export function syncPlayerVoiceControls(playerName) {
     setBusy(false);
     return;
   }
-  const clipSrc = buildPlayerNameVoiceSrc(name, ".mp3");
+  const clipSrc = buildPlayerNameVoiceSrc(name, ".mp3", currentVoiceKind());
   if (!clipSrc) {
     uiState.exists = false;
     setBusy(false);

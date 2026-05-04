@@ -49,7 +49,13 @@ RUNNER_VARIANT = "Four Params Shorts"
 SUPPORTED_LANGUAGES = ("english", "spanish")
 DEFAULT_LANGUAGE = "english"
 PLAYER_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Players Names"
+TEAM_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Teams Names"
 PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
+
+
+def _voice_dir_for_kind(kind):
+    """`kind="team"` → Teams Names folder; anything else → Players Names."""
+    return TEAM_VOICE_DIR if str(kind or "").strip().lower() == "team" else PLAYER_VOICE_DIR
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
 QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNNER_VARIANT
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
@@ -849,13 +855,16 @@ def _normalize_player_voice_name(name: str | None) -> str:
     return player_name
 
 
-def _player_voice_paths_for_name(player_name: str, language: str | None = None) -> list[Path]:
-    """Players share one folder across all runners and languages — the ElevenLabs
-    `language_code` controls the accent at generation time, but the output filename
-    is always `<name>.mp3` in the root PLAYER_VOICE_DIR so the same clip plays in
-    any runner / any language (regenerating replaces the previous accent)."""
+def _player_voice_paths_for_name(
+    player_name: str, language: str | None = None, kind: str | None = None
+) -> list[Path]:
+    """Players and teams each share one folder across all runners and languages —
+    the ElevenLabs `language_code` controls the accent at generation time, but the
+    output filename is always `<name>.mp3` in the root folder so the same clip plays
+    in any runner / any language (regenerating replaces the previous accent)."""
     del language  # kept for parity with the other endpoints; intentionally unused.
-    return [PLAYER_VOICE_DIR / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
+    base = _voice_dir_for_kind(kind)
+    return [base / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
 
 
 def _normalize_quiz_title_voice_inputs(
@@ -1320,8 +1329,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
+        kind = query.get("kind")
         existing_path = None
-        for file_path in _player_voice_paths_for_name(player_name):
+        for file_path in _player_voice_paths_for_name(player_name, kind=kind):
             if file_path.is_file():
                 existing_path = file_path
                 break
@@ -1348,9 +1358,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return True
 
         language = _normalize_language(body.get("language"))
-        PLAYER_VOICE_DIR.mkdir(parents=True, exist_ok=True)
-        out_path = PLAYER_VOICE_DIR / f"{player_name}.mp3"
-        for old_path in _player_voice_paths_for_name(player_name):
+        kind = body.get("kind")
+        target_dir = _voice_dir_for_kind(kind)
+        target_dir.mkdir(parents=True, exist_ok=True)
+        out_path = target_dir / f"{player_name}.mp3"
+        for old_path in _player_voice_paths_for_name(player_name, kind=kind):
             if old_path == out_path:
                 continue
             if old_path.exists():
@@ -1396,8 +1408,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        kind = body.get("kind")
         removed = 0
-        for file_path in _player_voice_paths_for_name(player_name):
+        for file_path in _player_voice_paths_for_name(player_name, kind=kind):
             if file_path.exists():
                 file_path.unlink(missing_ok=True)
                 removed += 1

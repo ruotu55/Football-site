@@ -29,13 +29,13 @@ const LEVEL_FILENAMES = {
 
 const QUIZ_TITLE_FILENAMES = {
   english: {
+    "player-by-career-stats": "Guess the player by club position country and age !!!.mp3",
     "player-by-career": "Guess the football player by career path !!!.mp3",
-    "player-by-career-stats": "Guess the player by club, position, country, and age !!!.mp3",
     "player-by-fake-info": "Guess the fake information about the player !!!.mp3",
   },
   spanish: {
+    "player-by-career-stats": "Adivina al jugador por club posicion pais y edad !!!.mp3",
     "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
-    "player-by-career-stats": "Adivina al jugador por club, posicion, pais y edad !!!.mp3",
     "player-by-fake-info": "Adivina la informacion falsa del jugador !!!.mp3",
   },
 };
@@ -648,11 +648,13 @@ export function playRules(quizType, delayMs = 1000) {
 
 export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
 
-export function revealPlayerVoiceDir() {
-  return "../.Storage/Voices/Players Names/";
+export function revealPlayerVoiceDir(kind) {
+  return kind === "team"
+    ? "../.Storage/Voices/Teams Names/"
+    : "../.Storage/Voices/Players Names/";
 }
 
-function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
+function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel, kind) {
   const base = String(displayName || "").trim();
   if (!base) return;
   void voicesDirRel;
@@ -660,7 +662,7 @@ function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
   const tryNext = () => {
     if (i >= PLAYER_NAME_VOICE_EXTS.length) return;
     const ext = PLAYER_NAME_VOICE_EXTS[i++];
-    const src = buildPlayerNameVoiceSrc(base, ext);
+    const src = buildPlayerNameVoiceSrc(base, ext, kind);
     if (!src) {
       tryNext();
       return;
@@ -695,24 +697,25 @@ function playPlayerNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
   tryNext();
 }
 
-export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3") {
+export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3", kind) {
   const cleanName = String(displayName || "").trim();
   if (!cleanName) return "";
   const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
-  return projectAssetUrl(`.Storage/Voices/Players Names/${encodeURIComponent(cleanName)}${cleanExt}`);
+  const folder = kind === "team" ? "Teams Names" : "Players Names";
+  return projectAssetUrl(`.Storage/Voices/${folder}/${encodeURIComponent(cleanName)}${cleanExt}`);
 }
 
-export function playPlayerNameVoiceIfExists(displayName, delayMs = 0) {
-  playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir());
+export function playPlayerNameVoiceIfExists(displayName, delayMs = 0, kind) {
+  playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir(kind), kind);
 }
 
-export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
+export function playTheAnswerIs(includeVoice = true, playerDisplayName = "", kind) {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
-  
+
   if (includeVoice && appState.isVideoPlaying) {
     // Reveal uses player name clip only.
-    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir());
+    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 100, revealPlayerVoiceDir(kind), kind);
   }
 }
 

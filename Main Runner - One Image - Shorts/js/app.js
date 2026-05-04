@@ -869,15 +869,24 @@ async function init() {
         applyFakeInfoBodyClass();
         applyDefaultThemeForCurrentQuizType();
         updateSetupUI();
+        /* Switching quiz type discards any loaded levels so the new quiz starts from a
+           clean slate (same as a fresh run_site open). Wipe levelsData first so initLevels
+           rebuilds every slot from defaults instead of reusing the previous quiz's data. */
+        let levels = parseInt(els.quizLevelsInput.value, 10);
+        if (isNaN(levels) || levels < 1) levels = 30;
+        appState.levelsData = [];
+        initLevels(levels - 1);
+        appState.currentLevelIndex = FIXED_SHORTS_MODE ? 0 : 1;
+        const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
+        const { easy, medium, hard, impossible } =
+            computeLandingDifficultyDistribution(totalQuestions);
+        els.inEasy.value = String(easy);
+        els.inMedium.value = String(medium);
+        els.inHard.value = String(hard);
+        els.inImpossible.value = String(impossible);
         updateLanding();
         renderSavedScripts();
-        /* Refresh the on-level card preview: fake-info mode changes which stat is faked, and
-           the Age ↔ Shirt Number card swap only applies on re-render. */
-        const idx = appState.currentLevelIndex;
-        if (idx >= 1 && idx < appState.totalLevelsCount) {
-            renderCareer();
-            renderHeader();
-        }
+        switchLevel(appState.currentLevelIndex);
     };
 
     els.inEndingType.onchange = () => {
@@ -1309,6 +1318,7 @@ async function init() {
         const state = getState();
 
         state.careerPlayer = pData;
+        state.careerTeamQuizMode = false;
         state.careerHistory = cleanCareerHistory(pData.transfer_history || []);
 
         // Eagerly preload all career logos + player photo into RAM cache

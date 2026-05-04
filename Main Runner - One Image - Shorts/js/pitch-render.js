@@ -507,12 +507,1111 @@ const appliedFavoritePictureKeyByState = new WeakMap();
 
 const CAREER_IMAGE_REFRESH_TOKEN = String(Date.now());
 const careerResolvedClubLogoSrcByKey = new Map();
+const TEAM_LOGO_MASK_BRUSH_RADIUS_PX = 16;
 function freshenCareerImageUrl(url) {
   const src = String(url || "").trim();
   if (!src) return "";
   if (/^(blob:|data:)/i.test(src)) return src;
   const joiner = src.includes("?") ? "&" : "?";
   return `${src}${joiner}v=${encodeURIComponent(CAREER_IMAGE_REFRESH_TOKEN)}`;
+}
+
+/** ResizeObserver per reveal bar so team name font re-fits when the bar width changes. */
+const careerTeamRevealFitObserverByBar = new WeakMap();
+
+function disconnectCareerTeamRevealFitObserver(revealBar) {
+  const ro = revealBar && careerTeamRevealFitObserverByBar.get(revealBar);
+  if (ro) {
+    ro.disconnect();
+    careerTeamRevealFitObserverByBar.delete(revealBar);
+  }
+}
+
+function ensureCareerTeamRevealFitObserver(revealBar, textEl) {
+  if (!revealBar || !textEl || typeof ResizeObserver === "undefined") return;
+  disconnectCareerTeamRevealFitObserver(revealBar);
+  const ro = new ResizeObserver(() => {
+    if (!textEl.isConnected || !textEl.classList.contains("career-team-quiz-card__reveal-text--name")) {
+      disconnectCareerTeamRevealFitObserver(revealBar);
+      return;
+    }
+    fitCareerTeamRevealNameText(textEl);
+  });
+  careerTeamRevealFitObserverByBar.set(revealBar, ro);
+  ro.observe(revealBar);
+}
+
+/** Largest font-size (px) so the team name fits inside the fixed reveal bar (width + height). */
+function fitCareerTeamRevealNameText(textEl) {
+  if (!textEl || !textEl.classList.contains("career-team-quiz-card__reveal-text--name")) {
+    if (textEl) textEl.style.fontSize = "";
+    return;
+  }
+  const label = String(textEl.textContent || "").trim();
+  if (!label) {
+    textEl.style.fontSize = "";
+    return;
+  }
+  const bar = textEl.closest(".career-team-quiz-card__reveal");
+  if (!bar) return;
+
+  const csBar = getComputedStyle(bar);
+  const padX =
+    parseFloat(csBar.paddingLeft || "0") + parseFloat(csBar.paddingRight || "0");
+  const padY =
+    parseFloat(csBar.paddingTop || "0") + parseFloat(csBar.paddingBottom || "0");
+  const maxW = Math.max(1, Math.floor(bar.clientWidth - padX));
+  const maxH = Math.max(1, Math.floor(bar.clientHeight - padY));
+  if (maxW < 6 || maxH < 6) return;
+
+  const fits = (sizePx) => {
+    textEl.style.fontSize = `${sizePx}px`;
+    void textEl.offsetHeight;
+    return textEl.scrollHeight <= maxH + 1.5 && textEl.scrollWidth <= maxW + 2;
+  };
+
+  let lo = 6;
+  let hi = Math.min(120, Math.max(10, Math.floor(maxH / 1.05)));
+  if (!fits(lo)) {
+    textEl.style.fontSize = `${lo}px`;
+    return;
+  }
+  let best = lo;
+  while (lo <= hi) {
+    const mid = Math.floor((lo + hi) / 2);
+    if (fits(mid)) {
+      best = mid;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+  textEl.style.fontSize = `${best}px`;
+}
+
+function clearCareerTeamRevealNameFit(textEl) {
+  if (!textEl) return;
+  const bar = textEl.closest(".career-team-quiz-card__reveal");
+  disconnectCareerTeamRevealFitObserver(bar);
+  textEl.style.fontSize = "";
+}
+
+function scheduleFitCareerTeamRevealNameText(textEl) {
+  if (!textEl) return;
+  const bar = textEl.closest(".career-team-quiz-card__reveal");
+  const run = () => {
+    if (!textEl.isConnected || !textEl.classList.contains("career-team-quiz-card__reveal-text--name")) return;
+    fitCareerTeamRevealNameText(textEl);
+    if (bar?.isConnected) ensureCareerTeamRevealFitObserver(bar, textEl);
+  };
+  const kick = () => requestAnimationFrame(run);
+  if (document.fonts && document.fonts.ready) {
+    void document.fonts.ready.then(kick).catch(kick);
+  } else {
+    kick();
+  }
+}
+
+function ensureFakeInfoLogoMaskByTeam(state) {
+  if (!state || typeof state !== "object") return {};
+  if (
+    !state.fakeInfoLogoMaskByTeam ||
+    typeof state.fakeInfoLogoMaskByTeam !== "object" ||
+    Array.isArray(state.fakeInfoLogoMaskByTeam)
+  ) {
+    state.fakeInfoLogoMaskByTeam = {};
+  }
+  return state.fakeInfoLogoMaskByTeam;
+}
+
+function getFakeInfoLogoMaskDataUrl(state, maskKey) {
+  const key = String(maskKey || "").trim();
+  if (!key) return "";
+  const store = ensureFakeInfoLogoMaskByTeam(state);
+  return String(store[key] || "").trim();
+}
+
+function setFakeInfoLogoMaskDataUrl(state, maskKey, dataUrl) {
+  const key = String(maskKey || "").trim();
+  if (!key) return;
+  const store = ensureFakeInfoLogoMaskByTeam(state);
+  const next = String(dataUrl || "").trim();
+  if (!next) {
+    delete store[key];
+    return;
+  }
+  store[key] = next;
+}
+
+function ensureFakeInfoLogoPunchByTeam(state) {
+  if (!state || typeof state !== "object") return {};
+  if (
+    !state.fakeInfoLogoPunchByTeam ||
+    typeof state.fakeInfoLogoPunchByTeam !== "object" ||
+    Array.isArray(state.fakeInfoLogoPunchByTeam)
+  ) {
+    state.fakeInfoLogoPunchByTeam = {};
+  }
+  return state.fakeInfoLogoPunchByTeam;
+}
+
+function getFakeInfoLogoPunchDataUrl(state, punchKey) {
+  const key = String(punchKey || "").trim();
+  if (!key) return "";
+  const store = ensureFakeInfoLogoPunchByTeam(state);
+  return String(store[key] || "").trim();
+}
+
+function setFakeInfoLogoPunchDataUrl(state, punchKey, dataUrl) {
+  const key = String(punchKey || "").trim();
+  if (!key) return;
+  const store = ensureFakeInfoLogoPunchByTeam(state);
+  const next = String(dataUrl || "").trim();
+  if (!next) {
+    delete store[key];
+    return;
+  }
+  store[key] = next;
+}
+
+/** object-fit: contain rect for drawing `logoEl` into a w×h canvas (same math as sampleLogoPixelColor). */
+function getLogoContainDrawRect(logoEl, width, height) {
+  const logo = logoEl;
+  const naturalW = Number(logo?.naturalWidth || 0);
+  const naturalH = Number(logo?.naturalHeight || 0);
+  const w = Math.max(1, Math.round(Number(width) || 0));
+  const h = Math.max(1, Math.round(Number(height) || 0));
+  if (!logo || !naturalW || !naturalH || !w || !h) return null;
+  const fit = Math.min(w / naturalW, h / naturalH);
+  const drawW = naturalW * fit;
+  const drawH = naturalH * fit;
+  const drawX = (w - drawW) / 2;
+  const drawY = (h - drawH) / 2;
+  return { drawX, drawY, drawW, drawH };
+}
+
+/** Prefer RAM-cached decoded bitmap — DOM <img> can fail drawImage while [hidden] or mid-decode. */
+function resolveLogoDrawSource(logoEl) {
+  const el = logoEl;
+  if (!el) return null;
+  const src = String(el.currentSrc || el.getAttribute("src") || el.src || "").trim();
+  if (src) {
+    const cached = getCachedImage(src);
+    if (cached && cached.naturalWidth && cached.naturalHeight) return cached;
+  }
+  return el;
+}
+
+function isPunchCanvasBlank(ctx, w, h) {
+  if (!ctx || !w || !h) return true;
+  try {
+    const { data } = ctx.getImageData(0, 0, w, h);
+    for (let i = 3; i < data.length; i += 4) {
+      if (data[i] > 8) return false;
+    }
+  } catch {
+    return false;
+  }
+  return true;
+}
+
+function tryDrawLogoIntoCtx(ctx, logoEl, width, height) {
+  const source = resolveLogoDrawSource(logoEl);
+  if (!source) return false;
+  const r = getLogoContainDrawRect(source, width, height);
+  if (!r || !ctx) return false;
+  try {
+    ctx.save();
+    ctx.globalCompositeOperation = "source-over";
+    ctx.globalAlpha = 1;
+    ctx.drawImage(source, r.drawX, r.drawY, r.drawW, r.drawH);
+    ctx.restore();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function sampleLogoPixelColor(logoEl, width, height, x, y) {
+  const source = resolveLogoDrawSource(logoEl);
+  if (!source) return "rgba(248, 250, 252, 0.98)";
+  const naturalW = Number(source.naturalWidth || 0);
+  const naturalH = Number(source.naturalHeight || 0);
+  const w = Math.max(1, Math.round(Number(width) || 0));
+  const h = Math.max(1, Math.round(Number(height) || 0));
+  if (!naturalW || !naturalH || !w || !h) return "rgba(248, 250, 252, 0.98)";
+
+  const probe = document.createElement("canvas");
+  probe.width = w;
+  probe.height = h;
+  const pctx = probe.getContext("2d");
+  if (!pctx) return "rgba(248, 250, 252, 0.98)";
+
+  const fit = Math.min(w / naturalW, h / naturalH);
+  const drawW = naturalW * fit;
+  const drawH = naturalH * fit;
+  const drawX = (w - drawW) / 2;
+  const drawY = (h - drawH) / 2;
+  pctx.clearRect(0, 0, w, h);
+  try {
+    pctx.drawImage(source, drawX, drawY, drawW, drawH);
+  } catch {
+    return "rgba(248, 250, 252, 0.98)";
+  }
+
+  const px = Math.max(0, Math.min(w - 1, Math.round(Number(x) || 0)));
+  const py = Math.max(0, Math.min(h - 1, Math.round(Number(y) || 0)));
+  let rgba;
+  try {
+    rgba = pctx.getImageData(px, py, 1, 1).data;
+  } catch {
+    return "rgba(248, 250, 252, 0.98)";
+  }
+  const alpha = Number(rgba[3] || 0) / 255;
+  if (alpha <= 0.05) return "rgba(248, 250, 252, 0.98)";
+  return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${Math.max(0.75, alpha).toFixed(3)})`;
+}
+
+/** Comprehensive lookup for a saved punch snap — used by both attach (so the punch is visible
+ *  from pre-timer) and restore (timer-end). Returns "" if nothing matches. */
+function findFakeInfoLogoPunchSnap(state, punchCanvas) {
+  if (!state) return { snap: "", usedKey: "" };
+  let snap = "";
+  let usedKey = "";
+  const canonicalKey = String(resolveFakeInfoTeamQuizMaskKey(state) || "").trim();
+  for (const punchKey of collectFakeInfoTeamQuizPunchLookupKeys(state, punchCanvas)) {
+    const s = getFakeInfoLogoPunchDataUrl(state, punchKey);
+    if (s) {
+      snap = s;
+      usedKey = punchKey;
+      break;
+    }
+  }
+  if (!snap) {
+    const store = ensureFakeInfoLogoPunchByTeam(state);
+    const entries = Object.entries(store).filter(([, v]) => String(v || "").trim());
+    if (entries.length === 1) {
+      usedKey = String(entries[0][0] || "").trim();
+      snap = String(entries[0][1] || "").trim();
+    } else if (entries.length > 1 && canonicalKey) {
+      let best = "";
+      let bestScore = -1;
+      for (const [k, v] of entries) {
+        const key = String(k || "").trim();
+        const val = String(v || "").trim();
+        if (!key || !val) continue;
+        let score = 0;
+        if (key === canonicalKey) score = 100;
+        else if (key.includes(canonicalKey) || canonicalKey.includes(key)) score = 80;
+        else {
+          const keyNorm = normalizeClubLookupKey(key);
+          const canonicalNorm = normalizeClubLookupKey(canonicalKey);
+          if (keyNorm && canonicalNorm && keyNorm === canonicalNorm) score = 70;
+          else if (keyNorm && canonicalNorm && (keyNorm.includes(canonicalNorm) || canonicalNorm.includes(keyNorm))) {
+            score = 55;
+          }
+        }
+        if (score > bestScore) {
+          bestScore = score;
+          best = key;
+        }
+      }
+      if (bestScore > 0 && best) {
+        usedKey = best;
+        snap = String(store[best] || "").trim();
+      }
+    }
+  }
+  return { snap, usedKey };
+}
+
+function restoreTeamLogoPunchCanvasFromState(state, punchCanvas, logoImg) {
+  if (!state || !punchCanvas) return false;
+  const { snap, usedKey } = findFakeInfoLogoPunchSnap(state, punchCanvas);
+  if (!snap) return false;
+  if (usedKey) punchCanvas.dataset.maskKey = usedKey;
+  const wrap = punchCanvas.parentElement;
+  const rect = wrap ? wrap.getBoundingClientRect() : null;
+  const w = Math.max(1, Math.round(rect?.width || punchCanvas.clientWidth || punchCanvas.width || 0));
+  const h = Math.max(1, Math.round(rect?.height || punchCanvas.clientHeight || punchCanvas.height || 0));
+  // If the canvas was already drawn (pre-timer attach already painted it) at the same
+  // size and is visible, keep the existing pixels — re-setting width/height clears the
+  // bitmap, which makes the punch look like it "pops out" during the timer-end opacity fade.
+  if (
+    punchCanvas.width === w &&
+    punchCanvas.height === h &&
+    punchCanvas.dataset.hasUserEdits === "1" &&
+    punchCanvas.dataset.snapSrc === snap &&
+    !punchCanvas.hidden
+  ) {
+    if (logoImg) logoImg.style.opacity = "0";
+    return true;
+  }
+  punchCanvas.width = w;
+  punchCanvas.height = h;
+  const ctx = punchCanvas.getContext("2d");
+  if (!ctx) return false;
+  punchCanvas.dataset.hasUserEdits = "1";
+  punchCanvas.dataset.snapSrc = snap;
+  punchCanvas.hidden = false;
+  if (logoImg) logoImg.style.opacity = "0";
+  const im = new Image();
+  im.onload = () => {
+    if (!punchCanvas.isConnected) return;
+    ctx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+    ctx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
+  };
+  im.onerror = () => {
+    if (logoImg) logoImg.style.opacity = "";
+    punchCanvas.hidden = true;
+    punchCanvas.dataset.hasUserEdits = "0";
+  };
+  im.src = snap;
+  if (im.complete && im.naturalWidth) {
+    ctx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+    ctx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
+  }
+  return true;
+}
+
+function attachFakeInfoTeamLogoMaskEditor({
+  state,
+  teamQuizCard,
+  logoWrap,
+  logoImg,
+  teamFallbackEl,
+  previewPostTimer,
+}) {
+  const maskKey = resolveFakeInfoTeamQuizMaskKey(state);
+  if (!teamQuizCard || !logoWrap || !maskKey) return;
+
+  const maskCanvas = document.createElement("canvas");
+  maskCanvas.className = "career-team-quiz-card__logo-mask";
+  maskCanvas.classList.toggle("is-revealed", !!previewPostTimer);
+  const punchCanvas = document.createElement("canvas");
+  punchCanvas.className = "career-team-quiz-card__logo-punch";
+  punchCanvas.hidden = true;
+  punchCanvas.setAttribute("aria-hidden", "true");
+  punchCanvas.dataset.maskKey = String(maskKey || "").trim();
+  logoWrap.appendChild(punchCanvas);
+  logoWrap.appendChild(maskCanvas);
+
+  let savedDataUrl = getFakeInfoLogoMaskDataUrl(state, maskKey);
+  // Comprehensive lookup so the punch is visible from pre-timer if a snap is saved under
+  // any related key. Otherwise the canonical-key miss leaves it hidden=true during pre-timer
+  // and the timer-end display:none → block flips re-fires the fade-in keyframe animation,
+  // which reads as the punch "flashing" instead of fading like the regular mask.
+  let savedPunchDataUrl = getFakeInfoLogoPunchDataUrl(state, maskKey);
+  if (!String(savedPunchDataUrl || "").trim()) {
+    savedPunchDataUrl = findFakeInfoLogoPunchSnap(state, punchCanvas).snap;
+  }
+  let drawCtx = null;
+  let punchCtx = null;
+  let punchModeOn = false;
+  let punchLayerActive = false;
+  let punchDrawing = false;
+  let punchLastPoint = null;
+  let punchHasUserEdits = !!String(savedPunchDataUrl || "").trim();
+  let drawing = false;
+  let lastPoint = null;
+  let brushColor = "rgba(248, 250, 252, 0.98)";
+  let brushRadiusPx = TEAM_LOGO_MASK_BRUSH_RADIUS_PX;
+  /** @type {"circle" | "square"} */
+  let brushShape = "circle";
+  let sampleColorArmed = false;
+  let punchPrepareInFlight = false;
+  let punchGen = 0;
+
+  const syncMaskCanvasSize = () => {
+    const rect = logoWrap.getBoundingClientRect();
+    const nextW = Math.max(1, Math.round(rect.width || 0));
+    const nextH = Math.max(1, Math.round(rect.height || 0));
+    if (!nextW || !nextH) return;
+    if (maskCanvas.width === nextW && maskCanvas.height === nextH && drawCtx) return;
+    maskCanvas.width = nextW;
+    maskCanvas.height = nextH;
+    drawCtx = maskCanvas.getContext("2d");
+    if (!drawCtx) return;
+    drawCtx.clearRect(0, 0, nextW, nextH);
+    if (!savedDataUrl) return;
+    const img = new Image();
+    img.onload = () => {
+      if (!drawCtx || !maskCanvas.isConnected) return;
+      drawCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+      drawCtx.drawImage(img, 0, 0, maskCanvas.width, maskCanvas.height);
+    };
+    img.src = savedDataUrl;
+  };
+
+  const syncPunchCanvasSize = () => {
+    if (!punchLayerActive) return;
+    const rect = logoWrap.getBoundingClientRect();
+    const nextW = Math.max(1, Math.round(rect.width || 0));
+    const nextH = Math.max(1, Math.round(rect.height || 0));
+    if (!nextW || !nextH) return;
+    if (punchCanvas.width === nextW && punchCanvas.height === nextH && punchCtx) return;
+    punchCanvas.width = nextW;
+    punchCanvas.height = nextH;
+    punchCtx = punchCanvas.getContext("2d");
+    if (!punchCtx) return;
+    punchCtx.clearRect(0, 0, nextW, nextH);
+    const redrawFromSavedOrLogo = () => {
+      if (!punchCtx || !punchCanvas.isConnected) return;
+      punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+      const snap = String(savedPunchDataUrl || "").trim();
+      if (snap) {
+        const im = new Image();
+        im.onload = () => {
+          if (!punchCtx || !punchCanvas.isConnected) return;
+          punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+          punchCtx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
+        };
+        im.src = snap;
+      } else {
+        void tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height);
+      }
+    };
+    redrawFromSavedOrLogo();
+  };
+
+  const syncAllLogoLayers = () => {
+    syncMaskCanvasSize();
+    syncPunchCanvasSize();
+  };
+  const setPunchLayerVisible = (visible) => {
+    punchLayerActive = !!visible;
+    punchCanvas.dataset.hasUserEdits = punchHasUserEdits ? "1" : "0";
+    if (punchLayerActive) {
+      logoImg.style.opacity = "0";
+      punchCanvas.hidden = false;
+      syncPunchCanvasSize();
+    } else {
+      logoImg.style.opacity = "";
+      punchCanvas.hidden = true;
+    }
+  };
+  syncAllLogoLayers();
+  if (typeof ResizeObserver !== "undefined") {
+    const ro = new ResizeObserver(() => syncAllLogoLayers());
+    ro.observe(logoWrap);
+  }
+
+  if (appState.isVideoPlaying || !!previewPostTimer) {
+    punchModeOn = false;
+    setPunchLayerVisible(punchHasUserEdits);
+    maskCanvas.classList.remove("career-team-quiz-card__logo-mask--punch-edit");
+    maskCanvas.style.pointerEvents = "none";
+    punchCanvas.style.pointerEvents = "none";
+    return;
+  }
+  setPunchLayerVisible(punchHasUserEdits);
+
+  const brushCursor = document.createElement("div");
+  brushCursor.className = "career-team-quiz-card__brush-cursor";
+  brushCursor.setAttribute("aria-hidden", "true");
+  logoWrap.appendChild(brushCursor);
+
+  let brushHoverWrapX = 0;
+  let brushHoverWrapY = 0;
+  let brushHoverActive = false;
+
+  const updateBrushCursorLayout = () => {
+    const brushUiOn = (editModeOn || punchModeOn) && !sampleColorArmed;
+    if (!brushUiOn || !brushHoverActive) {
+      brushCursor.classList.remove("is-visible");
+      return;
+    }
+    const d = brushRadiusPx * 2;
+    brushCursor.style.width = `${d}px`;
+    brushCursor.style.height = `${d}px`;
+    brushCursor.style.left = `${brushHoverWrapX - brushRadiusPx}px`;
+    brushCursor.style.top = `${brushHoverWrapY - brushRadiusPx}px`;
+    brushCursor.style.borderColor = punchModeOn ? "rgba(255, 255, 255, 0.95)" : brushColor;
+    brushCursor.classList.toggle("is-square", brushShape === "square");
+    brushCursor.classList.toggle("is-eraser", !!punchModeOn);
+    brushCursor.classList.add("is-visible");
+  };
+
+  const hideBrushCursor = () => {
+    brushHoverActive = false;
+    brushCursor.classList.remove("is-visible");
+  };
+
+  const tools = document.createElement("div");
+  tools.className = "career-team-logo-mask-tools";
+
+  const toggleBtn = document.createElement("button");
+  toggleBtn.type = "button";
+  toggleBtn.className = "career-team-logo-mask-tools__btn";
+  toggleBtn.textContent = "Mask";
+  toggleBtn.title = "Draw over logo text";
+
+  const clearBtn = document.createElement("button");
+  clearBtn.type = "button";
+  clearBtn.className = "career-team-logo-mask-tools__btn career-team-logo-mask-tools__btn--danger";
+  clearBtn.textContent = "Clear";
+
+  const selectColorBtn = document.createElement("button");
+  selectColorBtn.type = "button";
+  selectColorBtn.className = "career-team-logo-mask-tools__btn career-team-logo-mask-tools__btn--color";
+  selectColorBtn.textContent = "Select Color";
+  selectColorBtn.title = "Click, then pick a color from the logo";
+
+  const backgroundMaskBtn = document.createElement("button");
+  backgroundMaskBtn.type = "button";
+  backgroundMaskBtn.className = "career-team-logo-mask-tools__btn career-team-logo-mask-tools__btn--punch";
+  backgroundMaskBtn.textContent = "Background mask";
+  backgroundMaskBtn.title =
+    "Erase logo pixels to transparency so the stage background shows through (circle/square brush).";
+
+  const brushControls = document.createElement("div");
+  brushControls.className = "career-team-logo-mask-tools__brush-row";
+
+  const brushLabel = document.createElement("span");
+  brushLabel.className = "career-team-logo-mask-tools__brush-label";
+  brushLabel.textContent = "Pen";
+
+  const brushSmallerBtn = document.createElement("button");
+  brushSmallerBtn.type = "button";
+  brushSmallerBtn.className = "career-team-logo-mask-tools__size-btn";
+  brushSmallerBtn.textContent = "−";
+  brushSmallerBtn.title = "Smaller pen";
+  brushSmallerBtn.setAttribute("aria-label", "Smaller pen");
+
+  const brushSizeValue = document.createElement("strong");
+  brushSizeValue.className = "career-team-logo-mask-tools__size-value";
+  brushSizeValue.textContent = String(Math.round(brushRadiusPx));
+
+  const brushBiggerBtn = document.createElement("button");
+  brushBiggerBtn.type = "button";
+  brushBiggerBtn.className = "career-team-logo-mask-tools__size-btn";
+  brushBiggerBtn.textContent = "+";
+  brushBiggerBtn.title = "Bigger pen";
+  brushBiggerBtn.setAttribute("aria-label", "Bigger pen");
+
+  const shapeLabel = document.createElement("span");
+  shapeLabel.className = "career-team-logo-mask-tools__brush-label career-team-logo-mask-tools__brush-label--shape";
+  shapeLabel.textContent = "Shape";
+
+  const shapeCircleBtn = document.createElement("button");
+  shapeCircleBtn.type = "button";
+  shapeCircleBtn.className = "career-team-logo-mask-tools__shape-btn";
+  shapeCircleBtn.textContent = "Circle";
+  shapeCircleBtn.title = "Round brush";
+  shapeCircleBtn.setAttribute("aria-label", "Circle brush");
+
+  const shapeSquareBtn = document.createElement("button");
+  shapeSquareBtn.type = "button";
+  shapeSquareBtn.className = "career-team-logo-mask-tools__shape-btn";
+  shapeSquareBtn.textContent = "Square";
+  shapeSquareBtn.title = "Square brush";
+  shapeSquareBtn.setAttribute("aria-label", "Square brush");
+
+  brushControls.appendChild(brushLabel);
+  brushControls.appendChild(brushSmallerBtn);
+  brushControls.appendChild(brushSizeValue);
+  brushControls.appendChild(brushBiggerBtn);
+  brushControls.appendChild(shapeLabel);
+  brushControls.appendChild(shapeCircleBtn);
+  brushControls.appendChild(shapeSquareBtn);
+
+  tools.appendChild(toggleBtn);
+  tools.appendChild(clearBtn);
+  tools.appendChild(selectColorBtn);
+  tools.appendChild(backgroundMaskBtn);
+  tools.appendChild(brushControls);
+  teamQuizCard.appendChild(tools);
+
+  let editModeOn = false;
+
+  const updatePointerLayers = () => {
+    const maskInteractive = (editModeOn || sampleColorArmed) && !punchModeOn;
+    maskCanvas.style.pointerEvents = maskInteractive ? "auto" : "none";
+    punchCanvas.style.pointerEvents = punchModeOn ? "auto" : "none";
+  };
+
+  const revealPunchLayerAfterDraw = () => {
+    setPunchLayerVisible(true);
+  };
+
+  const abortPunchEnterUi = () => {
+    setPunchLayerVisible(false);
+    punchModeOn = false;
+    maskCanvas.classList.remove("career-team-quiz-card__logo-mask--punch-edit");
+    backgroundMaskBtn.classList.remove("is-active");
+    updatePointerLayers();
+  };
+
+  const ensurePunchRasterReadyAsync = async () => {
+    if (teamFallbackEl && teamFallbackEl.hidden === false) return false;
+    try {
+      if (typeof logoImg.decode === "function") {
+        await logoImg.decode();
+      }
+    } catch {
+      /* ignore */
+    }
+    if (!logoImg.naturalWidth) return false;
+
+    const rect = logoWrap.getBoundingClientRect();
+    const nextW = Math.max(1, Math.round(rect.width || 0));
+    const nextH = Math.max(1, Math.round(rect.height || 0));
+    punchCanvas.width = nextW;
+    punchCanvas.height = nextH;
+    punchCtx = punchCanvas.getContext("2d");
+    if (!punchCtx) return false;
+    punchCtx.clearRect(0, 0, nextW, nextH);
+    punchCtx.globalCompositeOperation = "source-over";
+    punchCtx.globalAlpha = 1;
+
+    const snap = String(savedPunchDataUrl || "").trim();
+    if (snap) {
+      const im = new Image();
+      const snapOk = await new Promise((resolve) => {
+        let settled = false;
+        const finish = (v) => {
+          if (settled) return;
+          settled = true;
+          resolve(v);
+        };
+        im.onload = () => finish(true);
+        im.onerror = () => finish(false);
+        im.src = snap;
+        if (im.complete && im.naturalWidth) finish(true);
+      });
+      if (snapOk && im.naturalWidth && punchCtx && punchCanvas.isConnected) {
+        punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+        punchCtx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
+        if (isPunchCanvasBlank(punchCtx, punchCanvas.width, punchCanvas.height)) {
+          savedPunchDataUrl = "";
+          setFakeInfoLogoPunchDataUrl(state, maskKey, "");
+          punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+          if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
+            abortPunchEnterUi();
+            return false;
+          }
+        }
+      } else if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
+        abortPunchEnterUi();
+        return false;
+      }
+    } else if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
+      abortPunchEnterUi();
+      return false;
+    }
+
+    revealPunchLayerAfterDraw();
+    updatePointerLayers();
+    return true;
+  };
+
+  const setPunchMode = (on) => {
+    const next = !!on;
+    if (!next) {
+      punchGen += 1;
+      punchPrepareInFlight = false;
+      punchModeOn = false;
+      maskCanvas.classList.remove("career-team-quiz-card__logo-mask--punch-edit");
+      backgroundMaskBtn.classList.remove("is-active");
+      if (punchHasUserEdits && punchCtx && punchCanvas.width && punchCanvas.height) {
+        persistPunch();
+      }
+      setPunchLayerVisible(punchHasUserEdits);
+      updatePointerLayers();
+      hideBrushCursor();
+      return;
+    }
+    if (punchPrepareInFlight || punchModeOn) return;
+    sampleColorArmed = false;
+    selectColorBtn.classList.remove("is-active");
+    maskCanvas.classList.remove("is-sampling");
+    editModeOn = false;
+    toggleBtn.classList.remove("is-active");
+    maskCanvas.classList.remove("is-editing");
+    hideBrushCursor();
+
+    punchPrepareInFlight = true;
+    const myGen = punchGen;
+    void (async () => {
+      try {
+        syncAllLogoLayers();
+        if (drawCtx && maskCanvas.width && maskCanvas.height) {
+          persistMask();
+        }
+        try {
+          if (typeof logoImg.decode === "function") {
+            await logoImg.decode();
+          }
+        } catch {
+          /* ignore */
+        }
+        if (!logoImg.isConnected || myGen !== punchGen) return;
+        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        if (!logoImg.isConnected || myGen !== punchGen) return;
+        const ok = await ensurePunchRasterReadyAsync();
+        if (!logoImg.isConnected || myGen !== punchGen) return;
+        if (!ok) return;
+        punchModeOn = true;
+        maskCanvas.classList.add("career-team-quiz-card__logo-mask--punch-edit");
+        backgroundMaskBtn.classList.add("is-active");
+        updatePointerLayers();
+      } finally {
+        punchPrepareInFlight = false;
+      }
+    })();
+  };
+
+  const syncBrushSwatch = () => {
+    selectColorBtn.style.setProperty("--mask-color", brushColor);
+    updateBrushCursorLayout();
+  };
+  const setSampleColorMode = (on) => {
+    sampleColorArmed = !!on;
+    selectColorBtn.classList.toggle("is-active", sampleColorArmed);
+    maskCanvas.classList.toggle("is-sampling", sampleColorArmed);
+    if (sampleColorArmed) {
+      setPunchMode(false);
+      toggleBtn.classList.remove("is-active");
+      editModeOn = false;
+      maskCanvas.classList.remove("is-editing");
+      hideBrushCursor();
+    }
+    updatePointerLayers();
+  };
+  const setEditMode = (on) => {
+    const wasEditing = editModeOn;
+    if (on) setPunchMode(false);
+    editModeOn = !!on;
+    toggleBtn.classList.toggle("is-active", editModeOn);
+    maskCanvas.classList.toggle("is-editing", editModeOn);
+    if (editModeOn) {
+      setSampleColorMode(false);
+    } else {
+      if (wasEditing && drawCtx && maskCanvas.width && maskCanvas.height) {
+        persistMask();
+      }
+      hideBrushCursor();
+    }
+    updatePointerLayers();
+  };
+  const syncBrushSizeUi = () => {
+    brushSizeValue.textContent = String(Math.round(brushRadiusPx));
+    brushSmallerBtn.disabled = brushRadiusPx <= 4;
+    brushBiggerBtn.disabled = brushRadiusPx >= 60;
+    updateBrushCursorLayout();
+  };
+  const syncBrushShapeUi = () => {
+    shapeCircleBtn.classList.toggle("is-active", brushShape === "circle");
+    shapeSquareBtn.classList.toggle("is-active", brushShape === "square");
+    updateBrushCursorLayout();
+  };
+  syncBrushSwatch();
+  syncBrushSizeUi();
+  syncBrushShapeUi();
+  setEditMode(false);
+  updatePointerLayers();
+
+  const persistMask = () => {
+    if (!drawCtx || !maskCanvas.width || !maskCanvas.height) return;
+    const snapshot = maskCanvas.toDataURL("image/png");
+    savedDataUrl = snapshot;
+    setFakeInfoLogoMaskDataUrl(state, maskKey, snapshot);
+  };
+
+  const persistPunch = () => {
+    if (!punchCtx || !punchCanvas.width || !punchCanvas.height) return;
+    const snapshot = punchCanvas.toDataURL("image/png");
+    savedPunchDataUrl = snapshot;
+    setFakeInfoLogoPunchDataUrl(state, maskKey, snapshot);
+  };
+
+  const canvasPoint = (ev) => {
+    const rect = maskCanvas.getBoundingClientRect();
+    return {
+      x: Math.max(0, Math.min(rect.width, ev.clientX - rect.left)),
+      y: Math.max(0, Math.min(rect.height, ev.clientY - rect.top)),
+    };
+  };
+
+  const paintCircleStroke = (x, y) => {
+    if (!drawCtx) return;
+    drawCtx.save();
+    drawCtx.globalCompositeOperation = "source-over";
+    drawCtx.strokeStyle = brushColor;
+    drawCtx.fillStyle = brushColor;
+    drawCtx.lineCap = "round";
+    drawCtx.lineJoin = "round";
+    drawCtx.lineWidth = brushRadiusPx * 2;
+    if (lastPoint) {
+      drawCtx.beginPath();
+      drawCtx.moveTo(lastPoint.x, lastPoint.y);
+      drawCtx.lineTo(x, y);
+      drawCtx.stroke();
+    }
+    drawCtx.beginPath();
+    drawCtx.arc(x, y, brushRadiusPx, 0, Math.PI * 2);
+    drawCtx.fill();
+    drawCtx.restore();
+    lastPoint = { x, y };
+  };
+
+  const paintSquareStroke = (x, y) => {
+    if (!drawCtx) return;
+    const r = brushRadiusPx;
+    drawCtx.save();
+    drawCtx.globalCompositeOperation = "source-over";
+    drawCtx.fillStyle = brushColor;
+    if (lastPoint) {
+      const x0 = lastPoint.x;
+      const y0 = lastPoint.y;
+      const dx = x - x0;
+      const dy = y - y0;
+      const len = Math.hypot(dx, dy);
+      if (len > 1e-3) {
+        drawCtx.save();
+        drawCtx.translate(x0, y0);
+        drawCtx.rotate(Math.atan2(dy, dx));
+        drawCtx.fillRect(0, -r, len, r * 2);
+        drawCtx.restore();
+      }
+    }
+    drawCtx.fillRect(x - r, y - r, r * 2, r * 2);
+    drawCtx.restore();
+    lastPoint = { x, y };
+  };
+
+  const paintStroke = (x, y) => {
+    if (brushShape === "square") paintSquareStroke(x, y);
+    else paintCircleStroke(x, y);
+  };
+
+  const ERASE_INK = "rgba(0, 0, 0, 1)";
+
+  const eraseCircleStroke = (x, y) => {
+    if (!punchCtx) return;
+    punchCtx.save();
+    punchCtx.globalCompositeOperation = "destination-out";
+    punchCtx.strokeStyle = ERASE_INK;
+    punchCtx.fillStyle = ERASE_INK;
+    punchCtx.lineCap = "round";
+    punchCtx.lineJoin = "round";
+    punchCtx.lineWidth = brushRadiusPx * 2;
+    if (punchLastPoint) {
+      punchCtx.beginPath();
+      punchCtx.moveTo(punchLastPoint.x, punchLastPoint.y);
+      punchCtx.lineTo(x, y);
+      punchCtx.stroke();
+    }
+    punchCtx.beginPath();
+    punchCtx.arc(x, y, brushRadiusPx, 0, Math.PI * 2);
+    punchCtx.fill();
+    punchCtx.restore();
+    punchLastPoint = { x, y };
+  };
+
+  const eraseSquareStroke = (x, y) => {
+    if (!punchCtx) return;
+    const r = brushRadiusPx;
+    punchCtx.save();
+    punchCtx.globalCompositeOperation = "destination-out";
+    punchCtx.fillStyle = ERASE_INK;
+    if (punchLastPoint) {
+      const x0 = punchLastPoint.x;
+      const y0 = punchLastPoint.y;
+      const dx = x - x0;
+      const dy = y - y0;
+      const len = Math.hypot(dx, dy);
+      if (len > 1e-3) {
+        punchCtx.save();
+        punchCtx.translate(x0, y0);
+        punchCtx.rotate(Math.atan2(dy, dx));
+        punchCtx.fillRect(0, -r, len, r * 2);
+        punchCtx.restore();
+      }
+    }
+    punchCtx.fillRect(x - r, y - r, r * 2, r * 2);
+    punchCtx.restore();
+    punchLastPoint = { x, y };
+  };
+
+  const eraseStroke = (x, y) => {
+    if (brushShape === "square") eraseSquareStroke(x, y);
+    else eraseCircleStroke(x, y);
+  };
+
+  toggleBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    setEditMode(!editModeOn);
+  });
+  selectColorBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    setSampleColorMode(!sampleColorArmed);
+  });
+  brushSmallerBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    brushRadiusPx = Math.max(4, brushRadiusPx - 2);
+    syncBrushSizeUi();
+  });
+  brushBiggerBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    brushRadiusPx = Math.min(60, brushRadiusPx + 2);
+    syncBrushSizeUi();
+  });
+  shapeCircleBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    brushShape = "circle";
+    syncBrushShapeUi();
+  });
+  shapeSquareBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    brushShape = "square";
+    syncBrushShapeUi();
+  });
+  backgroundMaskBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    setPunchMode(!punchModeOn);
+  });
+  clearBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    syncAllLogoLayers();
+    if (drawCtx && maskCanvas.width && maskCanvas.height) {
+      drawCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+    }
+    savedDataUrl = "";
+    setFakeInfoLogoMaskDataUrl(state, maskKey, "");
+    if (punchCtx && punchCanvas.width && punchCanvas.height) {
+      punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+      void tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height);
+    }
+    punchHasUserEdits = false;
+    punchCanvas.dataset.hasUserEdits = "0";
+    savedPunchDataUrl = "";
+    setFakeInfoLogoPunchDataUrl(state, maskKey, "");
+    if (!punchModeOn) {
+      setPunchLayerVisible(false);
+    }
+  });
+
+  maskCanvas.addEventListener("pointerdown", (ev) => {
+    if (punchModeOn) return;
+    if (!drawCtx || (!editModeOn && !sampleColorArmed)) return;
+    ev.preventDefault();
+    syncAllLogoLayers();
+    const p = canvasPoint(ev);
+    if (sampleColorArmed) {
+      brushColor = sampleLogoPixelColor(logoImg, maskCanvas.width, maskCanvas.height, p.x, p.y);
+      syncBrushSwatch();
+      /* After a pick, go straight into paint mode (Mask on). */
+      setEditMode(true);
+      return;
+    }
+    drawing = true;
+    lastPoint = null;
+    paintStroke(p.x, p.y);
+    try {
+      maskCanvas.setPointerCapture(ev.pointerId);
+    } catch {
+      /* ignore */
+    }
+  });
+  maskCanvas.addEventListener("pointermove", (ev) => {
+    if (editModeOn || punchModeOn) {
+      const r = logoWrap.getBoundingClientRect();
+      brushHoverWrapX = ev.clientX - r.left;
+      brushHoverWrapY = ev.clientY - r.top;
+      brushHoverActive = true;
+      updateBrushCursorLayout();
+    }
+    if (!drawing || !editModeOn) return;
+    ev.preventDefault();
+    const p = canvasPoint(ev);
+    paintStroke(p.x, p.y);
+  });
+  const stopDraw = (ev) => {
+    if (!drawing) return;
+    if (ev) ev.preventDefault();
+    drawing = false;
+    lastPoint = null;
+    persistMask();
+  };
+  maskCanvas.addEventListener("pointerup", stopDraw);
+  maskCanvas.addEventListener("pointercancel", stopDraw);
+  maskCanvas.addEventListener("pointerleave", (ev) => {
+    if (drawing) stopDraw(ev);
+    if (editModeOn || punchModeOn) hideBrushCursor();
+  });
+
+  punchCanvas.addEventListener("pointerdown", (ev) => {
+    if (!punchModeOn || !punchCtx) return;
+    ev.preventDefault();
+    syncAllLogoLayers();
+    const p = canvasPoint(ev);
+    punchDrawing = true;
+    punchLastPoint = null;
+    eraseStroke(p.x, p.y);
+    try {
+      punchCanvas.setPointerCapture(ev.pointerId);
+    } catch {
+      /* ignore */
+    }
+  });
+  punchCanvas.addEventListener("pointermove", (ev) => {
+    if (punchModeOn) {
+      const r = logoWrap.getBoundingClientRect();
+      brushHoverWrapX = ev.clientX - r.left;
+      brushHoverWrapY = ev.clientY - r.top;
+      brushHoverActive = true;
+      updateBrushCursorLayout();
+    }
+    if (!punchDrawing || !punchModeOn) return;
+    ev.preventDefault();
+    const p = canvasPoint(ev);
+    eraseStroke(p.x, p.y);
+  });
+  const stopPunchDraw = (ev) => {
+    if (!punchDrawing) return;
+    if (ev) ev.preventDefault();
+    punchDrawing = false;
+    punchLastPoint = null;
+    punchHasUserEdits = true;
+    punchCanvas.dataset.hasUserEdits = "1";
+    persistPunch();
+  };
+  punchCanvas.addEventListener("pointerup", stopPunchDraw);
+  punchCanvas.addEventListener("pointercancel", stopPunchDraw);
+  punchCanvas.addEventListener("pointerleave", (ev) => {
+    if (punchDrawing) stopPunchDraw(ev);
+    if (punchModeOn) hideBrushCursor();
+  });
+}
+
+/** Canonical storage key for fake-info team logo Mask + Background mask (must stay in sync everywhere). */
+function resolveFakeInfoTeamQuizMaskKey(state) {
+  if (!state?.careerPlayer) return "";
+  const teamName = String(state.careerPlayer.club || state.careerPlayer.name || "").trim();
+  if (!teamName) return "";
+  const searchName = resolveClubAlias(teamName);
+  const foundTeam = searchName ? findBestCareerClubEntry(searchName) : null;
+  const displayTeamName = String(foundTeam?.name || teamName || searchName || "").trim();
+  const logoCacheKey = normalizeClubLookupKey(displayTeamName || teamName || searchName);
+  return String(logoCacheKey || normalizeClubLookupKey(displayTeamName || teamName) || "").trim();
+}
+
+function collectFakeInfoTeamQuizPunchLookupKeys(state, punchCanvas) {
+  const keys = [];
+  const add = (k) => {
+    const s = String(k || "").trim();
+    if (s && !keys.includes(s)) keys.push(s);
+  };
+  add(punchCanvas?.dataset?.maskKey);
+  add(resolveFakeInfoTeamQuizMaskKey(state));
+  const clubRaw = String(state?.careerPlayer?.club || "").trim();
+  const nameRaw = String(state?.careerPlayer?.name || "").trim();
+  add(normalizeClubLookupKey(clubRaw));
+  add(normalizeClubLookupKey(nameRaw));
+  if (clubRaw) add(normalizeClubLookupKey(resolveClubAlias(clubRaw)));
+  if (nameRaw) add(normalizeClubLookupKey(resolveClubAlias(nameRaw)));
+  return keys;
 }
 
 /** No pixel cap — only reject non-finite values so nudge never “sticks” at a clamp while the crest steals clicks. */
@@ -808,6 +1907,32 @@ function applyCareerSilhouetteAdjustments(silhouetteEl, st, { noExtraDown = fals
   silhouetteEl.style.setProperty("--sil-y", `${finalY}%`);
   silhouetteEl.style.setProperty("--sil-scale-x", String(finalScaleX));
   silhouetteEl.style.setProperty("--sil-scale-y", String(finalScaleY));
+}
+
+/* Apply Adjust Picture (Up/Down + Width + Height) to the player-card-mode photo.
+   Baseline: photo is nudged 4% downward and scaled to 1.05x by default so the head sits
+   a touch lower and the body fills the frame a bit more. Each Up/Down tick adds +/-2% on
+   top of the Y baseline; Width/Height scale stacks multiplicatively on the size baseline.
+   Origin at bottom-center, so scaling up grows the photo upward. */
+const PLAYER_CARD_PHOTO_BASELINE_Y_PCT = 4;
+const PLAYER_CARD_PHOTO_BASELINE_SCALE = 1.07;
+function applyPlayerCardPhotoAdjustments(photoEl, st) {
+  if (!photoEl) return;
+  const yOffset = Number(st?.silhouetteYOffset ?? 0);
+  const scaleX = Number(st?.silhouetteScaleX ?? 1);
+  const scaleY = Number(st?.silhouetteScaleY ?? 1);
+  const safeY = Number.isFinite(yOffset) ? yOffset : 0;
+  const safeSx = Number.isFinite(scaleX) && scaleX > 0 ? scaleX : 1;
+  const safeSy = Number.isFinite(scaleY) && scaleY > 0 ? scaleY : 1;
+  const translatePct = PLAYER_CARD_PHOTO_BASELINE_Y_PCT + safeY * 2;
+  const finalSx = PLAYER_CARD_PHOTO_BASELINE_SCALE * safeSx;
+  const finalSy = PLAYER_CARD_PHOTO_BASELINE_SCALE * safeSy;
+  photoEl.style.setProperty("transform-origin", "50% 100%");
+  photoEl.style.setProperty(
+    "transform",
+    `translateY(${translatePct}%) scale(${finalSx}, ${finalSy})`,
+    "important",
+  );
 }
 
 function applyCareerRevealAdjustments(wrapEl, st) {
@@ -1714,6 +2839,45 @@ export function renderCareer() {
 
   const playerName = state.careerPlayer?.name?.trim() || "";
   const hasRealPlayer = !!playerName;
+  const fakeInfoQuiz = isFakeInfoQuiz();
+  const quizTypeControl = appState.els?.inQuizType;
+  const quizTypeLabel = String(quizTypeControl?.selectedOptions?.[0]?.textContent || "")
+    .trim()
+    .toUpperCase();
+  const teamYearMarker = String(
+    state.careerHistory?.[0]?.year ?? state.careerPlayer?.transfer_history?.[0]?.year ?? "",
+  )
+    .trim()
+    .toUpperCase();
+  const quizTypeValue = String(
+    quizTypeControl?.value || document.getElementById("in-quiz-type")?.value || "",
+  );
+  const quizTypeValueLower = quizTypeValue.trim().toLowerCase();
+  /* Player-name quiz must always use the boxed square card layout, regardless of any stale
+     team-mode flags from previous levels/sessions. */
+  const selectedPlayerCardMode =
+    hasRealPlayer &&
+    !fakeInfoQuiz &&
+    (quizTypeValue === "player-by-career-stats" ||
+      (quizTypeValueLower.includes("player") && !quizTypeValueLower.includes("fake")) ||
+      (quizTypeValue !== "player-by-fake-info" && quizTypeLabel.includes("PLAYER NAME")));
+  const selectedTeamCardMode =
+    !selectedPlayerCardMode &&
+    hasRealPlayer &&
+    (
+      !!state.careerTeamQuizMode ||
+      fakeInfoQuiz ||
+      quizTypeLabel.includes("TEAM NAME") ||
+      teamYearMarker === "TEAM" ||
+      (
+        String(state.careerPlayer?.club || "").trim() !== "" &&
+        String(state.careerPlayer?.club || "").trim() === String(state.careerPlayer?.name || "").trim() &&
+        !String(state.careerPlayer?.position || "").trim()
+      )
+    );
+  const selectedAnyCardMode = selectedTeamCardMode || selectedPlayerCardMode;
+  document.body.classList.toggle("career-team-card-mode", !!selectedAnyCardMode);
+  document.body.classList.toggle("career-player-card-mode", !!selectedPlayerCardMode);
   const gateStatPlayer = hasRealPlayer ? state.careerPlayer : null;
   let gateFlagUrl =
     !isShorts && hasRealPlayer ? resolvePlayerStatsNationalityFlagUrl(gateStatPlayer?.nationality) : null;
@@ -1765,7 +2929,9 @@ export function renderCareer() {
     ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoClub, readyPhotoVariantIdx)
     : Promise.resolve("");
   const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
-  const getPhotoUi = hasRealPlayer ? createCareerGetPhotoControls(playerName, readyPhotoClub) : null;
+  /* Team-name fake-info mode has no player photo workflow — only career-stats keeps Get photo / Switch. */
+  const getPhotoUi =
+    hasRealPlayer && !isFakeInfoQuiz() ? createCareerGetPhotoControls(playerName, readyPhotoClub) : null;
   const careerGetPhotoSuppressed = () =>
     !!(getState()?.videoMode || appState.isVideoPlaying);
   const showGetPhotoUiIfAllowed = () => {
@@ -2002,22 +3168,26 @@ export function renderCareer() {
     });
     ro.observe(svg);
   }
+
   if (!FOUR_PARAMS_HIDE_INLINE_PLAYER_PICKER && !hasRealPlayer && !shortsPreviewActive && !state.isOutro) {
     document.getElementById("career-inline-player-picker")?.remove();
+    const pickerTitle = fakeInfoQuiz ? "No team Selected" : "No Player Selected";
+    const pickerPlaceholder = fakeInfoQuiz ? "Search team name..." : "Search player name...";
+    const pickerHint = fakeInfoQuiz ? "Type team name to search." : "Type player name to search.";
     const picker = document.createElement("div");
     picker.id = "career-inline-player-picker";
     picker.className = "career-inline-player-picker";
     picker.innerHTML = `
-      <div class="career-inline-player-picker-title">No Player Selected</div>
+      <div class="career-inline-player-picker-title">${pickerTitle}</div>
       <input
         id="career-inline-player-search"
         class="career-inline-player-search"
         type="text"
         autocomplete="off"
-        placeholder="Search player name..."
+        placeholder="${pickerPlaceholder}"
       />
       <div id="career-inline-player-results" class="career-inline-player-results">
-        <div class="career-inline-player-hint">Type player name to search.</div>
+        <div class="career-inline-player-hint">${pickerHint}</div>
       </div>
     `;
     /* Mount on <body> so no transformed/filtered ancestor interferes with the
@@ -2032,7 +3202,7 @@ export function renderCareer() {
     clearBtn.id = "career-clear-player-btn";
     clearBtn.className = "career-clear-player-btn";
     clearBtn.textContent = "X";
-    clearBtn.setAttribute("aria-label", "Remove selected player");
+    clearBtn.setAttribute("aria-label", fakeInfoQuiz ? "Remove selected team" : "Remove selected player");
     /* Keep element in flex layout so the gap between param-grid and portrait-card
        stays constant across VM on/off and play-video states; just hide visually. */
     if (showClearPlayerButton) {
@@ -2052,6 +3222,7 @@ export function renderCareer() {
       const st = getState();
       if (!st) return;
       st.careerPlayer = null;
+      st.careerTeamQuizMode = false;
       st.careerHistory = [];
       if (appState.els?.careerSelectedInfo) {
         appState.els.careerSelectedInfo.innerHTML = "";
@@ -2597,7 +3768,7 @@ export function renderCareer() {
     }
   };
 
-  if (false /* Four-params shorts: always use the 4-params-card layout below, never the career-grid */) {
+  if (isShorts && !selectedAnyCardMode /* career-path grid + tall photo; team/player card modes use cluster below */) {
     if (showShortsCareerGrid) {
       const gridContainer = document.createElement("div");
       gridContainer.className = "career-grid career-grid--shorts-split";
@@ -2704,6 +3875,186 @@ export function renderCareer() {
     imageGroup.setAttribute("class", "career-image-group career-image-group--no-road");
 
     if (hasRealPlayer) {
+      if (selectedTeamCardMode) {
+        const teamName = String(state.careerPlayer?.club || state.careerPlayer?.name || "").trim();
+        const searchName = resolveClubAlias(teamName);
+        const foundTeam = searchName ? findBestCareerClubEntry(searchName) : null;
+        const displayTeamName = String(foundTeam?.name || teamName || searchName || "").trim();
+        const fileNameCandidates = [
+          displayTeamName,
+          teamName,
+          searchName,
+          foundTeam?.name,
+          /\bfc\b/i.test(displayTeamName)
+            ? displayTeamName.replace(/\s*\bfc\b\s*/i, "").trim()
+            : `${displayTeamName} FC`.trim(),
+        ];
+        const fallbackCandidatesRel = buildClubLogoCandidatesRel(fileNameCandidates, foundTeam);
+        const fallbackCandidates = Array.from(
+          new Set(
+            fallbackCandidatesRel
+              .filter(Boolean)
+              .map((rel) => freshenCareerImageUrl(projectAssetUrlFresh(rel))),
+          ),
+        );
+        let teamLogoRel = "";
+        if (foundTeam?.path) {
+          teamLogoRel = foundTeam.path
+            .replace(".Storage/Squad Formation/Teams/", "Images/Teams/")
+            .replace(".json", ".png");
+        }
+        const baseUrl = teamLogoRel ? projectAssetUrlFresh(teamLogoRel) : "";
+        const logoCacheKey = normalizeClubLookupKey(displayTeamName || teamName || searchName);
+        const cachedResolvedSrc = logoCacheKey
+          ? String(careerResolvedClubLogoSrcByKey.get(logoCacheKey) || "")
+          : "";
+        const candidateUrls = Array.from(
+          new Set([cachedResolvedSrc, baseUrl, ...fallbackCandidates].filter(Boolean)),
+        );
+
+        const teamQuizCard = document.createElement("div");
+        teamQuizCard.className = "career-team-quiz-card";
+
+        const teamLogoWrap = document.createElement("div");
+        teamLogoWrap.className = "career-team-quiz-card__logo-wrap";
+        const teamLogo = document.createElement("img");
+        teamLogo.className = "career-team-quiz-card__logo";
+        teamLogo.alt = "";
+        teamLogo.loading = "eager";
+        teamLogo.decoding = "async";
+        teamLogo.hidden = true;
+        const teamFallback = document.createElement("div");
+        teamFallback.className = "career-team-quiz-card__logo-fallback";
+        teamFallback.textContent = displayTeamName || teamName || "TEAM";
+        teamFallback.hidden = false;
+        const showTeamFallback = () => {
+          teamLogo.hidden = true;
+          teamFallback.hidden = false;
+        };
+        if (candidateUrls.length > 0) {
+          void applyCachedSrcChain(teamLogo, candidateUrls, {
+            onLoad: (resolvedUrl) => {
+              if (logoCacheKey) {
+                careerResolvedClubLogoSrcByKey.set(logoCacheKey, String(resolvedUrl || ""));
+              }
+              teamLogo.hidden = false;
+              teamFallback.hidden = true;
+            },
+            onFail: showTeamFallback,
+          });
+        } else {
+          showTeamFallback();
+        }
+        teamLogoWrap.appendChild(teamLogo);
+        teamLogoWrap.appendChild(teamFallback);
+        teamQuizCard.appendChild(teamLogoWrap);
+
+        const revealBar = document.createElement("div");
+        revealBar.className = "career-team-quiz-card__reveal";
+        const revealText = document.createElement("span");
+        revealText.className = "career-team-quiz-card__reveal-text";
+        const shouldRevealTeamName = !!previewState.previewPostTimer;
+        revealText.textContent = shouldRevealTeamName ? (displayTeamName || teamName).toUpperCase() : "?";
+        if (shouldRevealTeamName) revealText.classList.add("career-team-quiz-card__reveal-text--name");
+        revealBar.appendChild(revealText);
+        teamQuizCard.appendChild(revealBar);
+
+        attachFakeInfoTeamLogoMaskEditor({
+          state,
+          teamQuizCard,
+          logoWrap: teamLogoWrap,
+          logoImg: teamLogo,
+          teamFallbackEl: teamFallback,
+          previewPostTimer: !!previewState.previewPostTimer,
+        });
+
+        wrap.appendChild(teamQuizCard);
+        if (shouldRevealTeamName) {
+          scheduleFitCareerTeamRevealNameText(revealText);
+        }
+
+        appState.els.playerVoiceControls = null;
+        appState.els.playerVoicePlay = null;
+        appState.els.playerVoiceDelete = null;
+      } else if (selectedPlayerCardMode) {
+        /* Player-name quiz: structurally identical to the team-name card. Same DOM, same
+           classes, same CSS rules — so the box ends up the exact same size visually. The
+           only difference is the image source (player photo) and the reveal label (player
+           name), and we skip the mask/paint editor since this quiz has no logo to mask. */
+        const playerQuizCard = document.createElement("div");
+        playerQuizCard.className = "career-team-quiz-card";
+
+        const photoWrap = document.createElement("div");
+        photoWrap.className = "career-team-quiz-card__logo-wrap";
+        const photoImg = document.createElement("img");
+        photoImg.className = "career-team-quiz-card__logo";
+        photoImg.alt = "";
+        photoImg.loading = "eager";
+        photoImg.decoding = "async";
+        photoImg.hidden = true;
+        applyPlayerCardPhotoAdjustments(photoImg, state);
+        const photoFallback = document.createElement("div");
+        photoFallback.className = "career-team-quiz-card__logo-fallback";
+        photoFallback.textContent = playerName ? playerName.toUpperCase() : CAREER_NO_PHOTO_LABEL;
+        photoFallback.hidden = false;
+        const showPhotoFallback = () => {
+          photoImg.hidden = true;
+          photoFallback.hidden = false;
+        };
+        const hidePhotoFallback = () => {
+          photoImg.hidden = false;
+          photoFallback.hidden = true;
+        };
+        const setPhotoSrc = (u) => {
+          if (!photoImg.isConnected) return;
+          photoImg.addEventListener("load", hidePhotoFallback, { once: true });
+          photoImg.addEventListener("error", showPhotoFallback, { once: true });
+          photoImg.src = u;
+        };
+        void readyPhotoPick.then((chosenUrl) => {
+          if (!chosenUrl || !photoImg.isConnected) {
+            showPhotoFallback();
+            return;
+          }
+          const syncUrl = careerPlayerResolvedUrlSync.get(chosenUrl);
+          if (syncUrl) {
+            setPhotoSrc(syncUrl);
+          } else {
+            void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
+              setPhotoSrc(resolvedUrl || chosenUrl);
+            });
+          }
+        });
+        photoWrap.appendChild(photoImg);
+        photoWrap.appendChild(photoFallback);
+        playerQuizCard.appendChild(photoWrap);
+
+        const playerRevealBar = document.createElement("div");
+        playerRevealBar.className = "career-team-quiz-card__reveal";
+        const playerRevealText = document.createElement("span");
+        playerRevealText.className = "career-team-quiz-card__reveal-text";
+        const shouldRevealPlayerName = !!previewState.previewPostTimer;
+        playerRevealText.textContent = shouldRevealPlayerName ? playerName.toUpperCase() : "?";
+        if (shouldRevealPlayerName) {
+          playerRevealText.classList.add("career-team-quiz-card__reveal-text--name");
+        }
+        playerRevealBar.appendChild(playerRevealText);
+        playerQuizCard.appendChild(playerRevealBar);
+
+        wrap.appendChild(playerQuizCard);
+        if (shouldRevealPlayerName) {
+          scheduleFitCareerTeamRevealNameText(playerRevealText);
+        }
+        /* Bulletproof: nuke any legacy player-stats nodes that may have slipped in. */
+        wrap.querySelectorAll(
+          ".career-svg, .career-param-grid, .career-param-cluster, .career-portrait-card, .career-player-controls-row, #career-reveal-overlay, #career-reveal-name, #career-reveal-photo, .player-stats-national-flag",
+        ).forEach((n) => n.remove());
+
+        appState.els.playerVoiceControls = null;
+        appState.els.playerVoicePlay = null;
+        appState.els.playerVoiceDelete = null;
+        syncPlayerVoiceControlsForActivePlayer(playerName);
+      } else {
       const paramGrid = document.createElement("div");
       paramGrid.className = "career-param-grid";
       paramGrid.setAttribute("aria-hidden", "true");
@@ -2784,9 +4135,10 @@ export function renderCareer() {
       appState.els.playerVoicePlay = null;
       appState.els.playerVoiceDelete = null;
       syncPlayerVoiceControlsForActivePlayer(playerName);
+      }
     }
 
-    if (!FOUR_PARAMS_HIDE_PLAYER_IMAGES) {
+    if (!fakeInfoQuiz && !selectedPlayerCardMode && !FOUR_PARAMS_HIDE_PLAYER_IMAGES) {
       const revealOverlay = document.createElement("div");
       revealOverlay.id = "career-reveal-overlay";
       revealOverlay.className = "career-reveal-overlay";
@@ -2828,6 +4180,7 @@ export function renderCareer() {
       appendPlayerStatsRegularRevealToApp(revealOverlay);
     }
 
+    if (!fakeInfoQuiz) {
     const revealName = document.createElement("div");
     revealName.id = "career-reveal-name";
     revealName.className = "career-reveal-name";
@@ -2889,6 +4242,7 @@ export function renderCareer() {
       preservedFlag = null;
     }
   }
+  }
 
   bindCareerLogoYearAlignment(wrap);
   const statsPanelRoot = document.getElementById("player-stats-panel");
@@ -2932,6 +4286,39 @@ export function renderCareer() {
       }
     }
   }
+  const teamRevealTextEl = wrap.querySelector(".career-team-quiz-card__reveal-text");
+  if (teamRevealTextEl) {
+    const isPlayerCardMode = document.body.classList.contains("career-player-card-mode");
+    const teamLabel = isPlayerCardMode
+      ? String(state.careerPlayer?.name || "").trim().toUpperCase()
+      : String(state.careerPlayer?.club || state.careerPlayer?.name || "").trim().toUpperCase();
+    if (previewPostTimer && teamLabel) {
+      teamRevealTextEl.textContent = teamLabel;
+      teamRevealTextEl.classList.add("career-team-quiz-card__reveal-text--name");
+      scheduleFitCareerTeamRevealNameText(teamRevealTextEl);
+    } else {
+      clearCareerTeamRevealNameFit(teamRevealTextEl);
+      teamRevealTextEl.textContent = "?";
+      teamRevealTextEl.classList.remove("career-team-quiz-card__reveal-text--name");
+    }
+  }
+  const teamLogoMaskEl = wrap.querySelector(".career-team-quiz-card__logo-mask");
+  if (teamLogoMaskEl) {
+    teamLogoMaskEl.classList.toggle("is-revealed", !!previewPostTimer);
+  }
+  const teamLogoPunchEl = wrap.querySelector(".career-team-quiz-card__logo-punch");
+  const teamLogoImgEl = wrap.querySelector(".career-team-quiz-card__logo");
+  const restoredPunch = teamLogoPunchEl
+    ? restoreTeamLogoPunchCanvasFromState(state, teamLogoPunchEl, teamLogoImgEl)
+    : false;
+  if (teamLogoPunchEl) {
+    teamLogoPunchEl.classList.toggle("is-revealed", !!previewPostTimer);
+  }
+  if (previewPostTimer && teamLogoImgEl && restoredPunch) {
+    teamLogoImgEl.style.opacity = "";
+  } else if (!restoredPunch && teamLogoImgEl && (!teamLogoPunchEl || teamLogoPunchEl.hidden)) {
+    teamLogoImgEl.style.opacity = "";
+  }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
   const careerGrid = wrap.querySelector(".career-grid");
   const revealOverlay = document.getElementById("career-reveal-overlay");
@@ -2959,6 +4346,8 @@ export function renderCareer() {
       appState.els.teamHeader.classList.toggle("cinematic-reveal", previewPostTimer && !skipCinematicDim);
     }
   }
+
+  document.body.classList.toggle("four-params-vm-off-reveal", shouldFourParamsVmOffPostReveal(state));
 
   syncCareerSlotControlsVisibility();
   renderCareerPictureControls(wrap, state);
@@ -3000,6 +4389,39 @@ export function refreshCareerRevealStateOnly() {
         markEl.classList.remove("career-portrait-card__mystery-mark--name");
       }
     }
+  }
+  const teamRevealTextEl = wrap.querySelector(".career-team-quiz-card__reveal-text");
+  if (teamRevealTextEl) {
+    const isPlayerCardMode = document.body.classList.contains("career-player-card-mode");
+    const teamLabel = isPlayerCardMode
+      ? String(state.careerPlayer?.name || "").trim().toUpperCase()
+      : String(state.careerPlayer?.club || state.careerPlayer?.name || "").trim().toUpperCase();
+    if (previewPostTimer && teamLabel) {
+      teamRevealTextEl.textContent = teamLabel;
+      teamRevealTextEl.classList.add("career-team-quiz-card__reveal-text--name");
+      scheduleFitCareerTeamRevealNameText(teamRevealTextEl);
+    } else {
+      clearCareerTeamRevealNameFit(teamRevealTextEl);
+      teamRevealTextEl.textContent = "?";
+      teamRevealTextEl.classList.remove("career-team-quiz-card__reveal-text--name");
+    }
+  }
+  const teamLogoMaskEl = wrap.querySelector(".career-team-quiz-card__logo-mask");
+  if (teamLogoMaskEl) {
+    teamLogoMaskEl.classList.toggle("is-revealed", !!previewPostTimer);
+  }
+  const teamLogoPunchEl = wrap.querySelector(".career-team-quiz-card__logo-punch");
+  const teamLogoImgEl = wrap.querySelector(".career-team-quiz-card__logo");
+  const restoredPunch = teamLogoPunchEl
+    ? restoreTeamLogoPunchCanvasFromState(state, teamLogoPunchEl, teamLogoImgEl)
+    : false;
+  if (teamLogoPunchEl) {
+    teamLogoPunchEl.classList.toggle("is-revealed", !!previewPostTimer);
+  }
+  if (previewPostTimer && teamLogoImgEl && restoredPunch) {
+    teamLogoImgEl.style.opacity = "";
+  } else if (!restoredPunch && teamLogoImgEl && (!teamLogoPunchEl || teamLogoPunchEl.hidden)) {
+    teamLogoImgEl.style.opacity = "";
   }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
   const careerGrid = wrap.querySelector(".career-grid");
@@ -3058,11 +4480,12 @@ function mountCareerPictureControlsPanel(panel) {
 function renderCareerPictureControls(wrap, state) {
   if (!wrap) return;
   const isShorts = document.body.classList.contains("shorts-mode");
+  const fakeInfoQuiz = isFakeInfoQuiz();
   const useShortsPanelLayout = false;
   /* Only hide while Play Video is actively running. The same box controls both the
      silhouette (pre-timer) and the revealed photo (post-timer) — see
      applyCareerSilhouetteAdjustments + applyCareerRevealAdjustments in the click handler. */
-  const hide = appState.isVideoPlaying;
+  const hide = appState.isVideoPlaying || fakeInfoQuiz;
 
   let panel = document.getElementById("career-picture-controls-floating");
   if (!panel) {
@@ -3144,6 +4567,14 @@ function renderCareerPictureControls(wrap, state) {
       const silhouette = activeWrap?.querySelector(".career-silhouette");
       if (silhouette) {
         applyCareerSilhouetteAdjustments(silhouette, st);
+      }
+      /* Player-name boxed card: same Up/Down + Width + Height controls, applied as a simple
+         translate + scale on the photo (no SVG transforms, since the card is plain HTML). */
+      if (document.body.classList.contains("career-player-card-mode")) {
+        const playerCardPhoto = activeWrap?.querySelector(".career-team-quiz-card__logo");
+        if (playerCardPhoto) {
+          applyPlayerCardPhotoAdjustments(playerCardPhoto, st);
+        }
       }
       /* Four-params portrait card: the same `--sil-*` vars drive the inline portrait
          photo for both silhouette (pre-timer) AND revealed (post-timer) states, so one

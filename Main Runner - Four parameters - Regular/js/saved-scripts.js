@@ -1153,8 +1153,6 @@ async function loadScript(script) {
 
     applyTransitionSettings(script.transitions || null);
 
-    if(uiCallbacks.updateLanding) uiCallbacks.updateLanding();
-
     appState.totalLevelsCount = script.levels.length - 1;
     appState.levelsData = script.levels.map(lvl => ({
         ...lvl,
@@ -1208,6 +1206,16 @@ async function loadScript(script) {
         careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
         careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
     }));
+
+    if (els.quizLevelsInput) {
+        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
+        const fromLineup = parseInt(String(script.lineup?.totalLevels ?? ""), 10);
+        els.quizLevelsInput.value = String(
+            Math.max(1, fromLevels > 0 ? fromLevels : (Number.isFinite(fromLineup) ? fromLineup : 30)),
+        );
+    }
+
+    if (uiCallbacks.updateLanding) uiCallbacks.updateLanding();
 
     els.teamSearch.value = "";
     els.teamSearch.classList.remove("team-selected");

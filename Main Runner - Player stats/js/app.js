@@ -617,7 +617,11 @@ export function updateLanding() {
     renderLandingTitleVoiceControls();
 
     const landingQuestionsCount = document.getElementById("landing-questions-count");
-    if (landingQuestionsCount) landingQuestionsCount.textContent = String(landingDifficultyTotalQuestionsForLevels());
+    if (landingQuestionsCount) {
+        landingQuestionsCount.textContent = String(
+            Math.max(0, landingDifficultyTotalQuestionsForLevels() - 1),
+        );
+    }
 
     const showSpecial = document.getElementById("in-specific-title-toggle").checked;
     document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
@@ -815,8 +819,23 @@ async function init() {
     // Listeners
     els.inQuizType.onchange = () => {
         updateSetupUI();
+        /* Switching quiz type discards any loaded levels so the new quiz starts from a
+           clean slate (same as a fresh run_site open). */
+        let levels = parseInt(els.quizLevelsInput.value, 10);
+        if (isNaN(levels) || levels < 1) levels = 30;
+        appState.levelsData = [];
+        initLevels(levels - 1);
+        appState.currentLevelIndex = 1;
+        const totalQuestions = landingDifficultyTotalQuestionsForLevels();
+        const { easy, medium, hard, impossible } =
+            computeLandingDifficultyDistribution(totalQuestions);
+        els.inEasy.value = String(easy);
+        els.inMedium.value = String(medium);
+        els.inHard.value = String(hard);
+        els.inImpossible.value = String(impossible);
         updateLanding();
         renderSavedScripts();
+        switchLevel(appState.currentLevelIndex);
     };
 
     els.inEndingType.onchange = () => {

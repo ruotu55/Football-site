@@ -41,6 +41,7 @@ import {
   fakeInfoPickForLevel,
   fakeInfoPositionAbbrev,
 } from "./fake-info-mode.js";
+import { renderVoiceTab } from "./voice-tab.js";
 
 const READY_PHOTO_FROM_URL_ENDPOINT = "/__ready-photo/from-url";
 const READY_PHOTO_FROM_URL_FETCH_MS = 120000;
@@ -1878,6 +1879,30 @@ function applyCareerSilhouetteAdjustments(silhouetteEl, st, { noExtraDown = fals
   silhouetteEl.style.setProperty("--sil-scale-y", String(finalScaleY));
 }
 
+/* Apply Adjust Picture (Up/Down + Width + Height) to the player-card-mode photo.
+   Baseline is neutral so the player card matches the same square framing as team mode.
+   Each Up/Down tick adds ±2%; Width/Height scale stacks multiplicatively from 1.00. */
+const PLAYER_CARD_PHOTO_BASELINE_Y_PCT = 3;
+const PLAYER_CARD_PHOTO_BASELINE_SCALE = 1.0773;
+function applyPlayerCardPhotoAdjustments(photoEl, st) {
+  if (!photoEl) return;
+  const yOffset = Number(st?.silhouetteYOffset ?? 0);
+  const scaleX = Number(st?.silhouetteScaleX ?? 1);
+  const scaleY = Number(st?.silhouetteScaleY ?? 1);
+  const safeY = Number.isFinite(yOffset) ? yOffset : 0;
+  const safeSx = Number.isFinite(scaleX) && scaleX > 0 ? scaleX : 1;
+  const safeSy = Number.isFinite(scaleY) && scaleY > 0 ? scaleY : 1;
+  const translatePct = PLAYER_CARD_PHOTO_BASELINE_Y_PCT + safeY * 2;
+  const finalSx = PLAYER_CARD_PHOTO_BASELINE_SCALE * safeSx;
+  const finalSy = PLAYER_CARD_PHOTO_BASELINE_SCALE * safeSy;
+  photoEl.style.setProperty("transform-origin", "50% 100%");
+  photoEl.style.setProperty(
+    "transform",
+    `translateY(${translatePct}%) scale(${finalSx}, ${finalSy})`,
+    "important",
+  );
+}
+
 function applyCareerRevealAdjustments(wrapEl, st) {
   if (!wrapEl) return;
   const yOffset = Number(st?.silhouetteYOffset ?? DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET);
@@ -2821,7 +2846,20 @@ export function renderCareer() {
   )
     .trim()
     .toUpperCase();
+  const quizTypeValue = String(
+    quizTypeControl?.value || document.getElementById("in-quiz-type")?.value || "",
+  );
+  /* Player-name quiz reuses the same box layout (photo + reveal text) but with player photo
+     instead of team logo, and without the mask/paint editor. Drive this purely off the quiz-type
+     value so stale state flags (e.g. careerTeamQuizMode left over from a previous session) can't
+     block it. Also accept the textContent fallback so a custom-select wrapper can't desync. */
+  const selectedPlayerCardMode =
+    hasRealPlayer &&
+    !fakeInfoQuiz &&
+    (quizTypeValue === "player-by-career-stats" ||
+      (quizTypeValue !== "player-by-fake-info" && quizTypeLabel.includes("PLAYER NAME")));
   const selectedTeamCardMode =
+    !selectedPlayerCardMode &&
     hasRealPlayer &&
     (
       !!state.careerTeamQuizMode ||
@@ -2835,12 +2873,15 @@ export function renderCareer() {
         !String(state.careerPlayer?.position || "").trim()
       )
     );
-  document.body.classList.toggle("career-team-card-mode", !!selectedTeamCardMode);
+  const selectedAnyCardMode = selectedTeamCardMode || selectedPlayerCardMode;
+  document.body.classList.toggle("career-team-card-mode", !!selectedAnyCardMode);
+  document.body.classList.toggle("career-player-card-mode", !!selectedPlayerCardMode);
   const gateStatPlayer = hasRealPlayer ? state.careerPlayer : null;
   let gateFlagUrl =
     !isShorts && hasRealPlayer ? resolvePlayerStatsNationalityFlagUrl(gateStatPlayer?.nationality) : null;
   if (FOUR_PARAMS_HIDE_NATIONALITY_FLAG) gateFlagUrl = null;
-  const useTeamUnifiedVisualGate = !isShorts && hasRealPlayer && appState.isVideoPlaying && !fakeInfoQuiz;
+  const useTeamUnifiedVisualGate =
+    !isShorts && hasRealPlayer && appState.isVideoPlaying && !fakeInfoQuiz && !selectedPlayerCardMode;
   const playerVisualGate = useTeamUnifiedVisualGate ? { silhouette: false, flag: false } : null;
   function tryReleasePlayerFlagVisualGate() {
     if (!playerVisualGate || !wrap.classList.contains("career-player-visual-pending")) return;
@@ -2887,9 +2928,12 @@ export function renderCareer() {
     ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoClub, readyPhotoVariantIdx)
     : Promise.resolve("");
   const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
-  /* Team-name fake-info mode has no player photo workflow — only career-stats keeps Get photo / Switch. */
+  /* Team-name fake-info mode and player-name boxed-card mode skip the Get photo / Switch workflow —
+     these card layouts don't host the photo-loader UI. */
   const getPhotoUi =
-    hasRealPlayer && !isFakeInfoQuiz() ? createCareerGetPhotoControls(playerName, readyPhotoClub) : null;
+    hasRealPlayer && !isFakeInfoQuiz() && !selectedPlayerCardMode
+      ? createCareerGetPhotoControls(playerName, readyPhotoClub)
+      : null;
   const careerGetPhotoSuppressed = () =>
     !!(getState()?.videoMode || appState.isVideoPlaying);
   const showGetPhotoUiIfAllowed = () => {
@@ -3100,7 +3144,7 @@ export function renderCareer() {
     }
   };
 
-  if (hasRealPlayer) {
+  if (hasRealPlayer && !selectedPlayerCardMode) {
     void readyPhotoPick.then((chosenUrl) => {
       if (!image.isConnected) return;
       applyReadyPhotoToSilhouette(chosenUrl);
@@ -3108,12 +3152,15 @@ export function renderCareer() {
   } else {
     image.setAttribute("visibility", "hidden");
     missingLabel.setAttribute("visibility", "hidden");
+    if (selectedPlayerCardMode) markSilhouetteGateReady();
   }
 
   imageGroup.appendChild(image);
   imageGroup.appendChild(missingLabel);
   svg.appendChild(imageGroup);
-  wrap.appendChild(svg);
+  if (!selectedPlayerCardMode) {
+    wrap.appendChild(svg);
+  }
   if (typeof ResizeObserver !== "undefined") {
     const ro = new ResizeObserver(() => {
       if (!image.isConnected || !image.naturalWidth) return;
@@ -3716,7 +3763,7 @@ export function renderCareer() {
     }
   };
 
-  if (isShorts && !selectedTeamCardMode) {
+  if (isShorts && !selectedAnyCardMode) {
     if (showShortsCareerGrid) {
       const gridContainer = document.createElement("div");
       gridContainer.className = "career-grid career-grid--shorts-split";
@@ -3899,12 +3946,39 @@ export function renderCareer() {
 
         const revealBar = document.createElement("div");
         revealBar.className = "career-team-quiz-card__reveal";
+        revealBar.title = "Double-click to rename this team";
+        revealBar.style.cursor = "pointer";
         const revealText = document.createElement("span");
         revealText.className = "career-team-quiz-card__reveal-text";
         const shouldRevealTeamName = !!previewState.previewPostTimer;
         revealText.textContent = shouldRevealTeamName ? (displayTeamName || teamName).toUpperCase() : "?";
         if (shouldRevealTeamName) revealText.classList.add("career-team-quiz-card__reveal-text--name");
         revealBar.appendChild(revealText);
+        /* Double-click to rename the team for this level. The new name flows into the voice
+           tab automatically (Teams Names lookup uses careerPlayer.name), so the user can
+           generate or pick an existing voice clip for the renamed team. */
+        revealBar.addEventListener("dblclick", (e) => {
+          if (appState.isVideoPlaying) return;
+          e.preventDefault();
+          e.stopPropagation();
+          const st = getState();
+          if (!st?.careerPlayer) return;
+          const currentDisplay = String(
+            st.careerPlayer.name || st.careerPlayer.club || displayTeamName || teamName || "",
+          ).trim();
+          const nextRaw = window.prompt(
+            "Enter a custom team name for this level.",
+            currentDisplay,
+          );
+          if (nextRaw === null) return;
+          const nextName = String(nextRaw || "").trim();
+          if (!nextName || nextName === currentDisplay) return;
+          st.careerPlayer.name = nextName;
+          st.careerPlayer.club = nextName;
+          renderCareer();
+          renderHeader();
+          renderVoiceTab();
+        });
         teamQuizCard.appendChild(revealBar);
 
         attachFakeInfoTeamLogoMaskEditor({
@@ -3924,6 +3998,84 @@ export function renderCareer() {
         appState.els.playerVoiceControls = null;
         appState.els.playerVoicePlay = null;
         appState.els.playerVoiceDelete = null;
+      } else if (selectedPlayerCardMode) {
+        /* Player-name quiz: structurally identical to the team-name card. Same DOM, same
+           classes, same CSS rules — so the box ends up the exact same size visually. The
+           only difference is the image source (player photo) and the reveal label (player
+           name), and we skip the mask/paint editor since this quiz has no logo to mask. */
+        const playerQuizCard = document.createElement("div");
+        playerQuizCard.className = "career-team-quiz-card";
+
+        const photoWrap = document.createElement("div");
+        photoWrap.className = "career-team-quiz-card__logo-wrap";
+        const photoImg = document.createElement("img");
+        photoImg.className = "career-team-quiz-card__logo";
+        photoImg.alt = "";
+        photoImg.loading = "eager";
+        photoImg.decoding = "async";
+        photoImg.hidden = true;
+        applyPlayerCardPhotoAdjustments(photoImg, state);
+        const photoFallback = document.createElement("div");
+        photoFallback.className = "career-team-quiz-card__logo-fallback";
+        photoFallback.textContent = playerName ? playerName.toUpperCase() : CAREER_NO_PHOTO_LABEL;
+        photoFallback.hidden = false;
+        const showPhotoFallback = () => {
+          photoImg.hidden = true;
+          photoFallback.hidden = false;
+        };
+        const hidePhotoFallback = () => {
+          photoImg.hidden = false;
+          photoFallback.hidden = true;
+        };
+        const setPhotoSrc = (u) => {
+          if (!photoImg.isConnected) return;
+          photoImg.addEventListener("load", hidePhotoFallback, { once: true });
+          photoImg.addEventListener("error", showPhotoFallback, { once: true });
+          photoImg.src = u;
+        };
+        void readyPhotoPick.then((chosenUrl) => {
+          if (!chosenUrl || !photoImg.isConnected) {
+            showPhotoFallback();
+            return;
+          }
+          const syncUrl = careerPlayerResolvedUrlSync.get(chosenUrl);
+          if (syncUrl) {
+            setPhotoSrc(syncUrl);
+          } else {
+            void resolveCareerPlayerPhotoUrl(chosenUrl).then((resolvedUrl) => {
+              setPhotoSrc(resolvedUrl || chosenUrl);
+            });
+          }
+        });
+        photoWrap.appendChild(photoImg);
+        photoWrap.appendChild(photoFallback);
+        playerQuizCard.appendChild(photoWrap);
+
+        const playerRevealBar = document.createElement("div");
+        playerRevealBar.className = "career-team-quiz-card__reveal";
+        const playerRevealText = document.createElement("span");
+        playerRevealText.className = "career-team-quiz-card__reveal-text";
+        const shouldRevealPlayerName = !!previewState.previewPostTimer;
+        playerRevealText.textContent = shouldRevealPlayerName ? playerName.toUpperCase() : "?";
+        if (shouldRevealPlayerName) {
+          playerRevealText.classList.add("career-team-quiz-card__reveal-text--name");
+        }
+        playerRevealBar.appendChild(playerRevealText);
+        playerQuizCard.appendChild(playerRevealBar);
+
+        wrap.appendChild(playerQuizCard);
+        if (shouldRevealPlayerName) {
+          scheduleFitCareerTeamRevealNameText(playerRevealText);
+        }
+        /* Bulletproof: nuke any legacy player-stats nodes that may have slipped in. */
+        wrap.querySelectorAll(
+          ".career-svg, .career-param-grid, .career-param-cluster, .career-portrait-card, .career-player-controls-row, #career-reveal-overlay, #career-reveal-name, #career-reveal-photo, .player-stats-national-flag",
+        ).forEach((n) => n.remove());
+
+        appState.els.playerVoiceControls = null;
+        appState.els.playerVoicePlay = null;
+        appState.els.playerVoiceDelete = null;
+        syncPlayerVoiceControlsForActivePlayer(playerName);
       } else {
         const paramGrid = document.createElement("div");
         paramGrid.className = "career-param-grid";
@@ -4021,7 +4173,7 @@ export function renderCareer() {
       }
     }
 
-    if (!fakeInfoQuiz && !FOUR_PARAMS_HIDE_PLAYER_IMAGES) {
+    if (!fakeInfoQuiz && !selectedPlayerCardMode && !FOUR_PARAMS_HIDE_PLAYER_IMAGES) {
       const revealOverlay = document.createElement("div");
       revealOverlay.id = "career-reveal-overlay";
       revealOverlay.className = "career-reveal-overlay";
@@ -4063,7 +4215,7 @@ export function renderCareer() {
       appendPlayerStatsRegularRevealToApp(revealOverlay);
     }
 
-    if (!fakeInfoQuiz) {
+    if (!fakeInfoQuiz && !selectedPlayerCardMode) {
       const revealName = document.createElement("div");
       revealName.id = "career-reveal-name";
       revealName.className = "career-reveal-name";
@@ -4171,7 +4323,10 @@ export function renderCareer() {
   }
   const teamRevealTextEl = wrap.querySelector(".career-team-quiz-card__reveal-text");
   if (teamRevealTextEl) {
-    const teamLabel = String(state.careerPlayer?.club || state.careerPlayer?.name || "").trim().toUpperCase();
+    const isPlayerCardMode = document.body.classList.contains("career-player-card-mode");
+    const teamLabel = isPlayerCardMode
+      ? String(state.careerPlayer?.name || "").trim().toUpperCase()
+      : String(state.careerPlayer?.club || state.careerPlayer?.name || "").trim().toUpperCase();
     if (previewPostTimer && teamLabel) {
       teamRevealTextEl.textContent = teamLabel;
       teamRevealTextEl.classList.add("career-team-quiz-card__reveal-text--name");
@@ -4272,7 +4427,10 @@ export function refreshCareerRevealStateOnly() {
   }
   const teamRevealTextEl = wrap.querySelector(".career-team-quiz-card__reveal-text");
   if (teamRevealTextEl) {
-    const teamLabel = String(state.careerPlayer?.club || state.careerPlayer?.name || "").trim().toUpperCase();
+    const isPlayerCardMode = document.body.classList.contains("career-player-card-mode");
+    const teamLabel = isPlayerCardMode
+      ? String(state.careerPlayer?.name || "").trim().toUpperCase()
+      : String(state.careerPlayer?.club || state.careerPlayer?.name || "").trim().toUpperCase();
     if (previewPostTimer && teamLabel) {
       teamRevealTextEl.textContent = teamLabel;
       teamRevealTextEl.classList.add("career-team-quiz-card__reveal-text--name");
@@ -4446,6 +4604,14 @@ function renderCareerPictureControls(wrap, state) {
       const silhouette = activeWrap?.querySelector(".career-silhouette");
       if (silhouette) {
         applyCareerSilhouetteAdjustments(silhouette, st);
+      }
+      /* Player-name boxed card: same Up/Down + Width + Height controls, applied as a simple
+         translate + scale on the photo (no SVG transforms, since the card is plain HTML). */
+      if (document.body.classList.contains("career-player-card-mode")) {
+        const playerCardPhoto = activeWrap?.querySelector(".career-team-quiz-card__logo");
+        if (playerCardPhoto) {
+          applyPlayerCardPhotoAdjustments(playerCardPhoto, st);
+        }
       }
       /* Four-params portrait card: the same `--sil-*` vars drive the inline portrait
          photo for both silhouette (pre-timer) AND revealed (post-timer) states, so one

@@ -10,6 +10,7 @@ import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
+import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
 
 const INCLUDE_INTRO_LEVEL = true;
 
@@ -264,15 +265,110 @@ function renderImportErrors({ container, errors, searchableNames, items, display
 }
 
 function parseImportText(text) {
-    let s = String(text || "").trim();
+    let s = String(text || "").trim().replace(/^\uFEFF/, "");
     if (!s) return { error: "Paste the import text first." };
     if (s.startsWith("[")) s = s.slice(1);
     if (s.endsWith("]")) s = s.slice(0, -1);
-    const names = s.split(",").map(n => n.trim()).filter(Boolean);
+    const names = s
+        .split(/[,，]/)
+        .map((n) => n.replace(/\s+/g, " ").trim())
+        .filter(Boolean);
     if (names.length === 0) {
-        return { error: "No players found. Use format: [Player1, Player2, Player3]" };
+        return { error: "No names found. Use format: [Name1, Name2, Name3]" };
     }
     return { names };
+}
+
+function stripCommonClubPrefixes(norm) {
+    return String(norm || "")
+        .replace(/^\s*(fk|fc|acf|ac|as|ssc|sc|sv|cf)\s+/i, "")
+        .trim();
+}
+
+function stripTrailingClubSuffixes(norm) {
+    return String(norm || "")
+        .replace(/\s+(afc|fc|cf|sc)\s*$/i, "")
+        .trim();
+}
+
+function squashClubArticles(norm) {
+    return String(norm || "")
+        .replace(/-/g, " ")
+        .replace(/\b(de|del|da|do|the|of)\b/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function clubKeyForMatch(name) {
+    return stripTrailingClubSuffixes(
+        squashClubArticles(stripCommonClubPrefixes(normalizeForImport(name))),
+    );
+}
+
+/** Same shape as `createCareerTeamFromEntry` in app.js (team-name / fake-info levels). */
+function createSyntheticTeamCareerPlayer(entry) {
+    const teamName = String(entry?.name || "").trim();
+    return {
+        name: teamName,
+        club: teamName,
+        nationality: String(entry?.country || entry?.region || "").trim(),
+        position: "",
+        age: null,
+        shirt_number: null,
+        transfer_history: [{ club: teamName, year: "TEAM" }],
+        _clubItem: entry || null,
+    };
+}
+
+/**
+ * Resolve pasted team labels to `teams-index` club entries (exact / fuzzy).
+ * Mirrors player import disambiguation when multiple clubs match.
+ */
+function findAllClubCandidates(rawName, clubs) {
+    if (!Array.isArray(clubs) || clubs.length === 0) return [];
+    const raw = String(rawName || "").trim();
+    let query = clubKeyForMatch(raw);
+    if (!query) return [];
+
+    if (/^rb\s+/i.test(raw)) {
+        query = clubKeyForMatch(raw.replace(/^\s*rb\s+/i, "Red Bull "));
+    }
+
+    let hits = clubs.filter((c) => clubKeyForMatch(c.name) === query);
+    if (hits.length > 0) return hits;
+
+    const nickToSubstring = {
+        wolves: "wolverhampton",
+        spurs: "tottenham",
+    };
+    const nickSub = nickToSubstring[query];
+    if (nickSub) {
+        hits = clubs.filter((c) => clubKeyForMatch(c.name).includes(nickSub));
+        if (hits.length > 0) {
+            hits.sort((a, b) => clubKeyForMatch(b.name).length - clubKeyForMatch(a.name).length);
+            return hits;
+        }
+    }
+
+    const boundaryRe =
+        query.length >= 3
+            ? new RegExp(`(?:^|[\\s/])${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:$|[\\s/])`)
+            : null;
+
+    hits = clubs.filter((c) => {
+        const k = clubKeyForMatch(c.name);
+        if (!k) return false;
+        if (k === query) return true;
+        if (boundaryRe && boundaryRe.test(k)) return true;
+        if (query.length >= 6 && k.includes(query)) return true;
+        if (query.length >= 6 && query.includes(k)) return true;
+        return false;
+    });
+
+    if (hits.length > 1) {
+        hits.sort((a, b) => clubKeyForMatch(b.name).length - clubKeyForMatch(a.name).length);
+    }
+    return hits;
 }
 
 function findAllBySurnameInitialsPattern(rawName, allPlayers) {
@@ -519,6 +615,7 @@ export function initSavedScripts(callbacks) {
                 ? [...lvl.careerSlotYearNudges]
                 : [],
             slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
+            careerTeamQuizMode: !!lvl.careerTeamQuizMode,
         }));
     }
 
@@ -679,8 +776,11 @@ export function initSavedScripts(callbacks) {
                     const p = candidates[ci];
                     const opt = document.createElement("option");
                     opt.value = String(ci);
-                    const club = (p?._clubItem?.name) || p?.club || "?";
-                    opt.textContent = `${p.name} (${club})`;
+                    const isTeamIndexEntry =
+                        !!(p && typeof p.path === "string" && typeof p.league === "string");
+                    opt.textContent = isTeamIndexEntry
+                        ? `${p.name} — ${p.country || "?"} / ${p.league}`
+                        : `${p.name} (${(p?._clubItem?.name) || p?.club || "?"})`;
                     select.appendChild(opt);
                 }
                 row.appendChild(label);
@@ -745,43 +845,77 @@ export function initSavedScripts(callbacks) {
                 if (parsed.error) { showErr(parsed.error); return; }
                 const { names } = parsed;
 
-                let allPlayers;
-                try {
-                    allPlayers = typeof appState.loadAllGlobalPlayers === "function"
-                        ? await appState.loadAllGlobalPlayers()
-                        : (appState.allGlobalPlayers || []);
-                } catch {
-                    allPlayers = appState.allGlobalPlayers || [];
-                }
-                if (!allPlayers || allPlayers.length === 0) {
-                    showErr("Player database not loaded yet. Try again in a moment.");
-                    return;
-                }
+                const quizType = els.inQuizType?.value || "player-by-career-stats";
+                const importTeams = quizType === FAKE_INFO_QUIZ_TYPE;
 
                 const errors = [];
                 const searchableNames = new Set();
                 const resolved = new Array(names.length).fill(null);
                 const ambiguous = [];
-                for (let i = 0; i < names.length; i++) {
-                    const rawName = names[i];
-                    const cands = findAllPlayerCandidates(rawName, allPlayers);
-                    if (cands.length === 0) {
-                        errors.push(`\u274C ${rawName}: player not found.`);
-                        searchableNames.add(rawName);
-                    } else if (cands.length === 1) {
-                        resolved[i] = cands[0];
-                    } else {
-                        ambiguous.push({ listIndex: i, rawName, candidates: cands });
+                let disambigItems = [];
+                let disambigDisplayFn = (x) => String(x);
+                let disambigModalTitle = "Pick a match";
+
+                if (importTeams) {
+                    const clubs = appState.teamsIndex?.clubs || [];
+                    if (!clubs.length) {
+                        showErr("Team list not loaded yet. Wait for the app to finish loading, then try again.");
+                        return;
+                    }
+                    disambigItems = clubs;
+                    disambigDisplayFn = (c) =>
+                        `${c?.name || "?"} — ${c?.country || "?"} / ${c?.league || "?"}`;
+                    disambigModalTitle = "Search a team";
+                    for (let i = 0; i < names.length; i++) {
+                        const rawName = names[i];
+                        const cands = findAllClubCandidates(rawName, clubs);
+                        if (cands.length === 0) {
+                            errors.push(`\u274C ${rawName}: team not found in index.`);
+                            searchableNames.add(rawName);
+                        } else if (cands.length === 1) {
+                            resolved[i] = cands[0];
+                        } else {
+                            ambiguous.push({ listIndex: i, rawName, candidates: cands });
+                        }
+                    }
+                } else {
+                    let allPlayers;
+                    try {
+                        allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+                            ? await appState.loadAllGlobalPlayers()
+                            : (appState.allGlobalPlayers || []);
+                    } catch {
+                        allPlayers = appState.allGlobalPlayers || [];
+                    }
+                    if (!allPlayers || allPlayers.length === 0) {
+                        showErr("Player database not loaded yet. Try again in a moment.");
+                        return;
+                    }
+                    disambigItems = allPlayers;
+                    disambigDisplayFn = (p) => `${p.name} - ${p?._clubItem?.name || "?"}`;
+                    disambigModalTitle = "Search a player";
+                    for (let i = 0; i < names.length; i++) {
+                        const rawName = names[i];
+                        const cands = findAllPlayerCandidates(rawName, allPlayers);
+                        if (cands.length === 0) {
+                            errors.push(`\u274C ${rawName}: player not found.`);
+                            searchableNames.add(rawName);
+                        } else if (cands.length === 1) {
+                            resolved[i] = cands[0];
+                        } else {
+                            ambiguous.push({ listIndex: i, rawName, candidates: cands });
+                        }
                     }
                 }
+
                 if (errors.length > 0) {
                     renderImportErrors({
                         container: els.importScriptError,
                         errors,
                         searchableNames,
-                        items: allPlayers,
-                        displayFn: (p) => `${p.name} - ${p?._clubItem?.name || "?"}`,
-                        modalTitle: "Search a player",
+                        items: disambigItems,
+                        displayFn: disambigDisplayFn,
+                        modalTitle: disambigModalTitle,
                         textInput: els.importScriptText,
                         confirmBtn: els.importScriptConfirm,
                     });
@@ -802,35 +936,63 @@ export function initSavedScripts(callbacks) {
                 }
 
                 const levelDatas = [];
-                for (let i = 0; i < resolved.length; i++) {
-                    const player = resolved[i];
-                    const rawName = names[i];
-                    const clubItem = player._clubItem;
-                    if (!clubItem) {
-                        errors.push(`\u274C ${rawName}: missing club reference.`);
-                        continue;
+                if (importTeams) {
+                    for (let i = 0; i < resolved.length; i++) {
+                        const entry = resolved[i];
+                        const rawName = names[i];
+                        let squad;
+                        try {
+                            squad = await loadSquadJson(entry);
+                        } catch {
+                            errors.push(`\u274C ${rawName}: failed to load squad data.`);
+                            continue;
+                        }
+                        const teamPlayer = createSyntheticTeamCareerPlayer(entry);
+                        levelDatas.push(makeEmptyPlayerImportLevel({
+                            gameMode: "career",
+                            squadType: "club",
+                            selectedEntry: entry,
+                            currentSquad: squad,
+                            careerPlayer: teamPlayer,
+                            careerHistory: [{ club: teamPlayer.club, year: "TEAM" }],
+                            careerClubsCount: 1,
+                            careerTeamQuizMode: true,
+                            searchText: teamPlayer.name,
+                            displayMode: "club",
+                            landingPageType: "club",
+                        }));
                     }
-                    let squad;
-                    try {
-                        squad = await loadSquadJson(clubItem);
-                    } catch {
-                        errors.push(`\u274C ${rawName}: failed to load squad data.`);
-                        continue;
+                } else {
+                    for (let i = 0; i < resolved.length; i++) {
+                        const player = resolved[i];
+                        const rawName = names[i];
+                        const clubItem = player._clubItem;
+                        if (!clubItem) {
+                            errors.push(`\u274C ${rawName}: missing club reference.`);
+                            continue;
+                        }
+                        let squad;
+                        try {
+                            squad = await loadSquadJson(clubItem);
+                        } catch {
+                            errors.push(`\u274C ${rawName}: failed to load squad data.`);
+                            continue;
+                        }
+                        const history = cleanCareerHistory(player.transfer_history || []);
+                        const careerClubsCount = Math.max(2, history.length);
+                        levelDatas.push(makeEmptyPlayerImportLevel({
+                            gameMode: "career",
+                            squadType: "club",
+                            selectedEntry: clubItem,
+                            currentSquad: squad,
+                            careerPlayer: player,
+                            careerHistory: history,
+                            careerClubsCount,
+                            searchText: player.name,
+                            displayMode: "club",
+                            landingPageType: "club",
+                        }));
                     }
-                    const history = cleanCareerHistory(player.transfer_history || []);
-                    const careerClubsCount = Math.max(2, history.length);
-                    levelDatas.push(makeEmptyPlayerImportLevel({
-                        gameMode: "career",
-                        squadType: "club",
-                        selectedEntry: clubItem,
-                        currentSquad: squad,
-                        careerPlayer: player,
-                        careerHistory: history,
-                        careerClubsCount,
-                        searchText: player.name,
-                        displayMode: "club",
-                        landingPageType: "club",
-                    }));
                 }
 
                 if (errors.length > 0) {
@@ -1153,8 +1315,6 @@ async function loadScript(script) {
 
     applyTransitionSettings(script.transitions || null);
 
-    if(uiCallbacks.updateLanding) uiCallbacks.updateLanding();
-
     appState.totalLevelsCount = script.levels.length - 1;
     appState.levelsData = script.levels.map(lvl => ({
         ...lvl,
@@ -1208,6 +1368,16 @@ async function loadScript(script) {
         careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
         careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
     }));
+
+    if (els.quizLevelsInput) {
+        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
+        const fromLineup = parseInt(String(script.lineup?.totalLevels ?? ""), 10);
+        els.quizLevelsInput.value = String(
+            Math.max(1, fromLevels > 0 ? fromLevels : (Number.isFinite(fromLineup) ? fromLineup : 30)),
+        );
+    }
+
+    if (uiCallbacks.updateLanding) uiCallbacks.updateLanding();
 
     els.teamSearch.value = "";
     els.teamSearch.classList.remove("team-selected");
