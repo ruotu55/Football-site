@@ -505,6 +505,103 @@ const appliedFavoritePictureKeyByState = new WeakMap();
 const CAREER_IMAGE_REFRESH_TOKEN = String(Date.now());
 const careerResolvedClubLogoSrcByKey = new Map();
 const TEAM_LOGO_MASK_BRUSH_RADIUS_PX = 16;
+
+/** ResizeObserver per reveal bar so team name font re-fits when the bar width changes. */
+const careerTeamRevealFitObserverByBar = new WeakMap();
+
+function disconnectCareerTeamRevealFitObserver(revealBar) {
+  const ro = revealBar && careerTeamRevealFitObserverByBar.get(revealBar);
+  if (ro) {
+    ro.disconnect();
+    careerTeamRevealFitObserverByBar.delete(revealBar);
+  }
+}
+
+function ensureCareerTeamRevealFitObserver(revealBar, textEl) {
+  if (!revealBar || !textEl || typeof ResizeObserver === "undefined") return;
+  disconnectCareerTeamRevealFitObserver(revealBar);
+  const ro = new ResizeObserver(() => {
+    if (!textEl.isConnected || !textEl.classList.contains("career-team-quiz-card__reveal-text--name")) {
+      disconnectCareerTeamRevealFitObserver(revealBar);
+      return;
+    }
+    fitCareerTeamRevealNameText(textEl);
+  });
+  careerTeamRevealFitObserverByBar.set(revealBar, ro);
+  ro.observe(revealBar);
+}
+
+/** Largest font-size (px) so the team name fits inside the fixed reveal bar (width + height). */
+function fitCareerTeamRevealNameText(textEl) {
+  if (!textEl || !textEl.classList.contains("career-team-quiz-card__reveal-text--name")) {
+    if (textEl) textEl.style.fontSize = "";
+    return;
+  }
+  const label = String(textEl.textContent || "").trim();
+  if (!label) {
+    textEl.style.fontSize = "";
+    return;
+  }
+  const bar = textEl.closest(".career-team-quiz-card__reveal");
+  if (!bar) return;
+
+  const csBar = getComputedStyle(bar);
+  const padX =
+    parseFloat(csBar.paddingLeft || "0") + parseFloat(csBar.paddingRight || "0");
+  const padY =
+    parseFloat(csBar.paddingTop || "0") + parseFloat(csBar.paddingBottom || "0");
+  const maxW = Math.max(1, Math.floor(bar.clientWidth - padX));
+  const maxH = Math.max(1, Math.floor(bar.clientHeight - padY));
+  if (maxW < 6 || maxH < 6) return;
+
+  const fits = (sizePx) => {
+    textEl.style.fontSize = `${sizePx}px`;
+    void textEl.offsetHeight;
+    return textEl.scrollHeight <= maxH + 1.5 && textEl.scrollWidth <= maxW + 2;
+  };
+
+  let lo = 6;
+  let hi = Math.min(120, Math.max(10, Math.floor(maxH / 1.05)));
+  if (!fits(lo)) {
+    textEl.style.fontSize = `${lo}px`;
+    return;
+  }
+  let best = lo;
+  while (lo <= hi) {
+    const mid = Math.floor((lo + hi) / 2);
+    if (fits(mid)) {
+      best = mid;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+  textEl.style.fontSize = `${best}px`;
+}
+
+function clearCareerTeamRevealNameFit(textEl) {
+  if (!textEl) return;
+  const bar = textEl.closest(".career-team-quiz-card__reveal");
+  disconnectCareerTeamRevealFitObserver(bar);
+  textEl.style.fontSize = "";
+}
+
+function scheduleFitCareerTeamRevealNameText(textEl) {
+  if (!textEl) return;
+  const bar = textEl.closest(".career-team-quiz-card__reveal");
+  const run = () => {
+    if (!textEl.isConnected || !textEl.classList.contains("career-team-quiz-card__reveal-text--name")) return;
+    fitCareerTeamRevealNameText(textEl);
+    if (bar?.isConnected) ensureCareerTeamRevealFitObserver(bar, textEl);
+  };
+  const kick = () => requestAnimationFrame(run);
+  if (document.fonts && document.fonts.ready) {
+    void document.fonts.ready.then(kick).catch(kick);
+  } else {
+    kick();
+  }
+}
+
 function freshenCareerImageUrl(url) {
   const src = String(url || "").trim();
   if (!src) return "";
@@ -591,11 +688,42 @@ function getLogoContainDrawRect(logoEl, width, height) {
   return { drawX, drawY, drawW, drawH };
 }
 
+/** Prefer RAM-cached decoded bitmap — DOM <img> can fail drawImage while [hidden] or mid-decode. */
+function resolveLogoDrawSource(logoEl) {
+  const el = logoEl;
+  if (!el) return null;
+  const src = String(el.currentSrc || el.getAttribute("src") || el.src || "").trim();
+  if (src) {
+    const cached = getCachedImage(src);
+    if (cached && cached.naturalWidth && cached.naturalHeight) return cached;
+  }
+  return el;
+}
+
+function isPunchCanvasBlank(ctx, w, h) {
+  if (!ctx || !w || !h) return true;
+  try {
+    const { data } = ctx.getImageData(0, 0, w, h);
+    for (let i = 3; i < data.length; i += 4) {
+      if (data[i] > 8) return false;
+    }
+  } catch {
+    return false;
+  }
+  return true;
+}
+
 function tryDrawLogoIntoCtx(ctx, logoEl, width, height) {
-  const r = getLogoContainDrawRect(logoEl, width, height);
+  const source = resolveLogoDrawSource(logoEl);
+  if (!source) return false;
+  const r = getLogoContainDrawRect(source, width, height);
   if (!r || !ctx) return false;
   try {
-    ctx.drawImage(logoEl, r.drawX, r.drawY, r.drawW, r.drawH);
+    ctx.save();
+    ctx.globalCompositeOperation = "source-over";
+    ctx.globalAlpha = 1;
+    ctx.drawImage(source, r.drawX, r.drawY, r.drawW, r.drawH);
+    ctx.restore();
     return true;
   } catch {
     return false;
@@ -603,12 +731,13 @@ function tryDrawLogoIntoCtx(ctx, logoEl, width, height) {
 }
 
 function sampleLogoPixelColor(logoEl, width, height, x, y) {
-  const logo = logoEl;
-  const naturalW = Number(logo?.naturalWidth || 0);
-  const naturalH = Number(logo?.naturalHeight || 0);
+  const source = resolveLogoDrawSource(logoEl);
+  if (!source) return "rgba(248, 250, 252, 0.98)";
+  const naturalW = Number(source.naturalWidth || 0);
+  const naturalH = Number(source.naturalHeight || 0);
   const w = Math.max(1, Math.round(Number(width) || 0));
   const h = Math.max(1, Math.round(Number(height) || 0));
-  if (!logo || !naturalW || !naturalH || !w || !h) return "rgba(248, 250, 252, 0.98)";
+  if (!naturalW || !naturalH || !w || !h) return "rgba(248, 250, 252, 0.98)";
 
   const probe = document.createElement("canvas");
   probe.width = w;
@@ -623,7 +752,7 @@ function sampleLogoPixelColor(logoEl, width, height, x, y) {
   const drawY = (h - drawH) / 2;
   pctx.clearRect(0, 0, w, h);
   try {
-    pctx.drawImage(logo, drawX, drawY, drawW, drawH);
+    pctx.drawImage(source, drawX, drawY, drawW, drawH);
   } catch {
     return "rgba(248, 250, 252, 0.98)";
   }
@@ -641,15 +770,117 @@ function sampleLogoPixelColor(logoEl, width, height, x, y) {
   return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${Math.max(0.75, alpha).toFixed(3)})`;
 }
 
+/** Comprehensive lookup for a saved punch snap — used by both attach (so the punch is visible
+ *  from pre-timer) and restore (timer-end). Returns "" if nothing matches. */
+function findFakeInfoLogoPunchSnap(state, punchCanvas) {
+  if (!state) return { snap: "", usedKey: "" };
+  let snap = "";
+  let usedKey = "";
+  const canonicalKey = String(resolveFakeInfoTeamQuizMaskKey(state) || "").trim();
+  for (const punchKey of collectFakeInfoTeamQuizPunchLookupKeys(state, punchCanvas)) {
+    const s = getFakeInfoLogoPunchDataUrl(state, punchKey);
+    if (s) {
+      snap = s;
+      usedKey = punchKey;
+      break;
+    }
+  }
+  if (!snap) {
+    const store = ensureFakeInfoLogoPunchByTeam(state);
+    const entries = Object.entries(store).filter(([, v]) => String(v || "").trim());
+    if (entries.length === 1) {
+      usedKey = String(entries[0][0] || "").trim();
+      snap = String(entries[0][1] || "").trim();
+    } else if (entries.length > 1 && canonicalKey) {
+      let best = "";
+      let bestScore = -1;
+      for (const [k, v] of entries) {
+        const key = String(k || "").trim();
+        const val = String(v || "").trim();
+        if (!key || !val) continue;
+        let score = 0;
+        if (key === canonicalKey) score = 100;
+        else if (key.includes(canonicalKey) || canonicalKey.includes(key)) score = 80;
+        else {
+          const keyNorm = normalizeClubLookupKey(key);
+          const canonicalNorm = normalizeClubLookupKey(canonicalKey);
+          if (keyNorm && canonicalNorm && keyNorm === canonicalNorm) score = 70;
+          else if (keyNorm && canonicalNorm && (keyNorm.includes(canonicalNorm) || canonicalNorm.includes(keyNorm))) {
+            score = 55;
+          }
+        }
+        if (score > bestScore) {
+          bestScore = score;
+          best = key;
+        }
+      }
+      if (bestScore > 0 && best) {
+        usedKey = best;
+        snap = String(store[best] || "").trim();
+      }
+    }
+  }
+  return { snap, usedKey };
+}
+
+function restoreTeamLogoPunchCanvasFromState(state, punchCanvas, logoImg) {
+  if (!state || !punchCanvas) return false;
+  const { snap, usedKey } = findFakeInfoLogoPunchSnap(state, punchCanvas);
+  if (!snap) return false;
+  if (usedKey) punchCanvas.dataset.maskKey = usedKey;
+  const wrap = punchCanvas.parentElement;
+  const rect = wrap ? wrap.getBoundingClientRect() : null;
+  const w = Math.max(1, Math.round(rect?.width || punchCanvas.clientWidth || punchCanvas.width || 0));
+  const h = Math.max(1, Math.round(rect?.height || punchCanvas.clientHeight || punchCanvas.height || 0));
+  // If the canvas was already drawn (pre-timer attach already painted it) at the same
+  // size and is visible, keep the existing pixels — re-setting width/height clears the
+  // bitmap, which makes the punch look like it "pops out" during the timer-end opacity fade.
+  if (
+    punchCanvas.width === w &&
+    punchCanvas.height === h &&
+    punchCanvas.dataset.hasUserEdits === "1" &&
+    punchCanvas.dataset.snapSrc === snap &&
+    !punchCanvas.hidden
+  ) {
+    if (logoImg) logoImg.style.opacity = "0";
+    return true;
+  }
+  punchCanvas.width = w;
+  punchCanvas.height = h;
+  const ctx = punchCanvas.getContext("2d");
+  if (!ctx) return false;
+  punchCanvas.dataset.hasUserEdits = "1";
+  punchCanvas.dataset.snapSrc = snap;
+  punchCanvas.hidden = false;
+  if (logoImg) logoImg.style.opacity = "0";
+  const im = new Image();
+  im.onload = () => {
+    if (!punchCanvas.isConnected) return;
+    ctx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+    ctx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
+  };
+  im.onerror = () => {
+    if (logoImg) logoImg.style.opacity = "";
+    punchCanvas.hidden = true;
+    punchCanvas.dataset.hasUserEdits = "0";
+  };
+  im.src = snap;
+  if (im.complete && im.naturalWidth) {
+    ctx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+    ctx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
+  }
+  return true;
+}
+
 function attachFakeInfoTeamLogoMaskEditor({
   state,
   teamQuizCard,
   logoWrap,
   logoImg,
   teamFallbackEl,
-  maskKey,
   previewPostTimer,
 }) {
+  const maskKey = resolveFakeInfoTeamQuizMaskKey(state);
   if (!teamQuizCard || !logoWrap || !maskKey) return;
 
   const maskCanvas = document.createElement("canvas");
@@ -659,17 +890,26 @@ function attachFakeInfoTeamLogoMaskEditor({
   punchCanvas.className = "career-team-quiz-card__logo-punch";
   punchCanvas.hidden = true;
   punchCanvas.setAttribute("aria-hidden", "true");
+  punchCanvas.dataset.maskKey = String(maskKey || "").trim();
   logoWrap.appendChild(punchCanvas);
   logoWrap.appendChild(maskCanvas);
 
   let savedDataUrl = getFakeInfoLogoMaskDataUrl(state, maskKey);
+  // Comprehensive lookup so the punch is visible from pre-timer if a snap is saved under
+  // any related key. Otherwise the canonical-key miss leaves it hidden=true during pre-timer
+  // and the timer-end display:none → block flips re-fires the fade-in keyframe animation,
+  // which reads as the punch "flashing" instead of fading like the regular mask.
   let savedPunchDataUrl = getFakeInfoLogoPunchDataUrl(state, maskKey);
+  if (!String(savedPunchDataUrl || "").trim()) {
+    savedPunchDataUrl = findFakeInfoLogoPunchSnap(state, punchCanvas).snap;
+  }
   let drawCtx = null;
   let punchCtx = null;
   let punchModeOn = false;
   let punchLayerActive = false;
   let punchDrawing = false;
   let punchLastPoint = null;
+  let punchHasUserEdits = !!String(savedPunchDataUrl || "").trim();
   let drawing = false;
   let lastPoint = null;
   let brushColor = "rgba(248, 250, 252, 0.98)";
@@ -677,6 +917,8 @@ function attachFakeInfoTeamLogoMaskEditor({
   /** @type {"circle" | "square"} */
   let brushShape = "circle";
   let sampleColorArmed = false;
+  let punchPrepareInFlight = false;
+  let punchGen = 0;
 
   const syncMaskCanvasSize = () => {
     const rect = logoWrap.getBoundingClientRect();
@@ -734,6 +976,18 @@ function attachFakeInfoTeamLogoMaskEditor({
     syncMaskCanvasSize();
     syncPunchCanvasSize();
   };
+  const setPunchLayerVisible = (visible) => {
+    punchLayerActive = !!visible;
+    punchCanvas.dataset.hasUserEdits = punchHasUserEdits ? "1" : "0";
+    if (punchLayerActive) {
+      logoImg.style.opacity = "0";
+      punchCanvas.hidden = false;
+      syncPunchCanvasSize();
+    } else {
+      logoImg.style.opacity = "";
+      punchCanvas.hidden = true;
+    }
+  };
   syncAllLogoLayers();
   if (typeof ResizeObserver !== "undefined") {
     const ro = new ResizeObserver(() => syncAllLogoLayers());
@@ -742,13 +996,13 @@ function attachFakeInfoTeamLogoMaskEditor({
 
   if (appState.isVideoPlaying || !!previewPostTimer) {
     punchModeOn = false;
-    punchLayerActive = false;
-    logoImg.style.visibility = "";
-    punchCanvas.hidden = true;
+    setPunchLayerVisible(punchHasUserEdits);
+    maskCanvas.classList.remove("career-team-quiz-card__logo-mask--punch-edit");
     maskCanvas.style.pointerEvents = "none";
     punchCanvas.style.pointerEvents = "none";
     return;
   }
+  setPunchLayerVisible(punchHasUserEdits);
 
   const brushCursor = document.createElement("div");
   brushCursor.className = "career-team-quiz-card__brush-cursor";
@@ -800,6 +1054,13 @@ function attachFakeInfoTeamLogoMaskEditor({
   selectColorBtn.className = "career-team-logo-mask-tools__btn career-team-logo-mask-tools__btn--color";
   selectColorBtn.textContent = "Select Color";
   selectColorBtn.title = "Click, then pick a color from the logo";
+
+  const backgroundMaskBtn = document.createElement("button");
+  backgroundMaskBtn.type = "button";
+  backgroundMaskBtn.className = "career-team-logo-mask-tools__btn career-team-logo-mask-tools__btn--punch";
+  backgroundMaskBtn.textContent = "Background mask";
+  backgroundMaskBtn.title =
+    "Erase logo pixels to transparency so the stage background shows through (circle/square brush).";
 
   const brushControls = document.createElement("div");
   brushControls.className = "career-team-logo-mask-tools__brush-row";
@@ -855,6 +1116,7 @@ function attachFakeInfoTeamLogoMaskEditor({
   tools.appendChild(toggleBtn);
   tools.appendChild(clearBtn);
   tools.appendChild(selectColorBtn);
+  tools.appendChild(backgroundMaskBtn);
   tools.appendChild(brushControls);
   teamQuizCard.appendChild(tools);
 
@@ -867,14 +1129,28 @@ function attachFakeInfoTeamLogoMaskEditor({
   };
 
   const revealPunchLayerAfterDraw = () => {
-    punchLayerActive = true;
-    logoImg.style.visibility = "hidden";
-    punchCanvas.hidden = false;
+    setPunchLayerVisible(true);
   };
 
-  const ensurePunchRasterReady = () => {
+  const abortPunchEnterUi = () => {
+    setPunchLayerVisible(false);
+    punchModeOn = false;
+    maskCanvas.classList.remove("career-team-quiz-card__logo-mask--punch-edit");
+    backgroundMaskBtn.classList.remove("is-active");
+    updatePointerLayers();
+  };
+
+  const ensurePunchRasterReadyAsync = async () => {
     if (teamFallbackEl && teamFallbackEl.hidden === false) return false;
+    try {
+      if (typeof logoImg.decode === "function") {
+        await logoImg.decode();
+      }
+    } catch {
+      /* ignore */
+    }
     if (!logoImg.naturalWidth) return false;
+
     const rect = logoWrap.getBoundingClientRect();
     const nextW = Math.max(1, Math.round(rect.width || 0));
     const nextH = Math.max(1, Math.round(rect.height || 0));
@@ -883,79 +1159,104 @@ function attachFakeInfoTeamLogoMaskEditor({
     punchCtx = punchCanvas.getContext("2d");
     if (!punchCtx) return false;
     punchCtx.clearRect(0, 0, nextW, nextH);
+    punchCtx.globalCompositeOperation = "source-over";
+    punchCtx.globalAlpha = 1;
+
     const snap = String(savedPunchDataUrl || "").trim();
     if (snap) {
       const im = new Image();
-      const punchRestoreFailed = () => {
-        logoImg.style.visibility = "";
-        punchCanvas.hidden = true;
-        punchLayerActive = false;
-        punchModeOn = false;
-        updatePointerLayers();
-      };
-      const applySnapOrFallback = () => {
-        if (!punchCtx || !punchCanvas.isConnected) return;
+      const snapOk = await new Promise((resolve) => {
+        let settled = false;
+        const finish = (v) => {
+          if (settled) return;
+          settled = true;
+          resolve(v);
+        };
+        im.onload = () => finish(true);
+        im.onerror = () => finish(false);
+        im.src = snap;
+        if (im.complete && im.naturalWidth) finish(true);
+      });
+      if (snapOk && im.naturalWidth && punchCtx && punchCanvas.isConnected) {
         punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
-        if (im.naturalWidth) {
-          punchCtx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
-        } else if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
-          punchRestoreFailed();
-          return;
+        punchCtx.drawImage(im, 0, 0, punchCanvas.width, punchCanvas.height);
+        if (isPunchCanvasBlank(punchCtx, punchCanvas.width, punchCanvas.height)) {
+          savedPunchDataUrl = "";
+          setFakeInfoLogoPunchDataUrl(state, maskKey, "");
+          punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+          if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
+            abortPunchEnterUi();
+            return false;
+          }
         }
-        revealPunchLayerAfterDraw();
-        updatePointerLayers();
-      };
-      im.onload = applySnapOrFallback;
-      im.onerror = () => {
-        if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
-          punchRestoreFailed();
-          return;
-        }
-        revealPunchLayerAfterDraw();
-        updatePointerLayers();
-      };
-      im.src = snap;
-      if (im.complete && im.naturalWidth) applySnapOrFallback();
-      return true;
-    }
-    if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
-      logoImg.style.visibility = "";
-      punchCanvas.hidden = true;
-      punchLayerActive = false;
+      } else if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
+        abortPunchEnterUi();
+        return false;
+      }
+    } else if (!tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height)) {
+      abortPunchEnterUi();
       return false;
     }
+
     revealPunchLayerAfterDraw();
+    updatePointerLayers();
     return true;
   };
 
   const setPunchMode = (on) => {
     const next = !!on;
-    if (next) {
-      sampleColorArmed = false;
-      selectColorBtn.classList.remove("is-active");
-      maskCanvas.classList.remove("is-sampling");
-      editModeOn = false;
-      toggleBtn.classList.remove("is-active");
-      maskCanvas.classList.remove("is-editing");
-      hideBrushCursor();
-    }
-    punchModeOn = next;
-    if (punchModeOn) {
-      if (!ensurePunchRasterReady()) {
-        punchModeOn = false;
-        logoImg.style.visibility = "";
-        punchCanvas.hidden = true;
-        punchLayerActive = false;
-        updatePointerLayers();
-        return;
+    if (!next) {
+      punchGen += 1;
+      punchPrepareInFlight = false;
+      punchModeOn = false;
+      maskCanvas.classList.remove("career-team-quiz-card__logo-mask--punch-edit");
+      backgroundMaskBtn.classList.remove("is-active");
+      if (punchHasUserEdits && punchCtx && punchCanvas.width && punchCanvas.height) {
+        persistPunch();
       }
-    } else {
-      logoImg.style.visibility = "";
-      punchCanvas.hidden = true;
-      punchLayerActive = false;
+      setPunchLayerVisible(punchHasUserEdits);
+      updatePointerLayers();
+      hideBrushCursor();
+      return;
     }
-    updatePointerLayers();
-    if (!punchModeOn) hideBrushCursor();
+    if (punchPrepareInFlight || punchModeOn) return;
+    sampleColorArmed = false;
+    selectColorBtn.classList.remove("is-active");
+    maskCanvas.classList.remove("is-sampling");
+    editModeOn = false;
+    toggleBtn.classList.remove("is-active");
+    maskCanvas.classList.remove("is-editing");
+    hideBrushCursor();
+
+    punchPrepareInFlight = true;
+    const myGen = punchGen;
+    void (async () => {
+      try {
+        syncAllLogoLayers();
+        if (drawCtx && maskCanvas.width && maskCanvas.height) {
+          persistMask();
+        }
+        try {
+          if (typeof logoImg.decode === "function") {
+            await logoImg.decode();
+          }
+        } catch {
+          /* ignore */
+        }
+        if (!logoImg.isConnected || myGen !== punchGen) return;
+        await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+        if (!logoImg.isConnected || myGen !== punchGen) return;
+        const ok = await ensurePunchRasterReadyAsync();
+        if (!logoImg.isConnected || myGen !== punchGen) return;
+        if (!ok) return;
+        punchModeOn = true;
+        maskCanvas.classList.add("career-team-quiz-card__logo-mask--punch-edit");
+        backgroundMaskBtn.classList.add("is-active");
+        updatePointerLayers();
+      } finally {
+        punchPrepareInFlight = false;
+      }
+    })();
   };
 
   const syncBrushSwatch = () => {
@@ -976,6 +1277,7 @@ function attachFakeInfoTeamLogoMaskEditor({
     updatePointerLayers();
   };
   const setEditMode = (on) => {
+    const wasEditing = editModeOn;
     if (on) setPunchMode(false);
     editModeOn = !!on;
     toggleBtn.classList.toggle("is-active", editModeOn);
@@ -983,6 +1285,9 @@ function attachFakeInfoTeamLogoMaskEditor({
     if (editModeOn) {
       setSampleColorMode(false);
     } else {
+      if (wasEditing && drawCtx && maskCanvas.width && maskCanvas.height) {
+        persistMask();
+      }
       hideBrushCursor();
     }
     updatePointerLayers();
@@ -1160,19 +1465,29 @@ function attachFakeInfoTeamLogoMaskEditor({
     brushShape = "square";
     syncBrushShapeUi();
   });
+  backgroundMaskBtn.addEventListener("click", (ev) => {
+    ev.preventDefault();
+    setPunchMode(!punchModeOn);
+  });
   clearBtn.addEventListener("click", (ev) => {
     ev.preventDefault();
-    if (punchModeOn && punchCtx) {
-      punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
-      void tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height);
-      savedPunchDataUrl = "";
-      setFakeInfoLogoPunchDataUrl(state, maskKey, "");
-      return;
+    syncAllLogoLayers();
+    if (drawCtx && maskCanvas.width && maskCanvas.height) {
+      drawCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
     }
-    if (!drawCtx) return;
-    drawCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
     savedDataUrl = "";
     setFakeInfoLogoMaskDataUrl(state, maskKey, "");
+    if (punchCtx && punchCanvas.width && punchCanvas.height) {
+      punchCtx.clearRect(0, 0, punchCanvas.width, punchCanvas.height);
+      void tryDrawLogoIntoCtx(punchCtx, logoImg, punchCanvas.width, punchCanvas.height);
+    }
+    punchHasUserEdits = false;
+    punchCanvas.dataset.hasUserEdits = "0";
+    savedPunchDataUrl = "";
+    setFakeInfoLogoPunchDataUrl(state, maskKey, "");
+    if (!punchModeOn) {
+      setPunchLayerVisible(false);
+    }
   });
 
   maskCanvas.addEventListener("pointerdown", (ev) => {
@@ -1256,6 +1571,8 @@ function attachFakeInfoTeamLogoMaskEditor({
     if (ev) ev.preventDefault();
     punchDrawing = false;
     punchLastPoint = null;
+    punchHasUserEdits = true;
+    punchCanvas.dataset.hasUserEdits = "1";
     persistPunch();
   };
   punchCanvas.addEventListener("pointerup", stopPunchDraw);
@@ -2023,6 +2340,35 @@ function findBestCareerClubEntry(clubName) {
     }
   }
   return best;
+}
+
+/** Canonical storage key for fake-info team logo Mask + Background mask (must stay in sync everywhere). */
+function resolveFakeInfoTeamQuizMaskKey(state) {
+  if (!state?.careerPlayer) return "";
+  const teamName = String(state.careerPlayer.club || state.careerPlayer.name || "").trim();
+  if (!teamName) return "";
+  const searchName = resolveClubAlias(teamName);
+  const foundTeam = searchName ? findBestCareerClubEntry(searchName) : null;
+  const displayTeamName = String(foundTeam?.name || teamName || searchName || "").trim();
+  const logoCacheKey = normalizeClubLookupKey(displayTeamName || teamName || searchName);
+  return String(logoCacheKey || normalizeClubLookupKey(displayTeamName || teamName) || "").trim();
+}
+
+function collectFakeInfoTeamQuizPunchLookupKeys(state, punchCanvas) {
+  const keys = [];
+  const add = (k) => {
+    const s = String(k || "").trim();
+    if (s && !keys.includes(s)) keys.push(s);
+  };
+  add(punchCanvas?.dataset?.maskKey);
+  add(resolveFakeInfoTeamQuizMaskKey(state));
+  const clubRaw = String(state?.careerPlayer?.club || "").trim();
+  const nameRaw = String(state?.careerPlayer?.name || "").trim();
+  add(normalizeClubLookupKey(clubRaw));
+  add(normalizeClubLookupKey(nameRaw));
+  if (clubRaw) add(normalizeClubLookupKey(resolveClubAlias(clubRaw)));
+  if (nameRaw) add(normalizeClubLookupKey(resolveClubAlias(nameRaw)));
+  return keys;
 }
 
 export function cleanCareerHistory(history) {
@@ -3567,11 +3913,13 @@ export function renderCareer() {
           logoWrap: teamLogoWrap,
           logoImg: teamLogo,
           teamFallbackEl: teamFallback,
-          maskKey: logoCacheKey || normalizeClubLookupKey(displayTeamName || teamName),
           previewPostTimer: !!previewState.previewPostTimer,
         });
 
         wrap.appendChild(teamQuizCard);
+        if (shouldRevealTeamName) {
+          scheduleFitCareerTeamRevealNameText(revealText);
+        }
 
         appState.els.playerVoiceControls = null;
         appState.els.playerVoicePlay = null;
@@ -3827,7 +4175,9 @@ export function renderCareer() {
     if (previewPostTimer && teamLabel) {
       teamRevealTextEl.textContent = teamLabel;
       teamRevealTextEl.classList.add("career-team-quiz-card__reveal-text--name");
+      scheduleFitCareerTeamRevealNameText(teamRevealTextEl);
     } else {
+      clearCareerTeamRevealNameFit(teamRevealTextEl);
       teamRevealTextEl.textContent = "?";
       teamRevealTextEl.classList.remove("career-team-quiz-card__reveal-text--name");
     }
@@ -3838,8 +4188,18 @@ export function renderCareer() {
   }
   const teamLogoPunchEl = wrap.querySelector(".career-team-quiz-card__logo-punch");
   const teamLogoImgEl = wrap.querySelector(".career-team-quiz-card__logo");
-  if (teamLogoImgEl && (!teamLogoPunchEl || teamLogoPunchEl.hidden)) {
-    teamLogoImgEl.style.visibility = "";
+  const restoredPunch = teamLogoPunchEl
+    ? restoreTeamLogoPunchCanvasFromState(state, teamLogoPunchEl, teamLogoImgEl)
+    : false;
+  if (teamLogoPunchEl) {
+    teamLogoPunchEl.classList.toggle("is-revealed", !!previewPostTimer);
+  }
+  if (previewPostTimer && teamLogoImgEl && restoredPunch) {
+    // Punch fades to opacity 0 — the real logo crossfades in (was opacity:0 behind the punch
+    // pre-timer) so the pixels erased by the background mask (e.g. team-name) fade in too.
+    teamLogoImgEl.style.opacity = "";
+  } else if (!restoredPunch && teamLogoImgEl && (!teamLogoPunchEl || teamLogoPunchEl.hidden)) {
+    teamLogoImgEl.style.opacity = "";
   }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
   const careerGrid = wrap.querySelector(".career-grid");
@@ -3916,7 +4276,9 @@ export function refreshCareerRevealStateOnly() {
     if (previewPostTimer && teamLabel) {
       teamRevealTextEl.textContent = teamLabel;
       teamRevealTextEl.classList.add("career-team-quiz-card__reveal-text--name");
+      scheduleFitCareerTeamRevealNameText(teamRevealTextEl);
     } else {
+      clearCareerTeamRevealNameFit(teamRevealTextEl);
       teamRevealTextEl.textContent = "?";
       teamRevealTextEl.classList.remove("career-team-quiz-card__reveal-text--name");
     }
@@ -3927,8 +4289,18 @@ export function refreshCareerRevealStateOnly() {
   }
   const teamLogoPunchEl = wrap.querySelector(".career-team-quiz-card__logo-punch");
   const teamLogoImgEl = wrap.querySelector(".career-team-quiz-card__logo");
-  if (teamLogoImgEl && (!teamLogoPunchEl || teamLogoPunchEl.hidden)) {
-    teamLogoImgEl.style.visibility = "";
+  const restoredPunch = teamLogoPunchEl
+    ? restoreTeamLogoPunchCanvasFromState(state, teamLogoPunchEl, teamLogoImgEl)
+    : false;
+  if (teamLogoPunchEl) {
+    teamLogoPunchEl.classList.toggle("is-revealed", !!previewPostTimer);
+  }
+  if (previewPostTimer && teamLogoImgEl && restoredPunch) {
+    // Punch fades to opacity 0 — the real logo crossfades in (was opacity:0 behind the punch
+    // pre-timer) so the pixels erased by the background mask (e.g. team-name) fade in too.
+    teamLogoImgEl.style.opacity = "";
+  } else if (!restoredPunch && teamLogoImgEl && (!teamLogoPunchEl || teamLogoPunchEl.hidden)) {
+    teamLogoImgEl.style.opacity = "";
   }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
   const careerGrid = wrap.querySelector(".career-grid");
