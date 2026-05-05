@@ -10,15 +10,15 @@ import {
   playCommentBelow,
   playTicking,
   stopTicking,
-  playVoice,
 } from "./audio.js";
-import { isFakeInfoQuiz, fakeInfoPickForLevel, fakeInfoVoiceUrlForStat, fakeInfoVoiceUrlCandidatesForStat } from "./fake-info-mode.js";
+import { isFakeInfoQuiz } from "./fake-info-mode.js";
 import { renderProgressSteps } from "./progress.js";
 import {
   renderCareer,
   renderHeader,
   syncCareerSlotControlsVisibility,
   syncShortsCareerVideoPreviewLayers,
+  refreshCareerRevealStateOnly,
 } from "./pitch-render.js";
 import {
   hideShortsCountdownOnPlayVideoPress,
@@ -702,41 +702,21 @@ function revealCurrentLevel() {
     if (!skipBonusReveal) {
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
       if (isFakeInfoQuiz()) {
-        /* Fake-info: flip the fake stat + announce which stat was fake — no name. */
-        document.body.classList.add("fake-info-reveal");
-        const pick = fakeInfoPickForLevel(state, appState.currentLevelIndex);
-        const candidates = pick?.stat ? fakeInfoVoiceUrlCandidatesForStat(pick.stat) : [];
-        // Probe language-preferred first, fall back to English silently.
-        const playFirstExisting = (list) => {
-          const urls = (list || []).filter(Boolean);
-          if (urls.length === 0) return;
-          if (urls.length === 1) { playVoice(urls[0], 0); return; }
-          let i = 0;
-          const tryNext = () => {
-            if (i >= urls.length) return;
-            const src = urls[i++];
-            if (i === urls.length) { playVoice(src, 0); return; }
-            const probe = new Audio();
-            const cleanup = () => {
-              probe.removeEventListener("error", onErr);
-              probe.removeEventListener("canplay", onOk);
-            };
-            const onErr = () => { cleanup(); tryNext(); };
-            const onOk = () => { cleanup(); probe.pause(); probe.removeAttribute("src"); probe.load(); playVoice(src, 0); };
-            probe.addEventListener("error", onErr, { once: true });
-            probe.addEventListener("canplay", onOk, { once: true });
-            probe.src = src;
-            probe.load();
-          };
-          tryNext();
-        };
-        playFirstExisting(candidates);
+        /* Match Regular team-name quiz: no quiz/fake-stat sound.
+           Reveal announces the team name clip from `.Storage/Voices/Teams Names`. */
+        const teamName = String(
+          state?.careerPlayer?.club || state?.careerPlayer?.name || "",
+        ).trim();
+        playTheAnswerIs(true, teamName, "team");
       } else {
         // In Play Video mode, always announce the revealed player when a name clip exists.
         playTheAnswerIs(true, playerDisplayName);
       }
       setVideoRevealPostTimerActive(true);
-      refreshCurrentQuestionPreview();
+      /* Match Regular: update reveal classes/content on the existing DOM.
+         Re-rendering here rebuilds the logo/mask canvases and causes a visible blink. */
+      refreshCareerRevealStateOnly();
+      renderHeader();
       flipDelay = 3000;
     } else {
       /* Bonus: no answer reveal — go straight to outro after the question timer. */

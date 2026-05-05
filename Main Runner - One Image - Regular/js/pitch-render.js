@@ -1883,7 +1883,7 @@ function applyCareerSilhouetteAdjustments(silhouetteEl, st, { noExtraDown = fals
    Baseline is neutral so the player card matches the same square framing as team mode.
    Each Up/Down tick adds ±2%; Width/Height scale stacks multiplicatively from 1.00. */
 const PLAYER_CARD_PHOTO_BASELINE_Y_PCT = 3;
-const PLAYER_CARD_PHOTO_BASELINE_SCALE = 1.0773;
+const PLAYER_CARD_PHOTO_BASELINE_SCALE = 1.026;
 function applyPlayerCardPhotoAdjustments(photoEl, st) {
   if (!photoEl) return;
   const yOffset = Number(st?.silhouetteYOffset ?? 0);
@@ -4008,6 +4008,8 @@ export function renderCareer() {
 
         const photoWrap = document.createElement("div");
         photoWrap.className = "career-team-quiz-card__logo-wrap";
+        const photoClip = document.createElement("div");
+        photoClip.className = "career-player-card-photo-clip";
         const photoImg = document.createElement("img");
         photoImg.className = "career-team-quiz-card__logo";
         photoImg.alt = "";
@@ -4047,7 +4049,8 @@ export function renderCareer() {
             });
           }
         });
-        photoWrap.appendChild(photoImg);
+        photoClip.appendChild(photoImg);
+        photoWrap.appendChild(photoClip);
         photoWrap.appendChild(photoFallback);
         playerQuizCard.appendChild(photoWrap);
 

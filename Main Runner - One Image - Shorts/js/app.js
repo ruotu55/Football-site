@@ -1380,6 +1380,57 @@ async function init() {
         refreshLevelsControlNamesIfOpen();
     }
 
+    function createCareerTeamFromEntry(entry) {
+        const teamName = String(entry?.name || "").trim();
+        return {
+            name: teamName,
+            club: teamName,
+            nationality: String(entry?.country || entry?.region || "").trim(),
+            position: "",
+            age: null,
+            shirt_number: null,
+            transfer_history: [{ club: teamName, year: "TEAM" }],
+            _clubItem: entry || null,
+        };
+    }
+
+    function applyCareerTeamSelection(teamEntry) {
+        if (!teamEntry || !teamEntry.name) return;
+        const state = getState();
+        const teamData = createCareerTeamFromEntry(teamEntry);
+
+        state.careerPlayer = teamData;
+        state.careerTeamQuizMode = true;
+        state.careerHistory = [{ club: teamData.club, year: "TEAM" }];
+        state.careerClubsCount = 1;
+
+        if (els.careerSelectedInfo) {
+            els.careerSelectedInfo.innerHTML = `Selected team: <span style="color:#fff;">${teamData.name}</span>`;
+        }
+
+        function refreshLevelsControlNamesIfOpen() {
+            if (
+                els.rightPanel &&
+                !els.rightPanel.hidden &&
+                document.getElementById("levels-reorder-container")
+            ) {
+                renderLevelsReorderList();
+            }
+        }
+
+        const shouldEnableVideoMode = !state.videoMode && !!els.videoModeToggle;
+        if (shouldEnableVideoMode) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+            refreshLevelsControlNamesIfOpen();
+            return;
+        }
+
+        renderCareer();
+        renderHeader();
+        refreshLevelsControlNamesIfOpen();
+    }
+
     async function renderInlineCareerPlayerSearch(queryText = "") {
         try {
             const inlineList = document.getElementById("career-inline-player-results");
@@ -1432,9 +1483,64 @@ async function init() {
         }
     }
 
+    function renderInlineCareerTeamSearch(queryText = "") {
+        const inlineList = document.getElementById("career-inline-player-results");
+        if (!inlineList) return;
+
+        const rawQ = String(queryText || "").toLowerCase();
+        const q = removeAccents(rawQ.trim());
+        if (!q) {
+            inlineList.innerHTML = "<div class='career-inline-player-hint'>Type team name to search.</div>";
+            return;
+        }
+
+        const allTeams = [
+            ...(appState.teamsIndex?.clubs || []),
+            ...(appState.teamsIndex?.nationalities || []),
+        ];
+        const dedupedTeams = Array.from(
+            new Map(
+                allTeams
+                    .filter((t) => t && t.name)
+                    .map((t) => [String(t.name).toLowerCase(), t])
+            ).values()
+        );
+
+        const filtered = dedupedTeams
+            .filter((team) => removeAccents(String(team.name || "").toLowerCase()).includes(q))
+            .sort((a, b) => String(a.name || "").localeCompare(String(b.name || "")))
+            .slice(0, 40);
+
+        inlineList.innerHTML = "";
+        if (filtered.length === 0) {
+            inlineList.innerHTML = "<div class='career-inline-player-hint'>No teams found.</div>";
+            return;
+        }
+
+        filtered.forEach((team) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "career-inline-player-result";
+            const country = String(team.country || "").trim();
+            const league = String(team.league || "").trim();
+            const region = String(team.region || "").trim();
+            const context = league ? `${country} - ${league}` : (country || region);
+            btn.innerHTML = `
+                <span>${team.name}</span>
+                <small>${context}</small>
+            `;
+            btn.onclick = () => applyCareerTeamSelection(team);
+            inlineList.appendChild(btn);
+        });
+    }
+
     document.addEventListener("input", (e) => {
         if (e.target && e.target.id === "career-inline-player-search") {
-            renderInlineCareerPlayerSearch(e.target.value || "");
+            if (String(appState?.els?.inQuizType?.value || "") === "player-by-fake-info") {
+                renderInlineCareerTeamSearch(e.target.value || "");
+            } else {
+                renderInlineCareerPlayerSearch(e.target.value || "");
+            }
         }
     });
 

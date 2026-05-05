@@ -5,7 +5,7 @@
  *   1. Quiz Intro   — the current quiz-type intro (+ optional specific title suffix) [per-runner]
  *   2. Players      — one row per unique player currently assigned to any level [shared]
  *   3. Endings      — "think you know" / "how many" outro clips [shared]
- *   4. Quiz Sounds  — clips specific to the current quiz type (e.g. fake-stats clips) [per-runner]
+ *   4. Bundled      — welcome/progress clips used by this runner
  *
  * Each row shows: [Vol] [X] "<full text that will be synthesised>"
  *   • Vol low-opacity when the clip file is missing on disk; full-opacity when it exists.
@@ -13,7 +13,6 @@
  *
  * Every row talks to the per-runner endpoints already exposed by run_site.py:
  *   /__quiz-title-voice/{status|generate|delete}
- *   /__fake-stats-voice/{status|generate|delete}
  *   /__ending-voice/{status|generate|delete}
  *   /__player-voice/{status|generate|delete}
  * The server stores clips under a runner-scoped subdirectory (RUNNER_VARIANT in run_site.py),
@@ -63,21 +62,6 @@ const QUIZ_TYPE_PROMPTS = {
   },
 };
 
-const FAKE_STAT_PROMPTS = {
-  english: {
-    club:          "The fake stats was the club!",
-    position:      "The fake stats was the position!",
-    country:       "The fake stats was the country!",
-    shirt_number:  "The fake stats was the shirt number!",
-  },
-  spanish: {
-    club:          "¡La información falsa era el club!",
-    position:      "¡La información falsa era la posición!",
-    country:       "¡La información falsa era el país!",
-    shirt_number:  "¡La información falsa era el número de camiseta!",
-  },
-};
-
 const ENDING_PROMPTS = {
   english: {
     "think-you-know": "Think you know the answer? Let us know in the comments! Don't forget to like and subscribe!",
@@ -95,7 +79,6 @@ const SECTION_TITLES = {
   quizIntro: "Quiz Intro",
   players: "Players",
   endings: "Endings",
-  quizSounds: "Quiz Sounds",
 };
 
 /* Row-level play busy tracker — keyed by a string unique to the clip. */
@@ -175,15 +158,6 @@ async function fetchQuizTitleStatus(quizType, specificTitle) {
     const body = await res.json().catch(() => ({}));
     return { exists: !!body?.exists, src: String(body?.src || "") };
   } catch { return { exists: false, src: "" }; }
-}
-
-async function fetchFakeStatsStatus() {
-  try {
-    const params = new URLSearchParams({ language: getCurrentLanguage() });
-    const res = await fetch(`${endpointUrl("__fake-stats-voice/status")}?${params}`, { cache: "no-store" });
-    const body = await res.json().catch(() => ({}));
-    return body?.stats || {};
-  } catch { return {}; }
 }
 
 async function fetchEndingStatus(endingType) {
@@ -312,7 +286,6 @@ const PLAYS_AT = {
   quizIntro: { english: "Landing → Level 1",                       spanish: "Inicial → Nivel 1" },
   player:    { english: "Question levels (where assigned)",        spanish: "Niveles de pregunta (donde esté asignado)" },
   ending:    { english: "Last page (outro)",                       spanish: "Última página (outro)" },
-  fakeStat:  { english: "Question reveal (fake-info)",             spanish: "Revelación (info falsa)" },
 };
 
 function plays(key) {
@@ -431,15 +404,13 @@ export async function renderVoiceTab() {
 
   const statusPromises = {
     quizTitle: quizType ? fetchQuizTitleStatus(quizType, specificTitle) : Promise.resolve(false),
-    fakeStats: quizType === "player-by-fake-info" ? fetchFakeStatsStatus() : Promise.resolve({}),
     endingThink: fetchEndingStatus("think-you-know"),
     endingHowMany: fetchEndingStatus("how-many"),
     playerNames: Promise.all(players.map((n) => fetchPlayerStatus(n, voiceKindForQuiz(quizType)).then(({ exists, src }) => ({ name: n, exists, src })))),
   };
 
-  const [quizTitleStatus, fakeStats, endingThinkStatus, endingHowManyStatus, playerStatuses] = await Promise.all([
+  const [quizTitleStatus, endingThinkStatus, endingHowManyStatus, playerStatuses] = await Promise.all([
     statusPromises.quizTitle,
-    statusPromises.fakeStats,
     statusPromises.endingThink,
     statusPromises.endingHowMany,
     statusPromises.playerNames,
@@ -450,7 +421,6 @@ export async function renderVoiceTab() {
   const lang = getCurrentLanguage();
   const titles = SECTION_TITLES;
   const endingTextMap = ENDING_PROMPTS[lang] || ENDING_PROMPTS.english;
-  const fakeStatTextMap = FAKE_STAT_PROMPTS[lang] || FAKE_STAT_PROMPTS.english;
 
   root.innerHTML = "";
   root.appendChild(buildLanguageToggle());
@@ -542,29 +512,8 @@ export async function renderVoiceTab() {
     }));
   root.appendChild(buildSection(titles.endings, endingRows));
 
-  /* Section 4 — Quiz Sounds (Fake Stats, only when fake-info quiz is selected). */
-  if (quizType === "player-by-fake-info") {
-    const rows = Object.keys(fakeStatTextMap).map((stat) => {
-      const exists = !!fakeStats?.[stat]?.exists;
-      const src = fakeStats?.[stat]?.src || "";
-      return buildRow({
-        text: fakeStatTextMap[stat], exists, playsAt: plays("fakeStat"),
-        onPlay: () => onVolPressed({
-          rowKey: `fake:${stat}:${lang}`,
-          cachedExists: exists,
-          cachedSrc: src,
-          generateEndpoint: "__fake-stats-voice/generate",
-          generateBody: { stat },
-        }),
-        onDelete: () => onDeletePressed({
-          rowKey: `fake:${stat}:${lang}`,
-          deleteEndpoint: "__fake-stats-voice/delete",
-          deleteBody: { stat },
-        }),
-      });
-    });
-    root.appendChild(buildSection(titles.quizSounds, rows));
-  }
+  /* Team-name quiz has no Quiz Sounds — the reveal plays the team's name clip from
+     `.Storage/Voices/Teams Names`, matching Regular. Keep Quiz Intro unchanged. */
 
   /* Section 5 — Bundled (Welcome + Level progress voices).
      Both languages are generated on-demand via ElevenLabs through the `__bundled-voice`

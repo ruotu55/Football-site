@@ -2507,9 +2507,13 @@ body:not(.shorts-mode) .career-team-quiz-card__reveal-text {
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
   max-width: 100%;
   max-height: 100%;
+  transform: translateY(-0.02em);
 }
 
 body:not(.shorts-mode) .career-team-quiz-card__reveal-text--name {
@@ -2521,7 +2525,7 @@ body:not(.shorts-mode) .career-team-quiz-card__reveal-text--name {
   max-width: 100%;
   min-width: 0;
   margin-inline: auto;
-  display: block;
+  display: flex;
   box-sizing: border-box;
   overflow: hidden;
   line-height: 1.05;
@@ -2801,9 +2805,13 @@ body.career-team-card-mode .career-team-quiz-card__reveal-text {
   font-weight: 800;
   line-height: 1;
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
   max-width: 100%;
   max-height: 100%;
+  transform: translateY(-0.02em);
 }
 
 body.career-team-card-mode .career-team-quiz-card__reveal-text--name {
@@ -2814,7 +2822,7 @@ body.career-team-card-mode .career-team-quiz-card__reveal-text--name {
   max-width: 100%;
   min-width: 0;
   margin-inline: auto;
-  display: block;
+  display: flex;
   box-sizing: border-box;
   overflow: hidden;
   line-height: 1.05;
@@ -2900,41 +2908,54 @@ body.career-player-card-mode .player-stats-national-flag {
   display: none !important;
 }
 
-/* Player-name: box ~5% larger than team card (min(64vh, 78vw, 36rem) × 1.05). */
+/* Player-name: use the exact same card size/position footprint as team mode. */
 body.career-player-card-mode .career-team-quiz-card {
-  width: min(67.2vh, 81.9vw, 37.8rem) !important;
+  width: min(64vh, 78vw, 36rem) !important;
 }
 
 body.career-player-card-mode .career-team-quiz-card__reveal {
-  width: min(100%, 37.8rem) !important;
+  width: min(100%, 36rem) !important;
+  position: relative;
+  z-index: 2;
 }
 
+/* Keep player media square identical to team dimensions. */
 body.career-player-card-mode .career-team-quiz-card__logo-wrap {
-  /* Hard lock: height must always equal width. */
   width: 100% !important;
-  height: min(67.2vh, 81.9vw, 37.8rem) !important;
-  min-height: min(67.2vh, 81.9vw, 37.8rem) !important;
-  max-height: min(67.2vh, 81.9vw, 37.8rem) !important;
+  height: min(64vh, 78vw, 36rem) !important;
+  min-height: min(64vh, 78vw, 36rem) !important;
+  max-height: min(64vh, 78vw, 36rem) !important;
   aspect-ratio: 1 / 1 !important;
-  border-radius: 1.4rem;
-  overflow: hidden;
-  isolation: isolate;
+  border-radius: 0;
+  overflow: visible;
 }
 
-/* Player photo uses CSS transforms — keep frosted frame inside the clip rect (team mode uses
-   negative inset for mask alignment; not needed here). */
-body.career-player-card-mode .career-team-quiz-card__logo-wrap::before {
-  inset: 0;
+/* Match the same visible frosted edge as team mode (frame uses inset:-0.9rem),
+   so there is no inner cutoff line before the real card edge. */
+body.career-player-card-mode .career-player-card-photo-clip {
+  position: absolute;
+  inset: -0.9rem;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 1.4rem;
+  pointer-events: auto;
+}
+
+body.career-player-card-mode
+  .career-player-card-photo-clip:has(> .career-team-quiz-card__logo[hidden]) {
+  display: none;
+}
+
+body.career-player-card-mode .career-team-quiz-card__logo-fallback {
+  position: relative;
+  z-index: 1;
 }
 
 body.career-player-card-mode .career-team-quiz-card__logo {
   width: 100% !important;
   height: 100% !important;
-  max-width: 100%;
-  max-height: 100%;
   object-fit: contain;
   object-position: center center;
-  clip-path: none;
 }
 
 body.play-video-active .career-team-quiz-card__logo-punch,

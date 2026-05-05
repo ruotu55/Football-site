@@ -1218,6 +1218,7 @@ function attachFakeInfoTeamLogoMaskEditor({
       }
       setPunchLayerVisible(punchHasUserEdits);
       updatePointerLayers();
+      syncBrushControlsVisibility();
       hideBrushCursor();
       return;
     }
@@ -1255,10 +1256,17 @@ function attachFakeInfoTeamLogoMaskEditor({
         maskCanvas.classList.add("career-team-quiz-card__logo-mask--punch-edit");
         backgroundMaskBtn.classList.add("is-active");
         updatePointerLayers();
+        syncBrushControlsVisibility();
       } finally {
         punchPrepareInFlight = false;
       }
     })();
+  };
+
+  const syncBrushControlsVisibility = () => {
+    const showBrushControls = (editModeOn || punchModeOn) && !sampleColorArmed;
+    brushControls.hidden = !showBrushControls;
+    brushControls.style.display = showBrushControls ? "inline-flex" : "none";
   };
 
   const syncBrushSwatch = () => {
@@ -1277,6 +1285,7 @@ function attachFakeInfoTeamLogoMaskEditor({
       hideBrushCursor();
     }
     updatePointerLayers();
+    syncBrushControlsVisibility();
   };
   const setEditMode = (on) => {
     const wasEditing = editModeOn;
@@ -1293,6 +1302,7 @@ function attachFakeInfoTeamLogoMaskEditor({
       hideBrushCursor();
     }
     updatePointerLayers();
+    syncBrushControlsVisibility();
   };
   const syncBrushSizeUi = () => {
     brushSizeValue.textContent = String(Math.round(brushRadiusPx));
@@ -1308,6 +1318,7 @@ function attachFakeInfoTeamLogoMaskEditor({
   syncBrushSwatch();
   syncBrushSizeUi();
   syncBrushShapeUi();
+  syncBrushControlsVisibility();
   setEditMode(false);
   updatePointerLayers();
 
@@ -1914,8 +1925,8 @@ function applyCareerSilhouetteAdjustments(silhouetteEl, st, { noExtraDown = fals
    a touch lower and the body fills the frame a bit more. Each Up/Down tick adds +/-2% on
    top of the Y baseline; Width/Height scale stacks multiplicatively on the size baseline.
    Origin at bottom-center, so scaling up grows the photo upward. */
-const PLAYER_CARD_PHOTO_BASELINE_Y_PCT = 4;
-const PLAYER_CARD_PHOTO_BASELINE_SCALE = 1.07;
+const PLAYER_CARD_PHOTO_BASELINE_Y_PCT = 3;
+const PLAYER_CARD_PHOTO_BASELINE_SCALE = 1.026;
 function applyPlayerCardPhotoAdjustments(photoEl, st) {
   if (!photoEl) return;
   const yOffset = Number(st?.silhouetteYOffset ?? 0);
@@ -3986,6 +3997,8 @@ export function renderCareer() {
 
         const photoWrap = document.createElement("div");
         photoWrap.className = "career-team-quiz-card__logo-wrap";
+        const photoClip = document.createElement("div");
+        photoClip.className = "career-player-card-photo-clip";
         const photoImg = document.createElement("img");
         photoImg.className = "career-team-quiz-card__logo";
         photoImg.alt = "";
@@ -4025,7 +4038,8 @@ export function renderCareer() {
             });
           }
         });
-        photoWrap.appendChild(photoImg);
+        photoClip.appendChild(photoImg);
+        photoWrap.appendChild(photoClip);
         photoWrap.appendChild(photoFallback);
         playerQuizCard.appendChild(photoWrap);
 
