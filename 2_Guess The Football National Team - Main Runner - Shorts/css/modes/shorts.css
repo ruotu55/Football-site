@@ -1,0 +1,476 @@
+/* css/modes/shorts.css */
+
+/* =========================================
+   SHORTS MODE (9:16 Vertical Video)
+   ========================================= */
+   body.shorts-mode {
+    background: #000000;
+}
+
+html.shorts-mode,
+html.shorts-mode {
+    background: #000000 !important;
+}
+
+html.shorts-mode::before,
+html.shorts-mode::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: max(0px, calc((100vw - min(56.25vh, 100vw)) / 2));
+    background: #000000;
+    pointer-events: none;
+    z-index: 2;
+}
+
+html.shorts-mode::before {
+    left: 0;
+}
+
+html.shorts-mode::after {
+    right: 0;
+}
+
+body.shorts-mode .app {
+    position: relative;
+    z-index: 10 !important;
+}
+
+body.shorts-mode .stage {
+    background: transparent;
+    position: relative;
+    /* Align with other shorts runners: flat stage so fixed chrome matches the viewport. */
+    perspective: none;
+}
+
+/* Static green 9:16 backdrop so it doesn't shrink during animations */
+body.shorts-mode .stage::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56.25vh;
+    height: 100vh;
+    background: transparent;
+    box-shadow: none;
+    z-index: -1;
+    pointer-events: none;
+}
+
+body.shorts-mode .side-text {
+    display: none;
+}
+
+body.shorts-mode .stage-main {
+    width: 56.25vh;
+    height: 100vh;
+    flex: none;
+    margin: 0 auto;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+body.shorts-mode .logo-page {
+    display: none !important;
+}
+
+body.shorts-mode .landing-page {
+    justify-content: center;
+    align-items: center;
+}
+
+body.shorts-mode .landing-hero-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 100%;
+    gap: clamp(1rem, 3.2vh, 2.25rem);
+    padding: 0 1rem;
+    /* Keep logo + text above the shorts progress strip without hugging top/bottom */
+    padding-bottom: max(4.5rem, 11vh);
+    box-sizing: border-box;
+    /* Net ~5% viewport down from center (was 10vh, moved 5% up) */
+    transform: translateY(5vh);
+}
+
+body.shorts-mode .landing-hero-text {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+body.shorts-mode .landing-title {
+    font-size: 2.7rem;
+    line-height: 0.95;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    text-transform: none;
+}
+
+body.shorts-mode .landing-subtitle {
+    font-size: clamp(1.35rem, 4.2vmin, 1.85rem);
+    margin-bottom: 0;
+    text-transform: none;
+}
+
+body.shorts-mode .shorts-landing-logo {
+    display: block;
+    width: 42%;
+    max-width: 220px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.55));
+    animation: float-up-down 3.2s ease-in-out infinite;
+}
+
+body.shorts-mode .difficulty-box {
+    display: none !important;
+}
+
+body.shorts-mode .landing-special-badge-container {
+    left: 50%;
+    top: 17%;
+    margin: 0;
+    transform: translate(-50%, -50%) scale(1);
+    animation: float-up-down-special-badge-shorts 3.2s ease-in-out infinite;
+}
+
+/* Side panel is now position:fixed (team-header.css) — no in-flow layout needed here.
+   Shorts-specific sizing lives in team-header.css `body.shorts-mode .team-header { ... }`. */
+
+/* Shorts: club / national header crest — smaller than regular panel */
+body.shorts-mode .team-header[data-squad-type="club"] .team-header-logo {
+    height: 4.5rem;
+    width: 5.9rem;
+    max-width: min(5.9rem, calc(100% - 0.5rem));
+}
+
+body.shorts-mode .team-header[data-squad-type="national"] .team-header-logo {
+    height: 4.39rem;
+    width: 5.74rem;
+    max-width: min(5.74rem, calc(100% - 0.5rem));
+}
+
+body.shorts-mode .pitch-wrap {
+    position: relative;
+    z-index: 1;
+    align-items: flex-start;
+    margin-top: 2.5vh;
+    padding-top: 0;
+    /* Scales pitch surface, player slots, team-logo badges, and everything else
+       inside `.pitch-wrap` together. scale: −1% from 0.87342, translateY held at 8%. */
+    transform: scale(0.86469) translateY(8%);
+    transform-origin: top center;
+}
+
+body.shorts-mode .pitch-surface {
+    aspect-ratio: 3 / 4;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0 auto;
+    transform: rotateX(25deg) translateY(-15%);
+}
+
+body.shorts-mode .player-slot {
+    /* Base 14% * 1.02, then +10% diameter (Regular pitch slot bump) */
+    width: calc(14% * 1.02 * 1.1);
+}
+
+body.shorts-mode .slot-name {
+    font-size: clamp(0.7rem, 1.4vh, 1.1rem);
+}
+
+body.shorts-mode .quiz-progress {
+    flex-direction: row;
+    top: auto;
+    bottom: calc(2.8rem + 4vh);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: auto;
+    justify-content: center;
+}
+
+body.shorts-mode.play-video-active.shorts-question-countdown .quiz-progress {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.4s ease;
+}
+
+body.shorts-mode .difficulty-label {
+    display: none;
+}
+
+body.shorts-mode .quiz-progress-track {
+    flex-direction: row;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    width: auto;
+    transform: scale(0.85);
+}
+
+body.shorts-mode .quiz-progress-scroll {
+    flex-direction: row;
+    overflow: visible;
+    padding: 0.2rem 0.6rem;
+    height: auto;
+    width: auto;
+    gap: 0.4rem;
+}
+
+body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+body.shorts-mode .quiz-progress .step-dots {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0 0.15rem;
+}
+
+body.shorts-mode .quiz-progress .step-dots::before,
+body.shorts-mode .quiz-progress .step-dots::after {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* High enough to clear pitch crests; still below the very top of the frame */
+body.shorts-mode .countdown-timer {
+    top: calc(max(2.65rem, 18.5vh) * 0.7);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes countdown-timer-enter-shorts {
+    0% {
+        transform: translateX(-50%) scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        opacity: 0;
+        filter: blur(5px);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+body.shorts-mode .countdown-timer.countdown-timer-stage-enter {
+    animation: countdown-timer-enter-shorts 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+body.shorts-mode .countdown-bar-track {
+    width: min(78vw, 19rem);
+    height: 0.78rem;
+    padding: 0.22rem;
+}
+
+body.shorts-mode .countdown-bar-gloss {
+    left: 0.22rem;
+    right: 0.22rem;
+    top: 0.22rem;
+}
+
+body.shorts-mode .quiz-progress[hidden] {
+    display: none !important;
+}
+
+body.shorts-mode .stage-exit-anim {
+    animation: stage-exit-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+body.shorts-mode .stage-enter-anim {
+    animation: stage-enter-epic 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+@keyframes stage-exit-shorts {
+    0% {
+        transform: scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+
+    20% {
+        transform: scale(1.05) translateZ(50px) rotateX(5deg) translateY(-2%);
+        opacity: 1;
+        filter: blur(0px);
+    }
+
+    100% {
+        transform: scale(0.3) translateZ(-1500px) rotateX(20deg) translateY(-100%);
+        opacity: 0;
+        filter: blur(5px);
+    }
+}
+
+@keyframes stage-enter-shorts {
+    0% {
+        transform: scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        opacity: 0;
+        filter: blur(5px);
+    }
+
+    100% {
+        transform: scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+@keyframes header-slide-in-shorts {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+        filter: blur(10px);
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+        filter: blur(0px);
+    }
+}
+
+/* Outro only: move logo, headings, and like/subscribe up; quiz bar stays on .stage (sibling). */
+body.shorts-mode #outro-page:not([hidden]) {
+    --outro-float-base-y: -10vh;
+    /* Shift whole outro stack down 10% of viewport (shorts end card). */
+    padding-top: 10vh;
+    box-sizing: border-box;
+}
+
+body.shorts-mode .outro-top-row .outro-action {
+    display: none;
+}
+
+body.shorts-mode .outro-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 3rem;
+}
+
+body.shorts-mode .outro-action-bottom {
+    width: 130px;
+    object-fit: contain;
+    opacity: 0;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+body.shorts-mode #outro-page:not([hidden]) .action-like-bottom {
+    animation: pop-in-up 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 2.7s;
+}
+
+body.shorts-mode #outro-page:not([hidden]) .action-sub-bottom {
+    animation: pop-in-up 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 3.0s;
+}
+
+@keyframes pop-in-up {
+    0% {
+        transform: translateY(100px) scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* =========================================
+   SHOTS SIZE – Safe-zone overlay (9:16 column)
+   Yellow tint = margins outside the dashed frame (top, bottom, left, right).
+   Center inside dashed lines stays clear. Red dashed = frame edges.
+   Top: 11vh strip. Bottom top edge: slightly above old grid line 19.
+   Vertical dashed: 1/21 and 20/21 column width.
+   ========================================= */
+.shots-size-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.shots-size-overlay__column {
+    position: absolute;
+    top: 0;
+    left: calc((100vw - min(56.25vh, 100vw)) / 2);
+    width: min(56.25vh, 100vw);
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.shots-size-overlay__margin-left,
+.shots-size-overlay__margin-right {
+    position: absolute;
+    z-index: 1;
+    top: 11vh;
+    bottom: calc(100% * 2 / 21 + 0.6vh);
+    width: calc(100% / 21);
+    background: rgba(255, 215, 48, 0.24);
+    box-sizing: border-box;
+}
+
+.shots-size-overlay__margin-left {
+    left: 0;
+}
+
+.shots-size-overlay__margin-right {
+    right: 0;
+}
+
+.shots-size-overlay__top,
+.shots-size-overlay__bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 215, 48, 0.24);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.shots-size-overlay__top {
+    top: 0;
+    height: 11vh;
+    border-bottom: 2px dashed rgba(255, 70, 70, 0.8);
+}
+
+.shots-size-overlay__bottom {
+    top: calc(19 * 100% / 21 - 0.6vh);
+    bottom: 0;
+    height: auto;
+    border-top: 2px dashed rgba(255, 70, 70, 0.8);
+}
+
+.shots-size-overlay__vline {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 2px dashed rgba(255, 70, 70, 0.8);
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.shots-size-overlay__vline--left {
+    left: calc(100% / 21);
+}
+
+.shots-size-overlay__vline--right {
+    left: calc(20 * 100% / 21);
+}

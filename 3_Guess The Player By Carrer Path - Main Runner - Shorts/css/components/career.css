@@ -1,0 +1,1699 @@
+﻿/* css/components/career.css */
+
+.career-wrap {
+  width: 100%;
+  height: 66vh; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 0;
+  transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.career-picture-controls {
+  position: fixed;
+  left: 15.2rem;
+  top: 0.15rem;
+  z-index: 45;
+  width: 13.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.6rem;
+  border-radius: 0.55rem;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+  transform: scale(0.75);
+  transform-origin: top left;
+}
+
+.career-picture-controls-title {
+  margin: 0 0 0.1rem;
+  font-size: 0.88rem;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.career-picture-controls-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.career-picture-controls-actions {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.career-picture-controls-actions--favorite {
+  grid-template-columns: 1fr auto 1fr auto;
+}
+
+.career-picture-controls-actions button,
+.career-picture-controls-reset {
+  height: 1.6rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.career-picture-controls-actions button:hover,
+.career-picture-controls-reset:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.career-picture-controls-favorite.is-active,
+#pic-favorite.is-active {
+  color: #ff4d6d;
+  border-color: rgba(255, 77, 109, 0.7);
+  background: rgba(255, 77, 109, 0.2);
+}
+
+.career-picture-controls-actions strong {
+  min-width: 2.4rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.career-picture-controls-reset {
+  margin-top: 0.15rem;
+  background: rgba(239, 68, 68, 0.2);
+  color: #ff6b6b;
+  border-color: rgba(239, 68, 68, 0.45);
+}
+
+/* Shorts: same floating Adjust Picture panel, top-centered (road layout keeps top-left). */
+.career-picture-controls.career-picture-controls--shorts-layout {
+  left: 50%;
+  right: auto;
+  top: max(0.35rem, env(safe-area-inset-top, 0px));
+  transform: translateX(-50%) scale(0.82);
+  transform-origin: top center;
+  z-index: 640;
+}
+
+.career-wrap[hidden] {
+  display: none !important;
+}
+
+body:not(.shorts-mode) .career-wrap {
+  height: 72.6vh;
+}
+
+.team-header.video-hidden ~ .career-wrap {
+  height: 72.6vh;
+}
+
+body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
+  height: 72.6vh;
+}
+
+.career-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  /* Road + player image share this layer; moved another 5% higher */
+  transform: rotateX(15deg) translateY(-20%);
+  z-index: 5;
+}
+
+.career-silhouette {
+  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1)); 
+  transform-origin: 50% 100%; 
+  opacity: 1;
+  pointer-events: none;
+  filter:
+    url("#career-silhouette-aura")
+    brightness(0)
+    contrast(1.35)
+    drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
+    drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
+    drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
+  will-change: filter, transform;
+}
+
+.career-silhouette.career-silhouette--photo {
+  pointer-events: auto;
+  -webkit-user-drag: none;
+}
+
+.career-photo-missing-label {
+  paint-order: stroke fill;
+  stroke: #0a1118;
+  stroke-width: 0.12em;
+}
+
+.career-inline-player-picker {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: min(22rem, 90%);
+  max-height: 18.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(8, 15, 20, 0.8);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+}
+
+.career-inline-player-picker-title {
+  color: var(--accent);
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: "Barlow Condensed", sans-serif;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.career-inline-player-search {
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.career-inline-player-results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  overflow-y: auto;
+  min-height: 6.2rem;
+  max-height: 12rem;
+}
+
+.career-inline-player-hint {
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  padding: 0.55rem;
+  font-size: 0.82rem;
+}
+
+.career-inline-player-result {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  width: 100%;
+  padding: 0.38rem 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.career-inline-player-result:hover {
+  background: rgba(255, 202, 40, 0.22);
+}
+
+.career-inline-player-result small {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
+}
+
+.career-clear-player-btn {
+  position: absolute;
+  left: 50%;
+  top: 31%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(8, 15, 20, 0.88);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.career-clear-player-btn:hover {
+  background: rgba(255, 202, 40, 0.88);
+  color: #000;
+}
+
+body.play-video-active .career-clear-player-btn {
+  display: none !important;
+}
+
+/* Cinematic countdown-finish reveal: soften the background briefly. */
+body.career-cinematic-reveal .career-wrap .career-slots,
+body.career-cinematic-reveal .career-wrap .career-path-outer,
+body.career-cinematic-reveal .career-wrap .career-path-inner,
+body.career-cinematic-reveal .career-wrap .career-path-dash,
+body.career-cinematic-reveal .career-wrap .career-svg {
+  filter: blur(8px);
+  opacity: 0.22;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-image-group {
+  clip-path: none !important;
+}
+
+body:not(.shorts-mode) .career-wrap.cinematic-reveal-active .career-silhouette.revealed {
+  opacity: 0 !important;
+}
+
+.career-silhouette.revealed {
+  animation: epic-reveal 1.55s cubic-bezier(0.2, 0.95, 0.25, 1) forwards;
+  opacity: 1; 
+}
+
+.career-silhouette.drop-away {
+  animation: silhouette-drop-away 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes silhouette-drop-away {
+  0% {
+    opacity: 1;
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0)
+      contrast(1.35)
+      drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
+      drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
+      drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+  }
+  100% {
+    opacity: 0;
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0)
+      blur(3px)
+      drop-shadow(0 0 22px rgba(184, 247, 232, 0.42));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 26%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+  }
+}
+
+@keyframes epic-reveal {
+  0% {
+    filter: brightness(0.2) saturate(0.6) blur(8px) drop-shadow(0 0 0 transparent);
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 38%)) scale(calc(var(--sil-scale-x, 1) * 0.88), calc(var(--sil-scale-y, 1) * 0.88));
+    opacity: 0;
+  }
+  62% {
+    filter:
+      url("#career-silhouette-aura")
+      brightness(0.9)
+      saturate(1)
+      blur(0)
+      drop-shadow(0 9px 20px rgba(0, 0, 0, 0.75))
+      drop-shadow(0 0 38px rgba(184, 247, 232, 0.44))
+      drop-shadow(0 0 78px rgba(120, 214, 192, 0.22));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) - 2.4%)) scale(calc(var(--sil-scale-x, 1) * 1.02), calc(var(--sil-scale-y, 1) * 1.02));
+    opacity: 1;
+  }
+  100% {
+    filter:
+      url("#career-silhouette-aura")
+      brightness(1)
+      saturate(1.05)
+      blur(0)
+      drop-shadow(0 16px 32px rgba(0, 0, 0, 0.8))
+      drop-shadow(0 0 28px rgba(204, 255, 243, 0.48))
+      drop-shadow(0 0 72px rgba(120, 214, 192, 0.26));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
+    opacity: 1;
+  }
+}
+
+body:not(.shorts-mode) .career-reveal-overlay {
+  --career-player-box-top: 5.5rem;
+  position: fixed;
+  left: 50%;
+  top: var(--career-player-box-top);
+  bottom: 0;
+  width: 100vw;
+  height: calc(100vh - var(--career-player-box-top));
+  opacity: 0;
+  transform: translateX(-50%) translateY(46%) scale(0.74);
+  transform-origin: center bottom;
+  filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
+  z-index: 260;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 2.5%;
+  width: min(60vw, 640px);
+  height: 2.3rem;
+  border-radius: 999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.22) 45%,
+    rgba(0, 0, 0, 0.02) 100%
+  );
+  transform: translateX(-50%) translateY(-42px) scale(0.72);
+  filter: blur(6px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: translateY(var(--career-reveal-y, -10%))
+    scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
+  transform-origin: center bottom;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay-fallback {
+  width: min(38rem, 92%);
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.55rem;
+  text-align: center;
+  background: rgba(10, 17, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #f8fafc;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.4vw, 1.55rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body.career-reveal-sync-drop:not(.shorts-mode) .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay {
+  top: var(--career-player-box-top);
+  bottom: 0;
+  height: calc(100vh - var(--career-player-box-top));
+  overflow: hidden;
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay-img {
+  clip-path: inset(0 0 0 0);
+}
+
+body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-overlay.show {
+  animation: career-reveal-overlay-rise-safe 1.15s cubic-bezier(0.2, 1, 0.25, 1) forwards;
+}
+
+body:not(.shorts-mode) .career-reveal-overlay.show::after {
+  animation: career-reveal-shadow-drop 0.42s cubic-bezier(0.12, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes career-reveal-overlay-rise {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  20% {
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.16);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+@keyframes career-reveal-overlay-rise-safe {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  18% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(55%) scale(0.68);
+    filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
+  }
+  28% {
+    opacity: 1;
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1.04);
+    filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
+  }
+}
+
+@keyframes career-reveal-shadow-drop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-28px) scale(1);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 0.75;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(6px);
+  }
+}
+
+body:not(.shorts-mode) .career-reveal-name {
+  position: absolute;
+  left: 50%;
+  bottom: 2.4vh;
+  transform: translateX(-50%);
+  width: min(90vw, 1000px);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 320;
+}
+
+body:not(.shorts-mode) .career-reveal-name-top {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.35rem, 3.8vw, 3rem);
+  line-height: 0.9;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.85);
+  white-space: nowrap;
+}
+
+body:not(.shorts-mode) .career-reveal-name-bottom {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.9rem, 9vw, 8.4rem);
+  line-height: 0.88;
+  letter-spacing: 0.03em;
+  color: #ef4444;
+  text-shadow: 0 8px 26px rgba(0, 0, 0, 0.9), 0 0 16px rgba(239, 68, 68, 0.36);
+  white-space: nowrap;
+}
+
+body:not(.shorts-mode) .career-reveal-name.show {
+  animation: career-reveal-name-fade-in 0.92s ease both;
+}
+
+
+@keyframes career-reveal-name-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+/* Video question-to-question: animate incoming road/player layer (avoid pop-in). */
+body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-svg,
+body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
+  animation: career-question-surface-enter 0.82s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+@keyframes career-question-surface-enter {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: rotateX(15deg) translateY(-14.5%) scale(1.14);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: rotateX(15deg) translateY(-20%) scale(1);
+  }
+}
+
+.career-path-outer {
+  fill: none;
+  stroke: #e2e8f0; 
+  stroke-width: 26;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-path-inner {
+  fill: none;
+  stroke: #0a1118;
+  stroke-width: 18;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-path-dash {
+  fill: none;
+  stroke: #ffffff; 
+  stroke-width: 4;
+  stroke-dasharray: 20 20;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  animation: dash-flow 1.5s linear infinite;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+@keyframes dash-flow { to { stroke-dashoffset: -40; } }
+
+.career-slots {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  transform: rotateX(15deg) translateY(-20%);
+  z-index: 10;
+  transition: filter 0.45s ease, opacity 0.45s ease;
+}
+
+.career-club-slot {
+  position: absolute;
+  /* Counter-rotate the slot by -15deg so it faces straight to the camera */
+  transform: translate(-50%, -50%) rotateX(-15deg);
+  /* Pass clicks through the slot shell so double-clicks reach the player photo / Shorts reveal;
+     interactive pieces set their own pointer-events: auto. */
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+
+/* Video Mode / Play Video: hide in-slot controls (see syncCareerSlotControlsVisibility in pitch-render.js) */
+body.career-hide-slot-controls .career-badge-controls,
+body.career-hide-slot-controls .career-year-nudge-controls,
+body.career-hide-slot-controls .career-edit-btn,
+body.career-hide-slot-controls .career-remove-btn,
+body.career-hide-slot-controls .career-insert-btn {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* Always hide floating Adjust Picture panel during Play Video flow. */
+body.play-video-active .career-picture-controls {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+/* גˆ’ / + and ג†‘ / ג†“ on one top row above each badge */
+.career-club-emblem-scale > .career-badge-controls {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  flex-shrink: 0;
+  margin-bottom: 0.12rem;
+  pointer-events: auto;
+}
+
+/* Regular road view: pin -/+ directly above each club symbol. */
+body:not(.shorts-mode) .career-club-emblem-scale {
+  position: relative;
+}
+
+body:not(.shorts-mode) .career-club-emblem-scale > .career-badge-controls {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, calc(-100% - 0.2rem));
+  margin: 0;
+}
+
+.career-badge-zoom-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-badge-zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-badge-zoom-btn:active {
+  transform: scale(0.94);
+}
+
+/* Legacy (kept harmless): old container under year, no longer used */
+.career-club-year-stack > .career-year-nudge-controls {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.career-year-nudge-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-year-nudge-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-year-nudge-btn:active {
+  transform: scale(0.94);
+}
+
+.career-slot-favorite-btn {
+  box-sizing: border-box;
+  min-width: 1.1rem;
+  width: 1.1rem;
+  height: 0.95rem;
+  padding: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 0.22rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.45);
+}
+
+.career-slot-favorite-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.career-slot-favorite-btn:active {
+  transform: scale(0.94);
+}
+
+.career-slot-favorite-btn.is-active {
+  color: #ff4d6d;
+  border-color: rgba(255, 77, 109, 0.9);
+  background: rgba(255, 77, 109, 0.24);
+}
+
+/* Fine-tune stack vs road anchor (smaller offset = slightly higher on screen) */
+body:not(.shorts-mode) .career-club-slot {
+  transform: translate(-50%, calc(-50% + 4px)) rotateX(-15deg);
+}
+
+/* Road view: 12px total motion, centered on anchor (not biased upward like global float-up-down) */
+@keyframes float-up-down-career-road {
+  0%,
+  100% {
+    transform: translate3d(0, 6px, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+/* Shorts logos: subtle bob around center (small up/down shake). */
+@keyframes float-up-down-career-shorts {
+  0%,
+  100% {
+    transform: translate3d(0, 3px, 0);
+  }
+  50% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+.career-club-slot-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+}
+
+/* Outer shell only holds CSS vars; scaled cluster = zoom + crest + year (ג†‘ג†“) so spacing scales together. */
+.career-club-badge-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+}
+
+.career-club-emblem-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  line-height: 0;
+  transform: scale(var(--career-badge-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* z-index + pass-through: when the year stack moves up over the crest, clicks must hit ג†‘/ג†“ (not the PNG). */
+.career-club-emblem-slot {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  line-height: 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Year + nudge buttons share one translate so ג†“ moves the controls with the pill (transform on year alone did not shift layout siblings). */
+.career-club-year-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateY(var(--career-year-nudge, 0px));
+  transform-origin: center top;
+}
+
+/* Year stays unscaled (crest scales in .career-club-emblem-scale only).
+   --career-img-bottom-slack: layout px of transparent padding under the crest (set from canvas scan in pitch-render.js). */
+.career-club-year-stack > .career-club-year {
+  margin: 0;
+  margin-top: calc(-3px - var(--career-img-bottom-slack, 0px));
+  padding: 0.06rem 0.55rem 0.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  pointer-events: auto;
+  cursor: text;
+  transform: scale(var(--career-year-inverse-scale, 1));
+  transform-origin: center top;
+}
+
+/* Inline year editor: match pill look; reset native input chrome */
+.career-club-year-stack > .career-club-year.career-club-year-input {
+  box-sizing: border-box;
+  text-align: center;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+.career-club-slot-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: float-up-down-career-road 4s ease-in-out infinite;
+}
+
+/* Shorts grid: subtle up/down bob for team logos. */
+body.shorts-mode .career-club-slot-inner {
+  animation: float-up-down-career-shorts 3.6s ease-in-out infinite;
+}
+
+/* Shorts Play Video only: match regular runner logo shake strength. */
+body.shorts-mode.play-video-active .career-club-slot-inner {
+  animation: float-up-down-career-road 4s ease-in-out infinite;
+}
+
+.career-club-placeholder {
+  width: 195px;
+  height: 195px;
+  background: #ffffff; 
+  border: 4px solid #000; /* Fixed: Thick Black border added */
+  border-radius: 50%;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  position: relative;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Regular (road): box hugs the crest (no fixed square) so the year sits flush under every PNG */
+body:not(.shorts-mode) .career-club-placeholder {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  line-height: 0;
+  width: auto;
+  height: auto;
+  min-width: 3.75rem;
+  min-height: 3.75rem;
+  max-width: 195px;
+  max-height: 195px;
+}
+
+body:not(.shorts-mode) .career-club-placeholder:empty {
+  min-width: 4.875rem;
+  min-height: 4.875rem;
+}
+
+body:not(.shorts-mode) .career-club-logo-img {
+  display: block;
+  max-width: 195px;
+  max-height: 195px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-fallback-text {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  max-width: min(34vw, 360px);
+  padding: 0.25rem;
+  box-sizing: border-box;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  line-height: 1.15;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+body:not(.shorts-mode) .career-club-fallback-text--solo {
+  display: none;
+  color: #000;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-fallback-text:not([hidden]) {
+  display: flex;
+  pointer-events: none;
+}
+
+body:not(.shorts-mode) .career-club-placeholder:empty::after {
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+/* Edit button styling - hidden until hover */
+.career-edit-btn {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: var(--accent);
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  display: none; 
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+  transition: transform 0.2s;
+}
+
+.career-edit-btn:hover {
+  transform: scale(1.15);
+}
+
+.career-club-emblem-slot:hover .career-edit-btn {
+  display: flex;
+}
+
+.career-remove-btn {
+  position: absolute;
+  top: -48px;
+  left: calc(50% - 20px);
+  transform: translateX(-50%);
+  background: #ef4444;
+  color: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 12px;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 180;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s;
+}
+
+.career-remove-btn:hover {
+  transform: translateX(-50%) scale(1.15);
+}
+
+.career-logo-fetch-btn {
+  position: absolute;
+  top: -48px;
+  left: calc(50% + 20px);
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  min-width: 42px;
+  height: 26px;
+  padding: 0 6px;
+  border: 2px solid #000;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  z-index: 182;
+}
+
+.career-logo-fetch-btn:hover {
+  background: #1d4ed8;
+}
+
+.career-logo-fetch-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+body.play-video-active .career-logo-fetch-btn {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.career-insert-btn {
+  border: 2px solid #000;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.55);
+  z-index: 200;
+}
+
+.career-insert-btn:hover {
+  transform: none;
+}
+
+.career-insert-btn--road {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: auto;
+}
+
+.career-insert-btn--road:hover {
+  opacity: 1;
+}
+
+.career-insert-btn--road:focus-visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.career-grid-arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.career-insert-btn--shorts {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.career-grid-arrow:hover .career-insert-btn--shorts,
+.career-grid-arrow:focus-within .career-insert-btn--shorts {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.career-grid-arrow:hover .career-insert-btn--shorts {
+  transform: translate(-50%, -50%);
+}
+
+.career-insert-btn--side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 210;
+}
+
+.career-insert-btn--side-left {
+  left: calc(-1 * var(--career-side-insert-offset, 1.8rem));
+}
+
+.career-insert-btn--side-right {
+  right: calc(-1 * var(--career-side-insert-offset, 1.8rem));
+}
+
+/* Keep only per-team side add buttons visible. */
+.career-insert-btn:not(.career-insert-btn--side) {
+  display: none !important;
+}
+
+.career-insert-btn--side:hover,
+.career-insert-btn--side:focus-visible {
+  transform: translateY(-50%) !important;
+}
+
+.career-club-placeholder:empty::after {
+  content: '?';
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.8rem;
+  color: rgba(0,0,0,0.5);
+  font-weight: 800;
+}
+
+.career-club-year {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  background: #0a1118;
+  border-radius: 5px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ג€Get photoג€ ג€” same behaviour as Career Path Regular (URL modal + Ready photos). */
+.career-reveal-photo-img,
+.career-reveal-overlay-img {
+  -webkit-user-drag: none;
+}
+
+.career-get-photo-actions {
+  position: fixed;
+  left: 0;
+  right: 0;
+  --career-get-photo-line-top: calc(36vh - 40%);
+  top: var(--career-get-photo-line-top);
+  margin-inline: auto;
+  width: fit-content;
+  max-width: min(22rem, 92%);
+  z-index: 400;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  pointer-events: auto;
+}
+
+.career-get-photo-buttons-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+body:not(.shorts-mode) .career-get-photo-actions {
+  --career-get-photo-line-top: calc(34vh - 40%);
+  top: var(--career-get-photo-line-top);
+}
+
+/* Match `body.shorts-mode .career-clear-player-btn` top (5.5vh) in css/modes/shorts.css */
+body.shorts-mode .career-get-photo-actions {
+  --career-get-photo-line-top: 5.5vh;
+  top: 5.5vh;
+}
+
+body.play-video-active .career-get-photo-actions {
+  display: none !important;
+  pointer-events: none !important;
+}
+
+.career-get-photo-btn {
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(8, 20, 28, 0.92);
+  color: #e8fff8;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.career-get-photo-btn:hover:not(:disabled) {
+  background: rgba(20, 60, 52, 0.95);
+  border-color: rgba(200, 255, 244, 0.55);
+}
+
+.career-get-photo-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.career-get-photo-btn--switch {
+  padding: 0.32rem 0.55rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.career-get-photo-btn--remove-bg {
+  /* Black, matching GET PHOTO / SWITCH. */
+}
+
+.career-delete-image-btn {
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 190, 190, 0.55);
+  background: rgba(120, 18, 18, 0.78);
+  color: #fff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.career-delete-image-btn:hover:not(:disabled) {
+  background: rgba(185, 28, 28, 0.92);
+  border-color: #fff;
+}
+
+.career-delete-image-btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+body.play-video-active .career-delete-image-btn {
+  display: none !important;
+}
+
+.career-get-photo-hint {
+  text-align: center;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: rgba(248, 250, 252, 0.92);
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.35rem;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.career-get-photo-hint--error {
+  color: #fecaca;
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+/* Shorts: pick Ready photo variant (opened from Get photo row). */
+.career-ready-photo-switch-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: 1rem;
+  padding-top: max(1rem, env(safe-area-inset-top, 0px));
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  pointer-events: none;
+  background: rgba(0, 8, 14, 0.78);
+}
+
+.career-ready-photo-switch-modal--portal {
+  z-index: 101000;
+  pointer-events: auto;
+}
+
+.career-ready-photo-switch-modal[hidden] {
+  display: none !important;
+}
+
+.career-ready-photo-switch-modal__panel {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: min(22rem, calc(100vw - 2rem));
+  max-width: 100%;
+  margin-top: min(10vh, 5rem);
+  padding: 0.85rem 0.95rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #0f1724;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.career-ready-photo-switch-modal__title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent, #ffca28);
+  text-align: center;
+}
+
+.career-ready-photo-switch-modal__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr));
+  gap: 0.45rem;
+  max-height: min(52vh, 22rem);
+  overflow: auto;
+  padding: 0.1rem;
+}
+
+.career-ready-photo-switch-modal__loading,
+.career-ready-photo-switch-modal__empty {
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(248, 250, 252, 0.88);
+  padding: 0.75rem 0.35rem;
+}
+
+.career-ready-photo-switch-option {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.28rem;
+  padding: 0.35rem;
+  margin: 0;
+  border-radius: 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+  color: #e8fff8;
+  font: inherit;
+  text-align: center;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.career-ready-photo-switch-option:hover {
+  border-color: rgba(200, 255, 244, 0.45);
+  background: rgba(20, 60, 52, 0.45);
+}
+
+.career-ready-photo-switch-option--current {
+  border-color: rgba(255, 202, 40, 0.75);
+  box-shadow: 0 0 0 1px rgba(255, 202, 40, 0.35);
+}
+
+.career-ready-photo-switch-option__img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.career-ready-photo-switch-option__label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.career-ready-photo-switch-modal__footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.15rem;
+}
+
+.career-ready-photo-switch-modal__btn-close {
+  padding: 0.35rem 1rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.career-ready-photo-switch-modal__btn-close:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.career-ready-photo-url-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  padding: 0;
+  pointer-events: none;
+}
+
+.career-ready-photo-url-modal.career-ready-photo-url-modal--portal {
+  z-index: 101000;
+}
+
+.career-ready-photo-url-modal[hidden] {
+  display: none !important;
+}
+
+.career-ready-photo-url-modal__panel {
+  position: absolute;
+  top: calc(36vh - 40% + 20%);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  box-sizing: border-box;
+  width: min(32rem, calc(100vw - 2rem));
+  max-width: 100%;
+  padding: 1.1rem 1.15rem 1rem;
+  border-radius: 0.5rem;
+  background: #0f1724;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  pointer-events: auto;
+}
+
+body:not(.shorts-mode) .career-ready-photo-url-modal__panel {
+  top: calc(34vh - 40% + 20%);
+}
+
+body.shorts-mode .career-ready-photo-url-modal__panel {
+  top: 5.5vh;
+}
+
+.career-ready-photo-url-modal__title {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f1f5f9;
+}
+
+.career-ready-photo-url-modal__input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.55rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(2, 8, 14, 0.95);
+  color: #e2e8f0;
+  font-size: 0.9rem;
+}
+
+.career-ready-photo-url-modal__input:focus {
+  outline: 2px solid rgba(52, 211, 153, 0.55);
+  outline-offset: 1px;
+}
+
+.career-ready-photo-url-modal__err {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: #fecaca;
+}
+
+.career-ready-photo-url-modal__err[hidden] {
+  display: none !important;
+}
+
+.career-ready-photo-url-modal__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.15rem;
+}
+
+.career-ready-photo-url-modal__btn {
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(15, 30, 40, 0.95);
+  color: #e2e8f0;
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.career-ready-photo-url-modal__btn:hover:not(:disabled) {
+  border-color: rgba(200, 255, 244, 0.45);
+}
+
+.career-ready-photo-url-modal__btn--primary {
+  background: rgba(20, 90, 72, 0.95);
+  border-color: rgba(110, 231, 183, 0.45);
+  color: #ecfdf5;
+}
+
+.career-ready-photo-url-modal__btn--primary:hover:not(:disabled) {
+  background: rgba(28, 120, 96, 0.98);
+}
+
+.career-ready-photo-url-modal__btn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+/* Chrome row: X | Get Photo | Switch ג€” centered horizontally, equal button size. */
+#player-voice-chrome-mount {
+  display: flex !important;
+  position: fixed !important;
+  top: 5.5vh !important;
+  left: 0 !important;
+  right: 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  z-index: 200 !important;
+  pointer-events: none !important;
+}
+
+#player-voice-chrome-mount > .career-clear-player-btn,
+#player-voice-chrome-mount > .career-delete-image-btn,
+#player-voice-chrome-mount > .career-get-photo-actions {
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  pointer-events: auto !important;
+}
+
+#player-voice-chrome-mount > .career-get-photo-actions {
+  flex-direction: row !important;
+  width: auto !important;
+  max-width: none !important;
+  gap: 0.4rem !important;
+}
+
+#player-voice-chrome-mount > .career-get-photo-actions .career-get-photo-buttons-row {
+  gap: 0.4rem !important;
+}
+
+#player-voice-chrome-mount .career-clear-player-btn,
+#player-voice-chrome-mount .career-delete-image-btn,
+#player-voice-chrome-mount .career-get-photo-btn {
+  width: 5.5rem !important;
+  min-width: 5.5rem !important;
+  max-width: 5.5rem !important;
+  height: 2.4rem !important;
+  padding: 0 0.25rem !important;
+  border-radius: 0.45rem !important;
+  font-weight: 800 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  white-space: normal !important;
+  text-align: center !important;
+  line-height: 1.05 !important;
+  border: 2px solid rgba(255, 190, 190, 0.95) !important;
+}
+
+#player-voice-chrome-mount .career-clear-player-btn {
+  font-size: 1rem !important;
+}
+
+#player-voice-chrome-mount .career-get-photo-btn {
+  font-size: 0.78rem !important;
+}
+
+#player-voice-chrome-mount .career-delete-image-btn {
+  font-size: 0.7rem !important;
+}
+
+#player-voice-chrome-mount .career-get-photo-btn--remove-bg {
+  font-size: 0.62rem !important;
+  letter-spacing: 0.03em !important;
+}
+
+/* Hide the whole chrome row (X + Get Photo + Switch) during Play Video. The chrome-mount
+   rule above sets `display: inline-flex !important` on the X, which outranks
+   `body.play-video-active .career-clear-player-btn { display: none }` via specificity,
+   so without this rule the X stays visible behind the player reveal. */
+body.play-video-active #player-voice-chrome-mount {
+  display: none !important;
+}
+
+/* Play Video mode: force-hide ALL chrome-mount buttons (DELETE IMAGE, X, GET PHOTO, SWITCH,
+   REMOVE BACKGROUND) regardless of where they are mounted (chrome-mount, param cluster, or
+   shorts top-left fixed). Higher specificity than the chrome-mount sizing rules so it wins. */
+body.play-video-active #player-voice-chrome-mount,
+body.play-video-active #player-voice-chrome-mount .career-clear-player-btn,
+body.play-video-active #player-voice-chrome-mount .career-delete-image-btn,
+body.play-video-active #player-voice-chrome-mount .career-get-photo-actions,
+body.play-video-active #player-voice-chrome-mount .career-get-photo-btn,
+body.play-video-active .career-player-controls-row .career-clear-player-btn,
+body.play-video-active .career-player-controls-row .career-delete-image-btn,
+body.play-video-active .career-player-controls-row .career-get-photo-actions,
+body.play-video-active .career-player-controls-row .career-get-photo-btn,
+body.play-video-active .career-clear-player-btn,
+body.play-video-active .career-delete-image-btn,
+body.play-video-active .career-get-photo-actions,
+body.play-video-active .career-get-photo-btn {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Reveal player/team name is click-to-copy. Force pointer-events on the name
+   AND its parent badge/wrappers so events reach it even when an ancestor (the
+   portrait card) sets pointer-events: none. The wrapping badge is bumped to
+   a high z-index so nothing else can sit on top. */
+#career-reveal-name,
+#career-reveal-name .career-reveal-name-top,
+#career-reveal-name .career-reveal-name-bottom,
+.career-portrait-card__mystery-mark--name,
+.career-portrait-card__mystery-mark,
+.career-portrait-card__mystery-badge,
+.career-team-quiz-card__reveal-text--name,
+.career-team-quiz-card__reveal {
+  cursor: copy !important;
+  pointer-events: auto !important;
+}
+.career-portrait-card__mystery-badge:has(.career-portrait-card__mystery-mark--name) {
+  z-index: 50 !important;
+}

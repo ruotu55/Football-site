@@ -1,0 +1,73 @@
+<div class="pitch-wrap" id="pitch-wrap" hidden>
+  <!-- Full-height side panel over the pitch (slides from left); crest/flag from project data only -->
+  <div class="team-header" id="team-header" hidden>
+    <div class="team-header-cluster team-header-logo-block" id="team-header-logo-block">
+      <div class="team-header-logo-reveal-stack">
+        <div class="team-header-controls-row" aria-label="Team crest actions">
+          <div class="team-header-logo-swap" aria-label="Pick crest from Other Teams">
+            <button type="button" id="team-header-swap-logo" class="team-header-zoom-btn team-header-swap-logo-btn" hidden>Swap logo</button>
+          </div>
+        </div>
+        <div class="team-header-main-row">
+          <div class="team-side-panel-column">
+            <div class="team-side-panel-logo-wrap">
+              <div class="team-side-panel-logo-frame">
+                <button type="button" id="team-header-fetch-logo" class="team-header-zoom-btn team-header-fetch-logo-btn" hidden>Get logo</button>
+                <button type="button" id="team-header-clear-team" class="team-header-zoom-btn team-header-clear-team-btn team-side-panel-clear-on-logo career-clear-player-btn" hidden aria-label="Clear selected team">X</button>
+                <div class="team-header-logo-shift">
+                  <div class="team-header-logo-inner">
+                    <img id="team-header-logo" class="team-header-logo" src="" alt="Team logo or crest" hidden />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="team-header-logo-zoom team-header-logo-zoom--under-crest" aria-label="Logo size">
+              <button type="button" id="team-header-zoom-out" class="team-header-zoom-btn" aria-label="Smaller logo">-</button>
+              <button type="button" id="team-header-zoom-in" class="team-header-zoom-btn" aria-label="Larger logo">+</button>
+            </div>
+            <h2 id="team-header-name" class="team-header-name team-side-panel-country-name"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="team-side-panel-flag-section" id="team-side-panel-flag-section">
+      <div class="team-side-panel-flag-image-wrap">
+        <img id="team-header-flag" class="team-side-panel-flag-image" src="" alt="" width="320" height="200" hidden />
+      </div>
+      <div class="team-side-panel-flag-shading" aria-hidden="true"></div>
+    </div>
+  </div>
+  <button type="button" id="pitch-swap-logo" class="pitch-swap-logo-btn" hidden aria-label="Swap team crest">Swap logo</button>
+  <div class="pitch-surface" id="pitch-container">
+    <svg id="pitch-svg" class="pitch-svg" viewBox="0 0 160 100" preserveAspectRatio="none" aria-hidden="true">
+      <rect x="0" y="0" width="160" height="100" fill="transparent" stroke="rgba(232,244,255,0.28)" stroke-width="0.45" />
+      <g class="pitch-lines" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="0.42" stroke-linecap="square" stroke-linejoin="miter">
+        <line x1="0" y1="50" x2="160" y2="50" />
+        <ellipse cx="80" cy="50" rx="21.529" ry="8.714" />
+        <rect x="32.565" y="0" width="94.871" height="20.5" />
+        <rect x="58.435" y="0" width="43.13" height="6.6" />
+        <path d="M 73.038 20.5 A 8.71 8.71 0 0 0 86.962 20.5" />
+        <rect x="32.565" y="79.5" width="94.871" height="20.5" />
+        <rect x="58.435" y="93.4" width="43.13" height="6.6" />
+        <path d="M 73.038 79.5 A 8.71 8.71 0 0 1 86.962 79.5" />
+        <path d="M 0 0.952 A 2.353 0.952 0 0 1 2.353 0" />
+        <path d="M 160 0.952 A 2.353 0.952 0 0 0 157.647 0" />
+        <path d="M 0 99.048 A 2.353 0.952 0 0 0 2.353 100" />
+        <path d="M 160 99.048 A 2.353 0.952 0 0 1 157.647 100" />
+      </g>
+      <g class="pitch-marks" fill="rgba(255,255,255,0.28)">
+        <circle cx="80" cy="50" r="0.55" />
+        <circle cx="80" cy="13.5" r="0.42" /> <circle cx="80" cy="86.5" r="0.42" /> </g>
+    </svg>
+    <div id="pitch-slots" class="pitch-slots"></div>
+  </div>
+</div>
+<!-- Team picker lives OUTSIDE pitch-wrap so shorts-mode's scale/transform on .pitch-wrap
+     doesn't shrink the box (fixed-positioned elements are still anchored to a transformed
+     ancestor's containing block). Keeping it here makes the "No Team Selected" box match
+     the career runners' "No Player Selected" box in size and placement. -->
+<div id="lineups-inline-team-picker" class="lineups-inline-team-picker" hidden>
+  <div class="lineups-inline-team-picker-title">No Team Selected</div>
+  <input type="search" id="team-search" class="lineups-inline-team-search" placeholder="Search team..." autocomplete="off" />
+  <div id="team-results" class="team-results lineups-inline-team-results" aria-live="polite"></div>
+</div>

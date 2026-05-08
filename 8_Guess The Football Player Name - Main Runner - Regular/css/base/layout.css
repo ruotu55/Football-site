@@ -1,0 +1,27 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  min-height: 100%;
+  /* Repo root: Images/Backgrounds/Blue background.jpg */
+  background: #0d1a2e url("../../../Images/Backgrounds/Blue%20background.jpg") center / cover no-repeat fixed;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: transparent;
+  color: var(--text);
+  overflow: hidden; 
+  /* Font smoothing for crisp, sharp text edges */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.app { 
+  display: flex; 
+  height: 100vh; 
+  width: 100vw; 
+  overflow: hidden; 
+}

@@ -1,0 +1,252 @@
+export const appState = {
+  els: {
+    squadType: null,
+    teamSearch: null,
+    teamResults: null,
+    formation: null,
+    displayMode: null,
+    pitchSlots: null,
+    panelToggle: null,
+    panelFab: null,
+    controlPanel: null,
+    headerName: null,
+    headerLogo: null,
+    teamVoiceControls: null,
+    teamVoicePlay: null,
+    teamVoiceDelete: null,
+    quizLevelsInput: null,
+    updateLevelsBtn: null,
+    quizProgressScroll: null,
+    swapModal: null,
+    swapClose: null,
+    swapList: null,
+    swapSearch: null,
+    swapSearchAll: null,
+    swapLogoModal: null,
+    swapLogoClose: null,
+    swapLogoList: null,
+    swapLogoSearch: null,
+    swapLogoReset: null,
+    videoModeToggle: null,
+    playVideoBtn: null,
+    countdownTimer: null,
+    teamHeader: null,
+    tabBtnLanding: null,
+    tabBtnSetup: null,
+    tabBtnSaved: null,
+    panelLanding: null,
+    panelSetup: null,
+    panelSaved: null,
+    setupPitchControls: null,
+    btnSaveCurrentTeam: null,
+    btnSaveCurrentTeamFab: null,
+    btnSaveCurrentTeamLanding: null,
+    btnSaveScript: null,
+    btnCreateFolder: null,
+    savedScriptsList: null,
+    saveScriptModal: null,
+    saveScriptName: null,
+    saveScriptCancel: null,
+    saveScriptConfirm: null,
+    createFolderModal: null,
+    createFolderName: null,
+    createFolderCancel: null,
+    createFolderConfirm: null,
+    deleteScriptModal: null,
+    deleteScriptNo: null,
+    deleteScriptYes: null,
+    saveScriptModalClose: null,
+    saveDiscardModal: null,
+    saveDiscardNo: null,
+    saveDiscardYes: null,
+    inQuizType: null,
+    inSpecificTitleToggle: null,
+    inSpecificTitleText: null,
+    inSpecificTitleIcon: null,
+    inEndingType: null,
+    inEasy: null,
+    inMedium: null,
+    inHard: null,
+    inImpossible: null,
+    landingPage: null,
+    outroPage: null,
+    pitchWrap: null,
+    logoPage: null, 
+    quizProgressContainer: null, 
+    sideTextRight: null,
+    shortsModeToggle: null,
+    shortsModeBtn: null,
+  },
+  teamsIndex: { clubs: [], nationalities: [] },
+  /** Map nationality string -> players from club squads with NT caps; null until lazy-loaded. */
+  internationalClubPool: null,
+  internationalClubPoolLoadPromise: null,
+  playerImages: { club: {}, nationality: {} },
+  flagcodes: {},
+  totalLevelsCount: 6,
+  currentLevelIndex: 0,
+  levelsData: [],
+  swapActiveSlotIndex: -1,
+  careerActiveSlotIndex: -1,
+  swapAvailablePlayers: [],
+  /** Refetched when swap-logo modal opens (`run_site.py` live list or static JSON fallback). */
+  otherTeamsLogoNames: null,
+  swapLogoThumbCacheToken: "0",
+  swapLogoPickContext: null,
+  /** One-shot: next `renderPitch` skips flip-card transition (swap picker). */
+  suppressPitchSlotFlipAnimation: false,
+  isVideoPlaying: false,
+  videoRevealPostTimerActive: false,
+  /** `renderHeader`: ignore stale logo/flag image callbacks after level switches. */
+  teamHeaderRenderGeneration: 0,
+  teamSidebarAnimGeneration: 0,
+  teamSidebarLastOpen: false,
+  teamSidebarLastKey: "",
+  /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
+  refreshLandingUi: null,
+  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
+  landingSpecialBadgeRevealTimeoutId: null,
+  videoInterval: null,
+  videoTimeout: null,
+  tickingLeadTimeout: null,
+  currentXi: [],
+  allGlobalPlayers: null,
+};
+
+export function getState() {
+  return appState.levelsData[appState.currentLevelIndex];
+}
+
+/** Same step/min as header logo zoom; used for video-mode front-face graphics only. */
+export const SLOT_BADGE_SCALE_STEP = 0.1;
+export const SLOT_BADGE_SCALE_MIN = 0.001;
+/** Club squads: nationality flag on the card front (original default size). */
+export const DEFAULT_SLOT_FLAG_SCALE = 1;
+/** National squads: club crest on the card front — two “−” steps from 1.0. */
+export const DEFAULT_SLOT_TEAM_LOGO_SCALE = 1 - 2 * SLOT_BADGE_SCALE_STEP;
+
+export function sanitizeSlotBadgeScale(n) {
+  const x = Number(n);
+  if (!Number.isFinite(x)) return 1;
+  const r = Math.round(x * 1000) / 1000;
+  return r < SLOT_BADGE_SCALE_MIN ? SLOT_BADGE_SCALE_MIN : r;
+}
+
+const SLOT_BADGE_SLOT_COUNT = 11;
+
+function migrateLegacySlotBadgeScales(state) {
+  if (!Array.isArray(state.slotBadgeScales)) return;
+  if (!Array.isArray(state.slotTeamLogoScales)) {
+    state.slotTeamLogoScales = [...state.slotBadgeScales];
+  }
+  if (!Array.isArray(state.slotFlagScales)) {
+    state.slotFlagScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_FLAG_SCALE);
+  }
+  delete state.slotBadgeScales;
+}
+
+/** Per-slot scale for video-mode front: flags (club XI) vs club logos (national XI). */
+export function ensureSlotFrontFaceScales(state) {
+  if (!state) return;
+  migrateLegacySlotBadgeScales(state);
+
+  if (!Array.isArray(state.slotFlagScales)) {
+    state.slotFlagScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_FLAG_SCALE);
+  } else {
+    while (state.slotFlagScales.length < SLOT_BADGE_SLOT_COUNT) {
+      state.slotFlagScales.push(DEFAULT_SLOT_FLAG_SCALE);
+    }
+    for (let i = 0; i < SLOT_BADGE_SLOT_COUNT; i++) {
+      state.slotFlagScales[i] = sanitizeSlotBadgeScale(
+        state.slotFlagScales[i] ?? DEFAULT_SLOT_FLAG_SCALE
+      );
+    }
+  }
+
+  if (!Array.isArray(state.slotTeamLogoScales)) {
+    state.slotTeamLogoScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE);
+  } else {
+    while (state.slotTeamLogoScales.length < SLOT_BADGE_SLOT_COUNT) {
+      state.slotTeamLogoScales.push(DEFAULT_SLOT_TEAM_LOGO_SCALE);
+    }
+    for (let i = 0; i < SLOT_BADGE_SLOT_COUNT; i++) {
+      state.slotTeamLogoScales[i] = sanitizeSlotBadgeScale(
+        state.slotTeamLogoScales[i] ?? DEFAULT_SLOT_TEAM_LOGO_SCALE
+      );
+    }
+  }
+
+  const teamScales = state.slotTeamLogoScales;
+  const uniform = (v) =>
+    teamScales.slice(0, SLOT_BADGE_SLOT_COUNT).every(
+      (s) => sanitizeSlotBadgeScale(s) === v
+    );
+  if (uniform(1) || uniform(1.05) || uniform(1.25) || uniform(1.5)) {
+    state.slotTeamLogoScales = Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE);
+  }
+}
+
+export function initLevels(count) {
+  const { els } = appState;
+  const newLevels = [];
+  
+  for (let i = 0; i <= count + 2; i++) {
+    newLevels.push(
+      appState.levelsData[i] || {
+        isLogo: i === 0,
+        isIntro: false,
+        isBonus: i === count + 1,
+        isOutro: i === count + 2,
+        gameMode: "lineup",
+        squadType: els.squadType ? els.squadType.value : "club",
+        selectedEntry: null,
+        currentSquad: null,
+        slotPhotoIndexBySlot: new Map(),
+        formationId: "433",
+        lastFormationId: null,
+        displayMode: els.displayMode ? els.displayMode.value : "club",
+        searchText: "",
+        customXi: null,
+        customNames: {},
+        videoMode: false,
+        landingPageType: "club",
+        careerClubsCount: els.inCareerClubs ? parseInt(els.inCareerClubs.value, 10) || 5 : 5,
+        careerSilhouetteIndex: 0,
+        silhouetteYOffset: 0,
+        silhouetteScaleX: 1.0,
+        silhouetteScaleY: 1.0,
+        careerPlayer: null,
+        careerHistory: [],
+        headerLogoScale: 1,
+        headerLogoNudgeX: 0,
+        headerLogoOverrideRelPath: null,
+        slotClubCrestOverrideRelPathBySlot: {},
+        slotFlagScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_FLAG_SCALE),
+        slotTeamLogoScales: Array(SLOT_BADGE_SLOT_COUNT).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
+      }
+    );
+    const last = newLevels[newLevels.length - 1];
+    if (last.headerLogoScale === undefined || last.headerLogoScale === null) {
+      last.headerLogoScale = 1;
+    }
+    if (last.headerLogoNudgeX === undefined || last.headerLogoNudgeX === null) {
+      last.headerLogoNudgeX = 0;
+    }
+    if (last.headerLogoOverrideRelPath === undefined) {
+      last.headerLogoOverrideRelPath = null;
+    }
+    if (!last.slotClubCrestOverrideRelPathBySlot || typeof last.slotClubCrestOverrideRelPathBySlot !== "object") {
+      last.slotClubCrestOverrideRelPathBySlot = {};
+    }
+    ensureSlotFrontFaceScales(last);
+  }
+  appState.levelsData = newLevels;
+  appState.totalLevelsCount = count + 2;
+  if (appState.currentLevelIndex > count + 2) {
+    appState.currentLevelIndex = count + 2;
+  }
+}
+
+export function clearSlotPhotoIndices() {
+  getState().slotPhotoIndexBySlot.clear();
+}
