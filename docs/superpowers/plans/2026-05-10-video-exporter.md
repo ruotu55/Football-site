@@ -60,17 +60,28 @@ test -f ".Storage/Scripts/tests/__init__.py" || touch ".Storage/Scripts/tests/__
 `.Storage/Scripts/tests/test_export_video.py`:
 
 ```python
-"""Unit tests for dev_server_export_video."""
+"""Tests for dev_server_export_video."""
 from __future__ import annotations
 
-import importlib
+import importlib.util
 import unittest
 from pathlib import Path
 
+_SCRIPTS_DIR = Path(__file__).resolve().parent.parent
+_MODULE_PATH = _SCRIPTS_DIR / "dev_server_export_video.py"
+
+
+def _load():
+    spec = importlib.util.spec_from_file_location("dev_server_export_video", _MODULE_PATH)
+    mod = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(mod)
+    return mod
+
 
 class TestModuleLoads(unittest.TestCase):
-    def test_module_imports(self):
-        mod = importlib.import_module(".Storage.Scripts.dev_server_export_video")
+    def test_module_exposes_try_handle_hooks(self):
+        mod = _load()
         self.assertTrue(hasattr(mod, "try_handle_get"))
         self.assertTrue(hasattr(mod, "try_handle_post"))
 
@@ -79,13 +90,15 @@ if __name__ == "__main__":
     unittest.main()
 ```
 
+> **Module-loading note for all tasks in this plan:** Because the directory `.Storage/` starts with a dot, Python cannot import it as a package. Always load `dev_server_export_video.py` via the `_load()` helper shown above (the same pattern used by `test_update_data.py`). Subsequent tasks that say `mod = _load()` rely on this helper being present from Task A1.
+
 - [ ] **Step 3: Run the test to verify it fails**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v
 ```
 
-Expected: `ModuleNotFoundError` for `dev_server_export_video`.
+Expected: `FileNotFoundError` or load-time error because `dev_server_export_video.py` doesn't exist yet.
 
 - [ ] **Step 4: Create the minimal module to pass**
 
@@ -124,7 +137,7 @@ def try_handle_post(handler, project_root: Path) -> bool:
 - [ ] **Step 5: Run tests to verify they pass**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v
 ```
 
 Expected: `OK` (1 test).
@@ -159,10 +172,9 @@ Append to `tests/test_export_video.py`:
 ```python
 class TestJobState(unittest.TestCase):
     def setUp(self):
-        from importlib import reload
-        from .Storage.Scripts import dev_server_export_video as mod
-        reload(mod)
-        self.mod = mod
+        self.mod = _load()
+        if hasattr(self.mod, "_reset_jobs_for_tests"):
+            self.mod._reset_jobs_for_tests()
 
     def test_new_job_starts_queued(self):
         job_id = self.mod._create_job(state={"x": 1}, resolution="1080p", fps=60)
@@ -193,7 +205,7 @@ class TestJobState(unittest.TestCase):
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v
 ```
 
 Expected: 4 failures (missing `_create_job`, `_snapshot_job`, etc.).
@@ -273,7 +285,7 @@ def _reset_jobs_for_tests() -> None:
 - [ ] **Step 4: Run tests to verify they pass**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v
 ```
 
 Expected: 5 tests OK.
@@ -325,10 +337,9 @@ def _make_handler(*, method: str, path: str, body: bytes = b""):
 
 class TestHttpLayer(unittest.TestCase):
     def setUp(self):
-        from importlib import reload
-        from .Storage.Scripts import dev_server_export_video as mod
-        reload(mod)
-        self.mod = mod
+        self.mod = _load()
+        if hasattr(self.mod, "_reset_jobs_for_tests"):
+            self.mod._reset_jobs_for_tests()
         self.mod._reset_jobs_for_tests()
         self.root = Path("/tmp/test-root")
 
@@ -366,7 +377,7 @@ class TestHttpLayer(unittest.TestCase):
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v
 ```
 
 Expected: 4 failures in `TestHttpLayer` (no handler implementations yet).
@@ -507,7 +518,7 @@ def _stream_result(handler, job_id: Optional[str]) -> None:
 - [ ] **Step 4: Run tests to verify they pass**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v
 ```
 
 Expected: 9 tests OK.
@@ -541,10 +552,7 @@ class TestFfmpegEncoder(unittest.TestCase):
     def setUp(self):
         if not shutil.which("ffmpeg"):
             self.skipTest("ffmpeg not installed")
-        from importlib import reload
-        from .Storage.Scripts import dev_server_export_video as mod
-        reload(mod)
-        self.mod = mod
+        self.mod = _load()
 
     def test_encode_produces_mp4(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -573,7 +581,7 @@ class TestFfmpegEncoder(unittest.TestCase):
 - [ ] **Step 2: Run the test to verify it fails**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video.TestFfmpegEncoder -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v -k TestFfmpegEncoder
 ```
 
 Expected: `AttributeError: module ... has no attribute '_encode'`.
@@ -666,7 +674,7 @@ def _encode(
 - [ ] **Step 4: Run the test to verify it passes**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video.TestFfmpegEncoder -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video.py" -v -k TestFfmpegEncoder
 ```
 
 Expected: 1 test OK (or skipped if ffmpeg not installed locally).
@@ -1717,7 +1725,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Run the test**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video_e2e -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video_e2e.py" -v
 ```
 
 Expected: `test_render_first_saved_script` passes (may take 5-15 minutes).
@@ -1783,7 +1791,7 @@ class TestDeterminism(TestExportE2E):
 - [ ] **Step 2: Run the test**
 
 ```bash
-python -m unittest .Storage.Scripts.tests.test_export_video_e2e.TestDeterminism -v
+python -m unittest discover ".Storage/Scripts/tests" -p "test_export_video_e2e.py" -v -k TestDeterminism
 ```
 
 Expected: PASS. If it fails, the diff in hashes points to non-deterministic code that escaped Task B2 — investigate and fix that file, then re-run.
