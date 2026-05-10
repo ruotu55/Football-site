@@ -59,15 +59,15 @@ export function createSavedScriptsServerSync(bucket, keys) {
         },
 
         startPull({ replaceAll, render, hasLocalData, getSnapshot }) {
-            if (!active) return;
-            (async () => {
+            if (!active) return Promise.resolve();
+            return (async () => {
                 try {
                     const r = await fetch(url);
                     if (!r.ok) return;
                     const data = normalize(await r.json());
                     if (!isEmpty(data)) {
                         replaceAll(data.scripts, data.folders, data.folderStates);
-                        render();
+                        if (typeof render === "function") render();
                         return;
                     }
                     if (hasLocalData()) {
