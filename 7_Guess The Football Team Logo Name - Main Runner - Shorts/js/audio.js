@@ -30,7 +30,7 @@ const LEVEL_FILENAMES = {
 const QUIZ_TITLE_FILENAMES = {
   english: {
     "player-by-career": "Guess the football player by career path !!!.mp3",
-    "player-by-fake-info": "Guess the fake information about the player !!!.mp3",
+    "player-by-fake-info": "Guess the fake stat about the player !!!.mp3",
   },
   spanish: {
     "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",

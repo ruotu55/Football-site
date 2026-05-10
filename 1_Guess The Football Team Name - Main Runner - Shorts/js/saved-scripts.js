@@ -775,8 +775,7 @@ export function initSavedScripts(callbacks) {
     }
     // -----------------------------------------------------------------------
 
-    void SAVE_SERVER.startPull({
-        render: renderSavedScripts,
+    const pullFromServer = () => SAVE_SERVER.startPull({
         replaceAll(scripts, folders, states) {
             savedScripts = scripts;
             savedFolders = folders;
@@ -795,9 +794,13 @@ export function initSavedScripts(callbacks) {
         getSnapshot() {
             return { scripts: savedScripts, folders: savedFolders, folderStates };
         },
-    });
+    }).then(() => renderSavedScripts());
 
+    pullFromServer();
     renderSavedScripts();
+    if (els.tabBtnSaved) {
+        els.tabBtnSaved.addEventListener("click", pullFromServer);
+    }
 }
 
 export function renderSavedScripts() {
@@ -806,19 +809,7 @@ export function renderSavedScripts() {
 
     els.savedScriptsList.innerHTML = "";
 
-    const currentMode = "lineup";
-    const currentSubType = els.inQuizType.value || "nat-by-club";
-
     savedFolders.forEach((folderName) => {
-        const hasScriptsInMode = savedScripts.some(s => 
-            s.folder === folderName && 
-            (s.landing?.gameMode || "lineup") === currentMode && 
-            (s.landing?.quizType || "nat-by-club") === currentSubType
-        );
-        const isEmptyGlobally = !savedScripts.some(s => s.folder === folderName);
-
-        if (!hasScriptsInMode && !isEmptyGlobally) return;
-
         const folderDiv = document.createElement("div");
         folderDiv.className = "saved-folder";
         folderDiv.dataset.folder = folderName;
@@ -897,11 +888,6 @@ export function renderSavedScripts() {
     });
 
     savedScripts.forEach((script, index) => {
-        const scriptMode = script.landing?.gameMode || "lineup";
-        const scriptSubType = script.landing?.quizType || "nat-by-club";
-
-        if (scriptMode !== currentMode || scriptSubType !== currentSubType) return;
-
         const row = document.createElement("div");
         row.className = "saved-script-item";
         row.draggable = true;

@@ -29,11 +29,11 @@ const LEVEL_FILENAMES = {
 
 const QUIZ_TITLE_FILENAMES = {
   english: {
-    "player-by-career-stats": "Guess the player by club position country and age !!!.mp3",
+    "player-by-career-stats": "Guess the player by club, position, country, and age !!!.mp3",
     "player-by-career": "Guess the football player by career path !!!.mp3",
   },
   spanish: {
-    "player-by-career-stats": "Adivina al jugador por club posicion pais y edad !!!.mp3",
+    "player-by-career-stats": "Adivina al jugador por club, posicion, pais y edad !!!.mp3",
     "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
   },
 };
