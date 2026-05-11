@@ -38,14 +38,13 @@ Selection is persisted in the same storage layer that backs the saved scripts. S
 
 ## 2. Architecture
 
-The render path lives **inside the existing `run_site.py`** server using the established `try_handle_get`/`try_handle_post` plugin pattern (the same pattern used by `runner-saved-server-sync` and `update-data`). No separate process. No Node. One language end-to-end (Python).
+Three processes, all started by the existing `run_site` entry point:
 
-| Component | Role | New? |
+| Process | Role | New? |
 |---|---|---|
-| **`run_site.py` HTTP server** | Serves the runner page **and** dispatches export requests | Existing — adds one `try_handle_*` hook |
-| **`.Storage/Scripts/dev_server_export_video.py`** | Backend module: HTTP layer + job state + render orchestration | **New** |
-| **Hidden Chromium** (Playwright Python) | Loads the same runner page in "export mode," renders frame-by-frame | **New** — spawned per render by the backend module |
-| **ffmpeg subprocess** | Encodes PNG frames + audio timeline → `.mp4` | **New** — spawned per render |
+| **Python static-file server** (`run_site.py`) | Serves the runner page to the user's browser | Existing — unchanged |
+| **Node render server** | Listens for export requests, drives the hidden Chrome, calls ffmpeg | **New** |
+| **Hidden Chromium** (Playwright-controlled) | Loads the same runner page in "export mode," renders frame-by-frame | **New** — spawned per render |
 
 ### Request flow
 
@@ -56,12 +55,12 @@ User clicks Play Video
 Visible browser tab
    │  1. window.showSaveFilePicker() → user picks dest
    │  2. Serialize current app state (saved-script JSON form)
-   │  3. POST /export-video/render { state, resolution, fps } to run_site.py
+   │  3. POST /render { state, resolution, fps } to Node render server
    ▼
-run_site.py → dev_server_export_video.try_handle_post
-   │  4. Spawn headless Chromium via Playwright (Python)
+Node render server (localhost:PORT)
+   │  4. Spawn headless Chromium via Playwright
    │  5. Load http://localhost:<python_port>/index.html?exportMode=1
-   │  6. Inject state via page.evaluate("window.__exportState__ = ...")
+   │  6. Inject state via window.__exportState__
    │  7. Loop: for frame in 0..N → call window.__exportFrame__(t) → page.screenshot()
    │  8. Collect audio timeline emitted by the page during step 7
    │  9. Spawn ffmpeg: PNGs + voice MP3s + music → .mp4
@@ -71,8 +70,6 @@ Visible browser tab
    │ 11. Write streamed bytes to the user-selected file handle
    │ 12. Show "Done" + "Show in Finder"
 ```
-
-Progress polling endpoint `GET /export-video/progress/<job_id>` returns `{ frame, totalFrames, phase }` for the in-page progress dialog (poll every 500 ms — same pattern as Update Data).
 
 The hidden Chromium runs the **exact same code** as the visible tab — same `index.html`, same JS files. There is no second copy of the runner. The runner gains an "export mode" that disables real-time playback and exposes a frame-stepping API.
 
@@ -130,7 +127,7 @@ Approach:
 
 ### Play Video button
 
-In `js/video.js`, the Play Video click handler gets a branch: if `exportMode` is configured for this run, call the export flow (`showSaveFilePicker` → POST `/export-video/render` → stream response → write to disk). Otherwise, current preview-mode behavior is kept for now.
+In `js/video.js`, the Play Video click handler gets a branch: if `exportMode` is configured for this run, call the export flow (`showSaveFilePicker` → POST to render server → stream response → write to disk). Otherwise, current preview-mode behavior is kept for now.
 
 For the pilot we will make Play Video **always export** (per the user's explicit request), with no preview mode. Preview mode can be re-added later if needed.
 
@@ -138,15 +135,17 @@ For the pilot we will make Play Video **always export** (per the user's explicit
 
 | File | Purpose |
 |---|---|
-| `.Storage/Scripts/dev_server_export_video.py` | Backend module. Exposes `try_handle_get` / `try_handle_post`; owns Playwright session, ffmpeg subprocess, job state, progress, cancel. |
-| `.Storage/Scripts/tests/test_export_video.py` | Python unittest suite for the backend module. |
-| `.Storage/Scripts/tests/test_export_video_e2e.py` | Python integration test using Playwright against a real saved script. |
-| `1_Guess.../js/export-mode.js` | Runner-side export-mode helpers (`isExportMode`, `now`, `delay`, `seededRandom`, `playAudio`). |
-| `1_Guess.../js/export-client.js` | Browser-side client: `showSaveFilePicker` → POST → poll progress → stream response → write to disk. |
+| `tools/exporter/server.js` | Node HTTP server. Endpoints: `POST /render`, `GET /progress/:id`, `POST /cancel/:id`. |
+| `tools/exporter/renderer.js` | Playwright script: opens headless Chrome, drives frame-by-frame capture, returns frames + audio timeline. |
+| `tools/exporter/ffmpeg.js` | Wraps the ffmpeg encoding step: PNGs + audio timeline → `.mp4`. Uses VideoToolbox on macOS. |
+| `tools/exporter/package.json` | Node deps: `playwright`, `express` (or just `node:http`). |
+| `tools/exporter/setup.sh` | One-time setup: installs Node deps + Playwright Chromium + verifies ffmpeg. |
+| `1_Guess.../js/export-mode.js` | The runner-side export-mode helpers (see above). |
+| `1_Guess.../js/export-client.js` | Browser-side client that calls the render server and streams the result to disk. |
 
 ### `run_site.py` change
 
-Add the loader + dispatch for `dev_server_export_video` (mirroring the existing pattern around `_runner_update_mod`) inside `do_GET` / `do_POST`. No new subprocess on startup. The Playwright dependency is installed via the runner's existing `requirements.txt` (added in the plan).
+Add a single line that spawns `node tools/exporter/server.js` as a subprocess on startup and tears it down on exit. The user still runs the same `run_site.bat` / `.sh` / `.py` — the Node server is just along for the ride.
 
 ---
 
@@ -156,8 +155,8 @@ Add the loader + dispatch for `dev_server_export_video` (mirroring the existing 
 
 1. **Determinism completeness.** Some animation may depend on a real-time event we don't expect (e.g., a `transitionend` event nested inside a Promise chain). If found, fix is targeted — wrap the event with the frame clock — but adds debugging time. **Mitigation:** integration test that renders the same script twice and byte-compares output.
 2. **Asset loading.** Player photos and team logos must fully decode before each `page.screenshot()`. Mitigation: `await page.waitForLoadState('networkidle')` + check `document.fonts.ready` + verify all `<img>` elements have `naturalWidth > 0` before capture.
-3. **Voice file paths.** The Python server already serves voice files from `.Storage/Voices/...`. The ffmpeg step uses the **filesystem path** to those MP3s, not the URL. Trivially resolved since the backend module already has filesystem access to `PROJECT_ROOT`.
-4. **First-run setup.** On a fresh machine, Playwright must download Chromium (~150 MB). One-time. `run_site.py` will verify the browser is installed on startup and run `playwright install chromium` automatically the first time.
+3. **Voice file paths.** The Python server already serves voice files from `.Storage/Voices/...`. The Node ffmpeg step needs the **filesystem path** to those MP3s, not the URL. Resolved by reading them from disk directly (Node and Python are on the same machine).
+4. **First-run setup.** On a fresh machine, Playwright must download Chromium (~150 MB). One-time. The setup script will do this so the first Play Video click isn't delayed.
 5. **`showSaveFilePicker` browser support.** Requires Chrome/Edge. The user is on Mac and uses Chrome — confirmed via the existing `getDisplayMedia` code in `recorder.js` which has the same requirement.
 
 ### Out of scope for the pilot
