@@ -230,7 +230,7 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
     return;
   }
   const needSlideIn =
-    !appState.teamSidebarLastOpen || key !== appState.teamSidebarLastKey;
+    !appState.teamSidebarLastOpen || slideKey !== appState.teamSidebarLastKey;
   if (needSlideIn) {
     appState.teamSidebarAnimGeneration += 1;
     const gen = appState.teamSidebarAnimGeneration;
@@ -246,13 +246,13 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
         }
         th.classList.add("team-header--show");
         appState.teamSidebarLastOpen = true;
-        appState.teamSidebarLastKey = key;
+        appState.teamSidebarLastKey = slideKey;
       });
     });
   } else {
     th.classList.add("team-header--show");
     appState.teamSidebarLastOpen = true;
-    appState.teamSidebarLastKey = key;
+    appState.teamSidebarLastKey = slideKey;
   }
 }
 

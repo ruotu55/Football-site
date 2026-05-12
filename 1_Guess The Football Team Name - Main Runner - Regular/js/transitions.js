@@ -3,6 +3,7 @@
 
 import { appState } from "./state.js";
 import { waitForPendingImages, waitForDomImages } from "../../.Storage/shared/image-cache.js";
+import { isOfflineVideoExportUrlMode } from "./video-export-utils.js";
 
 /** Wait for images inside stage-main + any in-flight preloads (with timeout). */
 async function waitForTransitionImages() {
@@ -18,10 +19,34 @@ let gsapLib = null;
 function loadGsap() {
   if (gsapLib) return Promise.resolve(gsapLib);
   return new Promise((resolve, reject) => {
-    if (window.gsap) { gsapLib = window.gsap; return resolve(gsapLib); }
+    if (window.gsap) {
+      gsapLib = window.gsap;
+      if (gsapLib?.ticker?.lagSmoothing) {
+        try {
+          if (new URLSearchParams(window.location.search).get("video-export") === "1") {
+            gsapLib.ticker.lagSmoothing(0);
+          }
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      return resolve(gsapLib);
+    }
     const s = document.createElement("script");
     s.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
-    s.onload = () => { gsapLib = window.gsap; resolve(gsapLib); };
+    s.onload = () => {
+      gsapLib = window.gsap;
+      if (gsapLib?.ticker?.lagSmoothing) {
+        try {
+          if (new URLSearchParams(window.location.search).get("video-export") === "1") {
+            gsapLib.ticker.lagSmoothing(0);
+          }
+        } catch (_) {
+          /* ignore */
+        }
+      }
+      resolve(gsapLib);
+    };
     s.onerror = reject;
     document.head.appendChild(s);
   });
@@ -33,6 +58,13 @@ loadGsap();
 /* ── Phase-duration target (each transition's show/hide is normalised to this) ─── */
 const PHASE_DUR = 0.84;
 function _runPhase(animPromise) {
+  /* Offline MP4: GSAP is driven only by `syncOfflineExportAuthoritativeClock`; a parallel
+     wall `setTimeout(PHASE_DUR)` desyncs from the export clock. Do not add a second wait on
+     the authoritative clock after the tween completes — that holds the overlay at full
+     cover with no in-between frames and looks like a flat colour wash. */
+  if (isOfflineVideoExportUrlMode()) {
+    return Promise.resolve(animPromise).then(() => undefined);
+  }
   return Promise.all([
     animPromise,
     new Promise(r => setTimeout(r, PHASE_DUR * 1000)),

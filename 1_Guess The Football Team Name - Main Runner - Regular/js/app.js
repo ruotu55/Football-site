@@ -20,7 +20,7 @@ import {
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260416-ball";
+import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260512-gsap-export-clock";
 import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
@@ -28,6 +28,12 @@ import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
 import { initTransitionsUI } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
+import { initVideoExport, startVideoExport } from "./video-export.js?v=20260512-offline-snapshot";
+import {
+    resetOfflineExportAudioCues,
+    resetOfflineExportCssAnimationSync,
+    syncOfflineExportAuthoritativeClock,
+} from "./video-export-utils.js";
 import {
     isProdMode,
     toggleProdMode,
@@ -48,9 +54,11 @@ import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initTeamVoiceManager } from "./team-voice-manager.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
+    SNAPSHOT_KEY,
     applyDevLiveReloadControls,
     captureDevLiveReloadSnapshot,
     consumeDevLiveReloadSnapshot,
+    createRunnerStateSnapshot,
     getInitialLevelCountFromSnapshot,
     restoreDevLiveReloadState,
 } from "./dev-live-reload-state.js";
@@ -983,6 +991,7 @@ async function init() {
     initTransitionsUI();
     initSavedScripts({ populateSubTypes, updateSetupUI, updateLanding });
     initUpdateData();
+    initVideoExport();
 
     FORMATIONS.forEach((f) => {
         const opt = document.createElement("option");
@@ -995,6 +1004,133 @@ async function init() {
     syncShortsModeFab();
     window.__captureRunnerState = () => {
         captureDevLiveReloadSnapshot(appState, appState.els);
+    };
+    window.__captureVideoExportSnapshot = () => {
+        const payload = createRunnerStateSnapshot(appState, appState.els);
+        return payload ? JSON.stringify(payload) : "";
+    };
+    window.__footballVideoExportDebugEvents = [];
+    const recordVideoExportDebugEvent = (type, detail = {}) => {
+        const event = {
+            type,
+            detail,
+            level: appState.currentLevelIndex,
+            totalLevels: appState.totalLevelsCount,
+            isVideoPlaying: !!appState.isVideoPlaying,
+            at: Date.now(),
+            perf: Math.round(performance.now()),
+        };
+        window.__footballVideoExportDebugEvents.push(event);
+        if (window.__footballVideoExportDebugEvents.length > 200) {
+            window.__footballVideoExportDebugEvents.shift();
+        }
+        console.info("[video-export][timeline]", JSON.stringify(event));
+    };
+    ["football-video-audio-start", "football-video-audio-ended", "football-video-audio-error"].forEach((eventName) => {
+        window.addEventListener(eventName, (event) => {
+            recordVideoExportDebugEvent(eventName, event.detail || {});
+        });
+    });
+    window.__startOfflineVideoExportPlayback = () => {
+        recordVideoExportDebugEvent("start-playback:before", {
+            levelsData: appState.levelsData.length,
+            bodyClass: document.body.className,
+        });
+        resetOfflineExportCssAnimationSync();
+        resetOfflineExportAudioCues();
+        renderLandingTitleVoiceControls();
+        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+        if (els.videoModeToggle && !els.videoModeToggle.checked) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        }
+        if (appState.currentLevelIndex !== 1) {
+            switchLevel(1, { skipPageTransition: true });
+        }
+        startVideoFlow();
+        recordVideoExportDebugEvent("start-playback:after", {
+            levelsData: appState.levelsData.length,
+            bodyClass: document.body.className,
+        });
+    };
+    window.__pwVideoExportClockSync = (clockMs) => {
+        syncOfflineExportAuthoritativeClock(Number(clockMs) || 0);
+        if (!window.__pwGsExportTickerTuned && window.gsap?.ticker?.lagSmoothing) {
+            window.__pwGsExportTickerTuned = true;
+            window.gsap.ticker.lagSmoothing(0);
+        }
+    };
+    window.__pwVideoExportSleepMotionForCapture = () => {
+        const manualGsapClock = typeof window.__gsapOfflineSetAuthoritativeSeconds === "function";
+        if (!manualGsapClock && window.gsap?.ticker?.sleep) {
+            try {
+                window.gsap.ticker.sleep();
+            } catch (_) {
+                /* ignore */
+            }
+        }
+        try {
+            document.getAnimations?.().forEach((a) => {
+                if (a.playState === "running") a.pause();
+            });
+        } catch (_) {
+            /* ignore */
+        }
+    };
+    window.__pwVideoExportWakeMotionAfterCapture = () => {
+        const manualGsapClock = typeof window.__gsapOfflineSetAuthoritativeSeconds === "function";
+        if (!manualGsapClock && window.gsap?.ticker?.wake) {
+            try {
+                window.gsap.ticker.wake();
+            } catch (_) {
+                /* ignore */
+            }
+        }
+        /* Offline export scrubs CSS/WAAPI via sync; resuming here caused wall-time sprint between frames. */
+    };
+    window.__getOfflineVideoExportStatus = () => {
+        const state = appState.levelsData[appState.currentLevelIndex] || {};
+        const isLanding = appState.currentLevelIndex === 1;
+        const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
+        const isQuestion = appState.currentLevelIndex > 1 && !isOutro;
+        const events = window.__footballVideoExportDebugEvents || [];
+        let outroCtaVisible = false;
+        if (isOutro) {
+            const page = document.getElementById("outro-page");
+            if (page && !page.hidden) {
+                const bottomRow = page.querySelector(".outro-bottom-row");
+                const useBottom = bottomRow && getComputedStyle(bottomRow).display !== "none";
+                const like = useBottom
+                    ? page.querySelector(".action-like-bottom")
+                    : page.querySelector(".action-like");
+                const sub = useBottom
+                    ? page.querySelector(".action-sub-bottom")
+                    : page.querySelector(".action-sub");
+                if (like && sub) {
+                    const o1 = parseFloat(getComputedStyle(like).opacity);
+                    const o2 = parseFloat(getComputedStyle(sub).opacity);
+                    outroCtaVisible = o1 >= 0.95 && o2 >= 0.95;
+                }
+            }
+        }
+        return {
+            isVideoPlaying: !!appState.isVideoPlaying,
+            currentLevelIndex: appState.currentLevelIndex,
+            totalLevelsCount: appState.totalLevelsCount,
+            levelsDataCount: appState.levelsData.length,
+            levelKind: isLanding ? "landing" : isOutro ? "outro" : isQuestion ? "question" : "logo",
+            videoMode: !!state.videoMode,
+            hasCurrentSquad: !!state.currentSquad,
+            squadName: state.currentSquad?.name || state.searchText || "",
+            bodyClass: document.body.className,
+            activeAudioCount: document.querySelectorAll("audio").length,
+            audioEventCount: events.length,
+            lastAudioEvent: events.length ? events[events.length - 1].type : "",
+            lastAudioRole: events.length ? events[events.length - 1].detail?.role || "" : "",
+            outroCtaVisible,
+            now: Date.now(),
+            perfNow: Math.round(performance.now()),
+        };
     };
     window.addEventListener("beforeunload", window.__captureRunnerState);
     window.addEventListener("pagehide", window.__captureRunnerState);
@@ -1302,6 +1438,31 @@ async function init() {
             renderLandingTitleVoiceControls();
         }, 0);
     };
+    if (els.importVideoBtn) {
+        els.importVideoBtn.onclick = async () => {
+            if (isProdMode()) {
+                const result = runProdValidation();
+                if (!result.allPassed) {
+                    showValidationModal(result);
+                    return;
+                }
+            }
+            renderLandingTitleVoiceControls();
+            appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+            if (els.videoModeToggle && !els.videoModeToggle.checked) {
+                els.videoModeToggle.checked = true;
+                els.videoModeToggle.dispatchEvent(new Event("change"));
+            }
+            try {
+                await startVideoExport();
+            } catch (err) {
+                console.error("[video-export]", err);
+            }
+            setTimeout(() => {
+                renderLandingTitleVoiceControls();
+            }, 0);
+        };
+    }
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
     els.swapSearch.oninput = () => {

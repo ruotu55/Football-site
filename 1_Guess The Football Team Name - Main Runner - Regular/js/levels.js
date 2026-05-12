@@ -8,6 +8,7 @@ import {
   preloadSquadImages,
 } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow, setBgMusicForLevel } from "./audio.js";
+import { isOfflineVideoExportUrlMode } from "./video-export-utils.js";
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 import { runTransition, transitionSettings } from "./transitions.js";
 
@@ -20,7 +21,11 @@ let pendingLogoToLandingContentReveal = false;
 /** Same as video stage enter/exit duration in this file and `LEVEL_SWITCH_STAGE_TRANSITION_MS` in `video.js`. */
 const STAGE_VIDEO_TRANSITION_MS = 820;
 
-export function switchLevel(index) {
+/**
+ * @param {number} index
+ * @param {{ skipPageTransition?: boolean }} [opts]
+ */
+export function switchLevel(index, opts = {}) {
   if (index === 0) {
     index = 1;
   }
@@ -214,7 +219,10 @@ export function switchLevel(index) {
     if (appState.isVideoPlaying) {
       if (isLanding) {
         const quizType = document.getElementById("in-quiz-type").value;
-        playRules(quizType);
+        /* Offline export: video.js owns rules timing on landing; avoid a second playRules that clears duck/restore timers. */
+        if (!isOfflineVideoExportUrlMode()) {
+          playRules(quizType);
+        }
       } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
@@ -222,6 +230,34 @@ export function switchLevel(index) {
   };
 
   if (stageMain) {
+    if (opts?.skipPageTransition) {
+      appState._transitionDone = null;
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim",
+      );
+      teamHeaderEl?.classList.remove(
+        "team-header-stage-exit-video-anim",
+        "team-header-stage-enter-video-anim",
+      );
+      if (progressContainer) {
+        progressContainer.classList.remove(
+          "progress-out-reg",
+          "progress-out-shorts",
+          "progress-in-reg",
+          "progress-in-shorts",
+        );
+      }
+      pendingLogoToLandingContentReveal = false;
+      preloadSquadImages(state);
+      appState._preserveTeamSidebar = false;
+      updateDOMContent();
+      refreshSaveTeamButtonUi();
+      return;
+    }
+
     const isShorts = document.body.classList.contains("shorts-mode");
     const isLogoToLanding = prevIndex === 0 && index === 1 && !isShorts;
     if (isLogoToLanding) {

@@ -1,8 +1,17 @@
-const SNAPSHOT_KEY = "lineups-regular-fcbnew-dev-live-reload-snapshot-v1";
+export const SNAPSHOT_KEY = "lineups-regular-fcbnew-dev-live-reload-snapshot-v1";
 const FIXED_SHORTS_MODE = false;
 
 function isLiveReloadSession() {
     return typeof window !== "undefined" && window.__RUNNER_LIVE_RELOAD__ === true;
+}
+
+/** True when the headless MP4 renderer loads `?video-export=1` (snapshot is injected pre-load). */
+function isVideoExportRenderSession() {
+    try {
+        return new URLSearchParams(window.location.search).get("video-export") === "1";
+    } catch {
+        return false;
+    }
 }
 
 function safeJsonParse(raw) {
@@ -41,6 +50,14 @@ function deserializeLevel(raw) {
 }
 
 export function consumeDevLiveReloadSnapshot() {
+    if (typeof window === "undefined") return null;
+    /* Offline MP4 export seeds sessionStorage before navigation; do not require live-reload flag
+       (file:// or other hosts may omit the injected snippet). */
+    if (isVideoExportRenderSession()) {
+        const parsed = safeJsonParse(sessionStorage.getItem(SNAPSHOT_KEY));
+        if (!parsed || parsed.version !== 1) return null;
+        return parsed;
+    }
     if (!isLiveReloadSession()) return null;
     const parsed = safeJsonParse(sessionStorage.getItem(SNAPSHOT_KEY));
     if (!parsed || parsed.version !== 1) return null;
@@ -49,10 +66,16 @@ export function consumeDevLiveReloadSnapshot() {
 
 export function captureDevLiveReloadSnapshot(appState, els) {
     if (!isLiveReloadSession()) return;
+    const payload = createRunnerStateSnapshot(appState, els);
+    if (!payload) return;
+    sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(payload));
+}
+
+export function createRunnerStateSnapshot(appState, els) {
     if (!appState || !Array.isArray(appState.levelsData) || appState.levelsData.length === 0) return;
-    if (!Number.isFinite(appState.totalLevelsCount) || appState.totalLevelsCount < 4) return;
+    if (!Number.isFinite(appState.totalLevelsCount) || appState.totalLevelsCount < 3) return;
     if (!Number.isFinite(appState.currentLevelIndex)) return;
-    const payload = {
+    return {
         version: 1,
         totalLevelsCount: appState.totalLevelsCount,
         currentLevelIndex: appState.currentLevelIndex,
@@ -77,7 +100,6 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             teamSearch: els.teamSearch?.value ?? null,
         },
     };
-    sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(payload));
 }
 
 export function applyDevLiveReloadControls(els, snapshot) {
@@ -119,7 +141,7 @@ export function restoreDevLiveReloadState(appState, snapshot) {
     const levels = snapshot.levelsData.map(deserializeLevel).filter(Boolean);
     if (levels.length === 0) return false;
 
-    const totalLevelsCount = Math.max(4, Math.floor(coerceNumber(snapshot.totalLevelsCount, levels.length)));
+    const totalLevelsCount = Math.max(3, Math.floor(coerceNumber(snapshot.totalLevelsCount, levels.length)));
     appState.totalLevelsCount = totalLevelsCount;
     appState.levelsData = levels;
     appState.currentLevelIndex = Math.min(
