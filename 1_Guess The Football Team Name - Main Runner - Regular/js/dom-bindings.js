@@ -37,9 +37,6 @@ export function bindDomElements() {
     els.applyVideoAllBtn = document.getElementById("apply-video-all-btn");
     els.prodBtn = document.getElementById("prod-btn");
     els.playVideoBtn = document.getElementById("play-video-btn");
-    els.importVideoBtn = document.getElementById("import-video-btn");
-    els.exportFpsSelect = document.getElementById("in-video-export-fps");
-    els.exportStatus = document.getElementById("video-export-status");
     els.shortsModeBtn = document.getElementById("shorts-mode-btn");
     els.countdownTimer = document.getElementById("countdown-timer");
     els.teamHeader = document.getElementById("team-header");

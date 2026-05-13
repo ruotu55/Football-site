@@ -11,61 +11,19 @@ import {
   shouldUseVideoQuestionLayout,
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
-import {
-  cancelOfflineExportJobsByTag,
-  getOfflineExportAuthoritativeClockMs,
-  isOfflineVideoExportUrlMode,
-  scheduleOfflineExportJob,
-} from "./video-export-utils.js";
-
-const VIDEO_EXPORT_JOB_TAG = "video-export";
-
-function scheduleVideoExportRel(msFromNow, fn) {
-  const t = getOfflineExportAuthoritativeClockMs() + (Number(msFromNow) || 0);
-  scheduleOfflineExportJob(t, fn, VIDEO_EXPORT_JOB_TAG);
-}
-
-function cancelVideoExportFlowJobs() {
-  cancelOfflineExportJobsByTag(VIDEO_EXPORT_JOB_TAG);
-}
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 
 /* ── GSAP lazy loader (eagerly kicked off at module load) ────────── */
 let gsapLib = null;
-let gsapTickerDetachedForExport = false;
-
-/** Headless MP4: drive GSAP from Python-synced ms so ball/reveal match Play Video (no wall-time catch-up). */
-function detachGsapTickerForOfflineExport(gsap) {
-  if (!isOfflineVideoExportUrlMode() || gsapTickerDetachedForExport || !gsap?.ticker || !gsap.updateRoot) {
-    return;
-  }
-  gsap.ticker.remove(gsap.updateRoot);
-  gsapTickerDetachedForExport = true;
-  if (typeof gsap.ticker?.lagSmoothing === "function") {
-    gsap.ticker.lagSmoothing(0);
-  }
-  window.__gsapOfflineSetAuthoritativeSeconds = (totalSec) => {
-    gsap.updateRoot(Math.max(0, Number(totalSec) || 0));
-  };
-}
-
 function loadGsap() {
   if (gsapLib) return Promise.resolve(gsapLib);
   return new Promise((resolve, reject) => {
-    if (window.gsap) {
-      gsapLib = window.gsap;
-      detachGsapTickerForOfflineExport(gsapLib);
-      return resolve(gsapLib);
-    }
+    if (window.gsap) { gsapLib = window.gsap; return resolve(gsapLib); }
     const s = document.createElement("script");
     s.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
-    s.onload = () => {
-      gsapLib = window.gsap;
-      detachGsapTickerForOfflineExport(gsapLib);
-      resolve(gsapLib);
-    };
+    s.onload = () => { gsapLib = window.gsap; resolve(gsapLib); };
     s.onerror = reject;
     document.head.appendChild(s);
   });
@@ -120,7 +78,7 @@ function playBallPreloader() {
     const maxR = Math.ceil(Math.hypot(window.innerWidth, window.innerHeight)) + "px";
 
     return new Promise((resolve) => {
-      const runTimeline = () => {
+      requestAnimationFrame(() => {
         gsap.set(ball, { top: "-130px" });
 
         const tl = gsap.timeline();
@@ -186,13 +144,7 @@ function playBallPreloader() {
             resolve();
           },
         });
-      };
-      /* Offline MP4: build timeline synchronously so the same sync tick can call gsap.updateRoot (see video-export-utils). */
-      if (isOfflineVideoExportUrlMode()) {
-        runTimeline();
-      } else {
-        requestAnimationFrame(runTimeline);
-      }
+      });
     });
   }).catch((err) => {
     console.error("[ball-preloader] GSAP failed:", err);
@@ -203,37 +155,6 @@ const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
 /** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
 const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
-
-function isOfflineVideoExportMode() {
-  return isOfflineVideoExportUrlMode();
-}
-
-/** Offline MP4 export uses the same level-advance rules as Play Video; never stop early on empty bonus slots. */
-function shouldContinueVideoPlaying(jumpToIndex) {
-  if (isOfflineVideoExportMode()) {
-    return jumpToIndex <= appState.totalLevelsCount;
-  }
-  const nextState = getState();
-  const isNextOutro = jumpToIndex === appState.totalLevelsCount;
-  return (
-    appState.currentLevelIndex === 1 ||
-    isNextOutro ||
-    !!(nextState.videoMode && nextState.currentSquad)
-  );
-}
-
-function logOfflineVideoExportTimeline(type, detail = {}) {
-  if (!isOfflineVideoExportMode()) return;
-  console.info("[video-export][video]", JSON.stringify({
-    type,
-    detail,
-    level: appState.currentLevelIndex,
-    totalLevels: appState.totalLevelsCount,
-    playing: !!appState.isVideoPlaying,
-    at: Date.now(),
-    perf: Math.round(performance.now()),
-  }));
-}
 
 function setVideoRevealPostTimerActive(isActive) {
   const active = !!isActive;
@@ -283,14 +204,6 @@ function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
     appState.refreshLandingUi?.();
     return;
   }
-  if (isOfflineVideoExportMode()) {
-    scheduleVideoExportRel(LANDING_SPECIAL_BADGE_AFTER_PLAY_MS, () => {
-      if (!appState.isVideoPlaying) return;
-      appState.refreshLandingUi?.();
-    });
-    appState.refreshLandingUi?.();
-    return;
-  }
   appState.landingSpecialBadgeRevealTimeoutId = setTimeout(() => {
     appState.landingSpecialBadgeRevealTimeoutId = null;
     if (!appState.isVideoPlaying) return;
@@ -312,9 +225,6 @@ export function stopVideoFlow() {
   document.body.classList.remove("play-video-active");
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
-  if (isOfflineVideoExportMode()) {
-    cancelVideoExportFlowJobs();
-  }
   stopAllAudio(); 
   const { els } = appState;
   els.teamHeader?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
@@ -329,9 +239,6 @@ export function stopVideoFlow() {
   if (els.sideTextRight) {
     els.sideTextRight.hidden = true;
   }
-  if (els.sideTextLeft) {
-    els.sideTextLeft.hidden = document.body.classList.contains("youtube-thumbnails-mode");
-  }
   if (appState.currentLevelIndex === 0) {
     const logoImg = els.logoPage.querySelector('.logo-img-anim');
     if (logoImg) {
@@ -345,11 +252,6 @@ export function startVideoFlow() {
   const state = getState();
   const { els } = appState;
   const isShorts = document.body.classList.contains("shorts-mode");
-  logOfflineVideoExportTimeline("startVideoFlow:called", {
-    hasState: !!state,
-    hasCurrentSquad: !!state?.currentSquad,
-    isShorts,
-  });
   if (appState.currentLevelIndex > 1 && !state.currentSquad) {
     alert("Please select a team first.");
     return;
@@ -359,9 +261,6 @@ export function startVideoFlow() {
     return;
   }
   appState.isVideoPlaying = true;
-  logOfflineVideoExportTimeline("startVideoFlow:started", {
-    levelsData: appState.levelsData.length,
-  });
   // Auto-enable video mode on ALL levels
   appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
   appState.refreshLandingUi?.();
@@ -385,40 +284,12 @@ export function startVideoFlow() {
   if (els.sideTextRight) {
     els.sideTextRight.hidden = true;
   }
-  if (els.sideTextLeft) {
-    els.sideTextLeft.hidden = true;
-  }
 
   startBgMusic();
 
   if (appState.currentLevelIndex === 0) {
     /* Logo page: play voice immediately, then do logo reveal */
     const quizType = els.inQuizType?.value || "nat-by-club";
-    if (isOfflineVideoExportMode()) {
-      scheduleVideoExportRel(INTRO_GAME_NAME_VOICE_DELAY_MS, () => {
-        if (!appState.isVideoPlaying) return;
-        playRules(quizType, 0);
-      });
-      if (isShorts) {
-        scheduleVideoExportRel(LOGO_PAGE_PLAY_VIDEO_DELAY_MS, () => {
-          if (!appState.isVideoPlaying) return;
-          switchLevel(1);
-          runVideoStep();
-        });
-        return;
-      }
-      scheduleVideoExportRel(LOGO_PAGE_PLAY_VIDEO_DELAY_MS, () => {
-        if (!appState.isVideoPlaying) return;
-        const logoImg = els.logoPage.querySelector(".logo-img-anim");
-        if (logoImg && !logoImg.classList.contains("reveal")) {
-          logoImg.classList.add("reveal");
-        }
-        scheduleVideoExportRel(1200, () => {
-          if (appState.isVideoPlaying) runVideoStep();
-        });
-      });
-      return;
-    }
     setTimeout(() => {
       if (!appState.isVideoPlaying) return;
       playRules(quizType, 0);
@@ -445,40 +316,27 @@ export function startVideoFlow() {
     return;
   }
 
-  /* Landing page: ball-drop first (covers title), then rules voice + title read, then first question. */
+  /* Landing page: 2s pause → ball-drop animation → landing revealed → voice */
   if (appState.currentLevelIndex === 1) {
-    const runLandingAfterBall = () => {
+    appState.videoTimeout = setTimeout(() => {
       if (!appState.isVideoPlaying) return;
+      /* Play the quiz type voice as soon as the ball starts jumping,
+         then move to level 1 as soon as the voice finishes */
       const quizType = els.inQuizType?.value || "nat-by-club";
-      logOfflineVideoExportTimeline("landing:playRules", { offline: isOfflineVideoExportMode() });
-      playRules(quizType, 0).then(() => {
+      playBallPreloader();
+      setTimeout(() => {
         if (!appState.isVideoPlaying) return;
-        logOfflineVideoExportTimeline("landing:switch-to-first-question");
-        switchLevel(2);
-        scheduleAfterTransition(() => {
+        playRules(quizType, 0).then(() => {
           if (!appState.isVideoPlaying) return;
-          logOfflineVideoExportTimeline("landing:after-transition-runVideoStep");
-          runVideoStep();
-        }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
-      });
-    };
-    if (isOfflineVideoExportMode()) {
-      scheduleVideoExportRel(0, () => {
-        if (!appState.isVideoPlaying) return;
-        playBallPreloader().then(() => {
-          if (!appState.isVideoPlaying) return;
-          scheduleVideoExportRel(INTRO_GAME_NAME_VOICE_DELAY_MS, runLandingAfterBall);
+          /* Skip runVideoStep delays — go straight to level 2 */
+          switchLevel(2);
+          scheduleAfterTransition(() => {
+            if (!appState.isVideoPlaying) return;
+            runVideoStep();
+          }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
         });
-      });
-      return;
-    }
-    requestAnimationFrame(() => {
-      if (!appState.isVideoPlaying) return;
-      playBallPreloader().then(() => {
-        if (!appState.isVideoPlaying) return;
-        appState.videoTimeout = setTimeout(runLandingAfterBall, INTRO_GAME_NAME_VOICE_DELAY_MS);
-      });
-    });
+      }, INTRO_GAME_NAME_VOICE_DELAY_MS + 200);
+    }, 2000);
     return;
   }
 
@@ -488,24 +346,6 @@ export function startVideoFlow() {
 /** Wait for any running page-transition overlay, then run fn after 200ms.
  *  Falls back to fallbackMs delay when no custom transition is active. */
 function scheduleAfterTransition(fn, fallbackMs = 0) {
-  if (isOfflineVideoExportMode()) {
-    const runLater = (delay, f) => {
-      scheduleVideoExportRel(delay, () => {
-        if (!appState.isVideoPlaying) return;
-        f();
-      });
-    };
-    if (appState._transitionDone) {
-      const p = appState._transitionDone;
-      appState._transitionDone = null;
-      p.then(() => runLater(200, fn)).catch(() => runLater(fallbackMs || 200, fn));
-    } else if (fallbackMs > 0) {
-      runLater(fallbackMs, fn);
-    } else {
-      fn();
-    }
-    return;
-  }
   if (appState._transitionDone) {
     const p = appState._transitionDone;
     appState._transitionDone = null;
@@ -525,12 +365,8 @@ function runVideoStep() {
   const isOutro = appState.currentLevelIndex === appState.totalLevelsCount;
   const isShorts = document.body.classList.contains("shorts-mode");
   const isQuestionLevel = appState.currentLevelIndex > 1 && !isOutro;
-  logOfflineVideoExportTimeline("runVideoStep", { isIntro, isOutro, isShorts, isQuestionLevel });
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoTimeout);
-  if (isOfflineVideoExportMode()) {
-    cancelVideoExportFlowJobs();
-  }
   if (isQuestionLevel) {
     clearPitchWrapTransitionOverride();
   }
@@ -544,14 +380,9 @@ function runVideoStep() {
     if (isShorts && appState.currentLevelIndex === 1) {
       delay = 1000;
     }
-    const revealIntro = () => {
-      if (appState.isVideoPlaying) revealCurrentLevel();
-    };
-    if (isOfflineVideoExportMode()) {
-      scheduleVideoExportRel(delay, revealIntro);
-    } else {
-      appState.videoTimeout = setTimeout(revealIntro, delay);
-    }
+    appState.videoTimeout = setTimeout(() => { 
+      revealCurrentLevel(); 
+    }, delay);
   } else {
     let count = 3;
     let totalTime = count;
@@ -577,73 +408,27 @@ function runVideoStep() {
     els.countdownTimer.hidden = false;
     textEl.textContent = showNumericCountdown ? String(count) : "";
     if (circleEl) {
-      circleEl.style.transition = "none";
-      circleEl.style.strokeDashoffset = 0;
-      void circleEl.offsetWidth;
-      const applyCircleTransition = () => {
+      circleEl.style.transition = "none"; 
+      circleEl.style.strokeDashoffset = 0; 
+      void circleEl.offsetWidth; 
+      setTimeout(() => {
         circleEl.style.transition = "stroke-dashoffset 1s linear";
         const ratio = (drainTotalTime - (count - 1)) / drainTotalTime;
         circleEl.style.strokeDashoffset = dashLength * ratio;
-      };
-      if (isOfflineVideoExportMode()) {
-        scheduleVideoExportRel(50, applyCircleTransition);
-      } else {
-        setTimeout(applyCircleTransition, 50);
-      }
+      }, 50);
     }
     const delayToTick = Math.max(0, (count - (isShorts ? 4.0 : 3.0)) * 1000);
+    setTimeout(() => { if (appState.isVideoPlaying) playTicking(); }, delayToTick);
     const stopTickDelay = totalTime * 1000;
-    if (isOfflineVideoExportMode()) {
-      scheduleVideoExportRel(delayToTick, () => {
-        if (appState.isVideoPlaying) playTicking();
-      });
-      scheduleVideoExportRel(stopTickDelay, () => {
-        if (appState.isVideoPlaying) stopTicking();
-      });
-    } else {
-      setTimeout(() => { if (appState.isVideoPlaying) playTicking(); }, delayToTick);
-      setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
-    }
-
-    function onQuestionCountdownFinished() {
-      clearInterval(appState.videoInterval);
-      appState.videoInterval = null;
-      stopTicking();
-      els.countdownTimer.hidden = true;
-      els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
-      logOfflineVideoExportTimeline("question:timer-complete");
-      const shortsEndingType = typeof window.__getSelectedEndingType === "function"
-        ? window.__getSelectedEndingType() : "think-you-know";
-      const skipRevealToOutro =
-        isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount && shortsEndingType !== "how-many";
-      if (skipRevealToOutro) {
-        setVideoRevealPostTimerActive(false);
-        const jumpToIndex = appState.currentLevelIndex + 1;
-        switchLevel(jumpToIndex);
-        const shouldContinueVideo = shouldContinueVideoPlaying(jumpToIndex);
-        scheduleAfterTransition(() => {
-          if (!appState.isVideoPlaying) return;
-          if (appState.currentLevelIndex !== jumpToIndex) return;
-          if (shouldContinueVideo) {
-            runVideoStep();
-          } else {
-            stopVideoFlow();
-          }
-        }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
-      } else {
-        revealCurrentLevel();
-      }
-    }
-
-    function questionCountdownTick() {
-      if (!appState.isVideoPlaying) return;
-      count -= 1;
+    setTimeout(() => { if (appState.isVideoPlaying) stopTicking(); }, stopTickDelay);
+    appState.videoInterval = setInterval(() => {
+      count--;
       if (count > 0) {
-        updateTimerColors(count);
+        updateTimerColors(count); 
         els.countdownTimer.hidden = false;
         textEl.textContent = showNumericCountdown ? String(count) : "";
         if (circleEl) {
-          const nextCount = count - 1;
+          const nextCount = count - 1; 
           const ratio = (drainTotalTime - nextCount) / drainTotalTime;
           circleEl.style.strokeDashoffset = dashLength * ratio;
         }
@@ -654,40 +439,39 @@ function runVideoStep() {
         } else {
           els.countdownTimer.classList.remove("pulse");
         }
-        scheduleVideoExportRel(1000, questionCountdownTick);
       } else {
-        onQuestionCountdownFinished();
-      }
-    }
-
-    /* Headless MP4: drive countdown from Python-synced authoritative ms (see video-export-utils). */
-    if (isOfflineVideoExportMode()) {
-      appState.videoInterval = null;
-      scheduleVideoExportRel(1000, questionCountdownTick);
-    } else {
-      appState.videoInterval = setInterval(() => {
-        count--;
-        if (count > 0) {
-          updateTimerColors(count);
-          els.countdownTimer.hidden = false;
-          textEl.textContent = showNumericCountdown ? String(count) : "";
-          if (circleEl) {
-            const nextCount = count - 1;
-            const ratio = (drainTotalTime - nextCount) / drainTotalTime;
-            circleEl.style.strokeDashoffset = dashLength * ratio;
-          }
-          if (count <= 3) {
-            if (!els.countdownTimer.classList.contains("pulse")) {
-              els.countdownTimer.classList.add("pulse");
+        clearInterval(appState.videoInterval);
+        stopTicking();
+        els.countdownTimer.hidden = true;
+        els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
+        const shortsEndingType = typeof window.__getSelectedEndingType === "function"
+          ? window.__getSelectedEndingType() : "think-you-know";
+        const skipRevealToOutro =
+          isShorts && appState.currentLevelIndex + 1 === appState.totalLevelsCount && shortsEndingType !== "how-many";
+        if (skipRevealToOutro) {
+          setVideoRevealPostTimerActive(false);
+          const jumpToIndex = appState.currentLevelIndex + 1;
+          switchLevel(jumpToIndex);
+          const nextState = getState();
+          const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+          const shouldContinueVideo =
+            appState.currentLevelIndex === 1 ||
+            isNextOutro ||
+            (nextState.videoMode && nextState.currentSquad);
+          scheduleAfterTransition(() => {
+            if (!appState.isVideoPlaying) return;
+            if (appState.currentLevelIndex !== jumpToIndex) return;
+            if (shouldContinueVideo) {
+              runVideoStep();
+            } else {
+              stopVideoFlow();
             }
-          } else {
-            els.countdownTimer.classList.remove("pulse");
-          }
+          }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
         } else {
-          onQuestionCountdownFinished();
+          revealCurrentLevel();
         }
-      }, 1000);
-    }
+      }
+    }, 1000);
   }
 }
 
@@ -695,11 +479,6 @@ function revealCurrentLevel() {
   const { els } = appState;
   const state = getState();
   let flipDelay = 1000;
-  logOfflineVideoExportTimeline("revealCurrentLevel:begin", {
-    hasState: !!state,
-    hasCurrentSquad: !!state?.currentSquad,
-    videoMode: !!state?.videoMode,
-  });
   if (appState.currentLevelIndex > 1) {
     const isLastQuestionBeforeOutro =
       appState.currentLevelIndex + 1 === appState.totalLevelsCount;
@@ -723,14 +502,16 @@ function revealCurrentLevel() {
       flipDelay = 0;
     }
   }
-  const doRevealFlip = () => {
+  appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;
     setVideoRevealPostTimerActive(false);
     let jumpToIndex = appState.currentLevelIndex + 1;
-    logOfflineVideoExportTimeline("revealCurrentLevel:switch-next", { jumpToIndex, flipDelay });
     if (jumpToIndex <= appState.totalLevelsCount) {
       switchLevel(jumpToIndex);
-      const shouldContinueVideo = shouldContinueVideoPlaying(jumpToIndex);
+      const nextState = getState();
+      const isNextOutro = jumpToIndex === appState.totalLevelsCount;
+      const shouldContinueVideo =
+        appState.currentLevelIndex === 1 || isNextOutro || (nextState.videoMode && nextState.currentSquad);
       scheduleAfterTransition(() => {
         if (!appState.isVideoPlaying) return;
         if (appState.currentLevelIndex !== jumpToIndex) return;
@@ -743,10 +524,5 @@ function revealCurrentLevel() {
     } else {
       stopVideoFlow();
     }
-  };
-  if (isOfflineVideoExportMode()) {
-    scheduleVideoExportRel(flipDelay, doRevealFlip);
-  } else {
-    appState.videoTimeout = setTimeout(doRevealFlip, flipDelay);
-  }
+  }, flipDelay);
 }

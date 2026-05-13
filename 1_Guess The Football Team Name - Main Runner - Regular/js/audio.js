@@ -1,11 +1,4 @@
 import { appState } from "./state.js";
-import {
-  cancelOfflineExportJobsByTag,
-  getOfflineExportAuthoritativeClockMs,
-  isOfflineVideoExportUrlMode,
-  pushOfflineExportAudioCue,
-  scheduleOfflineExportJob,
-} from "./video-export-utils.js";
 
 /* ── Language-aware voice resolution. The voice-tab persists the user's language
      choice to localStorage; every gameplay clip (quiz titles, level progress,
@@ -126,84 +119,10 @@ const DUCKED_VOL = 0.3; // half of NORMAL_VOL (0.6)
 const BGM_CROSSFADE_MS = 3000;
 const BGM_CROSSFADE_BUFFER_S = 0.15;
 let bgMusicTargetVolume = STARTING_VOL;
-let audioCaptureContext = null;
-let audioCaptureDestination = null;
-const managedAudioSources = new WeakMap();
-
-function isOfflineVideoExportMode() {
-  return isOfflineVideoExportUrlMode();
-}
-
-function offlineVoiceDurationMs(role) {
-  if (role === "rules") return 2600;
-  if (role === "ending") return 4200;
-  if (role === "team-name") return 1300;
-  if (role === "voice") return 3800;
-  return 1200;
-}
-
-function logOfflineAudioEvent(type, detail = {}) {
-  if (!isOfflineVideoExportMode()) return;
-  console.info("[video-export][audio]", JSON.stringify({
-    type,
-    detail,
-    level: appState.currentLevelIndex,
-    totalLevels: appState.totalLevelsCount,
-    playing: !!appState.isVideoPlaying,
-    at: Date.now(),
-    perf: Math.round(performance.now()),
-  }));
-}
-
-function getAudioContextCtor() {
-  return window.AudioContext || window.webkitAudioContext || null;
-}
-
-function ensureAudioCaptureBus() {
-  const AudioContextCtor = getAudioContextCtor();
-  if (!AudioContextCtor) return null;
-  if (!audioCaptureContext) {
-    audioCaptureContext = new AudioContextCtor();
-    audioCaptureDestination = audioCaptureContext.createMediaStreamDestination();
-  }
-  return audioCaptureContext;
-}
-
-function connectManagedAudio(audioEl) {
-  const ctx = ensureAudioCaptureBus();
-  if (!ctx || !audioCaptureDestination || managedAudioSources.has(audioEl)) return audioEl;
-  const source = ctx.createMediaElementSource(audioEl);
-  source.connect(ctx.destination);
-  source.connect(audioCaptureDestination);
-  managedAudioSources.set(audioEl, source);
-  if (ctx.state === "suspended") {
-    ctx.resume().catch(() => {});
-  }
-  return audioEl;
-}
-
-function createManagedAudio(src) {
-  const audioEl = new Audio(src);
-  audioEl.crossOrigin = "anonymous";
-  return connectManagedAudio(audioEl);
-}
-
-export async function prepareAudioCaptureStream() {
-  const ctx = ensureAudioCaptureBus();
-  if (ctx?.state === "suspended") {
-    await ctx.resume();
-  }
-  return audioCaptureDestination?.stream || new MediaStream();
-}
 
 function fadeBgm(targetVolume, durationMs) {
   if (!bgMusic) return;
   clearInterval(fadeInterval);
-  /* Offline export: avoid setInterval bursts under Playwright clock + CDP capture gaps. */
-  if (isOfflineVideoExportMode()) {
-    bgMusic.volume = targetVolume;
-    return;
-  }
 
   const steps = 20; // 20 frames for the smooth fade
   const stepTime = Math.max(10, durationMs / steps);
@@ -264,7 +183,7 @@ function queueNextBgm(forceHardSwitch = false) {
   const outgoingStartVolume = Math.max(0, Math.min(1, outgoing.volume));
 
   currentBgmIndex = (currentBgmIndex + 1) % paths.bgmPlaylist.length;
-  const incoming = createManagedAudio(paths.bgmPlaylist[currentBgmIndex]);
+  const incoming = new Audio(paths.bgmPlaylist[currentBgmIndex]);
   incoming.volume = forceHardSwitch ? outgoingStartVolume : 0;
 
   if (forceHardSwitch) {
@@ -320,19 +239,6 @@ function queueNextBgm(forceHardSwitch = false) {
 }
 
 export function startBgMusic() {
-  if (isOfflineVideoExportMode()) {
-    clearInterval(bgmCrossfadeInterval);
-    isBgmCrossfading = false;
-    currentBgmIndex = Math.floor(Math.random() * paths.bgmPlaylist.length);
-    const src = paths.bgmPlaylist[currentBgmIndex];
-    pushOfflineExportAudioCue({
-      startMs: getOfflineExportAuthoritativeClockMs(),
-      src,
-      volume: 0.42,
-      kind: "bgm",
-    });
-    return;
-  }
   clearInterval(bgmCrossfadeInterval);
   isBgmCrossfading = false;
   if (bgMusic) {
@@ -341,7 +247,7 @@ export function startBgMusic() {
   }
   // Start with a random song from the list
   currentBgmIndex = Math.floor(Math.random() * paths.bgmPlaylist.length);
-  bgMusic = createManagedAudio(paths.bgmPlaylist[currentBgmIndex]);
+  bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
   bgMusicTargetVolume = STARTING_VOL;
   bgMusic.volume = bgMusicTargetVolume;
   bindBgmEventHandlers(bgMusic);
@@ -352,9 +258,6 @@ export function setBgMusicForLevel(levelIndex) {
   const nextTargetVolume = levelIndex >= 1 ? NORMAL_VOL : STARTING_VOL;
   const isRampingUp = nextTargetVolume > bgMusicTargetVolume;
   bgMusicTargetVolume = nextTargetVolume;
-  if (isOfflineVideoExportMode()) {
-    return;
-  }
   if (!bgMusic) return;
   if (isRampingUp) {
     fadeBgm(bgMusicTargetVolume, 1800);
@@ -370,9 +273,6 @@ export function stopAllAudio() {
   clearInterval(fadeInterval);
   clearInterval(bgmCrossfadeInterval);
   isBgmCrossfading = false;
-  if (isOfflineVideoExportMode()) {
-    cancelOfflineExportJobsByTag("audio-voice");
-  }
 
   if (bgMusic) {
     clearBgmEventHandlers(bgMusic);
@@ -391,7 +291,7 @@ export function stopAllAudio() {
   }
 }
 
-export function playVoice(src, delayMs = 1000, role = "voice") {
+export function playVoice(src, delayMs = 1000) {
   if (currentVoice) {
     currentVoice.pause();
   }
@@ -402,75 +302,23 @@ export function playVoice(src, delayMs = 1000, role = "voice") {
   // 1. Immediately start smoothly fading down over the delay period
   fadeBgm(DUCKED_VOL, delayMs);
 
-  if (isOfflineVideoExportMode()) {
-    logOfflineAudioEvent("playVoice:scheduled", { role, src, delayMs });
-    cancelOfflineExportJobsByTag("audio-voice");
-    const duration = offlineVoiceDurationMs(role);
-    pushOfflineExportAudioCue({
-      startMs: getOfflineExportAuthoritativeClockMs() + (Number(delayMs) || 0),
-      src,
-      volume: 1,
-      kind: role,
-      durationMs: duration,
-    });
-    return new Promise((resolve) => {
-      const t0 = getOfflineExportAuthoritativeClockMs();
-      scheduleOfflineExportJob(
-        t0 + delayMs,
-        () => {
-          logOfflineAudioEvent("playVoice:start-simulated", { role, src, duration });
-          window.dispatchEvent(new CustomEvent("football-video-audio-start", {
-            detail: { role, src },
-          }));
-          currentVoice = { pause() {}, currentTime: 0 };
-        },
-        "audio-voice",
-      );
-      scheduleOfflineExportJob(
-        t0 + delayMs + duration,
-        () => {
-          logOfflineAudioEvent("playVoice:end-simulated", { role, src, duration });
-          window.dispatchEvent(new CustomEvent("football-video-audio-ended", {
-            detail: { role, src },
-          }));
-          resolve();
-        },
-        "audio-voice",
-      );
-    });
-  }
-
   // 2. Play the voice after the delay finishes
   return new Promise((resolve) => {
     duckingTimeout = setTimeout(() => {
-      currentVoice = createManagedAudio(src);
-      window.dispatchEvent(new CustomEvent("football-video-audio-start", {
-        detail: { role, src },
-      }));
+      currentVoice = new Audio(src);
       currentVoice.play().catch(err => {
         console.warn("Voice play error:", err);
-        window.dispatchEvent(new CustomEvent("football-video-audio-error", {
-          detail: { role, src },
-        }));
         resolve();
       });
 
       // 3. When voice finishes, wait 1s, then smoothly fade back up
       currentVoice.addEventListener('ended', () => {
-        window.dispatchEvent(new CustomEvent("football-video-audio-ended", {
-          detail: { role, src },
-        }));
         resolve();
         restoreTimeout = setTimeout(() => {
           fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
         }, 1000); // wait 1s after voice ends
       });
-      currentVoice.addEventListener('error', () => {
-        window.dispatchEvent(new CustomEvent("football-video-audio-error", {
-          detail: { role, src },
-        }));
-        resolve();
-      });
+      currentVoice.addEventListener('error', () => resolve());
     }, delayMs);
   });
 }
@@ -511,15 +359,15 @@ function pickExistingSrc(candidates) {
  * Used when the gameplay needs language-specific clips but the Spanish file
  * might not have been generated yet — fall back to English silently.
  */
-function playVoiceFromCandidates(candidates, delayMs = 1000, role = "voice") {
+function playVoiceFromCandidates(candidates, delayMs = 1000) {
   const list = (candidates || []).filter((s) => !!s);
   if (list.length === 0) return;
-  if (list.length === 1) { playVoice(list[0], delayMs, role); return; }
+  if (list.length === 1) { playVoice(list[0], delayMs); return; }
   let i = 0;
   const tryNext = () => {
     if (i >= list.length) return;
     const src = list[i++];
-    if (i === list.length) { playVoice(src, delayMs, role); return; }
+    if (i === list.length) { playVoice(src, delayMs); return; }
     const probe = new Audio();
     const cleanup = () => {
       probe.removeEventListener("error", onErr);
@@ -529,7 +377,7 @@ function playVoiceFromCandidates(candidates, delayMs = 1000, role = "voice") {
     const onOk = () => {
       cleanup();
       probe.pause(); probe.removeAttribute("src"); probe.load();
-      playVoice(src, delayMs, role);
+      playVoice(src, delayMs);
     };
     probe.addEventListener("error", onErr, { once: true });
     probe.addEventListener("canplay", onOk, { once: true });
@@ -540,21 +388,11 @@ function playVoiceFromCandidates(candidates, delayMs = 1000, role = "voice") {
 }
 
 export function playTicking() {
-  if (isOfflineVideoExportMode()) {
-    pushOfflineExportAudioCue({
-      startMs: getOfflineExportAuthoritativeClockMs(),
-      src: paths.ticking,
-      volume: 0.75,
-      kind: "tick",
-      durationMs: 3200,
-    });
-    return;
-  }
   if (tickingAudio) {
     tickingAudio.pause();
     tickingAudio.currentTime = 0;
   }
-  tickingAudio = createManagedAudio(paths.ticking);
+  tickingAudio = new Audio(paths.ticking);
   tickingAudio.play().catch(err => console.warn("Ticking play error:", err));
 }
 
@@ -587,7 +425,7 @@ export function playRules(quizType, delayMs = 1000) {
     .then((src) => {
       const clipSrc = String(src || "").trim();
       if (clipSrc) {
-        return playVoice(clipSrc, delayMs, "rules");
+        return playVoice(clipSrc, delayMs);
       } else {
         playFallback();
       }
@@ -671,26 +509,11 @@ export function playTheAnswerIs(
   /** ms before team name clip after `canplay`; default ducks BGM then plays. Use `0` when synced to UI (e.g. panel slide). */
   teamNameVoiceDelayMs = 600
 ) {
-  if (isOfflineVideoExportMode()) {
-    const t0 = getOfflineExportAuthoritativeClockMs();
-    pushOfflineExportAudioCue({ startMs: t0, src: paths.dong, volume: 1, kind: "sfx", durationMs: 900 });
-    pushOfflineExportAudioCue({
-      startMs: t0 + 150,
-      src: paths.revealStinger,
-      volume: 0.5,
-      kind: "sfx",
-      durationMs: 2000,
-    });
-    if (includeVoice && appState.isVideoPlaying && teamDisplayName) {
-      playVoice(buildTeamNameVoiceSrc(teamDisplayName, quizType), teamNameVoiceDelayMs, "team-name");
-    }
-    return;
-  }
-  const dongAudio = createManagedAudio(paths.dong);
+  const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
 
   setTimeout(() => {
-    const revealStinger = createManagedAudio(paths.revealStinger);
+    const revealStinger = new Audio(paths.revealStinger);
     revealStinger.volume = 0.5;
     revealStinger.play().catch((err) => console.warn("Reveal stinger play error:", err));
   }, 150);
@@ -721,7 +544,7 @@ export function playEndingVoice(endingType) {
       .then((src) => {
         const clipSrc = String(src || "").trim();
         if (clipSrc) {
-          playVoice(clipSrc, 100, "ending");
+          playVoice(clipSrc, 100);
         } else {
           playEndingVoiceFallback(endingType);
         }
@@ -735,7 +558,7 @@ export function playEndingVoice(endingType) {
 }
 
 function playEndingVoiceFallback(endingType) {
-  playVoiceFromCandidates(langAwareCandidates(endingPathFor, endingType), 100, "ending");
+  playVoiceFromCandidates(langAwareCandidates(endingPathFor, endingType), 100);
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {
