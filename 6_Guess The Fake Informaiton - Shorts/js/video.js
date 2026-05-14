@@ -20,6 +20,7 @@ import {
   syncCareerSlotControlsVisibility,
   syncShortsCareerVideoPreviewLayers,
 } from "./pitch-render.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 import {
   hideShortsCountdownOnPlayVideoPress,
   syncShortsVideoModeIdleTimerBar,
@@ -213,6 +214,10 @@ function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
 }
 
 export function stopVideoFlow() {
+  /* Mid-flow abort/cancel: tear down OBS recording + fullscreen.
+     The natural outro path stops recording via levels.js (1s after outro voice),
+     so this only matters for aborts. Idempotent. */
+  stopRecordingAndExitFullscreen();
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
@@ -237,6 +242,7 @@ export function stopVideoFlow() {
     els.careerWrap.classList.toggle("video-mode-enabled", !!state?.videoMode);
   }
   els.playVideoBtn.hidden = false;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
   syncShortsVideoModeIdleTimerBar();
   els.panelFab.hidden = false;
   renderProgressSteps(appState.totalLevelsCount, switchLevel);
@@ -298,6 +304,7 @@ export function startVideoFlow() {
   syncShortsCareerVideoPreviewLayers();
   renderHeader();
   els.playVideoBtn.hidden = true;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
   els.panelFab.hidden = true;
   els.controlPanel.classList.add("collapsed");
   if (els.rightPanel) {

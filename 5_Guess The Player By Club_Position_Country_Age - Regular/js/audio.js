@@ -316,30 +316,32 @@ function pickExistingSrc(candidates) {
  */
 function playVoiceFromCandidates(candidates, delayMs = 1000) {
   const list = (candidates || []).filter((s) => !!s);
-  if (list.length === 0) return;
-  if (list.length === 1) { playVoice(list[0], delayMs); return; }
-  let i = 0;
-  const tryNext = () => {
-    if (i >= list.length) return;
-    const src = list[i++];
-    if (i === list.length) { playVoice(src, delayMs); return; }
-    const probe = new Audio();
-    const cleanup = () => {
-      probe.removeEventListener("error", onErr);
-      probe.removeEventListener("canplay", onOk);
+  if (list.length === 0) return Promise.resolve();
+  if (list.length === 1) return playVoice(list[0], delayMs);
+  return new Promise((resolve) => {
+    let i = 0;
+    const tryNext = () => {
+      if (i >= list.length) { resolve(); return; }
+      const src = list[i++];
+      if (i === list.length) { playVoice(src, delayMs).then(resolve); return; }
+      const probe = new Audio();
+      const cleanup = () => {
+        probe.removeEventListener("error", onErr);
+        probe.removeEventListener("canplay", onOk);
+      };
+      const onErr = () => { cleanup(); tryNext(); };
+      const onOk = () => {
+        cleanup();
+        probe.pause(); probe.removeAttribute("src"); probe.load();
+        playVoice(src, delayMs).then(resolve);
+      };
+      probe.addEventListener("error", onErr, { once: true });
+      probe.addEventListener("canplay", onOk, { once: true });
+      probe.src = src;
+      probe.load();
     };
-    const onErr = () => { cleanup(); tryNext(); };
-    const onOk = () => {
-      cleanup();
-      probe.pause(); probe.removeAttribute("src"); probe.load();
-      playVoice(src, delayMs);
-    };
-    probe.addEventListener("error", onErr, { once: true });
-    probe.addEventListener("canplay", onOk, { once: true });
-    probe.src = src;
-    probe.load();
-  };
-  tryNext();
+    tryNext();
+  });
 }
 
 export function playVoice(src, delayMs = 1000) {
@@ -357,7 +359,10 @@ export function playVoice(src, delayMs = 1000) {
   return new Promise((resolve) => {
     duckingTimeout = setTimeout(() => {
       currentVoice = new Audio(src);
-      currentVoice.play().catch(err => console.warn("Voice play error:", err));
+      currentVoice.play().catch(err => {
+        console.warn("Voice play error:", err);
+        resolve();
+      });
 
       // 3. When voice finishes, wait 1s, then smoothly fade back up
       currentVoice.addEventListener('ended', () => {
@@ -366,6 +371,7 @@ export function playVoice(src, delayMs = 1000) {
           fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
         }, 1000); // wait 1s after voice ends
       });
+      currentVoice.addEventListener('error', () => resolve());
     }, delayMs);
   });
 }
@@ -486,37 +492,33 @@ export function playTheAnswerIs(includeVoice = true, playerDisplayName = "", kin
 }
 
 export function playCommentBelow() {
-  if (!appState.isVideoPlaying) return;
+  if (!appState.isVideoPlaying) return Promise.resolve();
   const endingType = typeof window.__getSelectedEndingType === "function"
     ? window.__getSelectedEndingType()
     : "think-you-know";
-  playEndingVoice(endingType);
+  return playEndingVoice(endingType);
 }
 
 export function playEndingVoice(endingType) {
-  if (!appState.isVideoPlaying) return;
+  if (!appState.isVideoPlaying) return Promise.resolve();
   // Try server-generated voice first via resolver, then fall back to bundled files.
   const resolver = window.__resolveEndingVoiceSrc;
   if (typeof resolver === "function") {
-    Promise.resolve(resolver(endingType))
+    return Promise.resolve(resolver(endingType))
       .then((src) => {
         const clipSrc = String(src || "").trim();
         if (clipSrc) {
-          playVoice(clipSrc, 100);
-        } else {
-          playEndingVoiceFallback(endingType);
+          return playVoice(clipSrc, 100);
         }
+        return playEndingVoiceFallback(endingType);
       })
-      .catch(() => {
-        playEndingVoiceFallback(endingType);
-      });
-    return;
+      .catch(() => playEndingVoiceFallback(endingType));
   }
-  playEndingVoiceFallback(endingType);
+  return playEndingVoiceFallback(endingType);
 }
 
 function playEndingVoiceFallback(endingType) {
-  playVoiceFromCandidates(langAwareCandidates(endingPathFor, endingType), 100);
+  return playVoiceFromCandidates(langAwareCandidates(endingPathFor, endingType), 100);
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {

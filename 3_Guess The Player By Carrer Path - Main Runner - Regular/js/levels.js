@@ -3,6 +3,8 @@ import { renderProgressSteps } from "./progress.js";
 import { getVideoQuestionPreviewState, renderHeader, renderCareer, preloadCareerAssets } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow, setBgMusicForLevel } from "./audio.js";
 import { runTransition, transitionSettings } from "./transitions.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
+import { stopVideoFlow } from "./video.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -234,7 +236,14 @@ export function switchLevel(index) {
     }
     
     if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
-      playCommentBelow();
+      playCommentBelow().then(() => {
+        setTimeout(async () => {
+          await stopRecordingAndExitFullscreen();
+          stopVideoFlow();
+          /* Tell the orchestrator (if any — Record Video's EN→ES flow) we're done. */
+          document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+        }, 1000);
+      });
     }
 
     if (appState.isVideoPlaying) {

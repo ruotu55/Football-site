@@ -66,9 +66,8 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inEndingType: els.inEndingType?.value ?? null,
             inSpecificTitleToggle: !!els.inSpecificTitleToggle?.checked,
             inShotsSizeToggle: !!els.inShotsSizeToggle?.checked,
-            inSpecificTitleText: els.inSpecificTitleText?.value ?? null,
-            inSpecificTitleIcon: els.inSpecificTitleIcon?.value ?? null,
-            shortsModeToggle: FIXED_SHORTS_MODE,
+            inSpecificTitlePreset: els.inSpecificTitlePreset?.value ?? null,
+                        shortsModeToggle: FIXED_SHORTS_MODE,
             shortsCirclePreviewToggle: !!els.shortsCirclePreviewToggle?.checked,
             shortsCirclePreviewCount: els.shortsCirclePreviewCount?.value ?? null,
             inCareerClubs: els.inCareerClubs?.value ?? null,
@@ -92,9 +91,8 @@ export function applyDevLiveReloadControls(els, snapshot) {
         const overlay = document.getElementById("shots-size-overlay");
         if (overlay) overlay.hidden = !els.inShotsSizeToggle.checked;
     }
-    if (els.inSpecificTitleText && c.inSpecificTitleText != null) els.inSpecificTitleText.value = c.inSpecificTitleText;
-    if (els.inSpecificTitleIcon && c.inSpecificTitleIcon != null) els.inSpecificTitleIcon.value = c.inSpecificTitleIcon;
-    if (els.shortsModeToggle) {
+    if (els.inSpecificTitlePreset && c.inSpecificTitlePreset != null) els.inSpecificTitlePreset.value = c.inSpecificTitlePreset;
+        if (els.shortsModeToggle) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
         els.shortsModeToggle.disabled = true;
     }

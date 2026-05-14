@@ -41,6 +41,7 @@ export const appState = {
     swapSearch: null,
     videoModeToggle: null,
     playVideoBtn: null,
+    recordVideoBtn: null,
     countdownTimer: null,
     teamHeader: null,
     tabBtnLanding: null,
@@ -70,8 +71,7 @@ export const appState = {
     saveDiscardYes: null,
     inQuizType: null,
     inSpecificTitleToggle: null,
-    inSpecificTitleText: null,
-    inSpecificTitleIcon: null,
+    inSpecificTitlePreset: null,
     inEndingType: null,
     inEasy: null,
     inMedium: null,
@@ -130,6 +130,10 @@ export const appState = {
   careerActiveSlotIndex: -1,
   swapAvailablePlayers: [],
   isVideoPlaying: false,
+  /** Set by the Record Video handler when running an EN→ES double recording.
+   *  Shape: { phase: 1|2, savedName: string } or null. Phase 1 = keep fullscreen
+   *  during the transition; phase 2 = full teardown at the end. */
+  doubleRecording: null,
   videoRevealPostTimerActive: false,
   /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
   refreshLandingUi: null,

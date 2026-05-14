@@ -1,152 +1,488 @@
 ﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
+import { pickStartingXI } from "./pick-xi.js";
+import { FORMATIONS } from "./formations.js";
+import { getCurrentLanguage } from "./voice-tab.js";
+import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
+import {
+    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+    getSpecificTitleText,
+} from "./specific-title-presets.js";
 
+/** Same name resolution the Voice tab uses — accounts for user renames in the
+ *  team-header. Without this, PROD checks "Arsenal FC" while the file is saved
+ *  as "Arsenal" (or vice versa). */
+function resolveLevelTeamName(lvl, quizType) {
+    try {
+        const resolved = resolveHeaderTeamDisplayName(lvl, quizType);
+        if (resolved) return String(resolved).trim();
+    } catch (_) { /* fall through */ }
+    return String(lvl.currentSquad?.name || lvl.selectedEntry?.name || "").trim();
+}
+
+/** Bundled voice keys the level flow plays (see server BUNDLED_VOICE_CONFIG). */
+const LEVEL_VOICE_KEYS = ["warm-up", "serious", "nerds", "genius"];
+
+// ── PROD mode state ──
 let prodModeActive = false;
+
+// Track whether user has explicitly confirmed background selections
 let backgroundColorConfirmed = false;
 let backgroundEffectConfirmed = false;
 
-export function isProdMode() { return prodModeActive; }
-export function markBackgroundColorConfirmed() { backgroundColorConfirmed = true; }
-export function markBackgroundEffectConfirmed() { backgroundEffectConfirmed = true; }
+export function isProdMode() {
+    return prodModeActive;
+}
 
+export function markBackgroundColorConfirmed() {
+    backgroundColorConfirmed = true;
+}
+
+export function markBackgroundEffectConfirmed() {
+    backgroundEffectConfirmed = true;
+}
+
+export function isBackgroundColorConfirmed() {
+    return backgroundColorConfirmed;
+}
+
+export function isBackgroundEffectConfirmed() {
+    return backgroundEffectConfirmed;
+}
+
+// ── Toggle PROD mode ──
 export function toggleProdMode() {
     const { els } = appState;
     prodModeActive = !prodModeActive;
-    if (els.prodBtn) els.prodBtn.setAttribute("aria-pressed", prodModeActive ? "true" : "false");
-    const effectSel = document.getElementById("in-transition-effect");
-    if (prodModeActive) {
-        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
-        if (els.videoModeToggle) {
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        }
-        transitionSettings.effect = "";
-        if (effectSel) effectSel.selectedIndex = 0;
-    } else {
-        transitionSettings.effect = "grid-overlay";
-        if (effectSel) effectSel.value = "grid-overlay";
+    if (els.prodBtn) {
+        els.prodBtn.setAttribute("aria-pressed", prodModeActive ? "true" : "false");
     }
+    if (prodModeActive) {
+        // Turn on video mode for ALL levels (PROD = "ready to record")
+        appState.levelsData.forEach((lvl) => {
+            lvl.videoMode = true;
+        });
+        // Sync the current level's video mode toggle
+        if (els.videoModeToggle) {
+            const curState = getState();
+            if (curState) {
+                els.videoModeToggle.checked = true;
+                els.videoModeToggle.dispatchEvent(new Event("change"));
+            }
+        }
+    }
+    /* Note: PROD no longer touches transitionSettings.effect — Record Video must
+       use the same transition as Play Video, and the user's transition selection
+       (or the value saved with the loaded script) should be respected regardless. */
 }
 
+// ── Validation logic ──
+
 function getLevelLabel(index, lvl) {
-    if (lvl.isLogo) return "Level 0 (Logo)";
-    if (lvl.isIntro) return "Level 1 (Intro)";
+    if (lvl.isLogo) return `Level 0 (Logo)`;
+    if (lvl.isIntro) return `Level 1 (Intro)`;
     if (lvl.isOutro) return `Level ${index - 1} (Outro)`;
     if (lvl.isBonus) return `Level ${index - 1} (Bonus)`;
     return `Level ${index - 1}`;
 }
 
 function getQuestionLevels() {
+    // Question levels are levels that are NOT logo, intro, outro, or bonus
     return appState.levelsData
         .map((lvl, i) => ({ lvl, index: i }))
         .filter(({ lvl }) => !lvl.isLogo && !lvl.isIntro && !lvl.isOutro && !lvl.isBonus);
 }
 
-function validatePlayersSelected() {
+function validateTeamsSelected() {
+    const questionLevels = getQuestionLevels();
     const failures = [];
-    for (const { lvl, index } of getQuestionLevels()) {
-        if (!lvl.careerPlayer) failures.push(`${getLevelLabel(index, lvl)}: No player selected`);
+    for (const { lvl, index } of questionLevels) {
+        if (!lvl.currentSquad) {
+            failures.push(`${getLevelLabel(index, lvl)}: No team/player selected`);
+        }
     }
-    return { sectionName: "Players Selected", passed: failures.length === 0, failures };
+    return {
+        sectionName: "Teams / Players Selected",
+        passed: failures.length === 0,
+        failures,
+    };
 }
 
-function validatePlayerAssets() {
-    const failures = [];
-    for (const { lvl, index } of getQuestionLevels()) {
-        if (!lvl.careerPlayer) continue;
-        const label = getLevelLabel(index, lvl);
-        const playerName = String(lvl.careerPlayer.name || "").trim();
-        const missing = [];
-        if (!lvl.careerHistory || lvl.careerHistory.length === 0) missing.push("no career history/clubs");
-        if (appState.playerImages) {
-            let hasImage = false;
-            if (appState.playerImages.club) {
-                for (const key in appState.playerImages.club) {
-                    if (key.endsWith(`|${playerName}`) && appState.playerImages.club[key]?.length > 0) { hasImage = true; break; }
-                }
+/**
+ * Check if a player has photos using the LEVEL's own state data
+ * (not getState() which returns the currently active level).
+ */
+function playerHasPhotosForLevel(player, lvl) {
+    if (!player) return false;
+    const name = player.name || "";
+    if (!name) return false;
+
+    const sanitize = (raw) =>
+        String(raw || "").trim().replace(/\//g, "").replace(/\\/g, "").replace(/\.\./g, "").replace(/[<>:"|?*]/g, "").replace(/[. ]+$/g, "");
+    const variants = (raw) => {
+        const base = String(raw || "").trim();
+        if (!base) return [];
+        const s = sanitize(base);
+        return s && s !== base ? [base, s] : [base];
+    };
+
+    // Check club photos
+    if (lvl.squadType === "club" && lvl.selectedEntry && appState.playerImages?.club) {
+        const country = lvl.selectedEntry.country || "";
+        const league = lvl.selectedEntry.league || "";
+        const squadNames = variants(lvl.currentSquad?.name);
+        const playerNames = variants(name);
+        for (const sq of squadNames) {
+            for (const pn of playerNames) {
+                const k = `${country}|${league}|${sq}|${pn}`;
+                if (appState.playerImages.club[k]?.length > 0) return true;
             }
-            if (!hasImage && appState.playerImages.nationality) {
-                for (const key in appState.playerImages.nationality) {
-                    if (key.endsWith(`|${playerName}`) && appState.playerImages.nationality[key]?.length > 0) { hasImage = true; break; }
-                }
-            }
-            if (!hasImage) missing.push("no player image");
         }
-        if (missing.length > 0) failures.push(`${label} (${playerName}): ${missing.join(", ")}`);
     }
-    return { sectionName: "Player Images & Career Data", passed: failures.length === 0, failures };
+
+    // Check nationality photos
+    if (lvl.squadType === "national" && lvl.selectedEntry && appState.playerImages?.nationality) {
+        const region = lvl.selectedEntry.region || "";
+        const entryName = lvl.selectedEntry.name || "";
+        const k = `${region}|${entryName}|${name}`;
+        if (appState.playerImages.nationality[k]?.length > 0) return true;
+    }
+
+    // Scan all club folders for this player's club
+    if (player.club && appState.playerImages?.club) {
+        const clubVariants = variants(player.club);
+        const playerNames = variants(name);
+        for (const key in appState.playerImages.club) {
+            if (clubVariants.some((c) => playerNames.some((p) => key.endsWith(`|${c}|${p}`)))) {
+                if (appState.playerImages.club[key]?.length > 0) return true;
+            }
+        }
+    }
+
+    // Scan all nationality folders for this player's nationality
+    if (player.nationality && appState.playerImages?.nationality) {
+        const natSuffix = `|${player.nationality}|${name}`;
+        for (const key in appState.playerImages.nationality) {
+            if (key.endsWith(natSuffix) && appState.playerImages.nationality[key]?.length > 0) return true;
+        }
+    }
+
+    return false;
+}
+
+function validateTeamAssets() {
+    const questionLevels = getQuestionLevels();
+    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const failures = [];
+
+    for (const { lvl, index } of questionLevels) {
+        if (!lvl.currentSquad) continue;
+        const label = getLevelLabel(index, lvl);
+        const teamName = resolveLevelTeamName(lvl, quizType);
+        const missing = [];
+
+        // Check team logo/image
+        const hasImage = !!(lvl.currentSquad.imagePath || lvl.headerLogoOverrideRelPath);
+        if (!hasImage) {
+            missing.push("logo");
+        }
+
+        // Check player photos — use customXi (the actual selected players on the pitch)
+        const formation = FORMATIONS.find((f) => f.id === lvl.formationId) || FORMATIONS[0];
+        const xi = lvl.customXi || (formation ? pickStartingXI(formation, lvl.currentSquad) : []);
+        if (xi && xi.length > 0) {
+            for (let si = 0; si < xi.length; si++) {
+                const player = xi[si];
+                if (!player) {
+                    missing.push(`slot ${si + 1}: no player`);
+                    continue;
+                }
+                if (!playerHasPhotosForLevel(player, lvl)) {
+                    const pName = player.name || `slot ${si + 1}`;
+                    missing.push(`${pName}: no photo`);
+                }
+            }
+        }
+
+        if (missing.length > 0) {
+            failures.push(`${label} (${teamName}): ${missing.join(", ")}`);
+        }
+    }
+    return {
+        sectionName: "Photos / Logos",
+        passed: failures.length === 0,
+        failures,
+    };
 }
 
 function validateBackgroundColor() {
     const failures = [];
-    if (!backgroundColorConfirmed) failures.push("Background Color has not been selected");
-    if (!backgroundEffectConfirmed) failures.push("Background Effect has not been selected");
-    return { sectionName: "Background Color & Effect", passed: failures.length === 0, failures };
+    if (!backgroundColorConfirmed) {
+        failures.push("Background Color has not been selected (currently showing default)");
+    }
+    if (!backgroundEffectConfirmed) {
+        failures.push("Background Effect has not been selected (currently showing default)");
+    }
+    return {
+        sectionName: "Background Color & Effect",
+        passed: failures.length === 0,
+        failures,
+    };
 }
 
 function validateTransition() {
-    const effectVal = document.getElementById("in-transition-effect")?.value || "";
-    const isRandom = document.getElementById("in-transition-random")?.checked || false;
     const failures = [];
-    if (!effectVal && !isRandom) failures.push("No transition selected and Random is not checked");
-    return { sectionName: "Transition", passed: failures.length === 0, failures };
+    const effectSel = document.getElementById("in-transition-effect");
+    const randomChk = document.getElementById("in-transition-random");
+    const effectVal = effectSel ? effectSel.value : "";
+    const isRandom = randomChk ? randomChk.checked : false;
+
+    if (!effectVal && !isRandom) {
+        failures.push("No transition effect selected and Random is not checked");
+    }
+    return {
+        sectionName: "Transition",
+        passed: failures.length === 0,
+        failures,
+    };
 }
 
 function validateSpecificTitle() {
-    const yesPressed = document.getElementById("specific-title-yes")?.getAttribute("aria-pressed") === "true";
-    const noPressed = document.getElementById("specific-title-no")?.getAttribute("aria-pressed") === "true";
     const failures = [];
-    if (!yesPressed && !noPressed) failures.push("'Add specific title' not set to YES or NO");
-    return { sectionName: "Add Specific Title", passed: failures.length === 0, failures };
+    const yesBtn = document.getElementById("specific-title-yes");
+    const noBtn = document.getElementById("specific-title-no");
+    const yesPressed = yesBtn?.getAttribute("aria-pressed") === "true";
+    const noPressed = noBtn?.getAttribute("aria-pressed") === "true";
+
+    if (!yesPressed && !noPressed) {
+        failures.push("'Add specific title' has not been set to YES or NO");
+    }
+    return {
+        sectionName: "Add Specific Title",
+        passed: failures.length === 0,
+        failures,
+    };
 }
 
 function validateEndingType() {
     const failures = [];
-    if (!(appState.els?.inEndingType?.value)) failures.push("No ending type selected");
-    return { sectionName: "Ending Type", passed: failures.length === 0, failures };
+    const endingType = appState.els?.inEndingType?.value || "";
+    if (!endingType) {
+        failures.push("No ending type selected");
+    }
+    return {
+        sectionName: "Ending Type",
+        passed: failures.length === 0,
+        failures,
+    };
 }
 
-export function runProdValidation() {
-    const sections = [validatePlayersSelected(), validatePlayerAssets(), validateSpecificTitle(), validateEndingType()];
-    return { allPassed: sections.every((s) => s.passed), sections };
+// ── Async voice-existence validators ──
+// These all hit the same per-runner status endpoints that the Voice tab uses,
+// so PROD checks the actual files on disk (not just constructed URLs).
+
+/** Resolve the language-appropriate "specific title" string, or "" when off. */
+function getCurrentSpecificTitle() {
+    const { els } = appState;
+    if (!els?.inSpecificTitleToggle?.checked) return "";
+    const key = els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
+    return getSpecificTitleText(key, getCurrentLanguage()).trim();
 }
 
+async function fetchExists(path, params) {
+    try {
+        const qs = new URLSearchParams(params).toString();
+        const res = await fetch(`${path}?${qs}`, { cache: "no-store" });
+        if (!res.ok) return { exists: false, error: `HTTP ${res.status}` };
+        const data = await res.json().catch(() => ({}));
+        return { exists: !!data?.exists };
+    } catch (err) {
+        return { exists: false, error: String(err?.message || err) };
+    }
+}
+
+async function validateTeamVoices() {
+    const questionLevels = getQuestionLevels();
+    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const language = getCurrentLanguage();
+    const checks = questionLevels.map(async ({ lvl, index }) => {
+        if (!lvl.currentSquad) return null;
+        /* Use the resolved display name (post-rename) so we hit the same file path
+           the Voice tab uses — matches what's actually saved on disk. */
+        const teamName = resolveLevelTeamName(lvl, quizType);
+        if (!teamName) return null;
+        const { exists } = await fetchExists("/__team-voice/status", {
+            name: teamName,
+            quizType,
+            language,
+        });
+        return exists ? null : `${getLevelLabel(index, lvl)} (${teamName}): voice file missing`;
+    });
+    const results = await Promise.all(checks);
+    return {
+        sectionName: "Team Voices",
+        passed: results.every((r) => !r),
+        failures: results.filter(Boolean),
+    };
+}
+
+async function validateQuizIntroVoice() {
+    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const language = getCurrentLanguage();
+    const specificTitle = getCurrentSpecificTitle();
+    const { exists } = await fetchExists("/__quiz-title-voice/status", {
+        quizType,
+        specificTitle,
+        language,
+    });
+    const detail = specificTitle ? ` + specific title "${specificTitle}"` : "";
+    return {
+        sectionName: "Quiz Intro Voice",
+        passed: exists,
+        failures: exists ? [] : [`Quiz intro voice missing for ${quizType}${detail} (${language})`],
+    };
+}
+
+async function validateEndingVoice() {
+    const endingType = appState.els?.inEndingType?.value || "";
+    const language = getCurrentLanguage();
+    if (!endingType) {
+        // The "Ending Type" validator already complains; don't double-fail here.
+        return { sectionName: "Ending Voice", passed: true, failures: [] };
+    }
+    const { exists } = await fetchExists("/__ending-voice/status", { endingType, language });
+    return {
+        sectionName: "Ending Voice",
+        passed: exists,
+        failures: exists ? [] : [`Ending voice missing for "${endingType}" (${language})`],
+    };
+}
+
+async function validateLevelVoices() {
+    const language = getCurrentLanguage();
+    const checks = LEVEL_VOICE_KEYS.map(async (key) => {
+        const { exists } = await fetchExists("/__bundled-voice/status", { key, language });
+        return exists ? null : `Level voice "${key}" missing (${language})`;
+    });
+    const results = await Promise.all(checks);
+    return {
+        sectionName: "Level Voices",
+        passed: results.every((r) => !r),
+        failures: results.filter(Boolean),
+    };
+}
+
+// ── Run all validations ──
+export async function runProdValidation() {
+    const sections = await Promise.all([
+        Promise.resolve(validateTeamsSelected()),
+        Promise.resolve(validateTeamAssets()),
+        Promise.resolve(validateSpecificTitle()),
+        Promise.resolve(validateEndingType()),
+        validateTeamVoices(),
+        validateQuizIntroVoice(),
+        validateEndingVoice(),
+        validateLevelVoices(),
+    ]);
+    const allPassed = sections.every((s) => s.passed);
+    return { allPassed, sections };
+}
+
+// ── Show validation modal ──
 export function showValidationModal(result) {
+    // Remove existing modal if any
     const existing = document.getElementById("prod-validation-overlay");
     if (existing) existing.remove();
+
     const overlay = document.createElement("div");
     overlay.id = "prod-validation-overlay";
     overlay.className = "prod-validation-overlay";
+
     const modal = document.createElement("div");
     modal.className = "prod-validation-modal";
+
+    // Header
     const header = document.createElement("div");
     header.className = "prod-validation-modal__header";
     const title = document.createElement("h2");
     title.textContent = result.allPassed ? "All Checks Passed" : "PROD Validation Failed";
-    if (result.allPassed) { header.style.background = "rgba(34,197,94,0.15)"; title.style.color = "#22c55e"; }
+    if (result.allPassed) {
+        header.style.background = "rgba(34,197,94,0.15)";
+        title.style.color = "#22c55e";
+    }
     const closeBtn = document.createElement("button");
     closeBtn.className = "prod-validation-modal__close";
     closeBtn.textContent = "\u00D7";
     closeBtn.onclick = () => overlay.remove();
-    header.appendChild(title); header.appendChild(closeBtn); modal.appendChild(header);
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+    modal.appendChild(header);
+
+    // Body - sections
     const body = document.createElement("div");
     body.className = "prod-validation-modal__body";
+
     for (const section of result.sections) {
-        const sectionEl = document.createElement("div"); sectionEl.className = "prod-validation-section";
-        const toggle = document.createElement("button"); toggle.className = "prod-validation-section__toggle"; toggle.type = "button";
-        const nameSpan = document.createElement("span"); nameSpan.textContent = section.sectionName;
-        const statusSpan = document.createElement("span"); statusSpan.className = `section-status ${section.passed ? "pass" : "fail"}`;
+        const sectionEl = document.createElement("div");
+        sectionEl.className = "prod-validation-section";
+
+        const toggle = document.createElement("button");
+        toggle.className = "prod-validation-section__toggle";
+        toggle.type = "button";
+
+        const nameSpan = document.createElement("span");
+        nameSpan.textContent = section.sectionName;
+
+        const statusSpan = document.createElement("span");
+        statusSpan.className = `section-status ${section.passed ? "pass" : "fail"}`;
         statusSpan.textContent = section.passed ? "PASS" : `FAIL (${section.failures.length})`;
-        toggle.appendChild(nameSpan); toggle.appendChild(statusSpan);
-        const details = document.createElement("div"); details.className = "prod-validation-section__details";
-        if (section.passed) { details.innerHTML = '<span class="pass-item">All checks passed.</span>'; }
-        else { const ul = document.createElement("ul"); for (const f of section.failures) { const li = document.createElement("li"); const span = document.createElement("span"); span.className = "fail-item"; span.textContent = f; li.appendChild(span); ul.appendChild(li); } details.appendChild(ul); }
-        toggle.onclick = () => details.classList.toggle("open");
-        sectionEl.appendChild(toggle); sectionEl.appendChild(details); body.appendChild(sectionEl);
+
+        toggle.appendChild(nameSpan);
+        toggle.appendChild(statusSpan);
+
+        const details = document.createElement("div");
+        details.className = "prod-validation-section__details";
+
+        if (section.passed) {
+            details.innerHTML = '<span class="pass-item">All checks passed.</span>';
+        } else {
+            const ul = document.createElement("ul");
+            for (const f of section.failures) {
+                const li = document.createElement("li");
+                const span = document.createElement("span");
+                span.className = "fail-item";
+                span.textContent = f;
+                li.appendChild(span);
+                ul.appendChild(li);
+            }
+            details.appendChild(ul);
+        }
+
+        toggle.onclick = () => {
+            details.classList.toggle("open");
+        };
+
+        sectionEl.appendChild(toggle);
+        sectionEl.appendChild(details);
+        body.appendChild(sectionEl);
     }
-    modal.appendChild(body); overlay.appendChild(modal);
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.remove(); });
-    const escHandler = (e) => { if (e.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", escHandler); } };
+
+    modal.appendChild(body);
+    overlay.appendChild(modal);
+
+    // Close on overlay click
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
+
+    // Close on Escape
+    const escHandler = (e) => {
+        if (e.key === "Escape") {
+            overlay.remove();
+            document.removeEventListener("keydown", escHandler);
+        }
+    };
     document.addEventListener("keydown", escHandler);
+
     document.body.appendChild(overlay);
 }

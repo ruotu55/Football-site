@@ -4,6 +4,7 @@ import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
 import { translateCountry } from "./i18n.js";
+import { DEFAULT_SPECIFIC_TITLE_PRESET_KEY, getSpecificTitleText } from "./specific-title-presets.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
@@ -105,7 +106,7 @@ function uniqueTeamNames() {
 }
 
 function getCurrentQuizType() { const raw = String(appState.els?.inQuizType?.value || "").trim(); const m = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english; return raw in m ? raw : ""; }
-function getSpecificTitle() { const { els } = appState; if (!els?.inSpecificTitleToggle?.checked) return ""; return String(els?.inSpecificTitleText?.value || "").trim(); }
+function getSpecificTitle() { const { els } = appState; if (!els?.inSpecificTitleToggle?.checked) return ""; const key = els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY; return getSpecificTitleText(key, getCurrentLanguage()).trim(); }
 function quizTitleSynthText(qt, st) { const m = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english; const b = m[qt] || ""; const e = String(st || "").trim(); return e ? `${b} ${e}` : b; }
 
 async function fetchQuizTitleStatus(qt, st) { try { const p = new URLSearchParams({ quizType: qt, specificTitle: st || "", language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__quiz-title-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }

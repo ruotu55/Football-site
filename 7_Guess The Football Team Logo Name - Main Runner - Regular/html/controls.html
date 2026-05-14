@@ -36,33 +36,11 @@
   </div>
   <div id="specific-title-settings" style="display: none; flex-direction: column; gap: 0.5rem; padding: 0.5rem; background: rgba(0,0,0,0.2); border-radius: 6px;">
     <label class="field">
-      <span class="label">Text</span>
-      <input type="text" id="in-specific-title-text" value="World Cup Edition" />
-    </label>
-    <label class="field">
-      <span class="label">Icon</span>
-      <select id="in-specific-title-icon">
-        <optgroup label="Leagues">
-          <option value="Images/Icons/specific-title/Premier League.png">Premier League</option>
-          <option value="Images/Icons/specific-title/La Liga.png">La Liga</option>
-          <option value="Images/Icons/specific-title/Seria A.png">Seria A</option>
-          <option value="Images/Icons/specific-title/Bundesliga.png">Bundesliga</option>
-          <option value="Images/Icons/specific-title/Ligue 1.png">Ligue 1</option>
-        </optgroup>
-        <optgroup label="Competitions">
-          <option value="Images/Icons/specific-title/World Cup 2026.png" selected>World Cup 2026</option>
-          <option value="Images/Icons/specific-title/Champions League.png">Champions League</option>
-          <option value="Images/Icons/specific-title/Europa League.png">Europa League</option>
-          <option value="Images/Icons/specific-title/Conference League.png">Conference League</option>
-        </optgroup>
-        <optgroup label="Emoji">
-          <option value="🏆">🏆 Trophy</option>
-          <option value="⚽">⚽ Soccer Ball</option>
-          <option value="🌍">🌍 Earth</option>
-          <option value="🔥">🔥 Fire</option>
-          <option value="⭐">⭐ Star</option>
-        </optgroup>
-      </select>
+      <span class="label">Title</span>
+      <!-- Options + their language labels live in js/specific-title-presets.js.
+           The value is the preset key; the icon is derived from the key, not
+           chosen separately. The dropdown is re-rendered when the language changes. -->
+      <select id="in-specific-title-preset"></select>
     </label>
   </div>
 

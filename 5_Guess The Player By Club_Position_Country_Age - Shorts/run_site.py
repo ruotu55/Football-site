@@ -2101,6 +2101,34 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         snippet = LIVE_RELOAD_SNIPPET.encode("utf-8")
         return body[:index] + snippet + b"\n" + body[index:]
 
+    def _try_serve_obs_config(self) -> bool:
+        """Recordings dir + OBS WebSocket URL + per-runner OBS profile/scene collection.
+        Accepts ?language=english|spanish; recordings go to a per-language subfolder."""
+        parsed = urlparse(self.path)
+        if unquote(parsed.path).rstrip("/") != "/__obs-config":
+            return False
+        query = urllib.parse.parse_qs(parsed.query or "")
+        language = _normalize_language((query.get("language") or [""])[0])
+        recordings_dir = PROJECT_ROOT / "Ready videos" / language.capitalize()
+        try:
+            recordings_dir.mkdir(parents=True, exist_ok=True)
+        except OSError as exc:
+            self._send_json(500, {"error": f"mkdir failed: {exc}"})
+            return True
+        obs_variant = "Shorts" if "Shorts" in RUNNER_DIR.name else "Regular"
+        obs_label = f"YouTube - {obs_variant}"
+        self._send_json(
+            200,
+            {
+                "recordingsDir": str(recordings_dir),
+                "obsUrl": "ws://localhost:4455",
+                "language": language,
+                "profile": obs_label,
+                "sceneCollection": obs_label,
+            },
+        )
+        return True
+
     def do_GET(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
             return
@@ -2115,6 +2143,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_serve_fake_stats_voice_status():
             return
         if self._try_serve_bundled_voice_status():
+            return
+        if self._try_serve_obs_config():
             return
         if self._is_live_reload_endpoint():
             self._send_live_reload_stream()

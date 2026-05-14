@@ -24,7 +24,7 @@ import urllib.request
 import webbrowser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import quote, unquote, urlparse
+from urllib.parse import parse_qs, quote, unquote, urlparse
 
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
@@ -844,6 +844,34 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 self.send_header("Expires", "0")
         super().end_headers()
 
+    def _try_serve_obs_config(self) -> bool:
+        """Recordings dir + OBS WebSocket URL + per-runner OBS profile/scene collection.
+        Accepts ?language=english|spanish; recordings go to a per-language subfolder."""
+        parsed = urlparse(self.path)
+        if unquote(parsed.path).rstrip("/") != "/__obs-config":
+            return False
+        query = parse_qs(parsed.query or "")
+        language = _normalize_language((query.get("language") or [""])[0])
+        recordings_dir = PROJECT_ROOT / "Ready videos" / language.capitalize()
+        try:
+            recordings_dir.mkdir(parents=True, exist_ok=True)
+        except OSError as exc:
+            self._send_json(500, {"error": f"mkdir failed: {exc}"})
+            return True
+        obs_variant = "Shorts" if "Shorts" in RUNNER_DIR.name else "Regular"
+        obs_label = f"YouTube - {obs_variant}"
+        self._send_json(
+            200,
+            {
+                "recordingsDir": str(recordings_dir),
+                "obsUrl": "ws://localhost:4455",
+                "language": language,
+                "profile": obs_label,
+                "sceneCollection": obs_label,
+            },
+        )
+        return True
+
     def _is_live_reload_endpoint(self) -> bool:
         return urlparse(self.path).path == "/__live-reload"
 
@@ -1563,6 +1591,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if self._try_serve_obs_config():
             return
         if self._try_serve_player_voice_status():
             return

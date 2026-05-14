@@ -126,7 +126,8 @@ if (_loadedScripts.changed) {
     persistSaved();
 }
 let scriptToDeleteIndex = -1;
-let activeScriptName = null; 
+let activeScriptName = null;
+export function getActiveScriptName() { return activeScriptName; }
 
 let uiCallbacks = {};
 
@@ -622,8 +623,15 @@ export function initSavedScripts(callbacks) {
                 quizType: els.inQuizType.value,
                 endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
                 specificToggle: els.inSpecificTitleToggle.checked,
-                specificText: els.inSpecificTitleText.value,
-                specificIcon: els.inSpecificTitleIcon.value,
+                specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                /* Legacy fields kept for back-compat with older readers; derived from the preset key. */
+                specificText: getSpecificTitleText(
+                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                    "english",
+                ),
+                specificIcon: getSpecificTitleIcon(
+                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                ),
                 easy: els.inEasy?.value ?? "10",
                 medium: els.inMedium?.value ?? "5",
                 hard: els.inHard?.value ?? "3",
@@ -946,8 +954,14 @@ export function initSavedScripts(callbacks) {
                         quizType: els.inQuizType?.value || "nat-by-club",
                         endingType: els.inEndingType?.value || "think-you-know",
                         specificToggle: els.inSpecificTitleToggle?.checked || false,
-                        specificText: els.inSpecificTitleText?.value || "",
-                        specificIcon: els.inSpecificTitleIcon?.value || "",
+                        specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                        specificText: getSpecificTitleText(
+                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                            "english",
+                        ),
+                        specificIcon: getSpecificTitleIcon(
+                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                        ),
                         easy: els.inEasy?.value ?? "10",
                         medium: els.inMedium?.value ?? "5",
                         hard: els.inHard?.value ?? "3",
@@ -1196,8 +1210,11 @@ async function loadScript(script) {
             els.inEndingType.dispatchEvent(new Event("change"));
         }
         els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
-        els.inSpecificTitleText.value = script.landing.specificText || "";
-        els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
+        if (els.inSpecificTitlePreset) {
+            const key = script.landing.specificPreset
+                || inferPresetKeyFromLegacy(script.landing.specificText, script.landing.specificIcon);
+            els.inSpecificTitlePreset.value = key;
+        }
         // Sync YES/NO buttons with restored toggle state
         const specYes = document.getElementById("specific-title-yes");
         const specNo = document.getElementById("specific-title-no");

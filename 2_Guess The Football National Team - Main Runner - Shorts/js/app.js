@@ -26,8 +26,15 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { initSavedScripts, renderSavedScripts } from "./saved-scripts.js";
-import { initTransitionsUI } from "./transitions.js";
+import { initSavedScripts, renderSavedScripts, getActiveScriptName } from "./saved-scripts.js";
+import {
+    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+    getSpecificTitleIcon,
+    getSpecificTitleText,
+    renderSpecificTitlePresetOptions,
+} from "./specific-title-presets.js";
+import { startRecordingAndFullscreen } from "./recording-flow.js";
+import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
 import { isProdMode, toggleProdMode, runProdValidation, showValidationModal, markBackgroundColorConfirmed, markBackgroundEffectConfirmed } from "./prod-validation.js";
 import {
@@ -592,7 +599,8 @@ function getSpecificTitleForQuizType(quizType) {
     const selectedType = String(els?.inQuizType?.value || "");
     if (selectedType !== String(quizType || "")) return "";
     if (!els?.inSpecificTitleToggle?.checked) return "";
-    return String(els?.inSpecificTitleText?.value || "").trim();
+    const key = els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
+    return getSpecificTitleText(key, getCurrentLanguage()).trim();
 }
 
 function setQuizTypeVoiceBusy(quizType, isBusy) {
@@ -877,14 +885,14 @@ export function updateLanding() {
     }
     const landingSpecialText = document.getElementById("landing-special-text");
     if (landingSpecialText) {
-        landingSpecialText.textContent = els.inSpecificTitleText.value;
+        landingSpecialText.textContent = getSpecificTitleText(els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY, getCurrentLanguage());
     }
 
-    const iconVal = els.inSpecificTitleIcon.value;
+    const iconVal = getSpecificTitleIcon(els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY);
     const iconImg = document.getElementById("landing-special-icon-img");
     const iconSpan = document.getElementById("landing-special-icon");
     if (!iconImg || !iconSpan) return;
-    if (iconVal.startsWith("icons/")) {
+    if ((iconVal.startsWith("icons/") || iconVal.startsWith("Images/"))) {
         iconImg.src = projectAssetUrl(iconVal);
         iconImg.hidden = false;
         iconSpan.hidden = true;
@@ -1079,8 +1087,16 @@ async function init() {
     els.inHard.oninput = updateLanding;
     els.inImpossible.oninput = updateLanding;
     els.inSpecificTitleToggle.onchange = updateLanding;
-    els.inSpecificTitleText.oninput = updateLanding;
-    els.inSpecificTitleIcon.onchange = updateLanding;
+    if (els.inSpecificTitlePreset) {
+        renderSpecificTitlePresetOptions(els.inSpecificTitlePreset, getCurrentLanguage());
+        els.inSpecificTitlePreset.value = DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
+        els.inSpecificTitlePreset.onchange = updateLanding;
+        /* Re-render dropdown options + landing badge when the language toggles. */
+        document.addEventListener("voice-language-change", () => {
+            renderSpecificTitlePresetOptions(els.inSpecificTitlePreset, getCurrentLanguage());
+            updateLanding();
+        });
+    }
 
     const specificTitleYes = document.getElementById("specific-title-yes");
     const specificTitleNo = document.getElementById("specific-title-no");
@@ -1213,10 +1229,101 @@ async function init() {
         };
     }
 
-    els.playVideoBtn.onclick = () => {
+    /* Pacing for the EN→ES double-record. Tweak here if you want longer/shorter brakes. */
+    const RECORD_LANG_BRAKE_MS = 2000;   // after switching language, before next phase starts
+    const RECORD_BETWEEN_PHASES_MS = 3000; // visual brake between phase 1 finish and phase 2 start
+    const brake = (ms) => new Promise((r) => setTimeout(r, ms));
+
+    /** Hide the top FAB row (Show Controls / Video Mode / Play / Record / Prod)
+     *  so the recording's very first frames are a clean stage, not a UI snapshot.
+     *  Mirrors what `startVideoFlow` does — but we do it earlier (before StartRecord). */
+    function freezeUIForRecording() {
+        document.body.classList.add("play-video-active");
+        if (els.playVideoBtn) els.playVideoBtn.hidden = true;
+        if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
+        if (els.panelFab) els.panelFab.hidden = true;
+    }
+    function unfreezeUIForRecording() {
+        document.body.classList.remove("play-video-active");
+        if (els.playVideoBtn) els.playVideoBtn.hidden = false;
+        if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
+        if (els.panelFab) els.panelFab.hidden = false;
+    }
+
+    /** Run one recording pass: start OBS+fullscreen, kick the level flow, resolve
+     *  when the outro chain in levels.js dispatches `recording-naturally-finished`. */
+    async function runRecordingPhase(savedName, language) {
+        /* Defensive: a legacy session may have left transitionSettings.effect = ""
+           (the old PROD toggle wiped it). Without this guard the recording skips
+           every transition. Empty/null/undefined → restore to the dropdown's
+           selected value, or fall back to "grid-overlay". */
+        if (!transitionSettings.effect) {
+            const effectSel = document.getElementById("in-transition-effect");
+            transitionSettings.effect = (effectSel?.value && effectSel.value !== "")
+                ? effectSel.value
+                : "grid-overlay";
+            if (effectSel && effectSel.value !== transitionSettings.effect) {
+                effectSel.value = transitionSettings.effect;
+            }
+        }
+
+        /* Always begin from the landing page (ball animation), regardless of which
+           level the user is currently on. This applies to both phase 1 (initial)
+           and phase 2 (after the EN→ES handoff — the user is on the outro page
+           after phase 1's natural finish). */
+        if (appState.currentLevelIndex !== 1) {
+            switchLevel(1);
+            /* Wait for the actual level-switch transition to fully complete before
+               continuing — otherwise `transitionRunning` may still be true when the
+               video flow triggers level 1→2, causing that transition to be skipped. */
+            if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
+                await appState._transitionDone.catch(() => {});
+            }
+            await brake(300); // small settle after transition completes
+        }
+
+        /* Hide FABs BEFORE StartRecord so the recorded file never shows them.
+           startVideoFlow re-asserts the same state right after, so this is idempotent
+           on success; on failure we roll it back. */
+        freezeUIForRecording();
+
+        const ok = await startRecordingAndFullscreen(savedName, language);
+        if (!ok) {
+            unfreezeUIForRecording();
+            return false;
+        }
+
+        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
+        if (els.videoModeToggle && !els.videoModeToggle.checked) {
+            els.videoModeToggle.checked = true;
+            els.videoModeToggle.dispatchEvent(new Event("change"));
+        }
+
+        /* Subscribe BEFORE startVideoFlow so we never miss the event. */
+        const completion = new Promise((resolve) => {
+            document.addEventListener("recording-naturally-finished", () => resolve(), { once: true });
+        });
+
+        startVideoFlow();
+
+        await completion;
+        return true;
+    }
+
+    /* Play Video: runs the level flow WITHOUT recording or fullscreen.
+       Ignored while a double-record is orchestrating. */
+    els.playVideoBtn.onclick = async () => {
+        if (appState.doubleRecording) return;
+        if (appState.isVideoPlaying) {
+            startVideoFlow(); // toggles to stop
+            return;
+        }
         if (isProdMode()) {
-            const result = runProdValidation();
-            if (!result.allPassed) { showValidationModal(result); return; }
+            const result = await runProdValidation();
+            if (!result.allPassed) {
+                showValidationModal(result);
+                return;
+            }
         }
         appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
         if (els.videoModeToggle && !els.videoModeToggle.checked) {
@@ -1225,6 +1332,53 @@ async function init() {
         }
         startVideoFlow();
     };
+
+    /* Record Video: records once in English, then once in Spanish — both saved under
+       Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen between phases
+       so the browser doesn't need a fresh user gesture to re-enter fullscreen. */
+    if (els.recordVideoBtn) {
+        els.recordVideoBtn.onclick = async () => {
+            if (appState.doubleRecording) return; // already running; ignore duplicate clicks
+            if (appState.isVideoPlaying) {
+                startVideoFlow(); // toggles to stop (also tears down recording)
+                return;
+            }
+            if (isProdMode()) {
+                const result = await runProdValidation();
+                if (!result.allPassed) {
+                    showValidationModal(result);
+                    return;
+                }
+            }
+            const savedName = (getActiveScriptName() || "").trim();
+            if (!savedName) {
+                alert("Load a saved setting first — the OBS file is named after it.");
+                return;
+            }
+
+            try {
+                // ── PHASE 1: English ──
+                appState.doubleRecording = { phase: 1, savedName };
+                if (getCurrentLanguage() !== "english") {
+                    setCurrentLanguage("english");
+                    await brake(RECORD_LANG_BRAKE_MS);
+                }
+                const ok1 = await runRecordingPhase(savedName, "english");
+                if (!ok1) return;
+
+                // ── Brake between phases (fullscreen stays on) ──
+                await brake(RECORD_BETWEEN_PHASES_MS);
+
+                // ── PHASE 2: Spanish ──
+                appState.doubleRecording = { phase: 2, savedName };
+                setCurrentLanguage("spanish");
+                await brake(RECORD_LANG_BRAKE_MS);
+                await runRecordingPhase(savedName, "spanish");
+            } finally {
+                appState.doubleRecording = null;
+            }
+        };
+    }
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
     els.swapSearch.oninput = () => {

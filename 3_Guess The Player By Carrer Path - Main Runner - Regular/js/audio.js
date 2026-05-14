@@ -332,30 +332,32 @@ function pickExistingSrc(candidates) {
  */
 function playVoiceFromCandidates(candidates, delayMs = 1000) {
   const list = (candidates || []).filter((s) => !!s);
-  if (list.length === 0) return;
-  if (list.length === 1) { playVoice(list[0], delayMs); return; }
-  let i = 0;
-  const tryNext = () => {
-    if (i >= list.length) return;
-    const src = list[i++];
-    if (i === list.length) { playVoice(src, delayMs); return; }
-    const probe = new Audio();
-    const cleanup = () => {
-      probe.removeEventListener("error", onErr);
-      probe.removeEventListener("canplay", onOk);
+  if (list.length === 0) return Promise.resolve();
+  if (list.length === 1) return playVoice(list[0], delayMs);
+  return new Promise((resolve) => {
+    let i = 0;
+    const tryNext = () => {
+      if (i >= list.length) { resolve(); return; }
+      const src = list[i++];
+      if (i === list.length) { playVoice(src, delayMs).then(resolve); return; }
+      const probe = new Audio();
+      const cleanup = () => {
+        probe.removeEventListener("error", onErr);
+        probe.removeEventListener("canplay", onOk);
+      };
+      const onErr = () => { cleanup(); tryNext(); };
+      const onOk = () => {
+        cleanup();
+        probe.pause(); probe.removeAttribute("src"); probe.load();
+        playVoice(src, delayMs).then(resolve);
+      };
+      probe.addEventListener("error", onErr, { once: true });
+      probe.addEventListener("canplay", onOk, { once: true });
+      probe.src = src;
+      probe.load();
     };
-    const onErr = () => { cleanup(); tryNext(); };
-    const onOk = () => {
-      cleanup();
-      probe.pause(); probe.removeAttribute("src"); probe.load();
-      playVoice(src, delayMs);
-    };
-    probe.addEventListener("error", onErr, { once: true });
-    probe.addEventListener("canplay", onOk, { once: true });
-    probe.src = src;
-    probe.load();
-  };
-  tryNext();
+    tryNext();
+  });
 }
 
 export function playVoice(src, delayMs = 1000) {
@@ -502,36 +504,32 @@ export function playTheAnswerIs(includeVoice = true, playerDisplayName = "") {
 }
 
 export function playCommentBelow() {
-  if (!appState.isVideoPlaying) return;
+  if (!appState.isVideoPlaying) return Promise.resolve();
   const endingType = typeof window.__getSelectedEndingType === "function"
     ? window.__getSelectedEndingType()
     : "think-you-know";
-  playEndingVoice(endingType);
+  return playEndingVoice(endingType);
 }
 
 export function playEndingVoice(endingType) {
-  if (!appState.isVideoPlaying) return;
+  if (!appState.isVideoPlaying) return Promise.resolve();
   const resolver = window.__resolveEndingVoiceSrc;
   if (typeof resolver === "function") {
-    Promise.resolve(resolver(endingType))
+    return Promise.resolve(resolver(endingType))
       .then((src) => {
         const clipSrc = String(src || "").trim();
         if (clipSrc) {
-          playVoice(clipSrc, 100);
-        } else {
-          playEndingVoiceFallback(endingType);
+          return playVoice(clipSrc, 100);
         }
+        return playEndingVoiceFallback(endingType);
       })
-      .catch(() => {
-        playEndingVoiceFallback(endingType);
-      });
-    return;
+      .catch(() => playEndingVoiceFallback(endingType));
   }
-  playEndingVoiceFallback(endingType);
+  return playEndingVoiceFallback(endingType);
 }
 
 function playEndingVoiceFallback(endingType) {
-  playVoiceFromCandidates(langAwareCandidates(endingPathFor, endingType), 100);
+  return playVoiceFromCandidates(langAwareCandidates(endingPathFor, endingType), 100);
 }
 
 export function playProgressVoice(levelIndex, totalLevelsCount) {

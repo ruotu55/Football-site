@@ -64,8 +64,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inHard: els.inHard?.value ?? null,
             inImpossible: els.inImpossible?.value ?? null,
             inSpecificTitleToggle: !!els.inSpecificTitleToggle?.checked,
-            inSpecificTitleText: els.inSpecificTitleText?.value ?? null,
-            inSpecificTitleIcon: els.inSpecificTitleIcon?.value ?? null,
+            inSpecificTitlePreset: els.inSpecificTitlePreset?.value ?? null,
             inEndingType: els.inEndingType?.value ?? null,
             shortsModeToggle: FIXED_SHORTS_MODE,
             shortsCirclePreviewToggle: !!els.shortsCirclePreviewToggle?.checked,
@@ -85,8 +84,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.inHard && c.inHard != null) els.inHard.value = c.inHard;
     if (els.inImpossible && c.inImpossible != null) els.inImpossible.value = c.inImpossible;
     if (els.inSpecificTitleToggle) els.inSpecificTitleToggle.checked = !!c.inSpecificTitleToggle;
-    if (els.inSpecificTitleText && c.inSpecificTitleText != null) els.inSpecificTitleText.value = c.inSpecificTitleText;
-    if (els.inSpecificTitleIcon && c.inSpecificTitleIcon != null) els.inSpecificTitleIcon.value = c.inSpecificTitleIcon;
+    if (els.inSpecificTitlePreset && c.inSpecificTitlePreset != null) els.inSpecificTitlePreset.value = c.inSpecificTitlePreset;
     if (els.inEndingType && c.inEndingType != null) els.inEndingType.value = c.inEndingType;
     if (els.shortsModeToggle) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;

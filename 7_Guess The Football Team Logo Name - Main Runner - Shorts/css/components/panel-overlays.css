@@ -271,6 +271,16 @@
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s, box-shadow 0.2s;
 }
 .panel-fab[hidden] { display: none; }
+/* Force the four top-right FABs to the same width so they read as a row. */
+.video-mode-btn,
+.play-video-btn,
+.record-video-btn,
+.prod-btn {
+  box-sizing: border-box;
+  width: 12rem;
+  text-align: center;
+}
+
 .panel-fab:hover { 
   background: #ffe066; 
   transform: translateY(-3px) scale(1.02); 
@@ -279,15 +289,13 @@
 
 .prod-btn {
   left: auto;
-  right: 11rem;
-  padding: 0.5rem 0.9rem;
-  font-size: 0.7rem;
-  background: rgba(255, 255, 255, 0.12);
+  right: 1.5rem;
+  background: #000;
   color: #fff;
   box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 1px 4px rgba(255,255,255,0.15);
 }
 .prod-btn:hover {
-  background: rgba(255, 255, 255, 0.22);
+  background: #1f1f1f;
   box-shadow: 0 6px 18px rgba(0,0,0,0.5), 0 2px 6px rgba(255,255,255,0.2);
 }
 .prod-btn[aria-pressed="true"] {
@@ -305,19 +313,31 @@ body.play-video-active .prod-btn {
 
 .play-video-btn {
   left: auto;
-  right: 1.5rem;
+  right: 27.5rem;
   background: #4da3ff;
-  color: #fff;
+  color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(77, 163, 255, 0.4);
 }
 .play-video-btn:hover {
   background: #66b3ff;
   box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(77, 163, 255, 0.5);
 }
+.record-video-btn {
+  left: auto;
+  right: 14.5rem;
+  background: #ef4444;
+  color: #000;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(239, 68, 68, 0.4);
+}
+.record-video-btn:hover {
+  background: #f87171;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(239, 68, 68, 0.5);
+}
+
 
 .shorts-mode-btn {
   left: auto;
-  right: 21.5rem;
+  right: 53.5rem;
   background: rgba(168, 85, 247, 0.35);
   color: #fff;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(168, 85, 247, 0.35);
@@ -334,9 +354,9 @@ body.play-video-active .prod-btn {
 
 .video-mode-btn {
   left: auto;
-  right: 15.5rem;
+  right: 40.5rem;
   background: rgba(255, 255, 255, 0.12);
-  color: #fff;
+  color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 255, 255, 0.18);
 }
 
@@ -347,7 +367,8 @@ body.play-video-active .prod-btn {
 }
 
 body.play-video-active .video-mode-btn,
-body.play-video-active .shorts-mode-btn {
+body.play-video-active .shorts-mode-btn,
+body.play-video-active .record-video-btn {
   display: none !important;
 }
 

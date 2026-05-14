@@ -9,6 +9,8 @@ import {
 } from "./audio.js";
 import { runTransition, transitionSettings } from "./transitions.js";
 import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
+import { stopVideoFlow } from "./video.js";
 
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
@@ -239,7 +241,16 @@ export function switchLevel(index) {
     }
     
     if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
-      playCommentBelow();
+      playCommentBelow().then(() => {
+        setTimeout(async () => {
+          /* Stop OBS + exit fullscreen first so the post-video UI flip is NOT recorded.
+             exitFullscreenSafe respects the doubleRecording flag (skips during phase 1). */
+          await stopRecordingAndExitFullscreen();
+          stopVideoFlow();
+          /* Tell the orchestrator (if any — Record Video's EN→ES flow) we're done. */
+          document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+        }, 1000);
+      });
     }
 
     if (appState.isVideoPlaying) {

@@ -2,6 +2,8 @@ import { appState, getState, shirtNumberTextFromPlayerJson } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
 import { getVideoQuestionPreviewState, renderHeader, renderCareer, preloadCareerAssets } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
+import { stopVideoFlow } from "./video.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
 import { runTransition, transitionSettings } from "./transitions.js";
 
@@ -308,7 +310,16 @@ export function switchLevel(
     syncFloatingShirtVisibilityFromLevel();
     
     if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
-      playCommentBelow();
+      playCommentBelow().then(() => {
+        setTimeout(async () => {
+          /* Stop OBS + exit fullscreen first so the post-video UI flip is NOT recorded.
+             exitFullscreenSafe respects the doubleRecording flag (skips during phase 1). */
+          await stopRecordingAndExitFullscreen();
+          stopVideoFlow();
+          /* Tell the orchestrator (if any — Record Video's EN→ES flow) we're done. */
+          document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+        }, 1000);
+      });
     }
 
     if (appState.isVideoPlaying) {

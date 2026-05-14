@@ -882,15 +882,10 @@ export function initTransitionsUI() {
 
   // Sync UI -> settings
   if (effectSel) {
-    if (isProdModeFromUi()) {
-      transitionSettings.effect = "";
-      effectSel.selectedIndex = 0;
-    } else {
-      if (!transitionSettings.effect) {
-        transitionSettings.effect = "grid-overlay";
-      }
-      effectSel.value = transitionSettings.effect;
+    if (!transitionSettings.effect) {
+      transitionSettings.effect = "grid-overlay";
     }
+    effectSel.value = transitionSettings.effect;
     effectSel.addEventListener("change", () => {
       transitionSettings.effect = effectSel.value;
     });
@@ -907,18 +902,11 @@ export function initTransitionsUI() {
 export function applyTransitionSettings(saved) {
   if (!saved) return;
   transitionSettings.random = !!saved.random;
-  const prod = isProdModeFromUi();
-  transitionSettings.effect = prod ? "" : (saved.effect || "grid-overlay");
+  transitionSettings.effect = saved.effect || "grid-overlay";
 
   const effectSel = document.getElementById("in-transition-effect");
   const randomChk = document.getElementById("in-transition-random");
-  if (effectSel) {
-    if (prod) {
-      effectSel.selectedIndex = 0;
-    } else {
-      effectSel.value = transitionSettings.effect;
-    }
-  }
+  if (effectSel) effectSel.value = transitionSettings.effect;
   if (randomChk) randomChk.checked = transitionSettings.random;
 }
 

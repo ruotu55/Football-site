@@ -11,6 +11,12 @@ import { captureTransitionSettings, applyTransitionSettings } from "./transition
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
 import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
+import {
+    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+    getSpecificTitleIcon,
+    getSpecificTitleText,
+    inferPresetKeyFromLegacy,
+} from "./specific-title-presets.js";
 
 const INCLUDE_INTRO_LEVEL = false;
 
@@ -113,7 +119,9 @@ let savedScripts = JSON.parse(localStorage.getItem(KEY_SCRIPTS) || "[]");
 let savedFolders = JSON.parse(localStorage.getItem(KEY_FOLDERS) || "[]");
 let folderStates = JSON.parse(localStorage.getItem(KEY_FOLDER_STATES) || "{}");
 let scriptToDeleteIndex = -1;
-let activeScriptName = null; 
+let activeScriptName = null;
+
+export function getActiveScriptName() { return activeScriptName; }
 
 let uiCallbacks = {};
 
@@ -702,8 +710,15 @@ export function initSavedScripts(callbacks) {
                 quizType: els.inQuizType.value,
                 endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
                 specificToggle: els.inSpecificTitleToggle.checked,
-                specificText: els.inSpecificTitleText.value,
-                specificIcon: els.inSpecificTitleIcon.value,
+                specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                /* Legacy fields kept for back-compat with older readers; derived from the preset key. */
+                specificText: getSpecificTitleText(
+                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                    "english",
+                ),
+                specificIcon: getSpecificTitleIcon(
+                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                ),
                 easy: els.inEasy?.value ?? "10",
                 medium: els.inMedium?.value ?? "5",
                 hard: els.inHard?.value ?? "3",
@@ -1088,8 +1103,14 @@ export function initSavedScripts(callbacks) {
                         quizType: els.inQuizType?.value || "nat-by-club",
                         endingType: els.inEndingType?.value || "think-you-know",
                         specificToggle: els.inSpecificTitleToggle?.checked || false,
-                        specificText: els.inSpecificTitleText?.value || "",
-                        specificIcon: els.inSpecificTitleIcon?.value || "",
+                        specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                        specificText: getSpecificTitleText(
+                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                            "english",
+                        ),
+                        specificIcon: getSpecificTitleIcon(
+                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+                        ),
                         easy: els.inEasy?.value ?? "10",
                         medium: els.inMedium?.value ?? "5",
                         hard: els.inHard?.value ?? "3",
@@ -1351,8 +1372,11 @@ async function loadScript(script) {
                 }
             }
         }
-        els.inSpecificTitleText.value = script.landing.specificText || "";
-        els.inSpecificTitleIcon.value = normalizeSpecificTitleIconPath(script.landing.specificIcon);
+        if (els.inSpecificTitlePreset) {
+            const key = script.landing.specificPreset
+                || inferPresetKeyFromLegacy(script.landing.specificText, script.landing.specificIcon);
+            els.inSpecificTitlePreset.value = key;
+        }
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;
         els.inHard.value = script.landing.hard || 3;

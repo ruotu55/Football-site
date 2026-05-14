@@ -22,6 +22,7 @@ import {
   hideShortsCountdownOnPlayVideoPress,
   syncShortsVideoModeIdleTimerBar,
 } from "./shorts-idle-timer-bar.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 
 /** Match `audio.js` `isShortsModeActive` so countdown logic cannot diverge from html/body class toggles. */
 function isShortsVideoLayout() {
@@ -225,6 +226,7 @@ function prepTimerBarForNextLevel() {
 }
 
 export function stopVideoFlow() {
+  stopRecordingAndExitFullscreen();
   if (appState.shortsLandingBadgeRevealTimeoutId != null) {
     clearTimeout(appState.shortsLandingBadgeRevealTimeoutId);
     appState.shortsLandingBadgeRevealTimeoutId = null;
@@ -249,6 +251,7 @@ export function stopVideoFlow() {
     els.careerWrap.classList.toggle("video-mode-enabled", !!state?.videoMode);
   }
   els.playVideoBtn.hidden = false;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
   syncShortsVideoModeIdleTimerBar();
   els.panelFab.hidden = false;
   renderProgressSteps(appState.totalLevelsCount, switchLevel);
@@ -309,6 +312,7 @@ export function startVideoFlow() {
   syncShortsCareerVideoPreviewLayers();
   renderHeader();
   els.playVideoBtn.hidden = true;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
   els.panelFab.hidden = true;
   els.controlPanel.classList.add("collapsed");
   if (els.rightPanel) {

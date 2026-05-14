@@ -14,6 +14,8 @@ import {
 import { refreshSaveTeamButtonUi } from "./saved-team-layouts.js";
 import { runTransition, transitionSettings } from "./transitions.js";
 import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
+import { stopVideoFlow } from "./video.js";
 
 /** Match Career Path - Shorts `levels.js` + `transitions.css` video stage (0.82s). */
 const STAGE_VIDEO_TRANSITION_MS = 820;
@@ -155,7 +157,14 @@ export function switchLevel(index) {
     }
     
     if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
-      playCommentBelow();
+      playCommentBelow().then(() => {
+        setTimeout(async () => {
+          await stopRecordingAndExitFullscreen();
+          stopVideoFlow();
+          /* Tell the orchestrator (if any — Record Video's EN→ES flow) we're done. */
+          document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+        }, 1000);
+      });
     }
 
     if (appState.isVideoPlaying) {

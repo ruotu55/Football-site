@@ -1,5 +1,27 @@
 ﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
+import { pickStartingXI } from "./pick-xi.js";
+import { FORMATIONS } from "./formations.js";
+import { getCurrentLanguage } from "./voice-tab.js";
+import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
+import {
+    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
+    getSpecificTitleText,
+} from "./specific-title-presets.js";
+
+/** Same name resolution the Voice tab uses — accounts for user renames in the
+ *  team-header. Without this, PROD checks "Arsenal FC" while the file is saved
+ *  as "Arsenal" (or vice versa). */
+function resolveLevelTeamName(lvl, quizType) {
+    try {
+        const resolved = resolveHeaderTeamDisplayName(lvl, quizType);
+        if (resolved) return String(resolved).trim();
+    } catch (_) { /* fall through */ }
+    return String(lvl.currentSquad?.name || lvl.selectedEntry?.name || "").trim();
+}
+
+/** Bundled voice keys the level flow plays (see server BUNDLED_VOICE_CONFIG). */
+const LEVEL_VOICE_KEYS = ["warm-up", "serious", "nerds", "genius"];
 
 // ── PROD mode state ──
 let prodModeActive = false;
@@ -35,9 +57,8 @@ export function toggleProdMode() {
     if (els.prodBtn) {
         els.prodBtn.setAttribute("aria-pressed", prodModeActive ? "true" : "false");
     }
-    const effectSel = document.getElementById("in-transition-effect");
     if (prodModeActive) {
-        // Turn on video mode for ALL levels
+        // Turn on video mode for ALL levels (PROD = "ready to record")
         appState.levelsData.forEach((lvl) => {
             lvl.videoMode = true;
         });
@@ -49,12 +70,10 @@ export function toggleProdMode() {
                 els.videoModeToggle.dispatchEvent(new Event("change"));
             }
         }
-        transitionSettings.effect = "";
-        if (effectSel) effectSel.selectedIndex = 0;
-    } else {
-        transitionSettings.effect = "grid-overlay";
-        if (effectSel) effectSel.value = "grid-overlay";
     }
+    /* Note: PROD no longer touches transitionSettings.effect — Record Video must
+       use the same transition as Play Video, and the user's transition selection
+       (or the value saved with the loaded script) should be respected regardless. */
 }
 
 // ── Validation logic ──
@@ -68,55 +87,32 @@ function getLevelLabel(index, lvl) {
 }
 
 function getQuestionLevels() {
+    // Question levels are levels that are NOT logo, intro, outro, or bonus
     return appState.levelsData
         .map((lvl, i) => ({ lvl, index: i }))
         .filter(({ lvl }) => !lvl.isLogo && !lvl.isIntro && !lvl.isOutro && !lvl.isBonus);
 }
 
-function validateCareerPlayerSelected() {
+function validateTeamsSelected() {
     const questionLevels = getQuestionLevels();
     const failures = [];
     for (const { lvl, index } of questionLevels) {
-        if (!lvl.careerPlayer) {
-            failures.push(`${getLevelLabel(index, lvl)}: No career player selected`);
+        if (!lvl.currentSquad) {
+            failures.push(`${getLevelLabel(index, lvl)}: No team/player selected`);
         }
     }
     return {
-        sectionName: "Career Player Selected",
-        passed: failures.length === 0,
-        failures,
-    };
-}
-
-function validateCareerHistory() {
-    const questionLevels = getQuestionLevels();
-    const failures = [];
-    for (const { lvl, index } of questionLevels) {
-        const label = getLevelLabel(index, lvl);
-        if (!lvl.careerHistory || lvl.careerHistory.length === 0) {
-            failures.push(`${label}: No career history`);
-            continue;
-        }
-        lvl.careerHistory.forEach((entry, ei) => {
-            if (!entry.club || entry.club === "Unknown") {
-                failures.push(`${label} slot ${ei + 1}: missing club name`);
-            }
-            if (!entry.year || entry.year === "YYYY") {
-                failures.push(`${label} slot ${ei + 1}: missing year`);
-            }
-        });
-    }
-    return {
-        sectionName: "Career History",
+        sectionName: "Teams / Players Selected",
         passed: failures.length === 0,
         failures,
     };
 }
 
 /**
- * Check if a career player has photos available.
+ * Check if a player has photos using the LEVEL's own state data
+ * (not getState() which returns the currently active level).
  */
-function careerPlayerHasPhotos(player) {
+function playerHasPhotosForLevel(player, lvl) {
     if (!player) return false;
     const name = player.name || "";
     if (!name) return false;
@@ -130,42 +126,90 @@ function careerPlayerHasPhotos(player) {
         return s && s !== base ? [base, s] : [base];
     };
 
-    const playerNames = variants(name);
-
     // Check club photos
-    if (appState.playerImages?.club) {
-        for (const key in appState.playerImages.club) {
-            if (playerNames.some((p) => key.endsWith(`|${p}`))) {
-                if (appState.playerImages.club[key]?.length > 0) return true;
+    if (lvl.squadType === "club" && lvl.selectedEntry && appState.playerImages?.club) {
+        const country = lvl.selectedEntry.country || "";
+        const league = lvl.selectedEntry.league || "";
+        const squadNames = variants(lvl.currentSquad?.name);
+        const playerNames = variants(name);
+        for (const sq of squadNames) {
+            for (const pn of playerNames) {
+                const k = `${country}|${league}|${sq}|${pn}`;
+                if (appState.playerImages.club[k]?.length > 0) return true;
             }
         }
     }
 
     // Check nationality photos
-    if (appState.playerImages?.nationality) {
-        for (const key in appState.playerImages.nationality) {
-            if (playerNames.some((p) => key.endsWith(`|${p}`))) {
-                if (appState.playerImages.nationality[key]?.length > 0) return true;
+    if (lvl.squadType === "national" && lvl.selectedEntry && appState.playerImages?.nationality) {
+        const region = lvl.selectedEntry.region || "";
+        const entryName = lvl.selectedEntry.name || "";
+        const k = `${region}|${entryName}|${name}`;
+        if (appState.playerImages.nationality[k]?.length > 0) return true;
+    }
+
+    // Scan all club folders for this player's club
+    if (player.club && appState.playerImages?.club) {
+        const clubVariants = variants(player.club);
+        const playerNames = variants(name);
+        for (const key in appState.playerImages.club) {
+            if (clubVariants.some((c) => playerNames.some((p) => key.endsWith(`|${c}|${p}`)))) {
+                if (appState.playerImages.club[key]?.length > 0) return true;
             }
+        }
+    }
+
+    // Scan all nationality folders for this player's nationality
+    if (player.nationality && appState.playerImages?.nationality) {
+        const natSuffix = `|${player.nationality}|${name}`;
+        for (const key in appState.playerImages.nationality) {
+            if (key.endsWith(natSuffix) && appState.playerImages.nationality[key]?.length > 0) return true;
         }
     }
 
     return false;
 }
 
-function validatePlayerImages() {
+function validateTeamAssets() {
     const questionLevels = getQuestionLevels();
+    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
     const failures = [];
+
     for (const { lvl, index } of questionLevels) {
-        if (!lvl.careerPlayer) continue;
+        if (!lvl.currentSquad) continue;
         const label = getLevelLabel(index, lvl);
-        const playerName = lvl.careerPlayer.name || "Unknown";
-        if (!careerPlayerHasPhotos(lvl.careerPlayer)) {
-            failures.push(`${label} (${playerName}): no player photo found`);
+        const teamName = resolveLevelTeamName(lvl, quizType);
+        const missing = [];
+
+        // Check team logo/image
+        const hasImage = !!(lvl.currentSquad.imagePath || lvl.headerLogoOverrideRelPath);
+        if (!hasImage) {
+            missing.push("logo");
+        }
+
+        // Check player photos — use customXi (the actual selected players on the pitch)
+        const formation = FORMATIONS.find((f) => f.id === lvl.formationId) || FORMATIONS[0];
+        const xi = lvl.customXi || (formation ? pickStartingXI(formation, lvl.currentSquad) : []);
+        if (xi && xi.length > 0) {
+            for (let si = 0; si < xi.length; si++) {
+                const player = xi[si];
+                if (!player) {
+                    missing.push(`slot ${si + 1}: no player`);
+                    continue;
+                }
+                if (!playerHasPhotosForLevel(player, lvl)) {
+                    const pName = player.name || `slot ${si + 1}`;
+                    missing.push(`${pName}: no photo`);
+                }
+            }
+        }
+
+        if (missing.length > 0) {
+            failures.push(`${label} (${teamName}): ${missing.join(", ")}`);
         }
     }
     return {
-        sectionName: "Player Images",
+        sectionName: "Photos / Logos",
         passed: failures.length === 0,
         failures,
     };
@@ -233,15 +277,113 @@ function validateEndingType() {
     };
 }
 
+// ── Async voice-existence validators ──
+// These all hit the same per-runner status endpoints that the Voice tab uses,
+// so PROD checks the actual files on disk (not just constructed URLs).
+
+/** Resolve the language-appropriate "specific title" string, or "" when off. */
+function getCurrentSpecificTitle() {
+    const { els } = appState;
+    if (!els?.inSpecificTitleToggle?.checked) return "";
+    const key = els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
+    return getSpecificTitleText(key, getCurrentLanguage()).trim();
+}
+
+async function fetchExists(path, params) {
+    try {
+        const qs = new URLSearchParams(params).toString();
+        const res = await fetch(`${path}?${qs}`, { cache: "no-store" });
+        if (!res.ok) return { exists: false, error: `HTTP ${res.status}` };
+        const data = await res.json().catch(() => ({}));
+        return { exists: !!data?.exists };
+    } catch (err) {
+        return { exists: false, error: String(err?.message || err) };
+    }
+}
+
+async function validateTeamVoices() {
+    const questionLevels = getQuestionLevels();
+    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const language = getCurrentLanguage();
+    const checks = questionLevels.map(async ({ lvl, index }) => {
+        if (!lvl.currentSquad) return null;
+        /* Use the resolved display name (post-rename) so we hit the same file path
+           the Voice tab uses — matches what's actually saved on disk. */
+        const teamName = resolveLevelTeamName(lvl, quizType);
+        if (!teamName) return null;
+        const { exists } = await fetchExists("/__team-voice/status", {
+            name: teamName,
+            quizType,
+            language,
+        });
+        return exists ? null : `${getLevelLabel(index, lvl)} (${teamName}): voice file missing`;
+    });
+    const results = await Promise.all(checks);
+    return {
+        sectionName: "Team Voices",
+        passed: results.every((r) => !r),
+        failures: results.filter(Boolean),
+    };
+}
+
+async function validateQuizIntroVoice() {
+    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const language = getCurrentLanguage();
+    const specificTitle = getCurrentSpecificTitle();
+    const { exists } = await fetchExists("/__quiz-title-voice/status", {
+        quizType,
+        specificTitle,
+        language,
+    });
+    const detail = specificTitle ? ` + specific title "${specificTitle}"` : "";
+    return {
+        sectionName: "Quiz Intro Voice",
+        passed: exists,
+        failures: exists ? [] : [`Quiz intro voice missing for ${quizType}${detail} (${language})`],
+    };
+}
+
+async function validateEndingVoice() {
+    const endingType = appState.els?.inEndingType?.value || "";
+    const language = getCurrentLanguage();
+    if (!endingType) {
+        // The "Ending Type" validator already complains; don't double-fail here.
+        return { sectionName: "Ending Voice", passed: true, failures: [] };
+    }
+    const { exists } = await fetchExists("/__ending-voice/status", { endingType, language });
+    return {
+        sectionName: "Ending Voice",
+        passed: exists,
+        failures: exists ? [] : [`Ending voice missing for "${endingType}" (${language})`],
+    };
+}
+
+async function validateLevelVoices() {
+    const language = getCurrentLanguage();
+    const checks = LEVEL_VOICE_KEYS.map(async (key) => {
+        const { exists } = await fetchExists("/__bundled-voice/status", { key, language });
+        return exists ? null : `Level voice "${key}" missing (${language})`;
+    });
+    const results = await Promise.all(checks);
+    return {
+        sectionName: "Level Voices",
+        passed: results.every((r) => !r),
+        failures: results.filter(Boolean),
+    };
+}
+
 // ── Run all validations ──
-export function runProdValidation() {
-    const sections = [
-        validateCareerPlayerSelected(),
-        validateCareerHistory(),
-        validatePlayerImages(),
-        validateSpecificTitle(),
-        validateEndingType(),
-    ];
+export async function runProdValidation() {
+    const sections = await Promise.all([
+        Promise.resolve(validateTeamsSelected()),
+        Promise.resolve(validateTeamAssets()),
+        Promise.resolve(validateSpecificTitle()),
+        Promise.resolve(validateEndingType()),
+        validateTeamVoices(),
+        validateQuizIntroVoice(),
+        validateEndingVoice(),
+        validateLevelVoices(),
+    ]);
     const allPassed = sections.every((s) => s.passed);
     return { allPassed, sections };
 }

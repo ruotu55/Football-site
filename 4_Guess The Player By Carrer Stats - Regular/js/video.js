@@ -1,6 +1,7 @@
 import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
 import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderCareer, renderHeader, syncCareerSlotControlsVisibility } from "./pitch-render.js";
 import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
@@ -209,6 +210,7 @@ function clearShortsQuestionCountdown() {
 }
 
 export function stopVideoFlow() {
+  stopRecordingAndExitFullscreen();
   appState.isVideoPlaying = false;
   setVideoRevealPostTimerActive(false);
   document.body.classList.remove("play-video-active");
@@ -223,6 +225,7 @@ export function stopVideoFlow() {
     els.careerWrap.classList.toggle("video-mode-enabled", !!state?.videoMode);
   }
   els.playVideoBtn.hidden = false;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
   els.countdownTimer.hidden = true;
   els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
   els.panelFab.hidden = false;
@@ -273,6 +276,7 @@ export function startVideoFlow() {
   }
   syncCareerSlotControlsVisibility();
   els.playVideoBtn.hidden = true;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
   els.panelFab.hidden = true;
   els.controlPanel.classList.add("collapsed");
   if (els.rightPanel) {
@@ -319,25 +323,23 @@ export function startVideoFlow() {
     return;
   }
 
-  /* Landing page: 2s pause → ball-drop animation + voice → level switch */
+  /* Landing page: ball-drop animation starts immediately so the landing
+     is never visible before it; voice follows shortly after. */
   if (appState.currentLevelIndex === 1) {
+    const quizType = els.inQuizType?.value || "player-by-career-stats";
+    playBallPreloader();
     appState.videoTimeout = setTimeout(() => {
       if (!appState.isVideoPlaying) return;
-      const quizType = els.inQuizType?.value || "player-by-career-stats";
-      playBallPreloader();
-      setTimeout(() => {
+      playRules(quizType, 0).then(() => {
         if (!appState.isVideoPlaying) return;
-        playRules(quizType, 0).then(() => {
+        /* Skip runVideoStep delays — go straight to level 2 */
+        switchLevel(2);
+        scheduleAfterTransition(() => {
           if (!appState.isVideoPlaying) return;
-          /* Skip runVideoStep delays — go straight to level 2 */
-          switchLevel(2);
-          scheduleAfterTransition(() => {
-            if (!appState.isVideoPlaying) return;
-            runVideoStep();
-          });
+          runVideoStep();
         });
-      }, INTRO_GAME_NAME_VOICE_DELAY_MS + 200);
-    }, 2000);
+      });
+    }, INTRO_GAME_NAME_VOICE_DELAY_MS + 200);
     return;
   }
 

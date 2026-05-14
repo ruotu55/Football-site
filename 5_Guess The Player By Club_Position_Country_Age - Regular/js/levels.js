@@ -4,6 +4,8 @@ import { getVideoQuestionPreviewState, renderHeader, renderCareer, preloadCareer
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
 import { runTransition, transitionSettings } from "./transitions.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
+import { stopVideoFlow } from "./video.js";
 
 /** Classes removed before each video stage transition step (see `css/components/transitions.css`). */
 const VIDEO_STAGE_ANIM_CLASSES = [
@@ -308,7 +310,14 @@ export function switchLevel(
     syncFloatingShirtVisibilityFromLevel();
     
     if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
-      playCommentBelow();
+      playCommentBelow().then(() => {
+        setTimeout(async () => {
+          await stopRecordingAndExitFullscreen();
+          stopVideoFlow();
+          /* Tell the orchestrator (if any — Record Video's EN→ES flow) we're done. */
+          document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+        }, 1000);
+      });
     }
 
     if (appState.isVideoPlaying) {

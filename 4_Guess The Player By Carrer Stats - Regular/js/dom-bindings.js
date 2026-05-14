@@ -23,6 +23,7 @@ export function bindDomElements() {
     els.applyVideoAllBtn = document.getElementById("apply-video-all-btn");
     els.prodBtn = document.getElementById("prod-btn");
     els.playVideoBtn = document.getElementById("play-video-btn");
+    els.recordVideoBtn = document.getElementById("record-video-btn");
     els.shortsModeBtn = document.getElementById("shorts-mode-btn");
     els.countdownTimer = document.getElementById("countdown-timer");
     els.teamHeader = document.getElementById("team-header");
@@ -68,8 +69,7 @@ export function bindDomElements() {
     els.deleteScriptYes = document.getElementById("delete-script-yes");
     els.inQuizType = document.getElementById("in-quiz-type");
     els.inSpecificTitleToggle = document.getElementById("in-specific-title-toggle");
-    els.inSpecificTitleText = document.getElementById("in-specific-title-text");
-    els.inSpecificTitleIcon = document.getElementById("in-specific-title-icon");
+    els.inSpecificTitlePreset = document.getElementById("in-specific-title-preset");
     els.inEndingType = document.getElementById("in-ending-type");
     els.inEasy = document.getElementById("in-easy");
     els.inMedium = document.getElementById("in-medium");

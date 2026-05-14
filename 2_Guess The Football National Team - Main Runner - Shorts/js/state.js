@@ -29,6 +29,7 @@ export const appState = {
     swapLogoReset: null,
     videoModeToggle: null,
     playVideoBtn: null,
+    recordVideoBtn: null,
     countdownTimer: null,
     teamHeader: null,
     tabBtnLanding: null,
@@ -61,8 +62,7 @@ export const appState = {
     saveDiscardYes: null,
     inQuizType: null,
     inSpecificTitleToggle: null,
-    inSpecificTitleText: null,
-    inSpecificTitleIcon: null,
+    inSpecificTitlePreset: null,
     inEndingType: null,
     inEasy: null,
     inMedium: null,
@@ -96,6 +96,10 @@ export const appState = {
   /** One-shot: next `renderPitch` skips flip-card transition (swap picker). */
   suppressPitchSlotFlipAnimation: false,
   isVideoPlaying: false,
+  /** Set by the Record Video handler when running an EN→ES double recording.
+   *  Shape: { phase: 1|2, savedName: string } or null. Phase 1 = keep fullscreen
+   *  during the transition; phase 2 = full teardown at the end. */
+  doubleRecording: null,
   videoRevealPostTimerActive: false,
   /** `renderHeader`: ignore stale logo/flag image callbacks after level switches. */
   teamHeaderRenderGeneration: 0,

@@ -11,6 +11,7 @@ import {
   shouldUseVideoQuestionLayout,
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
+import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
@@ -213,6 +214,10 @@ function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
 }
 
 export function stopVideoFlow() {
+  /* Mid-flow abort/cancel: tear down OBS recording + fullscreen.
+     The natural outro path stops recording via levels.js (1s after outro voice),
+     so this only matters for aborts. Idempotent. */
+  stopRecordingAndExitFullscreen();
   clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
   appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
@@ -229,6 +234,7 @@ export function stopVideoFlow() {
   const { els } = appState;
   els.teamHeader?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
   els.playVideoBtn.hidden = false;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
   els.countdownTimer.hidden = true;
   els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
   els.panelFab.hidden = false;
@@ -268,6 +274,7 @@ export function startVideoFlow() {
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   els.playVideoBtn.hidden = true;
+  if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
   els.panelFab.hidden = true;
   els.controlPanel.classList.add("collapsed");
   if (els.rightPanel) {
@@ -316,27 +323,23 @@ export function startVideoFlow() {
     return;
   }
 
-  /* Landing page: 2s pause → ball-drop animation → landing revealed → voice */
+  /* Landing page: ball-drop animation starts immediately so the landing
+     is never visible before it; voice follows shortly after. */
   if (appState.currentLevelIndex === 1) {
+    const quizType = els.inQuizType?.value || "nat-by-club";
+    playBallPreloader();
     appState.videoTimeout = setTimeout(() => {
       if (!appState.isVideoPlaying) return;
-      /* Play the quiz type voice as soon as the ball starts jumping,
-         then move to level 1 as soon as the voice finishes */
-      const quizType = els.inQuizType?.value || "nat-by-club";
-      playBallPreloader();
-      setTimeout(() => {
+      playRules(quizType, 0).then(() => {
         if (!appState.isVideoPlaying) return;
-        playRules(quizType, 0).then(() => {
+        /* Skip runVideoStep delays — go straight to level 2 */
+        switchLevel(2);
+        scheduleAfterTransition(() => {
           if (!appState.isVideoPlaying) return;
-          /* Skip runVideoStep delays — go straight to level 2 */
-          switchLevel(2);
-          scheduleAfterTransition(() => {
-            if (!appState.isVideoPlaying) return;
-            runVideoStep();
-          }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
-        });
-      }, INTRO_GAME_NAME_VOICE_DELAY_MS + 200);
-    }, 2000);
+          runVideoStep();
+        }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+      });
+    }, INTRO_GAME_NAME_VOICE_DELAY_MS + 200);
     return;
   }
 
