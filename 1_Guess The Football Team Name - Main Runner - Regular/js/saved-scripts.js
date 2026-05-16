@@ -500,6 +500,9 @@ export function initSavedScripts(callbacks) {
             customXi: lvl.customXi,
             customNames: lvl.customNames,
             videoMode: lvl.videoMode,
+            /* User's renamed header team name (e.g. "Arsenal FC" → "Arsenal"). Persists
+               with the save so loading this script restores the rename. */
+            headerTeamNameOverride: lvl.headerTeamNameOverride || "",
             landingPageType: lvl.landingPageType,
             careerClubsCount: lvl.careerClubsCount,
             careerSilhouetteIndex: lvl.careerSilhouetteIndex,

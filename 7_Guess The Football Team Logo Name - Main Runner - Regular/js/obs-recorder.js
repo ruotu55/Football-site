@@ -78,7 +78,7 @@ export function disconnect() {
     recording = false;
 }
 
-const WINDOW_SOURCE_NAME = "YouTube";
+const WINDOW_SOURCE_NAME = "macOS Screen Capture";
 
 /** Ensure a Window Capture source named "YouTube" exists in `sceneName` and points
  *  at the current Chrome window. Idempotent. Logs and continues on errors so a
@@ -270,6 +270,16 @@ async function fitSourceToScreen(sceneName) {
     const item = items.find((i) => i.sourceName === WINDOW_SOURCE_NAME);
     if (!item) return;
 
+    /* Regular runner: fixed crop values tuned for macOS Screen Capture of the
+       Chrome window with the browser left in its normal windowed state. Strips
+       ~242 px of macOS chrome (menubar / tab bar / URL bar) from the top and
+       182 px from each side. Then SCALE_INNER fits the cropped region into
+       whatever OBS canvas the user has configured. */
+    const cropLeft = 182;
+    const cropRight = 182;
+    const cropTop = 242;
+    const cropBottom = 0;
+
     try {
         await obs.call("SetSceneItemTransform", {
             sceneName,
@@ -284,6 +294,10 @@ async function fitSourceToScreen(sceneName) {
                 boundsAlignment: 0, // OBS_ALIGN_CENTER
                 boundsWidth: video.baseWidth,
                 boundsHeight: video.baseHeight,
+                cropLeft,
+                cropRight,
+                cropTop,
+                cropBottom,
             },
         });
     } catch (e) {
@@ -345,7 +359,9 @@ export async function start(savedName, recordingsDir, opts = {}) {
         parameterName: "FilenameFormatting",
         parameterValue: String(savedName),
     });
-    await obs.call("SetRecordDirectory", { recordDirectory: String(recordingsDir) });
+    // TEMP (debug): don't override OBS's recording directory — let OBS save wherever it's currently configured. Restore the line below when done testing.
+    // await obs.call("SetRecordDirectory", { recordDirectory: String(recordingsDir) });
+    void recordingsDir;
 
     /* Window Capture's audio (WGC on Windows, SCK on macOS) needs a couple of
        seconds after the source is activated before its audio buffer is usable

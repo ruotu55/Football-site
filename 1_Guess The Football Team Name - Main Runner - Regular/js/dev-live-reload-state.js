@@ -72,6 +72,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             videoModeToggle: !!els.videoModeToggle?.checked,
             searchMode: els.searchMode?.value ?? null,
             teamSearch: els.teamSearch?.value ?? null,
+            inScreenSizeToggle: !!els.inScreenSizeToggle?.checked,
         },
     };
     sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(payload));
@@ -97,6 +98,11 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.videoModeToggle) els.videoModeToggle.checked = !!c.videoModeToggle;
     if (els.searchMode && c.searchMode != null) els.searchMode.value = c.searchMode;
     if (els.teamSearch && c.teamSearch != null) els.teamSearch.value = c.teamSearch;
+    if (els.inScreenSizeToggle) {
+        els.inScreenSizeToggle.checked = !!c.inScreenSizeToggle;
+        const overlay = document.getElementById("screen-size-overlay");
+        if (overlay) overlay.hidden = !els.inScreenSizeToggle.checked;
+    }
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     if (els.shortsModeBtn && els.shortsModeToggle) {
         els.shortsModeBtn.setAttribute("aria-pressed", FIXED_SHORTS_MODE ? "true" : "false");

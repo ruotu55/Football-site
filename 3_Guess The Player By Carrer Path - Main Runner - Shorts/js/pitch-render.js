@@ -1667,9 +1667,17 @@ export function renderCareer() {
     const n = String(name || "").toLowerCase().replace(/\s+/g, " ").trim();
     return n.includes("without club");
   };
-  const historySource = Array.isArray(state.careerHistory) ? state.careerHistory : [];
+  /* Debug override (controls.html "Test: override clubs"): synthesize N identical clubs so each count layout can be inspected without picking a real player. */
+  const __testOv = (typeof window !== "undefined") ? window.__careerTestOverride : null;
+  const __testOverrideActive = !!(__testOv && __testOv.enabled && Number(__testOv.count) > 0);
+  const historySource = __testOverrideActive
+    ? Array.from(
+        { length: Math.min(12, Math.max(1, Number(__testOv.count) || 1)) },
+        (_, i) => ({ club: String(__testOv.club || "SSC Napoli"), year: String(2010 + i) }),
+      )
+    : (Array.isArray(state.careerHistory) ? state.careerHistory : []);
   const history = historySource.filter((item) => !isWithoutClub(item?.club));
-  if (history.length !== historySource.length) {
+  if (!__testOverrideActive && history.length !== historySource.length) {
     state.careerHistory = history;
   }
   let n = history.length > 0 ? history.length : (state.careerClubsCount || 5);

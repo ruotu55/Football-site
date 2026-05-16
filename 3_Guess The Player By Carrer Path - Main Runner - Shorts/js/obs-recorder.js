@@ -78,7 +78,7 @@ export function disconnect() {
     recording = false;
 }
 
-const WINDOW_SOURCE_NAME = "YouTube";
+const WINDOW_SOURCE_NAME = "macOS Screen Capture";
 
 /** Ensure a Window Capture source named "YouTube" exists in `sceneName` and points
  *  at the current Chrome window. Idempotent. Logs and continues on errors so a
@@ -259,6 +259,32 @@ async function fitSourceToScreen(sceneName) {
         return;
     }
 
+    /* Shorts runner: force a 9:16 portrait canvas (1080×1920). The OBS profile's
+       canvas resolution is whatever the user last saved in Settings → Video; we
+       overwrite it here so the recording is always 9:16 regardless of what's
+       configured. SetVideoSettings persists into the active profile. */
+    const TARGET_W = 1080;
+    const TARGET_H = 1920;
+    if (video.baseWidth !== TARGET_W || video.baseHeight !== TARGET_H ||
+        video.outputWidth !== TARGET_W || video.outputHeight !== TARGET_H) {
+        try {
+            await obs.call("SetVideoSettings", {
+                baseWidth: TARGET_W,
+                baseHeight: TARGET_H,
+                outputWidth: TARGET_W,
+                outputHeight: TARGET_H,
+            });
+            video.baseWidth = TARGET_W;
+            video.baseHeight = TARGET_H;
+        } catch (e) {
+            console.warn("[obs-recorder] SetVideoSettings failed:", e);
+        }
+    }
+
+    /* Re-fetch scene items so we get the freshest sourceWidth/sourceHeight
+       (the window may have just resized into fullscreen). Give OBS a brief
+       moment to settle the source dimensions after any window switch. */
+    await new Promise((r) => setTimeout(r, 250));
     let items = [];
     try {
         const r = await obs.call("GetSceneItemList", { sceneName });
@@ -269,6 +295,22 @@ async function fitSourceToScreen(sceneName) {
     }
     const item = items.find((i) => i.sourceName === WINDOW_SOURCE_NAME);
     if (!item) return;
+
+    /* Shorts runner: fixed crop values tuned for macOS Screen Capture of the
+       Chrome window with the browser left in its normal windowed state. Strips
+       macOS chrome + Chrome toolbars (~241 px) from the top and the wider
+       window's side padding (1245 px each) so only the 9:16 content column is
+       recorded into the 1080×1920 canvas. */
+    const cropLeft = 1245;
+    const cropRight = 1245;
+    const cropTop = 241;
+    const cropBottom = 2;
+    const t = item.sceneItemTransform || {};
+    const srcW = Math.round(t.sourceWidth || 0);
+    const srcH = Math.round(t.sourceHeight || 0);
+    console.log("[obs-recorder] source", srcW, "x", srcH,
+                "→ crop T/L/R/B:", cropTop, cropLeft, cropRight, cropBottom,
+                "→ visible:", srcW - cropLeft - cropRight, "x", srcH - cropTop - cropBottom);
 
     try {
         await obs.call("SetSceneItemTransform", {
@@ -282,8 +324,12 @@ async function fitSourceToScreen(sceneName) {
                 alignment: 5, // OBS_ALIGN_TOP | OBS_ALIGN_LEFT (matches Fit-to-screen position)
                 boundsType: "OBS_BOUNDS_SCALE_INNER",
                 boundsAlignment: 0, // OBS_ALIGN_CENTER
-                boundsWidth: video.baseWidth,
-                boundsHeight: video.baseHeight,
+                boundsWidth: TARGET_W,
+                boundsHeight: TARGET_H,
+                cropLeft,
+                cropRight,
+                cropTop,
+                cropBottom,
             },
         });
     } catch (e) {
@@ -345,7 +391,9 @@ export async function start(savedName, recordingsDir, opts = {}) {
         parameterName: "FilenameFormatting",
         parameterValue: String(savedName),
     });
-    await obs.call("SetRecordDirectory", { recordDirectory: String(recordingsDir) });
+    // TEMP (debug): don't override OBS's recording directory — let OBS save wherever it's currently configured. Restore the line below when done testing.
+    // await obs.call("SetRecordDirectory", { recordDirectory: String(recordingsDir) });
+    void recordingsDir;
 
     /* Window Capture's audio (WGC on Windows, SCK on macOS) needs a couple of
        seconds after the source is activated before its audio buffer is usable

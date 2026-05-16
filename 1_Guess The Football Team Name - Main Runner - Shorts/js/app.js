@@ -57,7 +57,7 @@ const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
 const PERFORMANCE_MODE_QUERY_VALUES = new Set(["1", "true", "on", "yes"]);
 const PERFORMANCE_MODE_QUERY_OFF_VALUES = new Set(["0", "false", "off", "no"]);
 const QUIZ_TYPE_DEFAULT_THEME = {
-    "club-by-nat": { colorId: "quiz-club-by-nat", effectId: "youtube-thumbnails", opacity: 0.5, transitionId: "n2-13" },
+    "club-by-nat": { colorId: "quiz-club-by-nat", effectId: "youtube-thumbnails", opacity: 0.5, transitionId: "grid-overlay" },
 };
 
 const HEADER_LOGO_NUDGE_STEP = 6;

@@ -68,6 +68,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             shortsCirclePreviewToggle: !!els.shortsCirclePreviewToggle?.checked,
             shortsCirclePreviewCount: els.shortsCirclePreviewCount?.value ?? null,
             inCareerClubs: els.inCareerClubs?.value ?? null,
+            inScreenSizeToggle: !!els.inScreenSizeToggle?.checked,
         },
     };
     sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(payload));
@@ -91,6 +92,11 @@ export function applyDevLiveReloadControls(els, snapshot) {
         els.shortsCirclePreviewCount.value = c.shortsCirclePreviewCount;
     }
     if (els.inCareerClubs && c.inCareerClubs != null) els.inCareerClubs.value = c.inCareerClubs;
+    if (els.inScreenSizeToggle) {
+        els.inScreenSizeToggle.checked = !!c.inScreenSizeToggle;
+        const overlay = document.getElementById("screen-size-overlay");
+        if (overlay) overlay.hidden = !els.inScreenSizeToggle.checked;
+    }
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     if (els.shortsModeBtn && els.shortsModeToggle) {
         els.shortsModeBtn.setAttribute("aria-pressed", FIXED_SHORTS_MODE ? "true" : "false");

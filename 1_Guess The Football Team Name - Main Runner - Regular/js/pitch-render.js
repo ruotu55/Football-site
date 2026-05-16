@@ -230,7 +230,7 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
     return;
   }
   const needSlideIn =
-    !appState.teamSidebarLastOpen || key !== appState.teamSidebarLastKey;
+    !appState.teamSidebarLastOpen || slideKey !== appState.teamSidebarLastKey;
   if (needSlideIn) {
     appState.teamSidebarAnimGeneration += 1;
     const gen = appState.teamSidebarAnimGeneration;
@@ -246,13 +246,13 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
         }
         th.classList.add("team-header--show");
         appState.teamSidebarLastOpen = true;
-        appState.teamSidebarLastKey = key;
+        appState.teamSidebarLastKey = slideKey;
       });
     });
   } else {
     th.classList.add("team-header--show");
     appState.teamSidebarLastOpen = true;
-    appState.teamSidebarLastKey = key;
+    appState.teamSidebarLastKey = slideKey;
   }
 }
 
@@ -306,6 +306,11 @@ export function resolveHeaderTeamDisplayName(
   if (!isClubByNatHeaderEditContext(state, quizTypeRaw)) {
     return baseName;
   }
+  /* Per-level override travels with the saved script, so a loaded save keeps
+     the user's chosen name even when the global overrides map has been
+     overwritten by a different save in the meantime. Check it first. */
+  const perLevel = String(state?.headerTeamNameOverride || "").trim();
+  if (perLevel) return perLevel;
   const key = getTeamNameOverrideKey(state, quizTypeRaw);
   if (!key) return baseName;
   const raw = readTeamNameOverrides()[key];
@@ -325,8 +330,11 @@ export function renameCurrentClubByNatTeamName(nextNameRaw) {
   const overrides = readTeamNameOverrides();
   if (!nextName || normalizedNext === normalizedBase) {
     delete overrides[key];
+    state.headerTeamNameOverride = "";
   } else {
     overrides[key] = nextName;
+    /* Stamp the override onto the level too so it rides along with future saves. */
+    state.headerTeamNameOverride = nextName;
   }
   persistTeamNameOverrides();
   renderHeader();

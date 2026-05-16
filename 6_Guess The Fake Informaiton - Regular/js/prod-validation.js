@@ -3,16 +3,8 @@ import { transitionSettings } from "./transitions.js";
 import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
 import { getCurrentLanguage } from "./voice-tab.js";
-import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
-
-/** Same name resolution the Voice tab uses — accounts for user renames in the
- *  team-header. Without this, PROD checks "Arsenal FC" while the file is saved
- *  as "Arsenal" (or vice versa). */
-function resolveLevelTeamName(lvl, quizType) {
-    try {
-        const resolved = resolveHeaderTeamDisplayName(lvl, quizType);
-        if (resolved) return String(resolved).trim();
-    } catch (_) { /* fall through */ }
+/* No team-header rename feature in this runner — read the name straight off the level. */
+function resolveLevelTeamName(lvl, _quizType) {
     return String(lvl.currentSquad?.name || lvl.selectedEntry?.name || "").trim();
 }
 

@@ -694,6 +694,7 @@ export function updateLanding() {
             Math.max(0, landingDifficultyTotalQuestionsForLevels() - 1),
         );
     }
+}
 
 export function syncShortsCirclePreviewPanel() {
     const { els } = appState;
@@ -924,6 +925,12 @@ async function init() {
     els.inMedium.oninput = updateLanding;
     els.inHard.oninput = updateLanding;
     els.inImpossible.oninput = updateLanding;
+
+    if (els.inScreenSizeToggle && els.screenSizeOverlay) {
+        els.inScreenSizeToggle.onchange = () => {
+            els.screenSizeOverlay.hidden = !els.inScreenSizeToggle.checked;
+        };
+    }
 
     /* Landing shirt: double-click to edit the number; saved per-level. */
     const shirtEl = document.getElementById("landing-shirt");

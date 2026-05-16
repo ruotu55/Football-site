@@ -95,7 +95,6 @@ const paths = {
     "../.Storage/Voices/Ringhton/Swing Haven 6 - New Orleans - Reed Mathis.mp3",
     "../.Storage/Voices/Ringhton/Up And At Em - Nathan Moore.mp3"
   ],
-  dong: "../.Storage/Voices/the answer is/dong.wav",
   revealStinger: "../.Storage/Voices/Transitions/mixkit-arcade-bonus-alert-767.wav",
   ticking: "../.Storage/Voices/Ticking sound/ticking sound.mp3"
 };
@@ -511,8 +510,6 @@ export function playTheAnswerIs(
   /** ms before team name clip after `canplay`; default ducks BGM then plays. Use `0` when synced to UI (e.g. panel slide). */
   teamNameVoiceDelayMs = 600
 ) {
-  const dongAudio = new Audio(paths.dong);
-  dongAudio.play().catch(err => console.warn("Dong play error:", err));
 
   setTimeout(() => {
     const revealStinger = new Audio(paths.revealStinger);

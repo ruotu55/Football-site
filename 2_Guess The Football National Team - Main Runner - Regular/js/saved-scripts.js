@@ -1,4 +1,4 @@
-﻿// js/saved-scripts.js (Lineups runner — namespaced storage + one-time legacy import)
+﻿// js/saved-scripts.js (National team runner — own storage, separate from runner #1)
 import {
     appState,
     DEFAULT_SLOT_FLAG_SCALE,
@@ -16,9 +16,11 @@ import {
     buildImportLevelDataFromSavedLayout,
 } from "./saved-team-layouts.js";
 
-const KEY_SCRIPTS = "footballQuizScripts_lineups_regular_fcbnew";
-const KEY_FOLDERS = "footballQuizFolders_lineups_regular_fcbnew";
-const KEY_FOLDER_STATES = "footballQuizFolderStates_lineups_regular_fcbnew";
+/* Each runner gets its own storage bucket. Previously this runner accidentally
+   reused runner #1's "lineups_regular" bucket, so saves bled between the two. */
+const KEY_SCRIPTS = "footballQuizScripts_national_team_regular_v1";
+const KEY_FOLDERS = "footballQuizFolders_national_team_regular_v1";
+const KEY_FOLDER_STATES = "footballQuizFolderStates_national_team_regular_v1";
 const LEGACY_SCRIPTS = "footballQuizScripts";
 const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
@@ -40,7 +42,7 @@ function normalizeSpecificTitleIconPath(iconPath) {
     return SPECIFIC_TITLE_ICON_PATH_MAP[iconPath] || iconPath || "";
 }
 
-const SAVE_SERVER = createSavedScriptsServerSync("lineups_regular", {
+const SAVE_SERVER = createSavedScriptsServerSync("national_team_regular", {
     KEY_SCRIPTS,
     KEY_FOLDERS,
     KEY_FOLDER_STATES,
@@ -500,6 +502,9 @@ export function initSavedScripts(callbacks) {
             customXi: lvl.customXi,
             customNames: lvl.customNames,
             videoMode: lvl.videoMode,
+            /* User's renamed header team name (e.g. "Arsenal FC" → "Arsenal"). Persists
+               with the save so loading this script restores the rename. */
+            headerTeamNameOverride: lvl.headerTeamNameOverride || "",
             landingPageType: lvl.landingPageType,
             careerClubsCount: lvl.careerClubsCount,
             careerSilhouetteIndex: lvl.careerSilhouetteIndex,
@@ -630,21 +635,32 @@ export function initSavedScripts(callbacks) {
 
                 const allClubs = appState.teamsIndex?.clubs || [];
                 const allNats = appState.teamsIndex?.nationalities || [];
-                const allEntries = [...allClubs, ...allNats];
 
-                // 3. Resolve each name to a team entry and verify it has a saved layout
+                /* This runner is the National Team quiz \u2014 only national teams are
+                   accepted. Club names get a specific error so the user understands
+                   why their paste was rejected (e.g. pasting "Real Madrid" here). */
+                // 3. Resolve each name to a national-team entry and verify it has a saved layout
                 const errors = [];
                 const searchableNames = new Set();
                 const resolved = [];
 
                 for (const rawName of names) {
                     const normTeam = resolveTeamAlias(normalizeForImport(rawName));
-                    let entry = allEntries.find(t => normalizeForImport(t.name) === normTeam);
+                    let entry = allNats.find(t => normalizeForImport(t.name) === normTeam);
                     if (!entry) {
-                        entry = allEntries.find(t => normalizeForImport(t.name).includes(normTeam) || normTeam.includes(normalizeForImport(t.name)));
+                        entry = allNats.find(t => normalizeForImport(t.name).includes(normTeam) || normTeam.includes(normalizeForImport(t.name)));
                     }
                     if (!entry) {
-                        errors.push(`\u274C ${rawName}: team not found.`);
+                        // If the name resolves to a club, give a precise reason.
+                        let clubMatch = allClubs.find(t => normalizeForImport(t.name) === normTeam);
+                        if (!clubMatch) {
+                            clubMatch = allClubs.find(t => normalizeForImport(t.name).includes(normTeam) || normTeam.includes(normalizeForImport(t.name)));
+                        }
+                        if (clubMatch) {
+                            errors.push(`\u274C ${rawName} is a club, not a national team. This runner only accepts national teams.`);
+                        } else {
+                            errors.push(`\u274C ${rawName}: national team not found.`);
+                        }
                         searchableNames.add(rawName);
                         continue;
                     }
@@ -653,8 +669,7 @@ export function initSavedScripts(callbacks) {
                         searchableNames.add(rawName);
                         continue;
                     }
-                    const isNational = allNats.some(t => t.path === entry.path);
-                    resolved.push({ rawName, entry, isNational });
+                    resolved.push({ rawName, entry, isNational: true });
                 }
 
                 if (errors.length > 0) {

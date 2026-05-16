@@ -92,7 +92,7 @@ class GridOverlay {
         {
           duration: dur,
           ease,
-          scale: 1.01,
+          scale: 1.05,
           opacity: 1,
           stagger: {
             grid: [rows, this.columns],

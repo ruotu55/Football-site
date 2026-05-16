@@ -1,0 +1,121 @@
+/* =========================================
+
+   SCREEN SIZE – Regular safe-zone overlay
+
+   Yellow tint = margins outside the dashed frame.
+
+   Red dashed box = ::after inset rect (tune the four --screen-size-inset-* vars).
+
+   ========================================= */
+
+.screen-size-overlay {
+
+    --screen-size-inset-left: 5.3vw;
+
+    --screen-size-inset-right: 5.3vw;
+
+    --screen-size-inset-top: 0;
+
+    --screen-size-inset-bottom: 0;
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+}
+
+
+
+/* Single dashed frame — left/right/top/bottom all follow the inset vars. */
+
+.screen-size-overlay::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: var(--screen-size-inset-top) var(--screen-size-inset-right) var(--screen-size-inset-bottom) var(--screen-size-inset-left);
+
+    border: 2px dashed rgba(255, 70, 70, 0.85);
+
+    box-sizing: border-box;
+
+    z-index: 4;
+
+    pointer-events: none;
+
+}
+
+
+
+.screen-size-overlay__margin-left,
+
+.screen-size-overlay__margin-right {
+
+    position: absolute;
+
+    z-index: 1;
+
+    top: 0;
+
+    bottom: 0;
+
+    background: rgba(255, 215, 48, 0.24);
+
+    box-sizing: border-box;
+
+}
+
+
+
+.screen-size-overlay__margin-left {
+
+    left: 0;
+
+    width: var(--screen-size-inset-left);
+
+}
+
+
+
+.screen-size-overlay__margin-right {
+
+    right: 0;
+
+    width: var(--screen-size-inset-right);
+
+}
+
+
+
+.screen-size-overlay__margin-top,
+
+.screen-size-overlay__margin-bottom {
+
+    display: none;
+
+}
+
+
+
+/* Wrapper is layout-neutral so margin bands anchor to the viewport. */
+
+.screen-size-overlay__frame {
+
+    display: contents;
+
+}
+
+
+
+.screen-size-overlay__vline {
+
+    display: none !important;
+
+}
+
+

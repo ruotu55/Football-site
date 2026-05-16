@@ -693,6 +693,7 @@ export function updateLanding() {
             Math.max(0, landingDifficultyTotalQuestionsForLevels() - 1),
         );
     }
+}
 
 export function syncShortsCirclePreviewPanel() {
     const { els } = appState;

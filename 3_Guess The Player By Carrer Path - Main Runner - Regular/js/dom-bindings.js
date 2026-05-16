@@ -107,6 +107,8 @@ export function bindDomElements() {
     els.careerBrowseSearch = document.getElementById("career-browse-search");
     els.careerBrowseList = document.getElementById("career-browse-list");
     els.careerSelectedInfo = document.getElementById("career-selected-info");
+    els.inScreenSizeToggle = document.getElementById("in-screen-size-toggle");
+    els.screenSizeOverlay = document.getElementById("screen-size-overlay");
     els.btnBrowseModeTeam = document.getElementById("btn-browse-mode-team");
     els.btnBrowseModeName = document.getElementById("btn-browse-mode-name");
 

@@ -766,6 +766,23 @@ async function init() {
     applyTranslations();
     document.addEventListener('voice-language-change', () => { syncLanguageButtons(); });
 
+    /* Test override: synthesize N identical clubs in the career grid (debug only). */
+    {
+        const testToggle = document.getElementById("in-test-clubs-override");
+        const testCount = document.getElementById("in-test-clubs-count");
+        const testName = document.getElementById("in-test-clubs-name");
+        const applyTestOverride = () => {
+            const enabled = !!(testToggle && testToggle.checked);
+            const count = Math.min(12, Math.max(1, parseInt(testCount?.value || "3", 10) || 3));
+            const club = String(testName?.value || "SSC Napoli").trim() || "SSC Napoli";
+            window.__careerTestOverride = { enabled, count, club };
+            renderCareer();
+        };
+        if (testToggle) testToggle.addEventListener("change", applyTestOverride);
+        if (testCount) testCount.addEventListener("input", applyTestOverride);
+        if (testName) testName.addEventListener("input", applyTestOverride);
+    }
+
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && appState.isVideoPlaying) {
             stopVideoFlow();

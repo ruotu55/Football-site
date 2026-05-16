@@ -92,7 +92,7 @@ class GridOverlay {
         {
           duration: dur,
           ease,
-          scale: 1.01,
+          scale: 1.05,
           opacity: 1,
           stagger: {
             grid: [rows, this.columns],
@@ -799,7 +799,7 @@ registry.set("n2-17", {
 
 /** Current transition settings (persisted with script saves). */
 export const transitionSettings = {
-  effect: "grid-overlay",
+  effect: "new-15",
   random: false,
 };
 

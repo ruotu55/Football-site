@@ -1,4 +1,4 @@
-﻿// js/saved-scripts.js (Lineups runner — namespaced storage + one-time legacy import)
+﻿// js/saved-scripts.js (National team runner — own storage, separate from runner #1)
 import {
     appState,
     DEFAULT_SLOT_FLAG_SCALE,
@@ -16,9 +16,11 @@ import {
     buildImportLevelDataFromSavedLayout,
 } from "./saved-team-layouts.js";
 
-const KEY_SCRIPTS = "footballQuizScripts_lineups_shorts_fcbnew";
-const KEY_FOLDERS = "footballQuizFolders_lineups_shorts_fcbnew";
-const KEY_FOLDER_STATES = "footballQuizFolderStates_lineups_shorts_fcbnew";
+/* Each runner gets its own storage bucket. Previously this runner accidentally
+   reused runner #1's "lineups_shorts" bucket, so saves bled between the two. */
+const KEY_SCRIPTS = "footballQuizScripts_national_team_shorts_v1";
+const KEY_FOLDERS = "footballQuizFolders_national_team_shorts_v1";
+const KEY_FOLDER_STATES = "footballQuizFolderStates_national_team_shorts_v1";
 const LEGACY_SCRIPTS = "footballQuizScripts";
 const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
@@ -57,7 +59,7 @@ function migrateShortsLevelsRemoveLegacyLanding(levels) {
     }));
 }
 
-const SAVE_SERVER = createSavedScriptsServerSync("lineups_shorts", {
+const SAVE_SERVER = createSavedScriptsServerSync("national_team_shorts", {
     KEY_SCRIPTS,
     KEY_FOLDERS,
     KEY_FOLDER_STATES,
@@ -631,20 +633,29 @@ export function initSavedScripts(callbacks) {
 
                 const allClubs = appState.teamsIndex?.clubs || [];
                 const allNats = appState.teamsIndex?.nationalities || [];
-                const allEntries = [...allClubs, ...allNats];
 
+                /* National Team quiz \u2014 only national teams are accepted. Club
+                   names get a specific error so the user understands the reason. */
                 const errors = [];
                 const searchableNames = new Set();
                 const resolved = [];
 
                 for (const rawName of names) {
                     const normTeam = resolveTeamAlias(normalizeForImport(rawName));
-                    let entry = allEntries.find(t => normalizeForImport(t.name) === normTeam);
+                    let entry = allNats.find(t => normalizeForImport(t.name) === normTeam);
                     if (!entry) {
-                        entry = allEntries.find(t => normalizeForImport(t.name).includes(normTeam) || normTeam.includes(normalizeForImport(t.name)));
+                        entry = allNats.find(t => normalizeForImport(t.name).includes(normTeam) || normTeam.includes(normalizeForImport(t.name)));
                     }
                     if (!entry) {
-                        errors.push(`\u274C ${rawName}: team not found.`);
+                        let clubMatch = allClubs.find(t => normalizeForImport(t.name) === normTeam);
+                        if (!clubMatch) {
+                            clubMatch = allClubs.find(t => normalizeForImport(t.name).includes(normTeam) || normTeam.includes(normalizeForImport(t.name)));
+                        }
+                        if (clubMatch) {
+                            errors.push(`\u274C ${rawName} is a club, not a national team. This runner only accepts national teams.`);
+                        } else {
+                            errors.push(`\u274C ${rawName}: national team not found.`);
+                        }
                         searchableNames.add(rawName);
                         continue;
                     }
@@ -653,8 +664,7 @@ export function initSavedScripts(callbacks) {
                         searchableNames.add(rawName);
                         continue;
                     }
-                    const isNational = allNats.some(t => t.path === entry.path);
-                    resolved.push({ rawName, entry, isNational });
+                    resolved.push({ rawName, entry, isNational: true });
                 }
 
                 if (errors.length > 0) {

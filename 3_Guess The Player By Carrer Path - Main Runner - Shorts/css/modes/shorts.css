@@ -794,10 +794,11 @@ body.shorts-mode .career-order-arrow {
 }
 
 /* >>: child of .career-club-slot-inner so it uses the same vertical bob as logos; JS sets left/top from year pill rects (inner vs. slot viewport frame). */
+/* CSS fallback (before JS sync runs): position at the year-box vertical center, not the crest center. */
 body.shorts-mode .career-club-slot-inner > .career-shorts-year-sep {
     position: absolute;
     left: calc(var(--shorts-team-footprint) + (var(--shorts-team-inline-gap, var(--shorts-gap-scaled)) / 2));
-    top: 50%;
+    top: calc(100% - var(--shorts-team-label-space, 1rem) * 0.5);
     transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
@@ -1507,87 +1508,4 @@ body.shorts-mode .career-reveal-name.show {
 @keyframes career-reveal-name-fade-in {
     0% { opacity: 0; }
     100% { opacity: 1; }
-}
-
-/* =========================================
-   SHOTS SIZE – Safe-zone overlay (9:16 column)
-   Yellow tint = margins outside the dashed frame (top, bottom, left, right).
-   Center inside dashed lines stays clear. Red dashed = frame edges.
-   Top: 11vh strip. Bottom top edge: slightly above old grid line 19.
-   Vertical dashed: 1/21 and 20/21 column width.
-   ========================================= */
-.shots-size-overlay {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-}
-
-.shots-size-overlay__column {
-    position: absolute;
-    top: 0;
-    left: calc((100vw - min(56.25vh, 100vw)) / 2);
-    width: min(56.25vh, 100vw);
-    height: 100vh;
-    box-sizing: border-box;
-}
-
-.shots-size-overlay__margin-left,
-.shots-size-overlay__margin-right {
-    position: absolute;
-    z-index: 1;
-    top: 11vh;
-    bottom: calc(100% * 2 / 21 + 0.6vh);
-    width: calc(100% / 21);
-    background: rgba(255, 215, 48, 0.24);
-    box-sizing: border-box;
-}
-
-.shots-size-overlay__margin-left {
-    left: 0;
-}
-
-.shots-size-overlay__margin-right {
-    right: 0;
-}
-
-.shots-size-overlay__top,
-.shots-size-overlay__bottom {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    background: rgba(255, 215, 48, 0.24);
-    box-sizing: border-box;
-    z-index: 2;
-}
-
-.shots-size-overlay__top {
-    top: 0;
-    height: 11vh;
-    border-bottom: 2px dashed rgba(255, 70, 70, 0.8);
-}
-
-.shots-size-overlay__bottom {
-    top: calc(19 * 100% / 21 - 0.6vh);
-    bottom: 0;
-    height: auto;
-    border-top: 2px dashed rgba(255, 70, 70, 0.8);
-}
-
-.shots-size-overlay__vline {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    border-left: 2px dashed rgba(255, 70, 70, 0.8);
-    box-sizing: border-box;
-    z-index: 3;
-}
-
-.shots-size-overlay__vline--left {
-    left: calc(100% / 21);
-}
-
-.shots-size-overlay__vline--right {
-    left: calc(20 * 100% / 21);
 }

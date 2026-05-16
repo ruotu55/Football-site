@@ -63,7 +63,7 @@ const SESSION_JSON_CACHE_PREFIX = "lineups:session-json:v1:";
 const PERFORMANCE_MODE_QUERY_VALUES = new Set(["1", "true", "on", "yes"]);
 const PERFORMANCE_MODE_QUERY_OFF_VALUES = new Set(["0", "false", "off", "no"]);
 const QUIZ_TYPE_DEFAULT_THEME = {
-    "nat-by-club": { colorId: "quiz-nat-by-club", effectId: "youtube-thumbnails", opacity: 0.5, transitionId: "n2-11" },
+    "nat-by-club": { colorId: "quiz-nat-by-club", effectId: "youtube-thumbnails", opacity: 0.5, transitionId: "grid-overlay" },
 };
 
 const HEADER_LOGO_NUDGE_STEP = 6;
@@ -1126,6 +1126,12 @@ async function init() {
     if (els.inMedium) els.inMedium.oninput = updateLanding;
     if (els.inHard) els.inHard.oninput = updateLanding;
     if (els.inImpossible) els.inImpossible.oninput = updateLanding;
+
+    if (els.inScreenSizeToggle && els.screenSizeOverlay) {
+        els.inScreenSizeToggle.onchange = () => {
+            els.screenSizeOverlay.hidden = !els.inScreenSizeToggle.checked;
+        };
+    }
 
     if (els.updateLevelsBtn) {
         els.updateLevelsBtn.onclick = () => {

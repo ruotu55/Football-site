@@ -49,9 +49,8 @@ function showRecordingError(message) {
 }
 
 async function enterFullscreen() {
-    const el = document.documentElement;
-    if (document.fullscreenElement) return;
-    if (el.requestFullscreen) await el.requestFullscreen();
+    // Regular runner: do not enter fullscreen — record the windowed Chrome.
+    return;
 }
 
 function exitFullscreenSafe() {
