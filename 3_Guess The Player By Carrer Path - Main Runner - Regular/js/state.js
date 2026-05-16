@@ -70,8 +70,6 @@ export const appState = {
     saveDiscardNo: null,
     saveDiscardYes: null,
     inQuizType: null,
-    inSpecificTitleToggle: null,
-    inSpecificTitlePreset: null,
     inEndingType: null,
     inEasy: null,
     inMedium: null,
@@ -135,10 +133,7 @@ export const appState = {
    *  during the transition; phase 2 = full teardown at the end. */
   doubleRecording: null,
   videoRevealPostTimerActive: false,
-  /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
   refreshLandingUi: null,
-  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
-  landingSpecialBadgeRevealTimeoutId: null,
   /** Shorts-only: show career club circles without a player (tune css/modes/shorts-career-club-count-map.css). */
   careerShortsCirclePreview: { enabled: false, count: 5 },
   videoInterval: null,

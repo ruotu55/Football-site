@@ -75,8 +75,9 @@ function setVideoRevealPostTimerActive(isActive) {
 }
 
 function landingSpecialTitleToggleChecked() {
-  const t = appState.els?.inSpecificTitleToggle ?? document.getElementById("in-specific-title-toggle");
-  return !!t?.checked;
+  /* "Add specific competition" was removed — the toggle no longer exists,
+     so this gate is now permanently false. Callers are preserved. */
+  return false;
 }
 
 function hideShortsLandingSpecialBadgeIfEnabled() {

@@ -525,6 +525,9 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
   const spiralSvg = createSunSpiralSvgDataUri(opacityPercent);
   const vignetteOpaque = rgbaFromHex(colorHex, 1);
   const vignetteTransparent = rgbaFromHex(colorHex, 0);
+  /* Inverted vignette: transparent at center so the sun-rays show through there,
+     darkening to the background colour at the corners. (The previous direction
+     made the centre fully opaque, hiding the rays — only the corners were visible.) */
   const vignetteCss = (attr) => `
 :root[${ROOT_EFFECT_ATTR}="${attr}"] body::after {
   content: "";
@@ -534,8 +537,8 @@ function getEffectExtraCss(effectId, colorHex, opacityPercent) {
   z-index: 0;
   background: radial-gradient(
     ellipse farthest-corner at 50% 50%,
-    ${vignetteOpaque} 0%,
-    ${vignetteTransparent} 100%
+    ${vignetteTransparent} 0%,
+    ${vignetteOpaque} 100%
   );
 }
 `;
@@ -910,16 +913,17 @@ ${vignetteCss("sun-rays-top-left")}
       rgba(255, 255, 255, 0.16) 1deg 3.4deg,
       rgba(255, 255, 255, 0) 3.4deg 8.4deg
     );
+  /* Linear radial fade: 0% opacity at the very centre, ramping up evenly with
+     distance so each 1% further out is 1% more visible, fully opaque at the
+     corners. */
   -webkit-mask-image: radial-gradient(
-    ellipse 40% 50% at 50% 50%,
+    ellipse farthest-corner at 50% 50%,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0) 88%,
     rgba(0, 0, 0, 1) 100%
   );
   mask-image: radial-gradient(
-    ellipse 40% 50% at 50% 50%,
+    ellipse farthest-corner at 50% 50%,
     rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0) 88%,
     rgba(0, 0, 0, 1) 100%
   );
   animation: shared-bg-thumb-rays-spin 240s linear infinite;

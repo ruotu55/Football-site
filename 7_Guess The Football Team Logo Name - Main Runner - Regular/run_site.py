@@ -30,12 +30,12 @@ from urllib.parse import quote, unquote, urlparse
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
 PLAYER_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Players Names"
-TEAM_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Teams Names"
+TEAM_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Team names"
 PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 
 
 def _voice_dir_for_kind(kind: str | None) -> Path:
-    """`kind="team"` → Teams Names folder; anything else → Players Names."""
+    """`kind="team"` → Team names folder; anything else → Players Names."""
     return TEAM_VOICE_DIR if str(kind or "").strip().lower() == "team" else PLAYER_VOICE_DIR
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
 RUNNER_VARIANT = "Four Params Regular"

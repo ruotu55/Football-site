@@ -26,12 +26,6 @@ import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
 import { initSavedScripts, renderSavedScripts, getActiveScriptName } from "./saved-scripts.js";
-import {
-    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-    getSpecificTitleIcon,
-    getSpecificTitleText,
-    renderSpecificTitlePresetOptions,
-} from "./specific-title-presets.js";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -548,9 +542,34 @@ async function refreshEndingTypeVoiceLabels() {
     renderEndingTypeVoiceStatusPanel();
 }
 
+/* Available concrete ending types, kept in one place so PROD validation and the
+   random picker stay in sync. */
+const ENDING_TYPE_OPTIONS = ["think-you-know", "how-many"];
+
+/* Cache for the random pick — set the first time getSelectedEndingType resolves
+   "random" within a play/record session, cleared by resetRandomEndingType().
+   The Play and Record handlers call reset BEFORE the flow starts; Record only
+   resets once at the very start so both EN and ES phases see the same pick. */
+let cachedRandomEndingType = null;
+
 function getSelectedEndingType() {
-    return String(appState?.els?.inEndingType?.value || "think-you-know");
+    const raw = String(appState?.els?.inEndingType?.value || "").trim();
+    if (raw && raw !== "random" && ENDING_TYPE_OPTIONS.includes(raw)) {
+        return raw;
+    }
+    /* Random mode: pick once, then return the same value for the rest of this session. */
+    if (!cachedRandomEndingType) {
+        const idx = Math.floor(Math.random() * ENDING_TYPE_OPTIONS.length);
+        cachedRandomEndingType = ENDING_TYPE_OPTIONS[idx];
+    }
+    return cachedRandomEndingType;
 }
+
+function resetRandomEndingType() {
+    cachedRandomEndingType = null;
+}
+window.__resetRandomEndingType = resetRandomEndingType;
+window.__getEndingTypeOptions = () => ENDING_TYPE_OPTIONS.slice();
 
 function updateOutroText() {
     const endingType = getSelectedEndingType();
@@ -629,12 +648,8 @@ function endpointUrl(relPath) {
 }
 
 function getSpecificTitleForQuizType(quizType) {
-    const { els } = appState;
-    const selectedType = String(els?.inQuizType?.value || "");
-    if (selectedType !== String(quizType || "")) return "";
-    if (!els?.inSpecificTitleToggle?.checked) return "";
-    const key = els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
-    return getSpecificTitleText(key, getCurrentLanguage()).trim();
+    /* "Add specific competition" was removed — returns "" always. */
+    return "";
 }
 
 function setQuizTypeVoiceBusy(quizType, isBusy) {
@@ -913,28 +928,6 @@ export function updateLanding() {
             Math.max(0, landingDifficultyTotalQuestionsForLevels() - 1),
         );
     }
-
-    const showSpecial = document.getElementById("in-specific-title-toggle").checked;
-    document.getElementById("specific-title-settings").style.display = showSpecial ? "flex" : "none";
-    const levelState = getState();
-    const isWaitingForLandingSpecialBadgeReveal =
-        appState.isVideoPlaying && appState.landingSpecialBadgeRevealTimeoutId != null;
-    const hideSpecificTitleUntilPlayVideo =
-        !!levelState?.videoMode && (!appState.isVideoPlaying || isWaitingForLandingSpecialBadgeReveal);
-    document.getElementById("landing-special-badge").hidden =
-        !showSpecial || hideSpecificTitleUntilPlayVideo;
-
-    const presetKey = els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
-    const language = getCurrentLanguage();
-    document.getElementById("landing-special-text").textContent =
-        getSpecificTitleText(presetKey, language);
-
-    const iconVal = getSpecificTitleIcon(presetKey);
-    const iconImg = document.getElementById("landing-special-icon-img");
-    const iconSpan = document.getElementById("landing-special-icon");
-    iconImg.src = projectAssetUrl(iconVal);
-    iconImg.hidden = false;
-    iconSpan.hidden = true;
 }
 
 // ==========================================
@@ -1019,10 +1012,10 @@ async function init() {
         const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
         const { easy, medium, hard, impossible } =
             computeLandingDifficultyDistribution(totalQuestions);
-        els.inEasy.value = String(easy);
-        els.inMedium.value = String(medium);
-        els.inHard.value = String(hard);
-        els.inImpossible.value = String(impossible);
+        if (els.inEasy) els.inEasy.value = String(easy);
+        if (els.inMedium) els.inMedium.value = String(medium);
+        if (els.inHard) els.inHard.value = String(hard);
+        if (els.inImpossible) els.inImpossible.value = String(impossible);
     }
     const initialLevelIndex = didRestoreState
         ? Math.min(
@@ -1101,7 +1094,7 @@ async function init() {
         updateSetupUI();
         /* Switching quiz type discards any loaded levels so the new quiz starts from a
            clean slate (same as a fresh run_site open). */
-        let levels = parseInt(els.quizLevelsInput.value, 10);
+        let levels = parseInt(els.quizLevelsInput?.value, 10);
         if (isNaN(levels) || levels < 1) levels = 30;
         appState.levelsData = [];
         initLevels(levels - 1);
@@ -1109,71 +1102,46 @@ async function init() {
         const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
         const { easy, medium, hard, impossible } =
             computeLandingDifficultyDistribution(totalQuestions);
-        els.inEasy.value = String(easy);
-        els.inMedium.value = String(medium);
-        els.inHard.value = String(hard);
-        els.inImpossible.value = String(impossible);
+        if (els.inEasy) els.inEasy.value = String(easy);
+        if (els.inMedium) els.inMedium.value = String(medium);
+        if (els.inHard) els.inHard.value = String(hard);
+        if (els.inImpossible) els.inImpossible.value = String(impossible);
         updateLanding();
         renderSavedScripts();
         renderHeader();
         switchLevel(appState.currentLevelIndex);
     };
 
-    els.inEndingType.onchange = () => {
-        updateOutroText();
-        updateLanding();
-        renderEndingTypeVoiceStatusPanel();
-        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
-        renderVoiceTab();
-    };
-
-    els.inEasy.oninput = updateLanding;
-    els.inMedium.oninput = updateLanding;
-    els.inHard.oninput = updateLanding;
-    els.inImpossible.oninput = updateLanding;
-    els.inSpecificTitleToggle.onchange = updateLanding;
-    if (els.inSpecificTitlePreset) {
-        renderSpecificTitlePresetOptions(els.inSpecificTitlePreset, getCurrentLanguage());
-        els.inSpecificTitlePreset.value = DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
-        els.inSpecificTitlePreset.onchange = updateLanding;
-        /* Re-render dropdown options + landing badge when the language toggles. */
-        document.addEventListener("voice-language-change", () => {
-            renderSpecificTitlePresetOptions(els.inSpecificTitlePreset, getCurrentLanguage());
+    if (els.inEndingType) {
+        els.inEndingType.onchange = () => {
+            updateOutroText();
             updateLanding();
-        });
-    }
-
-    // ── Specific title YES/NO buttons ──
-    const specificTitleYes = document.getElementById("specific-title-yes");
-    const specificTitleNo = document.getElementById("specific-title-no");
-    if (specificTitleYes && specificTitleNo) {
-        specificTitleYes.onclick = () => {
-            specificTitleYes.setAttribute("aria-pressed", "true");
-            specificTitleNo.setAttribute("aria-pressed", "false");
-            els.inSpecificTitleToggle.checked = true;
-            els.inSpecificTitleToggle.dispatchEvent(new Event("change"));
-        };
-        specificTitleNo.onclick = () => {
-            specificTitleNo.setAttribute("aria-pressed", "true");
-            specificTitleYes.setAttribute("aria-pressed", "false");
-            els.inSpecificTitleToggle.checked = false;
-            els.inSpecificTitleToggle.dispatchEvent(new Event("change"));
+            renderEndingTypeVoiceStatusPanel();
+            /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+            renderVoiceTab();
         };
     }
 
-    els.updateLevelsBtn.onclick = () => {
-        let levels = parseInt(els.quizLevelsInput.value, 10);
-        if (isNaN(levels) || levels < 1) levels = 30;
-        initLevels(levels - 1);
-        const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
-        const { easy, medium, hard, impossible } = computeLandingDifficultyDistribution(totalQuestions);
-        els.inEasy.value = String(easy);
-        els.inMedium.value = String(medium);
-        els.inHard.value = String(hard);
-        els.inImpossible.value = String(impossible);
-        updateLanding();
-        switchLevel(appState.currentLevelIndex);
-    };
+    if (els.inEasy) els.inEasy.oninput = updateLanding;
+    if (els.inMedium) els.inMedium.oninput = updateLanding;
+    if (els.inHard) els.inHard.oninput = updateLanding;
+    if (els.inImpossible) els.inImpossible.oninput = updateLanding;
+
+    if (els.updateLevelsBtn) {
+        els.updateLevelsBtn.onclick = () => {
+            let levels = parseInt(els.quizLevelsInput?.value, 10);
+            if (isNaN(levels) || levels < 1) levels = 30;
+            initLevels(levels - 1);
+            const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
+            const { easy, medium, hard, impossible } = computeLandingDifficultyDistribution(totalQuestions);
+            if (els.inEasy) els.inEasy.value = String(easy);
+            if (els.inMedium) els.inMedium.value = String(medium);
+            if (els.inHard) els.inHard.value = String(hard);
+            if (els.inImpossible) els.inImpossible.value = String(impossible);
+            updateLanding();
+            switchLevel(appState.currentLevelIndex);
+        };
+    }
 
     els.shortsModeToggle.onchange = (e) => {
         if (e.target.checked) document.body.classList.add("shorts-mode");
@@ -1392,6 +1360,8 @@ async function init() {
                 return;
             }
         }
+        /* Fresh random pick per Play click. */
+        resetRandomEndingType();
         renderLandingTitleVoiceControls();
         appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
         if (els.videoModeToggle && !els.videoModeToggle.checked) {
@@ -1426,6 +1396,10 @@ async function init() {
                 alert("Load a saved setting first — the OBS file is named after it.");
                 return;
             }
+
+            /* Pick the random ending ONCE for the whole double-record, so phase 1
+               (English) and phase 2 (Spanish) end with the same chosen type. */
+            resetRandomEndingType();
 
             try {
                 // ── PHASE 1: English ──

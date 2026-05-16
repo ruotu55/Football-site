@@ -63,10 +63,8 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inMedium: els.inMedium?.value ?? null,
             inHard: els.inHard?.value ?? null,
             inImpossible: els.inImpossible?.value ?? null,
-            inSpecificTitleToggle: !!els.inSpecificTitleToggle?.checked,
             inShotsSizeToggle: !!els.inShotsSizeToggle?.checked,
-            inSpecificTitlePreset: els.inSpecificTitlePreset?.value ?? null,
-                        shortsModeToggle: FIXED_SHORTS_MODE,
+            shortsModeToggle: FIXED_SHORTS_MODE,
             inQuizType: els.inQuizType?.value ?? null,
             inEndingType: els.inEndingType?.value ?? null,
             squadType: els.squadType?.value ?? null,
@@ -88,14 +86,12 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.inMedium && c.inMedium != null) els.inMedium.value = c.inMedium;
     if (els.inHard && c.inHard != null) els.inHard.value = c.inHard;
     if (els.inImpossible && c.inImpossible != null) els.inImpossible.value = c.inImpossible;
-    if (els.inSpecificTitleToggle) els.inSpecificTitleToggle.checked = !!c.inSpecificTitleToggle;
     if (els.inShotsSizeToggle) {
         els.inShotsSizeToggle.checked = !!c.inShotsSizeToggle;
         const overlay = document.getElementById("shots-size-overlay");
         if (overlay) overlay.hidden = !els.inShotsSizeToggle.checked;
     }
-    if (els.inSpecificTitlePreset && c.inSpecificTitlePreset != null) els.inSpecificTitlePreset.value = c.inSpecificTitlePreset;
-        if (els.shortsModeToggle) {
+    if (els.shortsModeToggle) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
         els.shortsModeToggle.disabled = true;
     }

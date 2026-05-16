@@ -63,9 +63,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             inHard: els.inHard?.value ?? null,
             inImpossible: els.inImpossible?.value ?? null,
             inEndingType: els.inEndingType?.value ?? null,
-            inSpecificTitleToggle: !!els.inSpecificTitleToggle?.checked,
             inShotsSizeToggle: !!els.inShotsSizeToggle?.checked,
-            inSpecificTitlePreset: els.inSpecificTitlePreset?.value ?? null,
                         shortsModeToggle: FIXED_SHORTS_MODE,
             inCareerClubs: els.inCareerClubs?.value ?? null,
         },
@@ -82,13 +80,11 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.inHard && c.inHard != null) els.inHard.value = c.inHard;
     if (els.inImpossible && c.inImpossible != null) els.inImpossible.value = c.inImpossible;
     if (els.inEndingType && c.inEndingType != null) els.inEndingType.value = c.inEndingType;
-    if (els.inSpecificTitleToggle) els.inSpecificTitleToggle.checked = !!c.inSpecificTitleToggle;
     if (els.inShotsSizeToggle) {
         els.inShotsSizeToggle.checked = !!c.inShotsSizeToggle;
         const overlay = document.getElementById("shots-size-overlay");
         if (overlay) overlay.hidden = !els.inShotsSizeToggle.checked;
     }
-    if (els.inSpecificTitlePreset && c.inSpecificTitlePreset != null) els.inSpecificTitlePreset.value = c.inSpecificTitlePreset;
         if (els.shortsModeToggle) {
         els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
         els.shortsModeToggle.disabled = true;

@@ -15,12 +15,6 @@ import {
     hasSavedLayoutForEntry,
     buildImportLevelDataFromSavedLayout,
 } from "./saved-team-layouts.js";
-import {
-    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-    getSpecificTitleIcon,
-    getSpecificTitleText,
-    inferPresetKeyFromLegacy,
-} from "./specific-title-presets.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_lineups_regular_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_lineups_regular_fcbnew";
@@ -537,24 +531,14 @@ export function initSavedScripts(callbacks) {
                 gameMode: "lineup",
                 quizType: els.inQuizType.value,
                 endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
-                specificToggle: els.inSpecificTitleToggle.checked,
-                specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                /* Legacy fields kept for back-compat with older readers; derived from the preset key. */
-                specificText: getSpecificTitleText(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                    "english",
-                ),
-                specificIcon: getSpecificTitleIcon(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                ),
-                easy: els.inEasy.value,
-                medium: els.inMedium.value,
-                hard: els.inHard.value,
-                impossible: els.inImpossible.value
+                easy: els.inEasy ? els.inEasy.value : 10,
+                medium: els.inMedium ? els.inMedium.value : 5,
+                hard: els.inHard ? els.inHard.value : 3,
+                impossible: els.inImpossible ? els.inImpossible.value : 1
             },
             lineup: {
                 videoMode: els.videoModeToggle.checked,
-                totalLevels: els.quizLevelsInput.value,
+                totalLevels: els.quizLevelsInput ? els.quizLevelsInput.value : 30,
                 shortsMode: FIXED_SHORTS_MODE
             },
             transitions: captureTransitionSettings(),
@@ -762,9 +746,6 @@ export function initSavedScripts(callbacks) {
                         gameMode: "lineup",
                         quizType: els.inQuizType?.value || "nat-by-club",
                         endingType: els.inEndingType?.value || "think-you-know",
-                        specificToggle: false,
-                        specificText: "",
-                        specificIcon: "",
                         easy: 10,
                         medium: 5,
                         hard: 3,
@@ -1012,29 +993,16 @@ async function loadScript(script) {
             els.inEndingType.value = script.landing.endingType || "think-you-know";
             els.inEndingType.dispatchEvent(new Event("change"));
         }
-        els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
-        if (els.inSpecificTitlePreset) {
-            const key = script.landing.specificPreset
-                || inferPresetKeyFromLegacy(script.landing.specificText, script.landing.specificIcon);
-            els.inSpecificTitlePreset.value = key;
-        }
-        // Sync YES/NO buttons with restored toggle state
-        const specYes = document.getElementById("specific-title-yes");
-        const specNo = document.getElementById("specific-title-no");
-        if (specYes && specNo) {
-            specYes.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "true" : "false");
-            specNo.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "false" : "true");
-        }
-        els.inEasy.value = script.landing.easy || 10;
-        els.inMedium.value = script.landing.medium || 5;
-        els.inHard.value = script.landing.hard || 3;
-        els.inImpossible.value = script.landing.impossible || 1;
+        if (els.inEasy) els.inEasy.value = script.landing.easy || 10;
+        if (els.inMedium) els.inMedium.value = script.landing.medium || 5;
+        if (els.inHard) els.inHard.value = script.landing.hard || 3;
+        if (els.inImpossible) els.inImpossible.value = script.landing.impossible || 1;
     }
 
     if (script.lineup) {
         els.videoModeToggle.checked = !!script.lineup.videoMode;
         els.videoModeToggle.dispatchEvent(new Event("change"));
-        els.quizLevelsInput.value = script.lineup.totalLevels || 30;
+        if (els.quizLevelsInput) els.quizLevelsInput.value = script.lineup.totalLevels || 30;
         if (els.shortsModeToggle) {
             els.shortsModeToggle.checked = FIXED_SHORTS_MODE;
             els.shortsModeToggle.disabled = true;

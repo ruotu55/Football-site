@@ -428,7 +428,7 @@ export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
 
 export function revealPlayerVoiceDir(kind) {
   return kind === "team"
-    ? "../.Storage/Voices/Teams Names/"
+    ? "../.Storage/Voices/Team names/"
     : "../.Storage/Voices/Players Names/";
 }
 

@@ -126,8 +126,6 @@ export const appState = {
     saveDiscardNo: null,
     saveDiscardYes: null,
     inQuizType: null,
-    inSpecificTitleToggle: null,
-    inSpecificTitlePreset: null,
     inEndingType: null,
     inEasy: null,
     inMedium: null,
@@ -180,7 +178,6 @@ export const appState = {
   videoRevealPostTimerActive: false,
   videoInterval: null,
   videoTimeout: null,
-  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
   shortsLandingBadgeRevealTimeoutId: null,
   tickingLeadTimeout: null,
   careerRevealFxTimeout: null,

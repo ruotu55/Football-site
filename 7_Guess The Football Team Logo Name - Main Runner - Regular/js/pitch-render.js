@@ -4155,7 +4155,7 @@ export function renderCareer() {
         if (shouldRevealTeamName) revealText.classList.add("career-team-quiz-card__reveal-text--name");
         revealBar.appendChild(revealText);
         /* Double-click to rename the team for this level. The new name flows into the voice
-           tab automatically (Teams Names lookup uses careerPlayer.name), so the user can
+           tab automatically (Team names lookup uses careerPlayer.name), so the user can
            generate or pick an existing voice clip for the renamed team. */
         revealBar.addEventListener("dblclick", async (e) => {
           if (appState.isVideoPlaying) return;

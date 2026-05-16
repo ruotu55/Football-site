@@ -49,12 +49,12 @@ RUNNER_VARIANT = "Four Params Shorts"
 SUPPORTED_LANGUAGES = ("english", "spanish")
 DEFAULT_LANGUAGE = "english"
 PLAYER_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Players Names"
-TEAM_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Teams Names"
+TEAM_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Team names"
 PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 
 
 def _voice_dir_for_kind(kind):
-    """`kind="team"` → Teams Names folder; anything else → Players Names."""
+    """`kind="team"` → Team names folder; anything else → Players Names."""
     return TEAM_VOICE_DIR if str(kind or "").strip().lower() == "team" else PLAYER_VOICE_DIR
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
 QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNNER_VARIANT

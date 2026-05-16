@@ -15,12 +15,6 @@ import {
     hasSavedLayoutForEntry,
     buildImportLevelDataFromSavedLayout,
 } from "./saved-team-layouts.js";
-import {
-    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-    getSpecificTitleIcon,
-    getSpecificTitleText,
-    inferPresetKeyFromLegacy,
-} from "./specific-title-presets.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_lineups_shorts_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_lineups_shorts_fcbnew";
@@ -540,16 +534,6 @@ export function initSavedScripts(callbacks) {
                 gameMode: "lineup",
                 quizType: els.inQuizType.value,
                 endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
-                specificToggle: els.inSpecificTitleToggle.checked,
-                specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                /* Legacy fields kept for back-compat with older readers; derived from the preset key. */
-                specificText: getSpecificTitleText(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                    "english",
-                ),
-                specificIcon: getSpecificTitleIcon(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                ),
                 easy: els.inEasy.value,
                 medium: els.inMedium.value,
                 hard: els.inHard.value,
@@ -759,9 +743,6 @@ export function initSavedScripts(callbacks) {
                         gameMode: "lineup",
                         quizType: els.inQuizType?.value || "nat-by-club",
                         endingType: els.inEndingType?.value || "think-you-know",
-                        specificToggle: false,
-                        specificText: "",
-                        specificIcon: "",
                         easy: 10,
                         medium: 5,
                         hard: 3,
@@ -1008,18 +989,6 @@ async function loadScript(script) {
         if (els.inEndingType) {
             els.inEndingType.value = script.landing.endingType || "think-you-know";
             els.inEndingType.dispatchEvent(new Event("change"));
-        }
-        els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
-        if (els.inSpecificTitlePreset) {
-            const key = script.landing.specificPreset
-                || inferPresetKeyFromLegacy(script.landing.specificText, script.landing.specificIcon);
-            els.inSpecificTitlePreset.value = key;
-        }
-        const specYes = document.getElementById("specific-title-yes");
-        const specNo = document.getElementById("specific-title-no");
-        if (specYes && specNo) {
-            specYes.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "true" : "false");
-            specNo.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "false" : "true");
         }
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;

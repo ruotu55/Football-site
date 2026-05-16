@@ -4,10 +4,6 @@ import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
 import { getCurrentLanguage } from "./voice-tab.js";
 import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
-import {
-    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-    getSpecificTitleText,
-} from "./specific-title-presets.js";
 
 /** Same name resolution the Voice tab uses — accounts for user renames in the
  *  team-header. Without this, PROD checks "Arsenal FC" while the file is saved
@@ -247,22 +243,6 @@ function validateTransition() {
     };
 }
 
-function validateSpecificTitle() {
-    const failures = [];
-    const yesBtn = document.getElementById("specific-title-yes");
-    const noBtn = document.getElementById("specific-title-no");
-    const yesPressed = yesBtn?.getAttribute("aria-pressed") === "true";
-    const noPressed = noBtn?.getAttribute("aria-pressed") === "true";
-
-    if (!yesPressed && !noPressed) {
-        failures.push("'Add specific title' has not been set to YES or NO");
-    }
-    return {
-        sectionName: "Add Specific Title",
-        passed: failures.length === 0,
-        failures,
-    };
-}
 
 function validateEndingType() {
     const failures = [];
@@ -281,13 +261,6 @@ function validateEndingType() {
 // These all hit the same per-runner status endpoints that the Voice tab uses,
 // so PROD checks the actual files on disk (not just constructed URLs).
 
-/** Resolve the language-appropriate "specific title" string, or "" when off. */
-function getCurrentSpecificTitle() {
-    const { els } = appState;
-    if (!els?.inSpecificTitleToggle?.checked) return "";
-    const key = els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY;
-    return getSpecificTitleText(key, getCurrentLanguage()).trim();
-}
 
 async function fetchExists(path, params) {
     try {
@@ -329,13 +302,13 @@ async function validateTeamVoices() {
 async function validateQuizIntroVoice() {
     const quizType = appState.els?.inQuizType?.value || "nat-by-club";
     const language = getCurrentLanguage();
-    const specificTitle = getCurrentSpecificTitle();
+    
     const { exists } = await fetchExists("/__quiz-title-voice/status", {
         quizType,
-        specificTitle,
+        specificTitle: "",
         language,
     });
-    const detail = specificTitle ? ` + specific title "${specificTitle}"` : "";
+    const detail = "";
     return {
         sectionName: "Quiz Intro Voice",
         passed: exists,
@@ -344,17 +317,27 @@ async function validateQuizIntroVoice() {
 }
 
 async function validateEndingVoice() {
-    const endingType = appState.els?.inEndingType?.value || "";
+    const raw = String(appState.els?.inEndingType?.value || "").trim();
     const language = getCurrentLanguage();
-    if (!endingType) {
+    if (!raw) {
         // The "Ending Type" validator already complains; don't double-fail here.
         return { sectionName: "Ending Voice", passed: true, failures: [] };
     }
-    const { exists } = await fetchExists("/__ending-voice/status", { endingType, language });
+    /* When "random" is selected we don't know which ending will be picked at
+       play time, so verify BOTH so the recording works no matter which one rolls. */
+    const allOptions = typeof window.__getEndingTypeOptions === "function"
+        ? window.__getEndingTypeOptions()
+        : ["think-you-know", "how-many"];
+    const toCheck = raw === "random" ? allOptions : [raw];
+    const failures = [];
+    for (const endingType of toCheck) {
+        const { exists } = await fetchExists("/__ending-voice/status", { endingType, language });
+        if (!exists) failures.push(`Ending voice missing for "${endingType}" (${language})`);
+    }
     return {
         sectionName: "Ending Voice",
-        passed: exists,
-        failures: exists ? [] : [`Ending voice missing for "${endingType}" (${language})`],
+        passed: failures.length === 0,
+        failures,
     };
 }
 
@@ -377,7 +360,6 @@ export async function runProdValidation() {
     const sections = await Promise.all([
         Promise.resolve(validateTeamsSelected()),
         Promise.resolve(validateTeamAssets()),
-        Promise.resolve(validateSpecificTitle()),
         Promise.resolve(validateEndingType()),
         validateTeamVoices(),
         validateQuizIntroVoice(),

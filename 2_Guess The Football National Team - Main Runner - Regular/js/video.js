@@ -153,7 +153,6 @@ function playBallPreloader() {
   });
 }
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
-const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
 /** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
 const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
 
@@ -198,28 +197,11 @@ function refreshCurrentQuestionPreview() {
   renderHeader();
 }
 
-function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
-  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
-  appState.landingSpecialBadgeRevealTimeoutId = null;
-  if (!appState.els?.inSpecificTitleToggle?.checked) {
-    appState.refreshLandingUi?.();
-    return;
-  }
-  appState.landingSpecialBadgeRevealTimeoutId = setTimeout(() => {
-    appState.landingSpecialBadgeRevealTimeoutId = null;
-    if (!appState.isVideoPlaying) return;
-    appState.refreshLandingUi?.();
-  }, LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
-  appState.refreshLandingUi?.();
-}
-
 export function stopVideoFlow() {
   /* Mid-flow abort/cancel: tear down OBS recording + fullscreen.
      The natural outro path stops recording via levels.js (1s after outro voice),
      so this only matters for aborts. Idempotent. */
   stopRecordingAndExitFullscreen();
-  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
-  appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
   /* Hide ball preloader if mid-animation */
@@ -270,7 +252,6 @@ export function startVideoFlow() {
   // Auto-enable video mode on ALL levels
   appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
   appState.refreshLandingUi?.();
-  scheduleLandingSpecialBadgeRevealAfterPlayVideo();
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   els.playVideoBtn.hidden = true;

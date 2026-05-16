@@ -64,7 +64,7 @@ function stopPreviewAudio() { if (!audioEl) return; audioEl.pause(); audioEl.cur
 function playClip(src) { const s = String(src || "").trim(); if (!s) return; stopPreviewAudio(); const a = new Audio(s); audioEl = a; a.addEventListener("ended", () => { if (audioEl === a) audioEl = null; }, { once: true }); a.play().catch(() => {}); }
 function uniquePlayerNames() { const seen = new Set(); const out = []; const levels = Array.isArray(appState.levelsData) ? appState.levelsData : []; for (const lvl of levels) { const n = String(lvl?.careerPlayer?.name || "").trim(); if (!n || seen.has(n)) continue; seen.add(n); out.push(n); } return out; }
 function getCurrentQuizType() { const raw = String(appState.els?.inQuizType?.value || "").trim(); const m = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english; return raw in m ? raw : ""; }
-function getSpecificTitle() { const { els } = appState; if (!els?.inSpecificTitleToggle?.checked) return ""; const key = els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY; return getSpecificTitleText(key, getCurrentLanguage()).trim(); }
+function getSpecificTitle() { return ""; }
 function quizTitleSynthText(qt, st) { const m = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english; const b = m[qt] || ""; const e = String(st || "").trim(); return e ? `${b} ${e}` : b; }
 
 async function fetchQuizTitleStatus(qt, st) { try { const p = new URLSearchParams({ quizType: qt, specificTitle: st || "", language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__quiz-title-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }

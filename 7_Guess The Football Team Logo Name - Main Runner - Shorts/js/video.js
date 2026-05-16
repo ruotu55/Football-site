@@ -30,7 +30,6 @@ import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 /** Shorts level 1 (logo hold, no landing card): quiz-title voice starts immediately in runVideoStep. */
 const SHORTS_LANDING_PRE_WELCOME_DELAY_MS = 0;
-const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
 /** Match `levels.js` video squeeze: content swaps after `transitionDelay`; enter anim is 0.82s. */
 const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
 const SHORTS_STAGE_ENTER_MS = 820;
@@ -192,28 +191,11 @@ function prepTimerBarForNextLevel() {
   clearShortsCountdownSoccer(els.countdownTimer);
 }
 
-function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
-  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
-  appState.landingSpecialBadgeRevealTimeoutId = null;
-  if (!appState.els?.inSpecificTitleToggle?.checked) {
-    appState.refreshLandingUi?.();
-    return;
-  }
-  appState.landingSpecialBadgeRevealTimeoutId = setTimeout(() => {
-    appState.landingSpecialBadgeRevealTimeoutId = null;
-    if (!appState.isVideoPlaying) return;
-    appState.refreshLandingUi?.();
-  }, LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
-  appState.refreshLandingUi?.();
-}
-
 export function stopVideoFlow() {
   /* Mid-flow abort/cancel: tear down OBS recording + fullscreen.
      The natural outro path stops recording via levels.js (1s after outro voice),
      so this only matters for aborts. Idempotent. */
   stopRecordingAndExitFullscreen();
-  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
-  appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
   setVideoRevealPostTimerActive(false);
@@ -277,7 +259,6 @@ export function startVideoFlow() {
   // Auto-enable video mode on ALL levels
   appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
   appState.refreshLandingUi?.();
-  scheduleLandingSpecialBadgeRevealAfterPlayVideo();
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   if (
@@ -710,7 +691,7 @@ function revealCurrentLevel() {
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
       if (isFakeInfoQuiz()) {
         /* Match Regular team-name quiz: no quiz/fake-stat sound.
-           Reveal announces the team name clip from `.Storage/Voices/Teams Names`. */
+           Reveal announces the team name clip from `.Storage/Voices/Team names`. */
         const teamName = String(
           state?.careerPlayer?.club || state?.careerPlayer?.name || "",
         ).trim();

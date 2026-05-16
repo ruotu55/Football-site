@@ -658,7 +658,7 @@ export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
 
 export function revealPlayerVoiceDir(kind) {
   return kind === "team"
-    ? "../.Storage/Voices/Teams Names/"
+    ? "../.Storage/Voices/Team names/"
     : "../.Storage/Voices/Players Names/";
 }
 
@@ -709,7 +709,7 @@ export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3", kind) {
   const cleanName = String(displayName || "").trim();
   if (!cleanName) return "";
   const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
-  const folder = kind === "team" ? "Teams Names" : "Players Names";
+  const folder = kind === "team" ? "Team names" : "Players Names";
   return projectAssetUrl(`.Storage/Voices/${folder}/${encodeURIComponent(cleanName)}${cleanExt}`);
 }
 

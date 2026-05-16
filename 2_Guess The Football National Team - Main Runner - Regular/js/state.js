@@ -62,8 +62,6 @@ export const appState = {
     saveDiscardNo: null,
     saveDiscardYes: null,
     inQuizType: null,
-    inSpecificTitleToggle: null,
-    inSpecificTitlePreset: null,
     inEndingType: null,
     inEasy: null,
     inMedium: null,
@@ -106,10 +104,7 @@ export const appState = {
    *  during the transition; phase 2 = full teardown at the end. */
   doubleRecording: null,
   videoRevealPostTimerActive: false,
-  /** Set in `app.js` to `updateLanding` so `video.js` can refresh specific-title visibility. */
   refreshLandingUi: null,
-  /** Cleared in stopVideoFlow; used for “Add specific title” landing stamp timing. */
-  landingSpecialBadgeRevealTimeoutId: null,
   videoInterval: null,
   videoTimeout: null,
   /** `renderHeader`: ignore stale logo/flag image callbacks after level switches. */

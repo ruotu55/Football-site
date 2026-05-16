@@ -720,16 +720,6 @@ export function initSavedScripts(callbacks) {
                 gameMode: "career",
                 quizType: els.inQuizType.value,
                 endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
-                specificToggle: els.inSpecificTitleToggle.checked,
-                specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                /* Legacy fields kept for back-compat with older readers; derived from the preset key. */
-                specificText: getSpecificTitleText(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                    "english",
-                ),
-                specificIcon: getSpecificTitleIcon(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                ),
                 easy: els.inEasy?.value ?? "10",
                 medium: els.inMedium?.value ?? "5",
                 hard: els.inHard?.value ?? "3",
@@ -1116,15 +1106,6 @@ export function initSavedScripts(callbacks) {
                         gameMode: "career",
                         quizType: els.inQuizType?.value || "nat-by-club",
                         endingType: els.inEndingType?.value || "think-you-know",
-                        specificToggle: els.inSpecificTitleToggle?.checked || false,
-                        specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                        specificText: getSpecificTitleText(
-                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                            "english",
-                        ),
-                        specificIcon: getSpecificTitleIcon(
-                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                        ),
                         easy: els.inEasy?.value ?? "10",
                         medium: els.inMedium?.value ?? "5",
                         hard: els.inHard?.value ?? "3",
@@ -1371,19 +1352,6 @@ async function loadScript(script) {
         if (els.inEndingType) {
             els.inEndingType.value = script.landing.endingType || "think-you-know";
             els.inEndingType.dispatchEvent(new Event("change"));
-        }
-        els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
-        if (els.inSpecificTitlePreset) {
-            const key = script.landing.specificPreset
-                || inferPresetKeyFromLegacy(script.landing.specificText, script.landing.specificIcon);
-            els.inSpecificTitlePreset.value = key;
-        }
-        // Sync YES/NO buttons with restored toggle state
-        const specYes = document.getElementById("specific-title-yes");
-        const specNo = document.getElementById("specific-title-no");
-        if (specYes && specNo) {
-            specYes.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "true" : "false");
-            specNo.setAttribute("aria-pressed", els.inSpecificTitleToggle.checked ? "false" : "true");
         }
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;

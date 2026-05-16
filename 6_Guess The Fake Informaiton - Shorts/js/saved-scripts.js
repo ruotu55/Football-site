@@ -10,12 +10,6 @@ import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
-import {
-    DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-    getSpecificTitleIcon,
-    getSpecificTitleText,
-    inferPresetKeyFromLegacy,
-} from "./specific-title-presets.js";
 
 const INCLUDE_INTRO_LEVEL = false;
 
@@ -618,16 +612,6 @@ export function initSavedScripts(callbacks) {
                 gameMode: "career",
                 quizType: els.inQuizType.value,
                 endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
-                specificToggle: els.inSpecificTitleToggle.checked,
-                specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                /* Legacy fields kept for back-compat with older readers; derived from the preset key. */
-                specificText: getSpecificTitleText(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                    "english",
-                ),
-                specificIcon: getSpecificTitleIcon(
-                    els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                ),
                 easy: els.inEasy?.value ?? "10",
                 medium: els.inMedium?.value ?? "5",
                 hard: els.inHard?.value ?? "3",
@@ -949,15 +933,6 @@ export function initSavedScripts(callbacks) {
                         gameMode: "career",
                         quizType: els.inQuizType?.value || "nat-by-club",
                         endingType: els.inEndingType?.value || "think-you-know",
-                        specificToggle: els.inSpecificTitleToggle?.checked || false,
-                        specificPreset: els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                        specificText: getSpecificTitleText(
-                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                            "english",
-                        ),
-                        specificIcon: getSpecificTitleIcon(
-                            els.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY,
-                        ),
                         easy: els.inEasy?.value ?? "10",
                         medium: els.inMedium?.value ?? "5",
                         hard: els.inHard?.value ?? "3",
@@ -1204,25 +1179,6 @@ async function loadScript(script) {
         if (els.inEndingType) {
             els.inEndingType.value = script.landing.endingType || "think-you-know";
             els.inEndingType.dispatchEvent(new Event("change"));
-        }
-        els.inSpecificTitleToggle.checked = !!script.landing.specificToggle;
-        {
-            const yesBtn = document.getElementById("specific-title-yes");
-            const noBtn = document.getElementById("specific-title-no");
-            if (yesBtn && noBtn) {
-                if (script.landing.specificToggle) {
-                    yesBtn.setAttribute("aria-pressed", "true");
-                    noBtn.setAttribute("aria-pressed", "false");
-                } else {
-                    yesBtn.setAttribute("aria-pressed", "false");
-                    noBtn.setAttribute("aria-pressed", "true");
-                }
-            }
-        }
-        if (els.inSpecificTitlePreset) {
-            const key = script.landing.specificPreset
-                || inferPresetKeyFromLegacy(script.landing.specificText, script.landing.specificIcon);
-            els.inSpecificTitlePreset.value = key;
         }
         els.inEasy.value = script.landing.easy || 10;
         els.inMedium.value = script.landing.medium || 5;

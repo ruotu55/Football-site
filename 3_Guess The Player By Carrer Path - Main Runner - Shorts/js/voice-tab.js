@@ -12,7 +12,6 @@
  */
 
 import { appState } from "./state.js";
-import { DEFAULT_SPECIFIC_TITLE_PRESET_KEY, getSpecificTitleText } from "./specific-title-presets.js";
 import { projectAssetUrl } from "./paths.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
@@ -131,11 +130,7 @@ function getCurrentQuizType() {
   return raw in langMap ? raw : "";
 }
 
-function getSpecificTitle() {
-  const { els } = appState;
-  if (!els?.inSpecificTitleToggle?.checked) return "";
-  return getSpecificTitleText(els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY, getCurrentLanguage()).trim();
-}
+function getSpecificTitle() { return ""; }
 
 function quizTitleSynthText(quizType, specificTitle) {
   const langMap = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english;

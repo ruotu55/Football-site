@@ -80,8 +80,6 @@ export function bindDomElements() {
     els.deleteScriptNo = document.getElementById("delete-script-no");
     els.deleteScriptYes = document.getElementById("delete-script-yes");
     els.inQuizType = document.getElementById("in-quiz-type");
-    els.inSpecificTitleToggle = document.getElementById("in-specific-title-toggle");
-    els.inSpecificTitlePreset = document.getElementById("in-specific-title-preset");
     els.inEndingType = document.getElementById("in-ending-type");
     els.inEasy = document.getElementById("in-easy");
     els.inMedium = document.getElementById("in-medium");

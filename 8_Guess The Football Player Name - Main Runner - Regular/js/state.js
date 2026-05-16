@@ -80,8 +80,6 @@ export const appState = {
     saveDiscardNo: null,
     saveDiscardYes: null,
     inQuizType: null,
-    inSpecificTitleToggle: null,
-    inSpecificTitlePreset: null,
     inEndingType: null,
     inEasy: null,
     inMedium: null,

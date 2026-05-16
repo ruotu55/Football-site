@@ -21,7 +21,6 @@
  */
 
 import { appState } from "./state.js";
-import { DEFAULT_SPECIFIC_TITLE_PRESET_KEY, getSpecificTitleText } from "./specific-title-presets.js";
 import { projectAssetUrl } from "./paths.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
@@ -169,16 +168,12 @@ function getCurrentQuizType() {
 }
 
 /* In the team-name quiz the "name" stored on each level is actually the team's name —
-   route those clips to the Teams Names folder instead of the Players Names folder. */
+   route those clips to the Team names folder instead of the Players Names folder. */
 export function voiceKindForQuiz(quizType) {
   return quizType === "player-by-fake-info" ? "team" : "player";
 }
 
-function getSpecificTitle() {
-  const { els } = appState;
-  if (!els?.inSpecificTitleToggle?.checked) return "";
-  return getSpecificTitleText(els?.inSpecificTitlePreset?.value || DEFAULT_SPECIFIC_TITLE_PRESET_KEY, getCurrentLanguage()).trim();
-}
+function getSpecificTitle() { return ""; }
 
 function quizTitleSynthText(quizType, specificTitle) {
   const langMap = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english;
@@ -478,7 +473,7 @@ export async function renderVoiceTab() {
   root.appendChild(buildSection(titles.quizIntro, quizRows));
 
   /* Section 2 — Players (one row per unique player currently in a level). The kind
-     parameter routes the file to either the Players Names or Teams Names folder. */
+     parameter routes the file to either the Players Names or Team names folder. */
   const sectionVoiceKind = voiceKindForQuiz(quizType);
   const playerRows = playerStatuses.map(({ name, exists, src }) => {
     const indices = playerLevelMap.get(name) || [];

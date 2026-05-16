@@ -8,7 +8,6 @@ import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
-const LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 2500;
 
 /* ── GSAP lazy loader (eagerly kicked off at module load) ────────── */
 let gsapLib = null;
@@ -204,25 +203,8 @@ function clearShortsQuestionCountdown() {
   document.body.classList.remove("shorts-question-countdown");
 }
 
-function scheduleLandingSpecialBadgeRevealAfterPlayVideo() {
-  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
-  appState.landingSpecialBadgeRevealTimeoutId = null;
-  if (!appState.els?.inSpecificTitleToggle?.checked) {
-    appState.refreshLandingUi?.();
-    return;
-  }
-  appState.landingSpecialBadgeRevealTimeoutId = setTimeout(() => {
-    appState.landingSpecialBadgeRevealTimeoutId = null;
-    if (!appState.isVideoPlaying) return;
-    appState.refreshLandingUi?.();
-  }, LANDING_SPECIAL_BADGE_AFTER_PLAY_MS);
-  appState.refreshLandingUi?.();
-}
-
 export function stopVideoFlow() {
   stopRecordingAndExitFullscreen();
-  clearTimeout(appState.landingSpecialBadgeRevealTimeoutId);
-  appState.landingSpecialBadgeRevealTimeoutId = null;
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
   setVideoRevealPostTimerActive(false);
@@ -279,7 +261,6 @@ export function startVideoFlow() {
   // Auto-enable video mode on ALL levels
   appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
   appState.refreshLandingUi?.();
-  scheduleLandingSpecialBadgeRevealAfterPlayVideo();
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   if (els.careerWrap) {
