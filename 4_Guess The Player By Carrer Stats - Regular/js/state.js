@@ -1,3 +1,5 @@
+import { pickRandomBundledVariants } from "./bundled-level-voices.js";
+
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
@@ -152,6 +154,7 @@ export const appState = {
   videoModeToggleFxTimeout: null,
   currentXi: [],
   allGlobalPlayers: null,
+  bundledVoiceVariants: null,
 };
 
 export function getState() {
@@ -225,6 +228,7 @@ export function initLevels(count) {
   if (appState.currentLevelIndex > count + 3) {
     appState.currentLevelIndex = count + 3;
   }
+  appState.bundledVoiceVariants = pickRandomBundledVariants();
 }
 
 export function clearSlotPhotoIndices() {

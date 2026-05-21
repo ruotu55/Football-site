@@ -678,7 +678,7 @@ const CAREER_LOGO_ALPHA_THRESHOLD = 18;
 /** Hard cap (px); also capped as a fraction of logo box height so bad measures cannot pull the year into the crest. Scaled with default crest size (~195px tall). */
 const CAREER_LOGO_SLACK_CSS_MAX = 108;
 const CAREER_LOGO_SLACK_MAX_FRAC_OF_BOX = 0.38;
-const CAREER_SHADOW_UNIFORM_Y = -2;
+const CAREER_SHADOW_UNIFORM_Y = 8;
 const CAREER_SHADOW_UNIFORM_SCALE = 0.82;
 /* Video mode OFF: same caps as Main Runner - Career Path - Regular (viewBox 1000ֳ—400). */
 const CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_OFF = 760;
@@ -697,8 +697,6 @@ const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
 const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500;
 const CAREER_REVEAL_BASE_Y = -10;
 const CAREER_REVEAL_BASE_SCALE = 1.08;
-/** Same units as Adjust Picture &#9660;/&#9650; (one tick = ֲ±1 on `silhouetteYOffset`). */
-const PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS = 15;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
 /** Synchronous cache: src → resolved trimmed URL (stored after first successful resolve). */
 const careerPlayerResolvedUrlSync = new Map();
@@ -829,21 +827,6 @@ function applyCareerSilhouetteSvgImageRect(imageEl, isShorts, videoMode = false)
   imageEl.setAttribute("height", String(Math.round(hUx)));
 }
 
-/**
- * Player stats: nudge the portrait down (Video Mode off on questions, and Play Video after the timer)
- * without changing saved Adjust Picture values.
- */
-function getPlayerStatsExtraSilhouetteDownTicks(state) {
-  if (!shouldUseVideoQuestionLayout(state)) return 0;
-  if (!state.videoMode && !appState.isVideoPlaying) {
-    return PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS;
-  }
-  if (appState.isVideoPlaying && appState.videoRevealPostTimerActive) {
-    return PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS;
-  }
-  return 0;
-}
-
 function applyCareerSilhouetteAdjustments(silhouetteEl, st) {
   if (!silhouetteEl) return;
   const yOffset = Number(st?.silhouetteYOffset ?? DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET);
@@ -854,9 +837,8 @@ function applyCareerSilhouetteAdjustments(silhouetteEl, st) {
   const safeScaleX = Number.isFinite(scaleX) ? scaleX : DEFAULT_PLAYER_SILHOUETTE_SCALE_X;
   const safeScaleY = Number.isFinite(scaleY) ? scaleY : DEFAULT_PLAYER_SILHOUETTE_SCALE_Y;
 
-  const extraDownTicks = getPlayerStatsExtraSilhouetteDownTicks(st);
   /* Width/height are absolute multipliers (1 = 100%); do not divide by DEFAULT or 0.85 would look like 1. */
-  const finalY = CAREER_SHADOW_UNIFORM_Y + (safeYOffset + extraDownTicks) * 2;
+  const finalY = CAREER_SHADOW_UNIFORM_Y + safeYOffset * 2;
   const finalScaleX = CAREER_SHADOW_UNIFORM_SCALE * safeScaleX;
   const finalScaleY = CAREER_SHADOW_UNIFORM_SCALE * safeScaleY;
 
@@ -873,24 +855,12 @@ function applyCareerRevealAdjustments(wrapEl, st) {
   const safeYOffset = Number.isFinite(yOffset) ? yOffset : DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET;
   const safeScaleX = Number.isFinite(scaleX) ? scaleX : DEFAULT_PLAYER_SILHOUETTE_SCALE_X;
   const safeScaleY = Number.isFinite(scaleY) ? scaleY : DEFAULT_PLAYER_SILHOUETTE_SCALE_Y;
-  const extraDownTicks = getPlayerStatsExtraSilhouetteDownTicks(st);
-  const revealY = CAREER_REVEAL_BASE_Y + (safeYOffset + extraDownTicks) * 1.4;
+  const revealY = CAREER_REVEAL_BASE_Y + safeYOffset * 1.4;
   const revealScaleX = CAREER_REVEAL_BASE_SCALE * safeScaleX;
   const revealScaleY = CAREER_REVEAL_BASE_SCALE * safeScaleY;
-  const applyVars = (el) => {
-    el.style.setProperty("--career-reveal-y", `${revealY}%`);
-    el.style.setProperty("--career-reveal-scale-x", String(revealScaleX));
-    el.style.setProperty("--career-reveal-scale-y", String(revealScaleY));
-  };
-  applyVars(wrapEl);
-  /* Overlay is mounted on `.app` so fixed positioning is viewport-anchored (not trapped by #career-wrap perspective). */
-  const overlay = document.getElementById("career-reveal-overlay");
-  if (overlay && overlay !== wrapEl) applyVars(overlay);
-}
-
-function appendPlayerStatsRegularRevealToApp(node) {
-  const root = document.querySelector(".app") || document.body;
-  root.appendChild(node);
+  wrapEl.style.setProperty("--career-reveal-y", `${revealY}%`);
+  wrapEl.style.setProperty("--career-reveal-scale-x", String(revealScaleX));
+  wrapEl.style.setProperty("--career-reveal-scale-y", String(revealScaleY));
 }
 
 function ensureCareerPictureModeProfiles(st) {
@@ -1582,7 +1552,7 @@ export function renderCareer() {
   }
   wrap.classList.toggle(
     "video-mode-enabled",
-    !!state.videoMode,
+    !!state.videoMode && !appState.isVideoPlaying && !previewState.previewPostTimer,
   );
 
   ensureCareerPictureModeProfiles(state);
@@ -2612,7 +2582,7 @@ export function renderCareer() {
 
     revealOverlay.appendChild(revealOverlayImg);
     revealOverlay.appendChild(revealOverlayFallback);
-    appendPlayerStatsRegularRevealToApp(revealOverlay);
+    wrap.appendChild(revealOverlay);
 
     const revealName = document.createElement("div");
     revealName.id = "career-reveal-name";
@@ -2625,7 +2595,7 @@ export function renderCareer() {
       <div class="career-reveal-name-top">${topName}</div>
       <div class="career-reveal-name-bottom">${bottomName}</div>
     `;
-    appendPlayerStatsRegularRevealToApp(revealName);
+    wrap.appendChild(revealName);
 
     applyCareerRevealAdjustments(wrap, state);
 

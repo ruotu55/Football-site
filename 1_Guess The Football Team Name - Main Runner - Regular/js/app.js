@@ -6,6 +6,7 @@ import { switchLevel } from "./levels.js";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
+    initTeamNameOverridesSharedSync,
     isCurrentHeaderTeamNameEditable,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
@@ -1032,6 +1033,7 @@ async function init() {
     applyDefaultThemeForCurrentQuizType();
     syncShortsModeFab();
     initSavedTeamLayouts();
+    initTeamNameOverridesSharedSync();
 
     // Expose for pitch-render.js (avoids circular ES module dependency).
     window.__confirmAndDeleteSaveIfPresent = confirmAndDeleteSaveIfPresent;

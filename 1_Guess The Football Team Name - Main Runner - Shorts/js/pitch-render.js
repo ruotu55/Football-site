@@ -1,6 +1,6 @@
 /* js/pitch-render.js */
 
-import { formationById } from "./formations.js";
+import { effectiveSlotCoords, formationById } from "./formations.js";
 import {
   appState,
   DEFAULT_SLOT_FLAG_SCALE,
@@ -85,11 +85,23 @@ const INTERNATIONAL_POOL_URL = ".Storage/data/international-club-pool-by-nationa
 const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
 const PLAYER_PHOTO_FROM_URL_ENDPOINT = "/__player-photo/from-url";
 const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
-const TEAM_NAME_OVERRIDES_STORAGE_KEY = "lineups-shorts:club-by-nat-team-name-overrides:v1";
+/* Shared across Main Runner - Team Name Regular and Shorts (a rename done in
+   one should immediately apply in the other). LS holds a fast local cache and
+   the dev server mirrors the same object to a JSON file under
+   .Storage/storage/runner-blobs/ so renames persist across page reloads and
+   are picked up by the sibling runner on startup. */
+const TEAM_NAME_OVERRIDES_STORAGE_KEY = "lineups-shared:club-by-nat-team-name-overrides:v1";
+const TEAM_NAME_OVERRIDES_LEGACY_LS_KEYS = [
+  "lineups-regular:club-by-nat-team-name-overrides:v1",
+  "lineups-shorts:club-by-nat-team-name-overrides:v1",
+];
+const TEAM_NAME_OVERRIDES_SERVER_ENDPOINT = "/__runner-json-blob/team_name_overrides_shared";
 const AUTO_365_PHOTO_RE = /(^|\/)auto - 365scores(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const AUTO_FUTGG_PHOTO_RE = /(^|\/)auto - fut\.gg(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const autoPhotoLastSourceBySlot = new Map();
 let teamNameOverridesCache = null;
+let teamNameOverridesServerPushTimer = null;
+let teamNameOverridesServerPullPromise = null;
 
 /**
  * Open the "Add Player Photo" URL-paste modal. The user pastes an image URL;
@@ -260,6 +272,12 @@ function getBaseTeamName(state = getState()) {
   return String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
 }
 
+function isTeamNameOverridesHttpServerActive() {
+  return typeof location !== "undefined" &&
+    location.protocol === "http:" &&
+    location.hostname !== "";
+}
+
 function readTeamNameOverrides() {
   if (teamNameOverridesCache) return teamNameOverridesCache;
   let parsed = {};
@@ -270,6 +288,24 @@ function readTeamNameOverrides() {
   }
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     parsed = {};
+  }
+  /* One-time merge from the legacy per-runner LS keys so renames saved before
+     this became a shared store aren't lost. Existing shared-key values win. */
+  for (const legacyKey of TEAM_NAME_OVERRIDES_LEGACY_LS_KEYS) {
+    if (legacyKey === TEAM_NAME_OVERRIDES_STORAGE_KEY) continue;
+    let legacy = null;
+    try {
+      legacy = JSON.parse(localStorage.getItem(legacyKey) || "null");
+    } catch {
+      legacy = null;
+    }
+    if (legacy && typeof legacy === "object" && !Array.isArray(legacy)) {
+      for (const [k, v] of Object.entries(legacy)) {
+        if (!(k in parsed) && typeof v === "string" && v.trim()) {
+          parsed[k] = v;
+        }
+      }
+    }
   }
   teamNameOverridesCache = parsed;
   return teamNameOverridesCache;
@@ -287,6 +323,60 @@ function persistTeamNameOverrides() {
   } catch {
     // Ignore storage quota/privacy failures; current session still works.
   }
+  if (!isTeamNameOverridesHttpServerActive()) return;
+  clearTimeout(teamNameOverridesServerPushTimer);
+  teamNameOverridesServerPushTimer = setTimeout(() => {
+    teamNameOverridesServerPushTimer = null;
+    fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(teamNameOverridesCache),
+    }).catch(() => {});
+  }, 300);
+}
+
+/* Pulls the shared team-name-overrides file from the dev server on startup,
+   so a rename made in the sibling Main Runner (Regular vs Shorts) is reflected
+   here without the user having to redo it. Safe to call once at app init. */
+export function initTeamNameOverridesSharedSync() {
+  readTeamNameOverrides();
+  if (!isTeamNameOverridesHttpServerActive()) {
+    teamNameOverridesServerPullPromise = Promise.resolve();
+    return teamNameOverridesServerPullPromise;
+  }
+  teamNameOverridesServerPullPromise = (async () => {
+    try {
+      const r = await fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, { cache: "no-store" });
+      if (!r.ok) return;
+      const remote = await r.json();
+      if (!remote || typeof remote !== "object" || Array.isArray(remote)) return;
+      const localBefore = teamNameOverridesCache || {};
+      if (Object.keys(remote).length > 0) {
+        teamNameOverridesCache = { ...remote };
+        try {
+          localStorage.setItem(
+            TEAM_NAME_OVERRIDES_STORAGE_KEY,
+            JSON.stringify(teamNameOverridesCache)
+          );
+        } catch { /* quota or private mode */ }
+      } else if (Object.keys(localBefore).length > 0) {
+        /* First boot after the fix: server file is empty but we have local
+           data (including data migrated from the legacy per-runner LS keys).
+           Seed the server so the sibling runner picks it up next reload. */
+        try {
+          await fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(localBefore),
+          });
+        } catch { /* offline */ }
+      }
+      try { renderHeader(); } catch { /* not yet mounted */ }
+    } catch {
+      /* offline or file:// — local cache continues to be used. */
+    }
+  })();
+  return teamNameOverridesServerPullPromise;
 }
 
 function getTeamNameOverrideKey(state = getState(), quizTypeRaw = appState.els.inQuizType?.value) {
@@ -298,7 +388,7 @@ function getTeamNameOverrideKey(state = getState(), quizTypeRaw = appState.els.i
 
 export function resolveHeaderTeamDisplayName(
   state = getState(),
-  quizTypeRaw = appState.els.inQuizType?.value || "nat-by-club"
+  quizTypeRaw = appState.els.inQuizType?.value || "club-by-nat"
 ) {
   const baseName = getBaseTeamName(state);
   if (!baseName) return "";
@@ -1301,7 +1391,7 @@ export function renderPitch() {
   appState.currentXi = xi;
 
   appState.els.pitchSlots.querySelectorAll(".player-slot").forEach((node, i) => {
-    const slot = formation.slots[i];
+    const slot = effectiveSlotCoords(state.formationId, i, formation.slots[i]);
     if (slot) {
       node.style.left = `${slot.x}%`;
       node.style.top = `${slot.y}%`;
@@ -1714,7 +1804,7 @@ export function renderHeader() {
     teamHeaderRenderGen !== appState.teamHeaderRenderGeneration;
   const state = getState();
   const { els } = appState;
-  const quizType = appState.els.inQuizType?.value || "nat-by-club";
+  const quizType = appState.els.inQuizType?.value || "club-by-nat";
   const { previewPostTimer } = getVideoQuestionPreviewState(state);
 
   document.body.classList.toggle("video-mode-on", !!state.videoMode);
@@ -1760,7 +1850,7 @@ export function renderHeader() {
     if (clearTeamBtn) clearTeamBtn.hidden = true;
     if (pitchSwapBtn) pitchSwapBtn.hidden = true;
     if (els.teamVoiceControls) els.teamVoiceControls.hidden = true;
-    syncTeamVoiceControls("", appState.els.inQuizType?.value || "nat-by-club");
+    syncTeamVoiceControls("", appState.els.inQuizType?.value || "club-by-nat");
     if (logoBlock) {
       logoBlock.classList.add("team-header-logo-block--empty");
       logoBlock.classList.remove("team-header-show-swap-logo");
@@ -1826,7 +1916,7 @@ export function renderHeader() {
   if (clearTeamBtn) clearTeamBtn.hidden = false;
   syncTeamVoiceControls(
     displayedHeaderTeamName,
-    appState.els.inQuizType?.value || "nat-by-club"
+    appState.els.inQuizType?.value || "club-by-nat"
   );
   if (els.teamVoiceControls) els.teamVoiceControls.hidden = true;
   if (els.headerLogo) {
@@ -1918,7 +2008,8 @@ export function renderHeader() {
   const showSwapLogo =
     state.squadType === "club" &&
     state.currentSquad &&
-    quizType !== "club-by-nat";
+    quizType !== "club-by-nat" &&
+    quizType !== "nat-by-club";
   const headerCollapsed = !els.teamHeader?.classList.contains("team-header--show");
   if (swapLogoBtn) {
     /* Video mode collapses the header — use pitch-level control instead */

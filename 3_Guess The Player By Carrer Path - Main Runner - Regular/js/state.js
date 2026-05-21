@@ -16,6 +16,8 @@ export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   };
 }
 
+import { pickRandomBundledVariants } from "./bundled-level-voices.js";
+
 export const appState = {
   els: {
     squadType: null,
@@ -142,6 +144,7 @@ export const appState = {
   videoModeToggleFxTimeout: null,
   currentXi: [],
   allGlobalPlayers: null,
+  bundledVoiceVariants: null,
 };
 
 export function getState() {
@@ -216,6 +219,7 @@ export function initLevels(count) {
   if (appState.currentLevelIndex > count + 3) {
     appState.currentLevelIndex = count + 3;
   }
+  appState.bundledVoiceVariants = pickRandomBundledVariants();
 }
 
 export function clearSlotPhotoIndices() {

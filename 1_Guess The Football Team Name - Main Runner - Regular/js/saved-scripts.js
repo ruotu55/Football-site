@@ -15,6 +15,8 @@ import {
     hasSavedLayoutForEntry,
     buildImportLevelDataFromSavedLayout,
 } from "./saved-team-layouts.js";
+import { pickRandomBundledVariants } from "./bundled-level-voices.js";
+import { renderVoiceTab } from "./voice-tab.js";
 
 const KEY_SCRIPTS = "footballQuizScripts_lineups_regular_fcbnew";
 const KEY_FOLDERS = "footballQuizFolders_lineups_regular_fcbnew";
@@ -1093,6 +1095,8 @@ async function loadScript(script) {
 
     applyCustomSelects();
     renderSavedScripts();
+    appState.bundledVoiceVariants = pickRandomBundledVariants();
+    void renderVoiceTab();
     // Force the Landing → Level 1 transition ("new-1") so loading is visible
     // regardless of where the user was.
     appState.currentLevelIndex = 1;

@@ -11,6 +11,8 @@ import { captureTransitionSettings, applyTransitionSettings } from "./transition
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
 import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
+import { pickRandomBundledVariants } from "./bundled-level-voices.js";
+import { renderVoiceTab } from "./voice-tab.js";
 
 const INCLUDE_INTRO_LEVEL = true;
 
@@ -1483,6 +1485,8 @@ async function loadScript(script) {
 
     applyCustomSelects();
     renderSavedScripts();
+    appState.bundledVoiceVariants = pickRandomBundledVariants();
+    void renderVoiceTab();
     appState.currentLevelIndex = 1;
     switchLevel(2);
 }

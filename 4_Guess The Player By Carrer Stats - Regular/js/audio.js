@@ -1,4 +1,5 @@
 import { appState } from "./state.js";
+import { getBundledLevelPath } from "./bundled-level-voices.js";
 
 /* ── Language-aware voice resolution. The voice-tab persists the user's language
      choice to localStorage; every gameplay clip (quiz titles, level progress,
@@ -16,13 +17,6 @@ function getCurrentLanguage() {
 }
 
 const RUNNER_VARIANT = "Player Stats";
-
-const LEVEL_FILENAMES = {
-  warmUp: "Worm up round dont mess this one .mp3",
-  serious: "OK now it's getting serious.mp3",
-  nerds: "Only true football nerd know this!!!.mp3",
-  genius: "If you get this you are basically a genius!!!.mp3",
-};
 
 const QUIZ_TITLE_FILENAMES = {
   english: {
@@ -47,9 +41,7 @@ const ENDING_FILENAMES = {
 };
 
 function levelPathFor(levelKey, lang) {
-  const filename = LEVEL_FILENAMES[levelKey];
-  if (!filename) return "";
-  return `../.Storage/Voices/Levels/${lang}/${filename}`;
+  return getBundledLevelPath(levelKey, lang, appState.bundledVoiceVariants);
 }
 
 function quizTitlePathFor(quizType, lang) {

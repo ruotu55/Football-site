@@ -530,7 +530,7 @@ export async function renderVoiceTab() {
     { type: "think-you-know", status: endingThinkStatus },
     { type: "how-many",       status: endingHowManyStatus },
   ]
-    .filter(({ type }) => !selectedEnding || type === selectedEnding)
+    .filter(({ type }) => !selectedEnding || selectedEnding === "random" || type === selectedEnding)
     .map(({ type, status }) => buildRow({
       text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
       onPlay: () => onVolPressed({

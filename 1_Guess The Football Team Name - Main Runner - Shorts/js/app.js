@@ -6,6 +6,7 @@ import { switchLevel } from "./levels.js";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
+    initTeamNameOverridesSharedSync,
     isCurrentHeaderTeamNameEditable,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
@@ -267,8 +268,18 @@ function initHeaderLogoZoom(onClearTeamSelection) {
                 onClearTeamSelection();
             }
         };
+        /* Re-parent to <body> so .team-header (behind .stage in shorts) doesn't
+           also push this button behind the pitch hit-area. */
+        if (clearTeamBtn.parentElement !== document.body) {
+            document.body.appendChild(clearTeamBtn);
+        }
     }
     if (fetchLogo) {
+        /* Same reason as clearTeamBtn above — keep this button clickable
+           regardless of the team-header sitting behind the pitch. */
+        if (fetchLogo.parentElement !== document.body) {
+            document.body.appendChild(fetchLogo);
+        }
         fetchLogo.onclick = async () => {
             const st = getState();
             if (!st?.currentSquad) return;
@@ -277,19 +288,37 @@ function initHeaderLogoZoom(onClearTeamSelection) {
             fetchLogo.disabled = true;
             fetchLogo.textContent = "...";
             try {
+                const logoPayload = {
+                    squadType: st.squadType || "",
+                    selectedEntry: st.selectedEntry || {},
+                    currentSquadName: st.currentSquad?.name || st.selectedEntry?.name || "",
+                    currentSquadImagePath: st.currentSquad?.imagePath || "",
+                };
                 const res = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        squadType: st.squadType || "",
-                        selectedEntry: st.selectedEntry || {},
-                        currentSquadName: st.currentSquad?.name || st.selectedEntry?.name || "",
-                        currentSquadImagePath: st.currentSquad?.imagePath || "",
-                    }),
+                    body: JSON.stringify(logoPayload),
                 });
-                const data = await res.json().catch(() => ({}));
+                let data = await res.json().catch(() => ({}));
                 if (!res.ok || !data?.ok) {
-                    throw new Error(data?.error || "Could not fetch team logo.");
+                    const msg0 = data?.error || "Could not fetch team logo.";
+                    const pasted = window.prompt(
+                        `${msg0}\n\nPaste a football-logos.cc team page URL (example: team page with download sizes), or a direct PNG link from images.football-logos.cc / assets.football-logos.cc. Leave empty to cancel.`,
+                        "",
+                    );
+                    const manual = String(pasted || "").trim();
+                    if (!manual) {
+                        throw new Error(msg0);
+                    }
+                    const res2 = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ ...logoPayload, pageUrl: manual }),
+                    });
+                    data = await res2.json().catch(() => ({}));
+                    if (!res2.ok || !data?.ok) {
+                        throw new Error(data?.error || "Could not download team logo from pasted URL.");
+                    }
                 }
                 if (data?.relativePath) {
                     const rel = String(data.relativePath);
@@ -974,6 +1003,7 @@ async function init() {
     applyDefaultThemeForCurrentQuizType();
     syncShortsModeFab();
     initSavedTeamLayouts();
+    initTeamNameOverridesSharedSync();
 
     // Expose for pitch-render.js (avoids circular ES module dependency).
     window.__confirmAndDeleteSaveIfPresent = confirmAndDeleteSaveIfPresent;

@@ -22,6 +22,10 @@
 
 import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
+import {
+  BUNDLED_MILESTONES,
+  getSelectedBundledVariant,
+} from "./bundled-level-voices.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 
@@ -98,16 +102,6 @@ const SECTION_TITLES = {
   quizSounds: "Quiz Sounds",
 };
 
-const BUNDLED_VOICES = [
-  { key: "warm-up",  text: { english: "Warm up round — don't mess this one!",            spanish: "Ronda de calentamiento — ¡no la arruines!" },
-    src: "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",              playsAt: { english: "Level 1",         spanish: "Nivel 1" } },
-  { key: "serious",  text: { english: "OK now it's getting serious.",                    spanish: "Bien, ahora se pone serio." },
-    src: "../.Storage/Voices/Levels/OK now it's getting serious.mp3",                    playsAt: { english: "~30% progress",   spanish: "~30% de avance" } },
-  { key: "nerds",    text: { english: "Only true football nerds know this!!!",           spanish: "¡¡Solo los verdaderos fanáticos del fútbol saben esto!!" },
-    src: "../.Storage/Voices/Levels/Only true football nerd know this!!!.mp3",           playsAt: { english: "~60% progress",   spanish: "~60% de avance" } },
-  { key: "genius",   text: { english: "If you get this you are basically a genius!!!",   spanish: "¡¡Si aciertas esto eres básicamente un genio!!" },
-    src: "../.Storage/Voices/Levels/If you get this you are basically a genius!!!.mp3",  playsAt: { english: "~90% progress",   spanish: "~90% de avance" } },
-];
 const PLAYS_AT = {
   quizIntro: { english: "Landing → Level 1",                spanish: "Inicial → Nivel 1" },
   player:    { english: "Question levels (where assigned)", spanish: "Niveles de pregunta (donde esté asignado)" },
@@ -115,8 +109,8 @@ const PLAYS_AT = {
   fakeStat:  { english: "Question reveal (fake-info)",      spanish: "Revelación (info falsa)" },
 };
 function plays(key) { const p = PLAYS_AT[key]; const lang = getCurrentLanguage(); return (p && (p[lang] || p.english)) || ""; }
-function bundledText(b)    { return b.text[getCurrentLanguage()]    || b.text.english; }
-function bundledPlaysAt(b) { return b.playsAt[getCurrentLanguage()] || b.playsAt.english; }
+function bundledVariantText(entry) { const lang = getCurrentLanguage(); return entry.text[lang] || entry.text.english; }
+function bundledMilestonePlaysAt(milestone) { const lang = getCurrentLanguage(); return milestone.playsAt[lang] || milestone.playsAt.english; }
 /* Display indices are 1-based question numbers. levelsData index 0 = logo page, index 1 =
    landing page, so the first question lives at array-index 2; subtract 1 to convert. */
 function levelLabel(idx)   { const adj = idx.map(i => i - 1); return getCurrentLanguage() === "spanish" ? `Nivel ${adj.join(", ")}` : `Level ${adj.join(", ")}`; }
@@ -223,9 +217,9 @@ async function fetchPlayerStatus(name, kind) {
   } catch { return { exists: false, src: "" }; }
 }
 
-async function fetchBundledStatus(key) {
+async function fetchBundledStatus(key, variant) {
   try {
-    const params = new URLSearchParams({ key, language: getCurrentLanguage() });
+    const params = new URLSearchParams({ key, variant: String(variant), language: getCurrentLanguage() });
     const res = await fetch(`${endpointUrl("__bundled-voice/status")}?${params}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
     return { exists: !!body?.exists, src: String(body?.src || "") };
@@ -301,9 +295,9 @@ async function onDeletePressed({ rowKey, deleteEndpoint, deleteBody }) {
 
 /* ── DOM row builder ─────────────────────────────────────────── */
 
-function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled = null }) {
+function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled = null, sessionPick = false }) {
   const row = document.createElement("div");
-  row.className = `voice-tab-row ${exists ? "is-present" : "is-missing"}`;
+  row.className = `voice-tab-row ${exists ? "is-present" : "is-missing"}${sessionPick ? " is-session-pick" : ""}`;
 
   const vol = document.createElement("button");
   vol.type = "button";
@@ -506,7 +500,7 @@ export async function renderVoiceTab() {
     { type: "think-you-know", status: endingThinkStatus },
     { type: "how-many",       status: endingHowManyStatus },
   ]
-    .filter(({ type }) => !selectedEnding || type === selectedEnding)
+    .filter(({ type }) => !selectedEnding || selectedEnding === "random" || type === selectedEnding)
     .map(({ type, status }) => buildRow({
       text: endingTextMap[type],
       exists: status.exists,
@@ -555,25 +549,33 @@ export async function renderVoiceTab() {
 
   /* Section 5 — Bundled (level progress voices).
      English = shipped MP3; Spanish = generated on-demand via __bundled-voice endpoints. */
-  const bundledStatuses = await Promise.all(BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key)));
+  const bundledStatusPairs = await Promise.all(
+    BUNDLED_MILESTONES.flatMap((milestone) =>
+      milestone.variants.map(async (entry) => ({ milestone, entry, status: await fetchBundledStatus(milestone.serverKey, entry.variant) })),
+    ),
+  );
   if (myToken !== renderToken) return;
   const bundledTitle = "Bundled";
-  const bundledRows = BUNDLED_VOICES.map((b, i) => {
-    const status = bundledStatuses[i] || { exists: false, src: "" };
-    return buildRow({
-      text: bundledText(b), exists: status.exists, playsAt: bundledPlaysAt(b),
-      deleteDisabled: !status.exists,
-      onPlay: () => onVolPressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        cachedExists: status.exists, cachedSrc: status.src,
-        generateEndpoint: "__bundled-voice/generate", generateBody: { key: b.key },
-      }),
-      onDelete: () => onDeletePressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        deleteEndpoint: "__bundled-voice/delete", deleteBody: { key: b.key },
-      }),
-    });
-  });
+  const sessionVariants = appState.bundledVoiceVariants || {};
+  const bundledRows = [];
+  for (const milestone of BUNDLED_MILESTONES) {
+    const groupHead = document.createElement("div"); groupHead.className = "voice-tab-bundled-milestone";
+    const headLabel = document.createElement("span"); headLabel.className = "voice-tab-bundled-milestone__label"; headLabel.textContent = bundledMilestonePlaysAt(milestone);
+    const headPick = document.createElement("span"); headPick.className = "voice-tab-bundled-milestone__pick";
+    const picked = getSelectedBundledVariant(milestone.audioKey, sessionVariants);
+    headPick.textContent = getCurrentLanguage() === "spanish" ? `En juego: #${picked}` : `In game: #${picked}`;
+    groupHead.appendChild(headLabel); groupHead.appendChild(headPick); bundledRows.push(groupHead);
+    for (const { entry, status } of bundledStatusPairs.filter((p) => p.milestone === milestone)) {
+      bundledRows.push(buildRow({
+        text: `#${entry.variant} — ${bundledVariantText(entry)}`,
+        exists: status.exists,
+        sessionPick: getSelectedBundledVariant(milestone.audioKey, sessionVariants) === entry.variant,
+        deleteDisabled: !status.exists,
+        onPlay: () => onVolPressed({ rowKey: `bundled:${milestone.serverKey}:${entry.variant}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__bundled-voice/generate", generateBody: { key: milestone.serverKey, variant: entry.variant } }),
+        onDelete: () => onDeletePressed({ rowKey: `bundled:${milestone.serverKey}:${entry.variant}:${lang}`, deleteEndpoint: "__bundled-voice/delete", deleteBody: { key: milestone.serverKey, variant: entry.variant } }),
+      }));
+    }
+  }
   root.appendChild(buildSection(bundledTitle, bundledRows));
   __restoreScroll();
   /* requestAnimationFrame helps when layout settles after async appends. */
@@ -611,3 +613,7 @@ function buildLanguageToggle() {
   wrap.appendChild(group);
   return wrap;
 }
+
+document.addEventListener("bundled-voice-variants-change", () => {
+  void renderVoiceTab();
+});

@@ -1,4 +1,5 @@
 import { appState } from "./state.js";
+import { getBundledLevelPath } from "./bundled-level-voices.js";
 import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
 
 /* ── Language-aware voice resolution. The voice-tab persists the user's language
@@ -18,20 +19,17 @@ function getCurrentLanguage() {
 
 const RUNNER_VARIANT = "Four Params Regular";
 
-const LEVEL_FILENAMES = {
-  warmUp: "Worm up round dont mess this one .mp3",
-  serious: "OK now it's getting serious.mp3",
-  nerds: "Only true football nerd know this!!!.mp3",
-  genius: "If you get this you are basically a genius!!!.mp3",
-};
-
+/* Client-side filenames MUST match `QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE` in
+   run_site.py. The `player-by-career-stats` key is re-used by this runner;
+   filename matches the prompt ("GUESS THE FOOTBALL PLAYER NAME") so it doesn't
+   collide with folder 5 Regular in the shared "Four Params Regular" voice dir. */
 const QUIZ_TITLE_FILENAMES = {
   english: {
-    "player-by-career-stats": "Guess the player by club position country and age !!!.mp3",
+    "player-by-career-stats": "Guess the football player name !!!.mp3",
     "player-by-career": "Guess the football player by career path !!!.mp3",
   },
   spanish: {
-    "player-by-career-stats": "Adivina al jugador por club posicion pais y edad !!!.mp3",
+    "player-by-career-stats": "Adivina el nombre del jugador de futbol !!!.mp3",
     "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
   },
 };
@@ -48,9 +46,7 @@ const ENDING_FILENAMES = {
 };
 
 function levelPathFor(levelKey, lang) {
-  const filename = LEVEL_FILENAMES[levelKey];
-  if (!filename) return "";
-  return `../.Storage/Voices/Levels/${lang}/${filename}`;
+  return getBundledLevelPath(levelKey, lang, appState.bundledVoiceVariants);
 }
 
 function quizTitlePathFor(quizType, lang) {

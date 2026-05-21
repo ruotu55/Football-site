@@ -2785,7 +2785,10 @@ body.career-player-card-mode .career-team-quiz-card {
 }
 
 body.shorts-mode.career-player-card-mode .career-team-quiz-card {
-  width: min(74.1vw, 45.6vmin, 20.9rem);
+  /* Another 5% smaller (total 10% smaller than original min(74.1vw, 45.6vmin, 20.9rem)). */
+  width: calc(min(70.395vw, 43.32vmin, 19.855rem) * 0.95);
+  /* Nudge the whole card (photo + reveal name plate) 2% down from the team-card top:37%. */
+  top: 39%;
 }
 
 body.career-team-card-mode .career-team-quiz-card__logo-wrap {
@@ -3218,9 +3221,11 @@ body.career-player-card-mode .career-team-quiz-card__logo-wrap {
 }
 
 body.shorts-mode.career-player-card-mode .career-team-quiz-card__logo-wrap {
-  height: min(74.1vw, 45.6vmin, 20.9rem) !important;
-  min-height: min(74.1vw, 45.6vmin, 20.9rem) !important;
-  max-height: min(74.1vw, 45.6vmin, 20.9rem) !important;
+  /* Match the card width (`.career-team-quiz-card` above is now an extra 5%
+     smaller via calc(... * 0.95)) so the player photo box stays square. */
+  height: calc(min(70.395vw, 43.32vmin, 19.855rem) * 0.95) !important;
+  min-height: calc(min(70.395vw, 43.32vmin, 19.855rem) * 0.95) !important;
+  max-height: calc(min(70.395vw, 43.32vmin, 19.855rem) * 0.95) !important;
 }
 
 /* Match the visible frosted edge in shorts (team frame uses inset:-0.75rem). */

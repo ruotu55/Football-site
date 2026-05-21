@@ -1,5 +1,5 @@
 import { appState } from "./state.js";
-import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
+import { getBundledLevelPath } from "./bundled-level-voices.js";
 
 /* ── Language-aware voice resolution. The voice-tab persists the user's language
      choice to localStorage; every gameplay clip (quiz titles, level progress,
@@ -18,21 +18,18 @@ function getCurrentLanguage() {
 
 const RUNNER_VARIANT = "Four Params Regular";
 
-const LEVEL_FILENAMES = {
-  warmUp: "Worm up round dont mess this one .mp3",
-  serious: "OK now it's getting serious.mp3",
-  nerds: "Only true football nerd know this!!!.mp3",
-  genius: "If you get this you are basically a genius!!!.mp3",
-};
-
+/* Client-side filenames MUST match `QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE` in
+   run_site.py. The `player-by-fake-info` key is re-used by this runner to mean
+   the team-name quiz; filename matches the prompt so it doesn't collide with
+   folder 6 Regular in the shared "Four Params Regular" voice dir. */
 const QUIZ_TITLE_FILENAMES = {
   english: {
     "player-by-career": "Guess the football player by career path !!!.mp3",
-    "player-by-fake-info": "Guess the fake information about the player !!!.mp3",
+    "player-by-fake-info": "Guess the football team name !!!.mp3",
   },
   spanish: {
     "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
-    "player-by-fake-info": "Adivina la informacion falsa del jugador !!!.mp3",
+    "player-by-fake-info": "Adivina el nombre del equipo de futbol !!!.mp3",
   },
 };
 
@@ -48,9 +45,7 @@ const ENDING_FILENAMES = {
 };
 
 function levelPathFor(levelKey, lang) {
-  const filename = LEVEL_FILENAMES[levelKey];
-  if (!filename) return "";
-  return `../.Storage/Voices/Levels/${lang}/${filename}`;
+  return getBundledLevelPath(levelKey, lang, appState.bundledVoiceVariants);
 }
 
 function quizTitlePathFor(quizType, lang) {
@@ -396,9 +391,6 @@ function getRulesVoiceCandidates(quizType) {
 }
 
 export function playRules(quizType, delayMs = 1000) {
-  if (String(quizType || "") === FAKE_INFO_QUIZ_TYPE) {
-    return Promise.resolve();
-  }
   if (!appState.isVideoPlaying) return Promise.resolve();
   const playFallback = () => {
     playVoiceFromCandidates(getRulesVoiceCandidates(quizType), delayMs);

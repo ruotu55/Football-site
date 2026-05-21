@@ -1,3 +1,5 @@
+import { pickRandomBundledVariants } from "./bundled-level-voices.js";
+
 export const appState = {
   els: {
     squadType: null,
@@ -116,6 +118,8 @@ export const appState = {
   teamSidebarLastKey: "",
   currentXi: [],
   allGlobalPlayers: null,
+  /** Per-milestone variant 1–5 picked for this session (e.g. warmUp: 3, serious: 1). */
+  bundledVoiceVariants: null,
 };
 
 export function getState() {
@@ -258,6 +262,7 @@ export function initLevels(count) {
   if (appState.currentLevelIndex > count + 3) {
     appState.currentLevelIndex = count + 3;
   }
+  appState.bundledVoiceVariants = pickRandomBundledVariants();
 }
 
 export function clearSlotPhotoIndices() {

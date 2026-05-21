@@ -1,6 +1,6 @@
 /* js/pitch-render.js */
 
-import { formationById } from "./formations.js";
+import { effectiveSlotCoords, formationById } from "./formations.js";
 import {
   appState,
   DEFAULT_SLOT_FLAG_SCALE,
@@ -1301,7 +1301,7 @@ export function renderPitch() {
   appState.currentXi = xi;
 
   appState.els.pitchSlots.querySelectorAll(".player-slot").forEach((node, i) => {
-    const slot = formation.slots[i];
+    const slot = effectiveSlotCoords(state.formationId, i, formation.slots[i]);
     if (slot) {
       node.style.left = `${slot.x}%`;
       node.style.top = `${slot.y}%`;

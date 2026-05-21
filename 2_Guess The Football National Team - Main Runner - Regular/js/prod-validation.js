@@ -4,6 +4,7 @@ import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
 import { getCurrentLanguage } from "./voice-tab.js";
 import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
+import { BUNDLED_MILESTONES, getSelectedBundledVariant } from "./bundled-level-voices.js";
 
 /** Same name resolution the Voice tab uses — accounts for user renames in the
  *  team-header. Without this, PROD checks "Arsenal FC" while the file is saved
@@ -15,9 +16,6 @@ function resolveLevelTeamName(lvl, quizType) {
     } catch (_) { /* fall through */ }
     return String(lvl.currentSquad?.name || lvl.selectedEntry?.name || "").trim();
 }
-
-/** Bundled voice keys the level flow plays (see server BUNDLED_VOICE_CONFIG). */
-const LEVEL_VOICE_KEYS = ["warm-up", "serious", "nerds", "genius"];
 
 // ── PROD mode state ──
 let prodModeActive = false;
@@ -343,9 +341,17 @@ async function validateEndingVoice() {
 
 async function validateLevelVoices() {
     const language = getCurrentLanguage();
-    const checks = LEVEL_VOICE_KEYS.map(async (key) => {
-        const { exists } = await fetchExists("/__bundled-voice/status", { key, language });
-        return exists ? null : `Level voice "${key}" missing (${language})`;
+    const variants = appState.bundledVoiceVariants || {};
+    const checks = BUNDLED_MILESTONES.map(async (milestone) => {
+        const variant = getSelectedBundledVariant(milestone.audioKey, variants);
+        const { exists } = await fetchExists("/__bundled-voice/status", {
+            key: milestone.serverKey,
+            variant,
+            language,
+        });
+        return exists
+            ? null
+            : `Level voice "${milestone.serverKey}" #${variant} missing (${language})`;
     });
     const results = await Promise.all(checks);
     return {

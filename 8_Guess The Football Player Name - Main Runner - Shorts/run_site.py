@@ -61,11 +61,15 @@ QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNN
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "english": {
         "player-by-career": "Guess the football player by career path !!!.mp3",
-        "player-by-career-stats": "Guess the player by club, position, country, and age !!!.mp3",
+        # The `player-by-career-stats` key is re-used across runners; this filename
+        # matches THIS runner's prompt ("GUESS THE FOOTBALL PLAYER NAME") so it
+        # cannot collide with folder 5 Shorts which uses the same key in the
+        # shared "Four Params Shorts" voice dir but with a different prompt.
+        "player-by-career-stats": "Guess the football player name !!!.mp3",
     },
     "spanish": {
         "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
-        "player-by-career-stats": "Adivina al jugador por club, posicion, pais y edad !!!.mp3",
+        "player-by-career-stats": "Adivina el nombre del jugador de futbol !!!.mp3",
     },
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {

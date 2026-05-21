@@ -61,11 +61,14 @@ QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNN
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "english": {
         "player-by-career": "Guess the football player by career path !!!.mp3",
-        "player-by-fake-info": "Guess the fake information about the player !!!.mp3",
+        # The `player-by-fake-info` key is re-used by this runner to mean the
+        # team-name quiz (see prompt below). Filename matches the prompt so it
+        # cannot collide with stale folder-6 history in the shared voice dir.
+        "player-by-fake-info": "Guess the football team name !!!.mp3",
     },
     "spanish": {
         "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
-        "player-by-fake-info": "Adivina la informacion falsa del jugador !!!.mp3",
+        "player-by-fake-info": "Adivina el nombre del equipo de futbol !!!.mp3",
     },
 }
 QUIZ_TITLE_PROMPT_BY_QUIZ_TYPE = {

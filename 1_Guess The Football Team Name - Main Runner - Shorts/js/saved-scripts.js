@@ -781,7 +781,7 @@ export function initSavedScripts(callbacks) {
                     folder: null,
                     landing: {
                         gameMode: "lineup",
-                        quizType: els.inQuizType?.value || "nat-by-club",
+                        quizType: els.inQuizType?.value || "club-by-nat",
                         endingType: els.inEndingType?.value || "think-you-know",
                         easy: 10,
                         medium: 5,
@@ -1018,11 +1018,20 @@ async function loadScript(script) {
     activeScriptName = script.name;
 
     const gameMode = (script.landing && script.landing.gameMode) ? script.landing.gameMode : "lineup";
-    const quizType = (script.landing && script.landing.quizType) ? script.landing.quizType : "nat-by-club";
+    /* This runner only supports `club-by-nat`. Saved scripts copied from sibling
+       runner 2 (Lineups Shorts, `nat-by-club`) would otherwise set an unknown
+       value on the select, which becomes empty string, which then breaks every
+       `|| "<default>"` fallback that reads it. */
+    const rawQuizType = (script.landing && script.landing.quizType) ? script.landing.quizType : "club-by-nat";
 
     if(uiCallbacks.populateSubTypes) uiCallbacks.populateSubTypes();
-    
-    els.inQuizType.value = quizType;
+
+    els.inQuizType.value = rawQuizType;
+    /* If the loaded script's quizType didn't match any option in the select
+       (e.g. a cross-runner saved script), the assignment silently sets value
+       to "". Force it back to this runner's only valid key. */
+    if (!els.inQuizType.value) els.inQuizType.value = "club-by-nat";
+    const quizType = els.inQuizType.value;
     if(uiCallbacks.updateSetupUI) uiCallbacks.updateSetupUI(); 
 
     if (script.landing) {

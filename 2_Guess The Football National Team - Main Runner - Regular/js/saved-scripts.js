@@ -15,6 +15,8 @@ import {
     hasSavedLayoutForEntry,
     buildImportLevelDataFromSavedLayout,
 } from "./saved-team-layouts.js";
+import { pickRandomBundledVariants } from "./bundled-level-voices.js";
+import { renderVoiceTab } from "./voice-tab.js";
 
 /* Each runner gets its own storage bucket. Previously this runner accidentally
    reused runner #1's "lineups_regular" bucket, so saves bled between the two. */
@@ -1105,6 +1107,8 @@ async function loadScript(script) {
 
     applyCustomSelects();
     renderSavedScripts();
+    appState.bundledVoiceVariants = pickRandomBundledVariants();
+    void renderVoiceTab();
     appState.currentLevelIndex = 1;
     switchLevel(2);
 }

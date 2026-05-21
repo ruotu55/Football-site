@@ -2154,7 +2154,7 @@ export function renderCareer() {
       const clubsTrack = document.createElement("div");
       clubsTrack.className = "player-stat-clubs-track";
       /* Same row + offset rules as Main Runner - Player stats; rem sizes scaled for narrow shorts panel. */
-      const shortsClubRemScale = 0.47;
+      const shortsClubRemScale = 0.423;
       const scaleClubRem = (token) => scalePlayerStatsShortsClubRem(token, shortsClubRemScale);
       const clubSlotRows = [];
       if (n <= 2) {

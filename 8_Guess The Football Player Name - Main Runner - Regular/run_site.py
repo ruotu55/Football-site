@@ -43,11 +43,15 @@ DEFAULT_LANGUAGE = "english"
 QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNNER_VARIANT
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "english": {
-        "player-by-career-stats": "Guess the player by club position country and age !!!.mp3",
+        # The `player-by-career-stats` key is re-used across runners; this filename
+        # matches THIS runner's prompt ("GUESS THE FOOTBALL PLAYER NAME") so it
+        # cannot collide with folder 5 Regular which uses the same key in the
+        # shared "Four Params Regular" voice dir but with a different prompt.
+        "player-by-career-stats": "Guess the football player name !!!.mp3",
         "player-by-career": "Guess the football player by career path !!!.mp3",
     },
     "spanish": {
-        "player-by-career-stats": "Adivina al jugador por club posicion pais y edad !!!.mp3",
+        "player-by-career-stats": "Adivina el nombre del jugador de futbol !!!.mp3",
         "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
     },
 }
@@ -118,34 +122,104 @@ def _normalize_language(lang) -> str:
     return value if value in SUPPORTED_LANGUAGES else DEFAULT_LANGUAGE
 
 
-BUNDLED_VOICE_CONFIG = {
-    "warm-up": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
-                "filename": "Worm up round dont mess this one .mp3",
-                "prompts": {"english": "Warm up round — don't mess this one!",
-                            "spanish": "Ronda de calentamiento — ¡no la arruines!"}},
-    "serious": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
-                "filename": "OK now it's getting serious.mp3",
-                "prompts": {"english": "OK now it's getting serious.",
-                            "spanish": "Bien, ahora se pone serio."}},
-    "nerds":   {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
-                "filename": "Only true football nerd know this!!!.mp3",
-                "prompts": {"english": "Only true football nerds know this!",
-                            "spanish": "¡Solo los verdaderos fanáticos del fútbol saben esto!"}},
-    "genius":  {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
-                "filename": "If you get this you are basically a genius!!!.mp3",
-                "prompts": {"english": "If you get this you are basically a genius!",
-                            "spanish": "¡Si aciertas esto eres básicamente un genio!"}},
+BUNDLED_LEVELS_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Levels"
+BUNDLED_VOICE_VARIANTS: dict[str, list[dict]] = {
+    "warm-up": [
+        {"variant": 1, "filename": "Worm up round dont mess this one .mp3",
+         "prompts": {"english": "Warm-up round — don't mess this one up!",
+                     "spanish": "Ronda de calentamiento — ¡no la arruines!"}},
+        {"variant": 2, "filename": "bundled-warm-up-02.mp3",
+         "prompts": {"english": "Easy start — you should get this one!",
+                     "spanish": "Empiezo fácil — ¡deberías acertar esta!"}},
+        {"variant": 3, "filename": "bundled-warm-up-03.mp3",
+         "prompts": {"english": "First level — nice and simple!",
+                     "spanish": "Primer nivel — ¡fácil y sencillo!"}},
+        {"variant": 4, "filename": "bundled-warm-up-04.mp3",
+         "prompts": {"english": "This one's easy — don't miss it!",
+                     "spanish": "Esta es fácil — ¡no la falles!"}},
+        {"variant": 5, "filename": "bundled-warm-up-05.mp3",
+         "prompts": {"english": "Round one — let's get off to a good start!",
+                     "spanish": "Primera ronda — ¡empecemos bien!"}},
+    ],
+    "serious": [
+        {"variant": 1, "filename": "OK now it's getting serious.mp3",
+         "prompts": {"english": "OK — now it's getting serious.",
+                     "spanish": "Bien — ahora se pone serio."}},
+        {"variant": 2, "filename": "bundled-serious-02.mp3",
+         "prompts": {"english": "It's a bit harder now — stay focused!",
+                     "spanish": "Ahora es un poco más difícil — ¡concéntrate!"}},
+        {"variant": 3, "filename": "bundled-serious-03.mp3",
+         "prompts": {"english": "Not the easy ones anymore — think hard!",
+                     "spanish": "Ya no son las fáciles — ¡piensa bien!"}},
+        {"variant": 4, "filename": "bundled-serious-04.mp3",
+         "prompts": {"english": "We're past the easy part — pay attention!",
+                     "spanish": "Pasamos lo fácil — ¡presta atención!"}},
+        {"variant": 5, "filename": "bundled-serious-05.mp3",
+         "prompts": {"english": "About a third done — time to try harder!",
+                     "spanish": "Casi un tercio — ¡hay que esforzarse más!"}},
+    ],
+    "nerds": [
+        {"variant": 1, "filename": "Only true football nerd know this!!!.mp3",
+         "prompts": {"english": "Only real football fans know this one!",
+                     "spanish": "¡Solo los verdaderos fans del fútbol saben esta!"}},
+        {"variant": 2, "filename": "bundled-nerds-02.mp3",
+         "prompts": {"english": "This one's tough — not for casual fans!",
+                     "spanish": "Esta es difícil — ¡no es para fans casuales!"}},
+        {"variant": 3, "filename": "bundled-nerds-03.mp3",
+         "prompts": {"english": "Hard one — you need to know your football!",
+                     "spanish": "Difícil — ¡tienes que saber de fútbol!"}},
+        {"variant": 4, "filename": "bundled-nerds-04.mp3",
+         "prompts": {"english": "Most people struggle here — good luck!",
+                     "spanish": "La mayoría falla aquí — ¡suerte!"}},
+        {"variant": 5, "filename": "bundled-nerds-05.mp3",
+         "prompts": {"english": "Deep football knowledge needed for this!",
+                     "spanish": "¡Hace falta mucho saber de fútbol para esta!"}},
+    ],
+    "genius": [
+        {"variant": 1, "filename": "If you get this you are basically a genius!!!.mp3",
+         "prompts": {"english": "If you get this, you're basically a genius!",
+                     "spanish": "¡Si aciertas esto, eres básicamente un genio!"}},
+        {"variant": 2, "filename": "bundled-genius-02.mp3",
+         "prompts": {"english": "Almost at the end — this one's really hard!",
+                     "spanish": "¡Casi al final — esta es muy difícil!"}},
+        {"variant": 3, "filename": "bundled-genius-03.mp3",
+         "prompts": {"english": "Very few people get this one right!",
+                     "spanish": "¡Muy poca gente acierta esta!"}},
+        {"variant": 4, "filename": "bundled-genius-04.mp3",
+         "prompts": {"english": "Last hard one — only the best will know it!",
+                     "spanish": "Última difícil — ¡solo los mejores la saben!"}},
+        {"variant": 5, "filename": "bundled-genius-05.mp3",
+         "prompts": {"english": "Nearly done — this is the toughest of all!",
+                     "spanish": "¡Casi terminamos — esta es la más dura!"}},
+    ],
 }
 
 
-def _normalize_bundled_voice_inputs(key, language) -> tuple[str, str, Path]:
+def _bundled_voice_entry(key: str, variant: int) -> dict:
+    rows = BUNDLED_VOICE_VARIANTS.get(key) or []
+    for row in rows:
+        if int(row.get("variant") or 0) == variant:
+            return row
+    if rows:
+        return rows[0]
+    raise ValueError("Unsupported bundled voice key.")
+
+
+def _normalize_bundled_voice_inputs(key, language, variant=None) -> tuple[str, str, Path]:
     k = str(key or "").strip()
-    if k not in BUNDLED_VOICE_CONFIG:
+    if k not in BUNDLED_VOICE_VARIANTS:
         raise ValueError("Unsupported bundled voice key.")
+    try:
+        v = int(variant) if variant is not None else 1
+    except (TypeError, ValueError):
+        v = 1
+    if v < 1 or v > 5:
+        raise ValueError("Bundled voice variant must be 1–5.")
     lang = _normalize_language(language)
-    cfg = BUNDLED_VOICE_CONFIG[k]
-    out_path = cfg["dir"] / lang / cfg["filename"]
-    prompt = cfg["prompts"].get(lang) or cfg["prompts"]["english"]
+    entry = _bundled_voice_entry(k, v)
+    out_path = BUNDLED_LEVELS_DIR / lang / str(entry["filename"])
+    prompts = entry.get("prompts") or {}
+    prompt = prompts.get(lang) or prompts.get("english") or ""
     return k, prompt, out_path
 ELEVENLABS_API_KEY_ENV = "ELEVENLABS_API_KEY"
 ELEVENLABS_VOICE_ID_ENV = "ELEVENLABS_VOICE_ID"
@@ -1322,7 +1396,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             k, _, v = part.partition("=")
             query[unquote(k)] = unquote(v.replace("+", " "))
         try:
-            _key, _prompt, out_path = _normalize_bundled_voice_inputs(query.get("key"), query.get("language"))
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(
+                query.get("key"), query.get("language"), query.get("variant"),
+            )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
@@ -1336,7 +1412,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            _key, prompt_text, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
+            _key, prompt_text, out_path = _normalize_bundled_voice_inputs(
+                body.get("key"), body.get("language"), body.get("variant"),
+            )
             requested_voice = str(body.get("voice") or FIXED_PLAYER_VOICE).strip()
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
@@ -1361,7 +1439,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            _key, _prompt, out_path = _normalize_bundled_voice_inputs(body.get("key"), body.get("language"))
+            _key, _prompt, out_path = _normalize_bundled_voice_inputs(
+                body.get("key"), body.get("language"), body.get("variant"),
+            )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True

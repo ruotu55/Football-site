@@ -1,11 +1,10 @@
 /* Voice tab — centralised status + generate/delete UI for every TTS clip this runner
  * produces. Opens via the "Voice" panel tab (between Setup and Saved).
  *
- * Rows are grouped into four sections (displayed in this order):
+ * Rows are grouped into three sections (displayed in this order):
  *   1. Quiz Intro   — the current quiz-type intro (+ optional specific title suffix) [per-runner]
  *   2. Players      — one row per unique player currently assigned to any level [shared]
  *   3. Endings      — "think you know" / "how many" outro clips [shared]
- *   4. Bundled      — progress clips used by this runner
  *
  * Each row shows: [Vol] [X] "<full text that will be synthesised>"
  *   • Vol low-opacity when the clip file is missing on disk; full-opacity when it exists.
@@ -174,15 +173,6 @@ async function fetchPlayerStatus(name, kind) {
   } catch { return { exists: false, src: "" }; }
 }
 
-async function fetchBundledStatus(key) {
-  try {
-    const params = new URLSearchParams({ key, language: getCurrentLanguage() });
-    const res = await fetch(`${endpointUrl("__bundled-voice/status")}?${params}`, { cache: "no-store" });
-    const body = await res.json().catch(() => ({}));
-    return { exists: !!body?.exists, src: String(body?.src || "") };
-  } catch { return { exists: false, src: "" }; }
-}
-
 /* ── Row actions — every Vol press plays from the start (cutting any in-flight clip).
      X press stops audio first, then deletes the cached file. */
 
@@ -250,29 +240,7 @@ async function onDeletePressed({ rowKey, deleteEndpoint, deleteBody }) {
   }
 }
 
-/* ── Bundled voices (Level progress). Each language is generated on-demand
-     via ElevenLabs and stored under `<dir>/<lang>/<filename>`. Vol generates+plays if
-     the clip is missing; X deletes the cached clip for the current language. */
-const BUNDLED_VOICES = [
-  { key: "warm-up",
-    text:    { english: "Warm up round — don't mess this one!",           spanish: "Ronda de calentamiento — ¡no la arruines!" },
-    src:     "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",
-    playsAt: { english: "Level 1 (Regular only)",                         spanish: "Nivel 1 (solo Regular)" } },
-  { key: "serious",
-    text:    { english: "OK now it's getting serious.",                   spanish: "Bien, ahora se pone serio." },
-    src:     "../.Storage/Voices/Levels/OK now it's getting serious.mp3",
-    playsAt: { english: "~30% progress (Regular only)",                   spanish: "~30% de avance (solo Regular)" } },
-  { key: "nerds",
-    text:    { english: "Only true football nerds know this!!!",          spanish: "¡¡Solo los verdaderos fanáticos del fútbol saben esto!!" },
-    src:     "../.Storage/Voices/Levels/Only true football nerd know this!!!.mp3",
-    playsAt: { english: "~60% progress (Regular only)",                   spanish: "~60% de avance (solo Regular)" } },
-  { key: "genius",
-    text:    { english: "If you get this you are basically a genius!!!",  spanish: "¡¡Si aciertas esto eres básicamente un genio!!" },
-    src:     "../.Storage/Voices/Levels/If you get this you are basically a genius!!!.mp3",
-    playsAt: { english: "~90% progress (Regular only)",                   spanish: "~90% de avance (solo Regular)" } },
-];
-
-/* When each non-bundled voice type plays. Used as the default "plays at" pill text.
+/* When each voice type plays. Used as the default "plays at" pill text.
    Each value is a { english, spanish } pair. */
 const PLAYS_AT = {
   quizIntro: { english: "Landing → Level 1",                       spanish: "Inicial → Nivel 1" },
@@ -284,14 +252,6 @@ function plays(key) {
   const lang = getCurrentLanguage();
   const p = PLAYS_AT[key];
   return (p && (p[lang] || p.english)) || "";
-}
-function bundledText(entry) {
-  const lang = getCurrentLanguage();
-  return entry.text[lang] || entry.text.english;
-}
-function bundledPlaysAt(entry) {
-  const lang = getCurrentLanguage();
-  return entry.playsAt[lang] || entry.playsAt.english;
 }
 function levelLabel(indices) {
   const lang = getCurrentLanguage();
@@ -316,7 +276,6 @@ function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled
   del.className = "voice-tab-btn voice-tab-btn--x";
   del.textContent = "X";
   del.title = "Delete cached clip";
-  /* Allow explicit override (bundled rows hard-disable X). */
   del.disabled = deleteDisabled !== null ? !!deleteDisabled : !exists;
   del.onclick = (e) => { e.preventDefault(); onDelete?.(); };
 
@@ -500,7 +459,7 @@ export async function renderVoiceTab() {
     { type: "think-you-know", status: endingThinkStatus },
     { type: "how-many",       status: endingHowManyStatus },
   ]
-    .filter(({ type }) => !selectedEnding || type === selectedEnding)
+    .filter(({ type }) => !selectedEnding || selectedEnding === "random" || type === selectedEnding)
     .map(({ type, status }) => buildRow({
       text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
       onPlay: () => onVolPressed({
@@ -518,40 +477,6 @@ export async function renderVoiceTab() {
     }));
   root.appendChild(buildSection(titles.endings, endingRows));
 
-  /* Team-name quiz has no Quiz Sounds — the reveal plays the team's name clip from
-     `.Storage/Voices/Team names`, matching Regular. Keep Quiz Intro unchanged. */
-
-  /* Section 5 — Bundled (Level progress voices).
-     Both languages are generated on-demand via ElevenLabs through the `__bundled-voice`
-     endpoint family and stored under `<dir>/<lang>/<filename>`. Vol generates+plays if
-     the clip is missing; X deletes the cached clip for the current language. */
-  const bundledStatuses = await Promise.all(
-    BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key).then((s) => ({ ...s, key: b.key })))
-  );
-  if (myToken !== renderToken) return;
-  const bundledTitle = "Bundled";
-  const bundledRows = BUNDLED_VOICES.map((b, i) => {
-    const status = bundledStatuses[i] || { exists: false, src: "" };
-    return buildRow({
-      text: bundledText(b),
-      exists: status.exists,
-      playsAt: bundledPlaysAt(b),
-      deleteDisabled: !status.exists,
-      onPlay: () => onVolPressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        cachedExists: status.exists,
-        cachedSrc: status.src,
-        generateEndpoint: "__bundled-voice/generate",
-        generateBody: { key: b.key },
-      }),
-      onDelete: () => onDeletePressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        deleteEndpoint: "__bundled-voice/delete",
-        deleteBody: { key: b.key },
-      }),
-    });
-  });
-  root.appendChild(buildSection(bundledTitle, bundledRows));
   __restoreScroll();
   /* requestAnimationFrame helps when layout settles after async appends. */
   if (typeof requestAnimationFrame === "function") requestAnimationFrame(__restoreScroll);

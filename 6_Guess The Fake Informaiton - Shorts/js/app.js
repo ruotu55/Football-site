@@ -585,7 +585,7 @@ export function updateSetupUI() {
 export function populateSubTypes() {
     const { els } = appState;
     els.inQuizType.innerHTML = `
-      <option value="player-by-fake-info">GUESS THE FAKE INFORMATION ABOUT THE PLAYER</option>
+      <option value="player-by-fake-info">GUESS THE FAKE STAT ABOUT THE PLAYER</option>
     `;
 
     if (els.inQuizType.options.length > 0) {

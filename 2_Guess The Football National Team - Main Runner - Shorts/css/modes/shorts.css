@@ -63,6 +63,12 @@ body.shorts-mode .side-text {
     display: none;
 }
 
+body.shorts-mode .stage {
+    position: relative;
+    /* Above .team-header so the pitch (and per-slot PHOTO/X) paints in front of crest + name. */
+    z-index: 2;
+}
+
 body.shorts-mode .stage-main {
     width: 56.25vh;
     height: 100vh;
@@ -165,7 +171,9 @@ body.shorts-mode .team-header-name.team-side-panel-country-name {
 
 body.shorts-mode .pitch-wrap {
     position: relative;
-    z-index: 1;
+    /* Above .team-header so per-slot PHOTO/X buttons render in front of crest + name. */
+    z-index: 170;
+    isolation: isolate;
     align-items: flex-start;
     margin-top: 2.5vh;
     padding-top: 0;
@@ -185,8 +193,14 @@ body.shorts-mode .pitch-surface {
 }
 
 body.shorts-mode .player-slot {
-    /* Base 14% * 1.02, then +10% diameter (Regular pitch slot bump) */
-    width: calc(14% * 1.02 * 1.1);
+    /* Base 14% * 1.02, then +10% diameter (Regular pitch slot bump), two +10% bumps for shorts, then −5% trim. */
+    width: calc(14% * 1.02 * 1.1 * 1.1 * 1.1 * 0.95);
+}
+
+/* PHOTO / X sit above the player disc and must stay clickable under the header band */
+body.shorts-mode .slot-photo-controls {
+    z-index: 400;
+    pointer-events: auto;
 }
 
 body.shorts-mode .slot-name {
@@ -257,6 +271,44 @@ body.shorts-mode .countdown-timer {
     top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh);
     left: 50%;
     transform: translateX(-50%);
+}
+
+body.shorts-mode .shorts-intro-quiz-title {
+    position: fixed;
+    top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh - 0.9rem);
+    left: 50%;
+    z-index: 55;
+    width: min(94vw, 32rem);
+    transform: translateX(-50%);
+    color: #fff;
+    font-family: "Barlow Condensed", sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.06rem, 3.44vw, 1.58rem);
+    line-height: 1.05;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.035em;
+    white-space: nowrap;
+    -webkit-text-stroke: clamp(0.5px, 0.08em, 1.25px) #000;
+    paint-order: stroke fill;
+    text-shadow:
+        -0.04em -0.04em 0 #000,
+        0.04em -0.04em 0 #000,
+        -0.04em 0.04em 0 #000,
+        0.04em 0.04em 0 #000,
+        0 0.12rem 0.35rem rgba(0, 0, 0, 0.85);
+    opacity: 0;
+    transition: opacity 780ms ease;
+    pointer-events: none;
+}
+
+body.shorts-mode .shorts-intro-quiz-title.shorts-intro-quiz-title--visible {
+    opacity: 1;
+}
+
+body.shorts-mode .shorts-intro-quiz-title[hidden],
+body:not(.shorts-mode) .shorts-intro-quiz-title {
+    display: none !important;
 }
 
 @keyframes countdown-timer-enter-shorts {
@@ -373,6 +425,20 @@ body.shorts-mode #outro-page:not([hidden]) {
     box-sizing: border-box;
 }
 
+/* Outro end card: logo, headings, and bottom like/subscribe — 10% smaller (both ending types). */
+body.shorts-mode #outro-page .outro-top-row .logo-img-anim {
+    width: 56.16% !important;
+    max-width: 300px !important;
+}
+
+body.shorts-mode #outro-page #outro-title.landing-title {
+    font-size: 3.15rem !important;
+}
+
+body.shorts-mode #outro-page #outro-subtitle.landing-subtitle {
+    font-size: clamp(1.215rem, 3.78vmin, 1.665rem);
+}
+
 body.shorts-mode .outro-top-row .outro-action {
     display: none;
 }
@@ -387,7 +453,7 @@ body.shorts-mode .outro-bottom-row {
 }
 
 body.shorts-mode .outro-action-bottom {
-    width: 130px;
+    width: 117px;
     object-fit: contain;
     opacity: 0;
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));

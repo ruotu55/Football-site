@@ -88,6 +88,12 @@
 .voice-tab-row__text-main { color: inherit; font-size: inherit; line-height: inherit; }
 .voice-tab-row__plays-at { align-self: flex-start; display: inline-block; margin-top: 0.12rem; padding: 0.1rem 0.45rem; font-size: 0.7rem; font-weight: 700; line-height: 1.15; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255,255,255,0.78); background: rgba(120,200,255,0.12); border: 1px solid rgba(120,200,255,0.25); border-radius: 0.35rem; font-style: normal; }
 .voice-tab-row.is-missing .voice-tab-row__text { color: rgba(255,255,255,0.6); font-style: italic; }
+.voice-tab-row.is-session-pick { background: rgba(255, 214, 0, 0.08); border-radius: 0.35rem; }
+.voice-tab-row.is-session-pick .voice-tab-row__text-main::before { content: "★ "; color: #ffd54f; }
+.voice-tab-bundled-milestone { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; padding: 0.55rem 0.1rem 0.2rem; margin-top: 0.25rem; border-top: 1px solid rgba(255, 214, 0, 0.22); }
+.voice-tab-bundled-milestone:first-child { margin-top: 0; border-top: none; padding-top: 0.2rem; }
+.voice-tab-bundled-milestone__label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: #ffd54f; }
+.voice-tab-bundled-milestone__pick { font-size: 0.68rem; font-weight: 700; color: rgba(255,255,255,0.75); padding: 0.08rem 0.4rem; border-radius: 0.3rem; background: rgba(255,214,0,0.12); border: 1px solid rgba(255,214,0,0.28); }
 
 /* Hide all in-page Vol/X surfaces — Voice tab is the single source of truth. */
 #player-voice-controls,

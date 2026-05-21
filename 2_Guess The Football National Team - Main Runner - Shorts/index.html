@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=20260413-floating-chrome-z" />
+    <link rel="stylesheet" href="css/styles.css?v=20260521-slot-photo-z" />
   </head>
   <body>
     <!-- Shared debug overlay: collapsible log panel + 🐞 toggle button (bottom-right).
@@ -45,9 +45,7 @@
           <div class="soccer" aria-hidden="true"></div>
         </div>
       </div>
-
-      <!-- #team-header is moved here after load so position:fixed is viewport-tall (not clipped by .stage perspective) -->
-      <div id="team-header-mount" class="team-header-mount"></div>
+      <div id="shorts-intro-quiz-title" class="shorts-intro-quiz-title" hidden></div>
 
       <aside class="control-panel" id="control-panel"></aside>
       <aside class="control-panel right-panel" id="right-panel" hidden></aside>
@@ -57,6 +55,9 @@
             </div>
         <div class="quiz-progress" id="quiz-progress-container"></div>
       </main>
+
+      <!-- #team-header is moved here after load (before stage in DOM → behind pitch when z-indexed) -->
+      <div id="team-header-mount" class="team-header-mount"></div>
 
       <div id="modal-container"></div>
 

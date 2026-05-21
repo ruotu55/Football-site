@@ -295,7 +295,7 @@ export function startVideoFlow() {
   setVideoRevealPostTimerActive(false);
   document.body.classList.add("play-video-active");
   if (els.careerWrap) {
-    if (state.videoMode) {
+    if (isShorts && appState.currentLevelIndex > 1 && appState.currentLevelIndex < appState.totalLevelsCount) {
       els.careerWrap.classList.add("video-mode-enabled");
     } else {
       els.careerWrap.classList.remove("video-mode-enabled");

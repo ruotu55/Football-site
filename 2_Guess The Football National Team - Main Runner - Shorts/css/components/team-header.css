@@ -527,6 +527,8 @@ body.shorts-mode .team-header {
   min-width: 0;
   height: auto;
   min-height: 20.5vh;
+  /* Sit behind .stage (shorts.css z-index 2) so per-slot PHOTO/X stay in front. */
+  z-index: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -550,6 +552,22 @@ body.shorts-mode .team-header.team-header--show {
   /* Slide-in rest position. Nudged down so the crest clears the viewport edge
      and the header stack sits lower in its band. */
   top: 5vh;
+  /* Let clicks reach PHOTO/X on the pitch; header actions use fixed nodes on <body>. */
+  pointer-events: none;
+}
+
+/* Decorative crest + title must not block per-slot PHOTO/X in the overlap band */
+body.shorts-mode .team-header-logo-block,
+body.shorts-mode .team-header-name,
+body.shorts-mode .team-header-logo,
+body.shorts-mode .team-header-logo-inner,
+body.shorts-mode .team-header-logo-shift,
+body.shorts-mode .team-side-panel-logo-wrap,
+body.shorts-mode .team-header-main-row {
+  pointer-events: none;
+}
+
+body.shorts-mode .team-header-controls-row {
   pointer-events: auto;
 }
 
@@ -660,6 +678,40 @@ body.shorts-mode .team-side-panel-clear-on-logo {
   border-radius: 0.45rem !important;
   font-size: 1rem !important;
   font-weight: 800 !important;
+}
+
+/* Shorts: Get logo sits on the same row as X, immediately to its right, with
+   matching height and visual style. */
+body.shorts-mode .team-header-fetch-logo-btn {
+  position: fixed !important;
+  top: 5.5vh !important;
+  bottom: auto !important;
+  left: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem + 2.75rem + 0.3rem) !important;
+  right: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  z-index: 200;
+  pointer-events: auto;
+  /* Match the X button (.team-side-panel-clear-on-logo) box size + style */
+  height: 2.1rem !important;
+  min-width: 4.5rem !important;
+  padding: 0 0.5rem !important;
+  box-sizing: border-box !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: #fff !important;
+  border: 2px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: 0.45rem !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+body.shorts-mode .team-header-fetch-logo-btn:active {
+  transform: scale(0.96) !important;
 }
 
 body.shorts-mode #team-voice-controls {

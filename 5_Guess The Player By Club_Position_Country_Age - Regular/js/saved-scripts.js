@@ -10,6 +10,8 @@ import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
+import { pickRandomBundledVariants } from "./bundled-level-voices.js";
+import { renderVoiceTab } from "./voice-tab.js";
 
 const INCLUDE_INTRO_LEVEL = true;
 
@@ -1304,6 +1306,8 @@ async function loadScript(script) {
 
     applyCustomSelects();
     renderSavedScripts();
+    appState.bundledVoiceVariants = pickRandomBundledVariants();
+    void renderVoiceTab();
     appState.currentLevelIndex = 1;
     switchLevel(2);
 }

@@ -25,13 +25,17 @@ const LEVEL_FILENAMES = {
   genius: "If you get this you are basically a genius!!!.mp3",
 };
 
+/* Client-side filenames MUST match `QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE` in
+   run_site.py. The `player-by-career-stats` key is re-used by this runner;
+   filename matches the prompt ("GUESS THE FOOTBALL PLAYER NAME") so it doesn't
+   collide with folder 5 Shorts in the shared "Four Params Shorts" voice dir. */
 const QUIZ_TITLE_FILENAMES = {
   english: {
-    "player-by-career-stats": "Guess the player by club, position, country, and age !!!.mp3",
+    "player-by-career-stats": "Guess the football player name !!!.mp3",
     "player-by-career": "Guess the football player by career path !!!.mp3",
   },
   spanish: {
-    "player-by-career-stats": "Adivina al jugador por club, posicion, pais y edad !!!.mp3",
+    "player-by-career-stats": "Adivina el nombre del jugador de futbol !!!.mp3",
     "player-by-career": "Adivina al jugador por trayectoria !!!.mp3",
   },
 };

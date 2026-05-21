@@ -1,6 +1,10 @@
 /* Voice tab — Player Stats Shorts. */
 import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
+import {
+  BUNDLED_MILESTONES,
+  getSelectedBundledVariant,
+} from "./bundled-level-voices.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
@@ -33,24 +37,14 @@ const ENDING_PROMPTS = {
 };
 const SECTION_TITLES = { quizIntro: "Quiz Intro", players: "Players", endings: "Endings" };
 
-const BUNDLED_VOICES = [
-  { key: "warm-up",  text: { english: "Warm up round — don't mess this one!",            spanish: "Ronda de calentamiento — ¡no la arruines!" },
-    src: "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",              playsAt: { english: "Level 1",         spanish: "Nivel 1" } },
-  { key: "serious",  text: { english: "OK now it's getting serious.",                    spanish: "Bien, ahora se pone serio." },
-    src: "../.Storage/Voices/Levels/OK now it's getting serious.mp3",                    playsAt: { english: "~30% progress",   spanish: "~30% de avance" } },
-  { key: "nerds",    text: { english: "Only true football nerds know this!!!",           spanish: "¡¡Solo los verdaderos fanáticos del fútbol saben esto!!" },
-    src: "../.Storage/Voices/Levels/Only true football nerd know this!!!.mp3",           playsAt: { english: "~60% progress",   spanish: "~60% de avance" } },
-  { key: "genius",   text: { english: "If you get this you are basically a genius!!!",   spanish: "¡¡Si aciertas esto eres básicamente un genio!!" },
-    src: "../.Storage/Voices/Levels/If you get this you are basically a genius!!!.mp3",  playsAt: { english: "~90% progress",   spanish: "~90% de avance" } },
-];
 const PLAYS_AT = {
   quizIntro: { english: "Landing → Level 1",                spanish: "Inicial → Nivel 1" },
   player:    { english: "Question levels (where assigned)", spanish: "Niveles de pregunta (donde esté asignado)" },
   ending:    { english: "Last page (outro)",                spanish: "Última página (outro)" },
 };
 function plays(key) { const p = PLAYS_AT[key]; const lang = getCurrentLanguage(); return (p && (p[lang] || p.english)) || ""; }
-function bundledText(b)    { return b.text[getCurrentLanguage()]    || b.text.english; }
-function bundledPlaysAt(b) { return b.playsAt[getCurrentLanguage()] || b.playsAt.english; }
+function bundledVariantText(entry) { const lang = getCurrentLanguage(); return entry.text[lang] || entry.text.english; }
+function bundledMilestonePlaysAt(milestone) { const lang = getCurrentLanguage(); return milestone.playsAt[lang] || milestone.playsAt.english; }
 /* Display indices are 1-based question numbers. levelsData index 0 = logo page, index 1 =
    landing page, so the first question lives at array-index 2; subtract 1 to convert. */
 function levelLabel(idx)   { const adj = idx.map(i => i - 1); return getCurrentLanguage() === "spanish" ? `Nivel ${adj.join(", ")}` : `Level ${adj.join(", ")}`; }
@@ -68,7 +62,7 @@ function quizTitleSynthText(qt, st) { const m = QUIZ_TYPE_PROMPTS[getCurrentLang
 async function fetchQuizTitleStatus(qt, st) { try { const p = new URLSearchParams({ quizType: qt, specificTitle: st || "", language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__quiz-title-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 async function fetchEndingStatus(et) { try { const p = new URLSearchParams({ endingType: et, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__ending-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 async function fetchPlayerStatus(name) { try { const p = new URLSearchParams({ name, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__player-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
-async function fetchBundledStatus(key) { try { const p = new URLSearchParams({ key, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__bundled-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
+async function fetchBundledStatus(key, variant) { try { const p = new URLSearchParams({ key, variant: String(variant), language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__bundled-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 function playFromStart(src) { const s = String(src || "").trim(); if (!s) return; playClip(s); }
 
 async function onVolPressed({ rowKey, cachedExists, cachedSrc, generateEndpoint, generateBody }) {
@@ -96,8 +90,8 @@ async function onDeletePressed({ rowKey, deleteEndpoint, deleteBody }) {
   finally { busyByKey.delete(rowKey); renderVoiceTab(); }
 }
 
-function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled = null }) {
-  const row = document.createElement("div"); row.className = `voice-tab-row ${exists ? "is-present" : "is-missing"}`;
+function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled = null, sessionPick = false }) {
+  const row = document.createElement("div"); row.className = `voice-tab-row ${exists ? "is-present" : "is-missing"}${sessionPick ? " is-session-pick" : ""}`;
   const vol = document.createElement("button"); vol.type = "button"; vol.className = "voice-tab-btn voice-tab-btn--vol"; vol.textContent = "Vol"; vol.title = exists ? "Play" : "Generate and play"; vol.onclick = (e) => { e.preventDefault(); onPlay(); };
   const del = document.createElement("button"); del.type = "button"; del.className = "voice-tab-btn voice-tab-btn--x"; del.textContent = "X"; del.title = "Delete cached clip"; del.disabled = deleteDisabled !== null ? !!deleteDisabled : !exists; del.onclick = (e) => { e.preventDefault(); onDelete?.(); };
   const wrap = document.createElement("span"); wrap.className = "voice-tab-row__text";
@@ -211,7 +205,7 @@ export async function renderVoiceTab() {
     { type: "think-you-know", status: endingThink },
     { type: "how-many",       status: endingHow },
   ]
-    .filter(({ type }) => !selectedEnding || type === selectedEnding)
+    .filter(({ type }) => !selectedEnding || selectedEnding === "random" || type === selectedEnding)
     .map(({ type, status }) => buildRow({
       text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
       onPlay: () => onVolPressed({ rowKey: `ending:${type}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__ending-voice/generate", generateBody: { endingType: type } }),
@@ -219,25 +213,33 @@ export async function renderVoiceTab() {
     }));
   root.appendChild(buildSection(SECTION_TITLES.endings, endingRows));
 
-  const bundledStatuses = await Promise.all(BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key)));
+  const bundledStatusPairs = await Promise.all(
+    BUNDLED_MILESTONES.flatMap((milestone) =>
+      milestone.variants.map(async (entry) => ({ milestone, entry, status: await fetchBundledStatus(milestone.serverKey, entry.variant) })),
+    ),
+  );
   if (myToken !== renderToken) return;
   const bundledTitle = "Bundled";
-  const bundledRows = BUNDLED_VOICES.map((b, i) => {
-    const status = bundledStatuses[i] || { exists: false, src: "" };
-    return buildRow({
-      text: bundledText(b), exists: status.exists, playsAt: bundledPlaysAt(b),
-      deleteDisabled: !status.exists,
-      onPlay: () => onVolPressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        cachedExists: status.exists, cachedSrc: status.src,
-        generateEndpoint: "__bundled-voice/generate", generateBody: { key: b.key },
-      }),
-      onDelete: () => onDeletePressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        deleteEndpoint: "__bundled-voice/delete", deleteBody: { key: b.key },
-      }),
-    });
-  });
+  const sessionVariants = appState.bundledVoiceVariants || {};
+  const bundledRows = [];
+  for (const milestone of BUNDLED_MILESTONES) {
+    const groupHead = document.createElement("div"); groupHead.className = "voice-tab-bundled-milestone";
+    const headLabel = document.createElement("span"); headLabel.className = "voice-tab-bundled-milestone__label"; headLabel.textContent = bundledMilestonePlaysAt(milestone);
+    const headPick = document.createElement("span"); headPick.className = "voice-tab-bundled-milestone__pick";
+    const picked = getSelectedBundledVariant(milestone.audioKey, sessionVariants);
+    headPick.textContent = getCurrentLanguage() === "spanish" ? `En juego: #${picked}` : `In game: #${picked}`;
+    groupHead.appendChild(headLabel); groupHead.appendChild(headPick); bundledRows.push(groupHead);
+    for (const { entry, status } of bundledStatusPairs.filter((p) => p.milestone === milestone)) {
+      bundledRows.push(buildRow({
+        text: `#${entry.variant} — ${bundledVariantText(entry)}`,
+        exists: status.exists,
+        sessionPick: getSelectedBundledVariant(milestone.audioKey, sessionVariants) === entry.variant,
+        deleteDisabled: !status.exists,
+        onPlay: () => onVolPressed({ rowKey: `bundled:${milestone.serverKey}:${entry.variant}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__bundled-voice/generate", generateBody: { key: milestone.serverKey, variant: entry.variant } }),
+        onDelete: () => onDeletePressed({ rowKey: `bundled:${milestone.serverKey}:${entry.variant}:${lang}`, deleteEndpoint: "__bundled-voice/delete", deleteBody: { key: milestone.serverKey, variant: entry.variant } }),
+      }));
+    }
+  }
   root.appendChild(buildSection(bundledTitle, bundledRows));
   __restoreScroll();
   if (typeof requestAnimationFrame === "function") requestAnimationFrame(__restoreScroll);
@@ -258,3 +260,7 @@ function buildLanguageToggle() {
   });
   w.appendChild(g); return w;
 }
+
+document.addEventListener("bundled-voice-variants-change", () => {
+  void renderVoiceTab();
+});

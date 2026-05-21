@@ -40,10 +40,42 @@ const SHORTS_INTRO_VOICE_COUNTDOWN_FALLBACK_MS = 12000;
 /** Shorts: when Play Video is pressed on level 1 (first question), wait before quiz voice + countdown. */
 const PLAY_VIDEO_LEVEL_1_INTRO_DELAY_MS = 2000;
 /** Shorts level 1 only: extra wait before the countdown timer bar is shown and starts depleting (levels 2+ unchanged). */
-const SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS = 1000;
+const SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS = 500;
+const SHORTS_INTRO_QUIZ_TITLE_LINE_1 = "GUESS THE FAKE STAT";
+const SHORTS_INTRO_QUIZ_TITLE_LINE_2 = "ABOUT THE PLAYER";
+const SHORTS_INTRO_QUIZ_TITLE_FADE_MS = 780;
+/** Fake-info reveal visual starts after the timer clears; keep timer-end itself visually stable. */
+const FAKE_INFO_REVEAL_VISUAL_DELAY_MS = 1200;
 
 /** Logo→first question: skip pre-countdown stage swap once so the bar lines up with title voice `playing`. */
 let shortsSyncIntroVoiceCountdownOnce = false;
+let shortsIntroQuizTitleHideTimeout = null;
+
+function setShortsIntroQuizTitleVisible(isVisible, options = {}) {
+  const titleEl = document.getElementById("shorts-intro-quiz-title");
+  if (!titleEl) return;
+  titleEl.innerHTML = `${SHORTS_INTRO_QUIZ_TITLE_LINE_1}<br>${SHORTS_INTRO_QUIZ_TITLE_LINE_2}`;
+  clearTimeout(shortsIntroQuizTitleHideTimeout);
+  shortsIntroQuizTitleHideTimeout = null;
+
+  if (isVisible) {
+    titleEl.hidden = false;
+    titleEl.classList.remove("shorts-intro-quiz-title--visible");
+    void titleEl.offsetWidth;
+    titleEl.classList.add("shorts-intro-quiz-title--visible");
+    return;
+  }
+
+  titleEl.classList.remove("shorts-intro-quiz-title--visible");
+  if (options.immediate) {
+    titleEl.hidden = true;
+    return;
+  }
+  shortsIntroQuizTitleHideTimeout = setTimeout(() => {
+    titleEl.hidden = true;
+    shortsIntroQuizTitleHideTimeout = null;
+  }, SHORTS_INTRO_QUIZ_TITLE_FADE_MS);
+}
 
 /** Must match `levels.js` `transitionDelay` before `updateDOMContent` during stage-exit-video-anim. */
 function scheduleRunVideoStepAfterShortsStageSwapToOutro() {
@@ -68,6 +100,11 @@ function setVideoRevealPostTimerActive(isActive) {
   const on = !!isActive;
   appState.videoRevealPostTimerActive = on;
   document.body.classList.toggle("career-play-video-answer-reveal", on && appState.isVideoPlaying);
+}
+
+function clearPendingFakeInfoReveal() {
+  clearTimeout(appState.fakeInfoRevealTimeout);
+  appState.fakeInfoRevealTimeout = null;
 }
 
 function refreshCurrentQuestionPreview() {
@@ -203,8 +240,10 @@ export function stopVideoFlow() {
   appState.isVideoPlaying = false;
   appState.refreshLandingUi?.();
   setVideoRevealPostTimerActive(false);
+  clearPendingFakeInfoReveal();
   document.body.classList.remove("play-video-active");
   document.body.classList.remove("shorts-play-pre-countdown");
+  setShortsIntroQuizTitleVisible(false, { immediate: true });
   document.body.classList.remove("fake-info-reveal");
   clearShortsQuestionCountdown();
   clearInterval(appState.videoInterval);
@@ -316,12 +355,13 @@ export function startVideoFlow() {
       const kickoffIntroQuestionCountdown = () => {
         if (introCountdownKickoffDone || !appState.isVideoPlaying) return;
         introCountdownKickoffDone = true;
+        setShortsIntroQuizTitleVisible(false);
         runVideoStep();
       };
       void playBundledQuizTitleShorts(quizType, {
         duckBgm: true,
-        onPlaybackStart: kickoffIntroQuestionCountdown,
-      });
+        onPlaybackStart: () => setShortsIntroQuizTitleVisible(true),
+      }).then(kickoffIntroQuestionCountdown);
       clearTimeout(appState.videoTimeout);
       appState.videoTimeout = setTimeout(() => {
         if (!appState.isVideoPlaying) return;
@@ -344,12 +384,13 @@ export function startVideoFlow() {
       const kickoffIntroQuestionCountdown = () => {
         if (introCountdownKickoffDone || !appState.isVideoPlaying) return;
         introCountdownKickoffDone = true;
+        setShortsIntroQuizTitleVisible(false);
         runVideoStep();
       };
       switchLevel(1);
       void playRulesShortsLanding(quizType, {
-        onPlaybackStart: kickoffIntroQuestionCountdown,
-      });
+        onPlaybackStart: () => setShortsIntroQuizTitleVisible(true),
+      }).then(kickoffIntroQuestionCountdown);
       clearTimeout(appState.videoTimeout);
       appState.videoTimeout = setTimeout(() => {
         if (!appState.isVideoPlaying) return;
@@ -397,6 +438,7 @@ function runVideoStep() {
   const { els } = appState;
   setVideoRevealPostTimerActive(false);
   /* Fake-info flip only lives on the just-revealed level; new level = fresh unflipped cards. */
+  clearPendingFakeInfoReveal();
   document.body.classList.remove("fake-info-reveal");
   clearCinematicRevealFx();
   clearShortsQuestionCountdown();
@@ -566,6 +608,7 @@ function runVideoStep() {
       if (isShorts) {
         const runFirstLevelEnterAndSoccer = () => {
           if (!appState.isVideoPlaying) return;
+          setShortsIntroQuizTitleVisible(false);
           els.countdownTimer.classList.remove("countdown-timer-stage-enter");
           void els.countdownTimer.offsetWidth;
           els.countdownTimer.classList.add("countdown-timer-stage-enter");
@@ -695,7 +738,13 @@ function revealCurrentLevel() {
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
       if (isFakeInfoQuiz()) {
         /* Fake-info: flip the fake stat + announce which stat was fake — no name. */
-        document.body.classList.add("fake-info-reveal");
+        clearPendingFakeInfoReveal();
+        const revealLevelIndex = appState.currentLevelIndex;
+        appState.fakeInfoRevealTimeout = setTimeout(() => {
+          appState.fakeInfoRevealTimeout = null;
+          if (!appState.isVideoPlaying || appState.currentLevelIndex !== revealLevelIndex) return;
+          document.body.classList.add("fake-info-reveal");
+        }, FAKE_INFO_REVEAL_VISUAL_DELAY_MS);
         const pick = fakeInfoPickForLevel(state, appState.currentLevelIndex);
         const candidates = pick?.stat ? fakeInfoVoiceUrlCandidatesForStat(pick.stat) : [];
         // Probe language-preferred first, fall back to English silently.

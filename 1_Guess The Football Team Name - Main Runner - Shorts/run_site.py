@@ -162,6 +162,10 @@ SITEMAP_PLAYER_URL_RE = re.compile(
     r"<loc>(https://www\.365scores\.com/football/player/[^<]+)</loc>",
     re.IGNORECASE,
 )
+_FOOTBALL_LOGOS_HTML_PNG_URL_RE = re.compile(
+    r"https://(?:images|assets)\.football-logos\.cc/[^\s\"'<>]+?\.png(?:\?[^\s\"'<>]*)?",
+    re.IGNORECASE,
+)
 _SPECIAL_CARD_KEYWORDS = (
     "road to",
     "fantasy",
@@ -1150,6 +1154,90 @@ def _football_logo_png_candidates(entry: dict, preferred_dim: int = 3000) -> lis
             seen.add(u)
             urls.append(u)
     return urls
+
+
+def _football_logos_png_url_dimension_hint(url: str) -> int:
+    u = (url or "").lower()
+    best = 0
+    for m in re.finditer(r"/(\d{3,4})(?=/[^/]+\.png)", u):
+        try:
+            best = max(best, int(m.group(1)))
+        except ValueError:
+            continue
+    m2 = re.search(r"(\d{3,4})x(\d{3,4})", u)
+    if m2:
+        try:
+            best = max(best, int(m2.group(1)))
+        except ValueError:
+            pass
+    return best
+
+
+def _try_fetch_football_logo_png_from_user_url(page_url: str) -> tuple[bytes, dict] | None:
+    raw = (page_url or "").strip()
+    if not raw:
+        return None
+    try:
+        parsed = urlparse(raw)
+    except ValueError:
+        return None
+    if parsed.scheme not in ("http", "https"):
+        return None
+    host = (parsed.netloc or "").lower()
+    cdn_hosts = ("images.football-logos.cc", "assets.football-logos.cc")
+    if host in cdn_hosts and re.search(r"\.png(\?|$)", raw, re.IGNORECASE):
+        try:
+            data = _fetch_bytes(raw)
+            if data:
+                return data, {
+                    "name": "",
+                    "categoryId": "",
+                    "id": "",
+                    "h": "",
+                    "fromUrl": raw,
+                }
+        except Exception:
+            return None
+        return None
+    if host not in ("football-logos.cc", "www.football-logos.cc"):
+        return None
+    try:
+        html = _fetch_text(raw)
+    except Exception:
+        return None
+    found = list(dict.fromkeys(_FOOTBALL_LOGOS_HTML_PNG_URL_RE.findall(html)))
+    found = [u for u in found if "${" not in u]
+    if not found:
+        return None
+    path_parts = [p for p in (parsed.path or "").split("/") if p]
+    team_slug = path_parts[-1].casefold() if path_parts else ""
+    if team_slug:
+        preferred = [u for u in found if f"/{team_slug}." in u.casefold()]
+        if preferred:
+            found = preferred
+    found.sort(key=lambda u: (_football_logos_png_url_dimension_hint(u), len(u)), reverse=True)
+    referer = raw if raw.startswith("http") else f"https://{host}{parsed.path or '/'}"
+    headers = {
+        "User-Agent": HTTP_USER_AGENT,
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": referer,
+    }
+    for url in found:
+        try:
+            req = urllib.request.Request(url, headers=headers, method="GET")
+            with urllib.request.urlopen(req, timeout=35.0, context=SSL_CTX) as r:
+                data = r.read()
+            if data:
+                return data, {
+                    "name": "",
+                    "categoryId": "",
+                    "id": "",
+                    "h": "",
+                    "fromUrl": raw,
+                }
+        except Exception:
+            continue
+    return None
 
 
 def _try_fetch_football_logo_png_3000(
@@ -2160,7 +2248,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         try:
             body = self._read_json_body()
             squad_name = str(body.get("currentSquadName") or "").strip()
-            if not squad_name:
+            page_url = str(body.get("pageUrl") or "").strip()
+            if not squad_name and not page_url:
                 raise ValueError("Missing team name.")
             squad_type = str(body.get("squadType") or "").strip().lower()
             selected_entry = body.get("selectedEntry") if isinstance(body.get("selectedEntry"), dict) else {}
@@ -2176,19 +2265,28 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
+        fetched: tuple[bytes, dict] | None = None
         try:
-            fetched = _try_fetch_football_logo_png_3000(
-                squad_name,
-                country_hint=country_hint,
-                league_hint=league_hint,
-            )
+            if page_url:
+                fetched = _try_fetch_football_logo_png_from_user_url(page_url)
+            else:
+                if not squad_name:
+                    self._write_json(400, {"ok": False, "error": "Missing team name."})
+                    return True
+                fetched = _try_fetch_football_logo_png_3000(
+                    squad_name,
+                    country_hint=country_hint,
+                    league_hint=league_hint,
+                )
         except Exception:
             fetched = None
         if fetched is None:
-            self._write_json(
-                404,
-                {"ok": False, "error": "Could not fetch logo from football-logos.cc."},
+            err = (
+                "Could not download logo from the pasted URL."
+                if page_url
+                else "Could not fetch logo from football-logos.cc."
             )
+            self._write_json(404, {"ok": False, "error": err})
             return True
 
         image_bytes, entry = fetched
@@ -2214,6 +2312,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 "matchedName": str(entry.get("name") or ""),
                 "categoryId": str(entry.get("categoryId") or ""),
                 "teamId": str(entry.get("id") or ""),
+                "fromPageUrl": str(entry.get("fromUrl") or page_url or ""),
             },
         )
         return True

@@ -308,16 +308,44 @@ function computeFakeForStat(stat, player, rand) {
   return null;
 }
 
-/* ── Voice playback: ".Storage/Voices/Fake Stats/The fake stats was - <stat>.mp3" */
-const FAKE_STAT_VOICE_FILE = {
-  club: "The fake stats was - club.mp3",
-  position: "The fake stats was - position.mp3",
-  country: "The fake stats was - country.mp3",
-  shirt_number: "The fake stats was - shirt number.mp3",
+/* ── Voice playback. Per-runner clips live under
+     `.Storage/Voices/Fake Stats/<RUNNER_VARIANT>/<lang>/<filename>.mp3`
+     (generated from the Voice tab). The user picks the language via the
+     Voice tab; filenames differ per language. */
+const RUNNER_VARIANT = "Four Params Regular";
+const LANGUAGE_STORAGE_KEY = "voice-tab.language";
+const SUPPORTED_LANGUAGES = ["english", "spanish"];
+
+const FAKE_STAT_VOICE_FILE_BY_LANG = {
+  english: {
+    club: "The fake stats was - club.mp3",
+    position: "The fake stats was - position.mp3",
+    country: "The fake stats was - country.mp3",
+    shirt_number: "The fake stats was - shirt number.mp3",
+  },
+  spanish: {
+    club: "La informacion falsa era - el club.mp3",
+    position: "La informacion falsa era - la posicion.mp3",
+    country: "La informacion falsa era - el pais.mp3",
+    shirt_number: "La informacion falsa era - el numero de camiseta.mp3",
+  },
 };
 
-export function fakeInfoVoiceUrlForStat(stat) {
-  const filename = FAKE_STAT_VOICE_FILE[stat];
+function getCurrentLanguage() {
+  try {
+    const stored = String(localStorage.getItem(LANGUAGE_STORAGE_KEY) || "").toLowerCase();
+    return SUPPORTED_LANGUAGES.includes(stored) ? stored : "english";
+  } catch { return "english"; }
+}
+
+function fakeInfoVoiceUrlForStatInLang(stat, lang) {
+  const map = FAKE_STAT_VOICE_FILE_BY_LANG[lang] || FAKE_STAT_VOICE_FILE_BY_LANG.english;
+  const filename = map[stat];
   if (!filename) return "";
-  return `../.Storage/Voices/Fake Stats/${encodeURIComponent(filename)}`;
+  const segments = [".Storage", "Voices", "Fake Stats", RUNNER_VARIANT, lang, filename];
+  return "../" + segments.map(encodeURIComponent).join("/");
+}
+
+export function fakeInfoVoiceUrlForStat(stat) {
+  return fakeInfoVoiceUrlForStatInLang(stat, getCurrentLanguage());
 }

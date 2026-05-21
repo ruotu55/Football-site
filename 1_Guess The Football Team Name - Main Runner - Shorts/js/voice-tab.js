@@ -36,31 +36,31 @@ const ENDING_PROMPTS = {
 };
 const SECTION_TITLES = { quizIntro: "Quiz Intro", teams: "Teams", endings: "Endings" };
 
-const BUNDLED_VOICES = [
-  { key: "warm-up",  text: { english: "Warm up round — don't mess this one!",            spanish: "Ronda de calentamiento — ¡no la arruines!" },
-    src: "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",              playsAt: { english: "Level 1 (Regular only)",        spanish: "Nivel 1 (solo Regular)" } },
-  { key: "serious",  text: { english: "OK now it's getting serious.",                    spanish: "Bien, ahora se pone serio." },
-    src: "../.Storage/Voices/Levels/OK now it's getting serious.mp3",                    playsAt: { english: "~30% progress (Regular only)",  spanish: "~30% de avance (solo Regular)" } },
-  { key: "nerds",    text: { english: "Only true football nerds know this!!!",           spanish: "¡¡Solo los verdaderos fanáticos del fútbol saben esto!!" },
-    src: "../.Storage/Voices/Levels/Only true football nerd know this!!!.mp3",           playsAt: { english: "~60% progress (Regular only)",  spanish: "~60% de avance (solo Regular)" } },
-  { key: "genius",   text: { english: "If you get this you are basically a genius!!!",   spanish: "¡¡Si aciertas esto eres básicamente un genio!!" },
-    src: "../.Storage/Voices/Levels/If you get this you are basically a genius!!!.mp3",  playsAt: { english: "~90% progress (Regular only)",  spanish: "~90% de avance (solo Regular)" } },
-];
 const PLAYS_AT = {
   quizIntro: { english: "Landing → Level 1",                spanish: "Inicial → Nivel 1" },
   team:      { english: "Level where team is revealed",     spanish: "Nivel donde se revela el equipo" },
   ending:    { english: "Last page (outro)",                spanish: "Última página (outro)" },
 };
 function plays(key) { const p = PLAYS_AT[key]; const lang = getCurrentLanguage(); return (p && (p[lang] || p.english)) || ""; }
-function bundledText(b)    { return b.text[getCurrentLanguage()]    || b.text.english; }
-function bundledPlaysAt(b) { return b.playsAt[getCurrentLanguage()] || b.playsAt.english; }
 function levelLabel(idx)   { return getCurrentLanguage() === "spanish" ? `Nivel ${idx.join(", ")}` : `Level ${idx.join(", ")}`; }
 
 const busyByKey = new Set();
 let audioEl = null;
 function endpointUrl(p) { return projectAssetUrl(p); }
 function stopPreviewAudio() { if (!audioEl) return; audioEl.pause(); audioEl.currentTime = 0; audioEl = null; }
-function playClip(src) { const s = String(src || "").trim(); if (!s) return; stopPreviewAudio(); const a = new Audio(s); audioEl = a; a.addEventListener("ended", () => { if (audioEl === a) audioEl = null; }, { once: true }); a.play().catch(() => {}); }
+function playClip(src) {
+  const s = String(src || "").trim();
+  if (!s) return;
+  stopPreviewAudio();
+  const a = new Audio(s);
+  audioEl = a;
+  a.addEventListener("ended", () => { if (audioEl === a) audioEl = null; }, { once: true });
+  /* Surface URL load / autoplay failures instead of swallowing them silently — when a
+     team or quiz-title clip "doesn't play" the user has no idea why; console.warn
+     leaves a breadcrumb. */
+  a.addEventListener("error", () => { console.warn("[voice-tab] audio element error for:", s, a.error); }, { once: true });
+  a.play().catch((err) => { console.warn("[voice-tab] audio play() rejected for:", s, err); });
+}
 function playFromStart(src) { const s = String(src || "").trim(); if (!s) return; playClip(s); }
 
 /* Collect unique team names currently assigned to levels. Lineups levels hold a team
@@ -102,14 +102,21 @@ function uniqueTeamNames() {
   return out;
 }
 
-function getCurrentQuizType() { const raw = String(appState.els?.inQuizType?.value || "").trim(); const m = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english; return raw in m ? raw : ""; }
+function getCurrentQuizType() {
+  const raw = String(appState.els?.inQuizType?.value || "").trim();
+  const m = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english;
+  if (raw in m) return raw;
+  /* Single-quiz-type runner: if the <select> hasn't been initialized yet (or its
+     value got cleared by some other code path) we still want the Quiz Intro row
+     to render. Fall back to this runner's only known key. */
+  return "club-by-nat";
+}
 function getSpecificTitle() { return ""; }
 function quizTitleSynthText(qt, st) { const m = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english; const b = m[qt] || ""; const e = String(st || "").trim(); return e ? `${b} ${e}` : b; }
 
 async function fetchQuizTitleStatus(qt, st) { try { const p = new URLSearchParams({ quizType: qt, specificTitle: st || "", language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__quiz-title-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 async function fetchEndingStatus(et) { try { const p = new URLSearchParams({ endingType: et, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__ending-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 async function fetchTeamStatus(name, quizType) { try { const p = new URLSearchParams({ name, quizType, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__team-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
-async function fetchBundledStatus(key) { try { const p = new URLSearchParams({ key, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__bundled-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 
 async function onVolPressed({ rowKey, cachedExists, cachedSrc, generateEndpoint, generateBody }) {
   if (cachedExists && cachedSrc) { playFromStart(cachedSrc); return; }
@@ -272,7 +279,7 @@ export async function renderVoiceTab() {
     { type: "think-you-know", status: endingThink },
     { type: "how-many",       status: endingHow },
   ]
-    .filter(({ type }) => !selectedEnding || type === selectedEnding)
+    .filter(({ type }) => !selectedEnding || selectedEnding === "random" || type === selectedEnding)
     .map(({ type, status }) => buildRow({
       text: endingTextMap[type], exists: status.exists, playsAt: plays("ending"),
       onPlay: () => onVolPressed({ rowKey: `ending:${type}:${lang}`, cachedExists: status.exists, cachedSrc: status.src, generateEndpoint: "__ending-voice/generate", generateBody: { endingType: type } }),
@@ -280,26 +287,6 @@ export async function renderVoiceTab() {
     }));
   root.appendChild(buildSection(SECTION_TITLES.endings, endingRows));
 
-  const bundledStatuses = await Promise.all(BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key)));
-  if (myToken !== renderToken) return;
-  const bundledTitle = "Bundled";
-  const bundledRows = BUNDLED_VOICES.map((b, i) => {
-    const status = bundledStatuses[i] || { exists: false, src: "" };
-    return buildRow({
-      text: bundledText(b), exists: status.exists, playsAt: bundledPlaysAt(b),
-      deleteDisabled: !status.exists,
-      onPlay: () => onVolPressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        cachedExists: status.exists, cachedSrc: status.src,
-        generateEndpoint: "__bundled-voice/generate", generateBody: { key: b.key },
-      }),
-      onDelete: () => onDeletePressed({
-        rowKey: `bundled:${b.key}:${lang}`,
-        deleteEndpoint: "__bundled-voice/delete", deleteBody: { key: b.key },
-      }),
-    });
-  });
-  root.appendChild(buildSection(bundledTitle, bundledRows));
   __restoreScroll();
   /* requestAnimationFrame helps when layout settles after async appends. */
   if (typeof requestAnimationFrame === "function") requestAnimationFrame(__restoreScroll);

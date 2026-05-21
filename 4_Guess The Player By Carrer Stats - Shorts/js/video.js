@@ -41,11 +41,41 @@ const SHORTS_INTRO_VOICE_COUNTDOWN_FALLBACK_MS = 12000;
 const PLAY_VIDEO_LEVEL_1_INTRO_DELAY_MS = 2000;
 /** Logo→first question: skip pre-countdown stage swap once so the bar lines up with title voice `playing`. */
 let shortsSyncIntroVoiceCountdownOnce = false;
+let shortsIntroQuizTitleHideTimeout = null;
+
+function setShortsIntroQuizTitleVisible(isVisible, options = {}) {
+  const titleEl = document.getElementById("shorts-intro-quiz-title");
+  if (!titleEl) return;
+  titleEl.innerHTML = `${SHORTS_INTRO_QUIZ_TITLE_LINE_1}<br>${SHORTS_INTRO_QUIZ_TITLE_LINE_2}`;
+  clearTimeout(shortsIntroQuizTitleHideTimeout);
+  shortsIntroQuizTitleHideTimeout = null;
+
+  if (isVisible) {
+    titleEl.hidden = false;
+    titleEl.classList.remove("shorts-intro-quiz-title--visible");
+    void titleEl.offsetWidth;
+    titleEl.classList.add("shorts-intro-quiz-title--visible");
+    return;
+  }
+
+  titleEl.classList.remove("shorts-intro-quiz-title--visible");
+  if (options.immediate) {
+    titleEl.hidden = true;
+    return;
+  }
+  shortsIntroQuizTitleHideTimeout = setTimeout(() => {
+    titleEl.hidden = true;
+    shortsIntroQuizTitleHideTimeout = null;
+  }, SHORTS_INTRO_QUIZ_TITLE_FADE_MS);
+}
 /** Match `levels.js` video squeeze: content swaps after `transitionDelay`; enter anim is 0.82s. */
 const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
 const SHORTS_STAGE_ENTER_MS = 820;
 /** Shorts level 1 only: extra wait before the countdown timer bar is shown and starts depleting (levels 2+ unchanged). */
-const SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS = 1000;
+const SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS = 500;
+const SHORTS_INTRO_QUIZ_TITLE_LINE_1 = "GUESS THE PLAYER";
+const SHORTS_INTRO_QUIZ_TITLE_LINE_2 = "BY CAREER STATS";
+const SHORTS_INTRO_QUIZ_TITLE_FADE_MS = 780;
 /** Question bar + timeouts: `baseSteps` equal slices of this total (default 3 × 1s × 1.1). */
 const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 1.1;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
@@ -235,6 +265,7 @@ export function stopVideoFlow() {
   setVideoRevealPostTimerActive(false);
   document.body.classList.remove("play-video-active");
   document.body.classList.remove("shorts-play-pre-countdown");
+  setShortsIntroQuizTitleVisible(false, { immediate: true });
   clearShortsQuestionCountdown();
   clearInterval(appState.videoInterval);
   clearTimeout(appState.videoInterval);
@@ -342,12 +373,13 @@ export function startVideoFlow() {
       const kickoffIntroQuestionCountdown = () => {
         if (introCountdownKickoffDone || !appState.isVideoPlaying) return;
         introCountdownKickoffDone = true;
+        setShortsIntroQuizTitleVisible(false);
         runVideoStep();
       };
       void playBundledQuizTitleShorts(quizType, {
         duckBgm: true,
-        onPlaybackStart: kickoffIntroQuestionCountdown,
-      });
+        onPlaybackStart: () => setShortsIntroQuizTitleVisible(true),
+      }).then(kickoffIntroQuestionCountdown);
       clearTimeout(appState.videoTimeout);
       appState.videoTimeout = setTimeout(() => {
         if (!appState.isVideoPlaying) return;
@@ -370,12 +402,13 @@ export function startVideoFlow() {
       const kickoffIntroQuestionCountdown = () => {
         if (introCountdownKickoffDone || !appState.isVideoPlaying) return;
         introCountdownKickoffDone = true;
+        setShortsIntroQuizTitleVisible(false);
         runVideoStep();
       };
       switchLevel(1);
       void playRulesShortsLanding(quizType, {
-        onPlaybackStart: kickoffIntroQuestionCountdown,
-      });
+        onPlaybackStart: () => setShortsIntroQuizTitleVisible(true),
+      }).then(kickoffIntroQuestionCountdown);
       clearTimeout(appState.videoTimeout);
       appState.videoTimeout = setTimeout(() => {
         if (!appState.isVideoPlaying) return;
@@ -582,6 +615,7 @@ function runVideoStep() {
       if (isShorts) {
         const runFirstLevelEnterAndSoccer = () => {
           if (!appState.isVideoPlaying) return;
+          setShortsIntroQuizTitleVisible(false);
           els.countdownTimer.classList.remove("countdown-timer-stage-enter");
           void els.countdownTimer.offsetWidth;
           els.countdownTimer.classList.add("countdown-timer-stage-enter");

@@ -130,7 +130,7 @@ export function getHeaderLogoUrlChain(state, squad, squadType, selectedEntryName
   const pushUnique = (u) => {
     if (u && !chain.includes(u)) chain.push(u);
   };
-  if (quizType === "nat-by-club") {
+  if (quizType === "nat-by-club" && squadType === "national") {
     const teamName = String(squad?.name || selectedEntryName || "").trim();
     getNationalTeamLogoLoadUrls(teamName).forEach(pushUnique);
     return chain;
@@ -140,10 +140,16 @@ export function getHeaderLogoUrlChain(state, squad, squadType, selectedEntryName
   return chain;
 }
 
-/** Pitch uses rotateX(~38deg); smaller y = farther away — scale so portrait size matches FUT.GG-style depth */
+/* Shorts pitch tilts back at 25° (see `body.shorts-mode .pitch-surface` in
+   modes/shorts.css), so the top of the pitch sits farther from the camera and
+   would naturally render smaller. The previous 0.38 factor was inherited from
+   the 38°-tilt Regular runner and over-compensates here, making top slots look
+   noticeably bigger than bottom ones. 0.13 matches the actual perspective
+   shrink under the wrapper's 1200px perspective so every slot ends up roughly
+   the same visual size. */
 export function slotPerspectiveScale(yPercent) {
   const t = 1 - Math.min(100, Math.max(0, yPercent)) / 100;
-  return 1 + t * 0.38;
+  return 1 + t * 0.13;
 }
 
 export function clubPhotoKey(entry, squad, playerName) {

@@ -180,15 +180,16 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   width: 100%; height: 100%;
   overflow: visible;
   pointer-events: none;
-  /* Road + player image share this layer; moved another 5% higher, shifted 5vw left */
-  transform: rotateX(15deg) translateX(-5vw) translateY(-20%);
+  /* Road + player image share this layer; moved another 5% higher.
+     translateX + scale(0.95): shrink 5% and shift left — match Career Path Main Runner - Regular. */
+  transform: rotateX(15deg) translateY(-20%) translateX(calc(-0.5rem - 0.5vw)) scale(0.95);
   /* Above .player-stats-national-flag (z-index 4) so silhouette + SVG backdrop composite on top of the 3D flag */
   z-index: 12;
   isolation: isolate;
 }
 
 .career-silhouette {
-  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82)); 
+  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1)); 
   transform-origin: 50% 100%; 
   opacity: 1;
   pointer-events: none;
@@ -227,7 +228,7 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-silhouette:not(.r
     drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
     /* Subtle cool glow halo */
     drop-shadow(0 0 6px rgba(160, 200, 240, 0.15));
-  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
 }
 
 body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.revealed) {
@@ -243,7 +244,7 @@ body:not(.shorts-mode).play-video-active .career-wrap .career-silhouette:not(.re
     drop-shadow(4px 8px 16px rgba(0, 0, 0, 0.6))
     drop-shadow(6px 18px 36px rgba(0, 0, 0, 0.4))
     drop-shadow(0 0 6px rgba(160, 200, 240, 0.15));
-  transform: rotateX(-15deg) translateX(5%) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+  transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
   animation: silhouette-sway 6s ease-in-out infinite alternate, silhouette-shake 4.8s ease-in-out infinite alternate;
   transform-origin: 50% 100%;
 }
@@ -431,7 +432,7 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
       drop-shadow(0 0 8px rgba(236, 255, 250, 0.72))
       drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
       drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
-    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
   }
   100% {
     opacity: 0;
@@ -440,7 +441,7 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
       brightness(0)
       blur(3px)
       drop-shadow(0 0 22px rgba(184, 247, 232, 0.42));
-    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 26%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+    transform: rotateX(-15deg) translateY(calc(var(--sil-y, -4%) + 26%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
   }
 }
 
@@ -471,7 +472,7 @@ body:not(.shorts-mode) .career-wrap.video-mode-enabled .career-reveal-photo {
       drop-shadow(0 16px 32px rgba(0, 0, 0, 0.8))
       drop-shadow(0 0 28px rgba(204, 255, 243, 0.48))
       drop-shadow(0 0 72px rgba(120, 214, 192, 0.26));
-    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 0.82), var(--sil-scale-y, 0.82));
+    transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1));
     opacity: 1;
   }
 }
@@ -488,8 +489,7 @@ body:not(.shorts-mode) .career-reveal-overlay {
   transform: translateX(-50%) translateY(46%) scale(0.74);
   transform-origin: center bottom;
   filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
-  /* Above #player-stats-panel (180), quiz progress, header; mounted on .app so not clipped by #career-wrap perspective. */
-  z-index: 520;
+  z-index: 260;
   pointer-events: none;
   display: flex;
   align-items: flex-end;
@@ -522,7 +522,7 @@ body:not(.shorts-mode) .career-reveal-overlay-img {
   object-fit: contain;
   object-position: center bottom;
   transform: translateY(var(--career-reveal-y, -10%))
-    scale(calc(var(--career-reveal-scale-x, 1.08) * 0.85), calc(var(--career-reveal-scale-y, 1.08) * 0.85));
+    scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
   transform-origin: center bottom;
   pointer-events: auto;
   cursor: pointer;
@@ -729,7 +729,8 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
   top: 0; left: 0;
   width: 100%; height: 100%;
   pointer-events: none;
-  transform: rotateX(15deg) translateY(-20%);
+  /* Match .career-svg: shrink 5% and shift left to center between side-text and levels bar. */
+  transform: rotateX(15deg) translateY(-20%) translateX(calc(-0.5rem - 0.5vw)) scale(0.95);
   z-index: 10;
   transition: filter 0.45s ease, opacity 0.45s ease;
 }

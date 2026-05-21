@@ -168,7 +168,7 @@ function playerHasPhotosForLevel(player, lvl) {
 
 function validateTeamAssets() {
     const questionLevels = getQuestionLevels();
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const quizType = appState.els?.inQuizType?.value || "club-by-nat";
     const failures = [];
 
     for (const { lvl, index } of questionLevels) {
@@ -276,7 +276,7 @@ async function fetchExists(path, params) {
 
 async function validateTeamVoices() {
     const questionLevels = getQuestionLevels();
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const quizType = appState.els?.inQuizType?.value || "club-by-nat";
     const language = getCurrentLanguage();
     const checks = questionLevels.map(async ({ lvl, index }) => {
         if (!lvl.currentSquad) return null;
@@ -300,7 +300,7 @@ async function validateTeamVoices() {
 }
 
 async function validateQuizIntroVoice() {
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    const quizType = appState.els?.inQuizType?.value || "club-by-nat";
     const language = getCurrentLanguage();
     
     const { exists } = await fetchExists("/__quiz-title-voice/status", {

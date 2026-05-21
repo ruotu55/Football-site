@@ -1040,19 +1040,19 @@ body.shorts-mode .player-stats-panel {
   --player-stat-ink: #000000;
   --player-stat-matte-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='128' height='128'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' result='t'/%3E%3CfeColorMatrix in='t' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
   /* Headlines (GAMES, POSITION, CLUBS, ג€¦); answers use --player-stat-answer-font. */
-  --player-stat-title-font: clamp(0.55rem, 1.65vw, 0.82rem);
-  --player-stat-answer-font: clamp(0.65rem, 1.75vw, 0.92rem);
-  --player-stat-equal-cell: clamp(1.62rem, 4.95vh, 2.7rem);
-  --player-stats-grid-gap: clamp(0.12rem, 0.48vw, 0.28rem);
+  --player-stat-title-font: clamp(0.5rem, 1.49vw, 0.74rem);
+  --player-stat-answer-font: clamp(0.59rem, 1.58vw, 0.83rem);
+  --player-stat-equal-cell: clamp(1.46rem, 4.46vh, 2.43rem);
+  --player-stats-grid-gap: clamp(0.11rem, 0.43vw, 0.25rem);
 
   position: absolute;
   left: 50%;
   /* Compensate ~6.4vh: .stage-main is now flex-start (was center), so .career-wrap shifted down by ~58px. */
-  top: calc(clamp(0.8rem, 2.5vh, 1.4rem) + 5.6vh);
+  top: calc(clamp(0.8rem, 2.5vh, 1.4rem) + 5.6vh + 3vh);
   transform: translateX(-50%);
   transform-origin: center top;
   z-index: 280;
-  width: min(86%, 378px);
+  width: min(86%, 340px);
   box-sizing: border-box;
   padding: 0;
   border: none;
@@ -1163,7 +1163,7 @@ body.shorts-mode .player-stat-card {
   gap: 0;
   min-width: 0;
   min-height: 0;
-  border-radius: 0.75rem;
+  border-radius: 0.68rem;
   overflow: hidden;
   /* Light glass shell ג€” mostly transparent, not a solid blue tile. */
   background: rgba(8, 10, 16, 0.22);
@@ -1189,7 +1189,7 @@ body.shorts-mode .player-stat-card__head {
   text-transform: uppercase;
   color: #c5d0e0;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
-  padding: 0.22rem 0.32rem;
+  padding: 0.2rem 0.29rem;
   line-height: 1.15;
   flex: 0 0 var(--player-stat-equal-cell);
   min-height: var(--player-stat-equal-cell);
@@ -1226,7 +1226,7 @@ body.shorts-mode .player-stat-card__value {
   font-weight: 900;
   font-family: Inter, "Arial Black", "Segoe UI", Arial, sans-serif;
   line-height: 1.08;
-  padding: 0.12rem 0.28rem;
+  padding: 0.11rem 0.25rem;
   text-align: center;
   word-break: break-word;
   overflow-wrap: anywhere;
@@ -1240,7 +1240,7 @@ body.shorts-mode .player-stat-card__value {
 /* ג”€ג”€ Clubs card value (mirror Main Runner - Player stats layout; sizes from --player-stat-club-* in JS) ג”€ג”€ */
 
 body.shorts-mode .player-stat-card__value--clubs {
-  padding: 0.38rem 0.42rem;
+  padding: 0.34rem 0.38rem;
   align-items: center;
   justify-content: center;
   color: var(--player-stat-ink);
@@ -1374,9 +1374,9 @@ body.shorts-mode .player-stat-card__value--clubs .career-club-logo-img {
 }
 
 body.shorts-mode .player-stat-card__value--clubs .career-edit-btn {
-  width: 1.25rem;
-  height: 1.25rem;
-  font-size: 0.68rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  font-size: 0.61rem;
   top: -4px;
   right: -4px;
 }

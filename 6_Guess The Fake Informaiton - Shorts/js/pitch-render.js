@@ -145,8 +145,24 @@ function fadeSwapMysteryText(el, newText, isName) {
   }, MYSTERY_FADE_OUT_MS);
 }
 
+/* Format the revealed player name for the mystery-mark: first name on the
+   first line, the rest on the second line. Single-word names stay on one
+   line. The "\n" is rendered as a real line break by
+   `.career-portrait-card__mystery-mark--name { white-space: pre-line; }`. */
+function formatPlayerNameTwoLine(name) {
+  const trimmed = String(name || "").trim();
+  if (!trimmed) return "";
+  const upper = trimmed.toUpperCase();
+  const idx = upper.indexOf(" ");
+  if (idx < 0) return upper;
+  return upper.slice(0, idx) + "\n" + upper.slice(idx + 1).trim();
+}
+
 /* Auto-shrink the revealed name only when the rendered text actually overflows
-   the mystery-mark box. No-op when the text already fits. */
+   the mystery-mark box. The CSS applies `font-size: clamp(...)` which is fine for
+   most names; long ones like "KHVICHA KVARATSKHELIA" can still overflow even at
+   the clamp's minimum, so we step the size down at runtime past the CSS floor.
+   No-op when the text already fits — preserves the larger size for short names. */
 function autoFitMysteryName(el) {
   if (!el) return;
   el.style.fontSize = "";
@@ -2935,8 +2951,9 @@ export function renderCareer() {
       const fourParamsVmOffReveal = shouldFourParamsVmOffPostReveal(state);
       portraitCard.classList.toggle("career-portrait-card--vm-off-revealed", fourParamsVmOffReveal);
       if (fourParamsVmOffReveal) {
-        portraitMysteryMark.textContent = playerName.toUpperCase();
+        portraitMysteryMark.textContent = formatPlayerNameTwoLine(playerName);
         portraitMysteryMark.classList.add("career-portrait-card__mystery-mark--name");
+        autoFitMysteryName(portraitMysteryMark);
       } else {
         portraitMysteryMark.textContent = "?";
       }
@@ -3096,9 +3113,9 @@ export function renderCareer() {
     }
     const markEl = portraitCardVm.querySelector(".career-portrait-card__mystery-mark");
     if (markEl) {
-      const nameUpper = String(state.careerPlayer?.name || "").trim().toUpperCase();
-      const showName = !!(vmOffReveal && nameUpper);
-      fadeSwapMysteryText(markEl, showName ? nameUpper : "?", showName);
+      const rawName = String(state.careerPlayer?.name || "").trim();
+      const showName = !!(vmOffReveal && rawName);
+      fadeSwapMysteryText(markEl, showName ? formatPlayerNameTwoLine(rawName) : "?", showName);
     }
   }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
@@ -3160,9 +3177,9 @@ export function refreshCareerRevealStateOnly() {
     }
     const markEl = portraitCardVm.querySelector(".career-portrait-card__mystery-mark");
     if (markEl) {
-      const nameUpper = String(state.careerPlayer?.name || "").trim().toUpperCase();
-      const showName = !!(vmOffReveal && nameUpper);
-      fadeSwapMysteryText(markEl, showName ? nameUpper : "?", showName);
+      const rawName = String(state.careerPlayer?.name || "").trim();
+      const showName = !!(vmOffReveal && rawName);
+      fadeSwapMysteryText(markEl, showName ? formatPlayerNameTwoLine(rawName) : "?", showName);
     }
   }
   const revealPhoto = wrap.querySelector("#career-reveal-photo");
