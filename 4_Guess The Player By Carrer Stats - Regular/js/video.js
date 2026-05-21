@@ -67,17 +67,43 @@ function playBallPreloader() {
 
     return new Promise((resolve) => {
       requestAnimationFrame(() => {
-        gsap.set(ball, { top: "-130px" });
+        /* Move the ball to the centre, pin transform-origin to the visual
+           centre of the sphere, and start invisible at 1.6× scale. */
+        (function setPulseOrigin() {
+          gsap.set(ball, { top: "calc(50vh - 60px)" });
+          const sphere = preloader.querySelector(".ball-sphera");
+          const r = (sphere ?? ball).getBoundingClientRect();
+          const bRect = ball.getBoundingClientRect();
+          const ox = (r.left + r.width / 2) - bRect.left;
+          const oy = (r.top  + r.height / 2) - bRect.top;
+          gsap.set(ball, {
+            transformOrigin: `${ox}px ${oy}px`,
+            scale: 1.6,
+            opacity: 0,
+          });
+        })();
 
         const tl = gsap.timeline();
 
-        /* 1. Ball bounces down to center */
+        /* Fade + bounce-shrink running in parallel:
+           - Opacity fades in over ~0.7s while the ball is already on screen
+           - Scale springs from 1.6 down to 1.0 with elastic oscillation
+             → shrinks past 1.0, grows back, shrinks again, settles at 1.0 */
         tl.fromTo(
           ball,
-          { top: "-130px" },
-          { duration: 2, top: "calc(50vh - 60px)", ease: "bounce.out" },
+          { opacity: 0 },
+          { duration: 0.7, opacity: 1, ease: "power2.out" },
+          0,
         )
-        /* 2. Prepare: mask on the preloader + ball expansion */
+        .fromTo(
+          ball,
+          { scale: 1.6 },
+          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)" },
+          0,
+        )
+        /* 3. Prepare: mask + expand origin — fires at 0.7s, when the visible
+           bounce has settled. Killing the elastic's invisible tail removes
+           the ~1s "static" pause before the expand. */
         .call(() => {
           const sphere = preloader.querySelector(".ball-sphera");
           const r = (sphere ?? ball).getBoundingClientRect();
@@ -101,13 +127,14 @@ function playBallPreloader() {
           const ox = (r.left + r.width / 2) - bRect.left;
           const oy = (r.top  + r.height / 2) - bRect.top;
           gsap.set(ball, { transformOrigin: `${ox}px ${oy}px` });
-        })
-        /* 3. Ball EXPANDS outward — constant speed, one take */
+        }, null, 0.7)
+        /* 4. Ball EXPANDS outward — starts at 0.7s, overlapping the tail of
+           the bounce so there's no visible stop between the two */
         .to(ball, {
           scale: () => ball._expandScale,
           duration: 1.6,
           ease: "none",
-        })
+        }, 0.7)
         /* 4. Landing opens from inside while ball keeps going */
         .to(preloader, {
           "--reveal-r": maxR,
@@ -328,18 +355,16 @@ export function startVideoFlow() {
   if (appState.currentLevelIndex === 1) {
     const quizType = els.inQuizType?.value || "player-by-career-stats";
     playBallPreloader();
-    appState.videoTimeout = setTimeout(() => {
+    /* Voice starts at the same time as the ball fade-in */
+    playRules(quizType, 0).then(() => {
       if (!appState.isVideoPlaying) return;
-      playRules(quizType, 0).then(() => {
+      /* Skip runVideoStep delays — go straight to level 2 */
+      switchLevel(2);
+      scheduleAfterTransition(() => {
         if (!appState.isVideoPlaying) return;
-        /* Skip runVideoStep delays — go straight to level 2 */
-        switchLevel(2);
-        scheduleAfterTransition(() => {
-          if (!appState.isVideoPlaying) return;
-          runVideoStep();
-        });
+        runVideoStep();
       });
-    }, INTRO_GAME_NAME_VOICE_DELAY_MS + 200);
+    });
     return;
   }
 

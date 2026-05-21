@@ -5,7 +5,7 @@ import {
   migrateShortsVideoOffLegacyNormalProfile,
 } from "./state.js";
 import { renderProgressSteps } from "./progress.js";
-import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers, refreshCareerPictureControlsDisplay, preloadCareerAssets } from "./pitch-render.js";
+import { renderHeader, renderCareer, syncShortsCareerVideoPreviewLayers, refreshCareerPictureControlsDisplay, preloadCareerAssets, applyCareerPictureModeToActiveState } from "./pitch-render.js";
 import { playRules, playProgressVoice, playCommentBelow } from "./audio.js";
 import { runTransition, transitionSettings } from "./transitions.js";
 import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
@@ -59,8 +59,8 @@ export function switchLevel(index) {
       state.silhouetteNormalYOffset = 0;
       state.silhouetteNormalScaleX = 1.0;
       state.silhouetteNormalScaleY = 1.0;
-      state.silhouetteShortsVideoYOffset = 13;
-      state.silhouetteShortsVideoScaleX = 0.85;
+      state.silhouetteShortsVideoYOffset = 12;
+      state.silhouetteShortsVideoScaleX = 1.0;
       state.silhouetteShortsVideoScaleY = 1.0;
       {
         const shortsVideoOff = getDefaultPlayerPictureValuesForCareerMode(true, false);
@@ -74,6 +74,10 @@ export function switchLevel(index) {
       state.careerSlotYearNudges = [];
     }
   }
+  /* Sync active silhouette fields to the layout-specific profile so the panel reads consistent values
+     (was showing -13 → 0 flash because the active YOffset was reset to 0 above while the
+     shorts Video-On profile is 13). */
+  applyCareerPictureModeToActiveState(state, document.body.classList.contains("shorts-mode"));
   /* Immediately refresh the Adjust Picture panel so it shows the new level's values without waiting for transitions. */
   refreshCareerPictureControlsDisplay(state);
 

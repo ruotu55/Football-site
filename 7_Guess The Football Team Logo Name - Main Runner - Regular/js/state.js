@@ -1,7 +1,7 @@
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
-export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.85;
+export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 
 export function getDefaultPlayerPictureValues(isShortsLayout = false) {

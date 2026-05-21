@@ -143,17 +143,24 @@ body.shorts-mode .landing-special-badge-container {
 /* Side panel is now position:fixed (team-header.css) — no in-flow layout needed here.
    Shorts-specific sizing lives in team-header.css `body.shorts-mode .team-header { ... }`. */
 
-/* Shorts: club / national header crest — smaller than regular panel */
+/* Shorts: club / national header crest — smaller than regular panel
+   −10% from prior so the header stack stays compact inside the dark band. */
 body.shorts-mode .team-header[data-squad-type="club"] .team-header-logo {
-    height: 4.5rem;
-    width: 5.9rem;
-    max-width: min(5.9rem, calc(100% - 0.5rem));
+    height: 3.45rem;
+    width: 4.52rem;
+    max-width: min(4.52rem, calc(100% - 0.5rem));
 }
 
 body.shorts-mode .team-header[data-squad-type="national"] .team-header-logo {
-    height: 4.39rem;
-    width: 5.74rem;
-    max-width: min(5.74rem, calc(100% - 0.5rem));
+    height: 3.36rem;
+    width: 4.39rem;
+    max-width: min(4.39rem, calc(100% - 0.5rem));
+}
+
+/* Shrink the team name to match the smaller crest so the whole header stack
+   fits inside its band and stays clear of the pitch top. −10% from prior. */
+body.shorts-mode .team-header-name.team-side-panel-country-name {
+    font-size: clamp(1.19rem, 3.5vw, 1.75rem);
 }
 
 body.shorts-mode .pitch-wrap {
@@ -163,8 +170,8 @@ body.shorts-mode .pitch-wrap {
     margin-top: 2.5vh;
     padding-top: 0;
     /* Scales pitch surface, player slots, team-logo badges, and everything else
-       inside `.pitch-wrap` together. scale: −1% from 0.87342, translateY held at 8%. */
-    transform: scale(0.86469) translateY(8%);
+       inside `.pitch-wrap` together. scale: −2% from 0.82146, translateY +2% to 15%. */
+    transform: scale(0.80503) translateY(15%);
     transform-origin: top center;
 }
 
@@ -189,7 +196,7 @@ body.shorts-mode .slot-name {
 body.shorts-mode .quiz-progress {
     flex-direction: row;
     top: auto;
-    bottom: calc(2.8rem + 4vh);
+    bottom: calc(2.8rem + 6vh);
     left: 50%;
     right: auto;
     transform: translateX(-50%);
@@ -247,14 +254,14 @@ body.shorts-mode .quiz-progress .step-dots::after {
 
 /* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: calc(max(2.65rem, 18.5vh) * 0.7);
+    top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh);
     left: 50%;
     transform: translateX(-50%);
 }
 
 @keyframes countdown-timer-enter-shorts {
     0% {
-        transform: translateX(-50%) scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        transform: translateX(-50%) scale(0.08) translateZ(-1500px) rotateX(-20deg) translateY(100%);
         opacity: 0;
         filter: blur(5px);
     }
@@ -266,8 +273,24 @@ body.shorts-mode .countdown-timer {
     }
 }
 
+@keyframes countdown-timer-exit-shorts {
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(0.9);
+        opacity: 0;
+    }
+}
+
 body.shorts-mode .countdown-timer.countdown-timer-stage-enter {
-    animation: countdown-timer-enter-shorts 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: countdown-timer-enter-shorts 0.82s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+body.shorts-mode .countdown-timer.countdown-timer-stage-exit {
+    animation: countdown-timer-exit-shorts 0.4s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 body.shorts-mode .countdown-bar-track {

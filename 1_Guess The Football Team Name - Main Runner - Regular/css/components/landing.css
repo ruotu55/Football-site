@@ -6,6 +6,18 @@
 }
 .ball-preloader[hidden] { display: none; }
 
+/* When the screen-size safe-zone overlay is showing, clip the preloader
+   to the safe zone so the black margin bands stay visible during the
+   bounce/expand. Bounds stay full-viewport so the ball stays centred. */
+body:has(#screen-size-overlay:not([hidden])) .ball-preloader {
+  clip-path: inset(
+    var(--screen-size-inset-top, 0px)
+    var(--screen-size-inset-right, 0px)
+    var(--screen-size-inset-bottom, 0px)
+    var(--screen-size-inset-left, 0px)
+  );
+}
+
 /* When revealing, a radial mask on the whole preloader punches a hole
    from the ball centre — landing page shows through it while the ball
    keeps expanding outward past the screen edges. */

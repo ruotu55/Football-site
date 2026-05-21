@@ -100,7 +100,8 @@
 
 /* Shorts: same floating Adjust Picture panel, top-centered (road layout keeps top-left). */
 .career-picture-controls.career-picture-controls--shorts-layout {
-  left: 50%;
+  /* Shifted right past the "Show controls" FAB (left: calc(1.5rem + 5vw)). */
+  left: 60%;
   right: auto;
   top: max(0.35rem, env(safe-area-inset-top, 0px));
   transform: translateX(-50%) scale(0.82);
@@ -175,7 +176,7 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   top: 31%;
   transform: translate(-50%, -50%);
   z-index: 20;
-  width: min(22rem, 90%);
+  width: min(22rem, calc(var(--shots-size-column-width) * 0.85));
   max-height: 18.5rem;
   display: flex;
   flex-direction: column;
@@ -1046,8 +1047,10 @@ body.shorts-mode .player-stats-panel {
 
   position: absolute;
   left: 50%;
-  top: calc(clamp(0.8rem, 2.5vh, 1.4rem) + 9vh);
+  /* Compensate ~6.4vh: .stage-main is now flex-start (was center), so .career-wrap shifted down by ~58px. */
+  top: calc(clamp(0.8rem, 2.5vh, 1.4rem) + 5.6vh);
   transform: translateX(-50%);
+  transform-origin: center top;
   z-index: 280;
   width: min(86%, 378px);
   box-sizing: border-box;
@@ -1475,8 +1478,8 @@ body.shorts-mode #career-reveal-photo .player-stats-national-flag {
 body.shorts-mode .career-wrap.video-mode-enabled #career-reveal-photo .player-stats-national-flag,
 body.shorts-mode.career-shorts-video-layout #career-reveal-photo .player-stats-national-flag {
   display: flex !important;
-  /* Flag offset from silhouette baseline (silhouette at -4%, flag at +6%). */
-  transform: translateY(6%) scale(0.616);
+  /* Flag offset removed: photo IMG was shifted up to match Career Path - Shorts, so flag follows. */
+  transform: translateY(0%) scale(0.616);
 }
 
 /* Player image must sit above the flag canvas. */
@@ -2002,21 +2005,3 @@ body.play-video-active .career-get-photo-btn {
   pointer-events: none !important;
 }
 
-/* Reveal player/team name is click-to-copy. Force pointer-events on the name
-   AND its parent badge/wrappers so events reach it even when an ancestor (the
-   portrait card) sets pointer-events: none. The wrapping badge is bumped to
-   a high z-index so nothing else can sit on top. */
-#career-reveal-name,
-#career-reveal-name .career-reveal-name-top,
-#career-reveal-name .career-reveal-name-bottom,
-.career-portrait-card__mystery-mark--name,
-.career-portrait-card__mystery-mark,
-.career-portrait-card__mystery-badge,
-.career-team-quiz-card__reveal-text--name,
-.career-team-quiz-card__reveal {
-  cursor: copy !important;
-  pointer-events: auto !important;
-}
-.career-portrait-card__mystery-badge:has(.career-portrait-card__mystery-mark--name) {
-  z-index: 50 !important;
-}

@@ -90,10 +90,6 @@ def _normalize_language(lang) -> str:
 
 
 BUNDLED_VOICE_CONFIG = {
-    "welcome": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Welcome",
-                "filename": "Welcome to the football lab, lets start!!!.mp3",
-                "prompts": {"english": "Welcome to the football lab, let's start!",
-                            "spanish": "¡Bienvenidos al laboratorio de fútbol, empecemos!"}},
     "warm-up": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
                 "filename": "Worm up round dont mess this one .mp3",
                 "prompts": {"english": "Warm up round — don't mess this one!",
@@ -1744,6 +1740,19 @@ def _load_runner_update_data():  # noqa: D401
 
 _runner_update_mod = _load_runner_update_data()
 
+
+def _load_runner_import_aliases():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_import_aliases.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_import_aliases", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_import_aliases.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_aliases_mod = _load_runner_import_aliases()
+
 _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
 DEFAULT_PORT = 8888
@@ -2706,6 +2715,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
             return
+        if _runner_aliases_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if self._try_serve_team_voice_voices():
             return
         if self._try_serve_team_voice_status():
@@ -2735,6 +2746,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _runner_update_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _runner_aliases_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if self._try_generate_team_voice():
             return

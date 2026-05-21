@@ -1,13 +1,13 @@
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
-export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.90;
-export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 0.90;
-export const DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET = 5;
+export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 1.0;
+export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
+export const DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET = 12;
 /** Shorts “Adjust Picture (Video Off)” baseline values. */
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = -1;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 0.95;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 0.95;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = 1.5;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 1.0;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 1.0;
 
 export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   return {
@@ -207,7 +207,7 @@ export function initLevels(count) {
       silhouetteShortsVideoYOffset: DEFAULT_SHORTS_VIDEO_SILHOUETTE_Y_OFFSET,
       silhouetteShortsVideoScaleX: shortsPictureDefaults.silhouetteScaleX,
       silhouetteShortsVideoScaleY: shortsPictureDefaults.silhouetteScaleY,
-      silhouetteShortsNormalYOffset: DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET,
+      silhouetteShortsNormalYOffset: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET,
       silhouetteShortsNormalScaleX: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X,
       silhouetteShortsNormalScaleY: DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y,
       careerPlayer: null,

@@ -1,4 +1,4 @@
-/* js/pitch-render.js ג€” career path mode */
+/* js/pitch-render.js — career path mode */
 
 import {
   appState,
@@ -61,7 +61,7 @@ async function pickLoadableReadyPhotoUrlForVariant(playerName, clubName, variant
   return url || "";
 }
 
-/** True if a PNG/WebP exists for this variant (HEAD + RAM cache only ג€” no full-image ג€downloadג€ storm). */
+/** True if a PNG/WebP exists for this variant (HEAD + RAM cache only — no full-image “download” storm). */
 async function readyPhotoVariantExists(playerName, clubName, variantIndex) {
   if (!playerName) return false;
   const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
@@ -182,7 +182,7 @@ async function requestDeleteReadyPhoto(playerName, clubName, variantIndex) {
 }
 
 /**
- * ג€Get photoג€ ג€” opens a URL dialog; server downloads into Ready photos (appended to #career-wrap).
+ * “Get photo” — opens a URL dialog; server downloads into Ready photos (appended to #career-wrap).
  * @param {string} playerName
  * @param {string} [clubName]
  */
@@ -219,7 +219,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   const input = document.createElement("input");
   input.type = "url";
   input.className = "career-ready-photo-url-modal__input";
-  input.placeholder = "https://ג€¦";
+  input.placeholder = "https://…";
   input.autocomplete = "off";
   input.spellcheck = false;
   input.addEventListener("keydown", (ev) => {
@@ -299,7 +299,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     switchList.innerHTML = "";
     const loading = document.createElement("div");
     loading.className = "career-ready-photo-switch-modal__loading";
-    loading.textContent = "Loadingג€¦";
+    loading.textContent = "Loading…";
     switchList.appendChild(loading);
     switchModal.classList.add("career-ready-photo-switch-modal--portal");
     if (switchModal.parentElement !== document.body) {
@@ -388,7 +388,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
     const prev = btnRemoveBg.textContent;
     btnRemoveBg.disabled = true;
-    btnRemoveBg.textContent = "Workingג€¦";
+    btnRemoveBg.textContent = "Working…";
     showHint("", false);
     try {
       await requestRemoveReadyPhotoBackground(playerName, clubName, variantIndex);
@@ -453,7 +453,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   btn.addEventListener("click", () => {
     if (!careerReadyPhotoFetchServerActive()) {
       showHint(
-        "Run Career Path via run_site.py (http://127.0.0.1:ג€¦) so the local server can save files into Ready photos.",
+        "Run Career Path via run_site.py (http://127.0.0.1:…) so the local server can save files into Ready photos.",
         true,
       );
       return;
@@ -590,7 +590,7 @@ function freshenCareerImageUrl(url) {
   return `${src}${joiner}v=${encodeURIComponent(CAREER_IMAGE_REFRESH_TOKEN)}`;
 }
 
-/** No pixel cap ג€” only reject non-finite values so nudge never ג€sticksג€ at a clamp while the crest steals clicks. */
+/** No pixel cap — only reject non-finite values so nudge never “sticks” at a clamp while the crest steals clicks. */
 export function clampCareerYearNudge(v) {
   const n = Number(v);
   if (!Number.isFinite(n)) return 0;
@@ -674,7 +674,7 @@ function appendCareerSlotZoomControls(slotEl, slotIndex, n, isShortsMode) {
     b.type = "button";
     b.className = "career-badge-zoom-btn";
     b.setAttribute("aria-label", sign < 0 ? "Smaller club badge" : "Larger club badge");
-    b.textContent = sign < 0 ? "גˆ’" : "+";
+    b.textContent = sign < 0 ? "−" : "+";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -729,7 +729,7 @@ function appendCareerSlotYearNudgeControls(slotEl, slotIndex, n, isShortsMode) {
       "aria-label",
       delta < 0 ? "Move year up" : "Move year down"
     );
-    b.textContent = delta < 0 ? "ג†‘" : "ג†“";
+    b.textContent = delta < 0 ? "↑" : "↓";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -766,7 +766,7 @@ const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500; /* legacy square was y=-80, h=580 *
 const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
 const CAREER_SILHOUETTE_CENTER_X_REGULAR = 505; /* 125 + 760/2 */
 const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500; /* 210 + 580/2 */
-const CAREER_REVEAL_BASE_Y = 0;
+const CAREER_REVEAL_BASE_Y = -10;
 const CAREER_REVEAL_BASE_SCALE = 1.08;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
@@ -999,7 +999,7 @@ function measureCareerLogoBottomSlackNatural(img) {
     return 0;
   }
 
-  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved ג€contentג€ upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
+  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved “content” upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
   let maxOpaqueY = -1;
   scan: for (let y = ch - 1; y >= 0; y--) {
     const row = y * cw * 4;
@@ -1088,7 +1088,7 @@ function bindCareerLogoYearAlignment(root) {
       if (currentSrc) preloadImage(currentSrc);
       img.addEventListener("load", runAfterLayout, { once: true });
       // Only show fallback text immediately if there is no src at all;
-      // when a src IS set the image is loading ג€” keep fallback hidden until
+      // when a src IS set the image is loading — keep fallback hidden until
       // the load or error handler decides.
       if (!currentSrc) syncMissingUi();
     }
@@ -1202,7 +1202,7 @@ async function resolveCareerPlayerPhotoUrl(src) {
 
   const job = (async () => {
     try {
-      // Use RAM cache ג€” avoids re-downloading on every level switch
+      // Use RAM cache — avoids re-downloading on every level switch
       const img = await preloadImage(src);
       const bounds = measureCareerPlayerOpaqueBoundsNatural(img);
       if (!bounds) return src;
@@ -1422,7 +1422,7 @@ export function renderPitch() {}
 
 /**
  * Preload all images needed for the current career state into the RAM cache.
- * Call this when a player is selected or career history changes ג€” so that by
+ * Call this when a player is selected or career history changes — so that by
  * the time the user switches levels, every logo + photo is already decoded.
  */
 export function preloadCareerAssets(state) {
@@ -1483,21 +1483,29 @@ export function renderCareer() {
 
   ensureCareerPictureModeProfiles(state);
   applyCareerPictureModeToActiveState(state, isShorts);
-  applyCareerRevealAdjustments(wrap, state);
 
-  const favoriteKey = getCareerPictureFavoriteKey(state);
-  if (favoriteKey && appliedFavoritePictureKeyByState.get(state) !== favoriteKey) {
-    const favoriteSize = getCareerPictureFavoriteSize(state);
-    if (favoriteSize) {
-      state.silhouetteYOffset = favoriteSize.silhouetteYOffset;
-      state.silhouetteScaleX = favoriteSize.silhouetteScaleX;
-      state.silhouetteScaleY = favoriteSize.silhouetteScaleY;
-      persistCareerPictureModeFromActiveState(state, isShorts);
-    }
-    appliedFavoritePictureKeyByState.set(state, favoriteKey);
-  } else if (!favoriteKey) {
+  /* Reset Adjust Picture values to defaults on player/photo CHANGE only.
+     Init key intentionally excludes videoMode + layout: toggling Video Mode On/Off
+     (or pressing Play Video / Record Video) must NOT reset the user's adjustments. */
+  /* Reset BEFORE applyCareerRevealAdjustments so the CSS vars use the default values,
+     not the stale profile values — otherwise the silhouette appears too high on first load
+     and only snaps to the right position after re-render. */
+  const careerPlayerNameForReset = state?.careerPlayer?.name?.trim() || "";
+  const playerInitKey = careerPlayerNameForReset
+    ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
+    : "";
+  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+    const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
+    state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
+    state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
+    state.silhouetteScaleY = pictureDefaults.silhouetteScaleY;
+    persistCareerPictureModeFromActiveState(state, isShorts);
+    appliedFavoritePictureKeyByState.set(state, playerInitKey);
+  } else if (!playerInitKey) {
     appliedFavoritePictureKeyByState.delete(state);
   }
+
+  applyCareerRevealAdjustments(wrap, state);
 
   /* Legacy default migration: regular mode now uses 0 / 1 / 1. */
   if (
@@ -1713,23 +1721,11 @@ export function renderCareer() {
   missingLabel.setAttribute("font-family", "Barlow Condensed, sans-serif");
   missingLabel.setAttribute("font-size", "28");
   missingLabel.setAttribute("font-weight", "800");
-  missingLabel.style.cursor = "copy";
-  missingLabel.style.pointerEvents = "all";
   missingLabel.textContent = CAREER_NO_PHOTO_LABEL;
-
-  const copyMissingLabelName = () => {
-    const text = String(missingLabel.textContent || "").trim();
-    if (!text || text === CAREER_NO_PHOTO_LABEL) return;
-    if (navigator?.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).catch(() => {});
-    }
-  };
-  missingLabel.addEventListener("click", copyMissingLabelName);
 
   const showMissing = (label = CAREER_NO_PHOTO_LABEL) => {
     const fallbackName = String(state?.careerPlayer?.name || "").trim();
     missingLabel.textContent = fallbackName || label;
-    missingLabel.style.cursor = fallbackName ? "copy" : "default";
     image.setAttribute("visibility", "hidden");
     missingLabel.setAttribute("visibility", "visible");
     if (getPhotoUi) showGetPhotoUiIfAllowed();
@@ -1854,7 +1850,7 @@ export function renderCareer() {
       const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
       const prev = deleteImageBtn.textContent;
       deleteImageBtn.disabled = true;
-      deleteImageBtn.textContent = "ג€¦";
+      deleteImageBtn.textContent = "…";
       try {
         await requestDeleteReadyPhoto(playerName, readyPhotoClub, variantIndex);
         if (st) st.careerReadyPhotoVariantIndex = 1;
@@ -1949,9 +1945,47 @@ export function renderCareer() {
     return other || "";
   };
 
+  const getPlayerJsonTeamList = () => {
+    const player = state?.careerPlayer;
+    const history = Array.isArray(player?.transfer_history) ? player.transfer_history : [];
+    if (history.length === 0) return [];
+
+    const clubs = Array.isArray(appState.teamsIndex?.clubs) ? appState.teamsIndex.clubs : [];
+    const nationalities = Array.isArray(appState.teamsIndex?.nationalities)
+      ? appState.teamsIndex.nationalities
+      : [];
+    const indexByKey = new Map();
+    [...clubs, ...nationalities].forEach((team) => {
+      const name = String(team?.name || "").trim();
+      if (!name) return;
+      const keyExact = name.toLowerCase();
+      if (!indexByKey.has(keyExact)) indexByKey.set(keyExact, team);
+      const keyAlias = resolveClubAlias(name).toLowerCase();
+      if (!indexByKey.has(keyAlias)) indexByKey.set(keyAlias, team);
+    });
+
+    const seen = new Set();
+    const out = [];
+    history.forEach((item) => {
+      const name = String(item?.club || "").trim();
+      if (!name || isWithoutClub(name)) return;
+      const key = name.toLowerCase();
+      if (seen.has(key)) return;
+      seen.add(key);
+      const matched = indexByKey.get(key) || indexByKey.get(resolveClubAlias(name).toLowerCase());
+      out.push(matched || { name });
+    });
+    return out;
+  };
+
   const openCareerInsertTeamPicker = (insertAfterIndex) => {
     const existing = document.getElementById("career-insert-team-picker");
     if (existing) existing.remove();
+
+    const playerJsonTeams = getPlayerJsonTeamList();
+    const allTeams = getCareerInsertTeamList();
+    const hasPlayerTeams = playerJsonTeams.length > 0;
+    let viewMode = hasPlayerTeams ? "player" : "all";
 
     const picker = document.createElement("div");
     picker.id = "career-insert-team-picker";
@@ -1980,7 +2014,6 @@ export function renderCareer() {
     head.style.gap = "0.5rem";
 
     const title = document.createElement("div");
-    title.textContent = "Add Team";
     title.style.fontWeight = "800";
     title.style.color = "#fff";
     title.style.fontSize = "1rem";
@@ -1998,6 +2031,17 @@ export function renderCareer() {
 
     head.appendChild(title);
     head.appendChild(closeBtn);
+
+    const modeToggleBtn = document.createElement("button");
+    modeToggleBtn.type = "button";
+    modeToggleBtn.style.border = "1px solid rgba(255,202,40,0.55)";
+    modeToggleBtn.style.borderRadius = "6px";
+    modeToggleBtn.style.background = "rgba(255,202,40,0.18)";
+    modeToggleBtn.style.color = "#ffca28";
+    modeToggleBtn.style.cursor = "pointer";
+    modeToggleBtn.style.padding = "0.4rem 0.6rem";
+    modeToggleBtn.style.fontWeight = "700";
+    modeToggleBtn.style.fontSize = "0.9rem";
 
     const search = document.createElement("input");
     search.type = "text";
@@ -2018,16 +2062,32 @@ export function renderCareer() {
     listEl.style.overflowY = "auto";
     listEl.style.paddingRight = "0.2rem";
 
-    const allTeams = getCareerInsertTeamList();
+    const commitTeamSelection = (team) => {
+      const editable = ensureEditableCareerHistory();
+      const item = { club: team.name, year: "YYYY" };
+      try {
+        const imageUrl = resolveInsertTeamCustomImage(team);
+        if (imageUrl) item.customImage = imageUrl;
+      } catch (_) {}
+      editable.splice(insertAfterIndex + 1, 0, item);
+      state.careerClubsCount = editable.length;
+      picker.remove();
+      renderCareer();
+      renderHeader();
+    };
+
     const drawList = (query) => {
-      const q = String(query || "").toLowerCase().trim();
       listEl.innerHTML = "";
-      const filtered = allTeams
-        .filter((team) => String(team?.name || "").toLowerCase().includes(q))
-        .slice(0, 80);
+      const isAll = viewMode === "all";
+      const source = isAll ? allTeams : playerJsonTeams;
+      const q = String(query || "").toLowerCase().trim();
+      const filtered = isAll
+        ? source.filter((team) => String(team?.name || "").toLowerCase().includes(q)).slice(0, 80)
+        : source;
+
       if (filtered.length === 0) {
         const hint = document.createElement("div");
-        hint.textContent = "No teams found.";
+        hint.textContent = isAll ? "No teams found." : "Player JSON has no teams.";
         hint.style.color = "#bbb";
         hint.style.fontSize = "0.9rem";
         listEl.appendChild(hint);
@@ -2049,29 +2109,43 @@ export function renderCareer() {
         btn.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
-          const editable = ensureEditableCareerHistory();
-          const item = { club: team.name, year: "YYYY" };
-          try {
-            const imageUrl = resolveInsertTeamCustomImage(team);
-            if (imageUrl) item.customImage = imageUrl;
-          } catch (_) {}
-          editable.splice(insertAfterIndex + 1, 0, item);
-          state.careerClubsCount = editable.length;
-          picker.remove();
-          renderCareer();
-          renderHeader();
+          commitTeamSelection(team);
         });
         listEl.appendChild(btn);
       });
     };
 
+    const syncModeUi = () => {
+      const playerName = String(state?.careerPlayer?.name || "").trim() || "Player";
+      if (viewMode === "player") {
+        title.textContent = `${playerName}'s Teams`;
+        modeToggleBtn.textContent = "Add another team (search all)";
+        modeToggleBtn.style.display = "";
+        search.style.display = "none";
+      } else {
+        title.textContent = "All Teams";
+        modeToggleBtn.textContent = hasPlayerTeams ? `← Back to ${playerName}'s teams` : "";
+        modeToggleBtn.style.display = hasPlayerTeams ? "" : "none";
+        search.style.display = "";
+      }
+      drawList(search.value);
+    };
+
+    modeToggleBtn.addEventListener("click", () => {
+      viewMode = viewMode === "player" ? "all" : "player";
+      search.value = "";
+      syncModeUi();
+      if (viewMode === "all") search.focus();
+    });
+
     search.addEventListener("input", () => drawList(search.value));
+
     picker.appendChild(head);
+    picker.appendChild(modeToggleBtn);
     picker.appendChild(search);
     picker.appendChild(listEl);
     wrap.appendChild(picker);
-    drawList("");
-    search.focus();
+    syncModeUi();
   };
 
   const buildClubLogoCandidatesRel = (names, foundClubEntry) => {
@@ -2255,7 +2329,7 @@ export function renderCareer() {
       ? `<button class="career-remove-btn" data-index="${index}" title="Remove Team" aria-label="Remove team from path">X</button>`
       : "";
     const editBtnHtml = hasHistorySlot
-      ? `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">ג</button>`
+      ? `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`
       : "";
     const imgOrText = `<div class="career-club-placeholder">
                           ${removeBtnHtml}
@@ -2617,6 +2691,7 @@ export function renderCareer() {
     }
     const clipD = `M 0,${roadY} L ${roadStartX},${roadY} ` + d.replace(`M ${roadStartX},${roadY} `, "") + ` L 1000,${roadY} L 1000,-1000 L 0,-1000 Z`;
     clipPathElement.setAttribute("d", clipD);
+
     wrap.appendChild(slotsContainer);
 
     const revealOverlay = document.createElement("div");
@@ -2798,19 +2873,37 @@ export function renderCareer() {
       btn.disabled = true;
       btn.textContent = "...";
       try {
+        const logoPayload = {
+          teamName,
+          countryHint: String(btn.dataset.countryHint || "").trim(),
+          leagueHint: String(btn.dataset.leagueHint || "").trim(),
+          targetRelativePath: String(btn.dataset.targetRelPath || "").trim(),
+        };
         const res = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            teamName,
-            countryHint: String(btn.dataset.countryHint || "").trim(),
-            leagueHint: String(btn.dataset.leagueHint || "").trim(),
-            targetRelativePath: String(btn.dataset.targetRelPath || "").trim(),
-          }),
+          body: JSON.stringify(logoPayload),
         });
-        const data = await res.json().catch(() => ({}));
+        let data = await res.json().catch(() => ({}));
         if (!res.ok || !data?.ok || !data?.relativePath) {
-          throw new Error(data?.error || "Could not fetch team logo.");
+          /* Mirrors folder 1: when auto-fetch fails, ask the user for a football-logos.cc
+             team page URL (or a direct CDN .png link) and retry the same endpoint. */
+          const msg0 = data?.error || "Could not fetch team logo.";
+          const pasted = window.prompt(
+            `${msg0}\n\nPaste a football-logos.cc team page URL (example: team page with download sizes), or a direct PNG link from images.football-logos.cc / assets.football-logos.cc. Leave empty to cancel.`,
+            "",
+          );
+          const manual = String(pasted || "").trim();
+          if (!manual) throw new Error(msg0);
+          const res2 = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...logoPayload, pageUrl: manual }),
+          });
+          data = await res2.json().catch(() => ({}));
+          if (!res2.ok || !data?.ok || !data?.relativePath) {
+            throw new Error(data?.error || "Could not download team logo from pasted URL.");
+          }
         }
         const relPath = String(data.relativePath);
         const baseFreshUrl = projectAssetUrlFresh(relPath);
@@ -2924,17 +3017,10 @@ function renderCareerPictureControls(wrap, state) {
     <h3 class="career-picture-controls-title">Adjust Picture</h3>
     <label class="career-picture-controls-row">
       <span>Up / Down</span>
-      <div class="career-picture-controls-actions career-picture-controls-actions--favorite">
+      <div class="career-picture-controls-actions">
         <button type="button" data-action="up">&#9650;</button>
         <strong data-value="y">${state.silhouetteYOffset || 0}</strong>
         <button type="button" data-action="down">&#9660;</button>
-        <button
-          type="button"
-          class="career-picture-controls-favorite${hasCareerPictureFavorite(state) ? " is-active" : ""}"
-          data-action="favorite"
-          title="Save current picture size for this player"
-          aria-label="Save current picture size for this player"
-        >${hasCareerPictureFavorite(state) ? "&#9829;" : "&#9825;"}</button>
       </div>
     </label>
     <label class="career-picture-controls-row">
@@ -2969,10 +3055,6 @@ function renderCareerPictureControls(wrap, state) {
       if (action === "wide") st.silhouetteScaleX = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + 0.05;
       if (action === "short") st.silhouetteScaleY = Math.max(0.1, (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) - 0.05);
       if (action === "tall") st.silhouetteScaleY = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + 0.05;
-      if (action === "favorite") {
-        if (hasCareerPictureFavorite(st)) clearCareerPictureFavorite(st);
-        else saveCareerPictureFavorite(st);
-      }
       if (action === "reset") {
         const pictureDefaults = getDefaultPlayerPictureValues(layoutShorts);
         st.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
@@ -2984,13 +3066,6 @@ function renderCareerPictureControls(wrap, state) {
       panel.querySelector('[data-value="y"]').textContent = st.silhouetteYOffset || 0;
       panel.querySelector('[data-value="x"]').textContent = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
       panel.querySelector('[data-value="ys"]').textContent = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
-      const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-      if (favoriteBtn) {
-        const isFavorite = hasCareerPictureFavorite(st);
-        favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-        favoriteBtn.classList.toggle("is-active", isFavorite);
-      }
-
       const activeWrap = document.getElementById("career-wrap");
       const silhouette = activeWrap?.querySelector(".career-silhouette");
       if (silhouette) {
@@ -3008,7 +3083,9 @@ function renderCareerPictureControls(wrap, state) {
     panel.style.left = "";
     panel.style.top = "";
   } else {
-    panel.style.left = "15.2rem";
+    /* Cleared past the SHOW CONTROLS FAB (left: calc(1.5rem + 5vw), ~12rem wide).
+       Adding 5vw matches the FAB's viewport-relative offset so they never overlap. */
+    panel.style.left = "calc(17rem + 5vw)";
     panel.style.top = "0.15rem";
   }
   panel.hidden = hide;
@@ -3016,8 +3093,8 @@ function renderCareerPictureControls(wrap, state) {
   if (title) {
     if (isShorts) {
       title.textContent = state.videoMode
-        ? "Adjust Picture ג€” Shorts (Video On)"
-        : "Adjust Picture ג€” Shorts (Video Off)";
+        ? "Adjust Picture — Shorts (Video On)"
+        : "Adjust Picture — Shorts (Video Off)";
     } else {
       title.textContent = state.videoMode
         ? "Adjust Picture (Video On)"
@@ -3028,48 +3105,5 @@ function renderCareerPictureControls(wrap, state) {
   panel.querySelector('[data-value="y"]').textContent = state.silhouetteYOffset || 0;
   panel.querySelector('[data-value="x"]').textContent = (state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
   panel.querySelector('[data-value="ys"]').textContent = (state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
-  const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-  if (favoriteBtn) {
-    const isFavorite = hasCareerPictureFavorite(state);
-    favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-    favoriteBtn.classList.toggle("is-active", isFavorite);
-  }
 }
 
-/* Click anywhere on the revealed player/team name to copy it to the clipboard.
-   Capture-phase listener so it fires even if a parent stops propagation. Looks
-   for the name in both the bottom reveal label AND the mystery-badge (whose
-   children include the player-card-mode name).  */
-if (typeof document !== "undefined" && !document.__careerRevealNameCopyBound) {
-  document.__careerRevealNameCopyBound = true;
-  const __careerCopyText = (el) => {
-    if (!el) return false;
-    const text = String(el.textContent || "").trim().replace(/\s+/g, " ");
-    if (!text) return false;
-    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).catch(() => {});
-    }
-    return true;
-  };
-  const __careerCopyHandler = (e) => {
-    const t = e.target;
-    if (!t || !t.closest) return;
-    const direct = t.closest(
-      "#career-reveal-name, .career-portrait-card__mystery-mark--name, .career-team-quiz-card__reveal-text--name"
-    );
-    if (direct) { __careerCopyText(direct); return; }
-    const badge = t.closest(".career-portrait-card__mystery-badge");
-    if (badge) {
-      const nameEl = badge.querySelector(".career-portrait-card__mystery-mark--name");
-      if (nameEl) __careerCopyText(nameEl);
-      return;
-    }
-    const tcReveal = t.closest(".career-team-quiz-card__reveal");
-    if (tcReveal) {
-      const nameEl = tcReveal.querySelector(".career-team-quiz-card__reveal-text--name") || tcReveal;
-      __careerCopyText(nameEl);
-    }
-  };
-  document.addEventListener("click", __careerCopyHandler, true);
-  document.addEventListener("dblclick", __careerCopyHandler, true);
-}

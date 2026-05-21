@@ -1519,22 +1519,6 @@ async function init() {
 
     if (els.headerName) {
         els.headerName.addEventListener("dblclick", async () => {
-            /* Always copy the displayed name first so a double-click acts like Ctrl+C
-
-               even when the rename flow below is reachable. */
-
-            try {
-
-                const _hn = String(els.headerName.textContent || "").trim().replace(/\s+/g, " ");
-
-                if (_hn && navigator?.clipboard?.writeText) {
-
-                    navigator.clipboard.writeText(_hn).catch(() => {});
-
-                }
-
-            } catch {}
-
             if (appState.isVideoPlaying) return;
             if (!isCurrentHeaderTeamNameEditable()) return;
             const state = getState();

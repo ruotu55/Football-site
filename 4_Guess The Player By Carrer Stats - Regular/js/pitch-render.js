@@ -1,4 +1,4 @@
-/* js/pitch-render.js ג€” career path mode */
+/* js/pitch-render.js — career path mode */
 
 import {
   appState,
@@ -16,6 +16,7 @@ import {
   careerReadyPhotoRelCandidates,
   careerReadyPhotoRelCandidatesForStem,
   careerReadyPhotoStemForVariant,
+  careerReadyPhotoClubName,
   bumpProjectAssetCacheBust,
   CAREER_NO_PHOTO_LABEL,
   CAREER_NO_PLAYER_LABEL,
@@ -159,7 +160,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   const input = document.createElement("input");
   input.type = "url";
   input.className = "career-ready-photo-url-modal__input";
-  input.placeholder = "https://ג€¦";
+  input.placeholder = "https://…";
   input.autocomplete = "off";
   input.spellcheck = false;
   input.addEventListener("keydown", (ev) => {
@@ -239,7 +240,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     switchList.innerHTML = "";
     const loading = document.createElement("div");
     loading.className = "career-ready-photo-switch-modal__loading";
-    loading.textContent = "Loadingג€¦";
+    loading.textContent = "Loading…";
     switchList.appendChild(loading);
     switchModal.classList.add("career-ready-photo-switch-modal--portal");
     if (switchModal.parentElement !== document.body) {
@@ -254,7 +255,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     };
     document.addEventListener("keydown", switchKeyHandler);
 
-    const indices = await listExistingReadyPhotoVariantIndices(playerName);
+    const indices = await listExistingReadyPhotoVariantIndices(playerName, careerReadyPhotoClubName(getState()));
     switchList.innerHTML = "";
     if (!indices.length) {
       const empty = document.createElement("div");
@@ -268,8 +269,9 @@ function createCareerGetPhotoControls(playerName, clubName) {
     const st = getState();
     const cur = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
 
+    const switchModalClub = careerReadyPhotoClubName(getState());
     for (const v of indices) {
-      const url = await pickLoadableReadyPhotoUrlForVariant(playerName, v);
+      const url = await pickLoadableReadyPhotoUrlForVariant(playerName, switchModalClub, v);
       if (!url) continue;
       const opt = document.createElement("button");
       opt.type = "button";
@@ -328,7 +330,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
     const prev = btnRemoveBg.textContent;
     btnRemoveBg.disabled = true;
-    btnRemoveBg.textContent = "Workingג€¦";
+    btnRemoveBg.textContent = "Working…";
     showHint("", false);
     try {
       await requestRemoveReadyPhotoBackground(playerName, clubName, variantIndex);
@@ -393,7 +395,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   btn.addEventListener("click", () => {
     if (!careerReadyPhotoFetchServerActive()) {
       showHint(
-        "Run the runner via run_site.py (http://127.0.0.1:ג€¦) so the local server can save files into Ready photos.",
+        "Run the runner via run_site.py (http://127.0.0.1:…) so the local server can save files into Ready photos.",
         true,
       );
       return;
@@ -518,7 +520,7 @@ function freshenCareerImageUrl(url) {
   return `${src}${joiner}v=${encodeURIComponent(CAREER_IMAGE_REFRESH_TOKEN)}`;
 }
 
-/** No pixel cap ג€” only reject non-finite values so nudge never ג€sticksג€ at a clamp while the crest steals clicks. */
+/** No pixel cap — only reject non-finite values so nudge never “sticks” at a clamp while the crest steals clicks. */
 export function clampCareerYearNudge(v) {
   const n = Number(v);
   if (!Number.isFinite(n)) return 0;
@@ -597,7 +599,7 @@ function appendCareerSlotZoomControls(slotEl, slotIndex, n, isShortsMode) {
     b.type = "button";
     b.className = "career-badge-zoom-btn";
     b.setAttribute("aria-label", sign < 0 ? "Smaller club badge" : "Larger club badge");
-    b.textContent = sign < 0 ? "גˆ’" : "+";
+    b.textContent = sign < 0 ? "−" : "+";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -650,7 +652,7 @@ function appendCareerSlotYearNudgeControls(slotEl, slotIndex, n, isShortsMode) {
       "aria-label",
       delta < 0 ? "Move year up" : "Move year down"
     );
-    b.textContent = delta < 0 ? "ג†‘" : "ג†“";
+    b.textContent = delta < 0 ? "↑" : "↓";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -688,7 +690,7 @@ const CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_ON = 696;
 const CAREER_SILHOUETTE_CENTER_X_REGULAR_VIDEO_ON = 500;
 const CAREER_SILHOUETTE_BOTTOM_REGULAR = 525;
 const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500;
-/** Extra upward shift for video-on (Player stats) path; Career Path off uses bottomY גˆ’ hUx only. */
+/** Extra upward shift for video-on (Player stats) path; Career Path off uses bottomY − hUx only. */
 const CAREER_SILHOUETTE_VERTICAL_UP_FRAC = 0.0;
 /** Positive = move silhouette down in SVG user space (shorts + Video Mode). Layout uses SVG x/y, not CSS transform. */
 const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
@@ -698,16 +700,16 @@ const CAREER_REVEAL_BASE_SCALE = 1.08;
 /** Same units as Adjust Picture &#9660;/&#9650; (one tick = ֲ±1 on `silhouetteYOffset`). */
 const PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS = 15;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
-/** Synchronous cache: src ג†’ resolved trimmed URL (stored after first successful resolve). */
+/** Synchronous cache: src → resolved trimmed URL (stored after first successful resolve). */
 const careerPlayerResolvedUrlSync = new Map();
 
 const CAREER_READY_PHOTO_VARIANT_PROBE_MAX = 24;
 
-async function pickLoadableReadyPhotoUrlForVariant(playerName, variantIndex) {
+async function pickLoadableReadyPhotoUrlForVariant(playerName, clubName, variantIndex) {
   if (!playerName) return "";
   const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
   const tryVariant = async (vi) => {
-    for (const rel of careerReadyPhotoRelCandidates(playerName, vi)) {
+    for (const rel of careerReadyPhotoRelCandidates(playerName, clubName ?? "", vi)) {
       const url = projectAssetUrlFresh(rel);
       const img = await preloadImage(url);
       if (img.naturalWidth) return url;
@@ -720,10 +722,10 @@ async function pickLoadableReadyPhotoUrlForVariant(playerName, variantIndex) {
   return url || "";
 }
 
-async function readyPhotoVariantExists(playerName, variantIndex) {
+async function readyPhotoVariantExists(playerName, clubName, variantIndex) {
   if (!playerName) return false;
   const v = Math.max(1, Math.floor(Number(variantIndex) || 1));
-  for (const rel of careerReadyPhotoRelCandidates(playerName, v)) {
+  for (const rel of careerReadyPhotoRelCandidates(playerName, clubName ?? "", v)) {
     const url = projectAssetUrlFresh(rel);
     if (getCachedImage(url)?.naturalWidth) return true;
     try {
@@ -742,10 +744,10 @@ async function readyPhotoVariantExists(playerName, variantIndex) {
   return false;
 }
 
-async function listExistingReadyPhotoVariantIndices(playerName) {
+async function listExistingReadyPhotoVariantIndices(playerName, clubName) {
   const out = [];
   for (let v = 1; v <= CAREER_READY_PHOTO_VARIANT_PROBE_MAX; v += 1) {
-    if (await readyPhotoVariantExists(playerName, v)) out.push(v);
+    if (await readyPhotoVariantExists(playerName, clubName, v)) out.push(v);
   }
   return out;
 }
@@ -754,7 +756,7 @@ const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
 const CAREER_PLAYER_TRIM_ALPHA_THRESHOLD = 12;
 const CAREER_PLAYER_TRIM_MARGIN_PX = 8;
 
-/** Regular: compact ג€video editג€ caps only while Video Mode is on and not during Play Video. Shorts: follow Video Mode whenever it is on. */
+/** Regular: compact “video edit” caps only while Video Mode is on and not during Play Video. Shorts: follow Video Mode whenever it is on. */
 function useCareerSilhouetteVideoOnCapsForRender(isShorts, state) {
   if (!state?.videoMode) return false;
   return true;
@@ -1030,7 +1032,7 @@ function measureCareerLogoBottomSlackNatural(img) {
     return 0;
   }
 
-  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved ג€contentג€ upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
+  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved “content” upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
   let maxOpaqueY = -1;
   scan: for (let y = ch - 1; y >= 0; y--) {
     const row = y * cw * 4;
@@ -1212,7 +1214,7 @@ async function resolveCareerPlayerPhotoUrl(src) {
 
   const job = (async () => {
     try {
-      // Use RAM cache ג€” avoids re-downloading on every level switch
+      // Use RAM cache — avoids re-downloading on every level switch
       const img = await preloadImage(src);
       const bounds = measureCareerPlayerOpaqueBoundsNatural(img);
       if (!bounds) { careerPlayerResolvedUrlSync.set(src, src); return src; }
@@ -1370,7 +1372,7 @@ export function cleanCareerHistory(history) {
       return name && name !== "without club";
   });
 
-  /* Remove non-consecutive duplicates ג€” keep first occurrence only. */
+  /* Remove non-consecutive duplicates — keep first occurrence only. */
   const seen = new Set();
   h3 = h3.filter(item => {
       const key = resolveClubAlias(item.club);
@@ -1432,7 +1434,7 @@ function isCareerPlayerGoalkeeper(player) {
   return mapSquadPositionToBucket(player.position) === "Goalkeeper";
 }
 
-/** Sum a numeric field from club + national career totals (squad JSON). Missing sides count as 0; both missing ג†’ "". */
+/** Sum a numeric field from club + national career totals (squad JSON). Missing sides count as 0; both missing → "". */
 function formatPlayerCareerTotalStat(player, key) {
   if (!player) return "";
   const club = player.club_career_totals;
@@ -1522,7 +1524,7 @@ export function preloadCareerAssets(state) {
   const playerName = state.careerPlayer?.name?.trim();
   if (playerName) {
     const vi = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
-    const readyRel = careerReadyPhotoRelPath(playerName, vi);
+    const readyRel = careerReadyPhotoRelPath(playerName, careerReadyPhotoClubName(state), vi);
     if (readyRel) urls.push(projectAssetUrlFresh(readyRel));
   }
   const history = Array.isArray(state.careerHistory) ? state.careerHistory : [];
@@ -1585,21 +1587,29 @@ export function renderCareer() {
 
   ensureCareerPictureModeProfiles(state);
   applyCareerPictureModeToActiveState(state, isShorts);
-  applyCareerRevealAdjustments(wrap, state);
 
-  const favoriteKey = getCareerPictureFavoriteKey(state);
-  if (favoriteKey && appliedFavoritePictureKeyByState.get(state) !== favoriteKey) {
-    const favoriteSize = getCareerPictureFavoriteSize(state);
-    if (favoriteSize) {
-      state.silhouetteYOffset = favoriteSize.silhouetteYOffset;
-      state.silhouetteScaleX = favoriteSize.silhouetteScaleX;
-      state.silhouetteScaleY = favoriteSize.silhouetteScaleY;
-      persistCareerPictureModeFromActiveState(state, isShorts);
-    }
-    appliedFavoritePictureKeyByState.set(state, favoriteKey);
-  } else if (!favoriteKey) {
+  /* Reset Adjust Picture values to defaults on player/photo CHANGE only.
+     Init key intentionally excludes videoMode + layout: toggling Video Mode On/Off
+     (or pressing Play Video / Record Video) must NOT reset the user's adjustments. */
+  /* Reset BEFORE applyCareerRevealAdjustments so the CSS vars use the default values,
+     not the stale profile values — otherwise the silhouette appears too high on first load
+     and only snaps to the right position after re-render. */
+  const careerPlayerNameForReset = state?.careerPlayer?.name?.trim() || "";
+  const playerInitKey = careerPlayerNameForReset
+    ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
+    : "";
+  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+    const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
+    state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
+    state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
+    state.silhouetteScaleY = pictureDefaults.silhouetteScaleY;
+    persistCareerPictureModeFromActiveState(state, isShorts);
+    appliedFavoritePictureKeyByState.set(state, playerInitKey);
+  } else if (!playerInitKey) {
     appliedFavoritePictureKeyByState.delete(state);
   }
+
+  applyCareerRevealAdjustments(wrap, state);
 
   /* Legacy default migration: regular mode now uses 0 / 1 / 1. */
   if (
@@ -1749,8 +1759,9 @@ export function renderCareer() {
   const showShortsCareerGrid = hasRealPlayer || shortsPreviewActive;
   wrap.classList.toggle("career-no-player", !hasRealPlayer && !shortsPreviewActive);
   const readyPhotoVariantIdx = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
+  const readyPhotoClub = hasRealPlayer ? careerReadyPhotoClubName(state) : "";
   const readyPhotoPick = hasRealPlayer
-    ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoVariantIdx)
+    ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoClub, readyPhotoVariantIdx)
     : Promise.resolve("");
   const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
 
@@ -1768,7 +1779,7 @@ export function renderCareer() {
         if (typeof e.stopImmediatePropagation === "function") e.stopImmediatePropagation();
         const st = getState();
         if (!st || !playerName) return;
-        const indices = await listExistingReadyPhotoVariantIndices(playerName);
+        const indices = await listExistingReadyPhotoVariantIndices(playerName, careerReadyPhotoClubName(st));
         if (indices.length < 2) return;
         let cur = Math.max(1, Math.floor(Number(st.careerReadyPhotoVariantIndex) || 1));
         if (!indices.includes(cur)) cur = indices[0];
@@ -1928,7 +1939,7 @@ export function renderCareer() {
       }
       const readyUrl = chosenUrl;
       /* If the trimmed photo URL was already resolved in a prior render, use it
-         synchronously so the silhouette is visible immediately ג€” no hiddenג†’load flash. */
+         synchronously so the silhouette is visible immediately — no hidden→load flash. */
       const syncUrl = careerPlayerResolvedUrlSync.get(readyUrl);
       if (syncUrl) {
         image.setAttribute("href", syncUrl);
@@ -2068,7 +2079,7 @@ export function renderCareer() {
       const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
       const prev = deleteImageBtn.textContent;
       deleteImageBtn.disabled = true;
-      deleteImageBtn.textContent = "ג€¦";
+      deleteImageBtn.textContent = "…";
       try {
         await requestDeleteReadyPhoto(playerName, readyPhotoClub, variantIndex);
         if (st) st.careerReadyPhotoVariantIndex = 1;
@@ -2253,7 +2264,7 @@ export function renderCareer() {
 
     const editBtnHtml = shortsPreviewActive
       ? ""
-      : `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">ג</button>`;
+      : `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`;
     const imgOrText = `<div class="career-club-placeholder">
                           ${editBtnHtml}
                           ${innerContent}
@@ -2449,12 +2460,12 @@ export function renderCareer() {
     clubsTrack.className = "player-stat-clubs-track";
     /**
      * Layout rules:
-     *   1ג€“4  ג†’ single row
-     *   5    ג†’ 3 + 2
-     *   6    ג†’ 3 + 3
-     *   7    ג†’ 4 + 3
-     *   8    ג†’ 4 + 4
-     *   9+   ג†’ ceil/floor split into 2 rows
+     *   1–4  → single row
+     *   5    → 3 + 2
+     *   6    → 3 + 3
+     *   7    → 4 + 3
+     *   8    → 4 + 4
+     *   9+   → ceil/floor split into 2 rows
      */
     const clubSlotRows = [];
     if (n <= 4) {
@@ -2493,7 +2504,7 @@ export function renderCareer() {
           const removeBtn = document.createElement("button");
           removeBtn.type = "button";
           removeBtn.className = "career-badge-zoom-btn career-club-remove-btn";
-          removeBtn.textContent = "ג•";
+          removeBtn.textContent = "✕";
           removeBtn.title = "Remove this club";
           removeBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -2513,7 +2524,7 @@ export function renderCareer() {
       }
       clubsTrack.appendChild(rowEl);
     }
-    /* Scale logos based on total count ג€” fewer clubs = bigger logos. */
+    /* Scale logos based on total count — fewer clubs = bigger logos. */
     const clubSizeMap = {
       1: "8rem", 2: "7rem", 3: "6rem", 4: "5.5rem",
       5: "4.8rem", 6: "4.8rem", 7: "4.8rem", 8: "4.8rem",
@@ -2627,7 +2638,7 @@ export function renderCareer() {
         preservedFlag = null;
         markFlagGateReady();
       } else {
-        /* Different flag needed ג€” dispose old one and create fresh. */
+        /* Different flag needed — dispose old one and create fresh. */
         if (preservedFlag) {
           if (typeof preservedFlag._playerStatsThreeFlagCleanup === "function") {
             preservedFlag._playerStatsThreeFlagCleanup();
@@ -2656,7 +2667,7 @@ export function renderCareer() {
           });
       }
     } else if (preservedFlag) {
-      /* No flag needed ג€” clean up the preserved one. */
+      /* No flag needed — clean up the preserved one. */
       if (typeof preservedFlag._playerStatsThreeFlagCleanup === "function") {
         preservedFlag._playerStatsThreeFlagCleanup();
       }
@@ -2751,17 +2762,10 @@ function renderCareerPictureControls(wrap, state) {
     <h3 class="career-picture-controls-title">Adjust Picture</h3>
     <label class="career-picture-controls-row">
       <span>Up / Down</span>
-      <div class="career-picture-controls-actions career-picture-controls-actions--favorite">
+      <div class="career-picture-controls-actions">
         <button type="button" data-action="up">&#9650;</button>
         <strong data-value="y">${state.silhouetteYOffset || 0}</strong>
         <button type="button" data-action="down">&#9660;</button>
-        <button
-          type="button"
-          class="career-picture-controls-favorite${hasCareerPictureFavorite(state) ? " is-active" : ""}"
-          data-action="favorite"
-          title="Save current picture size for this player"
-          aria-label="Save current picture size for this player"
-        >${hasCareerPictureFavorite(state) ? "&#9829;" : "&#9825;"}</button>
       </div>
     </label>
     <label class="career-picture-controls-row">
@@ -2796,10 +2800,6 @@ function renderCareerPictureControls(wrap, state) {
       if (action === "wide") st.silhouetteScaleX = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + 0.05;
       if (action === "short") st.silhouetteScaleY = Math.max(0.1, (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) - 0.05);
       if (action === "tall") st.silhouetteScaleY = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + 0.05;
-      if (action === "favorite") {
-        if (hasCareerPictureFavorite(st)) clearCareerPictureFavorite(st);
-        else saveCareerPictureFavorite(st);
-      }
       if (action === "reset") {
         const pictureDefaults = getDefaultPlayerPictureValues(layoutShorts);
         st.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
@@ -2811,13 +2811,6 @@ function renderCareerPictureControls(wrap, state) {
       panel.querySelector('[data-value="y"]').textContent = st.silhouetteYOffset || 0;
       panel.querySelector('[data-value="x"]').textContent = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
       panel.querySelector('[data-value="ys"]').textContent = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
-      const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-      if (favoriteBtn) {
-        const isFavorite = hasCareerPictureFavorite(st);
-        favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-        favoriteBtn.classList.toggle("is-active", isFavorite);
-      }
-
       const activeWrap = document.getElementById("career-wrap");
       const silhouette = activeWrap?.querySelector(".career-silhouette");
       if (silhouette) {
@@ -2835,7 +2828,9 @@ function renderCareerPictureControls(wrap, state) {
     panel.style.left = "";
     panel.style.top = "";
   } else {
-    panel.style.left = "15.2rem";
+    /* Cleared past the SHOW CONTROLS FAB (left: calc(1.5rem + 5vw), ~12rem wide).
+       Adding 5vw matches the FAB's viewport-relative offset so they never overlap. */
+    panel.style.left = "calc(17rem + 5vw)";
     panel.style.top = "0.15rem";
   }
   panel.hidden = hide;
@@ -2843,8 +2838,8 @@ function renderCareerPictureControls(wrap, state) {
   if (title) {
     if (isShorts) {
       title.textContent = state.videoMode
-        ? "Adjust Picture ג€” Shorts (Video On)"
-        : "Adjust Picture ג€” Shorts (Video Off)";
+        ? "Adjust Picture — Shorts (Video On)"
+        : "Adjust Picture — Shorts (Video Off)";
     } else {
       title.textContent = state.videoMode
         ? "Adjust Picture (Video On)"
@@ -2855,48 +2850,5 @@ function renderCareerPictureControls(wrap, state) {
   panel.querySelector('[data-value="y"]').textContent = state.silhouetteYOffset || 0;
   panel.querySelector('[data-value="x"]').textContent = (state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
   panel.querySelector('[data-value="ys"]').textContent = (state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
-  const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-  if (favoriteBtn) {
-    const isFavorite = hasCareerPictureFavorite(state);
-    favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-    favoriteBtn.classList.toggle("is-active", isFavorite);
-  }
 }
 
-/* Click anywhere on the revealed player/team name to copy it to the clipboard.
-   Capture-phase listener so it fires even if a parent stops propagation. Looks
-   for the name in both the bottom reveal label AND the mystery-badge (whose
-   children include the player-card-mode name).  */
-if (typeof document !== "undefined" && !document.__careerRevealNameCopyBound) {
-  document.__careerRevealNameCopyBound = true;
-  const __careerCopyText = (el) => {
-    if (!el) return false;
-    const text = String(el.textContent || "").trim().replace(/\s+/g, " ");
-    if (!text) return false;
-    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).catch(() => {});
-    }
-    return true;
-  };
-  const __careerCopyHandler = (e) => {
-    const t = e.target;
-    if (!t || !t.closest) return;
-    const direct = t.closest(
-      "#career-reveal-name, .career-portrait-card__mystery-mark--name, .career-team-quiz-card__reveal-text--name"
-    );
-    if (direct) { __careerCopyText(direct); return; }
-    const badge = t.closest(".career-portrait-card__mystery-badge");
-    if (badge) {
-      const nameEl = badge.querySelector(".career-portrait-card__mystery-mark--name");
-      if (nameEl) __careerCopyText(nameEl);
-      return;
-    }
-    const tcReveal = t.closest(".career-team-quiz-card__reveal");
-    if (tcReveal) {
-      const nameEl = tcReveal.querySelector(".career-team-quiz-card__reveal-text--name") || tcReveal;
-      __careerCopyText(nameEl);
-    }
-  };
-  document.addEventListener("click", __careerCopyHandler, true);
-  document.addEventListener("dblclick", __careerCopyHandler, true);
-}

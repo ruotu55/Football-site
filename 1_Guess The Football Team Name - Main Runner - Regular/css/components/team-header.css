@@ -15,10 +15,10 @@
 
   /* Viewport-fixed: node must live outside .stage (see #team-header-mount in index.html) */
   position: fixed;
-  inset: 0 auto 0 0;
-  width: min(19.24vw, 16.93rem);
-  min-width: 8.46rem;
-  max-width: 20.01rem;
+  inset: 0 auto 0 var(--screen-size-inset-left, 5.3vw);
+  width: min(16.35vw, 14.4rem);
+  min-width: 7.2rem;
+  max-width: 17rem;
   height: auto;
   min-height: 100vh;
   min-height: 100dvh;
@@ -174,7 +174,7 @@ body.play-video-active .team-header-clear-team-btn {
   justify-content: center;
   align-items: center;
   /* Stepped up ~10% vs prior step (was min(16.04vh, 6.56rem)); nudged up so crest + title sit slightly higher */
-  margin-top: calc(min(14.44vh, 5.9rem) - 1.3rem + 5vh);
+  margin-top: calc(min(14.44vh, 5.9rem) - 1.3rem);
   flex-shrink: 0;
 }
 

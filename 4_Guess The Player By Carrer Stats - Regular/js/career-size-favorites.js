@@ -1,4 +1,4 @@
-import { careerReadyPhotoRelPath } from "./paths.js";
+import { careerReadyPhotoRelPath, careerReadyPhotoClubName } from "./paths.js";
 import {
   DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
   DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
@@ -173,7 +173,7 @@ export async function loadCareerPictureFavoritesFromFile() {
 
 export function getCareerPictureFavoriteKey(state, options = {}) {
   const playerName = state?.careerPlayer?.name?.trim();
-  const readyRelPath = careerReadyPhotoRelPath(playerName, state?.careerReadyPhotoVariantIndex ?? 1);
+  const readyRelPath = careerReadyPhotoRelPath(playerName, careerReadyPhotoClubName(state), state?.careerReadyPhotoVariantIndex ?? 1);
   if (!readyRelPath) return "";
   const isShorts =
     typeof document !== "undefined" &&
@@ -199,7 +199,7 @@ export function getCareerPictureFavoriteSize(state, options = {}) {
   if (isShorts) return null;
   /* Backward compatibility with pre-mode favorites (regular layout only). */
   const playerName = state?.careerPlayer?.name?.trim();
-  const readyRelPath = careerReadyPhotoRelPath(playerName, state?.careerReadyPhotoVariantIndex ?? 1);
+  const readyRelPath = careerReadyPhotoRelPath(playerName, careerReadyPhotoClubName(state), state?.careerReadyPhotoVariantIndex ?? 1);
   if (!readyRelPath) return null;
   const useVideoMode = options.forceNormalMode ? false : !!state?.videoMode;
   const modeSuffix = useVideoMode ? "|video" : "|normal";

@@ -100,7 +100,7 @@
 .panel-fab {
   position: fixed;
   top: 1.5rem;
-  left: 1.5rem;
+  left: calc(1.5rem + 5vw);
   z-index: var(--z-lineups-floating-chrome, 480);
   padding: 0.75rem 1.5rem;
   background: var(--accent);
@@ -153,7 +153,7 @@
 .panel-fab.btn-save-current-team-fab {
   --fab-row-gap: 0.68rem;
   top: 1.5rem;
-  left: calc(1.5rem + 12.4rem + var(--fab-row-gap));
+  left: calc(1.5rem + 12.4rem + var(--fab-row-gap) + 5vw);
   right: auto;
   box-sizing: border-box;
   width: 12.4rem;
@@ -199,18 +199,18 @@
 
 .prod-btn {
   left: auto;
-  right: 1.5rem;
-  background: #000;
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 1px 4px rgba(255,255,255,0.15);
+  right: calc(1.5rem + 5vw);
+  background: #fff;
+  color: #000;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.15);
 }
 .prod-btn:hover {
-  background: #1f1f1f;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5), 0 2px 6px rgba(255,255,255,0.2);
+  background: #f3f4f6;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.2);
 }
 .prod-btn[aria-pressed="true"] {
   background: #dc2626;
-  color: #fff;
+  color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(220, 38, 38, 0.55);
 }
 .prod-btn[aria-pressed="true"]:hover {
@@ -224,7 +224,7 @@ body.play-video-active .prod-btn {
 
 .play-video-btn {
   left: auto;
-  right: 15.5rem;
+  right: calc(15.5rem + 5vw);
   background: #4da3ff;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(77, 163, 255, 0.4);
@@ -237,7 +237,7 @@ body.play-video-active .prod-btn {
 /* Record Video — same size as Play Video, sits immediately to its left, red */
 .record-video-btn {
   left: auto;
-  right: 8.5rem;
+  right: calc(8.5rem + 5vw);
   background: #ef4444;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(239, 68, 68, 0.4);
@@ -266,7 +266,7 @@ body.play-video-active .prod-btn {
 
 .video-mode-btn {
   left: auto;
-  right: 22.5rem;
+  right: calc(22.5rem + 5vw);
   background: rgba(255, 255, 255, 0.12);
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 255, 255, 0.18);
@@ -280,7 +280,8 @@ body.play-video-active .prod-btn {
 
 body.play-video-active .video-mode-btn,
 body.play-video-active .shorts-mode-btn,
-body.play-video-active .record-video-btn {
+body.play-video-active .record-video-btn,
+body.play-video-active .btn-save-current-team-fab {
   display: none !important;
 }
 

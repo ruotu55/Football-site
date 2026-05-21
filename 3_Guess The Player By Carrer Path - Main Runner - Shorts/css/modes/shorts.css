@@ -6,7 +6,7 @@
 body.shorts-mode {
     background: #000000;
     /* Shared with .career-grid band math (siblings, not nested) */
-    --shorts-quiz-progress-bottom: calc(2.8rem + 4vh);
+    --shorts-quiz-progress-bottom: calc(2.8rem + 6vh);
 }
 
 html.shorts-mode {
@@ -318,14 +318,14 @@ body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
 
 /* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: calc(max(2.65rem, 18.5vh) * 0.7);
+    top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh);
     left: 50%;
     transform: translateX(-50%);
 }
 
 @keyframes countdown-timer-enter-shorts {
     0% {
-        transform: translateX(-50%) scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        transform: translateX(-50%) scale(0.08) translateZ(-1500px) rotateX(-20deg) translateY(100%);
         opacity: 0;
         filter: blur(5px);
     }
@@ -337,8 +337,24 @@ body.shorts-mode .countdown-timer {
     }
 }
 
+@keyframes countdown-timer-exit-shorts {
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(0.9);
+        opacity: 0;
+    }
+}
+
 body.shorts-mode .countdown-timer.countdown-timer-stage-enter {
-    animation: countdown-timer-enter-shorts 0.82s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation: countdown-timer-enter-shorts 0.82s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+body.shorts-mode .countdown-timer.countdown-timer-stage-exit {
+    animation: countdown-timer-exit-shorts 0.4s cubic-bezier(0.25, 1, 0.5, 1) both;
 }
 
 body.shorts-mode .countdown-bar-track {
@@ -983,9 +999,10 @@ body.shorts-mode .career-inline-player-picker {
     top: 40% !important;
     transform: translate(-50%, -50%) !important;
     z-index: 600 !important;
-    width: min(25rem, 88vw) !important;
-    max-width: min(25rem, 88vw) !important;
-    min-width: min(25rem, 88vw) !important;
+    /* Keep picker inside the 9:16 safe column (no spill into black bands) */
+    width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+    max-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+    min-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
     max-height: 20rem !important;
     pointer-events: auto;
 }
@@ -1175,7 +1192,7 @@ body.shorts-mode .career-wrap.video-mode-enabled .career-reveal-photo.show {
 
 /* Global shorts Video Mode flag on body — #career-wrap loses .video-mode-enabled during Play Video; portrait rules must still apply. */
 body.shorts-mode.career-shorts-video-layout {
-    --shorts-video-reveal-portrait-nudge-y: 10%;
+    --shorts-video-reveal-portrait-nudge-y: 5%;
 }
 
 body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo.show {
@@ -1356,7 +1373,7 @@ body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-co
 /* Shorts-only fit correction: keep the regular shell animation, but preserve the old smaller portrait sizing.
    Fold in --career-reveal-* (set from JS) so Adjust Picture — Shorts (Video Off) actually moves/scales the portrait. */
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-photo.show .career-reveal-photo-img {
-    transform: translateY(calc(var(--career-reveal-y, -10%) + 9%))
+    transform: translateY(calc(var(--career-reveal-y, -10%) + 3%))
         scale(
             calc(var(--career-reveal-scale-x, 1.08) * (13 / 18)),
             calc(var(--career-reveal-scale-y, 1.08) * (13 / 18))
@@ -1420,7 +1437,7 @@ body.shorts-mode .career-reveal-name {
     left: 0;
     right: 0;
     /* Raised 3% from the original `calc(-1.75rem + 5%)` (−5% then +2% back down). */
-    top: calc(-1.75rem + 2%);
+    top: calc(-1.75rem + 4%);
     margin: 0 auto;
     width: 90%;
     text-align: center;

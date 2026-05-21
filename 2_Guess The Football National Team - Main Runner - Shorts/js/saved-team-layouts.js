@@ -511,8 +511,8 @@ export async function applySavedTeamLayoutAfterLoad(state, teamEntry) {
 
 function applySaveTeamButtonState(el, vm, hasTeam, saved) {
     if (!el) return;
-    el.hidden = vm || !hasTeam;
-    el.disabled = !hasTeam || vm;
+    el.hidden = !hasTeam;
+    el.disabled = !hasTeam;
     el.classList.toggle("btn-save-current-team--saved", saved);
     el.setAttribute("aria-pressed", saved ? "true" : "false");
 }
@@ -546,7 +546,7 @@ export function refreshSaveTeamButtonUi() {
 function wireSaveTeamToggleClick() {
     const handler = () => {
         const state = getState();
-        if (!state || state.videoMode) return;
+        if (!state) return;
         const path = canonicalizePath(state.selectedEntry && state.selectedEntry.path);
         if (!path) return;
         if (layoutsByPath[path]) {

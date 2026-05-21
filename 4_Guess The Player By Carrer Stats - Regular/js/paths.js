@@ -34,7 +34,7 @@ export function projectAssetUrl(relativePath) {
 
 let PAGE_LOAD_CACHE_BUST = String(Date.now());
 
-/** After switching Ready photo variants or saving a new file, bump so `projectAssetUrlFresh` bypasses browser cache. */
+/** After saving a new Ready photo on disk, bump so `projectAssetUrlFresh` bypasses browser cache. */
 export function bumpProjectAssetCacheBust() {
   PAGE_LOAD_CACHE_BUST = String(Date.now());
 }
@@ -55,10 +55,40 @@ export function projectAssetUrlFresh(relativePath) {
   return withCacheBust(projectAssetUrl(relativePath));
 }
 
-/** Relative to project root (Football Channel). PNGs/WebP like "{Player Name}.png" or "{Player Name} 2.png". */
+/** Relative to project root (Football Channel). Subfolders ``{Player}_{Club}/`` plus legacy flat files. */
 export const CAREER_READY_PHOTOS_DIR = "Images/Players No Background/Ready photos";
 
-/** Variant 1 = base player name; 2+ = ``{name} {n}`` (matches extra Ready photo files on disk). */
+/** Last meaningful club on the career road (for Ready photo subfolder). */
+export function careerReadyPhotoClubName(state) {
+  const hist = Array.isArray(state?.careerHistory) ? state.careerHistory : [];
+  for (let i = hist.length - 1; i >= 0; i--) {
+    const row = hist[i];
+    if (!row || typeof row !== "object") continue;
+    const club = String(row.club ?? "").trim();
+    if (!club) continue;
+    if (/without\s+club/i.test(club)) continue;
+    return club;
+  }
+  return "";
+}
+
+function careerReadyPhotoSafeSegment(raw) {
+  return String(raw ?? "")
+    .trim()
+    .replace(/\.\./g, "")
+    .replace(/[/\\<>:"|?*]/g, "")
+    .trim();
+}
+
+/** Folder name under Ready photos: ``{player}_{club}`` (aligned with run_site.py sanitization). */
+export function careerReadyPhotoFolderRelSegment(playerName, clubName) {
+  const p = careerReadyPhotoSafeSegment(playerName);
+  const c = careerReadyPhotoSafeSegment(clubName) || "Unknown";
+  const left = p || "Player";
+  return `${left}_${c}`;
+}
+
+/** Variant 1 = base player name; 2+ = ``{name} {n}`` (matches Get photo saves). */
 export function careerReadyPhotoStemForVariant(playerName, variantIndex) {
   const t = String(playerName || "").trim();
   if (!t) return "";
@@ -67,25 +97,33 @@ export function careerReadyPhotoStemForVariant(playerName, variantIndex) {
   return `${t} ${n}`;
 }
 
-export function careerReadyPhotoRelCandidatesForStem(playerName, stem) {
+/** One on-disk stem (PNG/WebP), per-club folder then legacy flat paths. */
+export function careerReadyPhotoRelCandidatesForStem(playerName, clubName, stem) {
   if (!playerName || typeof playerName !== "string") return [];
   const t = playerName.trim();
   const s = String(stem || "").trim();
   if (!t || !s) return [];
-  return [`${CAREER_READY_PHOTOS_DIR}/${s}.png`, `${CAREER_READY_PHOTOS_DIR}/${s}.webp`];
+  const folder = careerReadyPhotoFolderRelSegment(t, clubName ?? "");
+  return [
+    `${CAREER_READY_PHOTOS_DIR}/${folder}/${s}.png`,
+    `${CAREER_READY_PHOTOS_DIR}/${folder}/${s}.webp`,
+    `${CAREER_READY_PHOTOS_DIR}/${s}.png`,
+    `${CAREER_READY_PHOTOS_DIR}/${s}.webp`,
+  ];
 }
 
-export function careerReadyPhotoRelCandidates(playerName, variantIndex) {
-  const stem = careerReadyPhotoStemForVariant(playerName, variantIndex ?? 1);
-  return careerReadyPhotoRelCandidatesForStem(playerName, stem);
-}
-
-export function careerReadyPhotoRelPath(playerName, variantIndex) {
+export function careerReadyPhotoRelPath(playerName, clubName, variantIndex) {
   if (!playerName || typeof playerName !== "string") return null;
   const t = playerName.trim();
   if (!t) return null;
-  const cands = careerReadyPhotoRelCandidates(t, variantIndex ?? 1);
+  const cands = careerReadyPhotoRelCandidates(t, clubName ?? "", variantIndex ?? 1);
   return cands[0] || null;
+}
+
+/** Try per-club folder first, then legacy flat Ready photos (PNG then WebP). */
+export function careerReadyPhotoRelCandidates(playerName, clubName, variantIndex) {
+  const stem = careerReadyPhotoStemForVariant(playerName, variantIndex ?? 1);
+  return careerReadyPhotoRelCandidatesForStem(playerName, clubName, stem);
 }
 
 export const CAREER_NO_PLAYER_LABEL = "";

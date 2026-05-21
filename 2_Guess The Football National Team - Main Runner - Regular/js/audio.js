@@ -44,11 +44,6 @@ const ENDING_FILENAMES = {
   },
 };
 
-function welcomePathFor(lang) {
-  const filename = "Welcome to the football lab, lets start!!!.mp3";
-  return `../.Storage/Voices/Welcome/${lang}/${filename}?v=2`;
-}
-
 function levelPathFor(levelKey, lang) {
   const filename = LEVEL_FILENAMES[levelKey];
   if (!filename) return "";

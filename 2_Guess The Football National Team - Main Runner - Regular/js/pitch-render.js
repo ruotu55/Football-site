@@ -1408,7 +1408,7 @@ function escapeHtmlForSidePanelName(text) {
 }
 
 /** Extra px toward column center (negative = left in LTR); italic/tracking still read a hair right of bbox math */
-const SIDE_PANEL_NAME_CENTER_FINE_PX = -6;
+const SIDE_PANEL_NAME_CENTER_FINE_PX = 0;
 
 /**
  * Snap each word line to the side column’s horizontal center (logo + title + controls share

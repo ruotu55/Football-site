@@ -925,6 +925,12 @@ async function init() {
     els.inHard.oninput = updateLanding;
     els.inImpossible.oninput = updateLanding;
 
+    if (els.inScreenSizeToggle && els.screenSizeOverlay) {
+        els.inScreenSizeToggle.onchange = () => {
+            els.screenSizeOverlay.hidden = !els.inScreenSizeToggle.checked;
+        };
+    }
+
     /* Landing shirt: double-click to edit the number; saved per-level. */
     const shirtEl = document.getElementById("landing-shirt");
     const shirtNum = document.getElementById("landing-shirt-number");

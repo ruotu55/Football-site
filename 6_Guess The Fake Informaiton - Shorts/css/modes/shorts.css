@@ -6,7 +6,7 @@
 body.shorts-mode {
     background: #000000;
     /* Shared with .career-grid band math (siblings, not nested) */
-    --shorts-quiz-progress-bottom: calc(2.8rem + 4vh);
+    --shorts-quiz-progress-bottom: calc(2.8rem + 6vh);
 }
 
 html.shorts-mode {
@@ -318,7 +318,7 @@ body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
 
 /* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: calc(max(2.65rem, 18.5vh) * 0.7);
+    top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -982,9 +982,10 @@ body.shorts-mode .career-inline-player-picker {
     top: 40% !important;
     transform: translate(-50%, -50%) !important;
     z-index: 600 !important;
-    width: min(25rem, 88vw) !important;
-    max-width: min(25rem, 88vw) !important;
-    min-width: min(25rem, 88vw) !important;
+    /* Keep picker inside the 9:16 safe column (no spill into black bands) */
+    width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+    max-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+    min-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
     max-height: 20rem !important;
     pointer-events: auto;
 }

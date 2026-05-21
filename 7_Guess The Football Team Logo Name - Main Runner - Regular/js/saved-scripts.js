@@ -1,4 +1,4 @@
-﻿// js/saved-scripts.js — Main Runner - Four parameters - Regular (storage isolated from Career Path)
+﻿// js/saved-scripts.js — Main Runner - Team Logo Name - Regular (storage isolated from other runners)
 import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
@@ -14,9 +14,9 @@ import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
 
 const INCLUDE_INTRO_LEVEL = true;
 
-const KEY_SCRIPTS = "footballQuizScripts_four_parameters_regular_v1";
-const KEY_FOLDERS = "footballQuizFolders_four_parameters_regular_v1";
-const KEY_FOLDER_STATES = "footballQuizFolderStates_four_parameters_regular_v1";
+const KEY_SCRIPTS = "footballQuizScripts_team_logo_name_regular_v1";
+const KEY_FOLDERS = "footballQuizFolders_team_logo_name_regular_v1";
+const KEY_FOLDER_STATES = "footballQuizFolderStates_team_logo_name_regular_v1";
 const FIXED_SHORTS_MODE = false;
 
 const SPECIFIC_TITLE_ICON_PATH_MAP = {
@@ -35,7 +35,7 @@ function normalizeSpecificTitleIconPath(iconPath) {
     return SPECIFIC_TITLE_ICON_PATH_MAP[iconPath] || iconPath || "";
 }
 
-const SAVE_SERVER = createSavedScriptsServerSync("four_parameters_regular", {
+const SAVE_SERVER = createSavedScriptsServerSync("team_logo_name_regular", {
     KEY_SCRIPTS,
     KEY_FOLDERS,
     KEY_FOLDER_STATES,
@@ -223,32 +223,68 @@ function showManualSearchModal({ title, items, displayFn }) {
 }
 
 const IMPORT_ALIAS_LS_KEY = "quizImport_aliases_v1";
+const IMPORT_ALIAS_ENDPOINT = "/__runner-import-aliases";
 
 function normalizeImportAliasKey(name) {
     return String(name || "").trim().toLowerCase();
 }
 
-function loadImportAliases() {
+let _importAliasCache = (() => {
     try {
         const raw = localStorage.getItem(IMPORT_ALIAS_LS_KEY);
         const parsed = raw ? JSON.parse(raw) : {};
         return parsed && typeof parsed === "object" ? parsed : {};
     } catch { return {}; }
+})();
+
+function _writeImportAliasCacheToLS() {
+    try { localStorage.setItem(IMPORT_ALIAS_LS_KEY, JSON.stringify(_importAliasCache)); } catch {}
 }
 
-function saveImportAlias(rawName, aliasName) {
-    if (!rawName || !aliasName) return;
+async function fetchImportAliasesFromServer() {
     try {
-        const aliases = loadImportAliases();
-        aliases[normalizeImportAliasKey(rawName)] = aliasName;
-        localStorage.setItem(IMPORT_ALIAS_LS_KEY, JSON.stringify(aliases));
+        const res = await fetch(IMPORT_ALIAS_ENDPOINT, { cache: "no-store" });
+        if (!res.ok) return;
+        const body = await res.json();
+        if (body && typeof body.aliases === "object" && body.aliases !== null) {
+            _importAliasCache = body.aliases;
+            _writeImportAliasCacheToLS();
+        }
     } catch {}
 }
 
-function applyImportAliasesToNames(names) {
+const _importAliasInitialSync = fetchImportAliasesFromServer();
+
+function loadImportAliases() {
+    return _importAliasCache;
+}
+
+async function saveImportAlias(rawName, aliasName) {
+    if (!rawName || !aliasName) return;
+    const key = normalizeImportAliasKey(rawName);
+    _importAliasCache[key] = aliasName;
+    _writeImportAliasCacheToLS();
+    try {
+        const res = await fetch(IMPORT_ALIAS_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ merge: { [key]: aliasName } }),
+        });
+        if (res.ok) {
+            const body = await res.json().catch(() => null);
+            if (body && typeof body.aliases === "object" && body.aliases !== null) {
+                _importAliasCache = body.aliases;
+                _writeImportAliasCacheToLS();
+            }
+        }
+    } catch {}
+}
+
+async function applyImportAliasesToNames(names) {
     if (!Array.isArray(names) || names.length === 0) return names;
-    const aliases = loadImportAliases();
-    return names.map((n) => aliases[normalizeImportAliasKey(n)] || n);
+    try { await _importAliasInitialSync; } catch {}
+    await fetchImportAliasesFromServer();
+    return names.map((n) => _importAliasCache[normalizeImportAliasKey(n)] || n);
 }
 
 function showSaveAliasConfirmModal({ rawName, pickedName }) {
@@ -932,7 +968,7 @@ export function initSavedScripts(callbacks) {
             try {
                 const parsed = parseImportText(text);
                 if (parsed.error) { showErr(parsed.error); return; }
-                const names = applyImportAliasesToNames(parsed.names);
+                const names = await applyImportAliasesToNames(parsed.names);
 
                 const quizType = els.inQuizType?.value || "player-by-career-stats";
                 const importTeams = quizType === FAKE_INFO_QUIZ_TYPE;

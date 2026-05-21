@@ -1,4 +1,4 @@
-/* js/pitch-render.js ג€” career path mode */
+/* js/pitch-render.js — career path mode */
 
 import {
   appState,
@@ -217,7 +217,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   const input = document.createElement("input");
   input.type = "url";
   input.className = "career-ready-photo-url-modal__input";
-  input.placeholder = "https://ג€¦";
+  input.placeholder = "https://…";
   input.autocomplete = "off";
   input.spellcheck = false;
   input.addEventListener("keydown", (ev) => {
@@ -297,7 +297,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     switchList.innerHTML = "";
     const loading = document.createElement("div");
     loading.className = "career-ready-photo-switch-modal__loading";
-    loading.textContent = "Loadingג€¦";
+    loading.textContent = "Loading…";
     switchList.appendChild(loading);
     switchModal.classList.add("career-ready-photo-switch-modal--portal");
     if (switchModal.parentElement !== document.body) {
@@ -386,7 +386,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
     const prev = btnRemoveBg.textContent;
     btnRemoveBg.disabled = true;
-    btnRemoveBg.textContent = "Workingג€¦";
+    btnRemoveBg.textContent = "Working…";
     showHint("", false);
     try {
       await requestRemoveReadyPhotoBackground(playerName, clubName, variantIndex);
@@ -451,7 +451,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   btn.addEventListener("click", () => {
     if (!careerReadyPhotoFetchServerActive()) {
       showHint(
-        "Run Player Stats via run_site.py (http://127.0.0.1:ג€¦) so the local server can save files into Ready photos.",
+        "Run Player Stats via run_site.py (http://127.0.0.1:…) so the local server can save files into Ready photos.",
         true,
       );
       return;
@@ -560,7 +560,7 @@ function freshenCareerImageUrl(url) {
   return `${src}${joiner}v=${encodeURIComponent(CAREER_IMAGE_REFRESH_TOKEN)}`;
 }
 
-/** No pixel cap ג€” only reject non-finite values so nudge never ג€sticksג€ at a clamp while the crest steals clicks. */
+/** No pixel cap — only reject non-finite values so nudge never “sticks” at a clamp while the crest steals clicks. */
 export function clampCareerYearNudge(v) {
   const n = Number(v);
   if (!Number.isFinite(n)) return 0;
@@ -639,7 +639,7 @@ function appendCareerSlotZoomControls(slotEl, slotIndex, n, isShortsMode) {
     b.type = "button";
     b.className = "career-badge-zoom-btn";
     b.setAttribute("aria-label", sign < 0 ? "Smaller club badge" : "Larger club badge");
-    b.textContent = sign < 0 ? "גˆ’" : "+";
+    b.textContent = sign < 0 ? "−" : "+";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -692,7 +692,7 @@ function appendCareerSlotYearNudgeControls(slotEl, slotIndex, n, isShortsMode) {
       "aria-label",
       delta < 0 ? "Move year up" : "Move year down"
     );
-    b.textContent = delta < 0 ? "ג†‘" : "ג†“";
+    b.textContent = delta < 0 ? "↑" : "↓";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -718,7 +718,7 @@ const CAREER_LOGO_ALPHA_THRESHOLD = 18;
 /** Hard cap (px); also capped as a fraction of logo box height so bad measures cannot pull the year into the crest. Scaled with default crest size (~195px tall). */
 const CAREER_LOGO_SLACK_CSS_MAX = 108;
 const CAREER_LOGO_SLACK_MAX_FRAC_OF_BOX = 0.38;
-const CAREER_SHADOW_UNIFORM_Y = 2;
+const CAREER_SHADOW_UNIFORM_Y = -2;
 const CAREER_SHADOW_UNIFORM_SCALE = 0.82;
 /* Legacy square <image> side length in SVG user units (viewBox 1000ֳ—400). */
 const CAREER_SILHOUETTE_MAX_REGULAR = 760;
@@ -729,7 +729,7 @@ const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500; /* legacy square was y=-80, h=580 *
 const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
 const CAREER_SILHOUETTE_CENTER_X_REGULAR = 505; /* 125 + 760/2 */
 const CAREER_SILHOUETTE_CENTER_X_SHORTS = 500; /* 210 + 580/2 */
-const CAREER_REVEAL_BASE_Y = -6;
+const CAREER_REVEAL_BASE_Y = -10;
 const CAREER_REVEAL_BASE_SCALE = 1.08;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
@@ -980,7 +980,7 @@ function measureCareerLogoBottomSlackNatural(img) {
     return 0;
   }
 
-  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved ג€contentג€ upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
+  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved “content” upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
   let maxOpaqueY = -1;
   scan: for (let y = ch - 1; y >= 0; y--) {
     const row = y * cw * 4;
@@ -1162,7 +1162,7 @@ async function resolveCareerPlayerPhotoUrl(src) {
 
   const job = (async () => {
     try {
-      // Use RAM cache ג€” avoids re-downloading on every level switch
+      // Use RAM cache — avoids re-downloading on every level switch
       const img = await preloadImage(src);
       const bounds = measureCareerPlayerOpaqueBoundsNatural(img);
       if (!bounds) return src;
@@ -1342,9 +1342,9 @@ export function syncCareerSlotControlsVisibility() {
   document.body.classList.toggle("career-hide-slot-controls", hide);
 }
 
-/** Shorts: re-apply preview layer classes after Play Video (no renderCareer ג€” avoids DOM wipe flash).
+/** Shorts: re-apply preview layer classes after Play Video (no renderCareer — avoids DOM wipe flash).
  *  Also syncs `career-shorts-video-layout` / `video-mode-enabled` like `renderCareer()` so level switches
- *  that delay `updateDOMContent()` do not keep the previous levelג€™s revealed portrait for one transition. */
+ *  that delay `updateDOMContent()` do not keep the previous level’s revealed portrait for one transition. */
 export function syncShortsCareerVideoPreviewLayers() {
   if (!document.body.classList.contains("shorts-mode")) return;
   const state = getState();
@@ -1416,7 +1416,7 @@ export function renderHeader() {
 /** Shared `teams.js` calls this after squad load; this runner has no pitch UI. */
 export function renderPitch() {}
 
-/* ג•ג•ג•ג•ג•ג•ג• Player Stats helpers (shorts video-mode-on info boxes) ג•ג•ג•ג•ג•ג•ג• */
+/* ═══════ Player Stats helpers (shorts video-mode-on info boxes) ═══════ */
 
 const SQUAD_POSITION_TO_BUCKET = {
   Goalkeeper: "Goalkeeper",
@@ -1528,21 +1528,29 @@ export function renderCareer() {
   if (isShorts) migrateShortsVideoOffLegacyNormalProfile(state);
   if (isShorts) migrateShortsVideoOnYOffset(state);
   applyCareerPictureModeToActiveState(state, isShorts);
-  applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
 
-  const favoriteKey = getCareerPictureFavoriteKey(state);
-  if (favoriteKey && appliedFavoritePictureKeyByState.get(state) !== favoriteKey) {
-    const favoriteSize = getCareerPictureFavoriteSize(state);
-    if (favoriteSize) {
-      state.silhouetteYOffset = favoriteSize.silhouetteYOffset;
-      state.silhouetteScaleX = favoriteSize.silhouetteScaleX;
-      state.silhouetteScaleY = favoriteSize.silhouetteScaleY;
-      persistCareerPictureModeFromActiveState(state, isShorts);
-    }
-    appliedFavoritePictureKeyByState.set(state, favoriteKey);
-  } else if (!favoriteKey) {
+  /* Reset Adjust Picture values to defaults on player/photo CHANGE only.
+     Init key intentionally excludes videoMode + layout: toggling Video Mode On/Off
+     (or pressing Play Video / Record Video) must NOT reset the user's adjustments. */
+  /* Reset BEFORE applyCareerRevealAdjustments so the CSS vars use the default values,
+     not the stale profile values — otherwise the silhouette appears too high on first load
+     and only snaps to the right position after re-render. */
+  const careerPlayerNameForReset = state?.careerPlayer?.name?.trim() || "";
+  const playerInitKey = careerPlayerNameForReset
+    ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
+    : "";
+  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+    const pictureDefaults = getDefaultPlayerPictureValuesForCareerMode(isShorts, !!state.videoMode);
+    state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
+    state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
+    state.silhouetteScaleY = pictureDefaults.silhouetteScaleY;
+    persistCareerPictureModeFromActiveState(state, isShorts);
+    appliedFavoritePictureKeyByState.set(state, playerInitKey);
+  } else if (!playerInitKey) {
     appliedFavoritePictureKeyByState.delete(state);
   }
+
+  applyCareerRevealAdjustments(wrap, getCareerRevealCssVarSource(state, isShorts));
 
   /* Legacy default migration: regular mode now uses 0 / 1 / 1. */
   if (
@@ -1821,7 +1829,7 @@ export function renderCareer() {
       </div>
     `;
     /* Mount on <body> so no transformed/filtered ancestor (career-wrap, stage, etc.)
-       interferes with the `position: fixed` centering ג€” matches the Lineups Shorts team picker. */
+       interferes with the `position: fixed` centering — matches the Lineups Shorts team picker. */
     document.body.appendChild(picker);
   } else {
     document.getElementById("career-inline-player-picker")?.remove();
@@ -1869,7 +1877,7 @@ export function renderCareer() {
       const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
       const prev = deleteImageBtn.textContent;
       deleteImageBtn.disabled = true;
-      deleteImageBtn.textContent = "ג€¦";
+      deleteImageBtn.textContent = "…";
       try {
         await requestDeleteReadyPhoto(playerName, readyPhotoClub, variantIndex);
         if (st) st.careerReadyPhotoVariantIndex = 1;
@@ -2062,7 +2070,7 @@ export function renderCareer() {
         }
     }
 
-    const editBtnHtml = `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">ג</button>`;
+    const editBtnHtml = `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`;
     const imgOrText = `<div class="career-club-placeholder">
                           ${editBtnHtml}
                           ${innerContent}
@@ -2109,7 +2117,7 @@ export function renderCareer() {
 
   if (isShorts) {
     if (hasRealPlayer && state.videoMode) {
-      /* ג”€ג”€ Video Mode ON: player info boxes instead of team logos ג”€ג”€ */
+      /* ── Video Mode ON: player info boxes instead of team logos ── */
       const statsPanel = document.createElement("div");
       statsPanel.id = "player-stats-panel";
       statsPanel.className = "player-stats-panel";
@@ -2179,7 +2187,7 @@ export function renderCareer() {
             const removeBtn = document.createElement("button");
             removeBtn.type = "button";
             removeBtn.className = "career-badge-zoom-btn career-club-remove-btn";
-            removeBtn.textContent = "ג•";
+            removeBtn.textContent = "✕";
             removeBtn.title = "Remove this club";
             removeBtn.addEventListener("click", (e) => {
               e.stopPropagation();
@@ -2267,7 +2275,7 @@ export function renderCareer() {
       statsPanel.appendChild(statsMatrix);
       wrap.appendChild(statsPanel);
     } else if (hasRealPlayer) {
-      /* ג”€ג”€ Video Mode OFF: original team logo grid ג”€ג”€ */
+      /* ── Video Mode OFF: original team logo grid ── */
       const gridContainer = document.createElement("div");
       gridContainer.className = "career-grid career-grid--shorts-split";
       /* data-team-count drives css/modes/shorts-career-club-count-map.css */
@@ -2360,7 +2368,7 @@ export function renderCareer() {
       revealFallback.hidden = false;
     }
 
-    /* ג”€ג”€ Waving national flag behind the player (inside the photo shell, below the img) ג”€ג”€ */
+    /* ── Waving national flag behind the player (inside the photo shell, below the img) ── */
     const flagStatPlayer = hasRealPlayer ? state.careerPlayer : null;
     const flagUrl =
       state.videoMode && hasRealPlayer
@@ -2372,7 +2380,7 @@ export function renderCareer() {
       flagWrap.id = "player-stats-national-flag";
       flagWrap.className = "player-stats-national-flag";
 
-      /* Static <img> fallback ג€” always visible even if Three.js / WebGL fails. */
+      /* Static <img> fallback — always visible even if Three.js / WebGL fails. */
       const flagFallbackImg = document.createElement("img");
       flagFallbackImg.src = flagUrl;
       flagFallbackImg.alt = natForAlt ? `${natForAlt} flag` : "National flag";
@@ -2383,7 +2391,7 @@ export function renderCareer() {
       void import("./player-stats-flag-three.js")
         .then((m) => {
           if (!flagWrap.isConnected) return;
-          /* Three.js loaded ג€” remove static fallback, mount animated flag. */
+          /* Three.js loaded — remove static fallback, mount animated flag. */
           flagFallbackImg.remove();
           m.mountPlayerStatsThreeFlag(
             flagWrap,
@@ -2392,7 +2400,7 @@ export function renderCareer() {
           );
         })
         .catch(() => {
-          /* Three.js failed ג€” keep the static <img> fallback. */
+          /* Three.js failed — keep the static <img> fallback. */
         });
     }
 
@@ -2642,17 +2650,10 @@ function renderCareerPictureControls(wrap, state) {
     <h3 class="career-picture-controls-title">Adjust Picture</h3>
     <label class="career-picture-controls-row">
       <span>Up / Down</span>
-      <div class="career-picture-controls-actions career-picture-controls-actions--favorite">
+      <div class="career-picture-controls-actions">
         <button type="button" data-action="up">&#9650;</button>
         <strong data-value="y">${(state.silhouetteYOffset || 0) - (isShorts ? (state.videoMode ? DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET : DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET) : 0)}</strong>
         <button type="button" data-action="down">&#9660;</button>
-        <button
-          type="button"
-          class="career-picture-controls-favorite${hasCareerPictureFavorite(state) ? " is-active" : ""}"
-          data-action="favorite"
-          title="Save current picture size for this player"
-          aria-label="Save current picture size for this player"
-        >${hasCareerPictureFavorite(state) ? "&#9829;" : "&#9825;"}</button>
       </div>
     </label>
     <label class="career-picture-controls-row">
@@ -2687,10 +2688,6 @@ function renderCareerPictureControls(wrap, state) {
       if (action === "wide") st.silhouetteScaleX = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + 0.05;
       if (action === "short") st.silhouetteScaleY = Math.max(0.1, (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) - 0.05);
       if (action === "tall") st.silhouetteScaleY = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + 0.05;
-      if (action === "favorite") {
-        if (hasCareerPictureFavorite(st)) clearCareerPictureFavorite(st);
-        else saveCareerPictureFavorite(st);
-      }
       if (action === "reset") {
         const pictureDefaults = getDefaultPlayerPictureValuesForCareerMode(layoutShorts, !!st.videoMode);
         st.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
@@ -2713,13 +2710,6 @@ function renderCareerPictureControls(wrap, state) {
       panel.querySelector('[data-value="y"]').textContent = (st.silhouetteYOffset || 0) - dynYOffset;
       panel.querySelector('[data-value="x"]').textContent = ((st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + dynScaleXOffset).toFixed(2);
       panel.querySelector('[data-value="ys"]').textContent = ((st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + dynScaleYOffset).toFixed(2);
-      const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-      if (favoriteBtn) {
-        const isFavorite = hasCareerPictureFavorite(st);
-        favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-        favoriteBtn.classList.toggle("is-active", isFavorite);
-      }
-
       const activeWrap = document.getElementById("career-wrap");
       const silhouette = activeWrap?.querySelector(".career-silhouette");
       if (silhouette) {
@@ -2741,7 +2731,9 @@ function renderCareerPictureControls(wrap, state) {
     panel.style.left = "";
     panel.style.top = "";
   } else {
-    panel.style.left = "15.2rem";
+    /* Cleared past the SHOW CONTROLS FAB (left: calc(1.5rem + 5vw), ~12rem wide).
+       Adding 5vw matches the FAB's viewport-relative offset so they never overlap. */
+    panel.style.left = "calc(17rem + 5vw)";
     panel.style.top = "0.15rem";
   }
   panel.hidden = hide;
@@ -2749,8 +2741,8 @@ function renderCareerPictureControls(wrap, state) {
   if (title) {
     if (isShorts) {
       title.textContent = state.videoMode
-        ? "Adjust Picture ג€” Shorts (Video On)"
-        : "Adjust Picture ג€” Shorts (Video Off)";
+        ? "Adjust Picture — Shorts (Video On)"
+        : "Adjust Picture — Shorts (Video Off)";
     } else {
       title.textContent = state.videoMode
         ? "Adjust Picture (Video On)"
@@ -2761,7 +2753,10 @@ function renderCareerPictureControls(wrap, state) {
   refreshCareerPictureControlsDisplay(state);
 }
 
-/** Immediately update the Adjust Picture panel values from the given state. */
+/** Immediately update the Adjust Picture panel values from the given state.
+ *  Reads the layout-specific profile fields (silhouetteShortsVideoYOffset etc.) rather than the
+ *  active silhouetteYOffset/ScaleX/ScaleY, because the active fields are briefly out-of-sync
+ *  during level switches and would otherwise cause a visible -13 → 0 / 1.05 → 1.00 flash. */
 export function refreshCareerPictureControlsDisplay(state) {
   const panel = document.getElementById("career-picture-controls-floating");
   if (!panel || !state) return;
@@ -2776,54 +2771,39 @@ export function refreshCareerPictureControlsDisplay(state) {
   const scaleYOff = isShorts
     ? (isShortsVideo ? (1.0 - DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y) : (1.0 - DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y))
     : 0;
+
+  let sourceY;
+  let sourceX;
+  let sourceYs;
+  if (isShorts) {
+    if (isShortsVideo) {
+      sourceY = Number(state.silhouetteShortsVideoYOffset);
+      sourceX = Number(state.silhouetteShortsVideoScaleX);
+      sourceYs = Number(state.silhouetteShortsVideoScaleY);
+    } else {
+      sourceY = Number(state.silhouetteShortsNormalYOffset);
+      sourceX = Number(state.silhouetteShortsNormalScaleX);
+      sourceYs = Number(state.silhouetteShortsNormalScaleY);
+    }
+  } else if (state.videoMode) {
+    sourceY = Number(state.silhouetteVideoYOffset);
+    sourceX = Number(state.silhouetteVideoScaleX);
+    sourceYs = Number(state.silhouetteVideoScaleY);
+  } else {
+    sourceY = Number(state.silhouetteNormalYOffset);
+    sourceX = Number(state.silhouetteNormalScaleX);
+    sourceYs = Number(state.silhouetteNormalScaleY);
+  }
+  /* Fall back to active fields if the profile field isn't set yet (e.g. very first paint). */
+  if (!Number.isFinite(sourceY)) sourceY = Number(state.silhouetteYOffset) || 0;
+  if (!Number.isFinite(sourceX)) sourceX = Number(state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X);
+  if (!Number.isFinite(sourceYs)) sourceYs = Number(state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y);
+
   const yEl = panel.querySelector('[data-value="y"]');
   const xEl = panel.querySelector('[data-value="x"]');
   const ysEl = panel.querySelector('[data-value="ys"]');
-  if (yEl) yEl.textContent = (state.silhouetteYOffset || 0) - yOff;
-  if (xEl) xEl.textContent = ((state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + scaleXOff).toFixed(2);
-  if (ysEl) ysEl.textContent = ((state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + scaleYOff).toFixed(2);
-  const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-  if (favoriteBtn) {
-    const isFavorite = hasCareerPictureFavorite(state);
-    favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-    favoriteBtn.classList.toggle("is-active", isFavorite);
-  }
+  if (yEl) yEl.textContent = sourceY - yOff;
+  if (xEl) xEl.textContent = (sourceX + scaleXOff).toFixed(2);
+  if (ysEl) ysEl.textContent = (sourceYs + scaleYOff).toFixed(2);
 }
 
-/* Click anywhere on the revealed player/team name to copy it to the clipboard.
-   Capture-phase listener so it fires even if a parent stops propagation. Looks
-   for the name in both the bottom reveal label AND the mystery-badge (whose
-   children include the player-card-mode name).  */
-if (typeof document !== "undefined" && !document.__careerRevealNameCopyBound) {
-  document.__careerRevealNameCopyBound = true;
-  const __careerCopyText = (el) => {
-    if (!el) return false;
-    const text = String(el.textContent || "").trim().replace(/\s+/g, " ");
-    if (!text) return false;
-    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).catch(() => {});
-    }
-    return true;
-  };
-  const __careerCopyHandler = (e) => {
-    const t = e.target;
-    if (!t || !t.closest) return;
-    const direct = t.closest(
-      "#career-reveal-name, .career-portrait-card__mystery-mark--name, .career-team-quiz-card__reveal-text--name"
-    );
-    if (direct) { __careerCopyText(direct); return; }
-    const badge = t.closest(".career-portrait-card__mystery-badge");
-    if (badge) {
-      const nameEl = badge.querySelector(".career-portrait-card__mystery-mark--name");
-      if (nameEl) __careerCopyText(nameEl);
-      return;
-    }
-    const tcReveal = t.closest(".career-team-quiz-card__reveal");
-    if (tcReveal) {
-      const nameEl = tcReveal.querySelector(".career-team-quiz-card__reveal-text--name") || tcReveal;
-      __careerCopyText(nameEl);
-    }
-  };
-  document.addEventListener("click", __careerCopyHandler, true);
-  document.addEventListener("dblclick", __careerCopyHandler, true);
-}

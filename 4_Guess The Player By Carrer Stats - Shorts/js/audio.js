@@ -2,10 +2,10 @@ import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 
 /* ── Language-aware voice resolution. The voice-tab persists the user's language
-     choice to localStorage; every gameplay clip (welcome, quiz titles, level
-     progress, endings) is resolved against that language and falls back to
-     English if the Spanish clip hasn't been generated yet. Player names, BGM,
-     dong and ticking are language-invariant. */
+     choice to localStorage; every gameplay clip (quiz titles, level progress,
+     endings) is resolved against that language and falls back to English if
+     the Spanish clip hasn't been generated yet. Player names, BGM, dong and
+     ticking are language-invariant. */
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
 const SUPPORTED_LANGUAGES = ["english", "spanish"];
 
@@ -17,8 +17,6 @@ function getCurrentLanguage() {
 }
 
 const RUNNER_VARIANT = "Player Stats Shorts";
-
-const WELCOME_FILENAME = "Welcome to the football lab, lets start!!!.mp3";
 
 const LEVEL_FILENAMES = {
   warmUp: "Worm up round dont mess this one .mp3",
@@ -48,10 +46,6 @@ const ENDING_FILENAMES = {
     "how-many": "Cuantas acertaste_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
   },
 };
-
-function welcomePathFor(lang) {
-  return `../.Storage/Voices/Welcome/${lang}/${WELCOME_FILENAME}?v=2`;
-}
 
 function levelPathFor(levelKey, lang) {
   const filename = LEVEL_FILENAMES[levelKey];
@@ -405,46 +399,6 @@ export function playVoice(src, delayMs = 1000) {
       });
       currentVoice.addEventListener('error', () => resolve());
     }, delayMs);
-  });
-}
-
-export function playWelcome() {
-  if (!appState.isVideoPlaying) return;
-  if (document.body.classList.contains("shorts-mode")) return;
-  // Half-second lead-in before welcome; BGM ducks over the same window (playVoice / fadeBgm).
-  playVoiceFromCandidates(langAwareCandidates(welcomePathFor), 500);
-}
-
-/** Shorts landing: welcome only over BGM (no duck); resolves when the clip ends. Pre-delay lives in video.js. */
-export function playWelcomeShortsLanding() {
-  if (!appState.isVideoPlaying) return Promise.resolve();
-  if (!document.body.classList.contains("shorts-mode")) {
-    return Promise.resolve();
-  }
-  const candidates = langAwareCandidates(welcomePathFor);
-  return new Promise((resolve) => {
-    if (currentVoice) {
-      currentVoice.pause();
-      currentVoice.currentTime = 0;
-    }
-    let idx = 0;
-    const playNext = () => {
-      if (idx >= candidates.length) { resolve(); return; }
-      const src = candidates[idx++];
-      const a = new Audio(src);
-      currentVoice = a;
-      a.addEventListener("ended", () => { resolve(); }, { once: true });
-      a.addEventListener("error", () => {
-        if (currentVoice === a) currentVoice = null;
-        playNext();
-      }, { once: true });
-      a.play().catch((err) => {
-        console.warn("Voice play error:", err);
-        if (currentVoice === a) currentVoice = null;
-        playNext();
-      });
-    };
-    playNext();
   });
 }
 

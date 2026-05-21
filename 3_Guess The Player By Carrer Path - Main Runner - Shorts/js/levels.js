@@ -23,6 +23,7 @@ function _prepTimerBarWhileCovered() {
   if (!timerEl) return;
   timerEl.classList.remove(
     "countdown-timer-stage-enter",
+    "countdown-timer-stage-exit",
     "timer-shake",
     "timer-phase-orange",
     "timer-phase-yellow",
@@ -51,21 +52,21 @@ export function switchLevel(index) {
     if (baselineQuestionState && baselineQuestionState !== state) {
       state.careerClubsCount = baselineQuestionState.careerClubsCount;
       /* Each level starts with fresh default picture settings (3 / 0.90 / 0.90). */
-      state.silhouetteYOffset = 3;
-      state.silhouetteScaleX = 0.90;
-      state.silhouetteScaleY = 0.90;
-      state.silhouetteVideoYOffset = 3;
-      state.silhouetteVideoScaleX = 0.90;
-      state.silhouetteVideoScaleY = 0.90;
-      state.silhouetteNormalYOffset = 3;
-      state.silhouetteNormalScaleX = 0.90;
-      state.silhouetteNormalScaleY = 0.90;
-      state.silhouetteShortsVideoYOffset = 3;
-      state.silhouetteShortsVideoScaleX = 0.90;
-      state.silhouetteShortsVideoScaleY = 0.90;
-      state.silhouetteShortsNormalYOffset = -7;
-      state.silhouetteShortsNormalScaleX = 0.90;
-      state.silhouetteShortsNormalScaleY = 0.90;
+      state.silhouetteYOffset = 0;
+      state.silhouetteScaleX = 1.0;
+      state.silhouetteScaleY = 1.0;
+      state.silhouetteVideoYOffset = 0;
+      state.silhouetteVideoScaleX = 1.0;
+      state.silhouetteVideoScaleY = 1.0;
+      state.silhouetteNormalYOffset = 0;
+      state.silhouetteNormalScaleX = 1.0;
+      state.silhouetteNormalScaleY = 1.0;
+      state.silhouetteShortsVideoYOffset = 12;
+      state.silhouetteShortsVideoScaleX = 1.0;
+      state.silhouetteShortsVideoScaleY = 1.0;
+      state.silhouetteShortsNormalYOffset = 1.5;
+      state.silhouetteShortsNormalScaleX = 1.0;
+      state.silhouetteShortsNormalScaleY = 1.0;
       state.careerSlotBadgeScales = [];
       state.careerSlotBadgeScalesRegular = [];
       state.careerSlotBadgeScalesShorts = [];

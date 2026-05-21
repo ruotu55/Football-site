@@ -29,7 +29,8 @@ export function hideShortsCountdownOnPlayVideoPress() {
     "timer-phase-orange",
     "timer-phase-yellow",
     "timer-phase-red",
-    "countdown-timer-stage-enter"
+    "countdown-timer-stage-enter",
+    "countdown-timer-stage-exit"
   );
   document.body.classList.remove("shorts-question-countdown");
   clearSoccerRolling(timerEl);
@@ -64,7 +65,8 @@ export function syncShortsVideoModeIdleTimerBar() {
       "timer-phase-orange",
       "timer-phase-yellow",
       "timer-phase-red",
-      "countdown-timer-stage-enter"
+      "countdown-timer-stage-enter",
+      "countdown-timer-stage-exit"
     );
     document.body.classList.remove("shorts-question-countdown");
     clearSoccerRolling(timerEl);
@@ -80,6 +82,7 @@ export function syncShortsVideoModeIdleTimerBar() {
   timerEl.hidden = false;
   timerEl.classList.remove(
     "countdown-timer-stage-enter",
+    "countdown-timer-stage-exit",
     "timer-shake",
     "timer-phase-orange",
     "timer-phase-yellow",

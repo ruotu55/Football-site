@@ -529,7 +529,7 @@ export async function renderVoiceTab() {
   /* Team-name quiz has no Quiz Sounds — the reveal just plays the team's name clip from
      the Team names directory. (Fake-stats clips are no longer used by this quiz.) */
 
-  /* Section 5 — Bundled (Welcome + level progress voices).
+  /* Section 5 — Bundled (level progress voices).
      English = shipped MP3; Spanish = generated on-demand via __bundled-voice endpoints. */
   const bundledStatuses = await Promise.all(BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key)));
   if (myToken !== renderToken) return;

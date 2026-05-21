@@ -67,6 +67,7 @@ export function captureDevLiveReloadSnapshot(appState, els) {
             shortsModeToggle: FIXED_SHORTS_MODE,
             shortsCirclePreviewToggle: !!els.shortsCirclePreviewToggle?.checked,
             shortsCirclePreviewCount: els.shortsCirclePreviewCount?.value ?? null,
+            inScreenSizeToggle: !!els.inScreenSizeToggle?.checked,
         },
     };
     sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(payload));
@@ -88,6 +89,11 @@ export function applyDevLiveReloadControls(els, snapshot) {
     if (els.shortsCirclePreviewToggle) els.shortsCirclePreviewToggle.checked = !!c.shortsCirclePreviewToggle;
     if (els.shortsCirclePreviewCount && c.shortsCirclePreviewCount != null) {
         els.shortsCirclePreviewCount.value = c.shortsCirclePreviewCount;
+    }
+    if (els.inScreenSizeToggle) {
+        els.inScreenSizeToggle.checked = !!c.inScreenSizeToggle;
+        const overlay = document.getElementById("screen-size-overlay");
+        if (overlay) overlay.hidden = !els.inScreenSizeToggle.checked;
     }
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     if (els.shortsModeBtn && els.shortsModeToggle) {

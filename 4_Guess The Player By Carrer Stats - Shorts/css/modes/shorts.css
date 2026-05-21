@@ -6,7 +6,7 @@
 body.shorts-mode {
     background: #000000;
     /* Shared with .career-grid band math (siblings, not nested) */
-    --shorts-quiz-progress-bottom: calc(2.8rem + 4vh);
+    --shorts-quiz-progress-bottom: calc(2.8rem + 6vh);
     /* Player stats shorts: nudge “hidden” portrait (silhouette + dimmed video) slightly down under stats/crest. */
     --player-stats-hidden-player-nudge-y: 4%;
     /* Raise hidden portrait (translateY; negative = up). Was -15%; raised 4pp. */
@@ -95,6 +95,8 @@ body.shorts-mode .stage-main {
     position: relative;
     /* Was clipping career grid / bottom UI as a hard horizontal cut */
     overflow: visible;
+    /* Avoid vertically re-centering when team-header height changes (Video Mode / Play Video). */
+    justify-content: flex-start;
 }
 
 body.shorts-mode .logo-page {
@@ -330,7 +332,7 @@ body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
 
 /* High enough to clear pitch crests; still below the very top of the frame */
 body.shorts-mode .countdown-timer {
-    top: calc(max(2.65rem, 18.5vh) * 0.7);
+    top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh);
     left: 50%;
     transform: translateX(-50%);
 }
@@ -779,7 +781,7 @@ body.shorts-mode .career-silhouette {
     opacity: 0.96;
     transform:
       translate(0%, calc(2% + var(--sil-y, 0%)))
-      scale(calc(var(--sil-scale-x, 1) * 0.98), calc(var(--sil-scale-y, 1) * 0.98));
+      scale(calc(var(--sil-scale-x, 1) * 0.85), calc(var(--sil-scale-y, 1) * 0.85)) !important;
     transform-origin: 50% 100%;
     filter:
       brightness(0)
@@ -826,9 +828,10 @@ body.shorts-mode .career-inline-player-picker {
     top: 40% !important;
     transform: translate(-50%, -50%) !important;
     z-index: 600 !important;
-    width: min(25rem, 88vw) !important;
-    max-width: min(25rem, 88vw) !important;
-    min-width: min(25rem, 88vw) !important;
+    /* Keep picker inside the 9:16 safe column (no spill into black bands) */
+    width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+    max-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+    min-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
     max-height: 20rem !important;
     pointer-events: auto;
 }
@@ -930,13 +933,6 @@ body.shorts-mode .career-reveal-photo::after {
     pointer-events: none;
 }
 
-body.shorts-mode .career-reveal-photo .career-reveal-photo-img {
-    object-fit: contain;
-    object-position: center bottom;
-    transform: translateY(calc(var(--career-reveal-y, -10%) + var(--player-stats-reveal-photo-nudge-y, 0%)))
-        scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
-}
-
 .career-reveal-photo-fallback {
     position: absolute;
     inset: 0;
@@ -982,7 +978,8 @@ body.shorts-mode.career-shorts-video-layout .career-wrap .career-reveal-photo.sh
     animation: career-reveal-overlay-rise-safe 1.15s cubic-bezier(0.2, 1, 0.25, 1) forwards;
 }
 
-/* Play Video: freeze portrait shell during BGM pre-countdown + question countdown (same as before). */
+/* Play Video: freeze portrait shell during BGM pre-countdown + question countdown.
+   Uses the same end-state as the career-reveal-overlay-rise-safe keyframes (translateY -4% scale 1.04). */
 body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .career-reveal-photo.show,
 body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show {
     animation: none;
@@ -1082,10 +1079,11 @@ body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-revea
     opacity: 1;
     /* Non-`none` filter keeps parent drop-shadow stable when leaving dimmed grayscale (Chromium). */
     filter: brightness(1) contrast(1) saturate(1);
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-reveal-photo-nudge-y, 0%)))
+    /* Match preview transform: same translateY nudges and same dim-scale so the silhouette doesn't jump down/grow on play. */
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y) + var(--player-stats-hidden-player-lift-y) + var(--player-stats-reveal-photo-nudge-y, 0%)))
       scale(
-        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
-        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+        calc(var(--career-reveal-scale-x, 1.08) * var(--player-stats-hidden-portrait-dim-scale)),
+        calc(var(--career-reveal-scale-y, 1.08) * var(--player-stats-hidden-portrait-dim-scale))
       );
 }
 
@@ -1113,10 +1111,11 @@ body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap
 body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .career-reveal-photo.show .career-reveal-photo-img {
     opacity: 1;
     filter: brightness(1) contrast(1) saturate(1);
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-reveal-photo-nudge-y, 0%)))
+    /* Match preview transform: same translateY nudges and same dim-scale so the silhouette doesn't jump down/grow on play. */
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 15.5% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-nudge-y) + var(--player-stats-hidden-player-lift-y) + var(--player-stats-reveal-photo-nudge-y, 0%)))
       scale(
-        calc(var(--career-reveal-scale-x, 1.08) * 0.85),
-        calc(var(--career-reveal-scale-y, 1.08) * 0.85)
+        calc(var(--career-reveal-scale-x, 1.08) * var(--player-stats-hidden-portrait-dim-scale)),
+        calc(var(--career-reveal-scale-y, 1.08) * var(--player-stats-hidden-portrait-dim-scale))
       );
 }
 
@@ -1133,8 +1132,7 @@ body.shorts-mode.career-shorts-video-layout.play-video-active.shorts-question-co
 /* Shorts-only fit correction: keep the regular shell animation, but preserve the old smaller portrait sizing.
    Fold in --career-reveal-* (set from JS) so Adjust Picture — Shorts (Video Off) actually moves/scales the portrait. */
 body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-enabled) .career-reveal-photo.show .career-reveal-photo-img {
-    opacity: 1;
-    transform: translateY(calc(var(--career-reveal-y, -10%) + 9% + var(--player-stats-reveal-photo-nudge-y, 0%)))
+    transform: translateY(calc(var(--career-reveal-y, -10%) + 3%))
         scale(
             calc(var(--career-reveal-scale-x, 1.08) * (13 / 18)),
             calc(var(--career-reveal-scale-y, 1.08) * (13 / 18))
@@ -1143,7 +1141,7 @@ body.shorts-mode:not(.career-shorts-video-layout) .career-wrap:not(.video-mode-e
 
 /* Tall portraits need extra downward bias in shorts so the head clears the top bounds and title. */
 body.shorts-mode .career-reveal-photo.is-tall-player .career-reveal-photo-img {
-    transform: translateY(calc(var(--career-reveal-y, -10%) + 8% + var(--player-stats-reveal-photo-nudge-y, 0%)))
+    transform: translateY(calc(var(--career-reveal-y, -10%) + 8%))
       scale(
         calc(var(--career-reveal-scale-x, 1.08) * 0.82),
         calc(var(--career-reveal-scale-y, 1.08) * 0.82)
@@ -1159,10 +1157,11 @@ body.shorts-mode .career-wrap.video-mode-enabled:not(.play-video-active) .career
 }
 
 body.shorts-mode.play-video-active .career-wrap.video-mode-enabled .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-reveal-photo-nudge-y, 0%)))
+    /* Match preview transform (tall) — note: tall preview rule omits --player-stats-hidden-player-nudge-y. */
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-lift-y) + var(--player-stats-reveal-photo-nudge-y, 0%)))
       scale(
-        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
-        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+        calc(var(--career-reveal-scale-x, 1.08) * var(--player-stats-hidden-portrait-dim-scale-tall)),
+        calc(var(--career-reveal-scale-y, 1.08) * var(--player-stats-hidden-portrait-dim-scale-tall))
       );
 }
 
@@ -1185,10 +1184,11 @@ body.shorts-mode.career-shorts-video-layout:not(.play-video-active) .career-wrap
 }
 
 body.shorts-mode.career-shorts-video-layout.play-video-active .career-wrap .career-reveal-photo.is-tall-player.show .career-reveal-photo-img {
-    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-reveal-photo-nudge-y, 0%)))
+    /* Match preview transform (tall) — note: tall preview rule omits --player-stats-hidden-player-nudge-y. */
+    transform: translateY(calc(var(--career-reveal-y, -10%) - 12% + var(--shorts-video-reveal-portrait-nudge-y, 0%) + var(--player-stats-hidden-player-lift-y) + var(--player-stats-reveal-photo-nudge-y, 0%)))
       scale(
-        calc(var(--career-reveal-scale-x, 1.08) * 0.82),
-        calc(var(--career-reveal-scale-y, 1.08) * 0.82)
+        calc(var(--career-reveal-scale-x, 1.08) * var(--player-stats-hidden-portrait-dim-scale-tall)),
+        calc(var(--career-reveal-scale-y, 1.08) * var(--player-stats-hidden-portrait-dim-scale-tall))
       );
 }
 
@@ -1241,7 +1241,7 @@ body.shorts-mode .career-reveal-name {
     position: absolute;
     left: 0;
     right: 0;
-    top: calc(-1.75rem + 8.5%);
+    top: calc(-1.75rem + 4%);
     margin: 0 auto;
     width: 90%;
     text-align: center;

@@ -27,10 +27,8 @@ import {
   syncShortsVideoModeIdleTimerBar,
 } from "./shorts-idle-timer-bar.js";
 
-/** After Play Video on the logo page: pause before BGM, welcome, and logo reveal. */
+/** After Play Video on the logo page: pause before BGM and logo reveal. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
-/** Shorts level 1 (logo hold, no landing card): quiz-title voice starts immediately in runVideoStep. */
-const SHORTS_LANDING_PRE_WELCOME_DELAY_MS = 0;
 /** Match `levels.js` video squeeze: content swaps after `transitionDelay`; enter anim is 0.82s. */
 const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
 const SHORTS_STAGE_ENTER_MS = 820;

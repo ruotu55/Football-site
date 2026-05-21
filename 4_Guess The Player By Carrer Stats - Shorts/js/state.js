@@ -1,14 +1,13 @@
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
 export const DEFAULT_PLAYER_SILHOUETTE_Y_OFFSET = 0;
-export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 0.85;
+export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_X = 1.0;
 export const DEFAULT_SHORTS_PLAYER_SILHOUETTE_SCALE_Y = 1.0;
-/** Shorts “Adjust Picture (Video Off)” baseline values — match Main Runner - Career Path - Shorts. */
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = -7;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 0.9;
-export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 0.9;
-/** Shorts "Video On" baseline Y-offset — player starts lower so it sits below the stats panel. */
-export const DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET = 13;
+/** Shorts “Adjust Picture (Video Off)” baseline values. */
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_Y_OFFSET = 4;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_X = 1.0;
+export const DEFAULT_SHORTS_VIDEO_OFF_SILHOUETTE_SCALE_Y = 1.0;
+export const DEFAULT_SHORTS_VIDEO_ON_Y_OFFSET = 12;
 
 export function getDefaultPlayerPictureValues(isShortsLayout = false) {
   return {

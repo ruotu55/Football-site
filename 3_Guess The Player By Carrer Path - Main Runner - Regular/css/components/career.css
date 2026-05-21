@@ -100,7 +100,8 @@
 
 /* Shorts: same floating Adjust Picture panel, top-centered (road layout keeps top-left). */
 .career-picture-controls.career-picture-controls--shorts-layout {
-  left: 50%;
+  /* Shifted right past the "Show controls" FAB (left: calc(1.5rem + 5vw)). */
+  left: 60%;
   right: auto;
   top: max(0.35rem, env(safe-area-inset-top, 0px));
   transform: translateX(-50%) scale(0.82);
@@ -131,8 +132,10 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   width: 100%; height: 100%;
   overflow: visible;
   pointer-events: none;
-  /* Road + player image share this layer; moved another 5% higher */
-  transform: rotateX(15deg) translateY(-20%);
+  /* Road + player image share this layer; moved another 5% higher.
+     translateX + scale(0.95): shrink 5% and shift left to sit centered between
+     the side-text (left: 1rem) and the levels bar (right: 4.5rem + 3vw). */
+  transform: rotateX(15deg) translateY(-20%) translateX(calc(-0.5rem - 0.5vw)) scale(0.95);
   z-index: 5;
   isolation: isolate;
 }
@@ -600,12 +603,12 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
   0% {
     opacity: 0;
     filter: blur(10px);
-    transform: rotateX(15deg) translateY(-14.5%) scale(1.14);
+    transform: rotateX(15deg) translateY(-14.5%) translateX(calc(-1.75rem - 1.5vw)) scale(1.083);
   }
   100% {
     opacity: 1;
     filter: blur(0);
-    transform: rotateX(15deg) translateY(-20%) scale(1);
+    transform: rotateX(15deg) translateY(-20%) translateX(calc(-0.5rem - 0.5vw)) scale(0.95);
   }
 }
 
@@ -645,7 +648,8 @@ body:not(.shorts-mode) .career-wrap.video-question-enter-anim .career-slots {
   top: 0; left: 0;
   width: 100%; height: 100%;
   pointer-events: none;
-  transform: rotateX(15deg) translateY(-20%);
+  /* Match .career-svg: shrink 5% and shift left to center between side-text and levels bar. */
+  transform: rotateX(15deg) translateY(-20%) translateX(calc(-0.5rem - 0.5vw)) scale(0.95);
   z-index: 10;
   transition: filter 0.45s ease, opacity 0.45s ease;
 }
@@ -828,14 +832,16 @@ body:not(.shorts-mode) .career-club-slot {
   transform: translate(-50%, calc(-50% + 4px)) rotateX(-15deg);
 }
 
-/* Road view: 12px total motion, centered on anchor (not biased upward like global float-up-down) */
+/* Road view: 12px total motion, centered on anchor (not biased upward like global float-up-down).
+   Uses the modern `translate` property so it composes with the parent transform on .career-slots
+   (rotateX / translateY / translateX / scale) instead of overriding it. */
 @keyframes float-up-down-career-road {
   0%,
   100% {
-    transform: translate3d(0, 6px, 0);
+    translate: 0 6px;
   }
   50% {
-    transform: translate3d(0, -6px, 0);
+    translate: 0 -6px;
   }
 }
 
@@ -897,7 +903,7 @@ body:not(.shorts-mode) .career-club-slot {
 .career-club-year-stack > .career-club-year {
   margin: 0;
   margin-top: calc(-3px - var(--career-img-bottom-slack, 0px));
-  padding: 0.072rem 0.66rem 0.12rem;
+  padding: 0.0864rem 0.792rem 0.144rem;
   line-height: 1;
   flex-shrink: 0;
   pointer-events: auto;
@@ -922,8 +928,10 @@ body:not(.shorts-mode) .career-club-slot {
   animation: none;
 }
 
-/* Regular road logos should move only while Play Video is active. */
-body.play-video-active:not(.shorts-mode) .career-club-slot-inner {
+/* Regular road logos should move only while Play Video is active.
+   Animate the shared .career-slots container so every logo shares one phase
+   (per-slot animations drifted out of sync if slots rendered at different times). */
+body.play-video-active:not(.shorts-mode) .career-slots {
   animation: float-up-down-career-road 4s ease-in-out infinite;
 }
 
@@ -1191,6 +1199,8 @@ body.play-video-active .career-logo-fetch-btn {
   top: 50%;
   transform: translateY(-50%);
   z-index: 210;
+  /* Parent .career-club-slot has pointer-events: none; opt back in here. */
+  pointer-events: auto;
 }
 
 .career-insert-btn--side-left {
@@ -1222,7 +1232,7 @@ body.play-video-active .career-logo-fetch-btn {
 .career-club-year {
   font-family: "Barlow Condensed", sans-serif;
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: #fff;
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
   background: #0a1118;
@@ -1780,21 +1790,3 @@ body.play-video-active .career-get-photo-btn {
   pointer-events: none !important;
 }
 
-/* Reveal player/team name is click-to-copy. Force pointer-events on the name
-   AND its parent badge/wrappers so events reach it even when an ancestor (the
-   portrait card) sets pointer-events: none. The wrapping badge is bumped to
-   a high z-index so nothing else can sit on top. */
-#career-reveal-name,
-#career-reveal-name .career-reveal-name-top,
-#career-reveal-name .career-reveal-name-bottom,
-.career-portrait-card__mystery-mark--name,
-.career-portrait-card__mystery-mark,
-.career-portrait-card__mystery-badge,
-.career-team-quiz-card__reveal-text--name,
-.career-team-quiz-card__reveal {
-  cursor: copy !important;
-  pointer-events: auto !important;
-}
-.career-portrait-card__mystery-badge:has(.career-portrait-card__mystery-mark--name) {
-  z-index: 50 !important;
-}

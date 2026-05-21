@@ -88,6 +88,8 @@ export function bindDomElements() {
     els.searchMode = document.getElementById("search-mode");
     els.btnLevelsControl = document.getElementById("btn-levels-control");
     els.rightPanel = document.getElementById("right-panel");
+    els.inScreenSizeToggle = document.getElementById("in-screen-size-toggle");
+    els.screenSizeOverlay = document.getElementById("screen-size-overlay");
     els.careerWrap = document.getElementById("career-wrap");
     els.setupCareerSilhouetteField = document.getElementById("setup-career-silhouette-field");
     els.btnPictureControls = document.getElementById("btn-picture-controls");

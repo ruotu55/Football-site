@@ -1,4 +1,4 @@
-/* js/pitch-render.js ג€” career path mode */
+/* js/pitch-render.js — career path mode */
 
 import {
   appState,
@@ -218,7 +218,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   const input = document.createElement("input");
   input.type = "url";
   input.className = "career-ready-photo-url-modal__input";
-  input.placeholder = "https://ג€¦";
+  input.placeholder = "https://…";
   input.autocomplete = "off";
   input.spellcheck = false;
   input.addEventListener("keydown", (ev) => {
@@ -298,7 +298,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     switchList.innerHTML = "";
     const loading = document.createElement("div");
     loading.className = "career-ready-photo-switch-modal__loading";
-    loading.textContent = "Loadingג€¦";
+    loading.textContent = "Loading…";
     switchList.appendChild(loading);
     switchModal.classList.add("career-ready-photo-switch-modal--portal");
     if (switchModal.parentElement !== document.body) {
@@ -387,7 +387,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
     const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
     const prev = btnRemoveBg.textContent;
     btnRemoveBg.disabled = true;
-    btnRemoveBg.textContent = "Workingג€¦";
+    btnRemoveBg.textContent = "Working…";
     showHint("", false);
     try {
       await requestRemoveReadyPhotoBackground(playerName, clubName, variantIndex);
@@ -452,7 +452,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   btn.addEventListener("click", () => {
     if (!careerReadyPhotoFetchServerActive()) {
       showHint(
-        "Run the runner via run_site.py (http://127.0.0.1:ג€¦) so the local server can save files into Ready photos.",
+        "Run the runner via run_site.py (http://127.0.0.1:…) so the local server can save files into Ready photos.",
         true,
       );
       return;
@@ -761,7 +761,7 @@ function getLogoContainDrawRect(logoEl, width, height) {
   return { drawX, drawY, drawW, drawH };
 }
 
-/** Prefer RAM-cached decoded bitmap ג€” DOM <img> can fail drawImage while [hidden] or mid-decode. */
+/** Prefer RAM-cached decoded bitmap — DOM <img> can fail drawImage while [hidden] or mid-decode. */
 function resolveLogoDrawSource(logoEl) {
   const el = logoEl;
   if (!el) return null;
@@ -843,7 +843,7 @@ function sampleLogoPixelColor(logoEl, width, height, x, y) {
   return `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${Math.max(0.75, alpha).toFixed(3)})`;
 }
 
-/** Comprehensive lookup for a saved punch snap ג€” used by both attach (so the punch is visible
+/** Comprehensive lookup for a saved punch snap — used by both attach (so the punch is visible
  *  from pre-timer) and restore (timer-end). Returns "" if nothing matches. */
 function findFakeInfoLogoPunchSnap(state, punchCanvas) {
   if (!state) return { snap: "", usedKey: "" };
@@ -906,7 +906,7 @@ function restoreTeamLogoPunchCanvasFromState(state, punchCanvas, logoImg) {
   const w = Math.max(1, Math.round(rect?.width || punchCanvas.clientWidth || punchCanvas.width || 0));
   const h = Math.max(1, Math.round(rect?.height || punchCanvas.clientHeight || punchCanvas.height || 0));
   // If the canvas was already drawn (pre-timer attach already painted it) at the same
-  // size and is visible, keep the existing pixels ג€” re-setting width/height clears the
+  // size and is visible, keep the existing pixels — re-setting width/height clears the
   // bitmap, which makes the punch look like it "pops out" during the timer-end opacity fade.
   if (
     punchCanvas.width === w &&
@@ -970,7 +970,7 @@ function attachFakeInfoTeamLogoMaskEditor({
   let savedDataUrl = getFakeInfoLogoMaskDataUrl(state, maskKey);
   // Comprehensive lookup so the punch is visible from pre-timer if a snap is saved under
   // any related key. Otherwise the canonical-key miss leaves it hidden=true during pre-timer
-  // and the timer-end display:none ג†’ block flips re-fires the fade-in keyframe animation,
+  // and the timer-end display:none → block flips re-fires the fade-in keyframe animation,
   // which reads as the punch "flashing" instead of fading like the regular mask.
   let savedPunchDataUrl = getFakeInfoLogoPunchDataUrl(state, maskKey);
   if (!String(savedPunchDataUrl || "").trim()) {
@@ -1145,7 +1145,7 @@ function attachFakeInfoTeamLogoMaskEditor({
   const brushSmallerBtn = document.createElement("button");
   brushSmallerBtn.type = "button";
   brushSmallerBtn.className = "career-team-logo-mask-tools__size-btn";
-  brushSmallerBtn.textContent = "גˆ’";
+  brushSmallerBtn.textContent = "−";
   brushSmallerBtn.title = "Smaller pen";
   brushSmallerBtn.setAttribute("aria-label", "Smaller pen");
 
@@ -1696,7 +1696,7 @@ function collectFakeInfoTeamQuizPunchLookupKeys(state, punchCanvas) {
   return keys;
 }
 
-/** No pixel cap ג€” only reject non-finite values so nudge never ג€sticksג€ at a clamp while the crest steals clicks. */
+/** No pixel cap — only reject non-finite values so nudge never “sticks” at a clamp while the crest steals clicks. */
 export function clampCareerYearNudge(v) {
   const n = Number(v);
   if (!Number.isFinite(n)) return 0;
@@ -1775,7 +1775,7 @@ function appendCareerSlotZoomControls(slotEl, slotIndex, n, isShortsMode) {
     b.type = "button";
     b.className = "career-badge-zoom-btn";
     b.setAttribute("aria-label", sign < 0 ? "Smaller club badge" : "Larger club badge");
-    b.textContent = sign < 0 ? "גˆ’" : "+";
+    b.textContent = sign < 0 ? "−" : "+";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -1828,7 +1828,7 @@ function appendCareerSlotYearNudgeControls(slotEl, slotIndex, n, isShortsMode) {
       "aria-label",
       delta < 0 ? "Move year up" : "Move year down"
     );
-    b.textContent = delta < 0 ? "ג†‘" : "ג†“";
+    b.textContent = delta < 0 ? "↑" : "↓";
     b.addEventListener("click", (e) => {
       e.stopPropagation();
       e.preventDefault();
@@ -1866,7 +1866,7 @@ const CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_ON = 696;
 const CAREER_SILHOUETTE_CENTER_X_REGULAR_VIDEO_ON = 500;
 const CAREER_SILHOUETTE_BOTTOM_REGULAR = 525;
 const CAREER_SILHOUETTE_BOTTOM_SHORTS = 500;
-/** Extra upward shift for video-on (Four parameters - Regular) path; Career Path off uses bottomY גˆ’ hUx only. */
+/** Extra upward shift for video-on (Four parameters - Regular) path; Career Path off uses bottomY − hUx only. */
 const CAREER_SILHOUETTE_VERTICAL_UP_FRAC = 0.0;
 /** Positive = move silhouette down in SVG user space (shorts + Video Mode). Layout uses SVG x/y, not CSS transform. */
 const CAREER_SILHOUETTE_SHORTS_VIDEO_MODE_Y_NUDGE = 30;
@@ -1876,13 +1876,13 @@ const CAREER_REVEAL_BASE_SCALE = 1.08;
 /** Same units as Adjust Picture &#9660;/&#9650; (one tick = ֲ±1 on `silhouetteYOffset`). */
 const PLAYER_STATS_SILHOUETTE_EXTRA_DOWN_TICKS = 15;
 const careerPlayerTrimmedPhotoUrlBySrc = new Map();
-/** Synchronous cache: src ג†’ resolved trimmed URL (stored after first successful resolve). */
+/** Synchronous cache: src → resolved trimmed URL (stored after first successful resolve). */
 const careerPlayerResolvedUrlSync = new Map();
 const CAREER_PLAYER_TRIM_MAX_EDGE = 1024;
 const CAREER_PLAYER_TRIM_ALPHA_THRESHOLD = 12;
 const CAREER_PLAYER_TRIM_MARGIN_PX = 8;
 
-/** Regular: compact ג€video editג€ caps only while Video Mode is on and not during Play Video. Shorts: follow Video Mode whenever it is on. */
+/** Regular: compact “video edit” caps only while Video Mode is on and not during Play Video. Shorts: follow Video Mode whenever it is on. */
 function useCareerSilhouetteVideoOnCapsForRender(isShorts, state) {
   if (!state?.videoMode) return false;
   return true;
@@ -2093,7 +2093,7 @@ function ensureCareerPictureModeProfiles(st) {
 export function applyCareerPictureModeToActiveState(st, isShortsLayout) {
   if (!st) return;
   if (isShortsLayout) {
-    /* Shorts layout: unify VM On/Off/Play Video ג€” one Adjust Picture ג€” Shorts profile that
+    /* Shorts layout: unify VM On/Off/Play Video — one Adjust Picture — Shorts profile that
        carries across VM toggles. Prefer the Normal field, fall back to the Video field. */
     const shortsNormalY = Number(st.silhouetteShortsNormalYOffset);
     const shortsNormalX = Number(st.silhouetteShortsNormalScaleX);
@@ -2103,7 +2103,7 @@ export function applyCareerPictureModeToActiveState(st, isShortsLayout) {
     st.silhouetteScaleY = Number.isFinite(shortsNormalYs) ? shortsNormalYs : Number(st.silhouetteShortsVideoScaleY);
     return;
   }
-  /* Regular layout: unify Video On/Off ג€” one Adjust Picture profile that carries across
+  /* Regular layout: unify Video On/Off — one Adjust Picture profile that carries across
      VM toggles. Prefer the Normal field, fall back to the Video field if only Video is set. */
   const normalY = Number(st.silhouetteNormalYOffset);
   const normalX = Number(st.silhouetteNormalScaleX);
@@ -2125,7 +2125,7 @@ export function persistCareerPictureModeFromActiveState(st, isShortsLayout) {
   const safeYs = Number.isFinite(ys) ? ys : pictureDefaults.silhouetteScaleY;
 
   if (isShortsLayout) {
-    /* Shorts layout: one unified profile ג€” write to both VM On + VM Off shorts fields so a
+    /* Shorts layout: one unified profile — write to both VM On + VM Off shorts fields so a
        change in either mode sticks across the VM toggle and the picture stays identical
        (including during Play Video, which force-enables VM). */
     st.silhouetteShortsNormalYOffset = safeY;
@@ -2136,7 +2136,7 @@ export function persistCareerPictureModeFromActiveState(st, isShortsLayout) {
     st.silhouetteShortsVideoScaleY = safeYs;
     return;
   }
-  /* Regular layout: one unified profile ג€” write to both VM On + VM Off fields so a change
+  /* Regular layout: one unified profile — write to both VM On + VM Off fields so a change
      in either mode sticks across the VM toggle and the picture stays identical. */
   st.silhouetteNormalYOffset = safeY;
   st.silhouetteNormalScaleX = safeX;
@@ -2181,7 +2181,7 @@ function measureCareerLogoBottomSlackNatural(img) {
     return 0;
   }
 
-  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved ג€contentג€ upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
+  /* One opaque pixel is enough: shield tips / thin feet often have <4 px per row; requiring more falsely moved “content” upward and caused huge slack (year jumped to the top). Smoothing is off so row noise is rare. */
   let maxOpaqueY = -1;
   scan: for (let y = ch - 1; y >= 0; y--) {
     const row = y * cw * 4;
@@ -2363,7 +2363,7 @@ async function resolveCareerPlayerPhotoUrl(src) {
 
   const job = (async () => {
     try {
-      // Use RAM cache ג€” avoids re-downloading on every level switch
+      // Use RAM cache — avoids re-downloading on every level switch
       const img = await preloadImage(src);
       const bounds = measureCareerPlayerOpaqueBoundsNatural(img);
       if (!bounds) { careerPlayerResolvedUrlSync.set(src, src); return src; }
@@ -2521,7 +2521,7 @@ export function cleanCareerHistory(history) {
       return name && name !== "without club";
   });
 
-  /* Remove non-consecutive duplicates ג€” keep first occurrence only. */
+  /* Remove non-consecutive duplicates — keep first occurrence only. */
   const seen = new Set();
   h3 = h3.filter(item => {
       const key = resolveClubAlias(item.club);
@@ -2553,7 +2553,7 @@ const SQUAD_POSITION_TO_BUCKET = {
   "Second Striker": "Forward",
 };
 
-/** Four-param position tile: show abbrev only (CM, RB, CAM, ג€¦); keys match squad JSON `position`. */
+/** Four-param position tile: show abbrev only (CM, RB, CAM, …); keys match squad JSON `position`. */
 const SQUAD_POSITION_TO_ABBREV = {
   Goalkeeper: "GK",
   "Centre-Back": "CB",
@@ -2621,7 +2621,7 @@ function isCareerPlayerGoalkeeper(player) {
   return mapSquadPositionToBucket(player.position) === "Goalkeeper";
 }
 
-/** Sum a numeric field from club + national career totals (squad JSON). Missing sides count as 0; both missing ג†’ "". */
+/** Sum a numeric field from club + national career totals (squad JSON). Missing sides count as 0; both missing → "". */
 function formatPlayerCareerTotalStat(player, key) {
   if (!player) return "";
   const club = player.club_career_totals;
@@ -2665,9 +2665,9 @@ export function getVideoQuestionPreviewState(state = getState()) {
   return { useVideoQuestionLayout, previewPreTimer, previewPostTimer };
 }
 
-/** Regular four-params: Video Mode off + post-countdown ג€” portrait photo + name in bar; skip cinematic dim/blur.
+/** Regular four-params: Video Mode off + post-countdown — portrait photo + name in bar; skip cinematic dim/blur.
  *  Also applies to Play Video post-timer (VM ON) so the reveal uses the same switch.
- *  Fake-info quiz: player is always shown revealed (there's no "guess the player" ג€” the player
+ *  Fake-info quiz: player is always shown revealed (there's no "guess the player" — the player
  *  is already known and we ask what's fake about them), so this returns true unconditionally on
  *  question levels. */
 export function shouldFourParamsVmOffPostReveal(state = getState()) {
@@ -2804,21 +2804,29 @@ export function renderCareer() {
 
   ensureCareerPictureModeProfiles(state);
   applyCareerPictureModeToActiveState(state, isShorts);
-  applyCareerRevealAdjustments(wrap, state);
 
-  const favoriteKey = getCareerPictureFavoriteKey(state);
-  if (favoriteKey && appliedFavoritePictureKeyByState.get(state) !== favoriteKey) {
-    const favoriteSize = getCareerPictureFavoriteSize(state);
-    if (favoriteSize) {
-      state.silhouetteYOffset = favoriteSize.silhouetteYOffset;
-      state.silhouetteScaleX = favoriteSize.silhouetteScaleX;
-      state.silhouetteScaleY = favoriteSize.silhouetteScaleY;
-      persistCareerPictureModeFromActiveState(state, isShorts);
-    }
-    appliedFavoritePictureKeyByState.set(state, favoriteKey);
-  } else if (!favoriteKey) {
+  /* Reset Adjust Picture values to defaults on player/photo CHANGE only.
+     Init key intentionally excludes videoMode + layout: toggling Video Mode On/Off
+     (or pressing Play Video / Record Video) must NOT reset the user's adjustments. */
+  /* Reset BEFORE applyCareerRevealAdjustments so the CSS vars use the default values,
+     not the stale profile values — otherwise the silhouette appears too high on first load
+     and only snaps to the right position after re-render. */
+  const careerPlayerNameForReset = state?.careerPlayer?.name?.trim() || "";
+  const playerInitKey = careerPlayerNameForReset
+    ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
+    : "";
+  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+    const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
+    state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
+    state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
+    state.silhouetteScaleY = pictureDefaults.silhouetteScaleY;
+    persistCareerPictureModeFromActiveState(state, isShorts);
+    appliedFavoritePictureKeyByState.set(state, playerInitKey);
+  } else if (!playerInitKey) {
     appliedFavoritePictureKeyByState.delete(state);
   }
+
+  applyCareerRevealAdjustments(wrap, state);
 
   /* Legacy default migration: regular mode now uses 0 / 1 / 1. */
   if (
@@ -3011,7 +3019,7 @@ export function renderCareer() {
     ? pickLoadableReadyPhotoUrlForVariant(playerName, readyPhotoClub, readyPhotoVariantIdx)
     : Promise.resolve("");
   const showClearPlayerButton = hasRealPlayer && !appState.isVideoPlaying;
-  /* Team-name fake-info mode has no player photo workflow ג€” only career-stats keeps Get photo / Switch. */
+  /* Team-name fake-info mode has no player photo workflow — only career-stats keeps Get photo / Switch. */
   const getPhotoUi =
     hasRealPlayer && !isFakeInfoQuiz() ? createCareerGetPhotoControls(playerName, readyPhotoClub) : null;
   const careerGetPhotoSuppressed = () =>
@@ -3182,7 +3190,7 @@ export function renderCareer() {
       return;
     }
     /* If the trimmed photo URL was already resolved in a prior render, use it
-       synchronously so the silhouette is visible immediately ג€” no hiddenג†’load flash. */
+       synchronously so the silhouette is visible immediately — no hidden→load flash. */
     const syncUrl = careerPlayerResolvedUrlSync.get(chosenUrl);
     if (syncUrl) {
       image.setAttribute("href", syncUrl);
@@ -3270,7 +3278,7 @@ export function renderCareer() {
       </div>
     `;
     /* Mount on <body> so no transformed/filtered ancestor interferes with the
-       `position: fixed` centering ג€” matches the Lineups Shorts team picker. */
+       `position: fixed` centering — matches the Lineups Shorts team picker. */
     document.body.appendChild(picker);
   } else {
     document.getElementById("career-inline-player-picker")?.remove();
@@ -3332,7 +3340,7 @@ export function renderCareer() {
       const variantIndex = Math.max(1, Math.floor(Number(st?.careerReadyPhotoVariantIndex) || 1));
       const prev = deleteImageBtn.textContent;
       deleteImageBtn.disabled = true;
-      deleteImageBtn.textContent = "ג€¦";
+      deleteImageBtn.textContent = "…";
       try {
         await requestDeleteReadyPhoto(playerName, readyPhotoClub, variantIndex);
         if (st) st.careerReadyPhotoVariantIndex = 1;
@@ -3429,7 +3437,7 @@ export function renderCareer() {
     img.alt = "";
     const num = document.createElement("span");
     num.className = "fake-info-shirt__number play-bold";
-    num.textContent = numberText || "ג€”";
+    num.textContent = numberText || "—";
     wrap.appendChild(img);
     wrap.appendChild(num);
     return wrap;
@@ -3444,7 +3452,7 @@ export function renderCareer() {
       inner.className = "career-param-card__inner career-param-card__inner--position";
       const posMain = document.createElement("span");
       posMain.className = "career-param-card__position-main";
-      posMain.textContent = resolveSquadPositionAbbrev(player.position) || "ג€”";
+      posMain.textContent = resolveSquadPositionAbbrev(player.position) || "—";
       inner.appendChild(posMain);
       return inner;
     }
@@ -3452,7 +3460,7 @@ export function renderCareer() {
       const inner = document.createElement("div");
       inner.className = "career-param-card__inner career-param-card__inner--age";
       inner.appendChild(
-        buildShirtVisual(player.shirt_number != null ? String(player.shirt_number) : "ג€”"),
+        buildShirtVisual(player.shirt_number != null ? String(player.shirt_number) : "—"),
       );
       return inner;
     }
@@ -3496,7 +3504,7 @@ export function renderCareer() {
       const fb = document.createElement("div");
       fb.className =
         "career-param-card__logo-fallback career-club-fallback-text career-club-fallback-text--solo";
-      fb.textContent = displayClubName || clubName || "ג€”";
+      fb.textContent = displayClubName || clubName || "—";
       if (baseUrl) {
         logoImg.src = baseUrl;
         fb.hidden = true;
@@ -3542,7 +3550,7 @@ export function renderCareer() {
         ? fakePick.value
         : player.shirt_number != null
           ? String(player.shirt_number)
-          : "ג€”";
+          : "—";
 
     const clubName = resolvedClub;
     const searchName = resolveClubAlias(clubName);
@@ -3591,7 +3599,7 @@ export function renderCareer() {
       ? resolvedShirtNumber
       : (player.age != null && Number.isFinite(Number(player.age))
           ? String(Number(player.age))
-          : "ג€”");
+          : "—");
 
     cells[0].classList.add("career-param-card--club");
     const inner0 = document.createElement("div");
@@ -3609,7 +3617,7 @@ export function renderCareer() {
     const logoFb = document.createElement("div");
     logoFb.className =
       "career-param-card__logo-fallback career-club-fallback-text career-club-fallback-text--solo";
-    logoFb.textContent = displayClubName || clubName || "ג€”";
+    logoFb.textContent = displayClubName || clubName || "—";
     if (firstUrl) {
       logoImg.src = freshenCareerImageUrl(firstUrl);
       logoFb.hidden = true;
@@ -3632,7 +3640,7 @@ export function renderCareer() {
     const posAbbrev =
       resolveSquadPositionAbbrev(resolvedPosition) ||
       (fakeMode ? fakeInfoPositionAbbrev(resolvedPosition) : "") ||
-      "ג€”";
+      "—";
     posMain.textContent = posAbbrev;
     inner1.appendChild(posMain);
     cells[1].appendChild(inner1);
@@ -3835,7 +3843,7 @@ export function renderCareer() {
 
     const editBtnHtml = shortsPreviewActive
       ? ""
-      : `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">ג</button>`;
+      : `<button class="career-edit-btn" data-index="${index}" title="Edit Slot">✎</button>`;
     const imgOrText = `<div class="career-club-placeholder">
                           ${editBtnHtml}
                           ${innerContent}
@@ -4089,7 +4097,7 @@ export function renderCareer() {
         appState.els.playerVoiceDelete = null;
       } else if (selectedPlayerCardMode) {
         /* Player-name quiz: structurally identical to the team-name card. Same DOM, same
-           classes, same CSS rules ג€” so the box ends up the exact same size visually. The
+           classes, same CSS rules — so the box ends up the exact same size visually. The
            only difference is the image source (player photo) and the reveal label (player
            name), and we skip the mask/paint editor since this quiz has no logo to mask. */
         const playerQuizCard = document.createElement("div");
@@ -4235,7 +4243,7 @@ export function renderCareer() {
       portraitCard.appendChild(portraitSil);
       portraitCard.appendChild(portraitMystery);
 
-      /* Portrait ג€preset 10ג€ = final look only; no picker / no CSS animations. */
+      /* Portrait “preset 10” = final look only; no picker / no CSS animations. */
       portraitCard.classList.add("career-portrait-reveal-preset-10");
 
       const paramCluster = document.createElement("div");
@@ -4320,7 +4328,7 @@ export function renderCareer() {
         preservedFlag = null;
         markFlagGateReady();
       } else {
-        /* Different flag needed ג€” dispose old one and create fresh. */
+        /* Different flag needed — dispose old one and create fresh. */
         if (preservedFlag) {
           if (typeof preservedFlag._playerStatsThreeFlagCleanup === "function") {
             preservedFlag._playerStatsThreeFlagCleanup();
@@ -4349,7 +4357,7 @@ export function renderCareer() {
           });
       }
     } else if (preservedFlag) {
-      /* No flag needed ג€” clean up the preserved one. */
+      /* No flag needed — clean up the preserved one. */
       if (typeof preservedFlag._playerStatsThreeFlagCleanup === "function") {
         preservedFlag._playerStatsThreeFlagCleanup();
       }
@@ -4470,7 +4478,7 @@ export function renderCareer() {
 /**
  * Timer-end reveal: update reveal-state classes/content on existing career DOM
  * without wiping and rebuilding it. Matches the tail of `renderCareer()` so
- * pre-timer ג†’ post-timer transition doesn't flash boxes by destroying them.
+ * pre-timer → post-timer transition doesn't flash boxes by destroying them.
  */
 export function refreshCareerRevealStateOnly() {
   const state = getState();
@@ -4597,7 +4605,7 @@ function renderCareerPictureControls(wrap, state) {
   const fakeInfoQuiz = isFakeInfoQuiz();
   const useShortsPanelLayout = false;
   /* Only hide while Play Video is actively running. The same box controls both the
-     silhouette (pre-timer) and the revealed photo (post-timer) ג€” see
+     silhouette (pre-timer) and the revealed photo (post-timer) — see
      applyCareerSilhouetteAdjustments + applyCareerRevealAdjustments in the click handler. */
   const hide = appState.isVideoPlaying || fakeInfoQuiz;
 
@@ -4610,17 +4618,10 @@ function renderCareerPictureControls(wrap, state) {
     <h3 class="career-picture-controls-title">Adjust Picture</h3>
     <label class="career-picture-controls-row">
       <span>Up / Down</span>
-      <div class="career-picture-controls-actions career-picture-controls-actions--favorite">
+      <div class="career-picture-controls-actions">
         <button type="button" data-action="up">&#9650;</button>
         <strong data-value="y">${state.silhouetteYOffset || 0}</strong>
         <button type="button" data-action="down">&#9660;</button>
-        <button
-          type="button"
-          class="career-picture-controls-favorite${hasCareerPictureFavorite(state) ? " is-active" : ""}"
-          data-action="favorite"
-          title="Save current picture size for this player"
-          aria-label="Save current picture size for this player"
-        >${hasCareerPictureFavorite(state) ? "&#9829;" : "&#9825;"}</button>
       </div>
     </label>
     <label class="career-picture-controls-row">
@@ -4655,10 +4656,6 @@ function renderCareerPictureControls(wrap, state) {
       if (action === "wide") st.silhouetteScaleX = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + 0.05;
       if (action === "short") st.silhouetteScaleY = Math.max(0.1, (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) - 0.05);
       if (action === "tall") st.silhouetteScaleY = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + 0.05;
-      if (action === "favorite") {
-        if (hasCareerPictureFavorite(st)) clearCareerPictureFavorite(st);
-        else saveCareerPictureFavorite(st);
-      }
       if (action === "reset") {
         const pictureDefaults = getDefaultPlayerPictureValues(layoutShorts);
         st.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
@@ -4670,13 +4667,6 @@ function renderCareerPictureControls(wrap, state) {
       panel.querySelector('[data-value="y"]').textContent = st.silhouetteYOffset || 0;
       panel.querySelector('[data-value="x"]').textContent = (st.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
       panel.querySelector('[data-value="ys"]').textContent = (st.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
-      const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-      if (favoriteBtn) {
-        const isFavorite = hasCareerPictureFavorite(st);
-        favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-        favoriteBtn.classList.toggle("is-active", isFavorite);
-      }
-
       const activeWrap = document.getElementById("career-wrap");
       const silhouette = activeWrap?.querySelector(".career-silhouette");
       if (silhouette) {
@@ -4731,28 +4721,24 @@ function renderCareerPictureControls(wrap, state) {
     panel.style.left = "";
     panel.style.top = "";
   } else {
-    panel.style.left = "15.2rem";
+    /* Cleared past the SHOW CONTROLS FAB (left: calc(1.5rem + 5vw), ~12rem wide).
+       Adding 5vw matches the FAB's viewport-relative offset so they never overlap. */
+    panel.style.left = "calc(17rem + 5vw)";
     panel.style.top = "0.15rem";
   }
   panel.hidden = hide;
   const title = panel.querySelector(".career-picture-controls-title");
   if (title) {
-    /* Regular layout: one unified profile ג€” no per-VM split, so the title doesn't need
+    /* Regular layout: one unified profile — no per-VM split, so the title doesn't need
        to call out the current mode. Shorts still has its own layout-scoped profile. */
-    title.textContent = isShorts ? "Adjust Picture ג€” Shorts" : "Adjust Picture";
+    title.textContent = isShorts ? "Adjust Picture — Shorts" : "Adjust Picture";
   }
 
   panel.querySelector('[data-value="y"]').textContent = state.silhouetteYOffset || 0;
   panel.querySelector('[data-value="x"]').textContent = (state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X).toFixed(2);
   panel.querySelector('[data-value="ys"]').textContent = (state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y).toFixed(2);
-  const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-  if (favoriteBtn) {
-    const isFavorite = hasCareerPictureFavorite(state);
-    favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-    favoriteBtn.classList.toggle("is-active", isFavorite);
-  }
 }
-/* ג”€ג”€ Shorts-only helpers ported from Career Path Shorts ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
+/* ── Shorts-only helpers ported from Career Path Shorts ────────── */
 
 export function syncShortsCareerVideoPreviewLayers() {
   if (!document.body.classList.contains("shorts-mode")) return;
@@ -4787,49 +4773,6 @@ export function refreshCareerPictureControlsDisplay(state) {
   if (yEl) yEl.textContent = (state.silhouetteYOffset || 0) - yOff;
   if (xEl) xEl.textContent = ((state.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X) + scaleOff).toFixed(2);
   if (ysEl) ysEl.textContent = ((state.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y) + scaleOff).toFixed(2);
-  const favoriteBtn = panel.querySelector('[data-action="favorite"]');
-  if (favoriteBtn) {
-    const isFavorite = hasCareerPictureFavorite(state);
-    favoriteBtn.innerHTML = isFavorite ? "&#9829;" : "&#9825;";
-    favoriteBtn.classList.toggle("is-active", isFavorite);
-  }
 }
 
 
-/* Click anywhere on the revealed player/team name to copy it to the clipboard.
-   Capture-phase listener so it fires even if a parent stops propagation. Looks
-   for the name in both the bottom reveal label AND the mystery-badge (whose
-   children include the player-card-mode name).  */
-if (typeof document !== "undefined" && !document.__careerRevealNameCopyBound) {
-  document.__careerRevealNameCopyBound = true;
-  const __careerCopyText = (el) => {
-    if (!el) return false;
-    const text = String(el.textContent || "").trim().replace(/\s+/g, " ");
-    if (!text) return false;
-    if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).catch(() => {});
-    }
-    return true;
-  };
-  const __careerCopyHandler = (e) => {
-    const t = e.target;
-    if (!t || !t.closest) return;
-    const direct = t.closest(
-      "#career-reveal-name, .career-portrait-card__mystery-mark--name, .career-team-quiz-card__reveal-text--name"
-    );
-    if (direct) { __careerCopyText(direct); return; }
-    const badge = t.closest(".career-portrait-card__mystery-badge");
-    if (badge) {
-      const nameEl = badge.querySelector(".career-portrait-card__mystery-mark--name");
-      if (nameEl) __careerCopyText(nameEl);
-      return;
-    }
-    const tcReveal = t.closest(".career-team-quiz-card__reveal");
-    if (tcReveal) {
-      const nameEl = tcReveal.querySelector(".career-team-quiz-card__reveal-text--name") || tcReveal;
-      __careerCopyText(nameEl);
-    }
-  };
-  document.addEventListener("click", __careerCopyHandler, true);
-  document.addEventListener("dblclick", __careerCopyHandler, true);
-}

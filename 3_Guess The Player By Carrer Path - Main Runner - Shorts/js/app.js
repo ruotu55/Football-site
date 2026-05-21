@@ -1360,21 +1360,21 @@ async function init() {
         }
 
         /* Reset picture settings to defaults when selecting a new player. */
-        state.silhouetteYOffset = 3;
-        state.silhouetteScaleX = 0.90;
-        state.silhouetteScaleY = 0.90;
-        state.silhouetteVideoYOffset = 3;
-        state.silhouetteVideoScaleX = 0.90;
-        state.silhouetteVideoScaleY = 0.90;
-        state.silhouetteNormalYOffset = 3;
-        state.silhouetteNormalScaleX = 0.90;
-        state.silhouetteNormalScaleY = 0.90;
-        state.silhouetteShortsVideoYOffset = 3;
-        state.silhouetteShortsVideoScaleX = 0.90;
-        state.silhouetteShortsVideoScaleY = 0.90;
-        state.silhouetteShortsNormalYOffset = -7;
-        state.silhouetteShortsNormalScaleX = 0.90;
-        state.silhouetteShortsNormalScaleY = 0.90;
+        state.silhouetteYOffset = 0;
+        state.silhouetteScaleX = 1.0;
+        state.silhouetteScaleY = 1.0;
+        state.silhouetteVideoYOffset = 0;
+        state.silhouetteVideoScaleX = 1.0;
+        state.silhouetteVideoScaleY = 1.0;
+        state.silhouetteNormalYOffset = 0;
+        state.silhouetteNormalScaleX = 1.0;
+        state.silhouetteNormalScaleY = 1.0;
+        state.silhouetteShortsVideoYOffset = 12;
+        state.silhouetteShortsVideoScaleX = 1.0;
+        state.silhouetteShortsVideoScaleY = 1.0;
+        state.silhouetteShortsNormalYOffset = 1.5;
+        state.silhouetteShortsNormalScaleX = 1.0;
+        state.silhouetteShortsNormalScaleY = 1.0;
 
         const sourceClub = (pData._clubItem && pData._clubItem.name) ? pData._clubItem.name : "";
         const context = teamLabel || sourceClub || "";

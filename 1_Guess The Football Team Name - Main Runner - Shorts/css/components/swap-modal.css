@@ -184,3 +184,19 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+body.shorts-mode #import-script-modal {
+  z-index: 101000;
+}
+
+body.shorts-mode #import-script-modal .swap-modal-content {
+  width: min(90vw, calc(min(56.25vh, 100vw) - 2rem)) !important;
+  max-width: min(660px, calc(min(56.25vh, 100vw) - 2rem)) !important;
+  margin-inline: auto;
+}
+
+body.shorts-mode.import-script-modal-open #career-inline-player-picker {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

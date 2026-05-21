@@ -1,22 +1,38 @@
 /* =========================================
    SHOTS SIZE – Safe-zone overlay (9:16 column)
-   Yellow tint = margins outside the dashed frame.
-   Center inside dashed lines stays clear. Red dashed = frame edges.
+   Solid black bands cover the area outside the dashed frame
+   (left/right of the column, plus top and bottom of the column).
+   When the overlay is visible, edge-anchored content is shifted
+   inward by the same offset it had against the viewport edge,
+   so it sits inside the safe zone instead of being hidden.
    ========================================= */
+
+:root {
+    --shots-size-column-width: min(56.25vh, 100vw);
+    --shots-size-column-left: calc((100vw - min(56.25vh, 100vw)) / 2);
+    /* Inner margin within the column: 100% / 21 + 0.5% of column width */
+    --shots-size-column-margin: calc(min(56.25vh, 100vw) * 0.05262);
+    /* Distance from viewport edge to the inner edge of the safe zone */
+    --shots-size-safe-left: calc(var(--shots-size-column-left) + var(--shots-size-column-margin));
+    --shots-size-safe-right: calc(var(--shots-size-column-left) + var(--shots-size-column-margin));
+}
+
 .shots-size-overlay {
     --shots-size-top-inset: 11.5vh;
     --shots-size-bottom-lift: 1.8vh;
     position: fixed;
     inset: 0;
     pointer-events: none;
-    z-index: 9999;
+    /* Above debug button (100000), transitions (9999), modals — so the black
+       bands always fully cover the margin area. Nothing renders in the black. */
+    z-index: 1000000;
 }
 
 .shots-size-overlay__column {
     position: absolute;
     top: 0;
-    left: calc((100vw - min(56.25vh, 100vw)) / 2);
-    width: min(56.25vh, 100vw);
+    left: var(--shots-size-column-left);
+    width: var(--shots-size-column-width);
     height: 100vh;
     box-sizing: border-box;
 }
@@ -28,7 +44,7 @@
     top: var(--shots-size-top-inset);
     bottom: calc(100% * 2 / 21 + 0.6vh + var(--shots-size-bottom-lift));
     width: calc(100% / 21 + 0.5%);
-    background: rgba(255, 215, 48, 0.24);
+    background: #000;
     box-sizing: border-box;
 }
 
@@ -45,7 +61,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    background: rgba(255, 215, 48, 0.24);
+    background: #000;
     box-sizing: border-box;
     z-index: 2;
 }
@@ -53,24 +69,33 @@
 .shots-size-overlay__top {
     top: 0;
     height: var(--shots-size-top-inset);
-    border-bottom: 2px dashed rgba(255, 70, 70, 0.8);
 }
 
 .shots-size-overlay__bottom {
     top: calc(19 * 100% / 21 - 0.6vh - var(--shots-size-bottom-lift));
     bottom: 0;
     height: auto;
-    border-top: 2px dashed rgba(255, 70, 70, 0.8);
 }
 
-.shots-size-overlay__vline {
+/* Outer-of-column black fill (between column edge and viewport edge).
+   The column already accounts for itself via inset bands; these cover
+   the area outside the 9:16 column when the viewport is wider than it. */
+.shots-size-overlay::before,
+.shots-size-overlay::after {
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 0;
-    border-left: 2px dashed rgba(255, 70, 70, 0.8);
-    box-sizing: border-box;
-    z-index: 3;
+    width: var(--shots-size-column-left);
+    background: #000;
+    z-index: 1;
+    pointer-events: none;
+}
+.shots-size-overlay::before { left: 0; }
+.shots-size-overlay::after  { right: 0; }
+
+.shots-size-overlay__vline {
+    display: none;
 }
 
 .shots-size-overlay__vline--left {
@@ -79,4 +104,49 @@
 
 .shots-size-overlay__vline--right {
     left: calc(20 * 100% / 21 - 0.5%);
+}
+
+/* === Push edge-anchored content inward when the overlay is shown === */
+/* Preserves each element's original offset from its viewport edge, but
+   measured from the inner edge of the safe zone instead. */
+body:has(#shots-size-overlay:not([hidden])) .side-text.left {
+    left: calc(var(--shots-size-safe-left) + 1rem);
+}
+body:has(#shots-size-overlay:not([hidden])) .side-text.right {
+    right: calc(var(--shots-size-safe-right) + 1rem);
+}
+
+/* === Shorts dev chrome rides above the black bands ===
+   In Shorts, the 9:16 safe zone is much narrower than the viewport, so the
+   FAB buttons / control panel / level rail / debug chrome all live in what is
+   now black. Bumping them above the overlay's z-index keeps them usable while
+   recordings still see only the safe-zone content (the chrome is not part of
+   the recorded frame because OBS captures the safe zone, not the chrome layer). */
+body:has(#shots-size-overlay:not([hidden])) .panel-fab,
+body:has(#shots-size-overlay:not([hidden])) .quiz-progress,
+body:has(#shots-size-overlay:not([hidden])) #__dbg_btn,
+body:has(#shots-size-overlay:not([hidden])) #__dbg_panel,
+/* Top chrome row (DELETE IMAGE / X / GET PHOTO / SWITCH / REMOVE BACKGROUND) and
+   its fixed siblings — they sit at top: 5.5vh which is inside the overlay's
+   --shots-size-top-inset (11.5vh) black band. */
+body:has(#shots-size-overlay:not([hidden])) #player-voice-chrome-mount,
+body:has(#shots-size-overlay:not([hidden])) .career-clear-player-btn,
+body:has(#shots-size-overlay:not([hidden])) .career-delete-image-btn,
+body:has(#shots-size-overlay:not([hidden])) .career-get-photo-actions,
+body:has(#shots-size-overlay:not([hidden])) .career-picture-controls,
+/* Per-team career buttons (X remove, Logo, +/- zoom, ↑/↓ year nudge, ♥ favorite,
+   side insert +). Lifting .career-slots itself is required because the buttons
+   live inside its stacking context (transform on .career-slots traps z-index). */
+body:has(#shots-size-overlay:not([hidden])) .career-slots,
+/* Folders 1/2/7/8 team-header buttons (Get logo, Swap logo, Clear X, zoom). */
+body:has(#shots-size-overlay:not([hidden])) .team-header,
+body:has(#shots-size-overlay:not([hidden])) .team-header-mount {
+    z-index: 1000001 !important;
+}
+
+/* Quiz controls (left panel) + right panel must always stay above the Adjust
+   Picture panel and any other lifted chrome. One notch above 1000001. */
+body:has(#shots-size-overlay:not([hidden])) .control-panel,
+body:has(#shots-size-overlay:not([hidden])) .right-panel {
+    z-index: 1000002 !important;
 }

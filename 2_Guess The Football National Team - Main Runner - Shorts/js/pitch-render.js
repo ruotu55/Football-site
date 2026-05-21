@@ -1450,7 +1450,7 @@ function escapeHtmlForSidePanelName(text) {
 }
 
 /** Extra px toward column center (negative = left in LTR) */
-const SIDE_PANEL_NAME_CENTER_FINE_PX = -6;
+const SIDE_PANEL_NAME_CENTER_FINE_PX = 0;
 
 function applySidePanelNameLineCenterNudge(nameEl) {
   requestAnimationFrame(() => {

@@ -101,7 +101,8 @@
 
 /* Shorts: same floating Adjust Picture panel, top-centered (road layout keeps top-left). */
 .career-picture-controls.career-picture-controls--shorts-layout {
-  left: 50%;
+  /* Shifted right past the "Show controls" FAB (left: calc(1.5rem + 5vw)). */
+  left: 60%;
   right: auto;
   top: max(0.35rem, env(safe-area-inset-top, 0px));
   transform: translateX(-50%) scale(0.82);
@@ -3566,21 +3567,3 @@ body.play-video-active .career-get-photo-btn {
   pointer-events: none !important;
 }
 
-/* Reveal player/team name is click-to-copy. Force pointer-events on the name
-   AND its parent badge/wrappers so events reach it even when an ancestor (the
-   portrait card) sets pointer-events: none. The wrapping badge is bumped to
-   a high z-index so nothing else can sit on top. */
-#career-reveal-name,
-#career-reveal-name .career-reveal-name-top,
-#career-reveal-name .career-reveal-name-bottom,
-.career-portrait-card__mystery-mark--name,
-.career-portrait-card__mystery-mark,
-.career-portrait-card__mystery-badge,
-.career-team-quiz-card__reveal-text--name,
-.career-team-quiz-card__reveal {
-  cursor: copy !important;
-  pointer-events: auto !important;
-}
-.career-portrait-card__mystery-badge:has(.career-portrait-card__mystery-mark--name) {
-  z-index: 50 !important;
-}

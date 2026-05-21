@@ -1,121 +1,82 @@
 /* =========================================
-
    SCREEN SIZE – Regular safe-zone overlay
-
-   Yellow tint = margins outside the dashed frame.
-
-   Red dashed box = ::after inset rect (tune the four --screen-size-inset-* vars).
-
+   Solid black bands cover the area outside the dashed frame.
+   When the overlay is visible, edge-anchored content is shifted
+   inward by the same offset it had against the viewport edge,
+   so it sits inside the safe zone instead of being hidden.
    ========================================= */
 
-.screen-size-overlay {
-
+:root {
     --screen-size-inset-left: 5.3vw;
-
     --screen-size-inset-right: 5.3vw;
+    --screen-size-inset-top: 0px;
+    --screen-size-inset-bottom: 0px;
+}
 
-    --screen-size-inset-top: 0;
-
-    --screen-size-inset-bottom: 0;
-
+.screen-size-overlay {
     position: fixed;
-
     inset: 0;
-
     pointer-events: none;
-
-    z-index: 9999;
-
+    /* Above debug button (100000), transitions (9999), modals — so the black
+       bands always fully cover the margin area. Nothing renders in the black. */
+    z-index: 1000000;
 }
 
-
-
-/* Single dashed frame — left/right/top/bottom all follow the inset vars. */
-
+/* Dashed frame removed — margins are fully black, no marker. */
 .screen-size-overlay::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: var(--screen-size-inset-top) var(--screen-size-inset-right) var(--screen-size-inset-bottom) var(--screen-size-inset-left);
-
-    border: 2px dashed rgba(255, 70, 70, 0.85);
-
-    box-sizing: border-box;
-
-    z-index: 4;
-
-    pointer-events: none;
-
+    content: none;
 }
-
-
 
 .screen-size-overlay__margin-left,
-
 .screen-size-overlay__margin-right {
-
     position: absolute;
-
     z-index: 1;
-
     top: 0;
-
     bottom: 0;
-
-    background: rgba(255, 215, 48, 0.24);
-
+    background: #000;
     box-sizing: border-box;
-
 }
-
-
 
 .screen-size-overlay__margin-left {
-
     left: 0;
-
     width: var(--screen-size-inset-left);
-
 }
-
-
 
 .screen-size-overlay__margin-right {
-
     right: 0;
-
     width: var(--screen-size-inset-right);
-
 }
-
-
 
 .screen-size-overlay__margin-top,
-
 .screen-size-overlay__margin-bottom {
-
     display: none;
-
 }
-
-
 
 /* Wrapper is layout-neutral so margin bands anchor to the viewport. */
-
 .screen-size-overlay__frame {
-
     display: contents;
-
 }
-
-
 
 .screen-size-overlay__vline {
-
     display: none !important;
-
 }
 
+/* === Push edge-anchored content inward when the overlay is shown === */
+/* Preserves each element's original offset from its viewport edge, but
+   measured from the inner edge of the safe zone instead. */
+body:has(#screen-size-overlay:not([hidden])) .side-text.left {
+    left: calc(var(--screen-size-inset-left) + 1rem);
+}
+body:has(#screen-size-overlay:not([hidden])) .side-text.right {
+    right: calc(var(--screen-size-inset-right) + 1rem);
+}
 
+/* === Regular dev chrome rides above the black bands ===
+   The slide-out control panel is anchored at viewport left:0, so the left
+   black band covers its first 5.3vw. Bump it above the overlay so it's fully
+   usable. Recordings still see only the safe-zone content (OBS captures the
+   safe zone, not the dev chrome). */
+body:has(#screen-size-overlay:not([hidden])) .control-panel,
+body:has(#screen-size-overlay:not([hidden])) .right-panel {
+    z-index: 1000001 !important;
+}

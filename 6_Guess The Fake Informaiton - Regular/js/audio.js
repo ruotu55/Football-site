@@ -1,10 +1,10 @@
 import { appState } from "./state.js";
 
 /* ── Language-aware voice resolution. The voice-tab persists the user's language
-     choice to localStorage; every gameplay clip (welcome, quiz titles, level
-     progress, endings) is resolved against that language and falls back to
-     English if the Spanish clip hasn't been generated yet. Player names, BGM,
-     dong and ticking are language-invariant. */
+     choice to localStorage; every gameplay clip (quiz titles, level progress,
+     endings) is resolved against that language and falls back to English if the
+     Spanish clip hasn't been generated yet. Player names, BGM, dong and ticking
+     are language-invariant. */
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
 const SUPPORTED_LANGUAGES = ["english", "spanish"];
 
@@ -16,8 +16,6 @@ function getCurrentLanguage() {
 }
 
 const RUNNER_VARIANT = "Four Params Regular";
-
-const WELCOME_FILENAME = "Welcome to the football lab, lets start!!!.mp3";
 
 const LEVEL_FILENAMES = {
   warmUp: "Worm up round dont mess this one .mp3",
@@ -47,10 +45,6 @@ const ENDING_FILENAMES = {
     "how-many": "Cuantas acertaste_ dinoslo en los comentarios!!! No olvides dar like y suscribirte .mp3",
   },
 };
-
-function welcomePathFor(lang) {
-  return `../.Storage/Voices/Welcome/${lang}/${WELCOME_FILENAME}?v=2`;
-}
 
 function levelPathFor(levelKey, lang) {
   const filename = LEVEL_FILENAMES[levelKey];

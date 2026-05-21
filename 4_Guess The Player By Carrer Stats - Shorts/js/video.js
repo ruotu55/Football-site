@@ -3,7 +3,6 @@ import { switchLevel } from "./levels.js";
 import {
   startBgMusic,
   stopAllAudio,
-  playWelcome,
   playRulesShortsLanding,
   playBundledQuizTitleShorts,
   playTheAnswerIs,
@@ -32,7 +31,7 @@ function isShortsVideoLayout() {
   );
 }
 
-/** After Play Video on the logo page: pause before BGM, welcome, and logo reveal. */
+/** After Play Video on the logo page: pause before BGM and logo reveal. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 /** Shorts: “Add specific title” stamp — show only after Play Video. */
 const SHORTS_LANDING_SPECIAL_BADGE_AFTER_PLAY_MS = 500;
@@ -303,11 +302,7 @@ export function startVideoFlow() {
     document.body.classList.add("shorts-play-pre-countdown");
   }
   if (els.careerWrap) {
-    if (isShorts && appState.currentLevelIndex > 0 && appState.currentLevelIndex < appState.totalLevelsCount) {
-      els.careerWrap.classList.add("video-mode-enabled");
-    } else {
-      els.careerWrap.classList.remove("video-mode-enabled");
-    }
+    els.careerWrap.classList.remove("video-mode-enabled");
   }
   syncCareerSlotControlsVisibility();
   syncShortsCareerVideoPreviewLayers();
@@ -335,7 +330,7 @@ export function startVideoFlow() {
   if (isShorts && appState.currentLevelIndex === 1) {
     document.body.classList.add("shorts-play-pre-countdown");
     if (els.careerWrap) {
-      els.careerWrap.classList.add("video-mode-enabled");
+      els.careerWrap.classList.remove("video-mode-enabled");
     }
     syncCareerSlotControlsVisibility();
     const quizType = els.inQuizType?.value || "player-by-career-stats";
@@ -366,7 +361,7 @@ export function startVideoFlow() {
     if (isShorts) {
       document.body.classList.add("shorts-play-pre-countdown");
       if (els.careerWrap) {
-        els.careerWrap.classList.add("video-mode-enabled");
+        els.careerWrap.classList.remove("video-mode-enabled");
       }
       syncCareerSlotControlsVisibility();
       const quizType = els.inQuizType?.value || "player-by-career-stats";
@@ -390,7 +385,6 @@ export function startVideoFlow() {
     }
     appState.videoTimeout = setTimeout(() => {
       if (!appState.isVideoPlaying) return;
-      playWelcome();
       const logoImg = els.logoPage?.querySelector(".logo-img-anim");
       if (logoImg && !logoImg.classList.contains("reveal")) {
         logoImg.classList.add("reveal");
@@ -402,9 +396,6 @@ export function startVideoFlow() {
     return;
   }
 
-  if (!isShorts) {
-    playWelcome();
-  }
   runVideoStep();
 }
 
@@ -446,7 +437,7 @@ function runVideoStep() {
   appState.tickingLeadTimeout = null;
   stopTicking();
   if (els.careerWrap && isShorts && isQuestionLevel) {
-    els.careerWrap.classList.add("video-mode-enabled");
+    els.careerWrap.classList.remove("video-mode-enabled");
   }
   if (isQuestionLevel && els.teamHeader) {
     // Keep question countdown framing identical on all levels, including level 20 + bonus.

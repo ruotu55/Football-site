@@ -1087,8 +1087,8 @@ async function init() {
         state.silhouetteNormalYOffset = 0;
         state.silhouetteNormalScaleX = 1.0;
         state.silhouetteNormalScaleY = 1.0;
-        state.silhouetteShortsVideoYOffset = 13;
-        state.silhouetteShortsVideoScaleX = 0.85;
+        state.silhouetteShortsVideoYOffset = 12;
+        state.silhouetteShortsVideoScaleX = 1.0;
         state.silhouetteShortsVideoScaleY = 1.0;
         {
           const shortsVideoOff = getDefaultPlayerPictureValuesForCareerMode(true, false);

@@ -99,8 +99,6 @@ const SECTION_TITLES = {
 };
 
 const BUNDLED_VOICES = [
-  { key: "welcome",  text: { english: "Welcome to the football lab, let's start!!!",     spanish: "¡Bienvenidos al laboratorio de fútbol, empecemos!" },
-    src: "../.Storage/Voices/Welcome/Welcome to the football lab, lets start!!!.mp3",    playsAt: { english: "Landing",         spanish: "Página inicial" } },
   { key: "warm-up",  text: { english: "Warm up round — don't mess this one!",            spanish: "Ronda de calentamiento — ¡no la arruines!" },
     src: "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",              playsAt: { english: "Level 1",         spanish: "Nivel 1" } },
   { key: "serious",  text: { english: "OK now it's getting serious.",                    spanish: "Bien, ahora se pone serio." },
@@ -555,7 +553,7 @@ export async function renderVoiceTab() {
     root.appendChild(buildSection(titles.quizSounds, rows));
   }
 
-  /* Section 5 — Bundled (Welcome + level progress voices).
+  /* Section 5 — Bundled (level progress voices).
      English = shipped MP3; Spanish = generated on-demand via __bundled-voice endpoints. */
   const bundledStatuses = await Promise.all(BUNDLED_VOICES.map((b) => fetchBundledStatus(b.key)));
   if (myToken !== renderToken) return;

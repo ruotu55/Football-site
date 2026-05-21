@@ -20,7 +20,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=no-copy-name-1" />
   </head>
   <body>
     <!-- Shared debug overlay: collapsible log panel + 🐞 toggle button (bottom-right).
@@ -79,6 +79,17 @@
       </main>
 
       <div id="modal-container"></div>
+      <!-- Screen safe-zone overlay (toggled via "Screen size" control) -->
+      <div id="screen-size-overlay" class="screen-size-overlay">
+        <div class="screen-size-overlay__frame">
+          <div class="screen-size-overlay__margin-left" aria-hidden="true"></div>
+          <div class="screen-size-overlay__margin-right" aria-hidden="true"></div>
+          <div class="screen-size-overlay__margin-top"></div>
+          <div class="screen-size-overlay__margin-bottom"></div>
+          <div class="screen-size-overlay__vline screen-size-overlay__vline--left" aria-hidden="true"></div>
+          <div class="screen-size-overlay__vline screen-size-overlay__vline--right" aria-hidden="true"></div>
+        </div>
+      </div>
 
       <!-- Floating shirt with per-level editable number (photo tee; no name) -->
       <div class="landing-shirt" id="landing-shirt" hidden>

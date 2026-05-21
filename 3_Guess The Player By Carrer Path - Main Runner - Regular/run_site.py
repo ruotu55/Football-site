@@ -93,10 +93,6 @@ def _normalize_language(lang) -> str:
 
 
 BUNDLED_VOICE_CONFIG = {
-    "welcome": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Welcome",
-                "filename": "Welcome to the football lab, lets start!!!.mp3",
-                "prompts": {"english": "Welcome to the football lab, let's start!",
-                            "spanish": "¡Bienvenidos al laboratorio de fútbol, empecemos!"}},
     "warm-up": {"dir": PROJECT_ROOT / ".Storage" / "Voices" / "Levels",
                 "filename": "Worm up round dont mess this one .mp3",
                 "prompts": {"english": "Warm up round — don't mess this one!",
@@ -189,6 +185,11 @@ def _fetch_bytes(
     with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as r:
         return r.read()
 
+
+_FOOTBALL_LOGOS_HTML_PNG_URL_RE = re.compile(
+    r"https://(?:images|assets)\.football-logos\.cc/[^\s\"'<>]+?\.png(?:\?[^\s\"'<>]*)?",
+    re.IGNORECASE,
+)
 
 _MAX_READY_PHOTO_DOWNLOAD_BYTES = 15 * 1024 * 1024
 
@@ -818,6 +819,80 @@ def _football_logo_png_candidates(entry: dict, preferred_dim: int = 3000) -> lis
     return urls
 
 
+def _football_logos_png_url_dimension_hint(url: str) -> int:
+    u = (url or "").lower()
+    best = 0
+    for m in re.finditer(r"/(\d{3,4})(?=/[^/]+\.png)", u):
+        try:
+            best = max(best, int(m.group(1)))
+        except ValueError:
+            continue
+    m2 = re.search(r"(\d{3,4})x(\d{3,4})", u)
+    if m2:
+        try:
+            best = max(best, int(m2.group(1)))
+        except ValueError:
+            pass
+    return best
+
+
+def _try_fetch_football_logo_png_from_user_url(page_url: str) -> tuple[bytes, dict] | None:
+    """Mirrors folder 1's URL-paste flow: accepts either a direct CDN .png link
+    or a football-logos.cc team page URL (we scrape its HTML for PNG candidates)."""
+    raw = (page_url or "").strip()
+    if not raw:
+        return None
+    try:
+        parsed = urlparse(raw)
+    except ValueError:
+        return None
+    if parsed.scheme not in ("http", "https"):
+        return None
+    host = (parsed.netloc or "").lower()
+    cdn_hosts = ("images.football-logos.cc", "assets.football-logos.cc")
+    if host in cdn_hosts and re.search(r"\.png(\?|$)", raw, re.IGNORECASE):
+        try:
+            data = _fetch_bytes(raw)
+            if data:
+                return data, {"name": "", "categoryId": "", "id": "", "h": "", "fromUrl": raw}
+        except Exception:
+            return None
+        return None
+    if host not in ("football-logos.cc", "www.football-logos.cc"):
+        return None
+    try:
+        html = _fetch_text(raw)
+    except Exception:
+        return None
+    found = list(dict.fromkeys(_FOOTBALL_LOGOS_HTML_PNG_URL_RE.findall(html)))
+    found = [u for u in found if "${" not in u]
+    if not found:
+        return None
+    path_parts = [p for p in (parsed.path or "").split("/") if p]
+    team_slug = path_parts[-1].casefold() if path_parts else ""
+    if team_slug:
+        preferred = [u for u in found if f"/{team_slug}." in u.casefold()]
+        if preferred:
+            found = preferred
+    found.sort(key=lambda u: (_football_logos_png_url_dimension_hint(u), len(u)), reverse=True)
+    referer = raw if raw.startswith("http") else f"https://{host}{parsed.path or '/'}"
+    headers = {
+        "User-Agent": HTTP_USER_AGENT,
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": referer,
+    }
+    for url in found:
+        try:
+            req = urllib.request.Request(url, headers=headers, method="GET")
+            with urllib.request.urlopen(req, timeout=35.0, context=SSL_CTX) as r:
+                data = r.read()
+            if data:
+                return data, {"name": "", "categoryId": "", "id": "", "h": "", "fromUrl": raw}
+        except Exception:
+            continue
+    return None
+
+
 def _try_fetch_football_logo_png_3000(
     team_name: str,
     country_hint: str = "",
@@ -1147,6 +1222,19 @@ def _load_runner_update_data():  # noqa: D401
 
 
 _runner_update_mod = _load_runner_update_data()
+
+
+def _load_runner_import_aliases():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_import_aliases.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_import_aliases", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_import_aliases.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_aliases_mod = _load_runner_import_aliases()
 
 _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
@@ -1719,24 +1807,30 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 raise ValueError("Missing team name.")
             country_hint = str(body.get("countryHint") or "").strip()
             league_hint = str(body.get("leagueHint") or "").strip()
+            page_url = str(body.get("pageUrl") or "").strip()
             target_path, rel_path = _resolve_team_logo_target(body)
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
         try:
-            fetched = _try_fetch_football_logo_png_3000(
-                team_name,
-                country_hint=country_hint,
-                league_hint=league_hint,
-            )
+            if page_url:
+                fetched = _try_fetch_football_logo_png_from_user_url(page_url)
+            else:
+                fetched = _try_fetch_football_logo_png_3000(
+                    team_name,
+                    country_hint=country_hint,
+                    league_hint=league_hint,
+                )
         except Exception:
             fetched = None
         if fetched is None:
-            self._send_json(
-                404,
-                {"ok": False, "error": "Could not fetch logo from football-logos.cc."},
+            err_msg = (
+                "Could not download team logo from pasted URL."
+                if page_url
+                else "Could not fetch logo from football-logos.cc."
             )
+            self._send_json(404, {"ok": False, "error": err_msg})
             return True
 
         image_bytes, entry = fetched
@@ -1996,6 +2090,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
             return
+        if _runner_aliases_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if self._try_serve_obs_config():
             return
         if self._try_serve_player_voice_status():
@@ -2053,6 +2149,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _runner_update_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _runner_aliases_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if self._try_generate_player_voice():
             return

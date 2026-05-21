@@ -13,9 +13,9 @@ import { cleanCareerHistory } from "./pitch-render.js";
 
 const INCLUDE_INTRO_LEVEL = false;
 
-const KEY_SCRIPTS = "footballQuizScripts_four_parameters_shorts_v1";
-const KEY_FOLDERS = "footballQuizFolders_four_parameters_shorts_v1";
-const KEY_FOLDER_STATES = "footballQuizFolderStates_four_parameters_shorts_v1";
+const KEY_SCRIPTS = "footballQuizScripts_fake_information_shorts_v1";
+const KEY_FOLDERS = "footballQuizFolders_fake_information_shorts_v1";
+const KEY_FOLDER_STATES = "footballQuizFolderStates_fake_information_shorts_v1";
 const LEGACY_SCRIPTS = "footballQuizScripts";
 const LEGACY_FOLDERS = "footballQuizFolders";
 const LEGACY_FOLDER_STATES = "footballQuizFolderStates";
@@ -54,7 +54,7 @@ function migrateShortsLevelsRemoveLegacyLanding(levels) {
     }));
 }
 
-const SAVE_SERVER = createSavedScriptsServerSync("four_parameters_shorts", {
+const SAVE_SERVER = createSavedScriptsServerSync("fake_information_shorts", {
     KEY_SCRIPTS,
     KEY_FOLDERS,
     KEY_FOLDER_STATES,
@@ -226,32 +226,68 @@ function showManualSearchModal({ title, items, displayFn }) {
 }
 
 const IMPORT_ALIAS_LS_KEY = "quizImport_aliases_v1";
+const IMPORT_ALIAS_ENDPOINT = "/__runner-import-aliases";
 
 function normalizeImportAliasKey(name) {
     return String(name || "").trim().toLowerCase();
 }
 
-function loadImportAliases() {
+let _importAliasCache = (() => {
     try {
         const raw = localStorage.getItem(IMPORT_ALIAS_LS_KEY);
         const parsed = raw ? JSON.parse(raw) : {};
         return parsed && typeof parsed === "object" ? parsed : {};
     } catch { return {}; }
+})();
+
+function _writeImportAliasCacheToLS() {
+    try { localStorage.setItem(IMPORT_ALIAS_LS_KEY, JSON.stringify(_importAliasCache)); } catch {}
 }
 
-function saveImportAlias(rawName, aliasName) {
-    if (!rawName || !aliasName) return;
+async function fetchImportAliasesFromServer() {
     try {
-        const aliases = loadImportAliases();
-        aliases[normalizeImportAliasKey(rawName)] = aliasName;
-        localStorage.setItem(IMPORT_ALIAS_LS_KEY, JSON.stringify(aliases));
+        const res = await fetch(IMPORT_ALIAS_ENDPOINT, { cache: "no-store" });
+        if (!res.ok) return;
+        const body = await res.json();
+        if (body && typeof body.aliases === "object" && body.aliases !== null) {
+            _importAliasCache = body.aliases;
+            _writeImportAliasCacheToLS();
+        }
     } catch {}
 }
 
-function applyImportAliasesToNames(names) {
+const _importAliasInitialSync = fetchImportAliasesFromServer();
+
+function loadImportAliases() {
+    return _importAliasCache;
+}
+
+async function saveImportAlias(rawName, aliasName) {
+    if (!rawName || !aliasName) return;
+    const key = normalizeImportAliasKey(rawName);
+    _importAliasCache[key] = aliasName;
+    _writeImportAliasCacheToLS();
+    try {
+        const res = await fetch(IMPORT_ALIAS_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ merge: { [key]: aliasName } }),
+        });
+        if (res.ok) {
+            const body = await res.json().catch(() => null);
+            if (body && typeof body.aliases === "object" && body.aliases !== null) {
+                _importAliasCache = body.aliases;
+                _writeImportAliasCacheToLS();
+            }
+        }
+    } catch {}
+}
+
+async function applyImportAliasesToNames(names) {
     if (!Array.isArray(names) || names.length === 0) return names;
-    const aliases = loadImportAliases();
-    return names.map((n) => aliases[normalizeImportAliasKey(n)] || n);
+    try { await _importAliasInitialSync; } catch {}
+    await fetchImportAliasesFromServer();
+    return names.map((n) => _importAliasCache[normalizeImportAliasKey(n)] || n);
 }
 
 function showSaveAliasConfirmModal({ rawName, pickedName }) {
@@ -705,6 +741,7 @@ export function initSavedScripts(callbacks) {
     // Import modal
     // -----------------------------------------------------------------------
     function closeImportModal() {
+        document.body.classList.remove("import-script-modal-open");
         if (els.importScriptModal) els.importScriptModal.hidden = true;
         if (els.importScriptError) {
             els.importScriptError.textContent = "";
@@ -726,6 +763,10 @@ export function initSavedScripts(callbacks) {
                 els.importScriptError.style.display = "none";
             }
             if (els.importScriptModal) {
+                document.body.classList.add("import-script-modal-open");
+                if (els.importScriptModal.parentElement !== document.body) {
+                    document.body.appendChild(els.importScriptModal);
+                }
                 els.importScriptModal.hidden = false;
                 els.importScriptText?.focus();
             }
@@ -821,7 +862,7 @@ export function initSavedScripts(callbacks) {
             try {
                 const parsed = parseImportText(text);
                 if (parsed.error) { showErr(parsed.error); return; }
-                const names = applyImportAliasesToNames(parsed.names);
+                const names = await applyImportAliasesToNames(parsed.names);
 
                 let allPlayers;
                 try {

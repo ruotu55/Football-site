@@ -52,9 +52,12 @@ body.shorts-mode .lineups-inline-team-picker {
   top: 40% !important;
   transform: translate(-50%, -50%) !important;
   z-index: 600 !important;
-  width: min(25rem, 88vw) !important;
-  max-width: min(25rem, 88vw) !important;
-  min-width: min(25rem, 88vw) !important;
+  /* Stay inside the 9:16 safe column so the picker never bleeds into the
+     black margin bands. Width is capped at 25rem OR 85% of the column,
+     whichever is smaller. */
+  width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+  max-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
+  min-width: min(25rem, calc(var(--shots-size-column-width) * 0.85)) !important;
   max-height: 20rem !important;
   pointer-events: auto;
 }
@@ -542,7 +545,18 @@ body.play-video-active .pitch-swap-logo-btn {
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.3); 
+  -webkit-text-stroke: clamp(0.45px, 0.07em, 1.1px) #000;
+  paint-order: stroke fill;
+  text-shadow:
+    -0.05em -0.05em 0 #000,
+    0.05em -0.05em 0 #000,
+    -0.05em 0.05em 0 #000,
+    0.05em 0.05em 0 #000,
+    0 -0.05em 0 #000,
+    0 0.05em 0 #000,
+    -0.05em 0 0 #000,
+    0.05em 0 0 #000,
+    0 2px 4px rgba(0, 0, 0, 0.45);
   white-space: nowrap;
   pointer-events: auto;
   cursor: text;

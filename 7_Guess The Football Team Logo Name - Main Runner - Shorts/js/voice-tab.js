@@ -5,7 +5,7 @@
  *   1. Quiz Intro   — the current quiz-type intro (+ optional specific title suffix) [per-runner]
  *   2. Players      — one row per unique player currently assigned to any level [shared]
  *   3. Endings      — "think you know" / "how many" outro clips [shared]
- *   4. Bundled      — welcome/progress clips used by this runner
+ *   4. Bundled      — progress clips used by this runner
  *
  * Each row shows: [Vol] [X] "<full text that will be synthesised>"
  *   • Vol low-opacity when the clip file is missing on disk; full-opacity when it exists.
@@ -250,14 +250,10 @@ async function onDeletePressed({ rowKey, deleteEndpoint, deleteBody }) {
   }
 }
 
-/* ── Bundled voices (Welcome + Level progress). Each language is generated on-demand
+/* ── Bundled voices (Level progress). Each language is generated on-demand
      via ElevenLabs and stored under `<dir>/<lang>/<filename>`. Vol generates+plays if
      the clip is missing; X deletes the cached clip for the current language. */
 const BUNDLED_VOICES = [
-  { key: "welcome",
-    text:    { english: "Welcome to the football lab, let's start!!!",    spanish: "¡Bienvenidos al laboratorio de fútbol, empecemos!" },
-    src:     "../.Storage/Voices/Welcome/Welcome to the football lab, lets start!!!.mp3",
-    playsAt: { english: "Landing",                                        spanish: "Página inicial" } },
   { key: "warm-up",
     text:    { english: "Warm up round — don't mess this one!",           spanish: "Ronda de calentamiento — ¡no la arruines!" },
     src:     "../.Storage/Voices/Levels/Worm up round dont mess this one .mp3",
@@ -525,7 +521,7 @@ export async function renderVoiceTab() {
   /* Team-name quiz has no Quiz Sounds — the reveal plays the team's name clip from
      `.Storage/Voices/Team names`, matching Regular. Keep Quiz Intro unchanged. */
 
-  /* Section 5 — Bundled (Welcome + Level progress voices).
+  /* Section 5 — Bundled (Level progress voices).
      Both languages are generated on-demand via ElevenLabs through the `__bundled-voice`
      endpoint family and stored under `<dir>/<lang>/<filename>`. Vol generates+plays if
      the clip is missing; X deletes the cached clip for the current language. */

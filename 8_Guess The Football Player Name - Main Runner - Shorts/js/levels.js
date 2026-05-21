@@ -23,6 +23,7 @@ function _prepTimerBarWhileCovered() {
   if (!timerEl) return;
   timerEl.classList.remove(
     "countdown-timer-stage-enter",
+    "countdown-timer-stage-exit",
     "timer-shake",
     "timer-phase-orange",
     "timer-phase-yellow",
