@@ -1,6 +1,6 @@
 import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
-import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking, playVoice } from "./audio.js";
+import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking, playVoice, getOrAssignRevealPhrase } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderCareer, renderHeader, syncCareerSlotControlsVisibility, refreshCareerRevealStateOnly } from "./pitch-render.js";
 import { isFakeInfoQuiz } from "./fake-info-mode.js";
@@ -38,6 +38,7 @@ function playBallPreloader() {
   }
 
   ball.removeAttribute("style");
+  ball.style.opacity = "0";
   preloader.hidden = false;
 
   /* Clone DOM background overlays into the preloader when present (shared theme). */
@@ -57,6 +58,11 @@ function playBallPreloader() {
 
   return loadGsap().then((gsap) => {
     gsap.set(ball, { clearProps: "all" });
+    gsap.set(ball, {
+      opacity: 0,
+      force3D: true,
+      willChange: "transform, opacity",
+    });
 
     const layer1 = preloader.querySelector(".ball-layer-1");
     const layer2 = preloader.querySelector(".ball-layer-2");
@@ -81,6 +87,7 @@ function playBallPreloader() {
             transformOrigin: `${ox}px ${oy}px`,
             scale: 1.6,
             opacity: 0,
+            force3D: true,
           });
         })();
 
@@ -93,13 +100,13 @@ function playBallPreloader() {
         tl.fromTo(
           ball,
           { opacity: 0 },
-          { duration: 0.7, opacity: 1, ease: "power2.out" },
+          { duration: 0.7, opacity: 1, ease: "power2.out", force3D: true },
           0,
         )
         .fromTo(
           ball,
           { scale: 1.6 },
-          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)" },
+          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)", force3D: true },
           0,
         )
         /* 3. Prepare: mask + expand origin — fires at 0.7s, when the visible
@@ -127,7 +134,7 @@ function playBallPreloader() {
           const bRect = ball.getBoundingClientRect();
           const ox = (r.left + r.width / 2) - bRect.left;
           const oy = (r.top  + r.height / 2) - bRect.top;
-          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px` });
+          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px`, force3D: true });
         }, null, 0.7)
         /* 4. Ball EXPANDS outward — starts at 0.7s, overlapping the tail of
            the bounce so there's no visible stop between the two */
@@ -135,6 +142,7 @@ function playBallPreloader() {
           scale: () => ball._expandScale,
           duration: 1.6,
           ease: "none",
+          force3D: true,
         }, 0.7)
         /* 4. Landing opens from inside while ball keeps going */
         .to(preloader, {
@@ -518,16 +526,23 @@ function revealCurrentLevel() {
     const skipBonusReveal = isLastQuestionBeforeOutro && endingType !== "how-many";
     if (!skipBonusReveal) {
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+      /* Read (or lazily roll) the phrase variant chosen for this level so playback
+         matches what the voice tab is showing for this name. Both the voice tab and
+         this reveal site key the cache by kind, so toggling fakeInfo quiz mode after
+         a roll still produces a consistent phrase for the new kind. */
+      const questionIndex = appState.currentLevelIndex - 1;
       if (isFakeInfoQuiz()) {
         /* Team-name quiz: announce the team's name (no fake-stats clip — this quiz has no
            fake-stat reveal sound, the answer is the team name itself). */
         const teamName = String(
           state?.careerPlayer?.club || state?.careerPlayer?.name || "",
         ).trim();
-        playTheAnswerIs(true, teamName, "team");
+        const phraseKey = getOrAssignRevealPhrase(state, questionIndex, "team");
+        playTheAnswerIs(true, teamName, "team", phraseKey);
       } else {
         // In Play Video mode, always announce the revealed player when a name clip exists.
-        playTheAnswerIs(true, playerDisplayName);
+        const phraseKey = getOrAssignRevealPhrase(state, questionIndex, "player");
+        playTheAnswerIs(true, playerDisplayName, "player", phraseKey);
       }
       setVideoRevealPostTimerActive(true);
       /* Timer-end reveal: update reveal state on existing DOM instead of calling

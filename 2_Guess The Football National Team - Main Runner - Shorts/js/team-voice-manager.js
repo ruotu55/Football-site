@@ -58,6 +58,7 @@ async function refreshVoiceStatus() {
   const params = new URLSearchParams({
     name: teamName,
     quizType: normalizeQuizType(uiState.quizType),
+    phrase: "plain",
     language: getCurrentLanguage(),
   });
   try {
@@ -84,6 +85,7 @@ async function generateVoice() {
   const body = {
     name: uiState.teamName,
     quizType: normalizeQuizType(uiState.quizType),
+    phrase: "plain",
     voice: FIXED_VOICE,
     language: getCurrentLanguage(),
   };
@@ -133,6 +135,7 @@ async function deleteCurrentVoice() {
       body: JSON.stringify({
         name: teamName,
         quizType: normalizeQuizType(uiState.quizType),
+        phrase: "plain",
         language: getCurrentLanguage(),
       }),
     });

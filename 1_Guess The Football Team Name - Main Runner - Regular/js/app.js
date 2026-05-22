@@ -1326,8 +1326,21 @@ async function init() {
            on success; on failure we roll it back. */
         freezeUIForRecording();
 
+        /* Cover the landing title with the ball-preloader's opaque bg-stage layer
+           BEFORE OBS starts capturing, so the recording's first frames are a clean
+           solid background — never a title flash. The ball element itself sits at
+           `top: -130px` in CSS and ~9px of it pokes into the viewport, so we hide
+           it inline until playBallPreloader (via startVideoFlow) takes over. */
+        const _preloaderForCover = document.getElementById("ball-preloader");
+        const _preloaderBall = _preloaderForCover?.querySelector(".ball-preloader-ball");
+        const _preloaderWasHidden = _preloaderForCover ? _preloaderForCover.hidden : true;
+        if (_preloaderForCover) _preloaderForCover.hidden = false;
+        if (_preloaderBall) _preloaderBall.style.opacity = "0";
+
         const ok = await startRecordingAndFullscreen(savedName, language);
         if (!ok) {
+            if (_preloaderForCover && _preloaderWasHidden) _preloaderForCover.hidden = true;
+            if (_preloaderBall) _preloaderBall.style.opacity = "";
             unfreezeUIForRecording();
             return false;
         }

@@ -549,9 +549,8 @@ body.shorts-mode .team-header {
 }
 
 body.shorts-mode .team-header.team-header--show {
-  /* Slide-in rest position. Nudged down so the crest clears the viewport edge
-     and the header stack sits lower in its band. */
-  top: 5vh;
+  /* Slide-in rest position. Nudged up 2vh (5vh → 3vh) for crest + name. */
+  top: 3vh;
   /* Let clicks reach PHOTO/X on the pitch; header actions use fixed nodes on <body>. */
   pointer-events: none;
 }
@@ -624,6 +623,7 @@ body.shorts-mode .team-side-panel-column {
 
 body.shorts-mode .team-side-panel-logo-wrap {
   margin-top: 2vh;
+  transform: translateY(0.5vh);
   width: auto;
   flex-shrink: 0;
 }

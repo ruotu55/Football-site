@@ -52,6 +52,8 @@
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.42);
   backdrop-filter: blur(2px);
   pointer-events: auto;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .lineups-inline-team-picker[hidden] {
@@ -248,6 +250,8 @@ body:not(.shorts-mode) .pitch-wrap {
   background: transparent;
   overflow: visible;
   pointer-events: auto;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* Persists across player swap; float runs here so inner DOM can be replaced without resetting bob */
@@ -404,6 +408,8 @@ body.play-video-active .pitch-swap-logo-btn {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
   transition: transform 0.78s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .slot-inner.flipped {
@@ -415,9 +421,12 @@ body.play-video-active .pitch-swap-logo-btn {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: transform;
 }
 .slot-back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(0);
+  will-change: transform;
 }
 
 /* National XI flip-card front only: club crests on the pitch — no white disc / circle clip.
@@ -598,7 +607,18 @@ body.play-video-active .pitch-swap-logo-btn {
   pointer-events: auto;
   cursor: text;
   outline: none;
-  min-width: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.35rem;
+  min-width: 3.35rem;
+  max-width: 3.35rem;
+  height: 1.05rem;
+  min-height: 1.05rem;
+  padding: 0 0.3rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  line-height: 1;
 }
 
 .slot-name:focus {

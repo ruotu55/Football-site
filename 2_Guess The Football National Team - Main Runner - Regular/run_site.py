@@ -41,9 +41,42 @@ DEFAULT_LANGUAGE = "english"
 OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Images/Teams" / "(1) Other Teams"
 TEAM_VOICE_DIR_BY_QUIZ_TYPE = {
     "nat-by-club": PROJECT_ROOT / ".Storage" / "Voices" / "Nationality teams names",
+    "club-by-nat": PROJECT_ROOT / ".Storage" / "Voices" / "Team names",
 }
 TEAM_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_TEAM_VOICE = "en-US-AndrewNeural"
+
+# Phrase variants applied to the team-name reveal voice. "plain" = just the name;
+# the rest are full sentences that bake the team name into a single TTS clip.
+TEAM_PHRASE_KEYS = (
+    "plain",
+    "correct-answer",
+    "right-answer",
+    "and-the-answer",
+    "answer-is",
+    "and-its",
+    "team-is",
+)
+TEAM_PHRASE_TEMPLATES = {
+    "english": {
+        "plain": "{team}",
+        "correct-answer": "The correct answer is {team}",
+        "right-answer": "The right answer is {team}",
+        "and-the-answer": "And the answer is {team}",
+        "answer-is": "Answer is {team}",
+        "and-its": "And it's {team}",
+        "team-is": "The team is {team}",
+    },
+    "spanish": {
+        "plain": "{team}",
+        "correct-answer": "La respuesta correcta es {team}",
+        "right-answer": "La respuesta acertada es {team}",
+        "and-the-answer": "Y la respuesta es {team}",
+        "answer-is": "La respuesta es {team}",
+        "and-its": "Y es {team}",
+        "team-is": "El equipo es {team}",
+    },
+}
 QUIZ_TITLE_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Game name" / RUNNER_VARIANT
 QUIZ_TITLE_VOICE_FILE_BY_QUIZ_TYPE = {
     "english": {
@@ -1485,19 +1518,54 @@ def _is_valid_windows_filename_stem(stem: str) -> bool:
     return True
 
 
-def _normalize_team_voice_inputs(name: str | None, quiz_type: str | None) -> tuple[str, Path]:
+def _normalize_team_voice_inputs(
+    name: str | None,
+    quiz_type: str | None,
+    phrase: str | None = "plain",
+    language: str | None = None,
+) -> tuple[str, Path, str, str]:
     team_name = (name or "").strip()
-    q = "nat-by-club"
-    target_dir = TEAM_VOICE_DIR_BY_QUIZ_TYPE[q]
+    q = str(quiz_type or "").strip()
+    if q not in TEAM_VOICE_DIR_BY_QUIZ_TYPE:
+        q = "nat-by-club"
+    base_dir = TEAM_VOICE_DIR_BY_QUIZ_TYPE[q]
+    ph = str(phrase or "plain").strip() or "plain"
+    if ph not in TEAM_PHRASE_KEYS:
+        raise ValueError(f"Unsupported team voice phrase: {ph}")
+    lang = _normalize_language(language)
+    target_dir = base_dir / lang / ph
     if not team_name:
         raise ValueError("Missing team name.")
     if not _is_valid_windows_filename_stem(team_name):
         raise ValueError("Team name has unsupported filename characters for Windows.")
-    return team_name, target_dir
+    return team_name, target_dir, ph, lang
 
 
 def _team_voice_paths_for_name(team_name: str, target_dir: Path) -> list[Path]:
     return [target_dir / f"{team_name}{ext}" for ext in TEAM_VOICE_ALLOWED_EXTS]
+
+
+def _team_voice_legacy_root_paths(team_name: str, quiz_type: str) -> list[Path]:
+    """Old layout pre-phrase/language split — files lived directly under the quiz-type dir.
+    Kept for backward-compat lookup so existing English plain clips still resolve."""
+    q = quiz_type if quiz_type in TEAM_VOICE_DIR_BY_QUIZ_TYPE else "nat-by-club"
+    base = TEAM_VOICE_DIR_BY_QUIZ_TYPE[q]
+    return [base / f"{team_name}{ext}" for ext in TEAM_VOICE_ALLOWED_EXTS]
+
+
+def _team_voice_prompt(team_name: str, phrase: str, language: str) -> str:
+    """Render the reveal sentence and dial up the excitement: triple exclamation at the
+    end so the TTS engine punches the delivery, plus Spanish inverted '¡' opener when
+    needed. ElevenLabs treats '!!!' as a strong emotional cue versus a flat '.'."""
+    templates = TEAM_PHRASE_TEMPLATES.get(language) or TEAM_PHRASE_TEMPLATES["english"]
+    template = templates.get(phrase) or "{team}"
+    rendered = template.replace("{team}", team_name).strip()
+    # Strip any trailing terminal punctuation so we always end with our own bang.
+    while rendered and rendered[-1] in ".!?":
+        rendered = rendered[:-1].rstrip()
+    if language == "spanish" and phrase != "plain" and not rendered.startswith("¡"):
+        rendered = f"¡{rendered}"
+    return f"{rendered}!"
 
 
 def _normalize_quiz_title_voice_inputs(
@@ -1579,11 +1647,23 @@ def _elevenlabs_language_code(language: str | None) -> str:
     return {"english": "en", "spanish": "es"}.get(lang, "en")
 
 
+# Excited delivery for the team-name reveal: lower stability = more pitch variation,
+# style > 0 ramps emotional range, speaker_boost tightens the timbre. Quiz-intro and
+# ending voices keep the default flatter delivery.
+TEAM_VOICE_SETTINGS_EXCITED = {
+    "stability": 0.25,
+    "similarity_boost": 0.8,
+    "style": 0.65,
+    "use_speaker_boost": True,
+}
+
+
 def _generate_elevenlabs_speech_mp3(
     text: str,
     requested_voice: str,
     out_path: Path,
     language: str | None = None,
+    voice_settings: dict | None = None,
 ) -> tuple[str, str]:
     api_key = _elevenlabs_api_key()
     if not api_key:
@@ -1599,7 +1679,7 @@ def _generate_elevenlabs_speech_mp3(
     payload = {
         "text": str(text or ""),
         "model_id": model_id,
-        "voice_settings": {
+        "voice_settings": voice_settings if voice_settings is not None else {
             "stability": 0.4,
             "similarity_boost": 0.8,
         },
@@ -2061,9 +2141,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             k, _, v = part.partition("=")
             query[unquote(k)] = unquote(v.replace("+", " "))
         try:
-            team_name, target_dir = _normalize_team_voice_inputs(
+            team_name, target_dir, phrase, language = _normalize_team_voice_inputs(
                 query.get("name"),
                 query.get("quizType"),
+                query.get("phrase") or "plain",
+                query.get("language"),
             )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
@@ -2073,6 +2155,14 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             if file_path.is_file():
                 existing_path = file_path
                 break
+        # Backward-compat: only English "plain" can fall back to the old root location.
+        if existing_path is None and language == "english" and phrase == "plain":
+            for file_path in _team_voice_legacy_root_paths(
+                team_name, str(query.get("quizType") or "nat-by-club")
+            ):
+                if file_path.is_file():
+                    existing_path = file_path
+                    break
         self._write_json(
             200,
             {
@@ -2089,7 +2179,12 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            team_name, target_dir = _normalize_team_voice_inputs(body.get("name"), body.get("quizType"))
+            team_name, target_dir, phrase, language = _normalize_team_voice_inputs(
+                body.get("name"),
+                body.get("quizType"),
+                body.get("phrase") or "plain",
+                body.get("language"),
+            )
             voice = str(body.get("voice") or FIXED_TEAM_VOICE).strip()
             if not voice:
                 raise ValueError("Unsupported voice.")
@@ -2097,7 +2192,6 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
-        language = _normalize_language(body.get("language"))
         target_dir.mkdir(parents=True, exist_ok=True)
         out_path = target_dir / f"{team_name}.mp3"
         for old_path in _team_voice_paths_for_name(team_name, target_dir):
@@ -2107,9 +2201,12 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 old_path.unlink(missing_ok=True)
 
         provider = "elevenlabs"
-        prompt_text = _tts_prompt_name(team_name)
+        prompt_text = _team_voice_prompt(team_name, phrase, language)
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, voice, out_path, language)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(
+                prompt_text, voice, out_path, language,
+                voice_settings=TEAM_VOICE_SETTINGS_EXCITED,
+            )
         except Exception as exc:  # noqa: BLE001
             self._write_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -2141,7 +2238,12 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            team_name, target_dir = _normalize_team_voice_inputs(body.get("name"), body.get("quizType"))
+            team_name, target_dir, phrase, language = _normalize_team_voice_inputs(
+                body.get("name"),
+                body.get("quizType"),
+                body.get("phrase") or "plain",
+                body.get("language"),
+            )
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
@@ -2151,6 +2253,14 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             if file_path.exists():
                 file_path.unlink(missing_ok=True)
                 removed += 1
+        # Also clean legacy root file when deleting English plain so the row goes to "missing".
+        if language == "english" and phrase == "plain":
+            for file_path in _team_voice_legacy_root_paths(
+                team_name, str(body.get("quizType") or "nat-by-club")
+            ):
+                if file_path.exists():
+                    file_path.unlink(missing_ok=True)
+                    removed += 1
         self._write_json(200, {"ok": True, "removed": removed})
         return True
 
@@ -2160,30 +2270,54 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            old_name, target_dir = _normalize_team_voice_inputs(
-                body.get("oldName"), body.get("quizType")
-            )
-            new_name, _ = _normalize_team_voice_inputs(
-                body.get("newName"), body.get("quizType")
-            )
+            old_raw = str(body.get("oldName") or "").strip()
+            new_raw = str(body.get("newName") or "").strip()
+            if not old_raw or not new_raw:
+                raise ValueError("Missing team name.")
+            if not _is_valid_windows_filename_stem(old_raw) or not _is_valid_windows_filename_stem(new_raw):
+                raise ValueError("Team name has unsupported filename characters for Windows.")
+            quiz_type = str(body.get("quizType") or "nat-by-club").strip()
+            if quiz_type not in TEAM_VOICE_DIR_BY_QUIZ_TYPE:
+                quiz_type = "nat-by-club"
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
-        if old_name == new_name:
+        if old_raw == new_raw:
             self._write_json(200, {"ok": True, "moved": []})
             return True
         moved: list[str] = []
+        base_dir = TEAM_VOICE_DIR_BY_QUIZ_TYPE[quiz_type]
+        # Walk new structure: <lang>/<phrase>/*
+        for lang in SUPPORTED_LANGUAGES:
+            for phrase in TEAM_PHRASE_KEYS:
+                sub = base_dir / lang / phrase
+                if not sub.is_dir():
+                    continue
+                for ext in TEAM_VOICE_ALLOWED_EXTS:
+                    op = sub / f"{old_raw}{ext}"
+                    np = sub / f"{new_raw}{ext}"
+                    if op.is_file() and not np.exists():
+                        try:
+                            op.rename(np)
+                            moved.append(str(np.relative_to(base_dir)))
+                        except OSError as exc:
+                            self._write_json(
+                                500,
+                                {"ok": False, "error": f"Could not rename {op.name}: {exc}"},
+                            )
+                            return True
+        # Also walk legacy root flat files
         for ext in TEAM_VOICE_ALLOWED_EXTS:
-            old_path = target_dir / f"{old_name}{ext}"
-            new_path = target_dir / f"{new_name}{ext}"
-            if old_path.is_file() and not new_path.exists():
+            op = base_dir / f"{old_raw}{ext}"
+            np = base_dir / f"{new_raw}{ext}"
+            if op.is_file() and not np.exists():
                 try:
-                    old_path.rename(new_path)
-                    moved.append(new_path.name)
+                    op.rename(np)
+                    moved.append(np.name)
                 except OSError as exc:
                     self._write_json(
                         500,
-                        {"ok": False, "error": f"Could not rename {old_path.name}: {exc}"},
+                        {"ok": False, "error": f"Could not rename {op.name}: {exc}"},
                     )
                     return True
         self._write_json(200, {"ok": True, "moved": moved})

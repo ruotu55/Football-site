@@ -48,7 +48,7 @@ async function refreshVoiceStatus() {
     setBusy(uiState.busy, uiState.busy ? "..." : "Vol");
     return;
   }
-  const params = new URLSearchParams({ name: playerName });
+  const params = new URLSearchParams({ name: playerName, phrase: "plain" });
   try {
     const res = await fetch(`${endpointUrl(VOICE_STATUS_ENDPOINT)}?${params.toString()}`, { cache: "no-store" });
     if (!res.ok) {
@@ -72,6 +72,7 @@ function playExistingVoice() {
 async function generateVoice() {
   const body = {
     name: uiState.playerName,
+    phrase: "plain",
     voice: FIXED_VOICE,
   };
   const res = await fetch(endpointUrl(VOICE_GENERATE_ENDPOINT), {
@@ -117,7 +118,7 @@ async function deleteCurrentVoice() {
     const res = await fetch(endpointUrl(VOICE_DELETE_ENDPOINT), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: playerName }),
+      body: JSON.stringify({ name: playerName, phrase: "plain" }),
     });
     const payload = await res.json().catch(() => ({}));
     if (!res.ok || !payload?.ok) {

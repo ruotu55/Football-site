@@ -22,6 +22,8 @@
   text-shadow: 0 8px 24px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5);
   margin: 0 0 0.5rem 0;
   animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
 }
 .landing-subtitle {
   position: relative;
@@ -34,6 +36,8 @@
   margin: 0 0 2rem 0;
   text-shadow: 0 6px 18px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5);
   animation: float-up-down 3.2s ease-in-out infinite; /* Standard floating animation */
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
 }
 .difficulty-box {
   position: relative;
@@ -74,7 +78,7 @@ body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .landing-tit
 body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .landing-subtitle,
 body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .difficulty-box {
   animation: none;
-  transform: translateY(-120vh);
+  transform: translate3d(0, -120vh, 0);
 }
 body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .landing-special-badge-container:not([hidden]) {
   visibility: hidden;
@@ -87,12 +91,12 @@ body:not(.shorts-mode) .landing-page.landing-content-awaiting-shift .landing-spe
 }
 
 @keyframes landing-info-slide-from-top {
-  from { transform: translateY(-120vh); }
-  to { transform: translateY(0); }
+  from { transform: translate3d(0, -120vh, 0); }
+  to { transform: translate3d(0, 0, 0); }
 }
 @keyframes landing-special-badge-slide-from-top {
-  from { transform: translateY(calc(-50% - 120vh)) rotate(-6deg); }
-  to { transform: translateY(-50%) rotate(-6deg); }
+  from { transform: translate3d(0, calc(-50% - 120vh), 0) rotate(-6deg); }
+  to { transform: translate3d(0, -50%, 0) rotate(-6deg); }
 }
 
 body:not(.shorts-mode) .landing-page.landing-content-slide-in .landing-title {
@@ -123,8 +127,9 @@ body:not(.shorts-mode) .landing-page.landing-content-slide-in .landing-special-b
   object-fit: contain;
   margin-top: -1rem; /* Adjust position to float in the stack */
   animation: float-up-down 3.2s ease-in-out infinite; /* FLOATS TOGETHER WITH TEXT */
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
 }
-
 @keyframes shorts-landing-specific-badge-fade-in {
   from {
     opacity: 0;
@@ -161,9 +166,11 @@ body.shorts-mode.play-video-active .landing-page:not([hidden]) .landing-special-
   position: absolute;
   left: 10rem;
   top: 53%; 
-  transform: translateY(-50%) rotate(-6deg);
+  transform: translate3d(0, -50%, 0) rotate(-6deg);
   z-index: 100;
   animation: float-up-down-special-badge 3.2s ease-in-out infinite;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
 }
 .landing-special-badge-container[hidden] { display: none; }
 
@@ -335,18 +342,18 @@ body.shorts-mode.play-video-active .landing-page:not([hidden]) .landing-special-
 }
 
 @keyframes pop-in-left {
-  0% { transform: translateX(-100px) scale(0.5); opacity: 0; }
-  100% { transform: translateX(0) scale(1) rotate(-8deg); opacity: 1; }
+  0% { transform: translate3d(-100px, 0, 0) scale(0.5); opacity: 0; }
+  100% { transform: translate3d(0, 0, 0) scale(1) rotate(-8deg); opacity: 1; }
 }
 
 @keyframes pop-in-right {
-  0% { transform: translateX(100px) scale(0.5); opacity: 0; }
-  100% { transform: translateX(0) scale(1) rotate(8deg); opacity: 1; }
+  0% { transform: translate3d(100px, 0, 0) scale(0.5); opacity: 0; }
+  100% { transform: translate3d(0, 0, 0) scale(1) rotate(8deg); opacity: 1; }
 }
 
 @keyframes outro-content-follow-in {
   0% {
-    transform: translateY(-100vh);
+    transform: translate3d(0, -100vh, 0);
     opacity: 0;
     filter: blur(2px);
   }
@@ -359,7 +366,7 @@ body.shorts-mode.play-video-active .landing-page:not([hidden]) .landing-special-
 
 @keyframes outro-page-float-sync {
   0%, 100% {
-    transform: translateY(var(--outro-float-base-y, 0px));
+    transform: translate3d(0, var(--outro-float-base-y, 0px), 0);
   }
   50% {
     transform: translateY(calc(var(--outro-float-base-y, 0px) - 12px));

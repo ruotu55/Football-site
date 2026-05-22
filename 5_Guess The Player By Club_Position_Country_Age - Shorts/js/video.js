@@ -11,8 +11,10 @@ import {
   playTicking,
   stopTicking,
   playVoice,
+  getOrAssignRevealPhrase,
 } from "./audio.js";
 import { isFakeInfoQuiz, fakeInfoPickForLevel, fakeInfoVoiceUrlForStat, fakeInfoVoiceUrlCandidatesForStat } from "./fake-info-mode.js";
+import { voiceKindForQuiz } from "./voice-tab.js";
 import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 import { renderProgressSteps } from "./progress.js";
 import {
@@ -754,7 +756,14 @@ function revealCurrentLevel() {
         playFirstExisting(candidates);
       } else {
         // In Play Video mode, always announce the revealed player when a name clip exists.
-        playTheAnswerIs(true, playerDisplayName);
+        // Resolve kind from the current quiz type (team for player-by-fake-info, else player)
+        // then look up (or lazily roll) the sticky phrase variant for this level so the
+        // voice tab and the reveal both play the same clip.
+        const quizType = String(appState.els?.inQuizType?.value || "").trim();
+        const kind = voiceKindForQuiz(quizType);
+        const questionIndex = appState.currentLevelIndex - 1;
+        const phraseKey = getOrAssignRevealPhrase(state, questionIndex, kind);
+        playTheAnswerIs(true, playerDisplayName, kind, phraseKey);
       }
       setVideoRevealPostTimerActive(true);
       /* Avoid `refreshCurrentQuestionPreview()` here — it calls `renderCareer()`

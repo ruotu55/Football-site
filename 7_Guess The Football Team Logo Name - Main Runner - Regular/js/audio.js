@@ -416,6 +416,67 @@ export function playRules(quizType, delayMs = 1000) {
 
 export const PLAYER_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
 
+/** Phrase variants for the reveal voice. Keep in sync with run_site.py PLAYER_PHRASE_TEMPLATES.
+    `team-is` is only ever picked for kind === "team"; `player-is` only for kind !== "team". */
+export const PLAYER_PHRASE_KEYS = [
+  "plain",
+  "correct-answer",
+  "right-answer",
+  "and-the-answer",
+  "answer-is",
+  "and-its",
+  "team-is",
+  "player-is",
+];
+const TEAM_SENTENCE_PHRASE_KEYS = [
+  "correct-answer",
+  "right-answer",
+  "and-the-answer",
+  "answer-is",
+  "and-its",
+  "team-is",
+];
+const PLAYER_SENTENCE_PHRASE_KEYS = [
+  "correct-answer",
+  "right-answer",
+  "and-the-answer",
+  "answer-is",
+  "and-its",
+  "player-is",
+];
+
+export const PLAYER_PHRASE_TEMPLATES = {
+  english: {
+    "plain": "{name}",
+    "correct-answer": "The correct answer is {name}",
+    "right-answer": "The right answer is {name}",
+    "and-the-answer": "And the answer is {name}",
+    "answer-is": "Answer is {name}",
+    "and-its": "And it's {name}",
+    "team-is": "The team is {name}",
+    "player-is": "The player is {name}",
+  },
+  spanish: {
+    "plain": "{name}",
+    "correct-answer": "La respuesta correcta es {name}",
+    "right-answer": "La respuesta acertada es {name}",
+    "and-the-answer": "Y la respuesta es {name}",
+    "answer-is": "La respuesta es {name}",
+    "and-its": "Y es {name}",
+    "team-is": "El equipo es {name}",
+    "player-is": "El jugador es {name}",
+  },
+};
+
+/** Render the human-readable sentence shown in the voice tab and used as the TTS prompt
+    in the server. Kind-agnostic — the caller picks `team-is` vs `player-is` upstream. */
+export function renderTeamPhrase(phraseKey, displayName, language) {
+  const lang = language === "spanish" ? "spanish" : "english";
+  const map = PLAYER_PHRASE_TEMPLATES[lang] || PLAYER_PHRASE_TEMPLATES.english;
+  const tpl = map[phraseKey] || map.plain || "{name}";
+  return tpl.replace("{name}", String(displayName || ""));
+}
+
 export function revealPlayerVoiceDir(kind) {
   return kind === "team"
     ? "../.Storage/Voices/Team names/"
@@ -462,11 +523,160 @@ export function buildPlayerNameVoiceSrc(displayName, ext = ".mp3", kind) {
   return `${revealPlayerVoiceDir(kind)}${encodeURIComponent(cleanName)}${cleanExt}`;
 }
 
+/** Build the URL for a specific (name, kind, phrase, language) cell — used by the voice tab. */
+export function buildPlayerPhraseVoiceSrc(displayName, kind, phraseKey, language, ext = ".mp3") {
+  const cleanName = String(displayName || "").trim();
+  if (!cleanName) return "";
+  const lang = language === "spanish" ? "spanish" : "english";
+  const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
+  return `${revealPlayerVoiceDir(kind)}${lang}/${phraseKey}/${encodeURIComponent(cleanName)}${cleanExt}`;
+}
+
 export function playPlayerNameVoiceIfExists(displayName, delayMs = 0, kind) {
   playPlayerNameVoiceIfExistsInDir(displayName, delayMs, revealPlayerVoiceDir(kind));
 }
 
-export function playTheAnswerIs(includeVoice = true, playerDisplayName = "", kind) {
+function shuffleInPlace(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+/* Per-kind shuffled queues of sentence phrases. Pop one per odd-question pick so each kind
+   cycles through every variant before any repeats. Both queues reset when
+   `appState.levelsData` is swapped to a new array (saved-script load, level rebuild).
+   `lastSentencePhrase` is tracked per-queue across refills so we can swap the first
+   element of a new shuffle if it matches the last pop — prevents the same sentence
+   appearing on two adjacent levels at the queue boundary. */
+let sentenceQueueLevelsRef = null;
+const sentenceQueues = {
+  team: { queue: [], last: "" },
+  player: { queue: [], last: "" },
+};
+
+function resetSentenceQueuesIfStale() {
+  const ref = appState.levelsData;
+  if (ref !== sentenceQueueLevelsRef) {
+    sentenceQueueLevelsRef = ref;
+    sentenceQueues.team.queue = [];
+    sentenceQueues.team.last = "";
+    sentenceQueues.player.queue = [];
+    sentenceQueues.player.last = "";
+  }
+}
+
+function nextSentencePhrase(kind) {
+  resetSentenceQueuesIfStale();
+  const isTeam = kind === "team";
+  const slot = isTeam ? sentenceQueues.team : sentenceQueues.player;
+  const source = isTeam ? TEAM_SENTENCE_PHRASE_KEYS : PLAYER_SENTENCE_PHRASE_KEYS;
+  if (slot.queue.length === 0) {
+    slot.queue = shuffleInPlace(source.slice());
+    if (slot.last && slot.queue[0] === slot.last && slot.queue.length > 1) {
+      const swapIdx = 1 + Math.floor(Math.random() * (slot.queue.length - 1));
+      [slot.queue[0], slot.queue[swapIdx]] = [slot.queue[swapIdx], slot.queue[0]];
+    }
+  }
+  const picked = slot.queue.shift() || "plain";
+  slot.last = picked;
+  return picked;
+}
+
+/** Phrase pick for one reveal slot.
+    - English: odd questionIndex → sentence (from the kind-appropriate queue), even → plain.
+    - Spanish: never plain — always pull a sentence so the name is never spoken alone. */
+function pickRevealPhraseForQuestion(questionIndex, kind) {
+  const lang = getCurrentLanguage();
+  if (lang === "spanish") return nextSentencePhrase(kind);
+  if (!Number.isFinite(questionIndex)) return "plain";
+  if ((questionIndex % 2) === 0) return "plain";
+  return nextSentencePhrase(kind);
+}
+
+/** Sticky per-level phrase pick. Stored on the level object itself so the voice tab and
+    the reveal playback agree on the same phrase, and a new saved-script load (which
+    replaces `levelsData` with fresh objects) re-rolls automatically. Spanish never
+    accepts a "plain" cache — if the user switched language after rolling we re-pick.
+    Cache key is per-kind so toggling fakeInfo quiz mode in the same level rolls
+    a fresh phrase from the right queue. */
+export function getOrAssignRevealPhrase(levelData, questionIndex, kind) {
+  if (!levelData || typeof levelData !== "object") return "plain";
+  const cacheKey = kind === "team" ? "__revealPhraseTeam" : "__revealPhrasePlayer";
+  const cached = typeof levelData[cacheKey] === "string" ? levelData[cacheKey] : "";
+  const lang = getCurrentLanguage();
+  const cachedValidForLang = cached && !(lang === "spanish" && cached === "plain");
+  if (cachedValidForLang) return cached;
+  const picked = pickRevealPhraseForQuestion(questionIndex, kind);
+  try { levelData[cacheKey] = picked; } catch {}
+  return picked;
+}
+
+/** Build candidate URLs in priority order for a given (name, kind, phrase, language).
+    Probes new layout `<dir>/<lang>/<phrase>/<Name>.ext` plus, for English plain only, the
+    legacy flat `<dir>/<Name>.ext` so pre-existing clips keep working. */
+function buildPhraseCandidatesForLang(dirRel, cleanName, language, phraseKey) {
+  const out = [];
+  const lang = language === "spanish" ? "spanish" : "english";
+  for (const ext of PLAYER_NAME_VOICE_EXTS) {
+    out.push(`${dirRel}${lang}/${phraseKey}/${encodeURIComponent(cleanName)}${ext}`);
+  }
+  if (lang === "english" && phraseKey === "plain") {
+    for (const ext of PLAYER_NAME_VOICE_EXTS) {
+      out.push(`${dirRel}${encodeURIComponent(cleanName)}${ext}`);
+    }
+  }
+  return out;
+}
+
+/** Build the candidate chain for one reveal, given the chosen phrase. Tries the chosen
+    phrase first (current language → English), then falls through to plain so playback
+    never goes silent when the user hasn't generated the sentence clip yet. */
+function buildRevealCandidates(displayName, kind, phraseKey) {
+  const base = String(displayName || "").trim();
+  if (!base) return [];
+  const dir = revealPlayerVoiceDir(kind);
+  const lang = getCurrentLanguage();
+  const phrase = phraseKey || "plain";
+  const out = [];
+  if (phrase !== "plain") {
+    if (lang === "spanish") out.push(...buildPhraseCandidatesForLang(dir, base, "spanish", phrase));
+    out.push(...buildPhraseCandidatesForLang(dir, base, "english", phrase));
+  }
+  if (lang === "spanish") out.push(...buildPhraseCandidatesForLang(dir, base, "spanish", "plain"));
+  out.push(...buildPhraseCandidatesForLang(dir, base, "english", "plain"));
+  return out;
+}
+
+/** Probe candidates and play first that loads. Returns silently if none. */
+function playFirstExistingClip(candidates, delayMs) {
+  const list = (candidates || []).filter(Boolean);
+  if (list.length === 0) return;
+  let i = 0;
+  const tryNext = () => {
+    if (i >= list.length) return;
+    const src = list[i++];
+    const probe = new Audio();
+    const cleanup = () => {
+      probe.removeEventListener("error", onErr);
+      probe.removeEventListener("canplay", onOk);
+    };
+    const onErr = () => { cleanup(); tryNext(); };
+    const onOk = () => {
+      cleanup();
+      probe.pause(); probe.removeAttribute("src"); probe.load();
+      playVoice(src, delayMs);
+    };
+    probe.addEventListener("error", onErr, { once: true });
+    probe.addEventListener("canplay", onOk, { once: true });
+    probe.src = src;
+    probe.load();
+  };
+  tryNext();
+}
+
+export function playTheAnswerIs(includeVoice = true, playerDisplayName = "", kind, phraseKey = "plain") {
   const dongAudio = new Audio(paths.dong);
   dongAudio.play().catch(err => console.warn("Dong play error:", err));
 
@@ -477,7 +687,8 @@ export function playTheAnswerIs(includeVoice = true, playerDisplayName = "", kin
   }, 150);
 
   if (includeVoice && appState.isVideoPlaying) {
-    playPlayerNameVoiceIfExistsInDir(playerDisplayName, 150, revealPlayerVoiceDir(kind));
+    const candidates = buildRevealCandidates(playerDisplayName, kind, phraseKey);
+    playFirstExistingClip(candidates, 150);
   }
 }
 

@@ -10,6 +10,7 @@ import {
   playCommentBelow,
   playTicking,
   stopTicking,
+  getOrAssignRevealPhrase,
 } from "./audio.js";
 import { isFakeInfoQuiz } from "./fake-info-mode.js";
 import { renderProgressSteps } from "./progress.js";
@@ -782,16 +783,23 @@ function revealCurrentLevel() {
     const skipBonusReveal = isLastQuestionBeforeOutro && endingType !== "how-many";
     if (!skipBonusReveal) {
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+      /* Read (or lazily roll) the phrase variant chosen for this level so playback
+         matches what the voice tab is showing for this name. Both the voice tab and
+         this reveal site key the cache by kind, so toggling fakeInfo quiz mode after
+         a roll still produces a consistent phrase for the new kind. */
+      const questionIndex = appState.currentLevelIndex - 1;
       if (isFakeInfoQuiz()) {
         /* Match Regular team-name quiz: no quiz/fake-stat sound.
            Reveal announces the team name clip from `.Storage/Voices/Team names`. */
         const teamName = String(
           state?.careerPlayer?.club || state?.careerPlayer?.name || "",
         ).trim();
-        playTheAnswerIs(true, teamName, "team");
+        const phraseKey = getOrAssignRevealPhrase(state, questionIndex, "team");
+        playTheAnswerIs(true, teamName, "team", phraseKey);
       } else {
         // In Play Video mode, always announce the revealed player when a name clip exists.
-        playTheAnswerIs(true, playerDisplayName);
+        const phraseKey = getOrAssignRevealPhrase(state, questionIndex, "player");
+        playTheAnswerIs(true, playerDisplayName, "player", phraseKey);
       }
       setVideoRevealPostTimerActive(true);
       /* Match Regular: update reveal classes/content on the existing DOM.

@@ -1077,6 +1077,10 @@ async function init() {
         if (els.playVideoBtn) els.playVideoBtn.hidden = true;
         if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
         if (els.panelFab) els.panelFab.hidden = true;
+        if (els.inShotsSizeToggle && els.inShotsSizeToggle.checked) {
+            els.inShotsSizeToggle.checked = false;
+            els.inShotsSizeToggle.dispatchEvent(new Event("change"));
+        }
     }
     function unfreezeUIForRecording() {
         document.body.classList.remove("play-video-active");

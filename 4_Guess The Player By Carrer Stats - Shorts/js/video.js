@@ -9,6 +9,7 @@ import {
   playCommentBelow,
   playTicking,
   stopTicking,
+  getOrAssignRevealPhrase,
 } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import {
@@ -750,7 +751,11 @@ function revealCurrentLevel() {
         }
       }
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
-      playTheAnswerIs(shouldPlayVoice, playerDisplayName);
+      /* Read (or lazily roll) the phrase variant chosen for this level so playback
+         matches what the voice tab is showing for this player. */
+      const revealQuestionIndex = appState.currentLevelIndex - 1;
+      const phraseKey = getOrAssignRevealPhrase(state, revealQuestionIndex);
+      playTheAnswerIs(shouldPlayVoice, playerDisplayName, phraseKey);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 3000;

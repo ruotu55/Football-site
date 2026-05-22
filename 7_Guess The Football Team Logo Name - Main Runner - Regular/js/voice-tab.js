@@ -26,6 +26,7 @@ import {
   BUNDLED_MILESTONES,
   getSelectedBundledVariant,
 } from "./bundled-level-voices.js";
+import { renderTeamPhrase, getOrAssignRevealPhrase } from "./audio.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 
@@ -214,9 +215,9 @@ async function fetchEndingStatus(endingType) {
   } catch { return { exists: false, src: "" }; }
 }
 
-async function fetchPlayerStatus(name, kind) {
+async function fetchPlayerStatus(name, kind, phrase = "plain") {
   try {
-    const params = new URLSearchParams({ name, language: getCurrentLanguage(), kind: kind || "player" });
+    const params = new URLSearchParams({ name, language: getCurrentLanguage(), kind: kind || "player", phrase });
     const res = await fetch(`${endpointUrl("__player-voice/status")}?${params}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
     return { exists: !!body?.exists, src: String(body?.src || "") };
@@ -408,12 +409,33 @@ export async function renderVoiceTab() {
   const specificTitle = getSpecificTitle();
   const players = uniquePlayerNames();
 
+  /* Resolve the first level + question-index for each unique name so we can ask the audio
+     module for the phrase variant that will actually play. The pick is sticky on the
+     level object — same value here and at reveal time, fresh roll on saved-script load. */
+  const levelsForPhrase = Array.isArray(appState.levelsData) ? appState.levelsData : [];
+  const playerFirstLevelIndex = new Map();
+  levelsForPhrase.forEach((lvl, idx) => {
+    const n = String(lvl?.careerPlayer?.name || "").trim();
+    if (!n) return;
+    if (!playerFirstLevelIndex.has(n)) playerFirstLevelIndex.set(n, idx);
+  });
+  const sectionKindForPhrase = voiceKindForQuiz(quizType);
+  const playerPhraseList = players.map((name) => {
+    const levelIdx = playerFirstLevelIndex.get(name);
+    const lvl = Number.isInteger(levelIdx) ? levelsForPhrase[levelIdx] : null;
+    const questionIndex = Number.isInteger(levelIdx) ? levelIdx - 1 : null;
+    const phrase = getOrAssignRevealPhrase(lvl, questionIndex, sectionKindForPhrase);
+    return { name, phrase };
+  });
+
   const statusPromises = {
     quizTitle: quizType ? fetchQuizTitleStatus(quizType, specificTitle) : Promise.resolve(false),
     fakeStats: quizType === "player-by-fake-info" ? fetchFakeStatsStatus() : Promise.resolve({}),
     endingThink: fetchEndingStatus("think-you-know"),
     endingHowMany: fetchEndingStatus("how-many"),
-    playerNames: Promise.all(players.map((n) => fetchPlayerStatus(n, voiceKindForQuiz(quizType)).then(({ exists, src }) => ({ name: n, exists, src })))),
+    playerNames: Promise.all(playerPhraseList.map(({ name, phrase }) =>
+      fetchPlayerStatus(name, sectionKindForPhrase, phrase).then(({ exists, src }) => ({ name, phrase, exists, src })),
+    )),
   };
 
   const [quizTitleStatus, fakeStats, endingThinkStatus, endingHowManyStatus, playerStatuses] = await Promise.all([
@@ -471,26 +493,29 @@ export async function renderVoiceTab() {
   root.appendChild(buildSection(titles.quizIntro, quizRows));
 
   /* Section 2 — Players (one row per unique player currently in a level). The kind
-     parameter routes the file to either the Players Names or Team names folder. */
+     parameter routes the file to either the Players Names or Team names folder.
+     The phrase is the per-level sticky pick from `getOrAssignRevealPhrase` so the row
+     text matches the exact sentence that plays at reveal time. */
   const sectionVoiceKind = voiceKindForQuiz(quizType);
-  const playerRows = playerStatuses.map(({ name, exists, src }) => {
+  const playerRows = playerStatuses.map(({ name, phrase, exists, src }) => {
     const indices = playerLevelMap.get(name) || [];
     const playsAt = indices.length ? levelLabel(indices) : plays("player");
+    const text = renderTeamPhrase(phrase, name, lang);
     return buildRow({
-      text: name,
+      text,
       exists,
       playsAt,
       onPlay: () => onVolPressed({
-        rowKey: `player:${name}:${lang}`,
+        rowKey: `player:${name}:${phrase}:${lang}`,
         cachedExists: exists,
         cachedSrc: src,
         generateEndpoint: "__player-voice/generate",
-        generateBody: { name, kind: sectionVoiceKind },
+        generateBody: { name, kind: sectionVoiceKind, phrase },
       }),
       onDelete: () => onDeletePressed({
-        rowKey: `player:${name}:${lang}`,
+        rowKey: `player:${name}:${phrase}:${lang}`,
         deleteEndpoint: "__player-voice/delete",
-        deleteBody: { name, kind: sectionVoiceKind },
+        deleteBody: { name, kind: sectionVoiceKind, phrase },
       }),
     });
   });

@@ -73,7 +73,7 @@ body.shorts-mode .stage::before {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     width: 56.25vh;
     height: 100vh;
     background: transparent;
@@ -277,7 +277,7 @@ body.shorts-mode .quiz-progress {
     bottom: var(--shorts-quiz-progress-bottom);
     left: 50%;
     right: auto;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     width: auto;
     justify-content: center;
 }
@@ -334,16 +334,17 @@ body.shorts-mode .quiz-progress-scroll::-webkit-scrollbar {
 body.shorts-mode .countdown-timer {
     top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform, opacity, filter;
 }
-
 body.shorts-mode .shorts-intro-quiz-title {
     position: fixed;
     top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh - 0.9rem);
     left: 50%;
     z-index: 55;
     width: min(94vw, 32rem);
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     color: #fff;
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 800;
@@ -377,13 +378,13 @@ body:not(.shorts-mode) .shorts-intro-quiz-title {
 
 @keyframes countdown-timer-enter-shorts {
     0% {
-        transform: translateX(-50%) scale(0.3) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        transform: translate3d(-50%, 0, 0) scale(0.3) translateZ(-1500px) rotateX(-20deg) translate3d(0, 100%, 0);
         opacity: 0;
         filter: blur(5px);
     }
 
     100% {
-        transform: translateX(-50%) scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        transform: translate3d(-50%, 0, 0) scale(1) translateZ(0) rotateX(0deg) translate3d(0, 0, 0);
         opacity: 1;
         filter: blur(0px);
     }
@@ -563,7 +564,6 @@ body.shorts-mode .career-wrap.career-no-player .career-grid,
 body.shorts-mode .career-wrap.career-no-player .career-reveal-photo {
     display: none !important;
 }
-
 body.shorts-mode .career-path-outer,
 body.shorts-mode .career-path-inner,
 body.shorts-mode .career-path-dash {
@@ -931,23 +931,26 @@ body.shorts-mode.play-video-active.shorts-question-countdown .career-silhouette 
     justify-content: center;
     overflow: hidden;
     box-sizing: border-box;
+    isolation: isolate;
+    backface-visibility: hidden;
+    will-change: transform, opacity, filter;
 }
-
 .career-reveal-photo-img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     object-position: center bottom;
-    transform: translateY(var(--career-reveal-y, -10%))
+    transform: translate3d(0, var(--career-reveal-y, -10%), 0)
       scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
     transform-origin: center bottom;
     display: block;
     border-radius: 0;
+    backface-visibility: hidden;
+    will-change: transform, opacity, filter;
 }
-
 body.shorts-mode .career-reveal-photo {
     left: 50%;
-    transform: translateX(-50%) translateY(46%) scale(0.74);
+    transform: translate3d(-50%, 46%, 0) scale(0.74);
     transform-origin: center bottom;
     filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
     width: 100vw;
@@ -979,7 +982,7 @@ body.shorts-mode .career-reveal-photo::after {
         rgba(0, 0, 0, 0.22) 45%,
         rgba(0, 0, 0, 0.02) 100%
     );
-    transform: translateX(-50%) translateY(-42px) scale(0.72);
+    transform: translate3d(-50%, -42px, 0) scale(0.72);
     filter: blur(6px);
     opacity: 0;
     pointer-events: none;
@@ -1002,7 +1005,7 @@ body.shorts-mode .career-reveal-photo::after {
 
 /* Hidden: match Career Path - Shorts overlay pre-show (keyframes drive `.show`). */
 body.shorts-mode .career-reveal-photo:not(.show) {
-    transform: translateX(-50%) translateY(46%) scale(0.74);
+    transform: translate3d(-50%, 46%, 0) scale(0.74);
     opacity: 0;
     filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
 }
@@ -1036,7 +1039,7 @@ body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .caree
 body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show {
     animation: none;
     opacity: 1;
-    transform: translateX(-50%) translateY(-4%) scale(1.04);
+    transform: translate3d(-50%, -4%, 0) scale(1.04);
     filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
 }
 
@@ -1066,7 +1069,7 @@ body.shorts-mode.play-video-active.shorts-play-pre-countdown .career-wrap .caree
 body.shorts-mode.play-video-active.shorts-question-countdown .career-wrap .career-reveal-photo.show::after {
     animation: none;
     opacity: 0.75;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translate3d(-50%, 0, 0) scale(1);
     filter: blur(6px);
 }
 

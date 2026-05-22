@@ -1,9 +1,10 @@
 import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
-import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking, playVoice } from "./audio.js";
+import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking, playVoice, getOrAssignRevealPhrase } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import { renderCareer, renderHeader, syncCareerSlotControlsVisibility, refreshCareerRevealStateOnly } from "./pitch-render.js";
 import { isFakeInfoQuiz, fakeInfoPickForLevel, fakeInfoVoiceUrlForStat } from "./fake-info-mode.js";
+import { voiceKindForQuiz } from "./voice-tab.js";
 import { STAGE_VIDEO_LEVEL_TRANSITION_MS, STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
 import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
 
@@ -38,6 +39,7 @@ function playBallPreloader() {
   }
 
   ball.removeAttribute("style");
+  ball.style.opacity = "0";
   preloader.hidden = false;
 
   /* Clone DOM background overlays into the preloader when present (shared theme). */
@@ -57,6 +59,11 @@ function playBallPreloader() {
 
   return loadGsap().then((gsap) => {
     gsap.set(ball, { clearProps: "all" });
+    gsap.set(ball, {
+      opacity: 0,
+      force3D: true,
+      willChange: "transform, opacity",
+    });
 
     const layer1 = preloader.querySelector(".ball-layer-1");
     const layer2 = preloader.querySelector(".ball-layer-2");
@@ -81,6 +88,7 @@ function playBallPreloader() {
             transformOrigin: `${ox}px ${oy}px`,
             scale: 1.6,
             opacity: 0,
+            force3D: true,
           });
         })();
 
@@ -93,13 +101,13 @@ function playBallPreloader() {
         tl.fromTo(
           ball,
           { opacity: 0 },
-          { duration: 0.7, opacity: 1, ease: "power2.out" },
+          { duration: 0.7, opacity: 1, ease: "power2.out", force3D: true },
           0,
         )
         .fromTo(
           ball,
           { scale: 1.6 },
-          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)" },
+          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)", force3D: true },
           0,
         )
         /* 3. Prepare: mask + expand origin — fires at 0.7s, when the visible
@@ -127,7 +135,7 @@ function playBallPreloader() {
           const bRect = ball.getBoundingClientRect();
           const ox = (r.left + r.width / 2) - bRect.left;
           const oy = (r.top  + r.height / 2) - bRect.top;
-          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px` });
+          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px`, force3D: true });
         }, null, 0.7)
         /* 4. Ball EXPANDS outward — starts at 0.7s, overlapping the tail of
            the bounce so there's no visible stop between the two */
@@ -135,6 +143,7 @@ function playBallPreloader() {
           scale: () => ball._expandScale,
           duration: 1.6,
           ease: "none",
+          force3D: true,
         }, 0.7)
         /* 4. Landing opens from inside while ball keeps going */
         .to(preloader, {
@@ -519,7 +528,14 @@ function revealCurrentLevel() {
         if (clipUrl) playVoice(clipUrl, 0);
       } else {
         // In Play Video mode, always announce the revealed player when a name clip exists.
-        playTheAnswerIs(true, playerDisplayName);
+        // Resolve kind from the current quiz type (team for player-by-fake-info, else player)
+        // then look up (or lazily roll) the sticky phrase variant for this level so the
+        // voice tab and the reveal both play the same clip.
+        const quizType = String(appState.els?.inQuizType?.value || "").trim();
+        const kind = voiceKindForQuiz(quizType);
+        const questionIndex = appState.currentLevelIndex - 1;
+        const phraseKey = getOrAssignRevealPhrase(state, questionIndex, kind);
+        playTheAnswerIs(true, playerDisplayName, kind, phraseKey);
       }
       setVideoRevealPostTimerActive(true);
       /* Timer-end reveal: update reveal state on existing DOM instead of calling

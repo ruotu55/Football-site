@@ -257,7 +257,7 @@ body.play-video-active .btn-save-current-team-fab {
   position: fixed;
   top: 1rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   z-index: 500;
   width: 3.5rem;
   height: 3.5rem;
@@ -268,7 +268,8 @@ body.play-video-active .btn-save-current-team-fab {
   border: 0.35rem solid transparent; 
   border-radius: 50%;
   font-family: "Barlow Condensed", sans-serif;
-  will-change: transform, opacity;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -289,7 +290,7 @@ body.youtube-thumbnails-mode .countdown-timer {
   inset: -0.35rem; 
   width: calc(100% + 0.7rem);
   height: calc(100% + 0.7rem);
-  transform: rotate(-90deg); /* Start from the top */
+  transform: rotate(-90deg) translateZ(0); /* Start from the top */
   overflow: visible;
   pointer-events: none;
 }
@@ -302,6 +303,7 @@ body.youtube-thumbnails-mode .countdown-timer {
   stroke-dasharray: 283; /* 2 * pi * r (45) */
   stroke-dashoffset: 0;
   filter: drop-shadow(0 0 6px rgba(239, 68, 68, 0.6));
+  will-change: stroke-dashoffset, stroke, filter;
   transition: stroke 0.5s ease, filter 0.5s ease;
 }
 
@@ -313,6 +315,7 @@ body.youtube-thumbnails-mode .countdown-timer {
   font-weight: 900;
   color: #ef4444; /* Base fallback red */
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  will-change: color, transform;
   transition: color 0.5s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -345,9 +348,9 @@ body.youtube-thumbnails-mode .countdown-timer {
 }
 
 @keyframes pulse-timer {
-  0% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
-  50% { transform: translateX(-50%) scale(1.15); filter: drop-shadow(0 0 10px #ef4444); }
-  100% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
+  0% { transform: translate3d(-50%, 0, 0) scale(1); filter: drop-shadow(0 0 0 transparent); }
+  50% { transform: translate3d(-50%, 0, 0) scale(1.15); filter: drop-shadow(0 0 10px #ef4444); }
+  100% { transform: translate3d(-50%, 0, 0) scale(1); filter: drop-shadow(0 0 0 transparent); }
 }
 
 /* ── PROD Validation Modal ── */

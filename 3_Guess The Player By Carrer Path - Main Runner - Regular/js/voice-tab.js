@@ -7,6 +7,7 @@ import {
   BUNDLED_MILESTONES,
   getSelectedBundledVariant,
 } from "./bundled-level-voices.js";
+import { renderPlayerPhrase, getOrAssignRevealPhrase } from "./audio.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
@@ -117,9 +118,9 @@ async function fetchEndingStatus(endingType) {
     return { exists: !!body?.exists, src: String(body?.src || "") };
   } catch { return { exists: false, src: "" }; }
 }
-async function fetchPlayerStatus(name) {
+async function fetchPlayerStatus(name, phrase = "plain") {
   try {
-    const params = new URLSearchParams({ name, language: getCurrentLanguage() });
+    const params = new URLSearchParams({ name, phrase, language: getCurrentLanguage() });
     const res = await fetch(`${endpointUrl("__player-voice/status")}?${params}`, { cache: "no-store" });
     const body = await res.json().catch(() => ({}));
     return { exists: !!body?.exists, src: String(body?.src || "") };
@@ -246,11 +247,31 @@ export async function renderVoiceTab() {
   const specificTitle = getSpecificTitle();
   const players = uniquePlayerNames();
 
+  /* Resolve the level + question-index for each unique player so we can ask the audio
+     module for the phrase variant that will actually play. The pick is sticky on the
+     level object — same value here and at reveal time, fresh roll on saved-script load. */
+  const levelsForPhrase = Array.isArray(appState.levelsData) ? appState.levelsData : [];
+  const playerFirstLevelIndex = new Map();
+  levelsForPhrase.forEach((lvl, idx) => {
+    const n = String(lvl?.careerPlayer?.name || "").trim();
+    if (!n) return;
+    if (!playerFirstLevelIndex.has(n)) playerFirstLevelIndex.set(n, idx);
+  });
+  const playerPhraseList = players.map((name) => {
+    const levelIdx = playerFirstLevelIndex.get(name);
+    const lvl = Number.isInteger(levelIdx) ? levelsForPhrase[levelIdx] : null;
+    const questionIndex = Number.isInteger(levelIdx) ? levelIdx - 1 : null;
+    const phrase = getOrAssignRevealPhrase(lvl, questionIndex);
+    return { name, phrase };
+  });
+
   const [quizTitleStatus, endingThinkStatus, endingHowManyStatus, playerStatuses] = await Promise.all([
     quizType ? fetchQuizTitleStatus(quizType, specificTitle) : Promise.resolve({ exists: false, src: "" }),
     fetchEndingStatus("think-you-know"),
     fetchEndingStatus("how-many"),
-    Promise.all(players.map((n) => fetchPlayerStatus(n).then(({ exists, src }) => ({ name: n, exists, src })))),
+    Promise.all(playerPhraseList.map(({ name, phrase }) =>
+      fetchPlayerStatus(name, phrase).then(({ exists, src }) => ({ name, phrase, exists, src }))
+    )),
   ]);
   if (myToken !== renderToken) return;
 
@@ -293,19 +314,20 @@ export async function renderVoiceTab() {
   }
   root.appendChild(buildSection(SECTION_TITLES.quizIntro, quizRows));
 
-  const playerRows = playerStatuses.map(({ name, exists, src }) => {
+  const playerRows = playerStatuses.map(({ name, phrase, exists, src }) => {
     const indices = playerLevelMap.get(name) || [];
     const playsAt = indices.length ? levelLabel(indices) : plays("player");
+    const text = renderPlayerPhrase(phrase, name, lang);
     return buildRow({
-      text: name, exists, playsAt,
+      text, exists, playsAt,
       onPlay: () => onVolPressed({
-        rowKey: `player:${name}:${lang}`,
+        rowKey: `player:${name}:${phrase}:${lang}`,
         cachedExists: exists, cachedSrc: src,
-        generateEndpoint: "__player-voice/generate", generateBody: { name },
+        generateEndpoint: "__player-voice/generate", generateBody: { name, phrase },
       }),
       onDelete: () => onDeletePressed({
-        rowKey: `player:${name}:${lang}`,
-        deleteEndpoint: "__player-voice/delete", deleteBody: { name },
+        rowKey: `player:${name}:${phrase}:${lang}`,
+        deleteEndpoint: "__player-voice/delete", deleteBody: { name, phrase },
       }),
     });
   });

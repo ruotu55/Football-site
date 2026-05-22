@@ -1111,6 +1111,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     label.onblur = () => {
       state.customNames[player.name] = label.textContent.trim();
+      scheduleShortsSlotNameFit();
     };
     label.onkeydown = (e) => {
       if (e.key === "Enter") {
@@ -1217,6 +1218,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     label.onblur = () => {
       state.customNames[player.name] = label.textContent.trim();
+      scheduleShortsSlotNameFit();
     };
     label.onkeydown = (e) => {
       if (e.key === "Enter") {
@@ -1309,6 +1311,7 @@ export function renderPitch() {
     }
     renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
   });
+  scheduleShortsSlotNameFit();
 }
 
 /**
@@ -1440,6 +1443,56 @@ export function scheduleTeamHeaderNameCenterShift() {
 }
 
 let teamHeaderNameFitRaf = 0;
+let shortsSlotNameFitRaf = 0;
+
+function fitShortsSlotNameEl(labelEl) {
+  labelEl.style.removeProperty("font-size");
+  labelEl.style.removeProperty("letter-spacing");
+  const nameLen = String(labelEl.textContent || "").trim().length;
+  if (nameLen >= 15) {
+    labelEl.style.fontSize = "0.4rem";
+    labelEl.style.letterSpacing = "0";
+  } else if (nameLen >= 13) {
+    labelEl.style.fontSize = "0.49rem";
+  } else if (nameLen >= 11) {
+    labelEl.style.fontSize = "0.54rem";
+  } else if (nameLen >= 9) {
+    labelEl.style.fontSize = "0.64rem";
+  }
+}
+
+function fitShortsSlotNamesImpl() {
+  if (!document.body.classList.contains("shorts-mode")) {
+    return;
+  }
+  const pitchWrap = appState.els.pitchWrap;
+  const labels = appState.els.pitchSlots?.querySelectorAll(".slot-name");
+  if (!labels?.length) {
+    return;
+  }
+  pitchWrap?.style.removeProperty("--slot-name-max-width");
+  pitchWrap?.style.removeProperty("--slot-name-width");
+  pitchWrap?.style.removeProperty("--slot-name-height");
+  labels.forEach((el) => {
+    el.style.removeProperty("width");
+    el.style.removeProperty("min-width");
+    el.style.removeProperty("max-width");
+    el.style.removeProperty("height");
+    el.style.removeProperty("min-height");
+    fitShortsSlotNameEl(el);
+  });
+}
+
+/** Shorts: cap player name boxes at GORETZKA width; shrink font for longer names. */
+export function scheduleShortsSlotNameFit() {
+  cancelAnimationFrame(shortsSlotNameFitRaf);
+  shortsSlotNameFitRaf = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      shortsSlotNameFitRaf = 0;
+      fitShortsSlotNamesImpl();
+    });
+  });
+}
 
 function escapeHtmlForSidePanelName(text) {
   return String(text)

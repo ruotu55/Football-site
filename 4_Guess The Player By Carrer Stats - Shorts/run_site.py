@@ -158,6 +158,47 @@ def _normalize_bundled_voice_inputs(key, language) -> tuple[str, str, Path]:
 PLAYER_VOICE_DIR = PROJECT_ROOT / ".Storage" / "Voices" / "Players Names"
 PLAYER_VOICE_ALLOWED_EXTS = (".mp3", ".wav", ".m4a")
 FIXED_PLAYER_VOICE = "en-US-AndrewNeural"
+
+# Phrase variants applied to the player-name reveal voice. "plain" = just the name;
+# the rest are full sentences that bake the player name into a single TTS clip.
+PLAYER_PHRASE_KEYS = (
+    "plain",
+    "correct-answer",
+    "right-answer",
+    "and-the-answer",
+    "answer-is",
+    "and-its",
+    "player-is",
+)
+PLAYER_PHRASE_TEMPLATES = {
+    "english": {
+        "plain": "{name}",
+        "correct-answer": "The correct answer is {name}",
+        "right-answer": "The right answer is {name}",
+        "and-the-answer": "And the answer is {name}",
+        "answer-is": "Answer is {name}",
+        "and-its": "And it's {name}",
+        "player-is": "The player is {name}",
+    },
+    "spanish": {
+        "plain": "{name}",
+        "correct-answer": "La respuesta correcta es {name}",
+        "right-answer": "La respuesta acertada es {name}",
+        "and-the-answer": "Y la respuesta es {name}",
+        "answer-is": "La respuesta es {name}",
+        "and-its": "Y es {name}",
+        "player-is": "El jugador es {name}",
+    },
+}
+
+# Excited delivery for the player-name reveal: lower stability = more pitch variation,
+# style > 0 ramps emotional range, speaker_boost tightens the timbre.
+PLAYER_VOICE_SETTINGS_EXCITED = {
+    "stability": 0.25,
+    "similarity_boost": 0.8,
+    "style": 0.65,
+    "use_speaker_boost": True,
+}
 ELEVENLABS_API_KEY_ENV = "ELEVENLABS_API_KEY"
 ELEVENLABS_VOICE_ID_ENV = "ELEVENLABS_VOICE_ID"
 ELEVENLABS_MODEL_ID_ENV = "ELEVENLABS_MODEL_ID"
@@ -202,6 +243,45 @@ def _normalize_player_voice_name(name: str | None) -> str:
     if not _is_valid_windows_filename_stem(player_name):
         raise ValueError("Player name has unsupported filename characters for Windows.")
     return player_name
+
+
+def _normalize_player_voice_inputs(
+    name: str | None,
+    phrase: str | None = "plain",
+    language: str | None = None,
+) -> tuple[str, Path, str, str]:
+    """Validate inputs for the language/phrase-aware player voice endpoints.
+    Returns (player_name, target_dir, phrase, language) where target_dir is
+    `<PLAYER_VOICE_DIR>/<language>/<phrase>/`."""
+    player_name = _normalize_player_voice_name(name)
+    ph = str(phrase or "plain").strip() or "plain"
+    if ph not in PLAYER_PHRASE_KEYS:
+        raise ValueError(f"Unsupported player voice phrase: {ph}")
+    lang = _normalize_language(language)
+    target_dir = PLAYER_VOICE_DIR / lang / ph
+    return player_name, target_dir, ph, lang
+
+
+def _player_voice_paths_for_phrase(player_name: str, target_dir: Path) -> list[Path]:
+    return [target_dir / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
+
+
+def _player_voice_legacy_root_paths(player_name: str) -> list[Path]:
+    """Old layout pre-phrase/language split — files lived directly under the players dir."""
+    return [PLAYER_VOICE_DIR / f"{player_name}{ext}" for ext in PLAYER_VOICE_ALLOWED_EXTS]
+
+
+def _player_voice_prompt(player_name: str, phrase: str, language: str) -> str:
+    """Render the reveal sentence and dial up the excitement: trailing exclamation so the
+    TTS engine punches the delivery, plus Spanish inverted '¡' opener when needed."""
+    templates = PLAYER_PHRASE_TEMPLATES.get(language) or PLAYER_PHRASE_TEMPLATES["english"]
+    template = templates.get(phrase) or "{name}"
+    rendered = template.replace("{name}", player_name).strip()
+    while rendered and rendered[-1] in ".!?":
+        rendered = rendered[:-1].rstrip()
+    if language == "spanish" and phrase != "plain" and not rendered.startswith("¡"):
+        rendered = f"¡{rendered}"
+    return f"{rendered}!"
 
 
 def _safe_path_component(raw) -> str:
@@ -531,6 +611,7 @@ def _generate_elevenlabs_speech_mp3(
     requested_voice: str,
     out_path: Path,
     language: str | None = None,
+    voice_settings: dict | None = None,
 ) -> tuple[str, str]:
     api_key = _elevenlabs_api_key()
     if not api_key:
@@ -546,7 +627,7 @@ def _generate_elevenlabs_speech_mp3(
     payload = {
         "text": str(text or ""),
         "model_id": model_id,
-        "voice_settings": {
+        "voice_settings": voice_settings if voice_settings is not None else {
             "stability": 0.4,
             "similarity_boost": 0.8,
         },
@@ -846,15 +927,25 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             k, _, v = part.partition("=")
             query[unquote(k)] = unquote(v.replace("+", " "))
         try:
-            player_name = _normalize_player_voice_name(query.get("name"))
+            player_name, target_dir, phrase, language = _normalize_player_voice_inputs(
+                query.get("name"),
+                query.get("phrase") or "plain",
+                query.get("language"),
+            )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
         existing_path = None
-        for file_path in _player_voice_paths_for_name(player_name):
+        for file_path in _player_voice_paths_for_phrase(player_name, target_dir):
             if file_path.is_file():
                 existing_path = file_path
                 break
+        # Backward-compat: only English "plain" can fall back to the old root location.
+        if existing_path is None and language == "english" and phrase == "plain":
+            for file_path in _player_voice_legacy_root_paths(player_name):
+                if file_path.is_file():
+                    existing_path = file_path
+                    break
         self._send_json(
             200,
             {
@@ -871,24 +962,30 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            player_name = _normalize_player_voice_name(body.get("name"))
+            player_name, target_dir, phrase, language = _normalize_player_voice_inputs(
+                body.get("name"),
+                body.get("phrase") or "plain",
+                body.get("language"),
+            )
             requested_voice = str(body.get("voice") or FIXED_PLAYER_VOICE).strip()
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
-        language = _normalize_language(body.get("language"))
-        PLAYER_VOICE_DIR.mkdir(parents=True, exist_ok=True)
-        out_path = PLAYER_VOICE_DIR / f"{player_name}.mp3"
-        for old_path in _player_voice_paths_for_name(player_name):
+        target_dir.mkdir(parents=True, exist_ok=True)
+        out_path = target_dir / f"{player_name}.mp3"
+        for old_path in _player_voice_paths_for_phrase(player_name, target_dir):
             if old_path == out_path:
                 continue
             if old_path.exists():
                 old_path.unlink(missing_ok=True)
 
-        prompt_text = _tts_prompt_name(player_name)
+        prompt_text = _player_voice_prompt(player_name, phrase, language)
         try:
-            chosen_voice, model = _generate_elevenlabs_speech_mp3(prompt_text, requested_voice, out_path, language)
+            chosen_voice, model = _generate_elevenlabs_speech_mp3(
+                prompt_text, requested_voice, out_path, language,
+                voice_settings=PLAYER_VOICE_SETTINGS_EXCITED,
+            )
         except Exception as exc:  # noqa: BLE001
             self._send_json(502, {"ok": False, "error": str(exc)})
             return True
@@ -920,16 +1017,26 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return False
         try:
             body = self._read_json_body()
-            player_name = _normalize_player_voice_name(body.get("name"))
+            player_name, target_dir, phrase, language = _normalize_player_voice_inputs(
+                body.get("name"),
+                body.get("phrase") or "plain",
+                body.get("language"),
+            )
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
         removed = 0
-        for file_path in _player_voice_paths_for_name(player_name):
+        for file_path in _player_voice_paths_for_phrase(player_name, target_dir):
             if file_path.exists():
                 file_path.unlink(missing_ok=True)
                 removed += 1
+        # Also clean legacy root file when deleting English plain so the row goes to "missing".
+        if language == "english" and phrase == "plain":
+            for file_path in _player_voice_legacy_root_paths(player_name):
+                if file_path.exists():
+                    file_path.unlink(missing_ok=True)
+                    removed += 1
         self._send_json(200, {"ok": True, "removed": removed})
         return True
 

@@ -230,10 +230,12 @@ export function formationById(id) {
   );
 }
 
-/** Shorts 4-2-3-1: nudge the 2+3+1 lines toward own goal (y+), not the back four. */
-const SHORTS_4231_MID_FWD_Y_NUDGE = 7;
-const SHORTS_4231_MID_FWD_SLOT_START = 5;
-const SHORTS_4231_MID_FWD_SLOT_END = 10;
+/** Shorts 4-2-3-1: 2+3+1 toward own goal (y+); AM keeps prior forward offset (−3). */
+const SHORTS_4231_231_BACK_Y_NUDGE = 3;
+const SHORTS_4231_231_SLOT_START = 5;
+const SHORTS_4231_231_SLOT_END = 10;
+const SHORTS_4231_DM_PRIOR_DOWN_Y_NUDGE = 3;
+const SHORTS_4231_AM_PRIOR_FWD_Y_OFFSET = -3;
 
 export function effectiveSlotCoords(formationId, slotIndex, slot) {
   if (!slot) return slot;
@@ -244,10 +246,16 @@ export function effectiveSlotCoords(formationId, slotIndex, slot) {
   if (
     !shorts ||
     formationId !== "4231" ||
-    slotIndex < SHORTS_4231_MID_FWD_SLOT_START ||
-    slotIndex > SHORTS_4231_MID_FWD_SLOT_END
+    slotIndex < SHORTS_4231_231_SLOT_START ||
+    slotIndex > SHORTS_4231_231_SLOT_END
   ) {
     return slot;
   }
-  return { ...slot, y: slot.y + SHORTS_4231_MID_FWD_Y_NUDGE };
+  let yNudge = SHORTS_4231_231_BACK_Y_NUDGE;
+  if (slotIndex <= 6) {
+    yNudge += SHORTS_4231_DM_PRIOR_DOWN_Y_NUDGE;
+  } else if (slotIndex <= 9) {
+    yNudge += SHORTS_4231_AM_PRIOR_FWD_Y_OFFSET;
+  }
+  return { ...slot, y: slot.y + yNudge };
 }

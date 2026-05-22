@@ -50,15 +50,18 @@
   filter: grayscale(100%);
   /* Start slightly off-screen to the right */
   right: -250px;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
   animation: floatLeft linear infinite;
 }
 
 @keyframes floatLeft {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   100% {
     /* Move all the way across the screen to the left, plus padding to fully exit */
-    transform: translateX(calc(-100vw - 500px));
+    transform: translate3d(calc(-100vw - 500px), 0, 0);
   }
 }

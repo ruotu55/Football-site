@@ -50,7 +50,7 @@ body.shorts-mode .stage::before {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     width: 56.25vh;
     height: 100vh;
     background: transparent;
@@ -205,6 +205,18 @@ body.shorts-mode .slot-photo-controls {
 
 body.shorts-mode .slot-name {
     font-size: clamp(0.7rem, 1.4vh, 1.1rem);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.35rem;
+    min-width: 3.35rem;
+    max-width: 3.35rem;
+    height: 1.05rem;
+    min-height: 1.05rem;
+    padding: 0 0.3rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    line-height: 1;
 }
 
 body.shorts-mode .quiz-progress {
@@ -213,7 +225,7 @@ body.shorts-mode .quiz-progress {
     bottom: calc(2.8rem + 6vh);
     left: 50%;
     right: auto;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     width: auto;
     justify-content: center;
 }
@@ -270,16 +282,17 @@ body.shorts-mode .quiz-progress .step-dots::after {
 body.shorts-mode .countdown-timer {
     top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
+    backface-visibility: hidden;
+    will-change: transform, opacity, filter;
 }
-
 body.shorts-mode .shorts-intro-quiz-title {
     position: fixed;
     top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh - 0.9rem);
     left: 50%;
     z-index: 55;
     width: min(94vw, 32rem);
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
     color: #fff;
     font-family: "Barlow Condensed", sans-serif;
     font-weight: 800;
@@ -313,13 +326,13 @@ body:not(.shorts-mode) .shorts-intro-quiz-title {
 
 @keyframes countdown-timer-enter-shorts {
     0% {
-        transform: translateX(-50%) scale(0.08) translateZ(-1500px) rotateX(-20deg) translateY(100%);
+        transform: translate3d(-50%, 0, 0) scale(0.08) translateZ(-1500px) rotateX(-20deg) translate3d(0, 100%, 0);
         opacity: 0;
         filter: blur(5px);
     }
 
     100% {
-        transform: translateX(-50%) scale(1) translateZ(0) rotateX(0deg) translateY(0);
+        transform: translate3d(-50%, 0, 0) scale(1) translateZ(0) rotateX(0deg) translate3d(0, 0, 0);
         opacity: 1;
         filter: blur(0px);
     }
@@ -327,12 +340,12 @@ body:not(.shorts-mode) .shorts-intro-quiz-title {
 
 @keyframes countdown-timer-exit-shorts {
     0% {
-        transform: translateX(-50%) scale(1);
+        transform: translate3d(-50%, 0, 0) scale(1);
         opacity: 1;
     }
 
     100% {
-        transform: translateX(-50%) scale(0.9);
+        transform: translate3d(-50%, 0, 0) scale(0.9);
         opacity: 0;
     }
 }

@@ -1216,6 +1216,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     label.onblur = () => {
       state.customNames[player.name] = label.textContent.trim();
+      scheduleSlotNameFit();
     };
     label.onkeydown = (e) => {
       if (e.key === "Enter") {
@@ -1323,6 +1324,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     label.onblur = () => {
       state.customNames[player.name] = label.textContent.trim();
+      scheduleSlotNameFit();
     };
     label.onkeydown = (e) => {
       if (e.key === "Enter") {
@@ -1378,6 +1380,42 @@ export function preloadSquadImages(state) {
   if (urls.length) preloadImages(urls);
 }
 
+let slotNameFitRaf = 0;
+
+function fitSlotNameEl(labelEl) {
+  labelEl.style.removeProperty("font-size");
+  labelEl.style.removeProperty("letter-spacing");
+  const nameLen = String(labelEl.textContent || "").trim().length;
+  if (nameLen >= 15) {
+    labelEl.style.fontSize = "0.4rem";
+    labelEl.style.letterSpacing = "0";
+  } else if (nameLen >= 13) {
+    labelEl.style.fontSize = "0.49rem";
+  } else if (nameLen >= 11) {
+    labelEl.style.fontSize = "0.54rem";
+  } else if (nameLen >= 9) {
+    labelEl.style.fontSize = "0.64rem";
+  }
+}
+
+function fitSlotNamesImpl() {
+  const labels = appState.els.pitchSlots?.querySelectorAll(".slot-name");
+  if (!labels?.length) {
+    return;
+  }
+  labels.forEach((el) => fitSlotNameEl(el));
+}
+
+function scheduleSlotNameFit() {
+  cancelAnimationFrame(slotNameFitRaf);
+  slotNameFitRaf = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      slotNameFitRaf = 0;
+      fitSlotNamesImpl();
+    });
+  });
+}
+
 export function renderPitch() {
   const state = getState();
   const formation = formationById(state.formationId);
@@ -1414,6 +1452,7 @@ export function renderPitch() {
     }
     renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
   });
+  scheduleSlotNameFit();
 }
 
 /**

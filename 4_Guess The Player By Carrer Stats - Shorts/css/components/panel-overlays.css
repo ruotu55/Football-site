@@ -228,13 +228,14 @@ body.play-video-active .btn-save-current-team-fab {
   position: fixed;
   top: 1rem;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate3d(-50%, 0, 0);
   z-index: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Barlow Condensed", sans-serif;
-  will-change: transform;
+  backface-visibility: hidden;
+  will-change: transform, filter;
   --bar-stripe-a: #dc2626;
   --bar-stripe-b: #f87171;
 }
@@ -251,6 +252,7 @@ body.play-video-active .btn-save-current-team-fab {
   box-sizing: content-box;
   background: #fff;
   border-radius: 999px;
+  backface-visibility: hidden;
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.06),
     0 3px 12px rgba(0, 0, 0, 0.22),
@@ -263,7 +265,9 @@ body.play-video-active .btn-save-current-team-fab {
   overflow: hidden;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.05) 100%);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.18);
+  contain: paint;
 }
+
 
 .countdown-bar-fill {
   height: 100%;
@@ -280,6 +284,9 @@ body.play-video-active .btn-save-current-team-fab {
   box-shadow:
     inset 0 -2px 4px rgba(0, 0, 0, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: width, filter;
   transition: width 1s linear, filter 0.45s ease;
 }
 
@@ -298,7 +305,9 @@ body.play-video-active .btn-save-current-team-fab {
     transparent 100%
   );
   mix-blend-mode: soft-light;
+  transform: translateZ(0);
 }
+
 
 /* Rolling ball synced to question countdown (duration from JS --shorts-soccer-run-ms) */
 html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
@@ -317,7 +326,8 @@ html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
   background: url(https://upload.wikimedia.org/wikipedia/en/e/ec/Soccer_ball.svg) center /
     var(--soccer-dim) var(--soccer-dim) no-repeat;
   pointer-events: none;
-  transform: translateY(-50%) rotate(0deg);
+  transform: translate3d(0, -50%, 0) rotate(0deg);
+  backface-visibility: hidden;
   will-change: left, transform;
 }
 
@@ -330,11 +340,11 @@ html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
 @keyframes shorts-countdown-soccer-roll {
   0% {
     left: calc(100% - var(--soccer-dim));
-    transform: translateY(-50%) rotate(360deg);
+    transform: translate3d(0, -50%, 0) rotate(360deg);
   }
   100% {
     left: 0;
-    transform: translateY(-50%) rotate(-360deg);
+    transform: translate3d(0, -50%, 0) rotate(-360deg);
   }
 }
 
@@ -365,19 +375,19 @@ html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
 @keyframes countdown-bar-shake {
   0%,
   100% {
-    transform: translateX(-50%) translate(0, 0) rotate(0deg);
+    transform: translate3d(-50%, 0, 0) translate3d(0, 0, 0) rotate(0deg);
   }
   20% {
-    transform: translateX(-50%) translate(-5px, 0) rotate(-0.6deg);
+    transform: translate3d(-50%, 0, 0) translate3d(-5px, 0, 0) rotate(-0.6deg);
   }
   40% {
-    transform: translateX(-50%) translate(5px, 0) rotate(0.6deg);
+    transform: translate3d(-50%, 0, 0) translate3d(5px, 0, 0) rotate(0.6deg);
   }
   60% {
-    transform: translateX(-50%) translate(-4px, 1px) rotate(-0.4deg);
+    transform: translate3d(-50%, 0, 0) translate3d(-4px, 1px, 0) rotate(-0.4deg);
   }
   80% {
-    transform: translateX(-50%) translate(4px, -1px) rotate(0.4deg);
+    transform: translate3d(-50%, 0, 0) translate3d(4px, -1px, 0) rotate(0.4deg);
   }
 }
 
@@ -387,9 +397,9 @@ html:not(.shorts-mode) body:not(.shorts-mode) .countdown-bar-track .soccer {
 }
 
 @keyframes pulse-timer {
-  0% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
-  50% { transform: translateX(-50%) scale(1.05); filter: drop-shadow(0 0 8px #ef4444); }
-  100% { transform: translateX(-50%) scale(1); filter: drop-shadow(0 0 0 transparent); }
+  0% { transform: translate3d(-50%, 0, 0) scale(1); filter: drop-shadow(0 0 0 transparent); }
+  50% { transform: translate3d(-50%, 0, 0) scale(1.05); filter: drop-shadow(0 0 8px #ef4444); }
+  100% { transform: translate3d(-50%, 0, 0) scale(1); filter: drop-shadow(0 0 0 transparent); }
 }
 
 /* ── PROD Validation Modal ── */

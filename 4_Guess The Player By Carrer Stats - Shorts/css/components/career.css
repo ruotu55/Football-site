@@ -11,8 +11,9 @@
   flex-shrink: 0;
   margin: 0;
   transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  isolation: isolate;
+  will-change: height, transform;
 }
-
 .career-picture-controls {
   position: fixed;
   left: 15.2rem;
@@ -134,8 +135,9 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
   /* Road + player image share this layer; moved another 5% higher */
   transform: rotateX(15deg) translateY(-20%);
   z-index: 5;
+  backface-visibility: hidden;
+  will-change: transform;
 }
-
 .career-silhouette {
   transform: rotateX(-15deg) translateY(var(--sil-y, -4%)) scale(var(--sil-scale-x, 1), var(--sil-scale-y, 1)); 
   transform-origin: 50% 100%; 
@@ -149,8 +151,8 @@ body:not(.shorts-mode) .team-header.video-hidden ~ .career-wrap {
     drop-shadow(0 0 42px rgba(147, 233, 211, 0.48))
     drop-shadow(0 0 92px rgba(86, 190, 165, 0.28));
   will-change: filter, transform;
+  backface-visibility: hidden;
 }
-
 /* Same motion as Main Runner - Player stats: `body.play-video-active .career-silhouette:not(.revealed)` (shorts use dimmed portrait img). */
 @keyframes silhouette-sway {
   0%   { translate: 0 0; }
@@ -369,7 +371,7 @@ body:not(.shorts-mode) .career-reveal-overlay {
   width: 100vw;
   height: calc(100vh - var(--career-player-box-top));
   opacity: 0;
-  transform: translateX(-50%) translateY(46%) scale(0.74);
+  transform: translate3d(-50%, 46%, 0) scale(0.74);
   transform-origin: center bottom;
   filter: blur(16px) drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75));
   z-index: 260;
@@ -377,8 +379,11 @@ body:not(.shorts-mode) .career-reveal-overlay {
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  contain: layout paint style;
+  isolation: isolate;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
 }
-
 body:not(.shorts-mode) .career-reveal-overlay::after {
   content: "";
   position: absolute;
@@ -393,7 +398,7 @@ body:not(.shorts-mode) .career-reveal-overlay::after {
     rgba(0, 0, 0, 0.22) 45%,
     rgba(0, 0, 0, 0.02) 100%
   );
-  transform: translateX(-50%) translateY(-42px) scale(0.72);
+  transform: translate3d(-50%, -42px, 0) scale(0.72);
   filter: blur(6px);
   opacity: 0;
   pointer-events: none;
@@ -404,11 +409,12 @@ body:not(.shorts-mode) .career-reveal-overlay-img {
   height: 100%;
   object-fit: contain;
   object-position: center bottom;
-  transform: translateY(var(--career-reveal-y, -10%))
+  transform: translate3d(0, var(--career-reveal-y, -10%), 0)
     scale(var(--career-reveal-scale-x, 1.08), var(--career-reveal-scale-y, 1.08));
   transform-origin: center bottom;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
 }
-
 body:not(.shorts-mode) .career-reveal-overlay-fallback {
   width: min(38rem, 92%);
   padding: 0.65rem 0.9rem;
@@ -454,7 +460,7 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
 @keyframes career-reveal-overlay-rise {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(55%) scale(0.68);
+    transform: translate3d(-50%, 55%, 0) scale(0.68);
     filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
   }
   20% {
@@ -463,7 +469,7 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
   }
   100% {
     opacity: 1;
-    transform: translateX(-50%) translateY(-4%) scale(1.16);
+    transform: translate3d(-50%, -4%, 0) scale(1.16);
     filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
   }
 }
@@ -471,12 +477,12 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
 @keyframes career-reveal-overlay-rise-safe {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(55%) scale(0.68);
+    transform: translate3d(-50%, 55%, 0) scale(0.68);
     filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
   }
   18% {
     opacity: 0;
-    transform: translateX(-50%) translateY(55%) scale(0.68);
+    transform: translate3d(-50%, 55%, 0) scale(0.68);
     filter: blur(18px) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.65));
   }
   28% {
@@ -485,7 +491,7 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
   }
   100% {
     opacity: 1;
-    transform: translateX(-50%) translateY(-4%) scale(1.04);
+    transform: translate3d(-50%, -4%, 0) scale(1.04);
     filter: blur(0) drop-shadow(0 24px 38px rgba(0, 0, 0, 0.86));
   }
 }
@@ -493,12 +499,12 @@ body:not(.shorts-mode) .career-reveal-overlay.show::after {
 @keyframes career-reveal-shadow-drop {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-28px) scale(1);
+    transform: translate3d(-50%, -28px, 0) scale(1);
     filter: blur(8px);
   }
   100% {
     opacity: 0.75;
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translate3d(-50%, 0, 0) scale(1);
     filter: blur(6px);
   }
 }

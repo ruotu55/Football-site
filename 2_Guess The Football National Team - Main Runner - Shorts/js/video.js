@@ -8,6 +8,7 @@ import {
   playTheAnswerIs,
   playTicking,
   stopTicking,
+  getOrAssignRevealPhrase,
 } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import {
@@ -725,7 +726,11 @@ function revealCurrentLevel() {
       const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
-      playTheAnswerIs(true, teamDisplayName, quizType, 150);
+      /* Read (or lazily roll) the phrase variant chosen for this level so playback
+         matches what the voice tab is showing for this team. */
+      const questionIndex = appState.currentLevelIndex - 1;
+      const phraseKey = getOrAssignRevealPhrase(state, questionIndex);
+      playTheAnswerIs(true, teamDisplayName, quizType, 150, phraseKey);
       flipDelay = 3000;
     } else {
       /* Bonus: no answer reveal — go straight to outro after the question timer. */

@@ -4,6 +4,7 @@ import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
 import { translateCountry } from "./i18n.js";
+import { renderTeamPhrase, getOrAssignRevealPhrase } from "./audio.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
@@ -116,7 +117,7 @@ function quizTitleSynthText(qt, st) { const m = QUIZ_TYPE_PROMPTS[getCurrentLang
 
 async function fetchQuizTitleStatus(qt, st) { try { const p = new URLSearchParams({ quizType: qt, specificTitle: st || "", language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__quiz-title-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 async function fetchEndingStatus(et) { try { const p = new URLSearchParams({ endingType: et, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__ending-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
-async function fetchTeamStatus(name, quizType) { try { const p = new URLSearchParams({ name, quizType, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__team-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
+async function fetchTeamStatus(name, quizType, phrase = "plain") { try { const p = new URLSearchParams({ name, quizType, phrase, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__team-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 
 async function onVolPressed({ rowKey, cachedExists, cachedSrc, generateEndpoint, generateBody }) {
   if (cachedExists && cachedSrc) { playFromStart(cachedSrc); return; }
@@ -202,11 +203,35 @@ export async function renderVoiceTab() {
   const specificTitle = getSpecificTitle();
   const teams = uniqueTeamNames();
 
+  /* Resolve the level + question-index for each unique team so we can ask the audio
+     module for the phrase variant that will actually play. The pick is sticky on the
+     level object — same value here and at reveal time, fresh roll on saved-script load. */
+  const levels = Array.isArray(appState.levelsData) ? appState.levelsData : [];
+  const teamFirstLevelIndex = new Map();
+  levels.forEach((lvl, idx) => {
+    let displayName = "";
+    try { displayName = String(resolveHeaderTeamDisplayName(lvl, quizType) || "").trim(); } catch { displayName = ""; }
+    const fallback = String(lvl?.currentSquad?.name || lvl?.team?.name || lvl?.currentSquadName || lvl?.teamName || lvl?.nationalTeamName || lvl?.clubName || "").trim();
+    let name = displayName || fallback;
+    if (name && lvl?.squadType === "national") name = translateCountry(name);
+    if (!name) return;
+    if (!teamFirstLevelIndex.has(name)) teamFirstLevelIndex.set(name, idx);
+  });
+  const teamPhraseList = teams.map((name) => {
+    const levelIdx = teamFirstLevelIndex.get(name);
+    const lvl = Number.isInteger(levelIdx) ? levels[levelIdx] : null;
+    const questionIndex = Number.isInteger(levelIdx) ? levelIdx - 1 : null;
+    const phrase = getOrAssignRevealPhrase(lvl, questionIndex);
+    return { name, phrase };
+  });
+
   const [quizTitleStatus, endingThink, endingHow, teamStatuses] = await Promise.all([
     quizType ? fetchQuizTitleStatus(quizType, specificTitle) : Promise.resolve({ exists: false, src: "" }),
     fetchEndingStatus("think-you-know"),
     fetchEndingStatus("how-many"),
-    Promise.all(teams.map((n) => fetchTeamStatus(n, quizType || "club-by-nat").then(({ exists, src }) => ({ name: n, exists, src })))),
+    Promise.all(teamPhraseList.map(({ name, phrase }) =>
+      fetchTeamStatus(name, quizType || "club-by-nat", phrase).then(({ exists, src }) => ({ name, phrase, exists, src }))
+    )),
   ]);
   if (myToken !== renderToken) return;
 
@@ -261,13 +286,14 @@ export async function renderVoiceTab() {
   }
   root.appendChild(buildSection(SECTION_TITLES.quizIntro, quizRows));
 
-  const teamRows = teamStatuses.map(({ name, exists, src }) => {
+  const teamRows = teamStatuses.map(({ name, phrase, exists, src }) => {
     const indices = teamLevelMap.get(name) || [];
     const playsAt = indices.length ? levelLabel(indices) : plays("team");
+    const text = renderTeamPhrase(phrase, name, lang);
     return buildRow({
-      text: name, exists, playsAt,
-      onPlay: () => onVolPressed({ rowKey: `team:${name}:${lang}`, cachedExists: exists, cachedSrc: src, generateEndpoint: "__team-voice/generate", generateBody: { name, quizType: quizType || "club-by-nat" } }),
-      onDelete: () => onDeletePressed({ rowKey: `team:${name}:${lang}`, deleteEndpoint: "__team-voice/delete", deleteBody: { name, quizType: quizType || "club-by-nat" } }),
+      text, exists, playsAt,
+      onPlay: () => onVolPressed({ rowKey: `team:${name}:${phrase}:${lang}`, cachedExists: exists, cachedSrc: src, generateEndpoint: "__team-voice/generate", generateBody: { name, quizType: quizType || "club-by-nat", phrase } }),
+      onDelete: () => onDeletePressed({ rowKey: `team:${name}:${phrase}:${lang}`, deleteEndpoint: "__team-voice/delete", deleteBody: { name, quizType: quizType || "club-by-nat", phrase } }),
     });
   });
   root.appendChild(buildSection(SECTION_TITLES.teams, teamRows));

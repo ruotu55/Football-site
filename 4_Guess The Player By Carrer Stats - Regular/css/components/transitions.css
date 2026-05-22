@@ -7,15 +7,15 @@
 }
 
 @keyframes stage-exit-epic {
-  0% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+  0% { transform: translate3d(0, 0, 0); opacity: 1; filter: blur(0px); }
   /* Old screen clears out towards the bottom */
-  100% { transform: translateY(100vh); opacity: 0; filter: blur(2px); }
+  100% { transform: translate3d(0, 100vh, 0); opacity: 0; filter: blur(2px); }
 }
 
 @keyframes stage-enter-epic {
   /* New team screen slides IN FROM THE TOP (-100vh) like a window shade */
-  0% { transform: translateY(-100vh); opacity: 0; filter: blur(2px); }
-  100% { transform: translateY(0); opacity: 1; filter: blur(0px); }
+  0% { transform: translate3d(0, -100vh, 0); opacity: 0; filter: blur(2px); }
+  100% { transform: translate3d(0, 0, 0); opacity: 1; filter: blur(0px); }
 }
 
 .stage-exit-anim {
@@ -103,9 +103,9 @@
 
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
 @keyframes logo-bounce-out {
-  0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
-  20% { transform: scale(1.15) translateY(-20px); opacity: 1; filter: blur(0); }
-  100% { transform: scale(0.1) translateY(300px); opacity: 0; filter: blur(5px); }
+  0% { transform: scale(1) translate3d(0, 0, 0); opacity: 1; filter: blur(0); }
+  20% { transform: scale(1.15) translate3d(0, -20px, 0); opacity: 1; filter: blur(0); }
+  100% { transform: scale(0.1) translate3d(0, 300px, 0); opacity: 0; filter: blur(5px); }
 }
 .logo-img-anim.bounce-out {
   animation: logo-bounce-out 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards !important;
@@ -113,8 +113,8 @@
 
 @keyframes landing-bounce-in {
   /* Drops in from the top */
-  0% { transform: translateY(-100vh); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% { transform: translate3d(0, -100vh, 0); opacity: 0; }
+  100% { transform: translate3d(0, 0, 0); opacity: 1; }
 }
 .landing-page.bounce-in {
   animation: landing-bounce-in 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
@@ -122,8 +122,8 @@
 
 /* NEW: Cool Shift Animation for Regular Mode */
 @keyframes logo-shift-top-right {
-  0% { transform: scale(1) translate(0, 0); opacity: 1; filter: blur(0px); }
-  100% { transform: translate(40vw, -39.5vh) scale(0.3); opacity: 0.85; filter: blur(0px); }
+  0% { transform: scale(1) translate3d(0, 0, 0); opacity: 1; filter: blur(0px); }
+  100% { transform: translate3d(40vw, -39.5vh, 0) scale(0.3); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
   animation: logo-shift-top-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
@@ -139,6 +139,10 @@
   gap: 0;
   pointer-events: none;
   opacity: 0;
+  contain: layout paint style;
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 .grid-transition-overlay > div {
@@ -147,6 +151,8 @@
   padding: 0;
   border: none;
   box-sizing: border-box;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   will-change: transform, opacity;
 }
 
@@ -158,12 +164,19 @@
   display: flex;
   pointer-events: none;
   opacity: 0;
+  contain: layout paint style;
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 .bars-transition-overlay > span {
   position: relative;
   background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  contain: paint;
+  will-change: width, left, height;
 }
+
 
 .bars-transition-overlay.bars-left {
   flex-direction: column;
@@ -186,6 +199,10 @@
   z-index: 9999;
   pointer-events: none;
   opacity: 0;
+  contain: layout paint style;
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 .curtain-half {
@@ -194,6 +211,8 @@
   width: 100%;
   height: 50.5%;
   background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  transform: translateZ(0);
+  backface-visibility: hidden;
   will-change: transform;
 }
 
@@ -216,6 +235,10 @@
 .new15-overlay, .new18-overlay, .new19-overlay, .new20-overlay {
   position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0;
   overflow: hidden;
+  contain: layout paint style;
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 /* new 1 — Cloud Drift */
@@ -230,6 +253,8 @@
   margin-left: -19vw; margin-top: -19vw;
   background: radial-gradient(circle at 50% 50%, var(--new-fx-color) 0%, var(--new-fx-color) 35%, transparent 70%);
   filter: blur(14px);
+  transform: translateZ(0);
+  backface-visibility: hidden;
   will-change: transform, opacity;
 }
 
@@ -284,6 +309,10 @@
 .n2-11-overlay, .n2-13-overlay, .n2-15-overlay, .n2-17-overlay {
   position: fixed; inset: 0; z-index: 9999; pointer-events: none; opacity: 0;
   overflow: hidden;
+  contain: layout paint style;
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 /* Spiral Tiles */

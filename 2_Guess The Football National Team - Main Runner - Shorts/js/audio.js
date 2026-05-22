@@ -608,6 +608,46 @@ export function playRules(quizType, delayMs = 1000) {
 
 export const TEAM_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
 
+/** Phrase variants for the reveal voice. Keep in sync with run_site.py TEAM_PHRASE_TEMPLATES. */
+export const TEAM_PHRASE_KEYS = [
+  "plain",
+  "correct-answer",
+  "right-answer",
+  "and-the-answer",
+  "answer-is",
+  "and-its",
+  "team-is",
+];
+export const TEAM_SENTENCE_PHRASE_KEYS = TEAM_PHRASE_KEYS.filter((k) => k !== "plain");
+
+export const TEAM_PHRASE_TEMPLATES = {
+  english: {
+    "plain": "{team}",
+    "correct-answer": "The correct answer is {team}",
+    "right-answer": "The right answer is {team}",
+    "and-the-answer": "And the answer is {team}",
+    "answer-is": "Answer is {team}",
+    "and-its": "And it's {team}",
+    "team-is": "The team is {team}",
+  },
+  spanish: {
+    "plain": "{team}",
+    "correct-answer": "La respuesta correcta es {team}",
+    "right-answer": "La respuesta acertada es {team}",
+    "and-the-answer": "Y la respuesta es {team}",
+    "answer-is": "La respuesta es {team}",
+    "and-its": "Y es {team}",
+    "team-is": "El equipo es {team}",
+  },
+};
+
+export function renderTeamPhrase(phraseKey, teamName, language) {
+  const lang = language === "spanish" ? "spanish" : "english";
+  const map = TEAM_PHRASE_TEMPLATES[lang] || TEAM_PHRASE_TEMPLATES.english;
+  const tpl = map[phraseKey] || map.plain || "{team}";
+  return tpl.replace("{team}", String(teamName || ""));
+}
+
 /** Relative to runner; trailing slash. `club-by-nat` = guess the club; else = guess the national team. */
 export function revealVoiceDirForQuizType(quizType) {
   return quizType === "club-by-nat"
@@ -627,30 +667,122 @@ function resolveTeamNameVoiceFileStem(displayName) {
   return alias || trimmed;
 }
 
-/** If a clip exists under the quiz-type folder, play it like other reveal voices; otherwise no-op (no BGM duck). */
-function playTeamNameVoiceIfExistsInDir(displayName, delayMs, voicesDirRel) {
+/** Build candidate URLs in priority order for a given (team, quizType, phraseKey, language).
+    Probes new layout `<dir>/<lang>/<phrase>/<Team>.ext` plus, for English plain only, the
+    legacy flat `<dir>/<Team>.ext` so pre-existing clips keep working. */
+function buildPhraseCandidates(dirRel, cleanName, language, phraseKey) {
+  const out = [];
+  const lang = language === "spanish" ? "spanish" : "english";
+  for (const ext of TEAM_NAME_VOICE_EXTS) {
+    out.push(`${dirRel}${lang}/${phraseKey}/${encodeURIComponent(cleanName)}${ext}`);
+  }
+  if (lang === "english" && phraseKey === "plain") {
+    for (const ext of TEAM_NAME_VOICE_EXTS) {
+      out.push(`${dirRel}${encodeURIComponent(cleanName)}${ext}`);
+    }
+  }
+  return out;
+}
+
+function shuffleInPlace(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+  }
+  return arr;
+}
+
+/* Shuffled queue of sentence phrases. Pop one per odd-question pick so we cycle through
+   every sentence variant before any repeats. Reset whenever `appState.levelsData` is
+   swapped to a new array (saved-script load, level rebuild). `lastSentencePhrase` is
+   tracked across refills so we can swap the first element of a new shuffle if it
+   matches the last pop — prevents the same Spanish sentence appearing on two adjacent
+   levels at the queue boundary (e.g. Nivel 6 and Nivel 7 both "Y la respuesta es..."). */
+let sentenceQueueLevelsRef = null;
+let sentenceQueue = [];
+let lastSentencePhrase = "";
+
+function nextSentencePhrase() {
+  const ref = appState.levelsData;
+  if (ref !== sentenceQueueLevelsRef) {
+    sentenceQueueLevelsRef = ref;
+    sentenceQueue = [];
+    lastSentencePhrase = "";
+  }
+  if (sentenceQueue.length === 0) {
+    sentenceQueue = shuffleInPlace(TEAM_SENTENCE_PHRASE_KEYS.slice());
+    if (lastSentencePhrase && sentenceQueue[0] === lastSentencePhrase && sentenceQueue.length > 1) {
+      const swapIdx = 1 + Math.floor(Math.random() * (sentenceQueue.length - 1));
+      [sentenceQueue[0], sentenceQueue[swapIdx]] = [sentenceQueue[swapIdx], sentenceQueue[0]];
+    }
+  }
+  const picked = sentenceQueue.shift() || "plain";
+  lastSentencePhrase = picked;
+  return picked;
+}
+
+/** Phrase pick for one reveal slot.
+    - English: odd questionIndex → sentence (from the shuffled queue), even → plain.
+    - Spanish: never plain — always pull a sentence so the team name is never spoken alone. */
+function pickRevealPhraseForQuestion(questionIndex) {
+  const lang = getCurrentLanguage();
+  if (lang === "spanish") return nextSentencePhrase();
+  if (!Number.isFinite(questionIndex)) return "plain";
+  if ((questionIndex % 2) === 0) return "plain";
+  return nextSentencePhrase();
+}
+
+/** Sticky per-level phrase pick. Stored on the level object itself so the voice tab and
+    the reveal playback agree on the same phrase, and a new saved-script load (which
+    replaces `levelsData` with fresh objects) re-rolls automatically. Spanish never
+    accepts a "plain" cache — if the user switched language after rolling we re-pick. */
+export function getOrAssignRevealPhrase(levelData, questionIndex) {
+  if (!levelData || typeof levelData !== "object") return "plain";
+  const cached = typeof levelData.__revealPhrase === "string" ? levelData.__revealPhrase : "";
+  const lang = getCurrentLanguage();
+  const cachedValidForLang = cached && !(lang === "spanish" && cached === "plain");
+  if (cachedValidForLang) return cached;
+  const picked = pickRevealPhraseForQuestion(questionIndex);
+  try { levelData.__revealPhrase = picked; } catch {}
+  return picked;
+}
+
+/** Build the candidate chain for one reveal, given the chosen phrase. Tries the chosen
+    phrase first (current language → English), then falls through to plain so playback
+    never goes silent when the user hasn't generated the sentence clip yet. */
+function buildRevealCandidates(displayName, quizType, phraseKey) {
   const base = resolveTeamNameVoiceFileStem(displayName);
-  if (!base) return;
-  const dir = String(voicesDirRel || "").replace(/\/?$/, "/");
+  if (!base) return [];
+  const dir = revealVoiceDirForQuizType(quizType);
+  const lang = getCurrentLanguage();
+  const phrase = phraseKey || "plain";
+  const out = [];
+  if (phrase !== "plain") {
+    if (lang === "spanish") out.push(...buildPhraseCandidates(dir, base, "spanish", phrase));
+    out.push(...buildPhraseCandidates(dir, base, "english", phrase));
+  }
+  if (lang === "spanish") out.push(...buildPhraseCandidates(dir, base, "spanish", "plain"));
+  out.push(...buildPhraseCandidates(dir, base, "english", "plain"));
+  return out;
+}
+
+/** Probe candidates and play first that loads. Returns silently if none. */
+function playFirstExistingClip(candidates, delayMs) {
+  const list = (candidates || []).filter(Boolean);
+  if (list.length === 0) return;
   let i = 0;
   const tryNext = () => {
-    if (i >= TEAM_NAME_VOICE_EXTS.length) return;
-    const ext = TEAM_NAME_VOICE_EXTS[i++];
-    const src = `${dir}${encodeURIComponent(base)}${ext}`;
+    if (i >= list.length) return;
+    const src = list[i++];
     const probe = new Audio();
     const cleanup = () => {
       probe.removeEventListener("error", onErr);
       probe.removeEventListener("canplay", onOk);
     };
-    const onErr = () => {
-      cleanup();
-      tryNext();
-    };
+    const onErr = () => { cleanup(); tryNext(); };
     const onOk = () => {
       cleanup();
-      probe.pause();
-      probe.removeAttribute("src");
-      probe.load();
+      probe.pause(); probe.removeAttribute("src"); probe.load();
       playVoice(src, delayMs);
     };
     probe.addEventListener("error", onErr, { once: true });
@@ -668,9 +800,26 @@ export function buildTeamNameVoiceSrc(displayName, quizType, ext = ".mp3") {
   return `${revealVoiceDirForQuizType(quizType)}${encodeURIComponent(cleanName)}${cleanExt}`;
 }
 
-/** Manual preview helper for header controls: try known extensions and play immediately if found. */
+/** Build the URL for a specific (team, quizType, phrase, language) cell — used by the voice tab. */
+export function buildTeamPhraseVoiceSrc(displayName, quizType, phraseKey, language, ext = ".mp3") {
+  const cleanName = resolveTeamNameVoiceFileStem(displayName);
+  if (!cleanName) return "";
+  const lang = language === "spanish" ? "spanish" : "english";
+  const dir = revealVoiceDirForQuizType(quizType);
+  const cleanExt = String(ext || ".mp3").startsWith(".") ? String(ext || ".mp3") : `.${String(ext || "mp3")}`;
+  return `${dir}${lang}/${phraseKey}/${encodeURIComponent(cleanName)}${cleanExt}`;
+}
+
+/** Manual preview helper for header controls: probe extensions and play the plain variant if found. */
 export function playTeamNameVoiceIfExists(displayName, quizType = "nat-by-club", delayMs = 0) {
-  playTeamNameVoiceIfExistsInDir(displayName, delayMs, revealVoiceDirForQuizType(quizType));
+  const base = resolveTeamNameVoiceFileStem(displayName);
+  if (!base) return;
+  const dir = revealVoiceDirForQuizType(quizType);
+  const lang = getCurrentLanguage();
+  const candidates = [];
+  if (lang === "spanish") candidates.push(...buildPhraseCandidates(dir, base, "spanish", "plain"));
+  candidates.push(...buildPhraseCandidates(dir, base, "english", "plain"));
+  playFirstExistingClip(candidates, delayMs);
 }
 
 export function playTheAnswerIs(
@@ -678,7 +827,9 @@ export function playTheAnswerIs(
   teamDisplayName = "",
   quizType = "nat-by-club",
   /** ms before team name clip after `canplay`; default ducks BGM then plays. Use `0` when synced to UI (e.g. panel slide). */
-  teamNameVoiceDelayMs = 600
+  teamNameVoiceDelayMs = 600,
+  /** Phrase variant chosen by `getOrAssignRevealPhrase` for this level. Falls back to plain. */
+  phraseKey = "plain"
 ) {
 
   setTimeout(() => {
@@ -688,11 +839,8 @@ export function playTheAnswerIs(
   }, 150);
 
   if (includeVoice && appState.isVideoPlaying) {
-    playTeamNameVoiceIfExistsInDir(
-      teamDisplayName,
-      teamNameVoiceDelayMs,
-      revealVoiceDirForQuizType(quizType)
-    );
+    const candidates = buildRevealCandidates(teamDisplayName, quizType, phraseKey);
+    playFirstExistingClip(candidates, teamNameVoiceDelayMs);
   }
 }
 

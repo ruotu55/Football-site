@@ -10,6 +10,7 @@ import {
   playCommentBelow,
   playTicking,
   stopTicking,
+  getOrAssignRevealPhrase,
 } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import {
@@ -777,8 +778,12 @@ function revealCurrentLevel() {
     const skipBonusReveal = isLastQuestionBeforeOutro && endingType !== "how-many";
     if (!skipBonusReveal) {
       const playerDisplayName = String(state?.careerPlayer?.name || "").trim();
+      /* Read (or lazily roll) the phrase variant chosen for this level so playback
+         matches what the voice tab is showing for this player. */
+      const questionIndex = appState.currentLevelIndex - 1;
+      const phraseKey = getOrAssignRevealPhrase(state, questionIndex);
       // In Play Video mode, always announce the revealed player when a name clip exists.
-      playTheAnswerIs(true, playerDisplayName);
+      playTheAnswerIs(true, playerDisplayName, phraseKey);
       setVideoRevealPostTimerActive(true);
       refreshCurrentQuestionPreview();
       flipDelay = 3000;

@@ -1,6 +1,6 @@
 import { appState, getState } from "./state.js";
 import { switchLevel } from "./levels.js";
-import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking } from "./audio.js";
+import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking, getOrAssignRevealPhrase } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import {
   applyVideoQuestionPostTimerFlip,
@@ -42,8 +42,12 @@ function playBallPreloader() {
     return Promise.resolve();
   }
 
-  /* Reset ball to starting position */
+  /* Reset ball to starting position. Re-apply opacity:0 immediately so the ball
+     stays invisible during the brief async window before GSAP's setPulseOrigin
+     runs inside requestAnimationFrame - otherwise ~9px of the ball pokes into
+     the viewport at the top while we wait. */
   ball.removeAttribute("style");
+  ball.style.opacity = "0";
   preloader.hidden = false;
 
   /* Clone DOM background overlays (emojis, question marks) into the preloader if present. */
@@ -62,8 +66,15 @@ function playBallPreloader() {
   })();
 
   return loadGsap().then((gsap) => {
-    /* Clear any leftover transforms from a previous run */
+    /* Clear any leftover transforms from a previous run, then immediately re-hide
+       the ball so it stays invisible through the rAF wait until setPulseOrigin
+       sets opacity explicitly. */
     gsap.set(ball, { clearProps: "all" });
+    gsap.set(ball, {
+      opacity: 0,
+      force3D: true,
+      willChange: "transform, opacity",
+    });
 
     /* Read the stage colour so the scale-up blends with the background */
     const stageColor = getComputedStyle(document.documentElement)
@@ -93,6 +104,7 @@ function playBallPreloader() {
             transformOrigin: `${ox}px ${oy}px`,
             scale: 1.6,
             opacity: 0,
+            force3D: true,
           });
         })();
 
@@ -105,13 +117,13 @@ function playBallPreloader() {
         tl.fromTo(
           ball,
           { opacity: 0 },
-          { duration: 0.7, opacity: 1, ease: "power2.out" },
+          { duration: 0.7, opacity: 1, ease: "power2.out", force3D: true },
           0,
         )
         .fromTo(
           ball,
           { scale: 1.6 },
-          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)" },
+          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)", force3D: true },
           0,
         )
         /* 3. Prepare: mask + expand origin — fires at 0.7s, when the visible
@@ -142,7 +154,7 @@ function playBallPreloader() {
           const bRect = ball.getBoundingClientRect();
           const ox = (r.left + r.width / 2) - bRect.left;
           const oy = (r.top  + r.height / 2) - bRect.top;
-          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px` });
+          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px`, force3D: true });
         }, null, 0.7)
         /* 4. Ball EXPANDS outward — starts at 0.7s, overlapping the tail of
            the bounce so there's no visible stop between the two */
@@ -150,6 +162,7 @@ function playBallPreloader() {
           scale: () => ball._expandScale,
           duration: 1.6,
           ease: "none",
+          force3D: true,
         }, 0.7)
         /* 4. Landing opens from inside while ball keeps going */
         .to(preloader, {
@@ -496,8 +509,12 @@ function revealCurrentLevel() {
         const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
         setVideoRevealPostTimerActive(true);
         refreshCurrentQuestionPreview();
-        /* Panel opens here; team clip used to wait 600ms for duck — start with the window. */
-        playTheAnswerIs(true, teamDisplayName, quizType, 150);
+        /* Panel opens here; team clip used to wait 600ms for duck — start with the window.
+           Read (or lazily roll) the phrase variant chosen for this level so playback
+           matches what the voice tab is showing for this team. */
+        const questionIndex = appState.currentLevelIndex - 1;
+        const phraseKey = getOrAssignRevealPhrase(state, questionIndex);
+        playTheAnswerIs(true, teamDisplayName, quizType, 150, phraseKey);
       } catch (err) {
         console.error("[revealCurrentLevel] reveal error:", err);
       }
