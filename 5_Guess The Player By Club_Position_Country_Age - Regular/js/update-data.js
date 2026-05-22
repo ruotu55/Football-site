@@ -184,18 +184,14 @@ function startPolling(jobId) {
   pollTimer = setInterval(pollOnce, POLL_INTERVAL_MS);
 }
 
-async function applyUpdate() {
-  clearError();
-  const cookieEl = $("update-data-cookie");
-  const cookie = cookieEl ? cookieEl.value.trim() : "";
-  if (!cookie) {
-    showError("Paste your Transfermarkt cookie to continue.");
-    return;
-  }
+/* Starts a refresh job using the given cookie. Returns true if the job is
+   now running and being polled. */
+async function startJob(cookie) {
   const paths = collectPaths();
   if (paths.length === 0) {
     showError("No teams selected in your levels.");
-    return;
+    setProgressMode(false);
+    return false;
   }
   const apply = $("update-data-apply");
   if (apply) apply.disabled = true;
@@ -209,27 +205,92 @@ async function applyUpdate() {
     body = await res.json();
   } catch (err) {
     if (apply) apply.disabled = false;
+    setProgressMode(false);
     showError(`Network error: ${err.message || err}`);
-    return;
+    return false;
   }
   if (res.status === 409 && body && body.jobId) {
     resumed409 = true;
     setProgressMode(true);
     startPolling(body.jobId);
-    return;
+    return true;
   }
   if (!res.ok) {
     if (apply) apply.disabled = false;
+    setProgressMode(false);
     showError(body && body.error ? body.error : `HTTP ${res.status}`);
-    return;
+    return false;
   }
   if (!body || !body.jobId) {
     if (apply) apply.disabled = false;
+    setProgressMode(false);
     showError("Server did not return a job id.");
-    return;
+    return false;
   }
   setProgressMode(true);
   startPolling(body.jobId);
+  return true;
+}
+
+async function applyUpdate() {
+  clearError();
+  const cookieEl = $("update-data-cookie");
+  const cookie = cookieEl ? cookieEl.value.trim() : "";
+  if (!cookie) {
+    showError("Paste your Transfermarkt cookie to continue.");
+    return;
+  }
+  await startJob(cookie);
+}
+
+/* Click handler: try the saved cookie silently first. If the server has one
+   on file and the job kickoff succeeds, the modal opens directly into
+   progress mode — no paste step. If there's no saved cookie, or the server
+   says one was just cleared (the last job failed entirely), open the
+   paste-form modal as before. */
+async function openOrUseCached() {
+  resetModalState();
+  const paths = collectPaths();
+  if (paths.length === 0) {
+    openModal();
+    showError("No teams selected in your levels.");
+    return;
+  }
+  let res, body;
+  try {
+    res = await fetch("/__update-data/start-cached", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ paths }),
+    });
+    body = await res.json().catch(() => ({}));
+  } catch (_) {
+    // Server unreachable — open paste form as fallback.
+    openModal();
+    return;
+  }
+  if (res.status === 200 && body && body.jobId) {
+    // Saved cookie worked — open modal directly in progress mode.
+    const modal = $("update-data-modal");
+    if (modal) modal.hidden = false;
+    setProgressMode(true);
+    startPolling(body.jobId);
+    return;
+  }
+  if (res.status === 409 && body && body.jobId) {
+    // A job is already running — attach to it.
+    const modal = $("update-data-modal");
+    if (modal) modal.hidden = false;
+    setProgressMode(true);
+    resumed409 = true;
+    startPolling(body.jobId);
+    return;
+  }
+  // 404 (no saved cookie) or any other error → manual paste flow.
+  openModal();
+  if (res.status !== 404 && body && body.error) {
+    showError(body.error);
+  }
 }
 
 export function initUpdateData() {
@@ -237,7 +298,7 @@ export function initUpdateData() {
   const closeBtn = $("update-data-modal-close");
   const cancelBtn = $("update-data-cancel");
   const applyBtn = $("update-data-apply");
-  if (openBtn) openBtn.onclick = openModal;
+  if (openBtn) openBtn.onclick = openOrUseCached;
   if (closeBtn) closeBtn.onclick = closeModal;
   if (cancelBtn) cancelBtn.onclick = closeModal;
   if (applyBtn) applyBtn.onclick = applyUpdate;

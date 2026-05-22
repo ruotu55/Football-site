@@ -11,8 +11,10 @@ without modifying them.
 from __future__ import annotations
 
 import json
+import os
 import secrets
 import threading
+from datetime import datetime
 from pathlib import Path
 from typing import Callable, Sequence
 from urllib.parse import parse_qs, urlparse
@@ -20,6 +22,7 @@ from urllib.parse import parse_qs, urlparse
 
 _TEAMS_SUBPATH = (".Storage", "Squad Formation", "Teams")
 _NAT_SUBPATH = (".Storage", "Squad Formation", "Nationalities")
+_HISTORY_REL = (".Storage", "update-data-history.json")
 
 import sys as _ud_sys
 
@@ -764,6 +767,62 @@ def _record_failure(job_id: str, path: str, error: str) -> None:
             _JOB["failed"].append({"path": str(path), "error": str(error)})
 
 
+def _history_key(project_root: Path, json_path: Path) -> str:
+    """Return the json_path relative to project_root using forward slashes.
+
+    Matches the form `selectedEntry.path` takes after frontend `collectPaths`
+    strips its leading '../', so the PROD validator can look up timestamps by
+    the same key the frontend sends.
+    """
+    try:
+        rel = json_path.resolve().relative_to(project_root.resolve())
+    except ValueError:
+        rel = json_path
+    return str(rel).replace("\\", "/")
+
+
+def _read_history(project_root: Path) -> dict:
+    """Load the history file. Returns {"paths": {}} if missing or corrupt."""
+    fp = project_root / Path(*_HISTORY_REL)
+    if not fp.is_file():
+        return {"paths": {}}
+    try:
+        data = json.loads(fp.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {"paths": {}}
+    if not isinstance(data, dict) or not isinstance(data.get("paths"), dict):
+        return {"paths": {}}
+    return data
+
+
+def _stamp_history(project_root: Path, json_path: Path) -> None:
+    """Mark json_path as freshly updated in the shared history file.
+
+    Never raises — stamping failures must not abort the refresh job.
+    Local-time ISO with offset (e.g. 2026-05-22T14:32:01+03:00) so the
+    PROD validator can compute the local calendar date.
+    """
+    try:
+        fp = project_root / Path(*_HISTORY_REL)
+        fp.parent.mkdir(parents=True, exist_ok=True)
+        data = _read_history(project_root)
+        key = _history_key(project_root, json_path)
+        data["paths"][key] = datetime.now().astimezone().isoformat(timespec="seconds")
+        tmp = fp.with_suffix(fp.suffix + ".tmp")
+        tmp.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        os.replace(tmp, fp)
+    except Exception as exc:  # noqa: BLE001
+        print(
+            f"[update-data] _stamp_history failed for {json_path}: "
+            f"{type(exc).__name__}: {exc}",
+            file=_ud_sys.stderr,
+            flush=True,
+        )
+
+
 def _finish(job_id: str, error: str = "") -> None:
     with _JOB_LOCK:
         if _JOB is not None and _JOB["id"] == job_id:
@@ -791,9 +850,118 @@ def _snapshot_job(job_id: str | None) -> dict:
 
 
 _GET_PROGRESS_PATH = "/__update-data/progress"
+_GET_HISTORY_PATH = "/__update-data/history"
 _POST_START_PATH = "/__update-data/start"
+_POST_START_CACHED_PATH = "/__update-data/start-cached"
 _MAX_POST_BYTES = 4 * 1024 * 1024
 _MAX_PATHS = 500
+
+
+# ── Persisted last-known cookie ──
+#
+# The /start endpoint writes the cookie here on each successful job kickoff,
+# and /start-cached reads it. If a job finishes with zero successes (likely a
+# bad cookie) the worker clears the file so the next click prompts the user
+# for a fresh one.
+_COOKIE_REL = (".Storage", "update-data-cookie.json")
+
+
+def _cookie_path(project_root: Path) -> Path:
+    return project_root / Path(*_COOKIE_REL)
+
+
+def _load_saved_cookie(project_root: Path) -> str | None:
+    fp = _cookie_path(project_root)
+    if not fp.is_file():
+        return None
+    try:
+        data = json.loads(fp.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    cookie = data.get("cookie")
+    if isinstance(cookie, str) and cookie.strip():
+        return cookie.strip()
+    return None
+
+
+def _save_cookie(project_root: Path, cookie: str) -> None:
+    """Persist the cookie atomically. Never raises — saving is best-effort."""
+    try:
+        fp = _cookie_path(project_root)
+        fp.parent.mkdir(parents=True, exist_ok=True)
+        payload = {
+            "cookie": cookie,
+            "savedAt": datetime.now().astimezone().isoformat(timespec="seconds"),
+        }
+        tmp = fp.with_suffix(fp.suffix + ".tmp")
+        tmp.write_text(
+            json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8",
+        )
+        os.replace(tmp, fp)
+    except Exception as exc:  # noqa: BLE001
+        print(
+            f"[update-data] _save_cookie failed: {type(exc).__name__}: {exc}",
+            file=_ud_sys.stderr,
+            flush=True,
+        )
+
+
+def _clear_saved_cookie(project_root: Path) -> None:
+    """Delete the saved cookie file. Best-effort; never raises."""
+    try:
+        fp = _cookie_path(project_root)
+        if fp.is_file():
+            fp.unlink()
+    except OSError as exc:
+        print(
+            f"[update-data] _clear_saved_cookie failed: {type(exc).__name__}: {exc}",
+            file=_ud_sys.stderr,
+            flush=True,
+        )
+
+
+def _start_job_with_cookie(
+    project_root: Path, cookie: str, raw_paths: list, max_paths: int = _MAX_PATHS,
+) -> tuple[str | None, dict | None, int | None]:
+    """Validate paths + register + spawn worker. Returns (jobId, error_payload, http_status).
+
+    Exactly one of jobId or (error_payload, http_status) is non-None.
+    """
+    if not isinstance(cookie, str) or not cookie.strip():
+        return None, {"error": "cookie required"}, 400
+    if not isinstance(raw_paths, list) or not raw_paths:
+        return None, {"error": "paths must be a non-empty list"}, 400
+    if len(raw_paths) > max_paths:
+        return None, {"error": f"too many paths (max {max_paths})"}, 400
+    seen: set[str] = set()
+    unique: list[str] = []
+    for p in raw_paths:
+        if not isinstance(p, str):
+            return None, {"error": "paths must contain only strings"}, 400
+        if p not in seen:
+            seen.add(p)
+            unique.append(p)
+    resolved: list[Path] = []
+    try:
+        for p in unique:
+            resolved.append(_validate_and_resolve_path(project_root, p))
+    except InvalidPathError as exc:
+        return None, {"error": str(exc)}, 400
+    try:
+        job_id = _register_job(total=len(resolved))
+    except JobAlreadyRunningError as exc:
+        return None, {"error": "busy", "jobId": exc.job_id}, 409
+    runner = _runner_override or _default_runner
+    thread = threading.Thread(
+        target=runner,
+        args=(project_root, cookie.strip(), resolved, job_id),
+        daemon=True,
+    )
+    thread.start()
+    return job_id, None, None
 
 # A runner function: (project_root, cookie, resolved_paths, job_id) -> None.
 # The default runner spawns a thread that talks to Transfermarkt; tests inject a fake.
@@ -818,87 +986,78 @@ def _send_json(handler, status: int, payload: dict) -> None:
 
 def try_handle_get(handler, project_root: Path) -> bool:
     parsed = urlparse(handler.path)
-    if parsed.path != _GET_PROGRESS_PATH:
-        return False
-    qs = parse_qs(parsed.query)
-    job_id = (qs.get("id") or [None])[0]
-    _send_json(handler, 200, _snapshot_job(job_id))
-    return True
+    if parsed.path == _GET_PROGRESS_PATH:
+        qs = parse_qs(parsed.query)
+        job_id = (qs.get("id") or [None])[0]
+        _send_json(handler, 200, _snapshot_job(job_id))
+        return True
+    if parsed.path == _GET_HISTORY_PATH:
+        _send_json(handler, 200, _read_history(project_root))
+        return True
+    return False
 
 
-def try_handle_post(handler, project_root: Path) -> bool:
-    parsed = urlparse(handler.path)
-    if parsed.path != _POST_START_PATH:
-        return False
+def _read_json_body(handler) -> tuple[dict | None, dict | None, int | None]:
+    """Parse the POST request body as JSON. Returns (body, error_payload, http_status)."""
     try:
         content_len = int(handler.headers.get("Content-Length", "0") or "0")
     except ValueError:
-        _send_json(handler, 400, {"error": "Invalid Content-Length"})
-        return True
+        return None, {"error": "Invalid Content-Length"}, 400
     if content_len > _MAX_POST_BYTES:
-        _send_json(handler, 413, {"error": "Payload too large"})
-        return True
+        return None, {"error": "Payload too large"}, 413
     try:
         raw = handler.rfile.read(max(content_len, 0))
         body = json.loads(raw.decode("utf-8") if raw else "{}")
     except (UnicodeDecodeError, json.JSONDecodeError):
-        _send_json(handler, 400, {"error": "Invalid JSON"})
-        return True
+        return None, {"error": "Invalid JSON"}, 400
     if not isinstance(body, dict):
-        _send_json(handler, 400, {"error": "Body must be a JSON object"})
-        return True
+        return None, {"error": "Body must be a JSON object"}, 400
+    return body, None, None
 
-    cookie = body.get("cookie")
-    paths = body.get("paths")
-    if not isinstance(cookie, str) or not cookie.strip():
-        _send_json(handler, 400, {"error": "cookie required"})
-        return True
-    if not isinstance(paths, list) or not paths:
-        _send_json(handler, 400, {"error": "paths must be a non-empty list"})
-        return True
-    if len(paths) > _MAX_PATHS:
-        _send_json(handler, 400, {"error": f"too many paths (max {_MAX_PATHS})"})
-        return True
 
-    # De-dupe while preserving order
-    seen: set[str] = set()
-    unique: list[str] = []
-    for p in paths:
-        if not isinstance(p, str):
-            _send_json(handler, 400, {"error": "paths must contain only strings"})
+def try_handle_post(handler, project_root: Path) -> bool:
+    parsed = urlparse(handler.path)
+
+    if parsed.path == _POST_START_PATH:
+        body, err, status = _read_json_body(handler)
+        if err is not None:
+            _send_json(handler, status, err)
             return True
-        if p not in seen:
-            seen.add(p)
-            unique.append(p)
-
-    resolved: list[Path] = []
-    try:
-        for p in unique:
-            resolved.append(_validate_and_resolve_path(project_root, p))
-    except InvalidPathError as exc:
-        _send_json(handler, 400, {"error": str(exc)})
+        cookie_raw = body.get("cookie")
+        job_id, err, status = _start_job_with_cookie(
+            project_root, cookie_raw, body.get("paths"),
+        )
+        if err is not None:
+            _send_json(handler, status, err)
+            return True
+        # Job kicked off — remember the cookie for next time. If it turns out
+        # to be bad (zero successes), the worker clears it again.
+        if isinstance(cookie_raw, str):
+            _save_cookie(project_root, cookie_raw.strip())
+        _send_json(handler, 200, {"jobId": job_id})
         return True
 
-    try:
-        job_id = _register_job(total=len(resolved))
-    except JobAlreadyRunningError as exc:
-        _send_json(handler, 409, {"error": "busy", "jobId": exc.job_id})
+    if parsed.path == _POST_START_CACHED_PATH:
+        body, err, status = _read_json_body(handler)
+        if err is not None:
+            _send_json(handler, status, err)
+            return True
+        paths = body.get("paths")
+        if not isinstance(paths, list) or not paths:
+            _send_json(handler, 400, {"error": "paths must be a non-empty list"})
+            return True
+        cookie = _load_saved_cookie(project_root)
+        if not cookie:
+            _send_json(handler, 404, {"error": "no saved cookie"})
+            return True
+        job_id, err, status = _start_job_with_cookie(project_root, cookie, paths)
+        if err is not None:
+            _send_json(handler, status, err)
+            return True
+        _send_json(handler, 200, {"jobId": job_id, "fromCache": True})
         return True
 
-    runner = _runner_override or _default_runner
-    # Always spawn a daemon thread — even in tests — so that try_handle_post
-    # returns the 200 immediately and the job is left in "running" state until
-    # the runner finishes.  Test fakes complete in microseconds so state is
-    # effectively settled before the caller checks it.
-    thread = threading.Thread(
-        target=runner,
-        args=(project_root, cookie.strip(), resolved, job_id),
-        daemon=True,
-    )
-    thread.start()
-
-    _send_json(handler, 200, {"jobId": job_id})
-    return True
+    return False
 
 
 def _default_runner(
@@ -984,6 +1143,7 @@ def _default_runner(
                 nationality_map=nationality_map,
                 resolved_paths=resolved_paths,
                 job_id=job_id,
+                project_root=project_root,
             )
         )
     finally:
@@ -991,6 +1151,26 @@ def _default_runner(
             os.environ.pop("TRANSFERMARKT_COOKIE", None)
         else:
             os.environ["TRANSFERMARKT_COOKIE"] = prev_cookie
+        # Auto-clear the saved cookie if the entire job failed. A bad cookie
+        # produces zero ok and ≥1 failed, so the next Update Data click will
+        # fall through to the paste modal for a fresh login.
+        try:
+            with _JOB_LOCK:
+                if _JOB is not None and _JOB.get("id") == job_id:
+                    ok = int(_JOB.get("ok_count") or 0)
+                    failed = len(_JOB.get("failed") or [])
+                    cookie_was_bad = ok == 0 and failed > 0
+                else:
+                    cookie_was_bad = False
+            if cookie_was_bad:
+                _clear_saved_cookie(project_root)
+        except Exception as exc:  # noqa: BLE001
+            print(
+                f"[update-data] post-job cookie-cleanup failed: "
+                f"{type(exc).__name__}: {exc}",
+                file=_ud_sys.stderr,
+                flush=True,
+            )
 
 
 async def _refresh_all_async(
@@ -1000,6 +1180,7 @@ async def _refresh_all_async(
     nationality_map: dict,
     resolved_paths: Sequence[Path],
     job_id: str,
+    project_root: Path,
 ) -> None:
     import asyncio
 
@@ -1221,6 +1402,7 @@ async def _refresh_all_async(
                                 file=_sys.stderr,
                                 flush=True,
                             )
+                        _stamp_history(project_root, jp)
                         _record_ok(job_id)
                     except Exception as exc:  # noqa: BLE001
                         _record_failure(job_id, str(jp), f"{type(exc).__name__}: {exc}")
@@ -1243,6 +1425,12 @@ __all__ = [
     "_finish",
     "_snapshot_job",
     "_reset_job_for_tests",
+    "_read_history",
+    "_stamp_history",
+    "_history_key",
+    "_load_saved_cookie",
+    "_save_cookie",
+    "_clear_saved_cookie",
     "try_handle_get",
     "try_handle_post",
     "_set_runner_for_tests",

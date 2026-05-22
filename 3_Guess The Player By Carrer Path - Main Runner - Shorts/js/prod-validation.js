@@ -347,12 +347,80 @@ async function validateLevelVoices() {
     };
 }
 
+async function validateUpdateDataFreshness() {
+    const questionLevels = getQuestionLevels();
+    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+    /* Mirror update-data.js#collectPaths: one path per level, first non-empty of
+       selectedEntry.path, careerPlayer._clubItem.path, careerPlayer._clubItem.id.
+       Server stamps the same project-relative form with forward slashes. */
+    const stripLeadingDotDot = (s) =>
+        typeof s === "string" && s.startsWith("../") ? s.slice(3) : s;
+    const items = questionLevels.map(({ lvl, index }) => {
+        const candidates = [
+            lvl?.selectedEntry?.path,
+            lvl?.careerPlayer?._clubItem?.path,
+            lvl?.careerPlayer?._clubItem?.id,
+        ];
+        let path = "";
+        for (const p of candidates) {
+            if (typeof p === "string" && p.length > 0) {
+                path = stripLeadingDotDot(p);
+                break;
+            }
+        }
+        return { index, lvl, path };
+    });
+
+    let history = { paths: {} };
+    try {
+        const res = await fetch("/__update-data/history", { cache: "no-store" });
+        if (res.ok) history = await res.json();
+    } catch (_) { /* fall through — every level reports never-updated */ }
+    const stamps = (history && history.paths) || {};
+
+    const pad = (n) => String(n).padStart(2, "0");
+    const now = new Date();
+    const todayKey = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    const localDateKey = (iso) => {
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return "";
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+    };
+    const fmtStamp = (iso) => {
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return iso;
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    };
+
+    const failures = [];
+    for (const { lvl, index, path } of items) {
+        if (!lvl.currentSquad) continue; // teams-selected validator already complains
+        if (!path) continue; // custom level without a TM-backed path
+        const label = getLevelLabel(index, lvl);
+        const teamName = resolveLevelTeamName(lvl, quizType) || path;
+        const stamp = stamps[path];
+        if (!stamp) {
+            failures.push(`${label} (${teamName}): never updated`);
+            continue;
+        }
+        if (localDateKey(stamp) !== todayKey) {
+            failures.push(`${label} (${teamName}): last updated ${fmtStamp(stamp)} (not today)`);
+        }
+    }
+    return {
+        sectionName: "Update Data (today)",
+        passed: failures.length === 0,
+        failures,
+    };
+}
+
 // ── Run all validations ──
 export async function runProdValidation() {
     const sections = await Promise.all([
         Promise.resolve(validateTeamsSelected()),
         Promise.resolve(validateTeamAssets()),
         Promise.resolve(validateEndingType()),
+        validateUpdateDataFreshness(),
         validateTeamVoices(),
         validateQuizIntroVoice(),
         validateEndingVoice(),
