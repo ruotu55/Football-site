@@ -197,7 +197,7 @@ body:not(.shorts-mode) .pitch-wrap {
 .pitch-slots {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events: auto;
   transform-style: preserve-3d;
 }
 
@@ -228,8 +228,17 @@ body:not(.shorts-mode) .pitch-wrap {
 }
 
 .player-slot.has-player > .slot-mount {
-  pointer-events: auto;
+  pointer-events: none;
   animation: float-up-down 4s ease-in-out infinite;
+}
+
+.slot-inner,
+.slot-face,
+.slot-avatar,
+.slot-photo-controls,
+.slot-badge-controls,
+.slot-label-container {
+  pointer-events: auto;
 }
 
 /* Video mode: scale only flag / club logo on the card front (see --slot-badge-scale on .slot-badge-scale-wrap) */
@@ -484,13 +493,16 @@ body.play-video-active .pitch-swap-logo-btn {
   display: flex;
   align-items: center;
   gap: 0.18rem;
-  z-index: 32;
+  z-index: 80;
+  min-height: 1.55rem;
+  padding: 0.24rem;
+  pointer-events: auto;
 }
 
 .slot-photo-fetch-btn,
 .slot-photo-delete-btn {
   min-width: 2.15rem;
-  height: 0.95rem;
+  height: 1.15rem;
   padding: 0 0.28rem;
   border: 1.5px solid rgba(255, 255, 255, 0.88);
   border-radius: 0.24rem;
@@ -578,11 +590,10 @@ body.play-video-active .pitch-swap-logo-btn {
   box-shadow: 0 0 0 2px #fff;
 }
 
+.slot-name-edit-btn,
 .slot-swap-btn {
   position: absolute;
-  left: 100%; 
   /* Scaled up the button sizing and margin by 10% */
-  margin-left: 5.5px; 
   background: rgba(0,0,0,0.8);
   color: #fff;
   border: 1px solid rgba(255,255,255,0.3);
@@ -601,6 +612,17 @@ body.play-video-active .pitch-swap-logo-btn {
   flex-shrink: 0;
 }
 
+.slot-name-edit-btn {
+  right: 100%;
+  margin-right: 5.5px;
+}
+
+.slot-swap-btn {
+  left: 100%;
+  margin-left: 5.5px;
+}
+
+.slot-name-edit-btn:hover,
 .slot-swap-btn:hover {
   background: var(--accent);
   color: #000;

@@ -589,6 +589,75 @@ function pitchSlotDisplayLabel(state, player) {
   return "—";
 }
 
+function applySlotNameEdit(label, player) {
+  const state = getState();
+  const key = player?.name != null ? String(player.name) : "";
+  if (!label || !key) return;
+  const next = window.prompt(
+    "Enter a custom player name.\nLeave empty to reset.",
+    String(label.textContent || "").trim()
+  );
+  if (next === null) return;
+  const clean = String(next).trim();
+  if (clean) {
+    state.customNames[key] = clean;
+    label.textContent = clean;
+  } else {
+    delete state.customNames[key];
+    label.textContent = pitchSlotDisplayLabel(state, player);
+  }
+  scheduleSlotNameFit();
+}
+
+function wireSlotNameEditing(label, player) {
+  label.contentEditable = "true";
+  label.spellcheck = false;
+  label.title = "Double-click to edit player name";
+  label.ondblclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    applySlotNameEdit(label, player);
+  };
+  label.onblur = () => {
+    const key = player?.name != null ? String(player.name) : "";
+    if (!key) return;
+    const clean = String(label.textContent || "").trim();
+    if (clean) {
+      getState().customNames[key] = clean;
+    } else {
+      delete getState().customNames[key];
+      label.textContent = pitchSlotDisplayLabel(getState(), player);
+    }
+    scheduleSlotNameFit();
+  };
+  label.onkeydown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      label.blur();
+    }
+  };
+}
+
+function createSlotNameEditButton(label, player, slotIndex) {
+  const editBtn = document.createElement("button");
+  editBtn.type = "button";
+  editBtn.className = "slot-name-edit-btn";
+  editBtn.textContent = "✎";
+  editBtn.title = "Edit player name";
+  editBtn.dataset.slotControl = "edit-name";
+  editBtn.dataset.slotIndex = String(slotIndex);
+  editBtn.onclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    debugSlotControlClick("Edit name handler fired", {
+      slotIndex,
+      player: player?.name || "",
+    });
+    applySlotNameEdit(label, player);
+  };
+  return editBtn;
+}
+
 export function openSwapModal(slotIndex) {
   const state = getState();
   if (!state.currentSquad) return;
@@ -818,6 +887,95 @@ export function applyPlayerPhotoFramingForSourceRelPath(imgEl, relPath) {
   imgEl.style.removeProperty("box-sizing");
 }
 
+const SLOT_CONTROL_DEBUG_SELECTOR = ".slot-photo-fetch-btn, .slot-photo-delete-btn, .slot-name-edit-btn, .slot-swap-btn";
+let slotControlClickDebugInstalled = false;
+
+function describeDebugElement(el) {
+  if (!el || el.nodeType !== 1) return "";
+  const tag = el.tagName ? el.tagName.toLowerCase() : "element";
+  const id = el.id ? `#${el.id}` : "";
+  const cls = el.className && typeof el.className === "string"
+    ? `.${el.className.trim().split(/\s+/).filter(Boolean).join(".")}`
+    : "";
+  const control = el.dataset?.slotControl ? `[data-slot-control="${el.dataset.slotControl}"]` : "";
+  const text = String(el.textContent || "").trim().slice(0, 24);
+  return `${tag}${id}${cls}${control}${text ? ` "${text}"` : ""}`;
+}
+
+function debugSlotControlClick(message, detail = {}) {
+  console.error("[slot controls debug]", message, detail);
+}
+
+function findFallbackSlotControlAtPoint(e) {
+  const pitchWrap = document.getElementById("pitch-wrap");
+  if (!pitchWrap || e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR)) return null;
+  if (!pitchWrap.contains(e.target)) return null;
+
+  const x = e.clientX;
+  const y = e.clientY;
+  let nearest = null;
+  let nearestDistance = Infinity;
+  for (const control of pitchWrap.querySelectorAll(SLOT_CONTROL_DEBUG_SELECTOR)) {
+    const rect = control.getBoundingClientRect();
+    const pad = control.classList.contains("slot-photo-fetch-btn") ||
+      control.classList.contains("slot-photo-delete-btn")
+      ? 24
+      : 12;
+    if (
+      x >= rect.left - pad &&
+      x <= rect.right + pad &&
+      y >= rect.top - pad &&
+      y <= rect.bottom + pad
+    ) {
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const distance = Math.hypot(x - cx, y - cy);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearest = control;
+      }
+    }
+  }
+  return nearest;
+}
+
+function installSlotControlClickDebug() {
+  if (slotControlClickDebugInstalled || typeof document === "undefined") return;
+  slotControlClickDebugInstalled = true;
+
+  const logPitchClick = (e) => {
+    const pitchWrap = document.getElementById("pitch-wrap");
+    if (!pitchWrap || !pitchWrap.contains(e.target)) return;
+    const stack = typeof document.elementsFromPoint === "function"
+      ? document.elementsFromPoint(e.clientX, e.clientY)
+      : [];
+    const targetControl = e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR) || null;
+    const stackedControl = stack.find((el) => el.matches?.(SLOT_CONTROL_DEBUG_SELECTOR)) || null;
+    debugSlotControlClick(`${e.type} inside pitch`, {
+      x: Math.round(e.clientX),
+      y: Math.round(e.clientY),
+      target: describeDebugElement(e.target),
+      targetControl: describeDebugElement(targetControl),
+      stackedControl: describeDebugElement(stackedControl),
+      topStack: stack.slice(0, 6).map(describeDebugElement).filter(Boolean),
+    });
+  };
+
+  document.addEventListener("pointerdown", logPitchClick, true);
+  document.addEventListener("click", (e) => {
+    logPitchClick(e);
+    const fallbackControl = findFallbackSlotControlAtPoint(e);
+    if (!fallbackControl) return;
+    debugSlotControlClick("fallback routed click to control", {
+      target: describeDebugElement(e.target),
+      routedTo: describeDebugElement(fallbackControl),
+    });
+    e.preventDefault();
+    e.stopPropagation();
+    fallbackControl.click();
+  }, true);
+}
+
 function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   const state = getState();
   if (!containerEl || !player || appState.isVideoPlaying) return;
@@ -830,12 +988,16 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   photoBtn.className = "slot-photo-fetch-btn";
   photoBtn.textContent = "PHOTO";
   photoBtn.title = "Fetch another player photo";
+  photoBtn.dataset.slotControl = "photo";
+  photoBtn.dataset.slotIndex = String(slotIndex);
 
   const deleteBtn = document.createElement("button");
   deleteBtn.type = "button";
   deleteBtn.className = "slot-photo-delete-btn";
   deleteBtn.textContent = "X";
   deleteBtn.title = "Delete current photo";
+  deleteBtn.dataset.slotControl = "delete-photo";
+  deleteBtn.dataset.slotIndex = String(slotIndex);
 
   const getCurrentSlotPhoto = () => {
     const st = getState();
@@ -873,9 +1035,17 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   photoBtn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
+    debugSlotControlClick("PHOTO handler fired", {
+      slotIndex,
+      player: player?.name || "",
+      disabled: photoBtn.disabled,
+    });
     if (photoBtn.disabled) return;
     const st = getState();
-    if (!st?.selectedEntry) return;
+    if (!st?.selectedEntry) {
+      debugSlotControlClick("PHOTO handler stopped: no selectedEntry", { slotIndex });
+      return;
+    }
     const photoBodyBase = {
       playerName: player?.name || "",
       playerClub: player?.club || "",
@@ -927,9 +1097,15 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   deleteBtn.addEventListener("click", async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    debugSlotControlClick("X handler fired", {
+      slotIndex,
+      player: player?.name || "",
+      disabled: deleteBtn.disabled,
+    });
     if (deleteBtn.disabled) return;
     const current = getCurrentSlotPhoto();
     if (!current.relPath) {
+      debugSlotControlClick("X handler stopped: no current photo", { slotIndex });
       window.alert("No photo to delete.");
       return;
     }
@@ -1210,31 +1386,28 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     labelContainer.className = "slot-label-container";
     const label = document.createElement("span");
     label.className = "slot-name";
-    label.contentEditable = "true";
-    label.spellcheck = false;
     label.textContent = pitchSlotDisplayLabel(state, player);
+    wireSlotNameEditing(label, player);
 
-    label.onblur = () => {
-      state.customNames[player.name] = label.textContent.trim();
-      scheduleSlotNameFit();
-    };
-    label.onkeydown = (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        label.blur();
-      }
-    };
+    const editBtn = createSlotNameEditButton(label, player, slotIndex);
 
     const swapBtn = document.createElement("button");
+    swapBtn.type = "button";
     swapBtn.className = "slot-swap-btn";
     swapBtn.innerHTML = "⇄";
     swapBtn.title = "Swap player";
+    swapBtn.dataset.slotControl = "swap-player";
+    swapBtn.dataset.slotIndex = String(slotIndex);
     swapBtn.onclick = (e) => {
       e.stopPropagation();
+      debugSlotControlClick("Swap handler fired", {
+        slotIndex,
+        player: player?.name || "",
+      });
       openSwapModal(slotIndex);
     };
 
-    labelContainer.append(label, swapBtn);
+    labelContainer.append(editBtn, label, swapBtn);
     back.append(backAvatar, labelContainer);
 
     inner.append(front, back);
@@ -1318,31 +1491,28 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
 
     const label = document.createElement("span");
     label.className = "slot-name";
-    label.contentEditable = "true";
-    label.spellcheck = false;
     label.textContent = pitchSlotDisplayLabel(state, player);
+    wireSlotNameEditing(label, player);
 
-    label.onblur = () => {
-      state.customNames[player.name] = label.textContent.trim();
-      scheduleSlotNameFit();
-    };
-    label.onkeydown = (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        label.blur();
-      }
-    };
+    const editBtn = createSlotNameEditButton(label, player, slotIndex);
 
     const swapBtn = document.createElement("button");
+    swapBtn.type = "button";
     swapBtn.className = "slot-swap-btn";
     swapBtn.innerHTML = "⇄";
     swapBtn.title = "Swap player";
+    swapBtn.dataset.slotControl = "swap-player";
+    swapBtn.dataset.slotIndex = String(slotIndex);
     swapBtn.onclick = (e) => {
       e.stopPropagation();
+      debugSlotControlClick("Swap handler fired", {
+        slotIndex,
+        player: player?.name || "",
+      });
       openSwapModal(slotIndex);
     };
 
-    labelContainer.append(label, swapBtn);
+    labelContainer.append(editBtn, label, swapBtn);
     slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
     mount.append(avatar, labelContainer);
   }
@@ -1417,6 +1587,7 @@ function scheduleSlotNameFit() {
 }
 
 export function renderPitch() {
+  installSlotControlClickDebug();
   const state = getState();
   const formation = formationById(state.formationId);
   const displayMode = state.displayMode;
