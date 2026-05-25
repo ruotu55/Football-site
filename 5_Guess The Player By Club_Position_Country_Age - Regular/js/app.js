@@ -43,6 +43,7 @@ import { initPlayerVoiceManager } from "./player-voice-manager.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
+import { initNameDescriptionGenerator } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -783,6 +784,15 @@ async function init() {
         syncShortsCirclePreviewPanel,
     });
     initUpdateData();
+    initNameDescriptionGenerator({
+        buttonId: "btn-name-description",
+        quizKey: "four-params",
+        quizTitle: "GUESS THE FOOTBALL PLAYER BY CLUB POSITION COUNTRY AND AGE",
+        channelName: "ULTIMATE FOOTBALL QUIZ",
+        isShorts: false,
+        getLevelsData: () => appState.levelsData,
+        getActiveScriptName: () => getActiveScriptName(),
+    });
 
     const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 29);
     initLevels(initialLevelCount);

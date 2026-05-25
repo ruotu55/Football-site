@@ -49,6 +49,7 @@ import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initTeamVoiceManager } from "./team-voice-manager.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
+import { initNameDescriptionGenerator } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 import {
     applyDevLiveReloadControls,
     captureDevLiveReloadSnapshot,
@@ -1180,6 +1181,16 @@ async function init() {
         };
         syncYoutubeThumbnailsButton();
     }
+
+    initNameDescriptionGenerator({
+        buttonId: "btn-name-description",
+        quizKey: "team-by-nat",
+        quizTitle: "GUESS THE FOOTBALL TEAM NAME BY PLAYERS NATIONALITY",
+        channelName: "ULTIMATE FOOTBALL QUIZ",
+        isShorts: false,
+        getLevelsData: () => appState.levelsData,
+        getActiveScriptName: () => getActiveScriptName(),
+    });
 
     function syncVideoModeButton(isEnabled) {
         if (!els.videoModeBtn) return;

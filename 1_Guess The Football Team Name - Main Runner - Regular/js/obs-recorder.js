@@ -353,6 +353,27 @@ export async function start(savedName, recordingsDir, opts = {}) {
     } catch (e) {
         console.warn("[obs-recorder] removeGlobalAudioInputs skipped:", e);
     }
+    /* Lock the Chrome capture source to unity gain (0 dB) and unmuted on every
+       start, so the OBS Audio Mixer slider being accidentally dragged between
+       sessions can't change the loudness of the next recording. The in-app
+       BGM/voice volumes (NORMAL_VOL etc. in audio.js) are the only knobs that
+       should affect output level. */
+    try {
+        await obs.call("SetInputVolume", {
+            inputName: WINDOW_SOURCE_NAME,
+            inputVolumeDb: 0,
+        });
+    } catch (e) {
+        console.warn("[obs-recorder] SetInputVolume(0dB) skipped:", e);
+    }
+    try {
+        await obs.call("SetInputMute", {
+            inputName: WINDOW_SOURCE_NAME,
+            inputMuted: false,
+        });
+    } catch (e) {
+        console.warn("[obs-recorder] SetInputMute(false) skipped:", e);
+    }
 
     await obs.call("SetProfileParameter", {
         parameterCategory: "Output",

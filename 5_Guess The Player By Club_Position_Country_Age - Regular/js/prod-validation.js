@@ -2,8 +2,9 @@
 import { transitionSettings } from "./transitions.js";
 import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
-import { getCurrentLanguage } from "./voice-tab.js";
+import { getCurrentLanguage, voiceKindForQuiz } from "./voice-tab.js";
 import { BUNDLED_MILESTONES, getSelectedBundledVariant } from "./bundled-level-voices.js";
+import { getOrAssignRevealPhrase, renderTeamPhrase } from "./audio.js";
 /* No team-header rename feature in this runner — read the name straight off the level. */
 function resolveLevelTeamName(lvl, _quizType) {
     return String(lvl.currentSquad?.name || lvl.selectedEntry?.name || "").trim();
@@ -268,18 +269,29 @@ async function validateTeamVoices() {
     const questionLevels = getQuestionLevels();
     const quizType = appState.els?.inQuizType?.value || "nat-by-club";
     const language = getCurrentLanguage();
+    const kind = voiceKindForQuiz(quizType);
     const checks = questionLevels.map(async ({ lvl, index }) => {
         if (!lvl.currentSquad) return null;
         /* Use the resolved display name (post-rename) so we hit the same file path
            the Voice tab uses — matches what's actually saved on disk. */
         const teamName = resolveLevelTeamName(lvl, quizType);
         if (!teamName) return null;
-        const { exists } = await fetchExists("/__team-voice/status", {
+        /* Pre-roll the sticky phrase variant for this level so we check the SAME
+           file the reveal playback will request. Mirrors voice-tab.js and
+           video.js#revealCurrentLevel: questionIndex = levelIdx - 1.
+           Endpoint is /__player-voice/status (kind-aware) — this runner's server
+           only exposes that route. */
+        const questionIndex = index - 1;
+        const phrase = getOrAssignRevealPhrase(lvl, questionIndex, kind);
+        const { exists } = await fetchExists("/__player-voice/status", {
             name: teamName,
-            quizType,
+            kind,
             language,
+            phrase,
         });
-        return exists ? null : `${getLevelLabel(index, lvl)} (${teamName}): voice file missing`;
+        if (exists) return null;
+        const sentence = renderTeamPhrase(phrase, teamName, language);
+        return `${getLevelLabel(index, lvl)}: missing reveal voice — "${sentence}"`;
     });
     const results = await Promise.all(checks);
     return {

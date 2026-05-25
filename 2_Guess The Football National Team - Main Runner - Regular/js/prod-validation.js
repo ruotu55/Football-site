@@ -5,6 +5,7 @@ import { FORMATIONS } from "./formations.js";
 import { getCurrentLanguage } from "./voice-tab.js";
 import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
 import { BUNDLED_MILESTONES, getSelectedBundledVariant } from "./bundled-level-voices.js";
+import { getOrAssignRevealPhrase, renderTeamPhrase } from "./audio.js";
 
 /** Same name resolution the Voice tab uses — accounts for user renames in the
  *  team-header. Without this, PROD checks "Arsenal FC" while the file is saved
@@ -282,12 +283,20 @@ async function validateTeamVoices() {
            the Voice tab uses — matches what's actually saved on disk. */
         const teamName = resolveLevelTeamName(lvl, quizType);
         if (!teamName) return null;
+        /* Pre-roll the sticky phrase variant for this level so we check the SAME
+           file the reveal playback will request. Mirrors voice-tab.js and
+           video.js#revealCurrentLevel: questionIndex = levelIdx - 1. */
+        const questionIndex = index - 1;
+        const phrase = getOrAssignRevealPhrase(lvl, questionIndex);
         const { exists } = await fetchExists("/__team-voice/status", {
             name: teamName,
             quizType,
             language,
+            phrase,
         });
-        return exists ? null : `${getLevelLabel(index, lvl)} (${teamName}): voice file missing`;
+        if (exists) return null;
+        const sentence = renderTeamPhrase(phrase, teamName, language);
+        return `${getLevelLabel(index, lvl)}: missing reveal voice — "${sentence}"`;
     });
     const results = await Promise.all(checks);
     return {

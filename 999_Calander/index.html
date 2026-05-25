@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Football Channel · Upload Calendar</title>
+  <link rel="stylesheet" href="css/styles.css?v=6">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Football Channel · Upload Calendar</h1>
+      <p class="subtitle">YouTube release plan · Israel time (DST-aware) · EN + ES channels</p>
+    </div>
+    <div class="legend">
+      <span class="legend-item"><span class="dot dot-long"></span>Long-form</span>
+      <span class="legend-item"><span class="dot dot-short"></span>Short</span>
+    </div>
+  </header>
+
+  <section class="controls">
+    <div class="nav">
+      <button id="prev-month" class="navbtn">&lsaquo;</button>
+      <h2 id="current-month"></h2>
+      <button id="next-month" class="navbtn">&rsaquo;</button>
+      <button id="today-btn" class="navbtn today-btn">Today</button>
+      <span id="phase-badge" class="phase-badge"></span>
+    </div>
+
+    <div class="channel-switch" role="tablist">
+      <button class="switch-btn switch-en active" data-channel="en" role="tab" aria-selected="true">English</button>
+      <button class="switch-btn switch-es" data-channel="es" role="tab" aria-selected="false">Español</button>
+    </div>
+
+    <div class="filters">
+      <label class="chip chip-long"><input type="checkbox" data-filter="long" checked> Long</label>
+      <label class="chip chip-short"><input type="checkbox" data-filter="short" checked> Shorts</label>
+    </div>
+  </section>
+
+  <main id="calendar" class="calendar"></main>
+
+  <section class="summary">
+    <h2>This month at a glance</h2>
+    <div id="month-stats" class="stats"></div>
+  </section>
+
+  <script src="js/schedule.js?v=6"></script>
+  <script src="js/calendar.js?v=6"></script>
+</body>
+</html>

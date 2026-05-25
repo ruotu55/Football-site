@@ -43,6 +43,7 @@ import { initPlayerVoiceManager } from "./player-voice-manager.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
+import { initNameDescriptionGenerator } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -461,6 +462,15 @@ async function init() {
         updateLanding,
     });
     initUpdateData();
+    initNameDescriptionGenerator({
+        buttonId: "btn-name-description",
+        quizKey: "career-stats",
+        quizTitle: "GUESS THE FOOTBALL PLAYER BY CAREER STATS",
+        channelName: "ULTIMATE FOOTBALL QUIZ",
+        isShorts: true,
+        getLevelsData: () => appState.levelsData,
+        getActiveScriptName: () => getActiveScriptName(),
+    });
 
     const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 4);
     initLevels(initialLevelCount);

@@ -43,6 +43,7 @@ import { initPlayerVoiceManager } from "./player-voice-manager.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
+import { initNameDescriptionGenerator } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 import {
     clearCareerPictureFavorite,
     hasCareerPictureFavorite,
@@ -769,6 +770,15 @@ async function init() {
         syncShortsCirclePreviewPanel,
     });
     initUpdateData();
+    initNameDescriptionGenerator({
+        buttonId: "btn-name-description",
+        quizKey: "fake-info",
+        quizTitle: "GUESS THE FAKE FOOTBALL INFORMATION",
+        channelName: "ULTIMATE FOOTBALL QUIZ",
+        isShorts: true,
+        getLevelsData: () => appState.levelsData,
+        getActiveScriptName: () => getActiveScriptName(),
+    });
 
     const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 4);
     initLevels(initialLevelCount);

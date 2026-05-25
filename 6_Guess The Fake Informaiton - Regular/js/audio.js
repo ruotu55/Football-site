@@ -102,10 +102,29 @@ let progressTimeout = null;
 let bgmCrossfadeInterval = null;
 let isBgmCrossfading = false;
 
-const NORMAL_VOL = 0.4; // Dropped from 0.3 to make it quieter
-const DUCKED_VOL = 0.2; // 50% of normal volume
+const STARTING_VOL = 1.0;
+const NORMAL_VOL = 1.0;
+const DUCKED_VOL = 0.2; // 20% absolute — applied during any voice clip (intro, reveal, progress, ending, bundled)
 const BGM_CROSSFADE_MS = 3000;
 const BGM_CROSSFADE_BUFFER_S = 0.15;
+/* Wait this long after a voice ends before fading BGM back up. Long enough that
+   when a follow-up voice plays (rules → warm-up, reveal → progress, etc.), its
+   playVoice() can cancel restoreTimeout BEFORE the restore fires. Otherwise the
+   BGM swings up toward NORMAL_VOL then has to be ducked back down for the next
+   voice — audible as "BGM gets loud, then suddenly quiet again". */
+const RESTORE_WAIT_STANDALONE_MS = 2500;
+/* When the voice that just ended was itself part of a chain (it started shortly
+   after a previous voice ended), no further voice is expected immediately — this
+   IS the tail of the chain. Restore fast. */
+const RESTORE_WAIT_AFTER_CHAIN_MS = 0;
+/* A voice that starts within this window after the previous voice ended is
+   considered "in a chain" (e.g., warm-up arriving ~1–2 s after rules ends). */
+const VOICE_CHAIN_GAP_MS = 3000;
+const RESTORE_FADE_MS = 1500;
+
+/* Tracks when the last voice's `ended` event fired — used so the NEXT voice can
+   classify itself as "in a chain" vs "standalone" by comparing its start time. */
+let lastVoiceEndedAt = 0;
 
 function fadeBgm(targetVolume, durationMs) {
   if (!bgMusic) return;
@@ -247,6 +266,9 @@ export function stopAllAudio() {
   clearInterval(fadeInterval);
   clearInterval(bgmCrossfadeInterval);
   isBgmCrossfading = false;
+  /* Reset chain tracking so the FIRST voice of the next run doesn't get
+     misclassified as "in a chain" just because the previous run ended recently. */
+  lastVoiceEndedAt = 0;
 
   if (bgMusic) {
     clearBgmEventHandlers(bgMusic);
@@ -341,6 +363,18 @@ export function playVoice(src, delayMs = 1000) {
   // 1. Immediately start smoothly fading down over the delay period
   fadeBgm(DUCKED_VOL, delayMs);
 
+  /* Classify THIS voice based on how recently the previous voice ended. If it
+     started shortly after the last voice's end, it's the tail of a chain — no
+     follow-up is expected, so we'll restore the BGM fast when it ends. If the
+     previous voice ended long ago (or never), this voice might be the START of
+     a new chain, so use the long wait to protect against a follow-up arriving
+     late. Captured here in closure so it's not racy across calls. */
+  const isChainedVoice =
+    lastVoiceEndedAt > 0 && (Date.now() - lastVoiceEndedAt) < VOICE_CHAIN_GAP_MS;
+  const restoreWaitMs = isChainedVoice
+    ? RESTORE_WAIT_AFTER_CHAIN_MS
+    : RESTORE_WAIT_STANDALONE_MS;
+
   // 2. Play the voice after the delay finishes
   return new Promise((resolve) => {
     duckingTimeout = setTimeout(() => {
@@ -350,14 +384,22 @@ export function playVoice(src, delayMs = 1000) {
         resolve();
       });
 
-      // 3. When voice finishes, wait 1s, then smoothly fade back up
+      /* 3. When voice finishes, wait restoreWaitMs (long for standalone-start
+         voices, ~0 for tail-of-chain voices) then fade back up over
+         RESTORE_FADE_MS. Any follow-up voice that calls playVoice() during the
+         wait clears restoreTimeout, so chained voices stay ducked across the
+         whole chain instead of swinging up between them. */
       currentVoice.addEventListener('ended', () => {
+        lastVoiceEndedAt = Date.now();
         resolve();
         restoreTimeout = setTimeout(() => {
-          fadeBgm(NORMAL_VOL, 1000); // fade up smoothly over 1s
-        }, 1000); // wait 1s after voice ends
+          fadeBgm(NORMAL_VOL, RESTORE_FADE_MS);
+        }, restoreWaitMs);
       });
-      currentVoice.addEventListener('error', () => resolve());
+      currentVoice.addEventListener('error', () => {
+        lastVoiceEndedAt = Date.now();
+        resolve();
+      });
     }, delayMs);
   });
 }
@@ -571,6 +613,11 @@ function buildPhraseCandidates(dirRel, cleanName, language, phraseKey) {
   return out;
 }
 
+/** Build the candidate chain for one reveal, given the chosen phrase. Tries the chosen
+    phrase first (current language → English fallback only for the SAME phrase). Never
+    falls back to "plain" when a sentence phrase was assigned — that used to silently
+    play just the bare name instead of the full sentence. Missing sentence clip =
+    silence (PROD validation must catch it before play time). */
 function buildRevealCandidates(displayName, kind, phraseKey) {
   const base = String(displayName || "").trim();
   if (!base) return [];
@@ -581,9 +628,10 @@ function buildRevealCandidates(displayName, kind, phraseKey) {
   if (phrase !== "plain") {
     if (lang === "spanish") out.push(...buildPhraseCandidates(dir, base, "spanish", phrase));
     out.push(...buildPhraseCandidates(dir, base, "english", phrase));
+  } else {
+    if (lang === "spanish") out.push(...buildPhraseCandidates(dir, base, "spanish", "plain"));
+    out.push(...buildPhraseCandidates(dir, base, "english", "plain"));
   }
-  if (lang === "spanish") out.push(...buildPhraseCandidates(dir, base, "spanish", "plain"));
-  out.push(...buildPhraseCandidates(dir, base, "english", "plain"));
   return out;
 }
 
