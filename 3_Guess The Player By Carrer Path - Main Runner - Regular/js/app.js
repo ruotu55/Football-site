@@ -23,7 +23,8 @@ import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
-import { initSavedScripts, renderSavedScripts, getActiveScriptName } from "./saved-scripts.js";
+import { getActiveScriptName } from "./saved-scripts.js";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -720,12 +721,12 @@ async function init() {
             transitionSel.dispatchEvent(new Event("change"));
         }
     }
-    initSavedScripts({
-        populateSubTypes,
-        updateSetupUI,
-        updateLanding,
-        syncShortsCirclePreviewPanel,
-    });
+    /* The Saved tab is now the calendar-driven recording queue — see
+       recording-queue.js. The legacy savedScripts UI (Save Current Settings,
+       +Folder, Import, freeform list) is gone; the saved-scripts.js module
+       remains for the underlying capture/apply helpers, but its init wiring
+       points at buttons that no longer exist, so we don't call it. */
+    void initRecordingQueue();
     initUpdateData();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
@@ -832,7 +833,7 @@ async function init() {
         els.inHard.value = String(hard);
         els.inImpossible.value = String(impossible);
         updateLanding();
-        renderSavedScripts();
+        renderRecordingQueue();
         switchLevel(appState.currentLevelIndex);
     };
 

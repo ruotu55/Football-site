@@ -99,6 +99,232 @@ let activeScriptName = null;
 
 export function getActiveScriptName() { return activeScriptName; }
 
+/** Used by the calendar-driven Saved tab when a block is loaded — the Record
+ *  Video button reads getActiveScriptName() to derive the OBS file name. */
+export function setActiveScriptName(name) {
+    activeScriptName = name == null ? null : String(name);
+}
+
+/** Build a saved-script object from the current quiz UI state. Public so the
+ *  calendar-driven Saved tab can persist a block's script. Mirrors what
+ *  saveScriptConfirm.onclick captures below — keep in sync if that handler
+ *  changes. */
+export function captureCurrentScriptObject(name) {
+    const { els } = appState;
+    const levelsToSave = appState.levelsData.map((lvl) => {
+        ensureSlotFrontFaceScales(lvl);
+        return {
+            isLogo: lvl.isLogo,
+            isIntro: lvl.isIntro,
+            isBonus: lvl.isBonus,
+            isOutro: lvl.isOutro,
+            gameMode: lvl.gameMode || "lineup",
+            squadType: lvl.squadType,
+            selectedEntry: lvl.selectedEntry,
+            currentSquad: lvl.currentSquad,
+            formationId: lvl.formationId,
+            lastFormationId: lvl.lastFormationId,
+            displayMode: lvl.displayMode,
+            searchText: lvl.searchText,
+            customXi: lvl.customXi,
+            customNames: lvl.customNames,
+            videoMode: lvl.videoMode,
+            landingPageType: lvl.landingPageType,
+            careerClubsCount: lvl.careerClubsCount,
+            careerSilhouetteIndex: lvl.careerSilhouetteIndex,
+            silhouetteYOffset: lvl.silhouetteYOffset,
+            silhouetteScaleX: lvl.silhouetteScaleX,
+            silhouetteScaleY: lvl.silhouetteScaleY,
+            headerLogoScale: lvl.headerLogoScale ?? 1,
+            headerLogoNudgeX: lvl.headerLogoNudgeX ?? 0,
+            headerLogoOverrideRelPath: lvl.headerLogoOverrideRelPath ?? null,
+            slotClubCrestOverrideRelPathBySlot:
+              lvl.slotClubCrestOverrideRelPathBySlot &&
+              typeof lvl.slotClubCrestOverrideRelPathBySlot === "object"
+                ? { ...lvl.slotClubCrestOverrideRelPathBySlot }
+                : {},
+            slotFlagScales: Array.isArray(lvl.slotFlagScales)
+                ? [...lvl.slotFlagScales]
+                : Array(11).fill(DEFAULT_SLOT_FLAG_SCALE),
+            slotTeamLogoScales: Array.isArray(lvl.slotTeamLogoScales)
+                ? [...lvl.slotTeamLogoScales]
+                : Array(11).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
+            slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
+        };
+    });
+
+    const newScript = {
+        name,
+        folder: null,
+        landing: {
+            gameMode: "lineup",
+            quizType: els.inQuizType.value,
+            endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
+            easy: els.inEasy.value,
+            medium: els.inMedium.value,
+            hard: els.inHard.value,
+            impossible: els.inImpossible.value,
+        },
+        lineup: {
+            videoMode: els.videoModeToggle.checked,
+            totalLevels: els.quizLevelsInput.value,
+            shortsMode: FIXED_SHORTS_MODE,
+        },
+        transitions: captureTransitionSettings(),
+        levels: levelsToSave,
+    };
+    return newScript;
+}
+
+/** Apply a previously-captured script object to the current UI. Same semantics
+ *  as clicking a saved-scripts row, but exposed so the calendar-driven Saved
+ *  tab can load a block. Sets activeScriptName so the Record Video button picks
+ *  up the block name as the OBS file name. */
+export async function applyScriptObject(script) {
+    return loadScript(script);
+}
+
+/** Build a script object from a "[Team1, Team2, ...]" paste — the same flow
+ *  the legacy Import modal ran, but headless so the calendar-driven Saved tab
+ *  can call it from its block-save modal. Returns one of:
+ *    { ok: true, script }
+ *    { ok: false, errors: string[], searchableNames: Set<string> }  // resolution needed
+ *    { ok: false, errors: ["..."] }                                   // parse failure
+ *  Does NOT mutate UI state (no activeScriptName, no rendering). The caller
+ *  decides what to do with the returned script. */
+export async function buildScriptFromImportText(text, name) {
+    const { els } = appState;
+    const parsed = parseImportText(text);
+    if (parsed.error) return { ok: false, errors: [parsed.error] };
+
+    const names = await applyImportAliasesToNames(parsed.names);
+    await ensureSavedLayoutsLoaded();
+
+    const allClubs = appState.teamsIndex?.clubs || [];
+    const allNats = appState.teamsIndex?.nationalities || [];
+
+    /* National Team quiz — only national teams are accepted. Club names get a
+       specific error so the user understands the reason. */
+    const errors = [];
+    const searchableNames = new Set();
+    const resolved = [];
+
+    for (const rawName of names) {
+        const normTeam = resolveTeamAlias(normalizeForImport(rawName));
+        let entry = allNats.find((t) => normalizeForImport(t.name) === normTeam);
+        if (!entry) {
+            entry = allNats.find(
+                (t) =>
+                    normalizeForImport(t.name).includes(normTeam) ||
+                    normTeam.includes(normalizeForImport(t.name)),
+            );
+        }
+        if (!entry) {
+            let clubMatch = allClubs.find((t) => normalizeForImport(t.name) === normTeam);
+            if (!clubMatch) {
+                clubMatch = allClubs.find(
+                    (t) =>
+                        normalizeForImport(t.name).includes(normTeam) ||
+                        normTeam.includes(normalizeForImport(t.name)),
+                );
+            }
+            if (clubMatch) {
+                errors.push(`❌ ${rawName} is a club, not a national team. This runner only accepts national teams.`);
+            } else {
+                errors.push(`❌ ${rawName}: national team not found.`);
+            }
+            searchableNames.add(rawName);
+            continue;
+        }
+        if (!hasSavedLayoutForEntry(entry)) {
+            errors.push(`❌ ${rawName} dont have a save team.`);
+            searchableNames.add(rawName);
+            continue;
+        }
+        resolved.push({ rawName, entry, isNational: true });
+    }
+
+    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    const levelDatas = [];
+    for (const { rawName, entry, isNational } of resolved) {
+        let squad;
+        try {
+            squad = await loadSquadJson(entry);
+        } catch {
+            errors.push(`❌ ${rawName}: failed to load squad data.`);
+            continue;
+        }
+        const layout = await buildImportLevelDataFromSavedLayout(entry, squad);
+        if (!layout) {
+            errors.push(`❌ ${rawName} dont have a save team.`);
+            searchableNames.add(rawName);
+            continue;
+        }
+        levelDatas.push(
+            makeEmptyImportLevel({
+                squadType: layout.squadType ?? (isNational ? "national" : "club"),
+                selectedEntry: entry,
+                currentSquad: squad,
+                formationId: layout.formationId,
+                lastFormationId: layout.lastFormationId,
+                displayMode: layout.displayMode ?? (isNational ? "country" : "club"),
+                searchText: squad.name || entry.name,
+                customXi: layout.customXi,
+                customNames: layout.customNames || {},
+                landingPageType: isNational ? "nationality" : "club",
+                headerLogoScale: layout.headerLogoScale ?? 1,
+                headerLogoNudgeX: layout.headerLogoNudgeX ?? 0,
+                headerLogoOverrideRelPath: layout.headerLogoOverrideRelPath ?? null,
+                slotClubCrestOverrideRelPathBySlot: layout.slotClubCrestOverrideRelPathBySlot || {},
+                slotFlagScales: Array.isArray(layout.slotFlagScales)
+                    ? [...layout.slotFlagScales]
+                    : Array(11).fill(DEFAULT_SLOT_FLAG_SCALE),
+                slotTeamLogoScales: Array.isArray(layout.slotTeamLogoScales)
+                    ? [...layout.slotTeamLogoScales]
+                    : Array(11).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
+                slotPhotoIndexEntries: Array.isArray(layout.slotPhotoIndexEntries)
+                    ? layout.slotPhotoIndexEntries
+                    : [],
+            }),
+        );
+    }
+
+    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    const n = levelDatas.length;
+    // Fold last imported entry into the bonus slot so we don't append an empty bonus.
+    if (levelDatas.length > 0) levelDatas[levelDatas.length - 1].isBonus = true;
+    const allLevels = [
+        makeEmptyImportLevel({ isLogo: true }),
+        ...levelDatas,
+        makeEmptyImportLevel({ isOutro: true }),
+    ];
+
+    const script = {
+        name,
+        folder: null,
+        landing: {
+            gameMode: "lineup",
+            quizType: els.inQuizType?.value || "nat-by-club",
+            endingType: els.inEndingType?.value || "think-you-know",
+            easy: 10,
+            medium: 5,
+            hard: 3,
+            impossible: 1,
+        },
+        lineup: {
+            videoMode: false,
+            totalLevels: n,
+            shortsMode: FIXED_SHORTS_MODE,
+        },
+        transitions: {},
+        levels: allLevels,
+    };
+
+    return { ok: true, script };
+}
+
 let uiCallbacks = {};
 
 // ---------------------------------------------------------------------------
@@ -1101,7 +1327,12 @@ async function loadScript(script) {
     els.teamResults.replaceChildren();
 
     applyCustomSelects();
-    renderSavedScripts();
+    /* The calendar-driven Saved tab listens for "recording-queue:script-applied"
+       to re-render with the new active block. The legacy savedScripts list no
+       longer mounts, so we skip renderSavedScripts() here. */
+    document.dispatchEvent(new CustomEvent("recording-queue:script-applied", {
+        detail: { name: activeScriptName },
+    }));
     appState.currentLevelIndex = 0;
     switchLevel(1);
 }

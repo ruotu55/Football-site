@@ -100,6 +100,227 @@ let scriptToDeleteIndex = -1;
 let activeScriptName = null;
 export function getActiveScriptName() { return activeScriptName; }
 
+/** Used by the calendar-driven Saved tab when a block is loaded — the Record
+ *  Video button reads getActiveScriptName() to derive the OBS file name. */
+export function setActiveScriptName(name) {
+    activeScriptName = name == null ? null : String(name);
+}
+
+// Module-level levels-snapshot builder so captureCurrentScriptObject (called
+// from the calendar-driven Saved tab) can use it without going through
+// initSavedScripts. Mirrors what commitSavedScript() captures below — keep in
+// sync if that helper changes.
+function buildLevelsSnapshotForCapture() {
+    return appState.levelsData.map((lvl) => ({
+        isLogo: lvl.isLogo,
+        isIntro: lvl.isIntro,
+        isBonus: lvl.isBonus,
+        isOutro: lvl.isOutro,
+        gameMode: lvl.gameMode || "career",
+        squadType: lvl.squadType,
+        selectedEntry: jsonSafeClone(lvl.selectedEntry),
+        currentSquad: jsonSafeClone(lvl.currentSquad),
+        careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
+        careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
+        formationId: lvl.formationId,
+        lastFormationId: lvl.lastFormationId,
+        displayMode: lvl.displayMode,
+        searchText: lvl.searchText,
+        customXi: jsonSafeClone(lvl.customXi),
+        customNames: jsonSafeClone(lvl.customNames) || {},
+        videoMode: lvl.videoMode,
+        landingPageType: lvl.landingPageType,
+        careerClubsCount: lvl.careerClubsCount,
+        careerSilhouetteIndex: lvl.careerSilhouetteIndex,
+        careerReadyPhotoVariantIndex: lvl.careerReadyPhotoVariantIndex ?? 1,
+        silhouetteYOffset: lvl.silhouetteYOffset,
+        silhouetteScaleX: lvl.silhouetteScaleX,
+        silhouetteScaleY: lvl.silhouetteScaleY,
+        silhouetteVideoYOffset: lvl.silhouetteVideoYOffset,
+        silhouetteVideoScaleX: lvl.silhouetteVideoScaleX,
+        silhouetteVideoScaleY: lvl.silhouetteVideoScaleY,
+        silhouetteNormalYOffset: lvl.silhouetteNormalYOffset,
+        silhouetteNormalScaleX: lvl.silhouetteNormalScaleX,
+        silhouetteNormalScaleY: lvl.silhouetteNormalScaleY,
+        silhouetteShortsVideoYOffset: lvl.silhouetteShortsVideoYOffset,
+        silhouetteShortsVideoScaleX: lvl.silhouetteShortsVideoScaleX,
+        silhouetteShortsVideoScaleY: lvl.silhouetteShortsVideoScaleY,
+        silhouetteShortsNormalYOffset: lvl.silhouetteShortsNormalYOffset,
+        silhouetteShortsNormalScaleX: lvl.silhouetteShortsNormalScaleX,
+        silhouetteShortsNormalScaleY: lvl.silhouetteShortsNormalScaleY,
+        careerSlotBadgeScales: Array.isArray(lvl.careerSlotBadgeScales)
+            ? [...lvl.careerSlotBadgeScales]
+            : [],
+        careerSlotBadgeScalesRegular: Array.isArray(lvl.careerSlotBadgeScalesRegular)
+            ? [...lvl.careerSlotBadgeScalesRegular]
+            : [],
+        careerSlotBadgeScalesShorts: Array.isArray(lvl.careerSlotBadgeScalesShorts)
+            ? [...lvl.careerSlotBadgeScalesShorts]
+            : [],
+        careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
+            ? [...lvl.careerSlotYearNudges]
+            : [],
+        slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
+    }));
+}
+
+/** Build a saved-script object from the current quiz UI state. Public so the
+ *  calendar-driven Saved tab can persist a block's script. Mirrors what
+ *  commitSavedScript() captures inside initSavedScripts — keep in sync. */
+export function captureCurrentScriptObject(name) {
+    const { els } = appState;
+    const levelsToSave = buildLevelsSnapshotForCapture();
+    const newScript = {
+        name,
+        folder: null,
+        landing: {
+            gameMode: "career",
+            quizType: els.inQuizType.value,
+            endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
+            easy: els.inEasy?.value ?? "10",
+            medium: els.inMedium?.value ?? "5",
+            hard: els.inHard?.value ?? "3",
+            impossible: els.inImpossible?.value ?? "1",
+        },
+        lineup: {
+            videoMode: els.videoModeToggle.checked,
+            totalLevels: els.quizLevelsInput.value,
+            shortsMode: FIXED_SHORTS_MODE,
+        },
+        transitions: captureTransitionSettings(),
+        levels: levelsToSave,
+    };
+    return newScript;
+}
+
+/** Apply a previously-captured script object to the current UI. Same semantics
+ *  as clicking a saved-scripts row, but exposed so the calendar-driven Saved
+ *  tab can load a block. Sets activeScriptName so the Record Video button picks
+ *  up the block name as the OBS file name. */
+export async function applyScriptObject(script) {
+    return loadScript(script);
+}
+
+/** Build a script object from a "[Player1, Player2, ...]" paste — the same
+ *  flow the legacy Import modal ran, but headless so the calendar-driven Saved
+ *  tab can call it from its block-save modal. Returns one of:
+ *    { ok: true, script }
+ *    { ok: false, errors: string[], searchableNames: Set<string> }
+ *    { ok: false, errors: ["..."] }
+ *  Does NOT mutate UI state (no activeScriptName, no rendering). The caller
+ *  decides what to do with the returned script. */
+export async function buildScriptFromImportText(text, name) {
+    const { els } = appState;
+    const parsed = parseImportText(text);
+    if (parsed.error) return { ok: false, errors: [parsed.error] };
+
+    const names = await applyImportAliasesToNames(parsed.names);
+
+    let allPlayers;
+    try {
+        allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+            ? await appState.loadAllGlobalPlayers()
+            : (appState.allGlobalPlayers || []);
+    } catch {
+        allPlayers = appState.allGlobalPlayers || [];
+    }
+    if (!allPlayers || allPlayers.length === 0) {
+        return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
+    }
+
+    const errors = [];
+    const searchableNames = new Set();
+    const resolved = new Array(names.length).fill(null);
+    const ambiguous = [];
+    for (let i = 0; i < names.length; i++) {
+        const rawName = names[i];
+        const cands = findAllPlayerCandidates(rawName, allPlayers);
+        if (cands.length === 0) {
+            errors.push(`❌ ${rawName}: player not found.`);
+            searchableNames.add(rawName);
+        } else if (cands.length === 1) {
+            resolved[i] = cands[0];
+        } else {
+            ambiguous.push({ listIndex: i, rawName, candidates: cands });
+        }
+    }
+    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    if (ambiguous.length > 0) {
+        // Headless mode — surface the ambiguity as an error and let the caller
+        // re-run with a fuller name.
+        const ambigLines = ambiguous.map((a) => `❌ ${a.rawName}: ambiguous (${a.candidates.length} matches). Use a more specific name.`);
+        const ambigSet = new Set(ambiguous.map((a) => a.rawName));
+        return { ok: false, errors: ambigLines, searchableNames: ambigSet };
+    }
+
+    const levelDatas = [];
+    for (let i = 0; i < resolved.length; i++) {
+        const player = resolved[i];
+        const rawName = names[i];
+        const clubItem = player._clubItem;
+        if (!clubItem) {
+            errors.push(`❌ ${rawName}: missing club reference.`);
+            continue;
+        }
+        let squad;
+        try {
+            squad = await loadSquadJson(clubItem);
+        } catch {
+            errors.push(`❌ ${rawName}: failed to load squad data.`);
+            continue;
+        }
+        const history = cleanCareerHistory(player.transfer_history || []);
+        const careerClubsCount = Math.max(2, history.length);
+        levelDatas.push(makeEmptyPlayerImportLevel({
+            gameMode: "career",
+            squadType: "club",
+            selectedEntry: clubItem,
+            currentSquad: squad,
+            careerPlayer: player,
+            careerHistory: history,
+            careerClubsCount,
+            searchText: player.name,
+            displayMode: "club",
+            landingPageType: "club",
+        }));
+    }
+
+    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    const n = levelDatas.length;
+    if (levelDatas.length > 0) levelDatas[levelDatas.length - 1].isBonus = true;
+    const allLevels = [
+        makeEmptyPlayerImportLevel({ isLogo: true }),
+        ...(INCLUDE_INTRO_LEVEL ? [makeEmptyPlayerImportLevel({ isIntro: true })] : []),
+        ...levelDatas,
+        makeEmptyPlayerImportLevel({ isOutro: true }),
+    ];
+
+    const script = {
+        name,
+        folder: null,
+        landing: {
+            gameMode: "career",
+            quizType: els.inQuizType?.value || "nat-by-club",
+            endingType: els.inEndingType?.value || "think-you-know",
+            easy: els.inEasy?.value ?? "10",
+            medium: els.inMedium?.value ?? "5",
+            hard: els.inHard?.value ?? "3",
+            impossible: els.inImpossible?.value ?? "1",
+        },
+        lineup: {
+            videoMode: true,
+            totalLevels: n,
+            shortsMode: FIXED_SHORTS_MODE,
+        },
+        transitions: {},
+        levels: allLevels,
+    };
+
+    return { ok: true, script };
+}
+
 let uiCallbacks = {};
 
 // ---------------------------------------------------------------------------
@@ -1293,7 +1514,12 @@ async function loadScript(script) {
     els.teamResults.replaceChildren();
 
     applyCustomSelects();
-    renderSavedScripts();
+    /* The calendar-driven Saved tab listens for "recording-queue:script-applied"
+       to re-render with the new active block. The legacy savedScripts list no
+       longer mounts, so we skip renderSavedScripts() here. */
+    document.dispatchEvent(new CustomEvent("recording-queue:script-applied", {
+        detail: { name: activeScriptName },
+    }));
     appState.bundledVoiceVariants = pickRandomBundledVariants();
     void renderVoiceTab();
     appState.currentLevelIndex = 1;

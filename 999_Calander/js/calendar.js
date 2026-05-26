@@ -1,6 +1,7 @@
 (function () {
   const { uploadsForDay, uploadsForMonth, phaseForDate, PHASES, pad2, sameYMD, START_DATE } = window.FCSchedule;
   const { get: getUploadStatus, set: setUploadStatus, remove: removeUploadStatus } = window.FCUploadStatus;
+  const FCRecordingStatus = window.FCRecordingStatus;
 
   const MONTH_NAMES = [
     "January", "February", "March", "April", "May", "June",
@@ -71,33 +72,29 @@
     pill.className = `upload upload-${u.type} channel-${u.channel}`;
     if (status) pill.classList.add("upload--done");
 
-    const main = document.createElement("div");
-    main.className = "upload-main";
+    /* Flat-column pill layout — chip + YouTube-upload check sit on a top
+       row, time and runner name flow below. No absolute positioning so
+       nothing overlaps at any cell size. The chip mirrors the runner Saved
+       tab's labels; the check still toggles the YouTube-upload URL modal. */
+    const top = document.createElement("div");
+    top.className = "upload-top";
 
-    const title =
-      `${u.channel.toUpperCase()} · ${u.type === "long" ? "Long-form" : "Short"}\n`
-      + `${u.runner.name} · Episode #${u.episode}\n`
-      + `Upload: ${pad2(u.hour)}:${pad2(u.min)} Israel time`;
-
-    if (status) {
-      const link = document.createElement("a");
-      link.className = "upload-body";
-      link.href = status.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.title = title + "\n" + status.url;
-      link.innerHTML = `
-        <span class="time">${pad2(u.hour)}:${pad2(u.min)}</span>
-        <span class="runner">#${u.episode} ${u.runner.name}</span>
-        <span class="upload-view">View ↗</span>
-      `;
-      main.appendChild(link);
+    if (FCRecordingStatus) {
+      const block = FCRecordingStatus.getBlock(u.runner.id, u.type, u.episode);
+      const blockState = FCRecordingStatus.statusForBlock(block);
+      const pillState = FCRecordingStatus.statusForPill(u.runner.id, u.type, u.episode, u.channel);
+      pill.dataset.recState = pillState;
+      const chip = document.createElement("span");
+      chip.className = `rec-chip rec-chip--${blockState}`;
+      chip.textContent = FCRecordingStatus.labelForBlock(block);
+      chip.title = block
+        ? `Block: ${block.name || "(unnamed)"} — #${u.episode}`
+        : `No block yet · #${u.episode}`;
+      top.appendChild(chip);
     } else {
-      main.title = title;
-      main.innerHTML = `
-        <span class="time">${pad2(u.hour)}:${pad2(u.min)}</span>
-        <span class="runner">#${u.episode} ${u.runner.name}</span>
-      `;
+      const spacer = document.createElement("span");
+      spacer.style.flex = "1";
+      top.appendChild(spacer);
     }
 
     const check = document.createElement("button");
@@ -110,9 +107,31 @@
       e.stopPropagation();
       openUrlModal(date, u);
     });
+    top.appendChild(check);
 
-    pill.appendChild(main);
-    pill.appendChild(check);
+    const title =
+      `${u.channel.toUpperCase()} · ${u.type === "long" ? "Long-form" : "Short"}\n`
+      + `${u.runner.name} · Episode #${u.episode}\n`
+      + `Upload: ${pad2(u.hour)}:${pad2(u.min)} Israel time`;
+
+    const body = document.createElement(status ? "a" : "div");
+    body.className = "upload-body";
+    if (status) {
+      body.href = status.url;
+      body.target = "_blank";
+      body.rel = "noopener noreferrer";
+      body.title = title + "\n" + status.url;
+    } else {
+      body.title = title;
+    }
+    body.innerHTML = `
+      <div class="upload-time">${pad2(u.hour)}:${pad2(u.min)}</div>
+      <div class="upload-runner">#${u.episode} ${u.runner.name}</div>
+      ${status ? '<div class="upload-view">View ↗</div>' : ""}
+    `;
+
+    pill.appendChild(top);
+    pill.appendChild(body);
     return pill;
   }
 
@@ -129,18 +148,22 @@
       if (cursor >= START_DATE) phases.add(phaseForDate(cursor).id);
       cursor.setDate(cursor.getDate() + 1);
     }
+    /* The phase-badge element was removed from the controls bar — bail
+       quietly if some future caller still expects to populate it. */
     const badge = document.getElementById("phase-badge");
-    if (phases.size === 0) {
-      badge.textContent = "Pre-launch";
-      badge.dataset.phase = "0";
-    } else {
-      const ids = [...phases].sort();
-      const labels = ids.map(id => {
-        const p = PHASES.find(x => x.id === id);
-        return `P${p.id} · ${p.name}`;
-      });
-      badge.textContent = labels.join(" → ");
-      badge.dataset.phase = ids.join("");
+    if (badge) {
+      if (phases.size === 0) {
+        badge.textContent = "Pre-launch";
+        badge.dataset.phase = "0";
+      } else {
+        const ids = [...phases].sort();
+        const labels = ids.map(id => {
+          const p = PHASES.find(x => x.id === id);
+          return `P${p.id} · ${p.name}`;
+        });
+        badge.textContent = labels.join(" → ");
+        badge.dataset.phase = ids.join("");
+      }
     }
   }
 
@@ -214,6 +237,9 @@
 
   function renderStats() {
     const stats = document.getElementById("month-stats");
+    /* The summary bar was removed from the calendar layout — bail early when
+       the host element isn't present rather than crashing the render. */
+    if (!stats) return;
     let longCount = 0, shortCount = 0, uploadedCount = 0;
     const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
     for (let d = 1; d <= daysInMonth; d++) {
@@ -289,6 +315,14 @@
   });
 
   document.body.dataset.channel = activeChannel;
+
+  /* Re-render the calendar whenever the recording-status store updates so
+     newly-recorded blocks light up without a manual refresh. The client
+     polls every 10s; we only need to repaint the pills (not the header or
+     stats — those don't depend on recording status). */
+  if (FCRecordingStatus && typeof FCRecordingStatus.subscribe === "function") {
+    FCRecordingStatus.subscribe(() => renderCalendar());
+  }
 
   document.getElementById("url-save").addEventListener("click", () => {
     if (!pendingSlot) return;

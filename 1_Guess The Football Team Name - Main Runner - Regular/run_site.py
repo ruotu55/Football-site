@@ -1878,6 +1878,19 @@ def _load_runner_json_blob():  # noqa: D401
 _runner_blob_mod = _load_runner_json_blob()
 
 
+def _load_recording_status():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_recording_status.py"
+    spec = importlib.util.spec_from_file_location("_fc_recording_status", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_recording_status.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_recording_status_mod = _load_recording_status()
+
+
 def _load_runner_update_data():  # noqa: D401
     path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_update_data.py"
     spec = importlib.util.spec_from_file_location("_fc_runner_update_data", path)
@@ -2923,6 +2936,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
             return
+        if _recording_status_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if _runner_aliases_mod.try_handle_get(self, PROJECT_ROOT):
@@ -2954,6 +2969,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_blob_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _runner_update_mod.try_handle_post(self, PROJECT_ROOT):
             return

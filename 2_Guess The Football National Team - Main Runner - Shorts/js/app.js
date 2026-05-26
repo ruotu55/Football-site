@@ -27,7 +27,8 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { initSavedScripts, renderSavedScripts, getActiveScriptName } from "./saved-scripts.js";
+import { getActiveScriptName } from "./saved-scripts.js";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -960,7 +961,9 @@ async function init() {
     // Call initialized modules
     initLevelControls();
     initTransitionsUI();
-    initSavedScripts({ populateSubTypes, updateSetupUI, updateLanding });
+    // Migrated from legacy initSavedScripts() to the calendar-driven recording
+    // queue — the Saved tab now lists the next 10 upcoming episodes.
+    void initRecordingQueue();
     initUpdateData();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
@@ -1090,7 +1093,7 @@ async function init() {
         els.inHard.value = String(hard);
         els.inImpossible.value = String(impossible);
         updateLanding();
-        renderSavedScripts();
+        renderRecordingQueue();
         renderHeader();
         switchLevel(appState.currentLevelIndex);
     };

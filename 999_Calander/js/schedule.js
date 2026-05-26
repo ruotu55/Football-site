@@ -2,10 +2,15 @@
  *
  * Cadence (per channel): 1 Short every day · 3 Long-form per week (all at 18:00 Israel).
  *
- * Long-form days (18:00 IL):
- *  - Monday  — PL weekend-recap traffic peak
- *  - Wednesday — mid-week / pre-UCL window (before 21:00 CET kickoffs)
- *  - Sunday — weekend football wrap (evening habit, clear of Sat PL afternoon matches)
+ * Long-form days (18:00 IL) — chosen for even spread + football-audience peaks:
+ *  - Sunday    — post-PL weekend wrap; Sunday-evening viewing habit
+ *  - Wednesday — mid-week recap & UCL build (UCL kickoffs are 22:00 IL, so 18:00
+ *                lands in the pre-game buzz window, not the live competition)
+ *  - Friday    — highest CTR weekday on YouTube; weekend-content planning starts
+ *
+ * Gap pattern: Sun → Wed (3 days), Wed → Fri (2 days), Fri → Sun (2 days). No
+ * back-to-back days, no Saturday upload (PL Sat afternoon ≈ 14:00 IL onwards
+ * cannibalises views), no head-on competition with UCL/UEL kickoffs.
  *
  * Shorts — one slot daily, timed 2–3 h before audience peaks; on long days the Short
  * is morning/early afternoon so Long and Short never sit back-to-back in the grid.
@@ -45,9 +50,9 @@ const PHASES = [
     startsOn: new Date(2026, 4, 30),
     en: {
       long: [
-        { dow: 1, hour: 18, min: 0 }, // Mon 18:00 — PL weekend recap peak
-        { dow: 3, hour: 18, min: 0 }, // Wed 18:00 — pre-UCL (before 22:00 IL kickoffs)
         { dow: 0, hour: 18, min: 0 }, // Sun 18:00 — weekend wrap, post-Sat/Sun PL window
+        { dow: 3, hour: 18, min: 0 }, // Wed 18:00 — mid-week + pre-UCL (kickoffs 22:00 IL)
+        { dow: 5, hour: 18, min: 0 }, // Fri 18:00 — highest CTR weekday, weekend hype
       ],
       short: [
         { dow: 0, hour: 12, min: 0 }, // Sun 12:00 — morning (long same day at 18:00)
@@ -61,9 +66,9 @@ const PHASES = [
     },
     es: {
       long: [
-        { dow: 1, hour: 18, min: 0 }, // Mon 18:00 IL = Spain 17:00
-        { dow: 3, hour: 18, min: 0 }, // Wed 18:00 IL = Spain 17:00
         { dow: 0, hour: 18, min: 0 }, // Sun 18:00 IL = Spain 17:00
+        { dow: 3, hour: 18, min: 0 }, // Wed 18:00 IL = Spain 17:00
+        { dow: 5, hour: 18, min: 0 }, // Fri 18:00 IL = Spain 17:00 (weekend hype)
       ],
       short: [
         { dow: 0, hour: 13, min: 0 }, // Sun — Spain afternoon, before long
@@ -102,49 +107,38 @@ function dateKey(d) {
   return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
 }
 
-// Slots firing on a given date (no runner assignment) — used by buildSchedule below
-function slotsForDay(date) {
-  if (date < START_DATE) return [];
-  const phase = phaseForDate(date);
-  const dow = date.getDay();
-  const out = [];
-  for (const channel of ["en", "es"]) {
-    for (const type of ["long", "short"]) {
-      const phaseSlots = phase[channel][type];
-      phaseSlots.forEach(s => {
-        if (s.dow !== dow) return;
-        out.push({
-          channel, type,
-          hour: s.hour, min: s.min,
-          phase: phase.id,
-        });
-      });
-    }
-  }
-  out.sort((a, b) => (a.hour * 60 + a.min) - (b.hour * 60 + b.min));
-  return out;
-}
-
 /* buildSchedule(endDate)
  *
  * Walks from START_DATE day-by-day and assigns runners using a STRICTLY SEQUENTIAL
- * counter per (channel + type). The runner picked is `pool[counter % pool.length]`
+ * counter per type. The runner picked is `pool[(counter + TYPE_OFFSET) % pool.length]`
  * where `pool` is the set of runners available on that date.
  *
- * Guarantees: no quiz repeats within (pool.length / slots_per_week) weeks for a given
- * channel+type — e.g. EN long has 3 slots/wk and 8 runners → ≥ 2.7 weeks between
- * repeats on long-form; EN short has 7 slots/wk → ≥ 1.1 weeks between short repeats.
+ * EN and ES PAIR: on every date, the EN and ES slots of the same type share a
+ * single counter — meaning they assign the SAME runner and SAME episode number.
+ * The two channels differ only in upload hour (e.g. EN at 18:00 IL, ES at 17:00
+ * Spain ≈ 18:00 IL for long-form). One recording session per language covers
+ * the same calendar block in both channels.
+ *
+ * Guarantees: no quiz repeats within (pool.length / slots_per_week) weeks for a
+ * given type — e.g. long has 3 slots/wk and 8 runners → ≥ 2.7 weeks between
+ * repeats on long-form; short has 7 slots/wk → ≥ 1.1 weeks between short repeats.
  *
  * The counter persists across phases, so phase transitions don't re-collide.
- *
- * Channels are offset against each other so EN and ES don't release the same quiz
- * on the same day.
  */
-const CHANNEL_OFFSET = { en: 0, es: 7 };
 const TYPE_OFFSET = { long: 0, short: 3 };
 
 let _scheduleCache = null;
 let _scheduleCacheEnd = null;
+
+/** Slots firing on a given date for one channel — kept channel-agnostic
+ *  (returns the raw hour/min array per type) so buildSchedule can pair them. */
+function _channelSlotsForDay(phase, channel, type, dow) {
+  const out = [];
+  for (const s of phase[channel][type]) {
+    if (s.dow === dow) out.push({ hour: s.hour, min: s.min });
+  }
+  return out;
+}
 
 function buildSchedule(endDate) {
   // Cache: if we've already built through this date, reuse
@@ -152,32 +146,92 @@ function buildSchedule(endDate) {
     return _scheduleCache;
   }
 
-  const slotCounters = new Map();
-  const episodeCounters = new Map();
+  const slotCounters = new Map();    // key: <type>           → idx (drives pool selection)
+  const episodeCounters = new Map(); // key: <type>|<runnerId> → next episode # (shared by EN+ES)
   const byDate = new Map();
 
   const cursor = new Date(START_DATE.getFullYear(), START_DATE.getMonth(), START_DATE.getDate());
   const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
 
   while (cursor <= end) {
-    const slots = slotsForDay(cursor);
-    if (slots.length) {
-      const pool = availableRunners(cursor);
-      const enriched = [];
-      for (const s of slots) {
-        const ctKey = `${s.channel}|${s.type}`;
-        const idx = slotCounters.get(ctKey) || 0;
-        slotCounters.set(ctKey, idx + 1);
+    if (cursor < START_DATE) {
+      cursor.setDate(cursor.getDate() + 1);
+      continue;
+    }
+    const phase = phaseForDate(cursor);
+    const dow = cursor.getDay();
+    const pool = availableRunners(cursor);
+    const enriched = [];
 
-        const poolIdx = (idx + CHANNEL_OFFSET[s.channel] + TYPE_OFFSET[s.type]) % pool.length;
+    for (const type of ["long", "short"]) {
+      const enHours = _channelSlotsForDay(phase, "en", type, dow);
+      const esHours = _channelSlotsForDay(phase, "es", type, dow);
+      // The phase definitions mirror DOW across EN/ES, so en/es slot counts
+      // should match. Pair index-by-index; if they ever drift (e.g. a future
+      // phase has unbalanced slots), the unpaired tail falls through as solo
+      // entries with their own counter ticks.
+      const pairCount = Math.min(enHours.length, esHours.length);
+
+      for (let i = 0; i < pairCount; i++) {
+        const slotIdx = slotCounters.get(type) || 0;
+        slotCounters.set(type, slotIdx + 1);
+        const poolIdx = (slotIdx + TYPE_OFFSET[type]) % pool.length;
         const runner = pool[poolIdx];
 
-        const epKey = `${s.channel}|${s.type}|${runner.id}`;
+        const epKey = `${type}|${runner.id}`;
         const ep = (episodeCounters.get(epKey) || 0) + 1;
         episodeCounters.set(epKey, ep);
 
-        enriched.push({ ...s, runner, episode: ep });
+        // EN and ES share runner + episode for this date — the recording-queue
+        // block keyed by (runnerId, type, episode) now maps to ONE calendar
+        // date, with the EN and ES uploads sitting at their respective hours.
+        enriched.push({
+          channel: "en", type,
+          hour: enHours[i].hour, min: enHours[i].min,
+          phase: phase.id, runner, episode: ep,
+        });
+        enriched.push({
+          channel: "es", type,
+          hour: esHours[i].hour, min: esHours[i].min,
+          phase: phase.id, runner, episode: ep,
+        });
       }
+
+      // Defensive: if EN/ES ever fall out of sync within a phase, walk the
+      // extras one channel at a time so we don't silently drop scheduled
+      // uploads. They still consume the type counter and get an episode.
+      for (let i = pairCount; i < enHours.length; i++) {
+        const slotIdx = slotCounters.get(type) || 0;
+        slotCounters.set(type, slotIdx + 1);
+        const poolIdx = (slotIdx + TYPE_OFFSET[type]) % pool.length;
+        const runner = pool[poolIdx];
+        const epKey = `${type}|${runner.id}`;
+        const ep = (episodeCounters.get(epKey) || 0) + 1;
+        episodeCounters.set(epKey, ep);
+        enriched.push({
+          channel: "en", type,
+          hour: enHours[i].hour, min: enHours[i].min,
+          phase: phase.id, runner, episode: ep,
+        });
+      }
+      for (let i = pairCount; i < esHours.length; i++) {
+        const slotIdx = slotCounters.get(type) || 0;
+        slotCounters.set(type, slotIdx + 1);
+        const poolIdx = (slotIdx + TYPE_OFFSET[type]) % pool.length;
+        const runner = pool[poolIdx];
+        const epKey = `${type}|${runner.id}`;
+        const ep = (episodeCounters.get(epKey) || 0) + 1;
+        episodeCounters.set(epKey, ep);
+        enriched.push({
+          channel: "es", type,
+          hour: esHours[i].hour, min: esHours[i].min,
+          phase: phase.id, runner, episode: ep,
+        });
+      }
+    }
+
+    if (enriched.length) {
+      enriched.sort((a, b) => (a.hour * 60 + a.min) - (b.hour * 60 + b.min));
       byDate.set(dateKey(cursor), enriched);
     }
     cursor.setDate(cursor.getDate() + 1);

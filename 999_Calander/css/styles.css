@@ -30,27 +30,34 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 24px;
+  padding: 8px 20px;
   background: var(--panel);
   border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .brand h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: 16px;
   letter-spacing: 0.3px;
 }
 
 .brand .subtitle {
-  margin: 4px 0 0;
+  margin: 2px 0 0;
   color: var(--muted);
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .legend {
@@ -93,11 +100,12 @@ html, body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
+  padding: 6px 20px;
   background: var(--panel-2);
   border-bottom: 1px solid var(--border);
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .nav {
@@ -108,8 +116,8 @@ html, body {
 
 .nav h2 {
   margin: 0;
-  font-size: 20px;
-  min-width: 220px;
+  font-size: 16px;
+  min-width: 160px;
   text-align: center;
 }
 
@@ -118,9 +126,9 @@ html, body {
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 4px 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   transition: background 0.15s, border-color 0.15s;
 }
 
@@ -185,9 +193,9 @@ html, body {
   background: transparent;
   border: none;
   color: var(--muted);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
-  padding: 8px 22px;
+  padding: 5px 16px;
   border-radius: 999px;
   cursor: pointer;
   transition: background 0.15s, color 0.15s, box-shadow 0.15s;
@@ -209,45 +217,53 @@ html, body {
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
-  padding: 16px 24px;
+  /* Row 1 = day-of-week headers (auto-sized to their text). Rows 2-7 = day
+     cells (~220px minimum each). Splitting them lets the header strip stay
+     a normal-sized bar instead of inheriting the 220px cell height. */
+  grid-template-rows: auto;
+  grid-auto-rows: minmax(242px, auto);
+  gap: 6px;
+  padding: 10px 14px 14px;
 }
 
 .day-header {
   text-align: center;
   padding: 8px 0;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
+  color: var(--text);
+  font-size: clamp(11px, 0.85vw, 14px);
+  font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 5px;
 }
 
 .day-cell {
   background: var(--panel);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  min-height: 250px;
-  padding: 8px;
+  border-radius: 6px;
+  padding: 6px;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  overflow: hidden;
+  /* No overflow:hidden — let the cell grow taller when a pill's runner name
+     wraps to extra lines. The grid uses `minmax(220px, auto)` so cells stay
+     uniform at the 220px baseline and only grow when content needs it. */
 }
 
 .day-uploads {
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   flex: 1;
   min-height: 0;
-  align-content: center;
-  justify-items: stretch;
 }
 
 .upload-slot {
   display: flex;
-  min-height: 76px;
+  flex: 1;
+  min-height: 88px;
 }
 
 .upload-slot--empty {
@@ -274,49 +290,51 @@ html, body {
 }
 
 .day-number {
-  font-size: 16px;
+  /* clamp(min, ideal, max) keeps the day-number readable across viewport
+     sizes — never smaller than 11px, never larger than 18px, scales with
+     viewport width in between. Same pattern below for pill text. */
+  font-size: clamp(11px, 0.95vw, 18px);
   color: var(--muted);
   font-weight: 700;
   text-align: right;
-  padding: 0 2px;
+  padding: 0 3px;
+  line-height: 1.1;
 }
 
 .day-cell.today .day-number {
   color: var(--accent);
 }
 
+/* Pill — flat flex column. Top row holds the recording-status chip + the
+ * YouTube-upload check. Body holds the upload time and runner name. */
 .upload {
   flex: 1;
   width: 100%;
-  min-height: 76px;
-  font-size: 15px;
-  padding: 8px 8px 8px 10px;
+  min-height: 0;
+  padding: 8px 9px 9px;
   border-radius: 6px;
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 6px;
   border: 1px solid var(--border);
   background: var(--panel-2);
-  line-height: 1.3;
+  line-height: 1.25;
   cursor: default;
-  overflow: hidden;
+  /* No overflow:hidden — pill grows with its runner-name lines. */
 }
 
-.upload-main {
-  flex: 1;
-  min-width: 0;
+.upload-top {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 2px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .upload-check {
   flex-shrink: 0;
-  width: 15px;
-  height: 15px;
-  margin-top: 1px;
+  width: clamp(14px, 1vw, 18px);
+  height: clamp(14px, 1vw, 18px);
   padding: 0;
   border: 2px solid rgba(255, 255, 255, 0.35);
   border-radius: 3px;
@@ -372,10 +390,12 @@ html, body {
 }
 
 .upload-body {
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2px;
+  justify-content: flex-start;
+  gap: 4px;
   min-width: 0;
   color: inherit;
   text-decoration: none;
@@ -386,10 +406,10 @@ html, body {
 }
 
 .upload-view {
-  font-size: 10px;
+  font-size: clamp(10px, 0.7vw, 12px);
   font-weight: 700;
   color: var(--accent);
-  flex-shrink: 0;
+  margin-top: auto;
 }
 
 .upload--done .upload-view {
@@ -397,50 +417,53 @@ html, body {
   opacity: 0.9;
 }
 
-.upload .time {
-  font-weight: 700;
+.upload-time {
+  font-weight: 800;
   color: var(--text);
-  font-size: 15px;
-  flex-shrink: 0;
+  font-size: clamp(15px, 1.25vw, 22px);
+  line-height: 1;
+  letter-spacing: 0.5px;
 }
 
-.upload .runner {
+.upload-runner {
   color: var(--text);
-  font-size: 14px;
+  font-size: clamp(11px, 0.85vw, 14px);
   font-weight: 500;
-  line-height: 1.3;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  line-height: 1.25;
+  /* Let long runner names wrap to as many lines as they need. The cell and
+     pill grow with the content (no truncation). */
   word-break: break-word;
 }
 
 .summary {
-  padding: 20px 24px;
+  padding: 4px 12px 6px;
   background: var(--panel);
   border-top: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
-.summary h2 { margin: 0 0 12px; font-size: 18px; }
+.summary h2 { display: none; }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 6px;
 }
 
 .stat {
   background: var(--panel-2);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
-  border-radius: 6px;
-  padding: 10px 14px;
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  padding: 3px 8px;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
 }
 
-.stat .stat-label { color: var(--muted); font-size: 12px; }
-.stat .stat-value { font-size: 22px; font-weight: 700; }
-.stat .stat-sub { color: var(--muted); font-size: 11px; margin-top: 2px; }
+.stat .stat-label { color: var(--muted); font-size: 10px; }
+.stat .stat-value { font-size: 13px; font-weight: 700; }
+.stat .stat-sub { color: var(--muted); font-size: 10px; }
 
 .stat.stat-long { border-left-color: var(--long); }
 .stat.stat-short { border-left-color: var(--short); }
@@ -596,22 +619,86 @@ html, body {
 
 .card ul strong { color: #fff; }
 
+/* Responsive overrides intentionally minimal — the calendar now flex-fills
+ * 100vh, so we let cells shrink naturally. Just tighten the few text bits
+ * that get awkward at narrow widths. */
 @media (max-width: 900px) {
-  .day-cell { min-height: 180px; }
-  .upload-slot { min-height: 64px; }
-  .upload { min-height: 64px; font-size: 13px; padding: 6px 7px; }
-  .upload-check { width: 14px; height: 14px; font-size: 9px; }
-  .upload .time { font-size: 13px; }
-  .upload .runner { font-size: 12px; -webkit-line-clamp: 2; }
-  .nav h2 { min-width: 140px; font-size: 16px; }
+  .upload-check { width: 12px; height: 12px; font-size: 9px; }
+  .nav h2 { min-width: 120px; font-size: 14px; }
 }
 
 @media (max-width: 600px) {
-  .calendar { padding: 8px; gap: 2px; }
-  .day-cell { min-height: 150px; padding: 4px; }
-  .day-uploads { gap: 5px; }
-  .upload-slot { min-height: 56px; }
-  .upload { min-height: 56px; font-size: 12px; padding: 5px 6px; }
-  .upload .time { font-size: 12px; }
-  .upload .runner { font-size: 11px; -webkit-line-clamp: 2; }
+  .calendar { padding: 4px; gap: 2px; }
+  .upload { font-size: 10px; padding: 2px 3px; }
+  .upload .time { font-size: 10px; }
+  .upload .runner { font-size: 9px; }
+}
+
+/* ---------------------------------------------------------------------------
+ * Recording-status chip — same labels and colors as the runner Saved tab's
+ * status chip (recording-queue.css `.rq-status--*`). Sits in the top-left of
+ * each pill so the per-pill upload-check (top-right) stays untouched —
+ * YouTube-upload state and recording state remain visually distinct.
+ *
+ * The chip text reflects the BLOCK status (covering both EN and ES), so the
+ * EN pill and ES pill of the same episode show the same chip. The pill's
+ * background tint (via `[data-rec-state="..."]` below) still distinguishes
+ * per-channel "this language recorded" state.
+ * ------------------------------------------------------------------------- */
+
+.rec-chip {
+  /* In-flow chip on the top row — no absolute positioning so it never
+   * overlaps the pill body. Sizes scale with viewport via clamp(). */
+  font-size: clamp(9px, 0.7vw, 12px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 3px;
+  line-height: 1;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+.rec-chip--empty {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.rec-chip--ready {
+  background: rgba(245, 158, 11, 0.85);
+  color: #1a1206;
+  border-color: rgba(245, 158, 11, 0.95);
+}
+.rec-chip--recordedEnglish,
+.rec-chip--recordedSpanish {
+  background: rgba(56, 189, 248, 0.85);
+  color: #062335;
+  border-color: rgba(56, 189, 248, 0.95);
+}
+.rec-chip--recordedBoth {
+  background: rgba(34, 197, 94, 0.9);
+  color: #062817;
+  border-color: rgba(34, 197, 94, 1);
+}
+
+/* The chip is now in flex flow at the top of the pill — no extra padding
+ * needed on the body. (Legacy override removed.) */
+
+/* Pill tint — overlay a soft wash on top of the existing long/short tint
+ * without fighting the per-type colors. We use box-shadow inset so the
+ * type-color border isn't overwritten. */
+.upload[data-rec-state="ready"] {
+  box-shadow: inset 0 0 0 2px rgba(245, 158, 11, 0.35);
+}
+.upload[data-rec-state="recorded"] {
+  box-shadow: inset 0 0 0 2px rgba(34, 197, 94, 0.45);
+}
+/* When the YouTube-upload check is also done, keep its tint dominant — it's a
+ * stronger commitment than "recorded". */
+.upload--done[data-rec-state="ready"],
+.upload--done[data-rec-state="recorded"] {
+  box-shadow: none;
 }
