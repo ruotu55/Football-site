@@ -65,7 +65,31 @@
 .voice-tab-section__title::-webkit-details-marker { display: none; }
 .voice-tab-section__title::before { content: "▸"; display: inline-block; margin-right: 0.45rem; color: rgba(255,255,255,0.55); transition: transform 160ms ease; }
 .voice-tab-section[open] > .voice-tab-section__title::before { transform: rotate(90deg); }
-.voice-tab-section__empty { color: rgba(255,255,255,0.4); font-size: 0.8rem; font-style: italic; }
+.voice-tab-section__empty
+.voice-tab-bulk-btn {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0.15rem 0 0.35rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid rgba(255, 202, 40, 0.45);
+  border-radius: 0.45rem;
+  background: rgba(255, 202, 40, 0.12);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.voice-tab-bulk-btn:hover:not(:disabled) {
+  background: rgba(255, 202, 40, 0.22);
+  border-color: var(--accent, #ffca28);
+}
+.voice-tab-bulk-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+ { color: rgba(255,255,255,0.4); font-size: 0.8rem; font-style: italic; }
 /* Setup panel's Background + Transition collapsibles get a bit more breathing room
    than the dense voice rows so the form fields sit comfortably. */
 #panel-setup .voice-tab-section { gap: 1rem; padding: 0.9rem 1rem 1.1rem; }

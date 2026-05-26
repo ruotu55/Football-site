@@ -5,6 +5,10 @@ import { projectAssetUrl } from "./paths.js";
 const TEAMS_IMAGES_OTHER_TEAMS_DIR = "Images/Teams/(1) Other Teams";
 const NATIONAL_TEAM_LOGOS_DIR = "Images/National Team Logos";
 
+const CLUB_LOGO_OTHER_TEAMS_ALIASES = {
+  "olympiacos piraeus": "Olympiacos",
+};
+
 const NATIONALITY_TO_TEAM_LOGO_NAME = {
   american: "United States",
   bosnian: "Bosnia and Herzegovina",
@@ -86,7 +90,8 @@ export function getClubLogoOtherTeamsUrl(clubField) {
   if (clubField == null || typeof clubField !== "string") return null;
   const t = clubField.trim();
   if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
-  return projectAssetUrl(`${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`);
+  const fileStem = CLUB_LOGO_OTHER_TEAMS_ALIASES[t.toLowerCase()] || t;
+  return projectAssetUrl(`${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${fileStem}.png`);
 }
 
 /**
@@ -110,7 +115,8 @@ export function getClubLogoOtherTeamsRelPath(clubField) {
   if (clubField == null || typeof clubField !== "string") return null;
   const t = clubField.trim();
   if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
-  return `${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`;
+  const fileStem = CLUB_LOGO_OTHER_TEAMS_ALIASES[t.toLowerCase()] || t;
+  return `${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${fileStem}.png`;
 }
 
 /**

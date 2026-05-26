@@ -1,5 +1,6 @@
 (function () {
   const { uploadsForDay, uploadsForMonth, phaseForDate, PHASES, pad2, sameYMD, START_DATE } = window.FCSchedule;
+  const { get: getUploadStatus, set: setUploadStatus, remove: removeUploadStatus } = window.FCUploadStatus;
 
   const MONTH_NAMES = [
     "January", "February", "March", "April", "May", "June",
@@ -20,8 +21,99 @@
   let activeChannel = "en"; // "en" or "es"
   const filters = { long: true, short: true };
 
+  const modal = document.getElementById("url-modal");
+  const modalMeta = document.getElementById("url-modal-meta");
+  const urlInput = document.getElementById("url-input");
+  const urlClearBtn = document.getElementById("url-clear");
+  let pendingSlot = null; // { date, upload }
+
   function passesFilter(u) {
     return u.channel === activeChannel && filters[u.type];
+  }
+
+  function normalizeUrl(raw) {
+    let url = raw.trim();
+    if (!url) return null;
+    if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+    try {
+      new URL(url);
+      return url;
+    } catch {
+      return null;
+    }
+  }
+
+  function openUrlModal(date, upload) {
+    pendingSlot = { date, upload };
+    const status = getUploadStatus(date, upload);
+    const typeLabel = upload.type === "long" ? "Long-form" : "Short";
+    modalMeta.textContent =
+      `${pad2(date.getDate())} ${MONTH_NAMES[date.getMonth()]} ${date.getFullYear()} · `
+      + `${upload.channel.toUpperCase()} · ${typeLabel}\n`
+      + `#${upload.episode} ${upload.runner.name} · ${pad2(upload.hour)}:${pad2(upload.min)}`;
+    urlInput.value = status ? status.url : "";
+    urlClearBtn.hidden = !status;
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+    urlInput.focus();
+  }
+
+  function closeUrlModal() {
+    pendingSlot = null;
+    modal.hidden = true;
+    modal.setAttribute("aria-hidden", "true");
+    urlInput.value = "";
+  }
+
+  function buildUploadPill(date, u) {
+    const status = getUploadStatus(date, u);
+    const pill = document.createElement("div");
+    pill.className = `upload upload-${u.type} channel-${u.channel}`;
+    if (status) pill.classList.add("upload--done");
+
+    const main = document.createElement("div");
+    main.className = "upload-main";
+
+    const title =
+      `${u.channel.toUpperCase()} · ${u.type === "long" ? "Long-form" : "Short"}\n`
+      + `${u.runner.name} · Episode #${u.episode}\n`
+      + `Upload: ${pad2(u.hour)}:${pad2(u.min)} Israel time`;
+
+    if (status) {
+      const link = document.createElement("a");
+      link.className = "upload-body";
+      link.href = status.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.title = title + "\n" + status.url;
+      link.innerHTML = `
+        <span class="time">${pad2(u.hour)}:${pad2(u.min)}</span>
+        <span class="runner">#${u.episode} ${u.runner.name}</span>
+        <span class="upload-view">View ↗</span>
+      `;
+      main.appendChild(link);
+    } else {
+      main.title = title;
+      main.innerHTML = `
+        <span class="time">${pad2(u.hour)}:${pad2(u.min)}</span>
+        <span class="runner">#${u.episode} ${u.runner.name}</span>
+      `;
+    }
+
+    const check = document.createElement("button");
+    check.type = "button";
+    check.className = "upload-check";
+    check.setAttribute("aria-label", status ? "Edit video link" : "Mark as uploaded");
+    check.setAttribute("aria-pressed", status ? "true" : "false");
+    if (status) check.textContent = "\u2713";
+    check.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openUrlModal(date, u);
+    });
+
+    pill.appendChild(main);
+    pill.appendChild(check);
+    return pill;
   }
 
   function renderHeader() {
@@ -92,19 +184,28 @@
       cell.appendChild(num);
 
       const uploads = monthUploads.get(d) || [];
+      const byType = { short: null, long: null };
       for (const u of uploads) {
         if (!passesFilter(u)) continue;
-        const pill = document.createElement("div");
-        pill.className = `upload upload-${u.type} channel-${u.channel}`;
-        pill.innerHTML = `
-          <span class="time">${pad2(u.hour)}:${pad2(u.min)}</span>
-          <span class="runner">#${u.episode} ${u.runner.name}</span>
-        `;
-        pill.title =
-          `${u.channel.toUpperCase()} channel · ${u.type === "long" ? "Long-form" : "Short"}\n` +
-          `${u.runner.name} · Episode #${u.episode}\n` +
-          `Upload: ${pad2(u.hour)}:${pad2(u.min)} Israel time`;
-        cell.appendChild(pill);
+        byType[u.type] = u;
+      }
+
+      const uploadsWrap = document.createElement("div");
+      uploadsWrap.className = "day-uploads";
+      for (const type of ["short", "long"]) {
+        const slot = document.createElement("div");
+        slot.className = "upload-slot";
+        const u = byType[type];
+        if (!u) {
+          slot.classList.add("upload-slot--empty");
+          uploadsWrap.appendChild(slot);
+          continue;
+        }
+        slot.appendChild(buildUploadPill(date, u));
+        uploadsWrap.appendChild(slot);
+      }
+      if (date >= new Date(START_DATE.getFullYear(), START_DATE.getMonth(), START_DATE.getDate())) {
+        cell.appendChild(uploadsWrap);
       }
 
       cal.appendChild(cell);
@@ -113,15 +214,17 @@
 
   function renderStats() {
     const stats = document.getElementById("month-stats");
-    let longCount = 0, shortCount = 0;
+    let longCount = 0, shortCount = 0, uploadedCount = 0;
     const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
     for (let d = 1; d <= daysInMonth; d++) {
       const date = new Date(viewYear, viewMonth, d);
       const ups = uploadsForDay(date);
       for (const u of ups) {
         if (u.channel !== activeChannel) continue;
+        if (!filters[u.type]) continue;
         if (u.type === "long") longCount++;
         else if (u.type === "short") shortCount++;
+        if (getUploadStatus(date, u)) uploadedCount++;
       }
     }
     const total = longCount + shortCount;
@@ -134,6 +237,7 @@
       <div class="stat stat-long"><div class="stat-label">Long-form (month)</div><div class="stat-value">${longCount}</div><div class="stat-sub">~${longPerWeek}/week</div></div>
       <div class="stat stat-short"><div class="stat-label">Shorts (month)</div><div class="stat-value">${shortCount}</div><div class="stat-sub">~${shortPerWeek}/week</div></div>
       <div class="stat"><div class="stat-label">Total uploads</div><div class="stat-value">${total}</div></div>
+      <div class="stat stat-done"><div class="stat-label">Marked uploaded</div><div class="stat-value">${uploadedCount}<span class="stat-of"> / ${total}</span></div></div>
     `;
   }
 
@@ -185,5 +289,35 @@
   });
 
   document.body.dataset.channel = activeChannel;
+
+  document.getElementById("url-save").addEventListener("click", () => {
+    if (!pendingSlot) return;
+    const url = normalizeUrl(urlInput.value);
+    if (!url) {
+      urlInput.focus();
+      urlInput.classList.add("modal-input--error");
+      return;
+    }
+    urlInput.classList.remove("modal-input--error");
+    setUploadStatus(pendingSlot.date, pendingSlot.upload, url);
+    closeUrlModal();
+    renderCalendar();
+    renderStats();
+  });
+
+  document.getElementById("url-cancel").addEventListener("click", closeUrlModal);
+  document.getElementById("url-clear").addEventListener("click", () => {
+    if (!pendingSlot) return;
+    removeUploadStatus(pendingSlot.date, pendingSlot.upload);
+    closeUrlModal();
+    renderCalendar();
+    renderStats();
+  });
+
+  modal.querySelector(".modal-backdrop").addEventListener("click", closeUrlModal);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) closeUrlModal();
+  });
+
   renderAll();
 })();

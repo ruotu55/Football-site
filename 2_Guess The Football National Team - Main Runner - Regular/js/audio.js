@@ -1,7 +1,7 @@
-import { appState } from "./state.js";
+﻿import { appState } from "./state.js";
 import { getBundledLevelPath } from "./bundled-level-voices.js";
 
-/* ── Language-aware voice resolution. The voice-tab persists the user's language
+/* ג”€ג”€ Language-aware voice resolution. The voice-tab persists the user's language
      choice to localStorage; every gameplay clip (quiz titles, level progress,
      endings) is resolved against that language and falls back to English if the
      Spanish clip hasn't been generated yet. Team names, BGM, dong and ticking
@@ -58,7 +58,7 @@ function endingPathFor(endingType, lang) {
 
 /** Build a fallback chain: preferred-language first, English as safety net. */
 function langAwareCandidates(resolver, ...args) {
-  // Each resolver takes its domain args first and `lang` LAST — forward args in that
+  // Each resolver takes its domain args first and `lang` LAST ג€” forward args in that
   // order so `levelPathFor(levelKey, lang)`, `quizTitlePathFor(quizType, lang)` etc. work.
   const lang = getCurrentLanguage();
   if (lang === "english") return [resolver(...args, "english")].filter(Boolean);
@@ -101,25 +101,25 @@ let isBgmCrossfading = false;
 
 const STARTING_VOL = 1.0;
 const NORMAL_VOL = 1.0;
-const DUCKED_VOL = 0.2; // 20% absolute — applied during any voice clip (intro, reveal, progress, ending, bundled)
+const DUCKED_VOL = 0.2; // 20% absolute ג€” applied during any voice clip (intro, reveal, progress, ending, bundled)
 const BGM_CROSSFADE_MS = 3000;
 const BGM_CROSSFADE_BUFFER_S = 0.15;
 /* Wait this long after a voice ends before fading BGM back up. Long enough that
-   when a follow-up voice plays (rules → warm-up, reveal → progress, etc.), its
+   when a follow-up voice plays (rules ג†’ warm-up, reveal ג†’ progress, etc.), its
    playVoice() can cancel restoreTimeout BEFORE the restore fires. Otherwise the
    BGM swings up toward NORMAL_VOL then has to be ducked back down for the next
-   voice — audible as "BGM gets loud, then suddenly quiet again". */
+   voice ג€” audible as "BGM gets loud, then suddenly quiet again". */
 const RESTORE_WAIT_STANDALONE_MS = 2500;
 /* When the voice that just ended was itself part of a chain (it started shortly
-   after a previous voice ended), no further voice is expected immediately — this
+   after a previous voice ended), no further voice is expected immediately ג€” this
    IS the tail of the chain. Restore fast. */
 const RESTORE_WAIT_AFTER_CHAIN_MS = 0;
 /* A voice that starts within this window after the previous voice ended is
-   considered "in a chain" (e.g., warm-up arriving ~1–2 s after rules ends). */
+   considered "in a chain" (e.g., warm-up arriving ~1ג€“2 s after rules ends). */
 const VOICE_CHAIN_GAP_MS = 3000;
 const RESTORE_FADE_MS = 1500;
 
-/* Tracks when the last voice's `ended` event fired — used so the NEXT voice can
+/* Tracks when the last voice's `ended` event fired ג€” used so the NEXT voice can
    classify itself as "in a chain" vs "standalone" by comparing its start time. */
 let lastVoiceEndedAt = 0;
 let bgMusicTargetVolume = STARTING_VOL;
@@ -268,7 +268,7 @@ export function setBgMusicForLevel(levelIndex) {
   }
   /* Don't directly write bgMusic.volume in the non-ramping branch. The voice
      ducking system owns the actual playback volume; forcing it here on every
-     level switch was overriding an active duck (e.g., rules-voice-end →
+     level switch was overriding an active duck (e.g., rules-voice-end ג†’
      switchLevel(2) was kicking BGM to 100% instantly, just before the warm-up
      voice ducked it back down). Target stays updated either way. */
 }
@@ -313,7 +313,7 @@ export function playVoice(src, delayMs = 1000) {
   fadeBgm(DUCKED_VOL, delayMs);
 
   /* Classify THIS voice based on how recently the previous voice ended. If it
-     started shortly after the last voice's end, it's the tail of a chain — no
+     started shortly after the last voice's end, it's the tail of a chain ג€” no
      follow-up is expected, so we'll restore the BGM fast when it ends. If the
      previous voice ended long ago (or never), this voice might be the START of
      a new chain, so use the long wait to protect against a follow-up arriving
@@ -387,7 +387,7 @@ function pickExistingSrc(candidates) {
 /**
  * Probe a fallback chain and playVoice the first entry that canplay.
  * Used when the gameplay needs language-specific clips but the Spanish file
- * might not have been generated yet — fall back to English silently.
+ * might not have been generated yet ג€” fall back to English silently.
  */
 function playVoiceFromCandidates(candidates, delayMs = 1000) {
   const list = (candidates || []).filter((s) => !!s);
@@ -518,28 +518,118 @@ export function revealVoiceDirForQuizType(quizType) {
 
 /** Map squad/header names to bundled voice file stem when the on-disk filename differs. Keys are lowercased. */
 const TEAM_NAME_VOICE_FILE_ALIASES = {
+  "arsenal fc": "Arsenal",
+  "as monaco": "Monaco",
+  "atalanta bc": "Atalanta",
+  "ajax amsterdam": "Ajax",
+  "atlֳ©tico de madrid": "Atletico Madrid",
+  "bayer 04 leverkusen": "Bayer Leverkusen",
+  "chelsea fc": "Chelsea",
+  "club brugge kv": "Club Brugge",
+  "fc barcelona": "Barcelona",
+  "fc copenhagen": "Copenhagen",
+  "fk bodֳ¸/glimt": "Bodo Glimt",
+  "juventus fc": "Juventus",
+  "liverpool fc": "Liverpool",
+  "olympiacos piraeus": "Olympiacos",
+  "pafos fc": "Pafos",
+  "qarabaִ fk": "Qarabag",
+  "sk slavia prague": "Slavia Prague",
+  "sl benfica": "Benfica Lisbon",
+  "ssc napoli": "Napoli",
   "sporting cp": "Sporting Lisbon",
+  "villarreal cf": "Villarreal",
 };
 
-function resolveTeamNameVoiceFileStem(displayName) {
+const TEAM_NAME_VOICE_PREFIXES = ["FC", "FK", "SK", "SL", "AS", "SSC", "RC"];
+const TEAM_NAME_VOICE_SUFFIXES = ["FC", "CF", "BC", "SC", "AC", "SK", "FK", "KV", "AFC"];
+const TEAM_NAME_VOICE_TRAILING_LOCATION_WORDS = ["Amsterdam", "Piraeus"];
+
+function normalizeVoiceStemText(value) {
+  return String(value || "")
+    .trim()
+    .replace(/[ֳ˜ֳ¸]/g, "o")
+    .replace(/[ֳֳ°]/g, "d")
+    .replace(/[ֳֳ¾]/g, "th")
+    .replace(/[ֳ†ֳ¦]/g, "ae")
+    .replace(/[ֵ’ֵ“]/g, "oe")
+    .replace(/[ֵֵ‚]/g, "l")
+    .replace(/[ִִ]/g, "g")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[ג€™'`ֲ´]/g, "")
+    .replace(/[\/\\]+/g, " ")
+    .replace(/[._-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function pushUniqueExactVoiceStem(out, value) {
+  const clean = String(value || "").trim().replace(/\s+/g, " ");
+  if (clean && !out.includes(clean)) out.push(clean);
+}
+
+function pushUniqueVoiceStem(out, value) {
+  const clean = normalizeVoiceStemText(value);
+  if (clean && !out.includes(clean)) out.push(clean);
+}
+
+function addShortVoiceStemVariants(out, stem) {
+  const clean = normalizeVoiceStemText(stem);
+  if (!clean) return;
+
+  for (const prefix of TEAM_NAME_VOICE_PREFIXES) {
+    pushUniqueVoiceStem(out, clean.replace(new RegExp(`^${prefix}\\s+`, "i"), ""));
+  }
+  for (const suffix of TEAM_NAME_VOICE_SUFFIXES) {
+    pushUniqueVoiceStem(out, clean.replace(new RegExp(`\\s+${suffix}$`, "i"), ""));
+  }
+  for (const word of TEAM_NAME_VOICE_TRAILING_LOCATION_WORDS) {
+    pushUniqueVoiceStem(out, clean.replace(new RegExp(`\\s+${word}$`, "i"), ""));
+  }
+
+  pushUniqueVoiceStem(out, clean.replace(/\b0+[0-9]+\b/g, "").replace(/\s+/g, " "));
+  pushUniqueVoiceStem(out, clean.replace(/\bde\s+/gi, ""));
+}
+
+function resolveTeamNameVoiceFileStems(displayName) {
   const trimmed = String(displayName || "").trim();
-  if (!trimmed) return "";
+  if (!trimmed) return [];
+  const stems = [];
   const alias = TEAM_NAME_VOICE_FILE_ALIASES[trimmed.toLowerCase()];
-  return alias || trimmed;
+  if (alias) pushUniqueExactVoiceStem(stems, alias);
+  pushUniqueExactVoiceStem(stems, trimmed);
+  if (alias) pushUniqueVoiceStem(stems, alias);
+  pushUniqueVoiceStem(stems, trimmed);
+
+  const baseCount = stems.length;
+  for (let i = 0; i < baseCount; i++) {
+    addShortVoiceStemVariants(stems, stems[i]);
+  }
+  return stems;
+}
+
+function resolveTeamNameVoiceFileStem(displayName) {
+  return resolveTeamNameVoiceFileStems(displayName)[0] || "";
 }
 
 /** Build candidate URLs in priority order for a given (team, quizType, phraseKey, language).
     Probes new layout `<dir>/<lang>/<phrase>/<Team>.ext` plus, for English plain only, the
     legacy flat `<dir>/<Team>.ext` so pre-existing clips keep working. */
-function buildPhraseCandidates(dirRel, cleanName, language, phraseKey) {
+function buildPhraseCandidates(dirRel, cleanNames, language, phraseKey) {
   const out = [];
   const lang = language === "spanish" ? "spanish" : "english";
-  for (const ext of TEAM_NAME_VOICE_EXTS) {
-    out.push(`${dirRel}${lang}/${phraseKey}/${encodeURIComponent(cleanName)}${ext}`);
+  const stems = Array.isArray(cleanNames) ? cleanNames : [cleanNames];
+  for (const cleanName of stems) {
+    for (const ext of TEAM_NAME_VOICE_EXTS) {
+      out.push(`${dirRel}${lang}/${phraseKey}/${encodeURIComponent(cleanName)}${ext}`);
+    }
   }
   if (lang === "english" && phraseKey === "plain") {
-    for (const ext of TEAM_NAME_VOICE_EXTS) {
-      out.push(`${dirRel}${encodeURIComponent(cleanName)}${ext}`);
+    for (const cleanName of stems) {
+      for (const ext of TEAM_NAME_VOICE_EXTS) {
+        out.push(`${dirRel}${encodeURIComponent(cleanName)}${ext}`);
+      }
     }
   }
   return out;
@@ -557,75 +647,97 @@ function shuffleInPlace(arr) {
    every sentence variant before any repeats. Reset whenever `appState.levelsData` is
    swapped to a new array (saved-script load, level rebuild). `lastSentencePhrase` is
    tracked across refills so we can swap the first element of a new shuffle if it
-   matches the last pop — prevents the same Spanish sentence appearing on two adjacent
+   matches the last pop ג€” prevents the same Spanish sentence appearing on two adjacent
    levels at the queue boundary (e.g. Nivel 6 and Nivel 7 both "Y la respuesta es..."). */
 let sentenceQueueLevelsRef = null;
-let sentenceQueue = [];
-let lastSentencePhrase = "";
+const sentenceQueueStateByLanguage = {
+  english: { queue: [], last: "" },
+  spanish: { queue: [], last: "" },
+};
 
-function nextSentencePhrase() {
+function sentenceLanguage(language) {
+  return language === "spanish" ? "spanish" : "english";
+}
+
+function getSentenceQueueState(language) {
   const ref = appState.levelsData;
   if (ref !== sentenceQueueLevelsRef) {
     sentenceQueueLevelsRef = ref;
-    sentenceQueue = [];
-    lastSentencePhrase = "";
-  }
-  if (sentenceQueue.length === 0) {
-    sentenceQueue = shuffleInPlace(TEAM_SENTENCE_PHRASE_KEYS.slice());
-    if (lastSentencePhrase && sentenceQueue[0] === lastSentencePhrase && sentenceQueue.length > 1) {
-      const swapIdx = 1 + Math.floor(Math.random() * (sentenceQueue.length - 1));
-      [sentenceQueue[0], sentenceQueue[swapIdx]] = [sentenceQueue[swapIdx], sentenceQueue[0]];
+    for (const state of Object.values(sentenceQueueStateByLanguage)) {
+      state.queue = [];
+      state.last = "";
     }
   }
-  const picked = sentenceQueue.shift() || "plain";
-  lastSentencePhrase = picked;
+  return sentenceQueueStateByLanguage[sentenceLanguage(language)] || sentenceQueueStateByLanguage.english;
+}
+
+function nextSentencePhrase(language = getCurrentLanguage()) {
+  const state = getSentenceQueueState(language);
+  if (state.queue.length === 0) {
+    state.queue = shuffleInPlace(TEAM_SENTENCE_PHRASE_KEYS.slice());
+    if (state.last && state.queue[0] === state.last && state.queue.length > 1) {
+      const swapIdx = 1 + Math.floor(Math.random() * (state.queue.length - 1));
+      [state.queue[0], state.queue[swapIdx]] = [state.queue[swapIdx], state.queue[0]];
+    }
+  }
+  const picked = state.queue.shift() || "plain";
+  state.last = picked;
   return picked;
 }
 
 /** Phrase pick for one reveal slot.
-    - English: odd questionIndex → sentence (from the shuffled queue), even → plain.
-    - Spanish: never plain — always pull a sentence so the team name is never spoken alone. */
-function pickRevealPhraseForQuestion(questionIndex) {
-  const lang = getCurrentLanguage();
-  if (lang === "spanish") return nextSentencePhrase();
+    - English: odd questionIndex -> sentence (from the shuffled queue), even -> plain.
+    - Spanish: never plain - always pull a sentence so the team name is never spoken alone. */
+function pickRevealPhraseForQuestion(questionIndex, language = getCurrentLanguage()) {
+  const lang = sentenceLanguage(language);
+  if (lang === "spanish") return nextSentencePhrase(lang);
   if (!Number.isFinite(questionIndex)) return "plain";
   if ((questionIndex % 2) === 0) return "plain";
-  return nextSentencePhrase();
+  return nextSentencePhrase(lang);
 }
 
-/** Sticky per-level phrase pick. Stored on the level object itself so the voice tab and
-    the reveal playback agree on the same phrase, and a new saved-script load (which
-    replaces `levelsData` with fresh objects) re-rolls automatically. Spanish never
-    accepts a "plain" cache — if the user switched language after rolling we re-pick. */
-export function getOrAssignRevealPhrase(levelData, questionIndex) {
+/** Sticky per-level phrase pick. Stored per language so opening the Voice tab,
+    switching language, recording, or validating cannot reroll another language's
+    selected phrase. A new saved-script load replaces `levelsData`, which naturally
+    creates fresh level objects and fresh phrase picks. */
+export function getOrAssignRevealPhrase(levelData, questionIndex, language = getCurrentLanguage()) {
   if (!levelData || typeof levelData !== "object") return "plain";
-  const cached = typeof levelData.__revealPhrase === "string" ? levelData.__revealPhrase : "";
-  const lang = getCurrentLanguage();
-  const cachedValidForLang = cached && !(lang === "spanish" && cached === "plain");
-  if (cachedValidForLang) return cached;
-  const picked = pickRevealPhraseForQuestion(questionIndex);
-  try { levelData.__revealPhrase = picked; } catch {}
+  const lang = sentenceLanguage(language);
+  const byLanguage = levelData.__revealPhraseByLanguage && typeof levelData.__revealPhraseByLanguage === "object"
+    ? levelData.__revealPhraseByLanguage
+    : {};
+  const cached = typeof byLanguage[lang] === "string" ? byLanguage[lang] : "";
+  if (cached) return cached;
+
+  const hasLanguageCache = Object.keys(byLanguage).length > 0;
+  const legacy = typeof levelData.__revealPhrase === "string" ? levelData.__revealPhrase : "";
+  const legacyValidForLang = !hasLanguageCache && legacy && !(lang === "spanish" && legacy === "plain");
+  const picked = legacyValidForLang ? legacy : pickRevealPhraseForQuestion(questionIndex, lang);
+  try {
+    levelData.__revealPhraseByLanguage = { ...byLanguage, [lang]: picked };
+    levelData.__revealPhrase = picked;
+  } catch {}
   return picked;
 }
 
 /** Build the candidate chain for one reveal, given the chosen phrase. Tries the chosen
-    phrase first (current language → English fallback only for the SAME phrase). Never
-    falls back to "plain" when a sentence phrase was assigned — that used to silently
+    phrase first (current language ג†’ English fallback only for the SAME phrase). Never
+    falls back to "plain" when a sentence phrase was assigned ג€” that used to silently
     play just the team name instead of the full sentence. Missing sentence clip =
     silence (PROD validation must catch it before play time). */
 function buildRevealCandidates(displayName, quizType, phraseKey) {
-  const base = resolveTeamNameVoiceFileStem(displayName);
-  if (!base) return [];
+  const stems = resolveTeamNameVoiceFileStems(displayName);
+  if (!stems.length) return [];
   const dir = revealVoiceDirForQuizType(quizType);
   const lang = getCurrentLanguage();
   const phrase = phraseKey || "plain";
   const out = [];
   if (phrase !== "plain") {
-    if (lang === "spanish") out.push(...buildPhraseCandidates(dir, base, "spanish", phrase));
-    out.push(...buildPhraseCandidates(dir, base, "english", phrase));
+    if (lang === "spanish") out.push(...buildPhraseCandidates(dir, stems, "spanish", phrase));
+    out.push(...buildPhraseCandidates(dir, stems, "english", phrase));
   } else {
-    if (lang === "spanish") out.push(...buildPhraseCandidates(dir, base, "spanish", "plain"));
-    out.push(...buildPhraseCandidates(dir, base, "english", "plain"));
+    if (lang === "spanish") out.push(...buildPhraseCandidates(dir, stems, "spanish", "plain"));
+    out.push(...buildPhraseCandidates(dir, stems, "english", "plain"));
   }
   return out;
 }
@@ -664,7 +776,7 @@ export function buildTeamNameVoiceSrc(displayName, quizType, ext = ".mp3") {
   return `${revealVoiceDirForQuizType(quizType)}${encodeURIComponent(cleanName)}${cleanExt}`;
 }
 
-/** Build the URL for a specific (team, quizType, phrase, language) cell — used by the voice tab. */
+/** Build the URL for a specific (team, quizType, phrase, language) cell ג€” used by the voice tab. */
 export function buildTeamPhraseVoiceSrc(displayName, quizType, phraseKey, language, ext = ".mp3") {
   const cleanName = resolveTeamNameVoiceFileStem(displayName);
   if (!cleanName) return "";
@@ -676,13 +788,13 @@ export function buildTeamPhraseVoiceSrc(displayName, quizType, phraseKey, langua
 
 /** Manual preview helper for header controls: probe extensions and play the plain variant if found. */
 export function playTeamNameVoiceIfExists(displayName, quizType = "nat-by-club", delayMs = 0) {
-  const base = resolveTeamNameVoiceFileStem(displayName);
-  if (!base) return;
+  const stems = resolveTeamNameVoiceFileStems(displayName);
+  if (!stems.length) return;
   const dir = revealVoiceDirForQuizType(quizType);
   const lang = getCurrentLanguage();
   const candidates = [];
-  if (lang === "spanish") candidates.push(...buildPhraseCandidates(dir, base, "spanish", "plain"));
-  candidates.push(...buildPhraseCandidates(dir, base, "english", "plain"));
+  if (lang === "spanish") candidates.push(...buildPhraseCandidates(dir, stems, "spanish", "plain"));
+  candidates.push(...buildPhraseCandidates(dir, stems, "english", "plain"));
   playFirstExistingClip(candidates, delayMs);
 }
 

@@ -227,12 +227,32 @@ html, body {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 8px;
-  min-height: 220px;
+  min-height: 250px;
   padding: 8px;
   display: flex;
   flex-direction: column;
   gap: 6px;
   overflow: hidden;
+}
+
+.day-uploads {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 8px;
+  flex: 1;
+  min-height: 0;
+  align-content: center;
+  justify-items: stretch;
+}
+
+.upload-slot {
+  display: flex;
+  min-height: 76px;
+}
+
+.upload-slot--empty {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .day-cell.empty {
@@ -266,16 +286,67 @@ html, body {
 }
 
 .upload {
+  flex: 1;
+  width: 100%;
+  min-height: 76px;
   font-size: 15px;
-  padding: 8px 10px;
+  padding: 8px 8px 8px 10px;
   border-radius: 6px;
   display: flex;
-  flex-direction: column;
-  gap: 3px;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 6px;
   border: 1px solid var(--border);
   background: var(--panel-2);
   line-height: 1.3;
   cursor: default;
+  overflow: hidden;
+}
+
+.upload-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.upload-check {
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.15);
+  color: transparent;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.upload-check:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.upload--done.upload-short .upload-check {
+  background: var(--short);
+  border-color: var(--short);
+  color: #0a1a12;
+}
+
+.upload--done.upload-long .upload-check {
+  background: var(--long);
+  border-color: var(--long);
+  color: #fff;
 }
 
 .upload-long {
@@ -288,19 +359,61 @@ html, body {
   border-color: var(--short-border);
 }
 
+.upload--done.upload-short {
+  background: rgba(46, 194, 126, 0.32);
+  border-color: var(--short);
+  box-shadow: inset 0 0 0 1px rgba(46, 194, 126, 0.25);
+}
+
+.upload--done.upload-long {
+  background: rgba(229, 57, 53, 0.32);
+  border-color: var(--long);
+  box-shadow: inset 0 0 0 1px rgba(229, 57, 53, 0.25);
+}
+
+.upload-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.upload-body:hover .upload-view {
+  text-decoration: underline;
+}
+
+.upload-view {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.upload--done .upload-view {
+  color: #fff;
+  opacity: 0.9;
+}
+
 .upload .time {
   font-weight: 700;
   color: var(--text);
   font-size: 15px;
+  flex-shrink: 0;
 }
 
 .upload .runner {
   color: var(--text);
   font-size: 14px;
   font-weight: 500;
-  white-space: normal;
-  word-break: break-word;
   line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
 }
 
 .summary {
@@ -331,8 +444,119 @@ html, body {
 
 .stat.stat-long { border-left-color: var(--long); }
 .stat.stat-short { border-left-color: var(--short); }
+.stat.stat-done { border-left-color: #2ec27e; }
 .stat.stat-en { border-left-color: var(--en); }
 .stat.stat-es { border-left-color: var(--es); }
+
+.stat-of {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.modal-panel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.modal-panel h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.modal-meta {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+  white-space: pre-line;
+}
+
+.modal-label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.modal-input--error {
+  border-color: var(--long);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.modal-save {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.modal-save:hover {
+  filter: brightness(1.08);
+}
+
+.modal-clear {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.modal-clear:hover {
+  color: var(--long);
+}
 
 .strategy {
   padding: 24px;
@@ -373,17 +597,21 @@ html, body {
 .card ul strong { color: #fff; }
 
 @media (max-width: 900px) {
-  .day-cell { min-height: 110px; }
-  .upload { font-size: 13px; padding: 5px 8px; }
-  .upload .time { font-size: 13px; min-width: 44px; }
-  .upload .runner { font-size: 12px; }
+  .day-cell { min-height: 180px; }
+  .upload-slot { min-height: 64px; }
+  .upload { min-height: 64px; font-size: 13px; padding: 6px 7px; }
+  .upload-check { width: 14px; height: 14px; font-size: 9px; }
+  .upload .time { font-size: 13px; }
+  .upload .runner { font-size: 12px; -webkit-line-clamp: 2; }
   .nav h2 { min-width: 140px; font-size: 16px; }
 }
 
 @media (max-width: 600px) {
   .calendar { padding: 8px; gap: 2px; }
-  .day-cell { min-height: 80px; padding: 4px; }
-  .upload { font-size: 12px; padding: 4px 6px; gap: 5px; }
-  .upload .time { font-size: 12px; min-width: 40px; }
-  .upload .runner { font-size: 11px; }
+  .day-cell { min-height: 150px; padding: 4px; }
+  .day-uploads { gap: 5px; }
+  .upload-slot { min-height: 56px; }
+  .upload { min-height: 56px; font-size: 12px; padding: 5px 6px; }
+  .upload .time { font-size: 12px; }
+  .upload .runner { font-size: 11px; -webkit-line-clamp: 2; }
 }

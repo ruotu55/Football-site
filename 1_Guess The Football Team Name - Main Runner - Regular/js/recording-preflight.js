@@ -26,11 +26,13 @@
 
 import { appState } from "./state.js";
 import { preloadImage } from "../../.Storage/shared/image-cache.js";
-import { projectAssetUrlFresh, projectAssetUrl } from "./paths.js";
-import { playerPhotoPaths } from "./photo-helpers.js";
+import { projectAssetUrlFresh, projectAssetUrl, withProjectAssetCacheBust } from "./paths.js";
+import { getHeaderLogoUrlChain, playerPhotoPaths } from "./photo-helpers.js";
+import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
+import { translateCountry } from "./i18n.js";
 import {
     getOrAssignRevealPhrase,
-    buildTeamPhraseVoiceSrc,
+    buildRevealVoiceCandidates,
 } from "./audio.js";
 import { EMOJI_IMAGES } from "./emojis.js";
 
@@ -39,11 +41,11 @@ import { EMOJI_IMAGES } from "./emojis.js";
 /** Walk every level once so its random reveal-phrase pick gets locked into
  *  level.__revealPhrase. After this, the same phrase will play during the
  *  recording AND be the one we preload below. */
-function preRollRandomness() {
+function preRollRandomness(language) {
     if (!Array.isArray(appState.levelsData)) return;
     appState.levelsData.forEach((lvl, idx) => {
         if (!lvl || typeof lvl !== "object") return;
-        try { getOrAssignRevealPhrase(lvl, idx); } catch { /* non-fatal */ }
+        try { getOrAssignRevealPhrase(lvl, idx - 1, language); } catch { /* non-fatal */ }
     });
 }
 
@@ -55,7 +57,8 @@ function preRollRandomness() {
  *  playerPhotoPaths(player, displayMode) — which internally calls getState() —
  *  reads each level's own selectedEntry / squadType / currentSquad. Restored
  *  on exit, including on exceptions. */
-function collectImageUrls() {
+function collectImageLoadUnits() {
+    const units = [];
     const urls = new Set();
     if (!Array.isArray(appState.levelsData)) return [];
 
@@ -66,14 +69,17 @@ function collectImageUrls() {
             if (!lvl || typeof lvl !== "object") continue;
             appState.currentLevelIndex = i;
 
-            // Header logo override (custom logo swapped in via the picker)
-            if (lvl.headerLogoOverrideRelPath) {
-                urls.add(projectAssetUrlFresh(lvl.headerLogoOverrideRelPath));
+            const headerLogoUrls = getHeaderLogoUrlChain(
+                lvl,
+                lvl.currentSquad,
+                lvl.squadType,
+                lvl.selectedEntry?.name,
+                lvl.quizType
+            ).map((url) => withProjectAssetCacheBust(url));
+            if (headerLogoUrls.length) {
+                units.push({ label: shortPath(headerLogoUrls[0]), urls: headerLogoUrls });
             }
-            // Team header / crest from the squad JSON
-            if (lvl.currentSquad?.imagePath) {
-                urls.add(projectAssetUrlFresh(lvl.currentSquad.imagePath));
-            }
+
             // Per-slot crest overrides (e.g., player photos using a different club crest on the front face)
             if (lvl.slotClubCrestOverrideRelPathBySlot && typeof lvl.slotClubCrestOverrideRelPathBySlot === "object") {
                 for (const rel of Object.values(lvl.slotClubCrestOverrideRelPathBySlot)) {
@@ -105,38 +111,42 @@ function collectImageUrls() {
         urls.add(projectAssetUrlFresh(rel.replace(/^\.\.\//, "")));
     }
 
-    return Array.from(urls);
+    for (const url of urls) {
+        units.push({ label: shortPath(url), urls: [url] });
+    }
+
+    return units;
 }
 
 /** Collect voice URLs based on the (now frozen) phrase pick for each level.
- *  Three URLs per level: chosen phrase in current lang, plain in current lang,
- *  plain in English. If at least one of the three loads, the runtime's fallback
- *  chain will play SOMETHING — so we only flag the level as missing if all three
- *  fail. */
+ *  Uses the same candidate chain as reveal playback: selected phrase only,
+ *  with English fallback for that same phrase when recording in Spanish. */
 function collectVoiceUrlGroups(language) {
     const groups = [];
     if (!Array.isArray(appState.levelsData)) return groups;
 
     appState.levelsData.forEach((lvl, idx) => {
         if (!lvl || !lvl.currentSquad) return;
-        const teamName = lvl.currentSquad.name || lvl.selectedEntry?.name || "";
+        const quizType = lvl.quizType || appState.els?.inQuizType?.value || "club-by-nat";
+        let teamName = "";
+        try {
+            teamName = String(resolveHeaderTeamDisplayName(lvl, quizType) || "").trim();
+        } catch {
+            teamName = "";
+        }
+        if (!teamName) {
+            teamName = String(lvl.currentSquad.name || lvl.selectedEntry?.name || "").trim();
+        }
+        if (teamName && lvl.squadType === "national") {
+            teamName = translateCountry(teamName);
+        }
         if (!teamName) return;
-        const quizType = lvl.quizType || "club-by-nat";
-        const phrase = lvl.__revealPhrase || "plain";
+        const phrase = getOrAssignRevealPhrase(lvl, idx - 1, language);
 
-        const candidates = [];
-        if (phrase !== "plain") {
-            const url = buildTeamPhraseVoiceSrc(teamName, quizType, phrase, language, ".mp3");
-            if (url) candidates.push(projectAssetUrl(url));
-        }
-        const plainCurrent = buildTeamPhraseVoiceSrc(teamName, quizType, "plain", language, ".mp3");
-        if (plainCurrent) candidates.push(projectAssetUrl(plainCurrent));
-        if (language !== "english") {
-            const plainEn = buildTeamPhraseVoiceSrc(teamName, quizType, "plain", "english", ".mp3");
-            if (plainEn) candidates.push(projectAssetUrl(plainEn));
-        }
+        const candidates = buildRevealVoiceCandidates(teamName, quizType, phrase, language)
+            .map((url) => projectAssetUrl(url));
         if (candidates.length) {
-            groups.push({ label: `Level ${idx}: ${teamName} (${phrase})`, urls: candidates });
+            groups.push({ label: `Level ${idx - 1}: ${teamName} (${phrase})`, urls: candidates });
         }
     });
     return groups;
@@ -308,11 +318,11 @@ function showFailureModal(missing) {
  *  @returns {Promise<{proceed: boolean}>}
  */
 export async function runPreflight(language = "english") {
-    preRollRandomness();
+    preRollRandomness(language);
 
-    const imageUrls = collectImageUrls();
+    const imageUnits = collectImageLoadUnits();
     const voiceGroups = collectVoiceUrlGroups(language);
-    const totalUnits = imageUrls.length + voiceGroups.length;
+    const totalUnits = imageUnits.length + voiceGroups.length;
 
     const ui = createProgressOverlay();
     let done = 0;
@@ -326,18 +336,21 @@ export async function runPreflight(language = "english") {
     };
 
     // ── Images ─────────────────────────────────────────
-    ui.status.textContent = `Pre-loading ${imageUrls.length} images…`;
+    ui.status.textContent = `Pre-loading ${imageUnits.length} images…`;
     const IMG_CHUNK = 24;
-    for (let i = 0; i < imageUrls.length; i += IMG_CHUNK) {
-        const chunk = imageUrls.slice(i, i + IMG_CHUNK);
-        await Promise.all(chunk.map(async (url) => {
-            try {
-                const img = await preloadImage(url);
-                if (!img || !img.naturalWidth) {
-                    missing.push(`(image) ${shortPath(url)}`);
+    for (let i = 0; i < imageUnits.length; i += IMG_CHUNK) {
+        const chunk = imageUnits.slice(i, i + IMG_CHUNK);
+        await Promise.all(chunk.map(async (unit) => {
+            const results = await Promise.all(unit.urls.map(async (url) => {
+                try {
+                    const img = await preloadImage(url);
+                    return !!(img && img.naturalWidth);
+                } catch {
+                    return false;
                 }
-            } catch {
-                missing.push(`(image) ${shortPath(url)}`);
+            }));
+            if (!results.some(Boolean)) {
+                missing.push(`(image) ${unit.label}`);
             }
             tick("images");
         }));

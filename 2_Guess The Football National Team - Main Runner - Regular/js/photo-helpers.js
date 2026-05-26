@@ -3,6 +3,10 @@ import { projectAssetUrl } from "./paths.js";
 
 /** Loose crests: drop a PNG named exactly like the squad JSON `club` string (e.g. Atlético de Madrid.png). */
 const TEAMS_IMAGES_OTHER_TEAMS_DIR = "Images/Teams/(1) Other Teams";
+const CLUB_LOGO_OTHER_TEAMS_ALIASES = {
+  "olympiacos piraeus": "Olympiacos",
+};
+
 const NATIONAL_TEAM_LOGOS_DIR = "Images/National Team Logos";
 
 const NATIONALITY_TO_TEAM_LOGO_NAME = {
@@ -86,7 +90,8 @@ export function getClubLogoOtherTeamsUrl(clubField) {
   if (clubField == null || typeof clubField !== "string") return null;
   const t = clubField.trim();
   if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
-  return projectAssetUrl(`${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`);
+  const fileStem = CLUB_LOGO_OTHER_TEAMS_ALIASES[t.toLowerCase()] || t;
+  return projectAssetUrl(`${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${fileStem}.png`);
 }
 
 /**
@@ -110,7 +115,8 @@ export function getClubLogoOtherTeamsRelPath(clubField) {
   if (clubField == null || typeof clubField !== "string") return null;
   const t = clubField.trim();
   if (!t || t.includes("/") || t.includes("\\") || t.includes("..")) return null;
-  return `${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${t}.png`;
+  const fileStem = CLUB_LOGO_OTHER_TEAMS_ALIASES[t.toLowerCase()] || t;
+  return `${TEAMS_IMAGES_OTHER_TEAMS_DIR}/${fileStem}.png`;
 }
 
 /**

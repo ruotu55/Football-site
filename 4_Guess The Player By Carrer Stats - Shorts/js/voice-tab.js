@@ -95,6 +95,74 @@ async function onDeletePressed({ rowKey, deleteEndpoint, deleteBody }) {
   finally { busyByKey.delete(rowKey); renderVoiceTab(); }
 }
 
+
+const BULK_PLAYERS_KEY = "bulk-players";
+
+function bulkPlayersButtonLabel(done, total) {
+  const lang = getCurrentLanguage();
+  if (total > 0 && done < total) {
+    return lang === "spanish" ? `Creando voz… ${done}/${total}` : `Creating voice… ${done}/${total}`;
+  }
+  return lang === "spanish" ? "Crear voz para todos los jugadores" : "Create voice for all players";
+}
+
+async function onCreateAllPlayerVoices(playerItems, buttonEl) {
+  const lang = getCurrentLanguage();
+  const bulkKey = `${BULK_PLAYERS_KEY}:${lang}`;
+  if (busyByKey.has(bulkKey)) return;
+
+  const missing = playerItems.filter((t) => !t.exists);
+  if (missing.length === 0) {
+    alert(lang === "spanish" ? "Todos los jugadores ya tienen voz." : "All players already have a voice.");
+    return;
+  }
+
+  stopPreviewAudio();
+  busyByKey.add(bulkKey);
+  const total = missing.length;
+  let done = 0;
+  let failed = 0;
+  if (buttonEl) {
+    buttonEl.disabled = true;
+    buttonEl.textContent = bulkPlayersButtonLabel(done, total);
+  }
+
+  for (const { name, phrase } of missing) {
+    try {
+      const res = await fetch(endpointUrl("__player-voice/generate"), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phrase,
+          voice: FIXED_VOICE,
+          language: lang,
+        }),
+      });
+      const p = await res.json().catch(() => ({}));
+      if (!res.ok || !p?.ok) throw new Error(p?.error || `Generation failed (${res.status})`);
+    } catch {
+      failed += 1;
+    }
+    done += 1;
+    if (buttonEl) buttonEl.textContent = bulkPlayersButtonLabel(done, total);
+  }
+
+  busyByKey.delete(bulkKey);
+  if (buttonEl) {
+    buttonEl.disabled = false;
+    buttonEl.textContent = bulkPlayersButtonLabel(0, 0);
+  }
+  await renderVoiceTab();
+  if (failed > 0) {
+    alert(
+      lang === "spanish"
+        ? `No se pudieron crear ${failed} de ${total} voces.`
+        : `Could not create ${failed} of ${total} player voices.`,
+    );
+  }
+}
+
 function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled = null }) {
   const row = document.createElement("div"); row.className = `voice-tab-row ${exists ? "is-present" : "is-missing"}`;
   const vol = document.createElement("button"); vol.type = "button"; vol.className = "voice-tab-btn voice-tab-btn--vol"; vol.textContent = "Vol"; vol.title = exists ? "Play" : "Generate and play"; vol.onclick = (e) => { e.preventDefault(); onPlay(); };
@@ -108,11 +176,12 @@ function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled
    don't snap them back to closed. Default is closed. */
 const openSections = new Set();
 
-function buildSection(title, rows) {
+function buildSection(title, rows, { prepend } = {}) {
   const w = document.createElement("details"); w.className = "voice-tab-section";
   if (openSections.has(title)) w.open = true;
   w.addEventListener("toggle", () => { if (w.open) openSections.add(title); else openSections.delete(title); });
   const s = document.createElement("summary"); s.className = "voice-tab-section__title"; s.textContent = title; w.appendChild(s);
+  if (prepend) w.appendChild(prepend);
   if (rows.length === 0) { const e = document.createElement("div"); e.className = "voice-tab-section__empty"; e.textContent = "— none"; w.appendChild(e); } else rows.forEach((r) => w.appendChild(r));
   return w;
 }
@@ -221,7 +290,16 @@ export async function renderVoiceTab() {
       onDelete: () => onDeletePressed({ rowKey: `player:${name}:${phrase}:${lang}`, deleteEndpoint: "__player-voice/delete", deleteBody: { name, phrase } }),
     });
   });
-  root.appendChild(buildSection(SECTION_TITLES.players, playerRows));
+  const bulkCreatePlayersBtn = document.createElement("button");
+  bulkCreatePlayersBtn.type = "button";
+  bulkCreatePlayersBtn.className = "voice-tab-bulk-btn";
+  bulkCreatePlayersBtn.textContent = bulkPlayersButtonLabel(0, 0);
+  bulkCreatePlayersBtn.disabled = playerStatuses.length === 0 || busyByKey.has(`${BULK_PLAYERS_KEY}:${lang}`);
+  bulkCreatePlayersBtn.onclick = (e) => {
+    e.preventDefault();
+    onCreateAllPlayerVoices(playerStatuses, bulkCreatePlayersBtn);
+  };
+  root.appendChild(buildSection(SECTION_TITLES.players, playerRows, { prepend: bulkCreatePlayersBtn }));
 
   /* Only show the ending row matching the Ending type select on the Quiz (Landing) tab.
      If no valid ending is selected yet, show both so the user can still generate either. */

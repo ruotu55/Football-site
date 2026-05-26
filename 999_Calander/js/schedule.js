@@ -1,18 +1,20 @@
 /* Football Channel · upload schedule
  *
- * Built from 2025/26 research on YouTube algorithm + football audience timing.
- * Key principles:
- *  - POST 2–3 HOURS BEFORE PEAK (not at peak) so the algorithm can test before primetime
- *  - Daily uploads now HURT new channels (Dec 2025 algorithm shift) — start at 3–5 shorts/wk
- *  - 3-phase ramp: Launch (light) → Scale → Full cadence
- *  - Sun 10:00 LOCAL = single highest long-form slot globally (per Buffer 1.8M video study)
- *  - Monday = PL weekend-recap traffic peak
- *  - Tue/Wed = Champions League build/post-match windows
- *  - Friday Shorts = highest CTR day
- *  - Avoid live-match windows: PL Sat/Sun afternoons; UCL Tue/Wed 21:00 CET
+ * Cadence (per channel): 1 Short every day · 3 Long-form per week (all at 18:00 Israel).
  *
- * All times are LOCAL Israel (with summer DST). Israel summer = UTC+3; UK summer = UTC+1; CET summer = UTC+2.
- * So: IL hh = UK (hh-2) = Spain (hh-1).
+ * Long-form days (18:00 IL):
+ *  - Monday  — PL weekend-recap traffic peak
+ *  - Wednesday — mid-week / pre-UCL window (before 21:00 CET kickoffs)
+ *  - Sunday — weekend football wrap (evening habit, clear of Sat PL afternoon matches)
+ *
+ * Shorts — one slot daily, timed 2–3 h before audience peaks; on long days the Short
+ * is morning/early afternoon so Long and Short never sit back-to-back in the grid.
+ *
+ * Football timing rules:
+ *  - Avoid PL Sat/Sun afternoon live windows · UCL Tue/Wed ~21:00 CET
+ *  - Fri Shorts = highest CTR · Tue = UCL build · Sat AM = pre-matchday
+ *
+ * All times LOCAL Israel (DST-aware). IL summer: UK = IL−2, Spain = IL−1.
  */
 
 const START_DATE = new Date(2026, 4, 30); // 2026-05-30 Saturday
@@ -34,113 +36,43 @@ const RUNNERS = [
   { id: 13, name: "Placeholder Runner #13",                      short: "TBD #13",       from: PLACEHOLDER_FROM },
 ];
 
-/* PHASES
- *
- * Phase 1 — Launch (weeks 1–4):  2 long + 3 shorts / channel / week.
- *   Anchored on Mon (PL-recap traffic peak) and Sun morning (highest long-form slot globally).
- *
- * Phase 2 — Scale (weeks 5–12):  3 long + 5 shorts / channel / week.
- *   Adds Wed (mid-week / pre-UCL) and broadens shorts coverage.
- *
- * Phase 3 — Full cadence (week 13+):  4 long + 5 shorts / channel / week.
- *   Adds Fri evening long-form once the channel has retention data + audience habit.
- */
+/* Weekly cadence: 7 shorts + 3 long-form per channel (EN and ES). */
 const PHASES = [
   {
     id: 1,
-    name: "Launch",
-    weeks: "Weeks 1–4 (May 30 – Jun 27)",
+    name: "Standard",
+    weeks: "From launch (May 30)",
     startsOn: new Date(2026, 4, 30),
     en: {
       long: [
-        { dow: 1, hour: 17, min: 0 }, // Mon 17:00 IL = UK 15:00 — PL-recap traffic peak day
-        { dow: 0, hour: 11, min: 0 }, // Sun 11:00 IL = UK 09:00 — peak global long-form slot
+        { dow: 1, hour: 18, min: 0 }, // Mon 18:00 — PL weekend recap peak
+        { dow: 3, hour: 18, min: 0 }, // Wed 18:00 — pre-UCL (before 22:00 IL kickoffs)
+        { dow: 0, hour: 18, min: 0 }, // Sun 18:00 — weekend wrap, post-Sat/Sun PL window
       ],
       short: [
-        { dow: 2, hour: 17, min: 0 }, // Tue 17:00 IL = UK 15:00 — UCL build
-        { dow: 4, hour: 14, min: 0 }, // Thu 14:00 IL = UK 12:00 — Europa preview
-        { dow: 5, hour: 13, min: 0 }, // Fri 13:00 IL = UK 11:00 — weekend preview, highest CTR
+        { dow: 0, hour: 12, min: 0 }, // Sun 12:00 — morning (long same day at 18:00)
+        { dow: 1, hour: 13, min: 0 }, // Mon 13:00 — lunch, before evening long
+        { dow: 2, hour: 17, min: 0 }, // Tue 17:00 — UCL build (UK 15:00)
+        { dow: 3, hour: 12, min: 0 }, // Wed 12:00 — midday, before evening long
+        { dow: 4, hour: 14, min: 0 }, // Thu 14:00 — Europa / mid-week preview
+        { dow: 5, hour: 13, min: 0 }, // Fri 13:00 — highest Shorts CTR, weekend hype
+        { dow: 6, hour: 11, min: 0 }, // Sat 11:00 — pre-PL morning (UK 09:00)
       ],
     },
     es: {
       long: [
-        { dow: 1, hour: 18, min: 0 }, // Mon 18:00 IL = Spain 17:00 — weekend recap afternoon
-        { dow: 0, hour: 12, min: 0 }, // Sun 12:00 IL = Spain 11:00 — pre-La Liga morning
+        { dow: 1, hour: 18, min: 0 }, // Mon 18:00 IL = Spain 17:00
+        { dow: 3, hour: 18, min: 0 }, // Wed 18:00 IL = Spain 17:00
+        { dow: 0, hour: 18, min: 0 }, // Sun 18:00 IL = Spain 17:00
       ],
       short: [
-        { dow: 2, hour: 18, min: 0 }, // Tue 18:00 IL = Spain 17:00 — afternoon
-        { dow: 4, hour: 22, min: 0 }, // Thu 22:00 IL = Spain 21:00 — evening prime
-        { dow: 5, hour: 15, min: 0 }, // Fri 15:00 IL = Spain 14:00 — late lunch, weekend hype
-      ],
-    },
-  },
-  {
-    id: 2,
-    name: "Scale",
-    weeks: "Weeks 5–12 (Jun 28 – Aug 22)",
-    startsOn: new Date(2026, 5, 28),
-    en: {
-      long: [
-        { dow: 1, hour: 17, min: 0 }, // Mon — recap day
-        { dow: 3, hour: 17, min: 0 }, // Wed — pre-UCL afternoon
-        { dow: 0, hour: 11, min: 0 }, // Sun — matchday morning
-      ],
-      short: [
-        { dow: 2, hour: 17, min: 0 }, // Tue — UCL build
-        { dow: 3, hour: 21, min: 0 }, // Wed 21:00 IL = UK 19:00 — UCL evening hype
-        { dow: 4, hour: 14, min: 0 }, // Thu — Europa preview lunch
-        { dow: 5, hour: 13, min: 0 }, // Fri — weekend preview, highest CTR
-        { dow: 6, hour: 11, min: 0 }, // Sat — UK 09:00 pre-PL morning
-      ],
-    },
-    es: {
-      long: [
-        { dow: 1, hour: 18, min: 0 }, // Mon — Spain 17:00
-        { dow: 3, hour: 18, min: 0 }, // Wed — Spain 17:00 pre-UCL
-        { dow: 0, hour: 12, min: 0 }, // Sun — Spain 11:00 matchday morning
-      ],
-      short: [
-        { dow: 2, hour: 18, min: 0 }, // Tue — Spain 17:00
-        { dow: 3, hour: 22, min: 0 }, // Wed 22:00 IL = Spain 21:00 — evening
-        { dow: 4, hour: 22, min: 0 }, // Thu — Spain 21:00 evening
-        { dow: 5, hour: 15, min: 0 }, // Fri — Spain 14:00 late lunch
-        { dow: 6, hour: 12, min: 0 }, // Sat — Spain 11:00 pre-La Liga morning
-      ],
-    },
-  },
-  {
-    id: 3,
-    name: "Full",
-    weeks: "Week 13+ (from Aug 23)",
-    startsOn: new Date(2026, 7, 23),
-    en: {
-      long: [
-        { dow: 1, hour: 17, min: 0 }, // Mon — recap day, biggest PL traffic
-        { dow: 3, hour: 17, min: 0 }, // Wed — pre-UCL
-        { dow: 5, hour: 19, min: 0 }, // Fri 19:00 IL = UK 17:00 — Friday evening wind-down
-        { dow: 0, hour: 11, min: 0 }, // Sun — matchday morning
-      ],
-      short: [
-        { dow: 2, hour: 17, min: 0 }, // Tue — UCL build
-        { dow: 3, hour: 21, min: 0 }, // Wed — UCL evening hype
-        { dow: 4, hour: 14, min: 0 }, // Thu — Europa preview
-        { dow: 6, hour: 11, min: 0 }, // Sat — pre-PL morning
-        { dow: 0, hour: 22, min: 0 }, // Sun 22:00 IL = UK 20:00 — post-match reactions
-      ],
-    },
-    es: {
-      long: [
-        { dow: 1, hour: 18, min: 0 }, // Mon — Spain 17:00 recap afternoon
-        { dow: 3, hour: 18, min: 0 }, // Wed — Spain 17:00 pre-UCL
-        { dow: 5, hour: 22, min: 0 }, // Fri 22:00 IL = Spain 21:00 — Friday evening prime
-        { dow: 0, hour: 12, min: 0 }, // Sun — Spain 11:00 matchday morning
-      ],
-      short: [
-        { dow: 2, hour: 18, min: 0 }, // Tue — Spain 17:00
-        { dow: 3, hour: 22, min: 0 }, // Wed — Spain 21:00 evening
-        { dow: 4, hour: 22, min: 0 }, // Thu — Spain 21:00 evening
+        { dow: 0, hour: 13, min: 0 }, // Sun — Spain afternoon, before long
+        { dow: 1, hour: 14, min: 0 }, // Mon — late lunch
+        { dow: 2, hour: 18, min: 0 }, // Tue — Spain 17:00 UCL build
+        { dow: 3, hour: 13, min: 0 }, // Wed — midday, before long
+        { dow: 4, hour: 22, min: 0 }, // Thu — Spain 21:00 evening prime
+        { dow: 5, hour: 15, min: 0 }, // Fri — Spain 14:00, weekend preview
         { dow: 6, hour: 12, min: 0 }, // Sat — Spain 11:00 pre-La Liga
-        { dow: 0, hour: 23, min: 0 }, // Sun 23:00 IL = Spain 22:00 — post-La-Liga reactions
       ],
     },
   },
@@ -200,9 +132,8 @@ function slotsForDay(date) {
  * where `pool` is the set of runners available on that date.
  *
  * Guarantees: no quiz repeats within (pool.length / slots_per_week) weeks for a given
- * channel+type — e.g. Phase 2 EN long has 2 slots/wk and 13 runners → ≥ 6.5 weeks
- * between any quiz repeating on EN long-form. Phase 2 EN short has 5 slots/wk →
- * ≥ 2.6 weeks between repeats on EN shorts.
+ * channel+type — e.g. EN long has 3 slots/wk and 8 runners → ≥ 2.7 weeks between
+ * repeats on long-form; EN short has 7 slots/wk → ≥ 1.1 weeks between short repeats.
  *
  * The counter persists across phases, so phase transitions don't re-collide.
  *

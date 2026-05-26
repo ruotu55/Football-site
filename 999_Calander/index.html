@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Football Channel · Upload Calendar</title>
-  <link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="stylesheet" href="css/styles.css?v=11">
 </head>
 <body>
   <header class="topbar">
@@ -45,7 +45,23 @@
     <div id="month-stats" class="stats"></div>
   </section>
 
-  <script src="js/schedule.js?v=6"></script>
-  <script src="js/calendar.js?v=6"></script>
+  <div id="url-modal" class="modal" hidden aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-panel" role="dialog" aria-labelledby="url-modal-title">
+      <h3 id="url-modal-title">Mark as uploaded</h3>
+      <p id="url-modal-meta" class="modal-meta"></p>
+      <label class="modal-label" for="url-input">YouTube video URL</label>
+      <input type="url" id="url-input" class="modal-input" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off">
+      <div class="modal-actions">
+        <button type="button" id="url-cancel" class="navbtn">Cancel</button>
+        <button type="button" id="url-save" class="navbtn modal-save">Save</button>
+      </div>
+      <button type="button" id="url-clear" class="modal-clear" hidden>Remove link</button>
+    </div>
+  </div>
+
+  <script src="js/schedule.js?v=11"></script>
+  <script src="js/upload-status.js?v=11"></script>
+  <script src="js/calendar.js?v=11"></script>
 </body>
 </html>

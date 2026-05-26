@@ -162,8 +162,10 @@
   inset: 0;
   z-index: 9999;
   display: flex;
+  gap: 0;
   pointer-events: none;
   opacity: 0;
+  overflow: hidden;
   contain: layout paint style;
   isolation: isolate;
   transform: translateZ(0);
@@ -172,24 +174,43 @@
 
 .bars-transition-overlay > span {
   position: relative;
-  background: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  --bars-tile-color: color-mix(in srgb, var(--bg-stage, #3c6553) 70%, white 30%);
+  background: var(--bars-tile-color);
   contain: paint;
-  will-change: width, left, height;
+  box-sizing: border-box;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: width, left, height, top;
 }
-
 
 .bars-transition-overlay.bars-left {
   flex-direction: column;
 }
 
 .bars-transition-overlay.bars-left > span {
-  height: 100%;
+  flex: 1 1 0;
+  min-height: 0;
   width: 0%;
 }
 
+.bars-transition-overlay.bars-left > span:not(:last-child) {
+  margin-bottom: -1px;
+  padding-bottom: 1px;
+}
+
+.bars-transition-overlay.bars-top {
+  flex-direction: row;
+}
+
 .bars-transition-overlay.bars-top > span {
+  flex: 1 1 0;
+  min-width: 0;
   height: 0%;
-  width: 100%;
+}
+
+.bars-transition-overlay.bars-top > span:not(:last-child) {
+  margin-right: -1px;
+  padding-right: 1px;
 }
 
 /* ג”€ג”€ Curtain Close Transition ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
@@ -271,21 +292,37 @@
 }
 
 /* new 15 — Slab Squash */
-.new15-overlay { display: flex; }
+.new15-overlay { display: flex; gap: 0; overflow: hidden; }
 .new15-overlay .new15-slab {
   flex: 1 1 0;
+  min-width: 0;
   height: 100%;
   background: var(--new-fx-color);
+  box-sizing: border-box;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   will-change: transform;
+}
+.new15-overlay .new15-slab:not(:last-child) {
+  margin-right: -1px;
+  padding-right: 1px;
 }
 
 /* new 18 — Wave Bars */
-.new18-overlay { display: flex; flex-direction: column; }
+.new18-overlay { display: flex; flex-direction: column; gap: 0; overflow: hidden; }
 .new18-overlay .new18-bar {
   width: 100%;
   flex: 1 1 0;
+  min-height: 0;
   background: var(--new-fx-color);
+  box-sizing: border-box;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   will-change: transform;
+}
+.new18-overlay .new18-bar:not(:last-child) {
+  margin-bottom: -1px;
+  padding-bottom: 1px;
 }
 
 /* new 19 — Radial Tiles */
@@ -296,12 +333,20 @@
 }
 
 /* new 20 — Zigzag Slats */
-.new20-overlay { display: flex; }
+.new20-overlay { display: flex; gap: 0; overflow: hidden; }
 .new20-overlay .new20-slat {
   flex: 1 1 0;
+  min-width: 0;
   height: 100%;
   background: var(--new-fx-color);
+  box-sizing: border-box;
+  transform: translateZ(0);
+  backface-visibility: hidden;
   will-change: transform;
+}
+.new20-overlay .new20-slat:not(:last-child) {
+  margin-right: -1px;
+  padding-right: 1px;
 }
 
 /* ── Second batch of new transitions ──────────────────────────── */
@@ -330,8 +375,21 @@
 }
 
 /* Slot Drop */
-.n2-6-overlay { display: flex; }
-.n2-6-overlay .n2-6-strip { flex: 1 1 0; height: 100%; background: var(--new-fx-color); will-change: transform; }
+.n2-6-overlay { display: flex; gap: 0; overflow: hidden; }
+.n2-6-overlay .n2-6-strip {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  background: var(--new-fx-color);
+  box-sizing: border-box;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.n2-6-overlay .n2-6-strip:not(:last-child) {
+  margin-right: -1px;
+  padding-right: 1px;
+}
 
 /* Door Slide */
 .n2-7-overlay .n2-7-left {
@@ -348,8 +406,21 @@
 }
 
 /* Vertical Blinds */
-.n2-8-overlay { display: flex; }
-.n2-8-overlay .n2-8-blind { flex: 1 1 0; height: 100%; background: var(--new-fx-color); will-change: transform; }
+.n2-8-overlay { display: flex; gap: 0; overflow: hidden; }
+.n2-8-overlay .n2-8-blind {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  background: var(--new-fx-color);
+  box-sizing: border-box;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.n2-8-overlay .n2-8-blind:not(:last-child) {
+  margin-right: -1px;
+  padding-right: 1px;
+}
 
 /* Triangle Wedges */
 .n2-11-overlay .n2-11-tri {
