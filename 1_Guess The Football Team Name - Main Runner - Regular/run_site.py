@@ -2892,36 +2892,12 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 return True
             image_bytes, source_used = fetched
 
-        if not image_bytes:
-            self._write_json(404, {"ok": False, "error": "Downloaded image is empty."})
-            return True
-
-        target_dir.mkdir(parents=True, exist_ok=True)
-        out_path = _next_auto_photo_path(target_dir, source_used)
-        try:
-            out_path.write_bytes(image_bytes)
-        except OSError:
-            self._write_json(500, {"ok": False, "error": "Failed to write image file."})
-            return True
-
-        rel_path = out_path.relative_to(PROJECT_ROOT).as_posix()
-        try:
-            _update_player_images_index(index_section, index_key, rel_path)
-        except OSError:
-            self._write_json(500, {"ok": False, "error": "Failed to update player image index."})
-            return True
-
-        self._write_json(
-            200,
-            {
-                "ok": True,
-                "source": source_used,
-                "preferredSource": preferred_source,
-                "relativePath": rel_path,
-                "indexSection": index_section,
-                "indexKey": index_key,
-            },
+        status, payload = _persist_player_photo_bytes(
+            target_dir, index_section, index_key, image_bytes, source_used
         )
+        if status == 200 and payload.get("ok"):
+            payload["preferredSource"] = preferred_source
+        self._write_json(status, payload)
         return True
 
     def _try_list_player_photo_candidates(self) -> bool:
@@ -2971,6 +2947,35 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             candidates.append({"url": url, "dataUrl": data_url})
 
         self._write_json(200, {"ok": True, "source": source, "candidates": candidates})
+        return True
+
+    def _try_save_chosen_player_photo(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/save-chosen":
+            return False
+        try:
+            body = self._read_json_body()
+            source = str(body.get("source") or "").strip().lower()
+            data_url = str(body.get("imageDataUrl") or "")
+            if source not in ("fut.gg", "365scores"):
+                raise ValueError("Unknown photo source.")
+            if not data_url.lower().startswith("data:image/") or "," not in data_url:
+                raise ValueError("Missing or invalid image data.")
+            target_dir, index_section, index_key = _resolve_player_image_target(body)
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            image_bytes = base64.b64decode(data_url.split(",", 1)[1], validate=False)
+        except Exception:  # noqa: BLE001
+            self._write_json(400, {"ok": False, "error": "Could not decode chosen image."})
+            return True
+
+        status, payload = _persist_player_photo_bytes(
+            target_dir, index_section, index_key, image_bytes, source
+        )
+        self._write_json(status, payload)
         return True
 
     def _try_player_photo_from_url(self) -> bool:
@@ -3292,6 +3297,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_auto_fetch_player_photo():
             return
         if self._try_list_player_photo_candidates():
+            return
+        if self._try_save_chosen_player_photo():
             return
         if self._try_player_photo_from_url():
             return
