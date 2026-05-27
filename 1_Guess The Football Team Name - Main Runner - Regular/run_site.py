@@ -457,6 +457,32 @@ def _name_tokens_match(display_name: str, short_name: str, long_name: str) -> bo
     return False
 
 
+# Club-name decorations that differ between our team names and the EA dataset
+# (e.g. "Fenerbahçe" vs "Fenerbahçe SK", "Inter" vs "Inter FC"). Stripped before
+# comparing so a suffix/prefix mismatch doesn't defeat same-club matching.
+_CLUB_NOISE_TOKENS = {
+    "fc", "cf", "sc", "ac", "afc", "cd", "ud", "sd", "rc", "cp", "club",
+    "ssc", "us", "as", "if", "fk", "bk", "sv", "ssv", "fsv", "vfb", "vfl",
+    "tsg", "calcio", "futbol", "football", "fussball", "the", "1",
+}
+
+
+def _clubs_match(a_key: str, b_key: str) -> bool:
+    """Tolerant same-club test on two already _name_key-normalized club names.
+    Treats one name as the same club as the other when, after dropping common
+    decorations (FC/SK/…), the core tokens of one are a subset of the other."""
+    if not a_key or not b_key:
+        return False
+    if a_key == b_key:
+        return True
+    a_tokens = a_key.split()
+    b_tokens = b_key.split()
+    a_core = [t for t in a_tokens if t not in _CLUB_NOISE_TOKENS] or a_tokens
+    b_core = [t for t in b_tokens if t not in _CLUB_NOISE_TOKENS] or b_tokens
+    sa, sb = set(a_core), set(b_core)
+    return sa <= sb or sb <= sa
+
+
 def _resolve_player_id(player_name: str, player_club: str, player_nationality: str) -> int | None:
     nk = _name_key(player_name)
     if not nk:
@@ -473,9 +499,14 @@ def _resolve_player_id(player_name: str, player_club: str, player_nationality: s
     if not candidates:
         return None
     if club_key:
-        club_matches = [r for r in candidates if _name_key(r.get("club_name") or "") == club_key]
+        club_matches = [r for r in candidates if _clubs_match(club_key, _name_key(r.get("club_name") or ""))]
         if club_matches:
             candidates = club_matches
+        elif len(candidates) > 1:
+            # The name is ambiguous (several players share it) and we know which
+            # club this player belongs to, but none of the matches is on that
+            # club. Refuse rather than return a different team's player.
+            return None
     if nat_key:
         nat_matches = [r for r in candidates if _name_key(r.get("nationality_name") or "") == nat_key]
         if nat_matches:
@@ -2910,6 +2941,11 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             player_club = str(body.get("playerClub") or "").strip()
             player_nationality = str(body.get("playerNationality") or "").strip()
             source = str(body.get("source") or "").strip().lower()
+            # For a club squad the team itself is the club, so use its name as the
+            # club hint when the player has no explicit club — this is what lets
+            # us pin "Ederson" to the Fenerbahçe GK rather than another Ederson.
+            if not player_club and str(body.get("squadType") or "").strip().lower() == "club":
+                player_club = str(body.get("currentSquadName") or "").strip()
             if not player_name:
                 raise ValueError("Missing player name.")
             if source not in ("fut.gg", "365scores"):
