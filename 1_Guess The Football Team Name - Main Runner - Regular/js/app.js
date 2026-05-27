@@ -26,7 +26,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js";
+import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260527d";
 import { initRenderModeIfRequested } from "./render-mode.js";
 import {
     showRenderProgressModal,
@@ -297,6 +297,14 @@ function initHeaderLogoZoom(onClearTeamSelection) {
             const st = getState();
             if (!st?.currentSquad) return;
             if (fetchLogo.disabled) return;
+            // Ask for the logo URL up front — going straight to manual paste is
+            // instant, whereas the automatic football-logos.cc lookup is slow.
+            const pasted = window.prompt(
+                "Paste a logo image URL (a football-logos.cc team page, or a direct PNG link from images.football-logos.cc / assets.football-logos.cc). Leave empty to cancel.",
+                "",
+            );
+            const manual = String(pasted || "").trim();
+            if (!manual) return;
             const prevText = fetchLogo.textContent || "Get logo";
             fetchLogo.disabled = true;
             fetchLogo.textContent = "...";
@@ -306,32 +314,16 @@ function initHeaderLogoZoom(onClearTeamSelection) {
                     selectedEntry: st.selectedEntry || {},
                     currentSquadName: st.currentSquad?.name || st.selectedEntry?.name || "",
                     currentSquadImagePath: st.currentSquad?.imagePath || "",
+                    pageUrl: manual,
                 };
                 const res = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(logoPayload),
                 });
-                let data = await res.json().catch(() => ({}));
+                const data = await res.json().catch(() => ({}));
                 if (!res.ok || !data?.ok) {
-                    const msg0 = data?.error || "Could not fetch team logo.";
-                    const pasted = window.prompt(
-                        `${msg0}\n\nPaste a football-logos.cc team page URL (example: team page with download sizes), or a direct PNG link from images.football-logos.cc / assets.football-logos.cc. Leave empty to cancel.`,
-                        "",
-                    );
-                    const manual = String(pasted || "").trim();
-                    if (!manual) {
-                        throw new Error(msg0);
-                    }
-                    const res2 = await fetch(AUTO_FETCH_TEAM_LOGO_ENDPOINT, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ ...logoPayload, pageUrl: manual }),
-                    });
-                    data = await res2.json().catch(() => ({}));
-                    if (!res2.ok || !data?.ok) {
-                        throw new Error(data?.error || "Could not download team logo from pasted URL.");
-                    }
+                    throw new Error(data?.error || "Could not download team logo from pasted URL.");
                 }
                 if (data?.relativePath) {
                     const rel = String(data.relativePath);
