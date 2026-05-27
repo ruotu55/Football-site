@@ -117,6 +117,259 @@ let activeScriptName = null;
 
 export function getActiveScriptName() { return activeScriptName; }
 
+/** Used by the calendar-driven Saved tab when a block is loaded — the Record
+ *  Video button reads getActiveScriptName() to derive the OBS file name. */
+export function setActiveScriptName(name) {
+    activeScriptName = name == null ? null : String(name);
+}
+
+/** Build a saved-script object from the current quiz UI state. Public so the
+ *  calendar-driven Saved tab can persist a block's script. Mirrors what
+ *  commitSavedScript() captures inside initSavedScripts — keep in sync if that
+ *  handler changes. */
+export function captureCurrentScriptObject(name) {
+    const { els } = appState;
+    const levelsToSave = appState.levelsData.map((lvl) => ({
+        isLogo: lvl.isLogo,
+        isIntro: lvl.isIntro,
+        isBonus: lvl.isBonus,
+        isOutro: lvl.isOutro,
+        gameMode: lvl.gameMode || "career",
+        squadType: lvl.squadType,
+        selectedEntry: jsonSafeClone(lvl.selectedEntry),
+        currentSquad: jsonSafeClone(lvl.currentSquad),
+        careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
+        careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
+        formationId: lvl.formationId,
+        lastFormationId: lvl.lastFormationId,
+        displayMode: lvl.displayMode,
+        searchText: lvl.searchText,
+        customXi: jsonSafeClone(lvl.customXi),
+        customNames: jsonSafeClone(lvl.customNames) || {},
+        videoMode: lvl.videoMode,
+        landingPageType: lvl.landingPageType,
+        careerClubsCount: lvl.careerClubsCount,
+        careerSilhouetteIndex: lvl.careerSilhouetteIndex,
+        silhouetteYOffset: lvl.silhouetteYOffset,
+        silhouetteScaleX: lvl.silhouetteScaleX,
+        silhouetteScaleY: lvl.silhouetteScaleY,
+        silhouetteVideoYOffset: lvl.silhouetteVideoYOffset,
+        silhouetteVideoScaleX: lvl.silhouetteVideoScaleX,
+        silhouetteVideoScaleY: lvl.silhouetteVideoScaleY,
+        silhouetteNormalYOffset: lvl.silhouetteNormalYOffset,
+        silhouetteNormalScaleX: lvl.silhouetteNormalScaleX,
+        silhouetteNormalScaleY: lvl.silhouetteNormalScaleY,
+        silhouetteShortsVideoYOffset: lvl.silhouetteShortsVideoYOffset,
+        silhouetteShortsVideoScaleX: lvl.silhouetteShortsVideoScaleX,
+        silhouetteShortsVideoScaleY: lvl.silhouetteShortsVideoScaleY,
+        silhouetteShortsNormalYOffset: lvl.silhouetteShortsNormalYOffset,
+        silhouetteShortsNormalScaleX: lvl.silhouetteShortsNormalScaleX,
+        silhouetteShortsNormalScaleY: lvl.silhouetteShortsNormalScaleY,
+        careerSlotBadgeScales: Array.isArray(lvl.careerSlotBadgeScales)
+            ? [...lvl.careerSlotBadgeScales]
+            : [],
+        careerSlotBadgeScalesRegular: Array.isArray(lvl.careerSlotBadgeScalesRegular)
+            ? [...lvl.careerSlotBadgeScalesRegular]
+            : [],
+        careerSlotBadgeScalesShorts: Array.isArray(lvl.careerSlotBadgeScalesShorts)
+            ? [...lvl.careerSlotBadgeScalesShorts]
+            : [],
+        careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
+            ? [...lvl.careerSlotYearNudges]
+            : [],
+        slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
+        careerTeamQuizMode: !!lvl.careerTeamQuizMode,
+    }));
+    const newScript = {
+        name,
+        folder: null,
+        landing: {
+            gameMode: "career",
+            quizType: els.inQuizType.value,
+            endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
+            easy: els.inEasy?.value ?? "10",
+            medium: els.inMedium?.value ?? "5",
+            hard: els.inHard?.value ?? "3",
+            impossible: els.inImpossible?.value ?? "1",
+        },
+        lineup: {
+            videoMode: els.videoModeToggle.checked,
+            totalLevels: els.quizLevelsInput.value,
+            shortsMode: FIXED_SHORTS_MODE,
+        },
+        transitions: captureTransitionSettings(),
+        levels: levelsToSave,
+    };
+    return newScript;
+}
+
+/** Apply a script object to the live UI. Public so the calendar-driven Saved
+ *  tab can load a block's script. */
+export async function applyScriptObject(script) {
+    return loadScript(script);
+}
+
+/** Build a script object from a "[Player1, Player2, ...]" (or team list for
+ *  fake-info) paste — the same flow the legacy Import modal ran, but headless
+ *  so the calendar-driven Saved tab can call it from its block-save modal.
+ *  Returns one of:
+ *    { ok: true, script }
+ *    { ok: false, errors: string[], searchableNames: Set<string> }
+ *    { ok: false, errors: ["..."] }                                 // parse/other failure
+ *  Does NOT mutate UI state (no activeScriptName, no rendering). The caller
+ *  decides what to do with the returned script. */
+export async function buildScriptFromImportText(text, name) {
+    const { els } = appState;
+    const parsed = parseImportText(text);
+    if (parsed.error) return { ok: false, errors: [parsed.error] };
+
+    const names = await applyImportAliasesToNames(parsed.names);
+
+    const quizType = els.inQuizType?.value || "player-by-career-stats";
+    const importTeams = quizType === FAKE_INFO_QUIZ_TYPE;
+
+    const errors = [];
+    const searchableNames = new Set();
+    const resolved = new Array(names.length).fill(null);
+
+    if (importTeams) {
+        const clubs = appState.teamsIndex?.clubs || [];
+        if (!clubs.length) {
+            return { ok: false, errors: ["Team list not loaded yet. Wait for the app to finish loading, then try again."] };
+        }
+        for (let i = 0; i < names.length; i++) {
+            const rawName = names[i];
+            const cands = findAllClubCandidates(rawName, clubs);
+            if (cands.length === 0) {
+                errors.push(`❌ ${rawName}: team not found in index.`);
+                searchableNames.add(rawName);
+            } else {
+                // Headless: take the best (first) candidate; the disambig modal
+                // is UI-only and not available in this flow.
+                resolved[i] = cands[0];
+            }
+        }
+    } else {
+        let allPlayers;
+        try {
+            allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+                ? await appState.loadAllGlobalPlayers()
+                : (appState.allGlobalPlayers || []);
+        } catch {
+            allPlayers = appState.allGlobalPlayers || [];
+        }
+        if (!allPlayers || allPlayers.length === 0) {
+            return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
+        }
+        for (let i = 0; i < names.length; i++) {
+            const rawName = names[i];
+            const cands = findAllPlayerCandidates(rawName, allPlayers);
+            if (cands.length === 0) {
+                errors.push(`❌ ${rawName}: player not found.`);
+                searchableNames.add(rawName);
+            } else {
+                resolved[i] = cands[0];
+            }
+        }
+    }
+
+    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    const levelDatas = [];
+    if (importTeams) {
+        for (let i = 0; i < resolved.length; i++) {
+            const entry = resolved[i];
+            const rawName = names[i];
+            let squad;
+            try {
+                squad = await loadSquadJson(entry);
+            } catch {
+                errors.push(`❌ ${rawName}: failed to load squad data.`);
+                continue;
+            }
+            const teamPlayer = createSyntheticTeamCareerPlayer(entry);
+            levelDatas.push(makeEmptyPlayerImportLevel({
+                gameMode: "career",
+                squadType: "club",
+                selectedEntry: entry,
+                currentSquad: squad,
+                careerPlayer: teamPlayer,
+                careerHistory: [{ club: teamPlayer.club, year: "TEAM" }],
+                careerClubsCount: 1,
+                careerTeamQuizMode: true,
+                searchText: teamPlayer.name,
+                displayMode: "club",
+                landingPageType: "club",
+            }));
+        }
+    } else {
+        for (let i = 0; i < resolved.length; i++) {
+            const player = resolved[i];
+            const rawName = names[i];
+            const clubItem = player._clubItem;
+            if (!clubItem) {
+                errors.push(`❌ ${rawName}: missing club reference.`);
+                continue;
+            }
+            let squad;
+            try {
+                squad = await loadSquadJson(clubItem);
+            } catch {
+                errors.push(`❌ ${rawName}: failed to load squad data.`);
+                continue;
+            }
+            const history = cleanCareerHistory(player.transfer_history || []);
+            const careerClubsCount = Math.max(2, history.length);
+            levelDatas.push(makeEmptyPlayerImportLevel({
+                gameMode: "career",
+                squadType: "club",
+                selectedEntry: clubItem,
+                currentSquad: squad,
+                careerPlayer: player,
+                careerHistory: history,
+                careerClubsCount,
+                searchText: player.name,
+                displayMode: "club",
+                landingPageType: "club",
+            }));
+        }
+    }
+
+    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    const n = levelDatas.length;
+    if (levelDatas.length > 0) levelDatas[levelDatas.length - 1].isBonus = true;
+    const allLevels = [
+        makeEmptyPlayerImportLevel({ isLogo: true }),
+        ...(INCLUDE_INTRO_LEVEL ? [makeEmptyPlayerImportLevel({ isIntro: true })] : []),
+        ...levelDatas,
+        makeEmptyPlayerImportLevel({ isOutro: true }),
+    ];
+
+    const script = {
+        name,
+        folder: null,
+        landing: {
+            gameMode: "career",
+            quizType: els.inQuizType?.value || "nat-by-club",
+            endingType: els.inEndingType?.value || "think-you-know",
+            easy: els.inEasy?.value ?? "10",
+            medium: els.inMedium?.value ?? "5",
+            hard: els.inHard?.value ?? "3",
+            impossible: els.inImpossible?.value ?? "1",
+        },
+        lineup: {
+            videoMode: true,
+            totalLevels: n,
+            shortsMode: FIXED_SHORTS_MODE,
+        },
+        transitions: {},
+        levels: allLevels,
+    };
+
+    return { ok: true, script };
+}
+
 let uiCallbacks = {};
 
 // ---------------------------------------------------------------------------
@@ -1468,7 +1721,9 @@ async function loadScript(script) {
     els.teamResults.replaceChildren();
 
     applyCustomSelects();
-    renderSavedScripts();
+    document.dispatchEvent(new CustomEvent("recording-queue:script-applied", {
+        detail: { name: activeScriptName },
+    }));
     appState.currentLevelIndex = 0;
     switchLevel(1);
 }

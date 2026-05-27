@@ -24,7 +24,8 @@ import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
-import { initSavedScripts, renderSavedScripts, getActiveScriptName } from "./saved-scripts.js";
+import { getActiveScriptName } from "./saved-scripts.js";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -763,12 +764,7 @@ async function init() {
     // Call initialized modules
     initLevelControls();
     initTransitionsUI();
-    initSavedScripts({
-        populateSubTypes,
-        updateSetupUI,
-        updateLanding,
-        syncShortsCirclePreviewPanel,
-    });
+    void initRecordingQueue();
     initUpdateData();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
@@ -882,7 +878,7 @@ async function init() {
         els.inHard.value = String(hard);
         els.inImpossible.value = String(impossible);
         updateLanding();
-        renderSavedScripts();
+        renderRecordingQueue();
         switchLevel(appState.currentLevelIndex);
     };
 

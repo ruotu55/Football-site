@@ -2,6 +2,7 @@
   const { uploadsForDay, uploadsForMonth, phaseForDate, PHASES, pad2, sameYMD, START_DATE } = window.FCSchedule;
   const { get: getUploadStatus, set: setUploadStatus, remove: removeUploadStatus } = window.FCUploadStatus;
   const FCRecordingStatus = window.FCRecordingStatus;
+  const FCYouTube = window.FCYouTube;
 
   const MONTH_NAMES = [
     "January", "February", "March", "April", "May", "June",
@@ -66,73 +67,274 @@
     urlInput.value = "";
   }
 
+  /* Per-pill lifecycle (this pill = one channel of one episode):
+       "empty"    - no block created yet
+       "toRecord" - block filled, but this language isn't recorded yet
+       "toUpload" - recorded (video file exists), not uploaded -> Upload button
+       "done"     - uploaded to YouTube (auto-linked to the video)
+       "error"    - a previous upload failed -> Retry button */
+  function pillState(block, channel) {
+    const lang = channel === "en" ? "english" : "spanish";
+    if (block?.youtube?.[lang]?.videoId) return "done";
+    if (block?.youtube?.[lang]?.error) return "error";
+    if (block?.video?.[lang]?.path) return "toUpload";
+    if (block) return "toRecord";
+    return "empty";
+  }
+
+  const STATE_LABEL = { empty: "Empty", toRecord: "Ready to record", done: "Done" };
+  const STATE_TINT = { empty: "empty", toRecord: "ready", toUpload: "ready", done: "recorded", error: "ready" };
+
   function buildUploadPill(date, u) {
-    const status = getUploadStatus(date, u);
+    const block = FCRecordingStatus ? FCRecordingStatus.getBlock(u.runner.id, u.type, u.episode) : null;
+    const state = pillState(block, u.channel);
+    const lang = u.channel === "en" ? "english" : "spanish";
+    const videoId = block?.youtube?.[lang]?.videoId || null;
+
     const pill = document.createElement("div");
     pill.className = `upload upload-${u.type} channel-${u.channel}`;
-    if (status) pill.classList.add("upload--done");
-
-    /* Flat-column pill layout — chip + YouTube-upload check sit on a top
-       row, time and runner name flow below. No absolute positioning so
-       nothing overlaps at any cell size. The chip mirrors the runner Saved
-       tab's labels; the check still toggles the YouTube-upload URL modal. */
-    const top = document.createElement("div");
-    top.className = "upload-top";
-
-    if (FCRecordingStatus) {
-      const block = FCRecordingStatus.getBlock(u.runner.id, u.type, u.episode);
-      const blockState = FCRecordingStatus.statusForBlock(block);
-      const pillState = FCRecordingStatus.statusForPill(u.runner.id, u.type, u.episode, u.channel);
-      pill.dataset.recState = pillState;
-      const chip = document.createElement("span");
-      chip.className = `rec-chip rec-chip--${blockState}`;
-      chip.textContent = FCRecordingStatus.labelForBlock(block);
-      chip.title = block
-        ? `Block: ${block.name || "(unnamed)"} — #${u.episode}`
-        : `No block yet · #${u.episode}`;
-      top.appendChild(chip);
-    } else {
-      const spacer = document.createElement("span");
-      spacer.style.flex = "1";
-      top.appendChild(spacer);
-    }
-
-    const check = document.createElement("button");
-    check.type = "button";
-    check.className = "upload-check";
-    check.setAttribute("aria-label", status ? "Edit video link" : "Mark as uploaded");
-    check.setAttribute("aria-pressed", status ? "true" : "false");
-    if (status) check.textContent = "\u2713";
-    check.addEventListener("click", (e) => {
-      e.stopPropagation();
-      openUrlModal(date, u);
-    });
-    top.appendChild(check);
 
     const title =
       `${u.channel.toUpperCase()} · ${u.type === "long" ? "Long-form" : "Short"}\n`
       + `${u.runner.name} · Episode #${u.episode}\n`
       + `Upload: ${pad2(u.hour)}:${pad2(u.min)} Israel time`;
 
-    const body = document.createElement(status ? "a" : "div");
+    const body = document.createElement("div");
     body.className = "upload-body";
-    if (status) {
-      body.href = status.url;
-      body.target = "_blank";
-      body.rel = "noopener noreferrer";
-      body.title = title + "\n" + status.url;
-    } else {
-      body.title = title;
-    }
+    body.title = title;
     body.innerHTML = `
       <div class="upload-time">${pad2(u.hour)}:${pad2(u.min)}</div>
       <div class="upload-runner">#${u.episode} ${u.runner.name}</div>
-      ${status ? '<div class="upload-view">View ↗</div>' : ""}
     `;
-
-    pill.appendChild(top);
     pill.appendChild(body);
+
+    // ONE unified status line under the name — identical shape for every
+    // state, only the colour + label (and click behaviour) differ.
+    pill.appendChild(buildStatusEl(date, u, block, state, videoId));
     return pill;
+  }
+
+  // Small ↺ reset button — clears this language's recording/upload status so the
+  // pill rolls back to "Ready to record". Shared by the upload + done states.
+  function makeResetButton(u, confirmMsg) {
+    const reset = document.createElement("button");
+    reset.type = "button";
+    reset.className = "yt-reset";
+    reset.textContent = "↺"; // circular arrow
+    reset.title = "Reset back to 'Ready to record'";
+    reset.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      if (!confirm(confirmMsg)) return;
+      reset.disabled = true;
+      const ok = await FCYouTube.resetLanguage(
+        FCRecordingStatus.blockKey(u.runner.id, u.type, u.episode), u.channel,
+      );
+      if (ok) {
+        await FCRecordingStatus.refresh();
+      } else {
+        reset.disabled = false;
+        alert("Could not reset — the server didn't accept the request.");
+      }
+    });
+    return reset;
+  }
+
+  function buildStatusEl(date, u, block, state, videoId) {
+    // Recorded but not uploaded / failed -> upload (or retry) button + reset.
+    if (state === "toUpload" || state === "error") {
+      const row = document.createElement("div");
+      row.className = "yt-done-row";
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = `yt-status yt-status--${state}`;
+      btn.textContent = state === "error" ? "Retry upload" : "Upload to YouTube";
+      if (state === "error") {
+        const lang = u.channel === "en" ? "english" : "spanish";
+        btn.title = block?.youtube?.[lang]?.error || "Previous upload failed";
+      }
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openThumbnailModal(date, u, block, btn);
+      });
+      row.appendChild(btn);
+      row.appendChild(makeResetButton(u,
+        "Reset back to 'Ready to record'?\n\nThis clears the recorded status on the calendar so you can re-record. The video file on disk is not deleted."));
+      return row;
+    }
+    // Uploaded -> "Done" link to the video + a small reset (rolls it back).
+    if (state === "done" && videoId) {
+      const row = document.createElement("div");
+      row.className = "yt-done-row";
+
+      const a = document.createElement("a");
+      a.className = "yt-status yt-status--done";
+      a.href = `https://www.youtube.com/watch?v=${videoId}`;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      a.textContent = "Done \u2197";
+      a.title = "Uploaded & scheduled. Click to view on YouTube.";
+      row.appendChild(a);
+      row.appendChild(makeResetButton(u,
+        "Reset this upload status?\n\nThis only clears it on the calendar so you can re-record / re-upload. The video already on YouTube is NOT deleted."));
+      return row;
+    }
+    // Empty / Ready to record -> clickable: launches the runner so you can record.
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = `yt-status yt-status--${state}`;
+    btn.textContent = STATE_LABEL[state] || state;
+    btn.title = "Open this runner to record";
+    btn.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const prev = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Opening runner…";
+      try {
+        const r = await fetch("/__launch-runner", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ runnerId: u.runner.id, type: u.type }),
+        });
+        const res = await r.json();
+        if (!res.ok) {
+          alert("Couldn't open the runner:\n\n" + (res.error || "unknown error"));
+          btn.disabled = false;
+          btn.textContent = prev;
+        } else {
+          // The server opened the runner in the browser. Reset the label.
+          btn.disabled = false;
+          btn.textContent = prev;
+        }
+      } catch (err) {
+        alert("Couldn't reach the calendar server to launch the runner.");
+        btn.disabled = false;
+        btn.textContent = prev;
+      }
+    });
+    return btn;
+  }
+
+  // ---- Thumbnail picker modal (built once, reused) ------------------------
+  let thumbModal = null;
+  let thumbPending = null; // { date, u, block, btn }
+  let thumbFile = null;    // { dataBase64, mime, name }
+
+  function ensureThumbModal() {
+    if (thumbModal) return thumbModal;
+    const root = document.createElement("div");
+    root.id = "yt-thumb-modal";
+    root.className = "modal";
+    root.hidden = true;
+    root.innerHTML = `
+      <div class="modal-backdrop" data-yt-close></div>
+      <div class="modal-panel" role="dialog" aria-labelledby="yt-thumb-title">
+        <h3 id="yt-thumb-title">Upload to YouTube</h3>
+        <p id="yt-thumb-meta" class="modal-meta"></p>
+        <div id="yt-drop" class="yt-drop">
+          <input id="yt-thumb-file" type="file" accept="image/*" hidden>
+          <div class="yt-drop-inner">
+            <div class="yt-drop-text">Drag an image here</div>
+            <img id="yt-thumb-preview" class="yt-thumb-preview" hidden alt="">
+            <div id="yt-thumb-name" class="yt-thumb-name"></div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="navbtn" data-yt-close>Cancel</button>
+          <button type="button" class="navbtn modal-save" id="yt-thumb-upload" disabled>Upload</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(root);
+    thumbModal = root;
+
+    const fileInput = root.querySelector("#yt-thumb-file");
+    const drop = root.querySelector("#yt-drop");
+    const preview = root.querySelector("#yt-thumb-preview");
+    const nameEl = root.querySelector("#yt-thumb-name");
+    const uploadBtn = root.querySelector("#yt-thumb-upload");
+
+    const readFile = (file) => {
+      if (!file || !file.type.startsWith("image/")) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = String(reader.result);
+        const comma = dataUrl.indexOf(",");
+        thumbFile = { dataBase64: dataUrl.slice(comma + 1), mime: file.type, name: file.name };
+        preview.src = dataUrl;
+        preview.hidden = false;
+        nameEl.textContent = `${file.name} · ${(file.size / 1024).toFixed(0)} KB`;
+        uploadBtn.disabled = false;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    drop.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", () => readFile(fileInput.files[0]));
+    drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("yt-drop--over"); });
+    drop.addEventListener("dragleave", () => drop.classList.remove("yt-drop--over"));
+    drop.addEventListener("drop", (e) => {
+      e.preventDefault();
+      drop.classList.remove("yt-drop--over");
+      readFile(e.dataTransfer.files[0]);
+    });
+
+    root.addEventListener("click", (e) => {
+      if (e.target.dataset && e.target.dataset.ytClose !== undefined) closeThumbModal();
+    });
+    uploadBtn.addEventListener("click", doThumbUpload);
+    return root;
+  }
+
+  function openThumbnailModal(date, u, block, btn) {
+    const root = ensureThumbModal();
+    thumbPending = { date, u, block, btn };
+    thumbFile = null;
+    root.querySelector("#yt-thumb-meta").textContent =
+      `${u.channel.toUpperCase()} · #${u.episode} ${u.runner.name} · ${pad2(u.hour)}:${pad2(u.min)}`;
+    root.querySelector("#yt-thumb-file").value = "";
+    root.querySelector("#yt-thumb-preview").hidden = true;
+    root.querySelector("#yt-thumb-name").textContent = "";
+    const ub = root.querySelector("#yt-thumb-upload");
+    ub.disabled = true;
+    ub.textContent = "Upload";
+    root.hidden = false;
+    root.setAttribute("aria-hidden", "false");
+  }
+
+  function closeThumbModal() {
+    if (thumbModal) { thumbModal.hidden = true; thumbModal.setAttribute("aria-hidden", "true"); }
+    thumbPending = null;
+    thumbFile = null;
+  }
+
+  async function doThumbUpload() {
+    if (!thumbPending) return;
+    const { date, u, block, btn } = thumbPending;
+    const root = ensureThumbModal();
+    const ub = root.querySelector("#yt-thumb-upload");
+    ub.disabled = true;
+    ub.textContent = "Uploading…";
+    if (btn) { btn.disabled = true; btn.textContent = "Uploading…"; }
+
+    const res = await FCYouTube.upload({
+      key: FCRecordingStatus.blockKey(u.runner.id, u.type, u.episode),
+      channel: u.channel,
+      block,
+      date: { y: date.getFullYear(), m: date.getMonth(), d: date.getDate() },
+      time: { hour: u.hour, min: u.min },
+      playlistName: u.runner.name,
+    }, thumbFile);
+
+    if (res.ok) {
+      closeThumbModal();
+      if (res.warning) alert("Uploaded, with a note:\n\n" + res.warning);
+      await FCRecordingStatus.refresh(); // re-render pills with the new status
+    } else {
+      ub.disabled = false;
+      ub.textContent = "Retry";
+      if (btn) { btn.disabled = false; btn.textContent = "Retry upload"; btn.classList.add("yt-btn--error"); }
+      alert("YouTube upload failed:\n\n" + (res.error || "Unknown error"));
+    }
   }
 
   function renderHeader() {

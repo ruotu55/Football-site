@@ -52,11 +52,39 @@ def _load_recording_status():
 _recording_status_mod = _load_recording_status()
 
 
+def _load_youtube():
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_youtube.py"
+    spec = importlib.util.spec_from_file_location("_fc_youtube", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_youtube.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_youtube_mod = _load_youtube()
+
+
+def _load_launch_runner():
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_launch_runner.py"
+    spec = importlib.util.spec_from_file_location("_fc_launch_runner", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_launch_runner.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_launch_runner_mod = _load_launch_runner()
+
+
 class CalendarRequestHandler(SimpleHTTPRequestHandler):
-    """Static file serving for PROJECT_ROOT + the recording-status endpoint."""
+    """Static file serving for PROJECT_ROOT + recording-status, youtube, launch endpoints."""
 
     def do_GET(self) -> None:  # noqa: N802
         if _recording_status_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if _youtube_mod.try_handle_get(self, PROJECT_ROOT):
             return
         try:
             super().do_GET()
@@ -66,6 +94,10 @@ class CalendarRequestHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _youtube_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _launch_runner_mod.try_handle_post(self, PROJECT_ROOT):
             return
         self.send_error(404, "Not found")
 

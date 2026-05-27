@@ -22,6 +22,8 @@ import {
     getActiveScriptName,
     buildScriptFromImportText,
 } from "./saved-scripts.js";
+import { getLastOutputPath } from "./obs-recorder.js";
+import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 
 const RUNNER_ID = 3;
 const RUNNER_TYPE = "long"; // "Regular" folder = long-form.
@@ -150,7 +152,7 @@ async function postReplace(allBlocks) {
     } catch (_) { /* offline — silent; the next user save will retry */ }
 }
 
-async function postStampRecording(key, language) {
+async function postStampRecording(key, language, video) {
     try {
         const r = await fetch(ENDPOINT, {
             method: "POST",
@@ -160,6 +162,7 @@ async function postStampRecording(key, language) {
                 key,
                 language,
                 timestamp: Date.now(),
+                video: video || undefined, // { path, title, description, tags }
             }),
         });
         return r.ok;
@@ -503,16 +506,38 @@ async function onRecordingFinished() {
     if (!dr || (dr.phase !== 1 && dr.phase !== 2)) return;
     const language = dr.phase === 1 ? "english" : "spanish";
 
+    // Capture the video file path (from OBS) and the generated YouTube metadata
+    // for THIS language, so the calendar's "Upload to YouTube" button has
+    // everything it needs. Generation reflects the current quiz/language state.
+    let video = null;
+    try {
+        const path = getLastOutputPath();
+        // Pass the language so the ES recording gets Spanish title/description/tags.
+        const meta = generateNameDescription(language); // { title, description, tags }
+        video = {
+            path: path || null,
+            title: meta.title || "",
+            description: meta.description || "",
+            tags: Array.isArray(meta.tags) ? meta.tags : [],
+        };
+    } catch (err) {
+        console.warn("[recording-queue] metadata capture failed:", err);
+    }
+
     // Optimistic local update so the queue reflects it immediately even if the
     // POST is slow.
     const block = blocks[key];
     if (block) {
         block.recorded = block.recorded || { english: null, spanish: null };
         block.recorded[language] = Date.now();
+        if (video) {
+            block.video = block.video || {};
+            block.video[language] = video;
+        }
         block.updatedAt = block.recorded[language];
         render();
     }
-    const ok = await postStampRecording(key, language);
+    const ok = await postStampRecording(key, language, video);
     if (!ok) {
         // Server didn't accept — refetch to reconcile.
         blocks = await fetchBlocks();

@@ -26,7 +26,8 @@ import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-
 import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
-import { initSavedScripts, renderSavedScripts, getActiveScriptName } from "./saved-scripts.js";
+import { getActiveScriptName } from "./saved-scripts.js";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -456,11 +457,7 @@ async function init() {
             transitionSel.dispatchEvent(new Event("change"));
         }
     }
-    initSavedScripts({
-        populateSubTypes,
-        updateSetupUI,
-        updateLanding,
-    });
+    void initRecordingQueue();
     initUpdateData();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
@@ -547,7 +544,7 @@ async function init() {
         initLevels(levels - 1);
         appState.currentLevelIndex = FIXED_SHORTS_MODE ? 0 : 1;
         updateLanding();
-        renderSavedScripts();
+        renderRecordingQueue();
         switchLevel(appState.currentLevelIndex);
     };
 

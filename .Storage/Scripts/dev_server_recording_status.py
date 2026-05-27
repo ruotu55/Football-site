@@ -73,10 +73,18 @@ def _normalize_block(raw: object) -> dict[str, object] | None:
     updated_at = raw.get("updatedAt")
     if not isinstance(updated_at, (int, float)):
         updated_at = 0
+    # Pass-through opaque sub-objects written by the runner / calendar:
+    #   video    = { english: {path,title,description,tags}, spanish: {...} }
+    #   youtube  = { english: {videoId,uploadedAt,playlistId,...}, spanish: {...} }
+    # We don't validate their shape here — just preserve them across saves.
+    video = raw.get("video") if isinstance(raw.get("video"), dict) else {}
+    youtube = raw.get("youtube") if isinstance(raw.get("youtube"), dict) else {}
     return {
         "name": name,
         "script": script,
         "recorded": {"english": english, "spanish": spanish},
+        "video": video,
+        "youtube": youtube,
         "updatedAt": updated_at,
     }
 
@@ -188,6 +196,9 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
         if not isinstance(timestamp, (int, float)):
             _send_json(handler, 400, {"error": "Invalid timestamp"})
             return True
+        # Optional: the captured video metadata for this language
+        # (path/title/description/tags). Stored under block.video[language].
+        video_meta = parsed.get("video") if isinstance(parsed.get("video"), dict) else None
         with _LOCK:
             payload = _read_store(project_root)
             blocks = payload.setdefault("blocks", {})
@@ -197,7 +208,73 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
                 return True
             recorded = block.setdefault("recorded", {"english": None, "spanish": None})
             recorded[language] = timestamp
+            if video_meta is not None:
+                video = block.setdefault("video", {})
+                if not isinstance(video, dict):
+                    video = {}
+                    block["video"] = video
+                video[language] = video_meta
             block["updatedAt"] = timestamp
+            if not _write_store(project_root, payload):
+                _send_json(handler, 500, {"error": "Write failed"})
+                return True
+        _send_json(handler, 200, {"ok": True})
+        return True
+
+    if op == "setYoutube":
+        # Calendar writes upload results back: block.youtube[language] = {...}
+        key = parsed.get("key")
+        language = parsed.get("language")
+        info = parsed.get("info") if isinstance(parsed.get("info"), dict) else None
+        if not isinstance(key, str) or not _BLOCK_KEY_RE.fullmatch(key):
+            _send_json(handler, 400, {"error": "Invalid block key"})
+            return True
+        if language not in ("english", "spanish") or info is None:
+            _send_json(handler, 400, {"error": "Invalid language or info"})
+            return True
+        with _LOCK:
+            payload = _read_store(project_root)
+            blocks = payload.setdefault("blocks", {})
+            block = blocks.get(key)
+            if not isinstance(block, dict):
+                _send_json(handler, 404, {"error": "Block not found"})
+                return True
+            yt = block.setdefault("youtube", {})
+            if not isinstance(yt, dict):
+                yt = {}
+                block["youtube"] = yt
+            yt[language] = info
+            if not _write_store(project_root, payload):
+                _send_json(handler, 500, {"error": "Write failed"})
+                return True
+        _send_json(handler, 200, {"ok": True})
+        return True
+
+    if op == "clearLanguage":
+        # Reset ONE language of a block back to the start of its lifecycle:
+        # drops its recorded timestamp, captured video metadata, and youtube
+        # upload info. The block (and the other language) is left intact.
+        key = parsed.get("key")
+        language = parsed.get("language")
+        if not isinstance(key, str) or not _BLOCK_KEY_RE.fullmatch(key):
+            _send_json(handler, 400, {"error": "Invalid block key"})
+            return True
+        if language not in ("english", "spanish"):
+            _send_json(handler, 400, {"error": "Invalid language"})
+            return True
+        with _LOCK:
+            payload = _read_store(project_root)
+            blocks = payload.setdefault("blocks", {})
+            block = blocks.get(key)
+            if not isinstance(block, dict):
+                _send_json(handler, 404, {"error": "Block not found"})
+                return True
+            if isinstance(block.get("recorded"), dict):
+                block["recorded"][language] = None
+            if isinstance(block.get("video"), dict):
+                block["video"].pop(language, None)
+            if isinstance(block.get("youtube"), dict):
+                block["youtube"].pop(language, None)
             if not _write_store(project_root, payload):
                 _send_json(handler, 500, {"error": "Write failed"})
                 return True

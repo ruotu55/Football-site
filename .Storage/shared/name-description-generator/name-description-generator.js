@@ -15,30 +15,38 @@
 //     getActiveScriptName: () => getActiveScriptName(),
 //   });
 
-import {
-  VIRAL_TAGS,
-  COMPETITION_KEYS,
-  COUNTRY_KEYS,
-  CLUB_KEYS,
-  PLAYER_KEYS,
-} from "./viral-tags.js";
-import {
-  HOOK_LINES,
-  SHORT_HOOKS,
-  QUIZ_EXPLANATION,
-  FEATURE_HEADERS,
-  SPECIAL_EDITION_PHRASES,
-  ENGAGEMENT_LINES,
-  SHORT_ENGAGEMENT,
-  CROSS_PROMO_LINES,
-  CROSS_PROMO_HEADERS,
-  HASHTAG_CORE,
-  HASHTAG_SHORTS,
-  SIGN_OFFS,
-  pickRandom,
-  pickOne,
-  rng,
-} from "./description-templates.js";
+// Both languages are loaded as namespaces; the generator picks one per call
+// based on the requested language ("en" / "es"). Matching-key lists
+// (COMPETITION_KEYS etc.) are language-agnostic, taken from the English file.
+import { VIRAL_TAGS as TAGS_EN, COMPETITION_KEYS, COUNTRY_KEYS, CLUB_KEYS, PLAYER_KEYS } from "./viral-tags.js";
+import { VIRAL_TAGS as TAGS_ES } from "./viral-tags-es.js";
+import * as TPL_EN from "./description-templates.js";
+import * as TPL_ES from "./description-templates-es.js";
+
+const { pickRandom, pickOne, rng } = TPL_EN; // helpers are language-agnostic
+
+/** Spanish quiz titles per quizKey (the EN title comes from CONFIG.quizTitle,
+ *  which each runner passes in). Falls back to CONFIG.quizTitle if a key is
+ *  missing. */
+const QUIZ_TITLE_ES = {
+  "team-by-nat": "ADIVINA EL EQUIPO POR LA NACIONALIDAD DE LOS JUGADORES",
+  "nat-by-club": "ADIVINA LA SELECCIÓN POR LOS CLUBES DE LOS JUGADORES",
+  "career-path": "ADIVINA EL JUGADOR POR SU TRAYECTORIA",
+  "career-stats": "ADIVINA EL JUGADOR POR SUS ESTADÍSTICAS",
+  "four-params": "ADIVINA EL JUGADOR POR CLUB, POSICIÓN, PAÍS Y EDAD",
+  "fake-info": "ENCUENTRA LA INFORMACIÓN FALSA",
+  "logo-name": "ADIVINA EL EQUIPO POR SU ESCUDO",
+  "player-name": "ADIVINA EL JUGADOR POR SU FOTO",
+};
+
+/** Language-keyed accessors. */
+function tpl(lang) { return lang === "es" ? TPL_ES : TPL_EN; }
+function tags(lang) { return lang === "es" ? TAGS_ES : TAGS_EN; }
+function normLang(language) {
+  const v = String(language || "").toLowerCase();
+  if (v === "es" || v === "spanish") return "es";
+  return "en";
+}
 
 const YOUTUBE_TAG_BUDGET = 480; // hard ceiling; YouTube cap is 500
 const TAG_COUNT_REGULAR = { min: 12, max: 15 }; // sweet spot per YouTube SEO consensus
@@ -53,6 +61,25 @@ export function initNameDescriptionGenerator(config) {
   const btn = document.getElementById(config.buttonId);
   if (!btn) return;
   btn.addEventListener("click", () => openModal());
+}
+
+/** Headless variant of the generator — returns { title, description, tags }
+ *  for the CURRENT quiz state without opening the modal. Used by the recording
+ *  queue to stamp YouTube metadata onto a block when a recording finishes.
+ *  `language` is "english"/"en" (default) or "spanish"/"es" — it selects the
+ *  Spanish copy + tags + title for the ES channel.
+ *  Requires initNameDescriptionGenerator(config) to have run first (CONFIG set).
+ *  `tags` is returned as an array. */
+export function generateNameDescription(language) {
+  if (!CONFIG) {
+    return { title: "", description: "", tags: [] };
+  }
+  const lang = normLang(language);
+  const ctx = buildContext();
+  const title = buildTitle(ctx, lang);
+  const description = CONFIG.isShorts ? buildShortsDescription(ctx, lang) : buildRegularDescription(ctx, lang);
+  const tagList = buildTags(ctx, lang);
+  return { title, description, tags: tagList };
 }
 
 // ---------------------------------------------------------------------------
@@ -148,10 +175,11 @@ function hideModal() {
 // ---------------------------------------------------------------------------
 
 function renderInto(modal) {
+  const lang = "en"; // the manual modal shows English copy
   const ctx = buildContext();
-  const title = buildTitle(ctx);
-  const description = CONFIG.isShorts ? buildShortsDescription(ctx) : buildRegularDescription(ctx);
-  const tags = buildTags(ctx);
+  const title = buildTitle(ctx, lang);
+  const description = CONFIG.isShorts ? buildShortsDescription(ctx, lang) : buildRegularDescription(ctx, lang);
+  const tags = buildTags(ctx, lang);
 
   modal.querySelector('[data-field="title"]').value = title;
   modal.querySelector('[data-field="description"]').value = description;
@@ -220,9 +248,13 @@ function buildContext() {
 // Title
 // ---------------------------------------------------------------------------
 
-function buildTitle(ctx) {
+function buildTitle(ctx, lang = "en") {
+  const baseTitle = (lang === "es" && QUIZ_TITLE_ES[CONFIG.quizKey])
+    ? QUIZ_TITLE_ES[CONFIG.quizKey]
+    : CONFIG.quizTitle;
+
   const parts = [];
-  parts.push(CONFIG.quizTitle.toUpperCase());
+  parts.push(baseTitle.toUpperCase());
   if (CONFIG.isShorts) parts.push("#shorts");
 
   let title = `${parts.join(" ")} | ${CONFIG.channelName} ${ctx.year}`;
@@ -239,54 +271,55 @@ function buildTitle(ctx) {
 // Regular description — long-form, structured, lots of variety
 // ---------------------------------------------------------------------------
 
-function buildRegularDescription(ctx) {
+function buildRegularDescription(ctx, lang = "en") {
+  const T = tpl(lang);
   const lines = [];
 
   // 1) Hook
-  lines.push(pickOne(HOOK_LINES));
+  lines.push(pickOne(T.HOOK_LINES));
   lines.push("");
 
   // 2) Quiz explanation (random variant)
-  const explanationPool = QUIZ_EXPLANATION[CONFIG.quizKey] || QUIZ_EXPLANATION["team-by-nat"];
+  const explanationPool = T.QUIZ_EXPLANATION[CONFIG.quizKey] || T.QUIZ_EXPLANATION["team-by-nat"];
   lines.push(pickOne(explanationPool));
   lines.push("");
 
   // 3) Context line — "This round features ..." (random header + content)
-  const featureBits = featureBitsFromContext(ctx);
+  const featureBits = featureBitsFromContext(ctx, lang);
   if (featureBits.length) {
-    lines.push(pickOne(FEATURE_HEADERS));
+    lines.push(pickOne(T.FEATURE_HEADERS));
     for (const bit of featureBits) lines.push(`  ${bit}`);
     lines.push("");
   }
 
   // 4) Saved-script tag (random phrasing)
   if (ctx.scriptName) {
-    lines.push(pickOne(SPECIAL_EDITION_PHRASES).replace("{NAME}", ctx.scriptName));
+    lines.push(pickOne(T.SPECIAL_EDITION_PHRASES).replace("{NAME}", ctx.scriptName));
     lines.push("");
   }
 
   // 5) Engagement (3-5 random lines, count varies)
   const engCount = 3 + rng(3); // 3..5
-  const eng = pickRandom(ENGAGEMENT_LINES, engCount);
+  const eng = pickRandom(T.ENGAGEMENT_LINES, engCount);
   for (const l of eng) lines.push(l);
   lines.push("");
 
   // 6) Cross-promo (random header + 4-6 random promo lines), skip ~30% of the time
   if (rng(10) >= 3) {
-    lines.push(pickOne(CROSS_PROMO_HEADERS));
+    lines.push(pickOne(T.CROSS_PROMO_HEADERS));
     const promoCount = 4 + rng(3); // 4..6
-    for (const l of pickRandom(CROSS_PROMO_LINES, promoCount)) lines.push(l);
+    for (const l of pickRandom(T.CROSS_PROMO_LINES, promoCount)) lines.push(l);
     lines.push("");
   }
 
   // 7) Hashtag block — randomized subset of core (10..14 picks)
   const hashCount = 10 + rng(5);
-  lines.push(pickRandom(HASHTAG_CORE, hashCount).join(" "));
+  lines.push(pickRandom(T.HASHTAG_CORE, hashCount).join(" "));
   lines.push("");
 
   // 8) Sign-off (random variant)
   lines.push(
-    pickOne(SIGN_OFFS)
+    pickOne(T.SIGN_OFFS)
       .replace("{CHANNEL}", CONFIG.channelName)
       .replace("{YEAR}", ctx.year),
   );
@@ -298,11 +331,12 @@ function buildRegularDescription(ctx) {
 // Shorts description — compact, punchy, 4-6 lines total
 // ---------------------------------------------------------------------------
 
-function buildShortsDescription(ctx) {
+function buildShortsDescription(ctx, lang = "en") {
+  const T = tpl(lang);
   const lines = [];
 
   // Short punchy hook
-  lines.push(pickOne(SHORT_HOOKS));
+  lines.push(pickOne(T.SHORT_HOOKS));
 
   // Optional very-short tag for context (script name) – occasionally
   if (ctx.scriptName && rng(2) === 0) {
@@ -310,13 +344,13 @@ function buildShortsDescription(ctx) {
   }
 
   // Single CTA
-  lines.push(pickOne(SHORT_ENGAGEMENT));
+  lines.push(pickOne(T.SHORT_ENGAGEMENT));
 
   lines.push("");
 
   // Hashtag block — Shorts-heavy, 6..9 hashtags total
-  const corePicks = pickRandom(HASHTAG_CORE, 4 + rng(2));
-  const shortsPicks = pickRandom(HASHTAG_SHORTS, 3 + rng(2));
+  const corePicks = pickRandom(T.HASHTAG_CORE, 4 + rng(2));
+  const shortsPicks = pickRandom(T.HASHTAG_SHORTS, 3 + rng(2));
   lines.push([...shortsPicks, ...corePicks].join(" "));
 
   return lines.join("\n");
@@ -326,7 +360,10 @@ function buildShortsDescription(ctx) {
 // Feature bits helper
 // ---------------------------------------------------------------------------
 
-function featureBitsFromContext(ctx) {
+function featureBitsFromContext(ctx, lang = "en") {
+  const L = lang === "es"
+    ? { clubs: "Clubes", teams: "Equipos", featuring: "Con", leagues: "Ligas" }
+    : { clubs: "Clubs", teams: "Teams", featuring: "Featuring", leagues: "Leagues" };
   const bits = [];
   const knownClubs = ctx.teams.filter((t) => CLUB_KEYS.includes(t));
   const knownPlayers = ctx.players.filter((p) =>
@@ -334,15 +371,15 @@ function featureBitsFromContext(ctx) {
   );
 
   if (knownClubs.length) {
-    bits.push(`Clubs: ${knownClubs.slice(0, 6).join(", ")}`);
+    bits.push(`${L.clubs}: ${knownClubs.slice(0, 6).join(", ")}`);
   } else if (ctx.teams.length) {
-    bits.push(`Teams: ${ctx.teams.slice(0, 6).join(", ")}`);
+    bits.push(`${L.teams}: ${ctx.teams.slice(0, 6).join(", ")}`);
   }
   if (knownPlayers.length) {
-    bits.push(`Featuring: ${knownPlayers.slice(0, 6).join(", ")}`);
+    bits.push(`${L.featuring}: ${knownPlayers.slice(0, 6).join(", ")}`);
   }
   if (ctx.leagues.length) {
-    bits.push(`Leagues: ${ctx.leagues.slice(0, 4).join(", ")}`);
+    bits.push(`${L.leagues}: ${ctx.leagues.slice(0, 4).join(", ")}`);
   }
   return bits;
 }
@@ -351,7 +388,12 @@ function featureBitsFromContext(ctx) {
 // Tags — built with shuffled sub-pools so every click yields a different mix
 // ---------------------------------------------------------------------------
 
-function buildTags(ctx) {
+function buildTags(ctx, lang = "en") {
+  // universal/quizType/format come from the language bank; the proper-noun
+  // banks (club/country/competition/player) are language-agnostic, so fall
+  // back to the English bank if the Spanish one omits them.
+  const V = tags(lang);
+  const PN = TAGS_EN;
   const picked = new Set();
   const order = [];
 
@@ -364,25 +406,27 @@ function buildTags(ctx) {
   };
 
   // Universal football tags - shuffled so different ones rank higher each time
-  const universal = VIRAL_TAGS.universal.slice();
+  const universal = (V.universal || PN.universal).slice();
   shuffle(universal);
   for (const t of universal) push(t);
 
   // Quiz-type tags - shuffled
-  const qt = (VIRAL_TAGS.quizType[CONFIG.quizKey] || []).slice();
+  const qtBank = V.quizType || PN.quizType;
+  const qt = (qtBank[CONFIG.quizKey] || []).slice();
   shuffle(qt);
   for (const t of qt) push(t);
 
   // Format tags - shuffled
-  const ft = (CONFIG.isShorts ? VIRAL_TAGS.format.shorts : VIRAL_TAGS.format.regular).slice();
+  const fmt = V.format || PN.format;
+  const ft = (CONFIG.isShorts ? fmt.shorts : fmt.regular).slice();
   shuffle(ft);
   for (const t of ft) push(t);
 
   // Saved-script driven tags (competitions matched on name)
   const scriptLow = (ctx.scriptName || "").toLowerCase();
   for (const key of COMPETITION_KEYS) {
-    if (scriptLow.includes(key)) {
-      const arr = VIRAL_TAGS.competition[key].slice();
+    if (scriptLow.includes(key) && PN.competition[key]) {
+      const arr = PN.competition[key].slice();
       shuffle(arr);
       for (const t of arr) push(t);
     }
@@ -392,8 +436,8 @@ function buildTags(ctx) {
   for (const team of ctx.teams) {
     const teamLow = team.toLowerCase();
     for (const key of CLUB_KEYS) {
-      if (teamLow.includes(key.toLowerCase())) {
-        for (const t of VIRAL_TAGS.club[key]) push(t);
+      if (teamLow.includes(key.toLowerCase()) && PN.club[key]) {
+        for (const t of PN.club[key]) push(t);
       }
     }
   }
@@ -401,8 +445,8 @@ function buildTags(ctx) {
   // Country tags
   for (const c of ctx.countries) {
     for (const key of COUNTRY_KEYS) {
-      if (c.toLowerCase().includes(key.toLowerCase())) {
-        for (const t of VIRAL_TAGS.country[key]) push(t);
+      if (c.toLowerCase().includes(key.toLowerCase()) && PN.country[key]) {
+        for (const t of PN.country[key]) push(t);
       }
     }
   }
@@ -411,8 +455,8 @@ function buildTags(ctx) {
   for (const league of ctx.leagues) {
     const low = league.toLowerCase();
     for (const key of COMPETITION_KEYS) {
-      if (low.includes(key)) {
-        for (const t of VIRAL_TAGS.competition[key]) push(t);
+      if (low.includes(key) && PN.competition[key]) {
+        for (const t of PN.competition[key]) push(t);
       }
     }
   }
@@ -421,19 +465,25 @@ function buildTags(ctx) {
   for (const p of ctx.players) {
     const pLow = p.toLowerCase();
     for (const key of PLAYER_KEYS) {
-      if (pLow.includes(key.toLowerCase())) {
-        for (const t of VIRAL_TAGS.player[key]) push(t);
+      if (pLow.includes(key.toLowerCase()) && PN.player[key]) {
+        for (const t of PN.player[key]) push(t);
       }
     }
   }
 
   // Year tags
-  push(`football quiz ${ctx.year}`);
-  push(`soccer quiz ${ctx.year}`);
-  push(`football ${ctx.year}`);
+  if (lang === "es") {
+    push(`quiz de futbol ${ctx.year}`);
+    push(`trivia de futbol ${ctx.year}`);
+    push(`futbol ${ctx.year}`);
+  } else {
+    push(`football quiz ${ctx.year}`);
+    push(`soccer quiz ${ctx.year}`);
+    push(`football ${ctx.year}`);
+  }
 
   // Engagement tags - shuffled so the trailing tags vary every click
-  const eng = VIRAL_TAGS.engagement.slice();
+  const eng = (V.engagement || PN.engagement).slice();
   shuffle(eng);
   for (const t of eng) push(t);
 

@@ -426,16 +426,30 @@ export async function start(savedName, recordingsDir, opts = {}) {
     recording = true;
 }
 
-/** Stop recording. Idempotent. */
+/** Path OBS wrote for the most recent successful StopRecord. */
+let lastOutputPath = null;
+
+/** Stop recording. Idempotent. Returns the saved file path (from OBS's
+ *  StopRecord response) or null, and caches it in getLastOutputPath() so the
+ *  recording queue can read it after `recording-naturally-finished` fires. */
 export async function stop() {
-    if (!obs || !recording) return;
+    if (!obs || !recording) return null;
+    let outputPath = null;
     try {
-        await obs.call("StopRecord");
+        const res = await obs.call("StopRecord");
+        outputPath = (res && res.outputPath) || null;
     } catch (err) {
         console.warn("[obs-recorder] StopRecord failed:", err);
     } finally {
         recording = false;
     }
+    if (outputPath) lastOutputPath = outputPath;
+    return outputPath;
+}
+
+/** Path of the last finished recording (set by stop()), or null. */
+export function getLastOutputPath() {
+    return lastOutputPath;
 }
 
 export function isRecording() {

@@ -68,6 +68,32 @@ def _load_runner_import_aliases():  # noqa: D401
 
 _runner_aliases_mod = _load_runner_import_aliases()
 
+
+def _load_recording_status():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_recording_status.py"
+    spec = importlib.util.spec_from_file_location("_fc_recording_status", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_recording_status.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_recording_status_mod = _load_recording_status()
+
+
+def _load_youtube():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_youtube.py"
+    spec = importlib.util.spec_from_file_location("_fc_youtube", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_youtube.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_youtube_mod = _load_youtube()
+
 _RUNNER_PARTS = RUNNER_DIR.relative_to(PROJECT_ROOT).parts
 RUNNER_WEB_PREFIX = "/" + "/".join(quote(p, safe="") for p in _RUNNER_PARTS)
 DEFAULT_PORT = 8887
@@ -1468,6 +1494,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
             return
+        if _recording_status_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if _youtube_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if _runner_aliases_mod.try_handle_get(self, PROJECT_ROOT):
@@ -1527,6 +1557,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:  # noqa: N802
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if _youtube_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _runner_update_mod.try_handle_post(self, PROJECT_ROOT):
             return
