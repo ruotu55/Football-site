@@ -2924,6 +2924,55 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         )
         return True
 
+    def _try_list_player_photo_candidates(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/list-candidates":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = str(body.get("playerName") or "").strip()
+            player_club = str(body.get("playerClub") or "").strip()
+            player_nationality = str(body.get("playerNationality") or "").strip()
+            source = str(body.get("source") or "").strip().lower()
+            if not player_name:
+                raise ValueError("Missing player name.")
+            if source not in ("fut.gg", "365scores"):
+                raise ValueError("Unknown photo source.")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            if source == "fut.gg":
+                urls = _futgg_candidate_image_urls(player_name, player_club, player_nationality)
+            else:
+                urls = _365scores_candidate_image_urls(player_name, player_club)
+        except Exception as exc:  # noqa: BLE001 — surface lookup failures to the user
+            self._write_json(502, {"ok": False, "error": f"Lookup failed: {exc}"})
+            return True
+
+        candidates: list[dict] = []
+        seen_hashes: set[str] = set()
+        for url in urls or []:
+            if len(candidates) >= _PHOTO_CANDIDATE_LIMIT:
+                break
+            try:
+                data = _fetch_bytes(url)
+            except Exception:  # noqa: BLE001 — skip a candidate that won't download
+                continue
+            if not data or len(data) > _PHOTO_CANDIDATE_MAX_BYTES:
+                continue
+            digest = hashlib.sha256(data).hexdigest()
+            if digest in seen_hashes:
+                continue
+            seen_hashes.add(digest)
+            mime = _guess_image_mime(data)
+            data_url = f"data:{mime};base64," + base64.b64encode(data).decode("ascii")
+            candidates.append({"url": url, "dataUrl": data_url})
+
+        self._write_json(200, {"ok": True, "source": source, "candidates": candidates})
+        return True
+
     def _try_player_photo_from_url(self) -> bool:
         parsed = urlparse(self.path)
         if parsed.path.rstrip("/") != "/__player-photo/from-url":
@@ -3241,6 +3290,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_delete_player_photo():
             return
         if self._try_auto_fetch_player_photo():
+            return
+        if self._try_list_player_photo_candidates():
             return
         if self._try_player_photo_from_url():
             return
