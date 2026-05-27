@@ -915,8 +915,24 @@ function debugSlotControlClick(message, detail = {}) {
 function findFallbackSlotControlAtPoint(e) {
   const pitchWrap = document.getElementById("pitch-wrap");
   if (!pitchWrap || e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR)) return null;
-  // Don't hijack clicks inside an open modal/dialog.
+  // Don't hijack clicks inside a known modal/dialog.
   if (e.target?.closest?.("#swap-modal, .pcrop-modal, .rq-modal, .psrc-modal, .ppick-modal")) return null;
+  // Generic guard: never reroute a click the user made on a real interactive
+  // control (modal action buttons, links, inputs, …). The rescue is only meant
+  // for clicks that land on inert space overlapping a slot button.
+  if (e.target?.closest?.("button, a, input, select, textarea, label, [role='button'], [contenteditable='true']")) return null;
+  // Generic guard: never reroute a click inside a full-viewport fixed overlay
+  // (any modal/dialog/backdrop, present or future). The small fixed team crest
+  // that legitimately overlaps the goalkeeper is not full-screen, so it still
+  // rescues. This is what stops "Yes/Save" dialogs from hitting buttons behind.
+  for (let node = e.target; node && node !== document.body; node = node.parentElement) {
+    if (node.nodeType !== 1) continue;
+    const cs = window.getComputedStyle(node);
+    if (cs.position === "fixed") {
+      const r = node.getBoundingClientRect();
+      if (r.width >= window.innerWidth * 0.8 && r.height >= window.innerHeight * 0.8) return null;
+    }
+  }
   // Normally the click lands on a pitch descendant. But an overlapping element
   // (e.g. the position:fixed team-header crest sitting over the goalkeeper) can
   // steal the hit-test — so also accept clicks geometrically within the pitch.
