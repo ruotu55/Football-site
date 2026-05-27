@@ -587,12 +587,19 @@ body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-log
   line-height: 1;
 }
 
-/* Full-width row; grid centers the inner token for any font-size */
+/* Full-width row; grid centers the inner token for any font-size.
+   min-height is 1.12em of THIS line's font-size (the clamp() value, which the
+   fitter never changes — it only shrinks .team-header-name-inner), so the row
+   box stays a constant height no matter how small the inner text gets. With
+   align-items: center the glyphs keep the same vertical centre at every size,
+   instead of riding up toward the top as the inner box shrinks. */
 .team-header-name-line {
   display: grid;
   justify-items: center;
+  align-items: center;
   width: 100%;
   margin: 0;
+  min-height: 1.12em;
   line-height: 1.12;
 }
 
