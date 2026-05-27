@@ -743,10 +743,10 @@ body:has(#lineups-inline-team-picker:not([hidden])) #pitch-container {
   border: 2px solid #1b212b;
   border-radius: 2px;
 }
-.pcrop-handle[data-h="nw"] { left: 0; top: 0; cursor: nwse-resize; }
-.pcrop-handle[data-h="ne"] { right: 0; top: 0; cursor: nesw-resize; }
-.pcrop-handle[data-h="sw"] { left: 0; bottom: 0; cursor: nesw-resize; }
-.pcrop-handle[data-h="se"] { right: 0; bottom: 0; cursor: nwse-resize; }
+.pcrop-handle[data-h="n"] { left: 50%; top: 0; transform: translate(-50%, -50%); cursor: ns-resize; }
+.pcrop-handle[data-h="s"] { left: 50%; bottom: 0; transform: translate(-50%, 50%); cursor: ns-resize; }
+.pcrop-handle[data-h="w"] { left: 0; top: 50%; transform: translate(-50%, -50%); cursor: ew-resize; }
+.pcrop-handle[data-h="e"] { right: 0; top: 50%; transform: translate(50%, -50%); cursor: ew-resize; }
 .pcrop-error {
   margin-top: 0.6rem;
   color: #ff8a8a;
