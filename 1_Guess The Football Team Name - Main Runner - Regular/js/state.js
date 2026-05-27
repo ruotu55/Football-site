@@ -33,6 +33,7 @@ export const appState = {
     videoModeToggle: null,
     playVideoBtn: null,
     recordVideoBtn: null,
+    renderVideoBtn: null,
     countdownTimer: null,
     teamHeader: null,
     tabBtnLanding: null,
@@ -105,6 +106,8 @@ export const appState = {
    *  Shape: { phase: 1|2, savedName: string } or null. Phase 1 = keep fullscreen
    *  during the transition; phase 2 = full teardown at the end. */
   doubleRecording: null,
+  /** True while a frame-by-frame Render Video job is running (server-side). */
+  rendering: false,
   videoRevealPostTimerActive: false,
   /** Set in `app.js` to `updateLanding` so `video.js` can refresh landing UI. */
   refreshLandingUi: null,

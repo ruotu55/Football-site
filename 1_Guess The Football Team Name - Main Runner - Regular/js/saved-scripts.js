@@ -1320,3 +1320,30 @@ async function loadScript(script) {
     appState.currentLevelIndex = 1;
     switchLevel(2);
 }
+
+/* Render mode: load a saved script purely by name in a fresh (headless) browser.
+   localStorage starts empty headless, so pull the server bucket first, then apply. */
+export async function loadScriptByName(name) {
+    const target = normalizeForImport(String(name || ""));
+    if (!target) throw new Error("loadScriptByName: empty name");
+
+    // Ensure the in-memory list is populated from the server bucket.
+    if (!Array.isArray(savedScripts) || savedScripts.length === 0) {
+        try {
+            const r = await fetch("/__runner-saved-scripts/lineups_regular", { cache: "no-store" });
+            if (r.ok) {
+                const data = await r.json();
+                if (Array.isArray(data.scripts)) savedScripts = data.scripts;
+            }
+        } catch (_) { /* offline */ }
+    }
+    let entry = savedScripts.find((s) => normalizeForImport(s.name) === target);
+    if (!entry) {
+        entry = savedScripts.find(
+            (s) => normalizeForImport(s.name).includes(target) || target.includes(normalizeForImport(s.name)),
+        );
+    }
+    if (!entry) throw new Error(`loadScriptByName: no saved script matching "${name}"`);
+    await applyScriptObject(entry);
+    return entry.name;
+}

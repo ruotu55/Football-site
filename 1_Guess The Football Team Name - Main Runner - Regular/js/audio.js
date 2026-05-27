@@ -252,6 +252,9 @@ export function startBgMusic() {
   // Start with a random song from the list
   currentBgmIndex = Math.floor(Math.random() * paths.bgmPlaylist.length);
   bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
+  if (window.__audioTap) {
+    window.__audioTap({ type: "play", kind: "bgm", id: "bgm", index: currentBgmIndex, playlist: paths.bgmPlaylist.slice() });
+  }
   bgMusicTargetVolume = STARTING_VOL;
   bgMusic.volume = bgMusicTargetVolume;
   bindBgmEventHandlers(bgMusic);
@@ -328,10 +331,33 @@ export function playVoice(src, delayMs = 1000) {
   return new Promise((resolve) => {
     duckingTimeout = setTimeout(() => {
       currentVoice = new Audio(src);
+      if (window.__audioTap) {
+        window.__audioTap({ type: "play", kind: "voice", id: "voice", src, mediaOffsetSec: 0, volume: 1 });
+      }
       currentVoice.play().catch(err => {
-        console.warn("Voice play error:", err);
-        resolve();
+        // In render mode we don't depend on real playback; the duration timer below
+        // resolves the promise. Only bail early on play() failure during normal use.
+        if (!window.__render || !window.__render.active) {
+          console.warn("Voice play error:", err);
+          resolve();
+        }
       });
+
+      if (window.__render && window.__render.active) {
+        /* Render mode: resolve on the clip's KNOWN duration via the virtual clock.
+           Muted headless Chrome won't reliably fire 'ended', so we time it ourselves. */
+        renderVoiceDurationMs(src).then((durMs) => {
+          setTimeout(() => {
+            lastVoiceEndedAt = Date.now();
+            if (window.__audioTap) window.__audioTap({ type: "stop", id: "voice" });
+            resolve();
+            restoreTimeout = setTimeout(() => {
+              fadeBgm(NORMAL_VOL, RESTORE_FADE_MS);
+            }, restoreWaitMs);
+          }, durMs);
+        });
+        return;
+      }
 
       /* 3. When voice finishes, wait restoreWaitMs (long for standalone-start
          voices, ~0 for tail-of-chain voices) then fade back up over
@@ -351,6 +377,57 @@ export function playVoice(src, delayMs = 1000) {
       });
     }, delayMs);
   });
+}
+
+/* Render mode: measure (and cache) a clip's duration so voice waits can run on the
+   virtual clock. Falls back to a default so a missing/slow file never stalls the flow. */
+const __renderDurCache = new Map();
+const RENDER_VOICE_FALLBACK_MS = 2500;
+function renderVoiceDurationMs(src) {
+  if (__renderDurCache.has(src)) return Promise.resolve(__renderDurCache.get(src));
+  return new Promise((resolve) => {
+    const a = new Audio();
+    let settled = false;
+    const done = (ms) => {
+      if (settled) return;
+      settled = true;
+      __renderDurCache.set(src, ms);
+      resolve(ms);
+    };
+    a.addEventListener("loadedmetadata", () => {
+      const ms = Number.isFinite(a.duration) && a.duration > 0
+        ? Math.round(a.duration * 1000)
+        : RENDER_VOICE_FALLBACK_MS;
+      done(ms);
+    }, { once: true });
+    a.addEventListener("error", () => done(RENDER_VOICE_FALLBACK_MS), { once: true });
+    a.preload = "metadata";
+    a.src = src;
+    a.load();
+    // Hard real-time safety: if metadata never arrives, don't hang forever.
+    setTimeout(() => done(RENDER_VOICE_FALLBACK_MS), 4000);
+  });
+}
+
+/** Render mode: prewarm duration cache for a list of clip URLs (called before capture). */
+export async function renderPrewarmVoiceDurations(srcList) {
+  const uniq = [...new Set((srcList || []).filter(Boolean))];
+  await Promise.all(uniq.map((s) => renderVoiceDurationMs(s)));
+  return __renderDurCache.size;
+}
+
+/** Render mode: inject a known duration map (src -> ms) so every parallel worker uses
+    identical voice timing -> identical flow -> seamless segment concatenation. */
+export function renderSeedDurations(map) {
+  if (!map) return;
+  for (const [src, ms] of Object.entries(map)) {
+    if (Number.isFinite(ms) && ms > 0) __renderDurCache.set(src, ms);
+  }
+}
+
+/** Render mode: read the duration map collected during a probe run. */
+export function renderGetDurations() {
+  return Object.fromEntries(__renderDurCache.entries());
 }
 
 /** Probe candidates and resolve to the first URL that `canplay`s. */
@@ -425,6 +502,7 @@ export function playTicking() {
     tickingAudio.currentTime = 0;
   }
   tickingAudio = new Audio(paths.ticking);
+  if (window.__audioTap) window.__audioTap({ type: "play", kind: "ticking", id: "ticking", src: paths.ticking, volume: 1 });
   tickingAudio.play().catch(err => console.warn("Ticking play error:", err));
 }
 
@@ -814,6 +892,7 @@ export function playTheAnswerIs(
   setTimeout(() => {
     const revealStinger = new Audio(paths.revealStinger);
     revealStinger.volume = 0.5;
+    if (window.__audioTap) window.__audioTap({ type: "play", kind: "stinger", id: "stinger", src: paths.revealStinger, volume: 0.5 });
     revealStinger.play().catch((err) => console.warn("Reveal stinger play error:", err));
   }, 150);
 

@@ -26,7 +26,15 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName } from "./saved-scripts.js";
+import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js";
+import { initRenderModeIfRequested } from "./render-mode.js";
+import {
+    showRenderProgressModal,
+    setRenderWorkers,
+    updateRenderProgress,
+    setRenderProgressDone,
+    setRenderProgressError,
+} from "./render-progress-ui.js";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
@@ -1460,6 +1468,70 @@ async function init() {
             }
         };
     }
+
+    // ── Render Video: build the MP4 frame-by-frame (headless), current language only ──
+    if (els.renderVideoBtn) {
+        const startRender = async () => {
+            if (appState.rendering) return;
+            if (appState.isVideoPlaying || appState.doubleRecording) return;
+            if (isProdMode()) {
+                const result = await runProdValidation();
+                if (!result.allPassed) { showValidationModal(result); return; }
+            }
+            const savedName = (getActiveScriptName() || "").trim();
+            if (!savedName) {
+                alert("Load a saved setting first — the rendered file is named after it.");
+                return;
+            }
+            appState.rendering = true;
+            showRenderProgressModal(savedName);
+            let total = 0;
+            let succeeded = false;
+            let errored = false;
+            try {
+                // Capture the CURRENT on-screen setup so the render matches what's loaded now
+                // (edited levels, etc.) — like Record Video, no re-saving required.
+                const scriptObject = captureCurrentScriptObject(savedName);
+                const res = await fetch("/__render-video", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ script: savedName, language: getCurrentLanguage(), scriptObject }),
+                });
+                const data = await res.json();
+                if (!data.ok) { appState.rendering = false; setRenderProgressError(data.error || "Failed to start render", startRender); return; }
+                const es = new EventSource(`/__render-video/progress?job=${encodeURIComponent(data.jobId)}`);
+                es.onmessage = (ev) => {
+                    let m; try { m = JSON.parse(ev.data); } catch { return; }
+                    if (m.stage === "done") succeeded = true;
+                    if (m.stage === "finished") {
+                        es.close();
+                        appState.rendering = false;
+                        if (!succeeded && !errored) setRenderProgressError("Render stopped unexpectedly (exit code " + m.code + ").", startRender);
+                        return;
+                    }
+                    switch (m.stage) {
+                        case "probe": updateRenderProgress({ label: "Analyzing video…" }); break;
+                        case "probed": total = m.totalFrames || 0; updateRenderProgress({ label: `Rendering ~${m.virtualSec}s video…`, frame: 0, total }); break;
+                        case "capture": total = m.total || total; setRenderWorkers(m.workers || 4); updateRenderProgress({ frame: 0, total }); break;
+                        case "progress": total = m.total || total; updateRenderProgress({ frame: m.frame, total, workers: m.workers }); break;
+                        case "retry": updateRenderProgress({ label: `Part ${m.w + 1} hiccuped — auto-retry ${m.attempt}/${m.max}…` }); break;
+                        case "concat": updateRenderProgress({ frame: total, total, label: "Joining segments…" }); break;
+                        case "audio": updateRenderProgress({ frame: total, total, label: "Building soundtrack…" }); break;
+                        case "done": setRenderProgressDone(m.path); break;
+                        case "error": errored = true; appState.rendering = false; setRenderProgressError(m.message, startRender); break;
+                        default:
+                            if (Number.isFinite(m.frame)) updateRenderProgress({ frame: m.frame, total, workers: m.workers });
+                    }
+                };
+                es.onerror = () => { es.close(); appState.rendering = false; };
+            } catch (err) {
+                appState.rendering = false;
+                setRenderProgressError(String(err), startRender);
+            }
+        };
+        els.renderVideoBtn.onclick = startRender;
+    }
+
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
     els.swapSearch.oninput = () => {
@@ -1679,6 +1751,10 @@ async function init() {
     initHeaderLogoZoom(clearCurrentTeamSelection);
     document.fonts?.ready?.then(() => scheduleShortsTeamNameFit());
     appState.refreshLandingUi = updateLanding;
+
+    // Render mode: when launched headless with ?render=1, drive the flow deterministically.
+    // No-op during normal use. The headless driver calls window.__render.start() once ready.
+    initRenderModeIfRequested();
 }
 
 // START

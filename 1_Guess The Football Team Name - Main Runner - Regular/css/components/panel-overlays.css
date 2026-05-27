@@ -174,6 +174,7 @@
 .video-mode-btn,
 .play-video-btn,
 .record-video-btn,
+.render-video-btn,
 .prod-btn {
   box-sizing: border-box;
   width: 6rem;
@@ -278,7 +279,7 @@ body.play-video-active .prod-btn {
 
 .play-video-btn {
   left: auto;
-  right: calc(15.5rem + 5vw);
+  right: calc(22.5rem + 5vw);
   background: #4da3ff;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(77, 163, 255, 0.4);
@@ -288,10 +289,10 @@ body.play-video-active .prod-btn {
   box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(77, 163, 255, 0.5);
 }
 
-/* Record Video — same size as Play Video, sits immediately to its left, red */
+/* Record Video — shifted one slot left to make room for Render Video, red */
 .record-video-btn {
   left: auto;
-  right: calc(8.5rem + 5vw);
+  right: calc(15.5rem + 5vw);
   background: #ef4444;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(239, 68, 68, 0.4);
@@ -299,6 +300,19 @@ body.play-video-active .prod-btn {
 .record-video-btn:hover {
   background: #f87171;
   box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(239, 68, 68, 0.5);
+}
+
+/* Render Video — frame-by-frame export, sits between Record Video and PROD, orange */
+.render-video-btn {
+  left: auto;
+  right: calc(8.5rem + 5vw);
+  background: #f59e0b;
+  color: #000;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(245, 158, 11, 0.4);
+}
+.render-video-btn:hover {
+  background: #fbbf24;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(245, 158, 11, 0.5);
 }
 
 .shorts-mode-btn {
@@ -320,7 +334,7 @@ body.play-video-active .prod-btn {
 
 .video-mode-btn {
   left: auto;
-  right: calc(22.5rem + 5vw);
+  right: calc(29.5rem + 5vw);
   background: rgba(255, 255, 255, 0.12);
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 255, 255, 0.18);
@@ -335,6 +349,7 @@ body.play-video-active .prod-btn {
 body.play-video-active .video-mode-btn,
 body.play-video-active .shorts-mode-btn,
 body.play-video-active .record-video-btn,
+body.play-video-active .render-video-btn,
 body.play-video-active .btn-save-current-team-fab {
   display: none !important;
 }

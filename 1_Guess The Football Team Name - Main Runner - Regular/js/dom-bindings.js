@@ -38,6 +38,7 @@ export function bindDomElements() {
     els.prodBtn = document.getElementById("prod-btn");
     els.playVideoBtn = document.getElementById("play-video-btn");
     els.recordVideoBtn = document.getElementById("record-video-btn");
+    els.renderVideoBtn = document.getElementById("render-video-btn");
     els.shortsModeBtn = document.getElementById("shorts-mode-btn");
     els.countdownTimer = document.getElementById("countdown-timer");
     els.teamHeader = document.getElementById("team-header");

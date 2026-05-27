@@ -22,8 +22,10 @@ import socket
 import subprocess
 import sys
 import threading
+import tempfile
 import time
 import unicodedata
+import uuid
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -36,6 +38,30 @@ from xml.sax.saxutils import escape as xml_escape
 RUNNER_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = RUNNER_DIR.parent
 RUNNER_VARIANT = "Lineups Regular"
+
+# ── Render Video jobs (frame-by-frame headless render via render/index.mjs) ──
+_RENDER_JOBS: dict = {}
+
+
+def _node_exe() -> str:
+    return shutil.which("node") or "node"
+
+
+def _pump_render_job(job_id: str) -> None:
+    """Drain the Node render process's stdout into the job's line buffer."""
+    job = _RENDER_JOBS.get(job_id)
+    if not job:
+        return
+    proc = job["proc"]
+    try:
+        for line in proc.stdout:
+            job["lines"].append(line.rstrip("\n"))
+    except Exception:  # noqa: BLE001
+        pass
+    proc.wait()
+    job["code"] = proc.returncode
+    job["done"] = True
+
 SUPPORTED_LANGUAGES = ("english", "spanish")
 DEFAULT_LANGUAGE = "english"
 OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Images/Teams" / "(1) Other Teams"
@@ -2944,6 +2970,90 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         snippet = LIVE_RELOAD_SNIPPET.encode("utf-8")
         return body[:index] + snippet + b"\n" + body[index:]
 
+    def _try_render_video(self) -> bool:
+        """POST /__render-video — spawn the frame-by-frame render driver (render/index.mjs)."""
+        if urlparse(self.path).path.rstrip("/") != "/__render-video":
+            return False
+        try:
+            body = self._read_json_body()
+            script = str(body.get("script") or "").strip()
+            language = _normalize_language(body.get("language"))
+            script_object = body.get("scriptObject")
+            if not script:
+                raise ValueError("script is required")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        out_dir = PROJECT_ROOT / "Ready videos" / language
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_path = out_dir / f"{script}.mp4"
+
+        job_id = uuid.uuid4().hex
+        cmd = [
+            _node_exe(), str(RUNNER_DIR / "render" / "index.mjs"),
+            "--script", script, "--lang", language,
+            "--out", str(out_path), "--port", str(DEFAULT_PORT),
+            "--repo-root", str(PROJECT_ROOT),
+        ]
+        # Render the user's CURRENT on-screen setup (not the saved-by-name version), exactly
+        # like Record Video. The client captures it and we hand it to the driver via a temp file.
+        if isinstance(script_object, dict):
+            script_json_path = Path(tempfile.gettempdir()) / f"render-script-{job_id}.json"
+            script_json_path.write_text(json.dumps(script_object), encoding="utf-8")
+            cmd += ["--script-json", str(script_json_path)]
+        try:
+            proc = subprocess.Popen(
+                cmd, cwd=str(RUNNER_DIR / "render"),
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                text=True, bufsize=1,
+            )
+        except FileNotFoundError:
+            self._write_json(500, {"ok": False, "error": "Node.js (node) was not found on PATH."})
+            return True
+
+        _RENDER_JOBS[job_id] = {"proc": proc, "lines": [], "done": False, "code": None, "out": str(out_path)}
+        threading.Thread(target=_pump_render_job, args=(job_id,), daemon=True).start()
+        self._write_json(200, {"ok": True, "jobId": job_id, "out": str(out_path)})
+        return True
+
+    def _try_render_progress(self) -> bool:
+        """GET /__render-video/progress?job=ID — SSE stream of the driver's JSON progress lines."""
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__render-video/progress":
+            return False
+        job_id = (urllib.parse.parse_qs(parsed.query).get("job") or [""])[0]
+        job = _RENDER_JOBS.get(job_id)
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+        self.send_header("Cache-Control", "no-cache")
+        self.send_header("Connection", "keep-alive")
+        self.end_headers()
+        if not job:
+            try:
+                self.wfile.write(b'data: {"stage":"error","message":"unknown job"}\n\n')
+                self.wfile.flush()
+            except OSError:
+                pass
+            return True
+        sent = 0
+        try:
+            while True:
+                while sent < len(job["lines"]):
+                    line = job["lines"][sent]
+                    sent += 1
+                    self.wfile.write(("data: " + line + "\n\n").encode("utf-8"))
+                    self.wfile.flush()
+                if job["done"]:
+                    tail = '{"stage":"finished","code":%s}' % (json.dumps(job.get("code")))
+                    self.wfile.write(("data: " + tail + "\n\n").encode("utf-8"))
+                    self.wfile.flush()
+                    break
+                time.sleep(0.25)
+        except OSError:
+            pass  # client disconnected
+        return True
+
     def do_GET(self) -> None:  # noqa: N802
         if _runner_blob_mod.try_handle_get(self, PROJECT_ROOT):
             return
@@ -2956,6 +3066,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if _runner_aliases_mod.try_handle_get(self, PROJECT_ROOT):
+            return
+        if self._try_render_progress():
             return
         if self._try_serve_team_voice_voices():
             return
@@ -2992,6 +3104,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_update_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _runner_aliases_mod.try_handle_post(self, PROJECT_ROOT):
+            return
+        if self._try_render_video():
             return
         if self._try_generate_team_voice():
             return
