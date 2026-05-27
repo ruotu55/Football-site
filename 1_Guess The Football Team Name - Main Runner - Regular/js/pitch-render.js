@@ -916,7 +916,7 @@ function findFallbackSlotControlAtPoint(e) {
   const pitchWrap = document.getElementById("pitch-wrap");
   if (!pitchWrap || e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR)) return null;
   // Don't hijack clicks inside an open modal/dialog.
-  if (e.target?.closest?.("#swap-modal, .pcrop-modal, .rq-modal")) return null;
+  if (e.target?.closest?.("#swap-modal, .pcrop-modal, .rq-modal, .psrc-modal, .ppick-modal")) return null;
   // Normally the click lands on a pitch descendant. But an overlapping element
   // (e.g. the position:fixed team-header crest sitting over the goalkeeper) can
   // steal the hit-test — so also accept clicks geometrically within the pitch.
