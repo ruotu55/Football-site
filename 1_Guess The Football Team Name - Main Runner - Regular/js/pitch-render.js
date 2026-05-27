@@ -73,9 +73,12 @@ import {
   projectAssetUrl,
   projectAssetUrlFresh,
   withProjectAssetCacheBust,
+  bumpAssetCacheBust,
 } from "./paths.js";
+import { openPhotoCropModal } from "./photo-crop.js";
+import { openPhotoSourceChooser, openPhotoCandidatePicker } from "./photo-source-picker.js";
 import { normalizeForSearch } from "./search-normalize.js";
-import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached } from "../../.Storage/shared/image-cache.js";
+import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached, invalidateCachedImage } from "../../.Storage/shared/image-cache.js";
 import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
 import {
   applyTeamHeaderStripesFromFlagImage,
@@ -86,6 +89,9 @@ const INTERNATIONAL_POOL_URL = ".Storage/data/international-club-pool-by-nationa
 const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
 const PLAYER_PHOTO_FROM_URL_ENDPOINT = "/__player-photo/from-url";
 const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
+const SAVE_CROP_PLAYER_PHOTO_ENDPOINT = "/__player-photo/save-crop";
+const LIST_PHOTO_CANDIDATES_ENDPOINT = "/__player-photo/list-candidates";
+const SAVE_CHOSEN_PHOTO_ENDPOINT = "/__player-photo/save-chosen";
 /* Shared across Main Runner - Team Name Regular and Shorts (a rename done in
    one should immediately apply in the other). LS holds a fast local cache and
    the dev server mirrors the same object to a JSON file under
@@ -887,7 +893,7 @@ export function applyPlayerPhotoFramingForSourceRelPath(imgEl, relPath) {
   imgEl.style.removeProperty("box-sizing");
 }
 
-const SLOT_CONTROL_DEBUG_SELECTOR = ".slot-photo-fetch-btn, .slot-photo-delete-btn, .slot-name-edit-btn, .slot-swap-btn";
+const SLOT_CONTROL_DEBUG_SELECTOR = ".slot-photo-fetch-btn, .slot-photo-crop-btn, .slot-photo-delete-btn, .slot-name-edit-btn, .slot-swap-btn";
 let slotControlClickDebugInstalled = false;
 
 function describeDebugElement(el) {
@@ -909,7 +915,21 @@ function debugSlotControlClick(message, detail = {}) {
 function findFallbackSlotControlAtPoint(e) {
   const pitchWrap = document.getElementById("pitch-wrap");
   if (!pitchWrap || e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR)) return null;
-  if (!pitchWrap.contains(e.target)) return null;
+  // Don't hijack clicks inside an open modal/dialog.
+  if (e.target?.closest?.("#swap-modal, .pcrop-modal, .rq-modal")) return null;
+  // Normally the click lands on a pitch descendant. But an overlapping element
+  // (e.g. the position:fixed team-header crest sitting over the goalkeeper) can
+  // steal the hit-test — so also accept clicks geometrically within the pitch.
+  if (!pitchWrap.contains(e.target)) {
+    const wr = pitchWrap.getBoundingClientRect();
+    const M = 100;
+    if (
+      e.clientX < wr.left - M || e.clientX > wr.right + M ||
+      e.clientY < wr.top - M || e.clientY > wr.bottom + M
+    ) {
+      return null;
+    }
+  }
 
   const x = e.clientX;
   const y = e.clientY;
@@ -918,6 +938,7 @@ function findFallbackSlotControlAtPoint(e) {
   for (const control of pitchWrap.querySelectorAll(SLOT_CONTROL_DEBUG_SELECTOR)) {
     const rect = control.getBoundingClientRect();
     const pad = control.classList.contains("slot-photo-fetch-btn") ||
+      control.classList.contains("slot-photo-crop-btn") ||
       control.classList.contains("slot-photo-delete-btn")
       ? 24
       : 12;
@@ -1080,7 +1101,7 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
       renderPitch();
       appState.suppressPitchSlotFlipAnimation = false;
     };
-    openPlayerPhotoUrlModal(player?.name || "", async (imageUrl) => {
+    const submitFromUrl = async (imageUrl) => {
       const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -1091,6 +1112,41 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
         throw new Error(data?.error || "Could not download photo from URL.");
       }
       applyFetchedPhoto(data);
+    };
+    const fetchFromSource = (source) => {
+      openPhotoCandidatePicker({
+        title: `${source === "fut.gg" ? "FUT cards (fut.gg)" : "365scores"} — ${player?.name || "photo"}`,
+        loadCandidates: async () => {
+          const res = await fetch(LIST_PHOTO_CANDIDATES_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...photoBodyBase, source }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data?.ok) {
+            throw new Error(data?.error || "Photo search failed.");
+          }
+          return Array.isArray(data.candidates) ? data.candidates : [];
+        },
+        onSelect: async (candidate) => {
+          const res = await fetch(SAVE_CHOSEN_PHOTO_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...photoBodyBase, source, imageDataUrl: candidate.dataUrl }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data?.ok) {
+            throw new Error(data?.error || "Failed to save photo.");
+          }
+          applyFetchedPhoto(data);
+        },
+      });
+    };
+    openPhotoSourceChooser({
+      playerName: player?.name || "",
+      onPasteUrl: () => openPlayerPhotoUrlModal(player?.name || "", submitFromUrl),
+      onFetchFutgg: () => fetchFromSource("fut.gg"),
+      onFetch365: () => fetchFromSource("365scores"),
     });
   });
 
@@ -1138,7 +1194,48 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
       deleteBtn.textContent = "X";
     }
   });
-  controls.append(photoBtn, deleteBtn);
+  const cropBtn = document.createElement("button");
+  cropBtn.type = "button";
+  cropBtn.className = "slot-photo-crop-btn";
+  cropBtn.textContent = "CROP";
+  cropBtn.title = "Crop this photo (e.g. down to the shirt) — overwrites the saved image";
+  cropBtn.dataset.slotControl = "crop";
+  cropBtn.dataset.slotIndex = String(slotIndex);
+  cropBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (cropBtn.disabled) return;
+    const current = getCurrentSlotPhoto();
+    if (!current.relPath) {
+      window.alert("No photo to crop.");
+      return;
+    }
+    const relPath = current.relPath;
+    openPhotoCropModal({
+      imageUrl: projectAssetUrlFresh(relPath),
+      title: `Crop — ${player?.name || "photo"}`,
+      onSave: async (dataUrl) => {
+        const res = await fetch(SAVE_CROP_PLAYER_PHOTO_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ relPath, imageDataUrl: dataUrl }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.ok) {
+          throw new Error(data?.error || "Failed to save crop.");
+        }
+        // Same file overwritten — drop the RAM-cached bitmap AND change its URL
+        // so both the in-memory image cache and the browser HTTP cache miss.
+        invalidateCachedImage(projectAssetUrl(relPath));
+        bumpAssetCacheBust(relPath);
+        appState.suppressPitchSlotFlipAnimation = true;
+        renderPitch();
+        appState.suppressPitchSlotFlipAnimation = false;
+      },
+    });
+  });
+
+  controls.append(cropBtn, photoBtn, deleteBtn);
   containerEl.appendChild(controls);
 }
 
