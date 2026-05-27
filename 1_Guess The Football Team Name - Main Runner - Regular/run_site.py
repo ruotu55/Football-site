@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import csv
 import difflib
 import errno
@@ -40,6 +41,9 @@ PROJECT_ROOT = RUNNER_DIR.parent
 RUNNER_VARIANT = "Lineups Regular"
 
 # ── Render Video jobs (frame-by-frame headless render via render/index.mjs) ──
+# ON HOLD: set this back to True to re-enable the Render Video feature. While False, the
+# endpoint refuses to spawn anything (no headless Chrome / ffmpeg) so it uses no resources.
+RENDER_FEATURE_ENABLED = False
 _RENDER_JOBS: dict = {}
 
 
@@ -1049,6 +1053,66 @@ def _find_existing_photo_path_by_sha256(target_dir: Path, digest: str) -> Path |
     except OSError:
         return None
     return None
+
+
+_PHOTO_CANDIDATE_LIMIT = 12
+_PHOTO_CANDIDATE_MAX_BYTES = 8 * 1024 * 1024
+
+
+def _guess_image_mime(data: bytes) -> str:
+    """Best-effort MIME from magic bytes; defaults to PNG."""
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return "image/png"
+    if data[:3] == b"\xff\xd8\xff":
+        return "image/jpeg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "image/webp"
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return "image/gif"
+    return "image/png"
+
+
+def _persist_player_photo_bytes(
+    target_dir: Path,
+    index_section: str,
+    index_key: str,
+    image_bytes: bytes,
+    source: str,
+) -> tuple[int, dict]:
+    """Dedup against target_dir by sha256, else write with a source-labelled
+    filename (auto - fut.gg / auto - 365scores), then update the image index.
+    Returns (http_status, response_dict) — never raises for the expected cases.
+    """
+    if not image_bytes:
+        return (404, {"ok": False, "error": "Downloaded image is empty."})
+    digest = hashlib.sha256(image_bytes).hexdigest()
+    existing = _find_existing_photo_path_by_sha256(target_dir, digest)
+    if existing is not None:
+        rel_path = existing.relative_to(PROJECT_ROOT).as_posix()
+        try:
+            _update_player_images_index(index_section, index_key, rel_path)
+        except OSError:
+            return (500, {"ok": False, "error": "Failed to update player image index."})
+        return (200, {
+            "ok": True, "source": source, "relativePath": rel_path,
+            "indexSection": index_section, "indexKey": index_key,
+            "reusedExistingFile": True,
+        })
+    target_dir.mkdir(parents=True, exist_ok=True)
+    out_path = _next_auto_photo_path(target_dir, source)
+    try:
+        out_path.write_bytes(image_bytes)
+    except OSError:
+        return (500, {"ok": False, "error": "Failed to write image file."})
+    rel_path = out_path.relative_to(PROJECT_ROOT).as_posix()
+    try:
+        _update_player_images_index(index_section, index_key, rel_path)
+    except OSError:
+        return (500, {"ok": False, "error": "Failed to update player image index."})
+    return (200, {
+        "ok": True, "source": source, "relativePath": rel_path,
+        "indexSection": index_section, "indexKey": index_key,
+    })
 
 
 def _next_auto_photo_path(target_dir: Path, source: str) -> Path:
@@ -2934,6 +2998,50 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         )
         return True
 
+    def _try_save_player_photo_crop(self) -> bool:
+        """Overwrite an existing player photo with a cropped version (data URL)."""
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/save-crop":
+            return False
+        try:
+            body = self._read_json_body()
+            rel_path_raw = str(body.get("relPath") or "").strip().replace("\\", "/")
+            data_url = str(body.get("imageDataUrl") or "")
+            if not rel_path_raw:
+                raise ValueError("Missing photo path.")
+            if not data_url.lower().startswith("data:image/") or "," not in data_url:
+                raise ValueError("Missing or invalid image data.")
+            target = (PROJECT_ROOT / rel_path_raw).resolve()
+            allowed_roots = [
+                PLAYERS_IMAGES_CLUB_ROOT.resolve(),
+                PLAYERS_IMAGES_NATIONALITY_ROOT.resolve(),
+            ]
+            if not any(target.is_relative_to(r) for r in allowed_roots):
+                raise ValueError("Photo path is outside the players image folders.")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            image_bytes = base64.b64decode(data_url.split(",", 1)[1], validate=False)
+        except Exception:  # noqa: BLE001
+            self._write_json(400, {"ok": False, "error": "Could not decode cropped image."})
+            return True
+        if not image_bytes:
+            self._write_json(400, {"ok": False, "error": "Cropped image is empty."})
+            return True
+        if not target.exists():
+            self._write_json(404, {"ok": False, "error": "Original photo file not found."})
+            return True
+        try:
+            target.write_bytes(image_bytes)
+        except OSError:
+            self._write_json(500, {"ok": False, "error": "Failed to write cropped image."})
+            return True
+
+        self._write_json(200, {"ok": True, "relativePath": rel_path_raw})
+        return True
+
     def _send_live_reload_stream(self) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -2974,6 +3082,9 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         """POST /__render-video — spawn the frame-by-frame render driver (render/index.mjs)."""
         if urlparse(self.path).path.rstrip("/") != "/__render-video":
             return False
+        if not RENDER_FEATURE_ENABLED:
+            self._write_json(503, {"ok": False, "error": "Render Video is on hold (disabled)."})
+            return True
         try:
             body = self._read_json_body()
             script = str(body.get("script") or "").strip()
@@ -3132,6 +3243,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_auto_fetch_player_photo():
             return
         if self._try_player_photo_from_url():
+            return
+        if self._try_save_player_photo_crop():
             return
         self.send_error(404, "Not found")
 
