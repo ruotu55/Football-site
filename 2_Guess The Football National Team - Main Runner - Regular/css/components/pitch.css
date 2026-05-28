@@ -770,3 +770,54 @@ body:has(#lineups-inline-team-picker:not([hidden])) #pitch-container {
 .pcrop-btn-secondary { background: #39424f; color: #fff; }
 .pcrop-btn-primary { background: #ffd24a; color: #1b212b; }
 .pcrop-btn:disabled { opacity: 0.6; cursor: wait; }
+
+/* Add-photo source chooser */
+.psrc-modal { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; }
+.psrc-modal[hidden] { display: none; }
+.psrc-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); }
+.psrc-panel {
+  position: relative; background: #15171c; color: #fff; border: 1px solid #333;
+  border-radius: 10px; padding: 1.25rem; width: 92vw; max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.psrc-title { margin: 0 0 0.15rem; font-size: 1.15rem; font-weight: 800; }
+.psrc-name { margin: 0 0 0.85rem; font-size: 0.85rem; color: #aaa; line-height: 1.4; }
+.psrc-options { display: flex; flex-direction: column; gap: 0.6rem; }
+.psrc-opt {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem;
+  text-align: left; padding: 0.7rem 0.85rem; background: #1d2027; color: #fff;
+  border: 1px solid #333; border-radius: 8px; cursor: pointer;
+}
+.psrc-opt:hover { border-color: var(--accent); background: #232732; }
+.psrc-opt-title { font-weight: 700; font-size: 0.95rem; }
+.psrc-opt-sub { font-size: 0.78rem; color: #9aa; }
+.psrc-actions { display: flex; justify-content: flex-end; margin-top: 1rem; }
+.psrc-btn { padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #333; cursor: pointer; }
+.psrc-btn-secondary { background: #1d2027; color: #fff; }
+
+/* Photo candidate picker grid */
+.ppick-modal { position: fixed; inset: 0; z-index: 10001; display: flex; align-items: center; justify-content: center; }
+.ppick-modal[hidden] { display: none; }
+.ppick-backdrop { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); }
+.ppick-panel {
+  position: relative; background: #15171c; color: #fff; border: 1px solid #333;
+  border-radius: 10px; padding: 1.25rem; width: 92vw; max-width: 640px;
+  max-height: 88vh; overflow: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.ppick-title { margin: 0 0 0.6rem; font-size: 1.15rem; font-weight: 800; }
+.ppick-status { font-size: 0.9rem; color: #aaa; padding: 0.6rem 0; }
+.ppick-status-error {
+  color: #ef4444; background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 4px; padding: 0.6rem 0.8rem;
+}
+.ppick-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.6rem; }
+.ppick-cell {
+  padding: 0.35rem; background: #0c0d10; border: 1px solid #333; border-radius: 8px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 120px;
+}
+.ppick-cell:hover { border-color: var(--accent); }
+.ppick-cell-busy { opacity: 0.5; pointer-events: none; }
+.ppick-cell img { max-width: 100%; max-height: 150px; object-fit: contain; display: block; }
+.ppick-actions { display: flex; justify-content: flex-end; margin-top: 1rem; }
+.ppick-btn { padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #333; cursor: pointer; }
+.ppick-btn-secondary { background: #1d2027; color: #fff; }

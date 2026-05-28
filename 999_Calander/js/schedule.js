@@ -1,6 +1,6 @@
 /* Football Channel · upload schedule
  *
- * Cadence (per channel): 1 Short every day · 3 Long-form per week (all at 18:00 Israel).
+ * Cadence (per channel): 2 Shorts every day · 3 Long-form per week.
  *
  * Long-form days (18:00 IL) — chosen for even spread + football-audience peaks:
  *  - Sunday    — post-PL weekend wrap; Sunday-evening viewing habit
@@ -8,18 +8,33 @@
  *                lands in the pre-game buzz window, not the live competition)
  *  - Friday    — highest CTR weekday on YouTube; weekend-content planning starts
  *
- * Gap pattern: Sun → Wed (3 days), Wed → Fri (2 days), Fri → Sun (2 days). No
- * back-to-back days, no Saturday upload (PL Sat afternoon ≈ 14:00 IL onwards
- * cannibalises views), no head-on competition with UCL/UEL kickoffs.
+ * Shorts (2/day, uniform across the week) — picked to catch the morning scroll
+ * AND the evening prime window in each channel's target geography:
  *
- * Shorts — one slot daily, timed 2–3 h before audience peaks; on long days the Short
- * is morning/early afternoon so Long and Short never sit back-to-back in the grid.
+ *   EN (UK / Europe) — UK = IL−2 in summer:
+ *     Slot A · 11:00 IL → UK 09:00     · morning commute / start-of-day scroll
+ *     Slot B · 21:00 IL → UK 19:00     · evening prime, post-dinner browse
  *
- * Football timing rules:
- *  - Avoid PL Sat/Sun afternoon live windows · UCL Tue/Wed ~21:00 CET
- *  - Fri Shorts = highest CTR · Tue = UCL build · Sat AM = pre-matchday
+ *   ES (Spain + South America) — Spain = IL−1, Argentina ≈ IL−5:
+ *     Slot A · 15:00 IL → Spain 14:00 / Argentina 09:00 · Spain lunch tail + SA morning
+ *     Slot B · 23:00 IL → Spain 22:00 / Argentina 17:00 · Spain prime + SA afternoon
  *
- * All times LOCAL Israel (DST-aware). IL summer: UK = IL−2, Spain = IL−1.
+ * On long-form days the long sits at 18:00 IL, between the two shorts, so the
+ * day reads in time order: morning short → long → evening short.
+ *
+ * Football timing rules respected:
+ *  - Avoid PL Sat/Sun afternoon live windows (≈ 14:00 IL onwards on weekends)
+ *  - No collision with UCL/UEL kickoffs (~22:00 IL Tue/Wed)
+ *  - Fri & weekend morning slots = highest Shorts CTR
+ *
+ * Runner ordering — STRICTLY SEQUENTIAL by folder number (1, 2, 3, …, 8, 1, …)
+ * for both Long and Short. Long-form starts at runner 1; Shorts also start at
+ * runner 1 (slot A on day 1 → runner 1, slot B on day 1 → runner 2, etc.). The
+ * EN and ES channels share the same runner+episode on each date and only differ
+ * in upload hour, so one recording session covers both languages.
+ *
+ * All times LOCAL Israel (DST-aware). Times shown on the calendar = upload time
+ * in Israel. IL summer: UK = IL−2, Spain = IL−1.
  */
 
 const START_DATE = new Date(2026, 4, 30); // 2026-05-30 Saturday
@@ -54,14 +69,15 @@ const PHASES = [
         { dow: 3, hour: 18, min: 0 }, // Wed 18:00 — mid-week + pre-UCL (kickoffs 22:00 IL)
         { dow: 5, hour: 18, min: 0 }, // Fri 18:00 — highest CTR weekday, weekend hype
       ],
+      // 2 shorts/day, uniform across the week — UK morning + UK evening prime.
       short: [
-        { dow: 0, hour: 12, min: 0 }, // Sun 12:00 — morning (long same day at 18:00)
-        { dow: 1, hour: 13, min: 0 }, // Mon 13:00 — lunch, before evening long
-        { dow: 2, hour: 17, min: 0 }, // Tue 17:00 — UCL build (UK 15:00)
-        { dow: 3, hour: 12, min: 0 }, // Wed 12:00 — midday, before evening long
-        { dow: 4, hour: 14, min: 0 }, // Thu 14:00 — Europa / mid-week preview
-        { dow: 5, hour: 13, min: 0 }, // Fri 13:00 — highest Shorts CTR, weekend hype
-        { dow: 6, hour: 11, min: 0 }, // Sat 11:00 — pre-PL morning (UK 09:00)
+        { dow: 0, hour: 11, min: 0 }, { dow: 0, hour: 21, min: 0 },
+        { dow: 1, hour: 11, min: 0 }, { dow: 1, hour: 21, min: 0 },
+        { dow: 2, hour: 11, min: 0 }, { dow: 2, hour: 21, min: 0 },
+        { dow: 3, hour: 11, min: 0 }, { dow: 3, hour: 21, min: 0 },
+        { dow: 4, hour: 11, min: 0 }, { dow: 4, hour: 21, min: 0 },
+        { dow: 5, hour: 11, min: 0 }, { dow: 5, hour: 21, min: 0 },
+        { dow: 6, hour: 11, min: 0 }, { dow: 6, hour: 21, min: 0 },
       ],
     },
     es: {
@@ -70,14 +86,16 @@ const PHASES = [
         { dow: 3, hour: 18, min: 0 }, // Wed 18:00 IL = Spain 17:00
         { dow: 5, hour: 18, min: 0 }, // Fri 18:00 IL = Spain 17:00 (weekend hype)
       ],
+      // 2 shorts/day, uniform — Spain lunch tail + Spain late prime
+      // (also lands in South America morning + South America afternoon).
       short: [
-        { dow: 0, hour: 13, min: 0 }, // Sun — Spain afternoon, before long
-        { dow: 1, hour: 14, min: 0 }, // Mon — late lunch
-        { dow: 2, hour: 18, min: 0 }, // Tue — Spain 17:00 UCL build
-        { dow: 3, hour: 13, min: 0 }, // Wed — midday, before long
-        { dow: 4, hour: 22, min: 0 }, // Thu — Spain 21:00 evening prime
-        { dow: 5, hour: 15, min: 0 }, // Fri — Spain 14:00, weekend preview
-        { dow: 6, hour: 12, min: 0 }, // Sat — Spain 11:00 pre-La Liga
+        { dow: 0, hour: 15, min: 0 }, { dow: 0, hour: 23, min: 0 },
+        { dow: 1, hour: 15, min: 0 }, { dow: 1, hour: 23, min: 0 },
+        { dow: 2, hour: 15, min: 0 }, { dow: 2, hour: 23, min: 0 },
+        { dow: 3, hour: 15, min: 0 }, { dow: 3, hour: 23, min: 0 },
+        { dow: 4, hour: 15, min: 0 }, { dow: 4, hour: 23, min: 0 },
+        { dow: 5, hour: 15, min: 0 }, { dow: 5, hour: 23, min: 0 },
+        { dow: 6, hour: 15, min: 0 }, { dow: 6, hour: 23, min: 0 },
       ],
     },
   },
@@ -111,21 +129,21 @@ function dateKey(d) {
  *
  * Walks from START_DATE day-by-day and assigns runners using a STRICTLY SEQUENTIAL
  * counter per type. The runner picked is `pool[(counter + TYPE_OFFSET) % pool.length]`
- * where `pool` is the set of runners available on that date.
+ * where `pool` is the set of runners available on that date. Both types start at
+ * runner 1 (offset 0) — folder order on disk == upload order.
  *
  * EN and ES PAIR: on every date, the EN and ES slots of the same type share a
  * single counter — meaning they assign the SAME runner and SAME episode number.
- * The two channels differ only in upload hour (e.g. EN at 18:00 IL, ES at 17:00
- * Spain ≈ 18:00 IL for long-form). One recording session per language covers
- * the same calendar block in both channels.
+ * The two channels differ only in upload hour. One recording session per
+ * language covers the same calendar block in both channels.
  *
- * Guarantees: no quiz repeats within (pool.length / slots_per_week) weeks for a
- * given type — e.g. long has 3 slots/wk and 8 runners → ≥ 2.7 weeks between
- * repeats on long-form; short has 7 slots/wk → ≥ 1.1 weeks between short repeats.
+ * Long: 3 slots/wk · 8 runners → first 8 longs walk runner 1 → 2 → 3 → … → 8.
+ * Short: 14 slots/wk · 8 runners → first 8 shorts walk runner 1 → 2 → 3 → … → 8,
+ *   then loop. Gap between repeats of the same runner on shorts ≈ 4 days.
  *
  * The counter persists across phases, so phase transitions don't re-collide.
  */
-const TYPE_OFFSET = { long: 0, short: 3 };
+const TYPE_OFFSET = { long: 0, short: 0 };
 
 let _scheduleCache = null;
 let _scheduleCacheEnd = null;

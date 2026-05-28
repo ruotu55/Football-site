@@ -36,7 +36,8 @@ function _prepTimerBarWhileCovered() {
   }
 }
 
-export function switchLevel(index) {
+export function switchLevel(index, options = {}) {
+  const instant = !!options.instant;
   let idx = index;
   if (document.body.classList.contains("shorts-mode") && idx === 0) {
     idx = 1;
@@ -273,6 +274,26 @@ export function switchLevel(index) {
   };
 
   if (stageMain) {
+    if (instant) {
+      preloadCareerAssets(state);
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim",
+      );
+      if (progressContainer) {
+        progressContainer.classList.remove(
+          "progress-out-reg",
+          "progress-out-shorts",
+          "progress-in-reg",
+          "progress-in-shorts",
+        );
+      }
+      updateDOMContent();
+      return;
+    }
+
     const isShorts = document.body.classList.contains("shorts-mode");
     const isLogoToLanding = prevIndex === 0 && index === 1 && !isShorts;
     if (isLogoToLanding) {

@@ -77,6 +77,7 @@ import {
 } from "./paths.js";
 import { openPhotoCropModal } from "./photo-crop.js";
 import { openPhotoSourceChooser, openPhotoCandidatePicker } from "./photo-source-picker.js";
+import { openBulkPhotoPicker } from "./bulk-photo-picker.js";
 import { normalizeForSearch } from "./search-normalize.js";
 import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached, invalidateCachedImage } from "../../.Storage/shared/image-cache.js";
 import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
@@ -590,7 +591,7 @@ function pitchSlotDisplayLabel(state, player) {
   }
   const club = (player?.club && String(player.club).trim()) || "";
   if (club) return club.toUpperCase();
-  const nat = (player?.nationality && String(player.nationality).trim()) || "";
+  const nat = resolvePlayerNationalityLabel(player?.nationality);
   if (nat) return nat.toUpperCase();
   return "—";
 }
@@ -849,6 +850,26 @@ function applyStrictAvatarBounds(avatarEl, options = {}) {
   avatarEl.style.borderRadius = clipCircle ? "50%" : "0";
 }
 
+/** Legacy ingest left some player records with `nationality: "TM nationality id N"`
+ *  because that TM ID was missing from `_transfermarkt_nationality_id_map.json`
+ *  when the squad was generated. Map back to the real country name at READ time
+ *  so the flag lookup hits a valid key — we don't rewrite the saved JSON
+ *  (which would lose the original TM ID context). Returns the raw string
+ *  unchanged when it's already a country name. */
+const TM_NATIONALITY_ID_RE = /^TM\s*nationality\s*id\s+(\d+)$/i;
+export function resolvePlayerNationalityLabel(rawNationality) {
+  const raw = String(rawNationality || "").trim();
+  if (!raw) return "";
+  const m = TM_NATIONALITY_ID_RE.exec(raw);
+  if (!m) return raw;
+  const map = appState.transfermarktNationalityMap;
+  if (map && typeof map === "object") {
+    const mapped = map[m[1]];
+    if (mapped && String(mapped).trim()) return String(mapped).trim();
+  }
+  return raw;
+}
+
 /** Video-mode card front when flag/club image is missing — full name, not initials. */
 function appendSlotBadgeTextFallback(badgeWrap, displayText) {
   const el = document.createElement("div");
@@ -861,7 +882,7 @@ function appendSlotBadgeTextFallback(badgeWrap, displayText) {
 /** No player photo: show club (national squads) or nationality (club squads) inside the grey circle. */
 function appendAvatarTeamFallback(avatar, player) {
   const club = (player?.club && String(player.club).trim()) || "";
-  const nat = (player?.nationality && String(player.nationality).trim()) || "";
+  const nat = resolvePlayerNationalityLabel(player?.nationality);
   const text = (club || nat || "—").toUpperCase();
   const el = document.createElement("div");
   el.className = "slot-avatar-team-fallback";
@@ -1011,6 +1032,127 @@ function installSlotControlClickDebug() {
     e.stopPropagation();
     fallbackControl.click();
   }, true);
+}
+
+/* "Get all team photos" button next to the X in the team header. Wired once
+   per page-load via `installBulkPhotoButton`, fired against the current 11. */
+let bulkPhotoButtonInstalled = false;
+
+function installBulkPhotoButton() {
+  if (bulkPhotoButtonInstalled) return;
+  const btn = document.getElementById("team-header-get-all-photos");
+  if (!btn) return;
+  bulkPhotoButtonInstalled = true;
+  /* Re-parent to <body> so the team-header / pitch-wrap perspective transforms
+     don't break `position: fixed`. Mirrors what the clear-team X does. */
+  if (btn.parentElement !== document.body) {
+    document.body.appendChild(btn);
+  }
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openBulkTeamPhotoModal();
+  });
+}
+
+function openBulkTeamPhotoModal() {
+  const state = getState();
+  if (!state?.currentSquad) return;
+  const xi = appState.currentXi || [];
+  const players = [];
+  xi.forEach((p, slotIndex) => {
+    if (!p || !p.name) return;
+    players.push({
+      slotIndex,
+      name: p.name,
+      club: p.club || "",
+      nationality: p.nationality || "",
+      photoBodyBase: {
+        playerName: p.name,
+        playerClub: p.club || "",
+        playerNationality: p.nationality || "",
+        squadType: state.squadType || "",
+        selectedEntry: state.selectedEntry || {},
+        currentSquadName: state.currentSquad?.name || "",
+      },
+    });
+  });
+  if (!players.length) {
+    window.alert("No players in the lineup yet.");
+    return;
+  }
+
+  const applyFetchedPhotoForSlot = (data, slotIndex) => {
+    const section = data?.indexSection;
+    const key = data?.indexKey;
+    const rel = data?.relativePath;
+    if (!section || !key || !rel) {
+      throw new Error("Invalid image index update payload.");
+    }
+    if (!appState.playerImages[section]) {
+      appState.playerImages[section] = {};
+    }
+    const prevPaths = appState.playerImages[section][key];
+    const paths = Array.isArray(prevPaths)
+      ? prevPaths.filter((x) => typeof x === "string" && x.trim())
+      : typeof prevPaths === "string" && prevPaths.trim()
+        ? [prevPaths.trim()]
+        : [];
+    if (!paths.includes(rel)) {
+      paths.unshift(rel);
+    }
+    appState.playerImages[section][key] = paths;
+    autoPhotoLastSourceBySlot.set(slotIndex, String(data?.source || "").trim().toLowerCase());
+    const st = getState();
+    st.slotPhotoIndexBySlot.set(slotIndex, 0);
+    appState.suppressPitchSlotFlipAnimation = true;
+    renderPitch();
+    appState.suppressPitchSlotFlipAnimation = false;
+  };
+
+  openBulkPhotoPicker({
+    teamLabel: state.currentSquad?.name || "",
+    players,
+    sources: ["fut.gg", "365scores"],
+    loadCandidates: async ({ player, source }) => {
+      const res = await fetch(LIST_PHOTO_CANDIDATES_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Search failed.");
+      }
+      return Array.isArray(data.candidates) ? data.candidates : [];
+    },
+    onSelectCandidate: async ({ player, candidate, source }) => {
+      const res = await fetch(SAVE_CHOSEN_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source, imageDataUrl: candidate.dataUrl }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Failed to save photo.");
+      }
+      applyFetchedPhotoForSlot(data, player.slotIndex);
+    },
+    onPasteUrl: (player) => {
+      openPlayerPhotoUrlModal(player.name, async (imageUrl) => {
+        const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...player.photoBodyBase, imageUrl }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.ok) {
+          throw new Error(data?.error || "Could not download photo from URL.");
+        }
+        applyFetchedPhotoForSlot(data, player.slotIndex);
+      });
+    },
+  });
 }
 
 function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
@@ -1353,8 +1495,8 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
     badgeWrap.style.setProperty("--slot-badge-scale", String(getSlotFrontFaceScale(state, slotIndex)));
 
     if (state.squadType === "club") {
-      const code = appState.flagcodes[player.nationality];
-      const natLabel = String(player.nationality || "").trim();
+      const natLabel = resolvePlayerNationalityLabel(player.nationality);
+      const code = appState.flagcodes[natLabel];
       if (code) {
         // England: repo St George asset (not Union Jack / generic CDN crop).
         const flagUrl =
@@ -1375,11 +1517,11 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         img.style.borderRadius = "50%";
         img.onerror = () => {
           img.remove();
-          appendSlotBadgeTextFallback(badgeWrap, player.nationality);
+          appendSlotBadgeTextFallback(badgeWrap, natLabel);
         };
         badgeWrap.appendChild(img);
       } else {
-        appendSlotBadgeTextFallback(badgeWrap, player.nationality);
+        appendSlotBadgeTextFallback(badgeWrap, natLabel);
       }
     } else {
       const clubName = player.club || "UNK";
@@ -1701,6 +1843,7 @@ function scheduleSlotNameFit() {
 
 export function renderPitch() {
   installSlotControlClickDebug();
+  installBulkPhotoButton();
   const state = getState();
   const formation = formationById(state.formationId);
   const displayMode = state.displayMode;
@@ -2111,6 +2254,7 @@ export function renderHeader() {
   const fetchLogoBtn = document.getElementById("team-header-fetch-logo");
   const swapLogoBtn = document.getElementById("team-header-swap-logo");
   const clearTeamBtn = document.getElementById("team-header-clear-team");
+  const getAllPhotosBtn = document.getElementById("team-header-get-all-photos");
   const pitchSwapBtn = document.getElementById("pitch-swap-logo");
   const flagSectionEl = document.getElementById("team-side-panel-flag-section");
 
@@ -2138,6 +2282,7 @@ export function renderHeader() {
     if (fetchLogoBtn) fetchLogoBtn.hidden = true;
     if (swapLogoBtn) swapLogoBtn.hidden = true;
     if (clearTeamBtn) clearTeamBtn.hidden = true;
+    if (getAllPhotosBtn) getAllPhotosBtn.hidden = true;
     if (pitchSwapBtn) pitchSwapBtn.hidden = true;
     if (els.teamVoiceControls) els.teamVoiceControls.hidden = true;
     syncTeamVoiceControls("", appState.els.inQuizType?.value || "nat-by-club");
@@ -2205,6 +2350,7 @@ export function renderHeader() {
     }
   }
   if (clearTeamBtn) clearTeamBtn.hidden = false;
+  if (getAllPhotosBtn) getAllPhotosBtn.hidden = false;
   syncTeamVoiceControls(
     displayedHeaderTeamName,
     appState.els.inQuizType?.value || "nat-by-club"

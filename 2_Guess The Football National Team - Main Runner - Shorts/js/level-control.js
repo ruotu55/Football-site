@@ -95,7 +95,7 @@ export function renderLevelsReorderList() {
         };
 
         item.onclick = () => {
-            switchLevel(i);
+            switchLevel(i, { instant: true });
             renderLevelsReorderList();
         };
 

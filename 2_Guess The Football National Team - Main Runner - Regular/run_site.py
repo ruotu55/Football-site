@@ -314,6 +314,11 @@ _PLAYER_OVERRIDES_LOCK = threading.Lock()
 _PLAYER_OVERRIDES_CACHE: dict[str, dict[str, str]] | None = None
 _COMPETITOR_SEARCH_LOCK = threading.Lock()
 _COMPETITOR_ID_BY_NAME_CACHE: dict[str, int] = {}
+# Cache the FULL ranked candidate list so the candidates function can iterate
+# all plausible clubs (handles spelling drift like "Omonoia Nicosia" -> 365's
+# "Omonia", where the strict resolver returns None and the sitemap fallback
+# is empty for non-top-flight leagues).
+_COMPETITOR_RANKED_CACHE: dict[str, list[int]] = {}
 _COMPETITOR_SQUAD_LOCK = threading.Lock()
 _COMPETITOR_SQUAD_CACHE: dict[int, list[dict]] = {}
 _FOOTBALL_LOGOS_AC_LOCK = threading.Lock()
@@ -640,65 +645,145 @@ def _image_url_from_athlete_id(athlete_id: str) -> str:
     )
 
 
+# Tokens that mark a competitor as NOT the senior first team (youth / women /
+# reserves). We demote these so a search for "Real Madrid" picks the senior
+# squad rather than "Real Madrid U21".
+_TEAM_JUNIOR_TOKENS = frozenset({
+    "u15", "u16", "u17", "u18", "u19", "u20", "u21", "u23",
+    "youth", "ii", "iii", "b", "women", "w", "reserves",
+})
+
+
+def _score_365_competitor_match(nk_search: str, item: dict) -> float:
+    """Score 0-1500 for how well a 365scores competitor matches the search name.
+       Tiers (descending strictness):
+         1000 — exact name_key match (existing pass 1 behavior)
+          800 — search name appears as substring of competitor names (pass 2)
+          600 — competitor name equals one of the search TOKENS (boundary-safe
+                reverse-substring; avoids 'Noia' matching 'Omonoia Nicosia')
+          ~200-700 — token similarity via SequenceMatcher (handles 'Omonoia' vs
+                '   Omonia' = 0.92 ratio; rejects 'Nicosia' vs 'Nicolas' = 0.57)
+       Then: -400 if the competitor is a youth/women/reserve squad; +bonus for
+       popularity (higher popularityRank field on 365 = more popular)."""
+    if not isinstance(item, dict):
+        return 0.0
+    if int(item.get("sportId") or 0) != 1:
+        return 0.0
+    if int(item.get("type") or 0) != 1:
+        return 0.0
+    names = [
+        _name_key(item.get("name") or ""),
+        _name_key(item.get("shortName") or ""),
+        _name_key(item.get("longName") or ""),
+    ]
+    name_set = {n for n in names if n}
+    comp_tokens: set[str] = set()
+    for n in names:
+        for t in n.split():
+            if len(t) >= 3:
+                comp_tokens.add(t)
+    if not comp_tokens:
+        return 0.0
+    search_tokens = [t for t in nk_search.split() if len(t) >= 3]
+    if not search_tokens:
+        return 0.0
+    if nk_search in name_set:
+        score = 1000.0
+    else:
+        joined = " ".join(name_set)
+        if nk_search in joined:
+            score = 800.0
+        elif name_set & set(search_tokens):
+            score = 600.0
+        else:
+            # Token-level fuzzy via Ratcliff/Obershelp (difflib). For each
+            # search token, find its best-similarity comp token. Require the
+            # strongest pair to clear 0.80; weight average match (penalizes
+            # candidates that only match ONE of several search tokens) and
+            # add a brand-name bonus when the FIRST search token matches.
+            best_per_st: list[float] = []
+            for st in search_tokens:
+                token_best = 0.0
+                for ct in comp_tokens:
+                    r = difflib.SequenceMatcher(None, st, ct).ratio()
+                    if r > token_best:
+                        token_best = r
+                best_per_st.append(token_best)
+            if max(best_per_st) < 0.80:
+                return 0.0
+            avg_ratio = sum(best_per_st) / len(best_per_st)
+            score = avg_ratio * 500.0
+            if best_per_st[0] >= 0.80:
+                score += best_per_st[0] * 200.0
+    if score <= 0:
+        return 0.0
+    if comp_tokens & _TEAM_JUNIOR_TOKENS:
+        score -= 400.0
+    if score <= 0:
+        return 0.0
+    try:
+        pop = float(item.get("popularityRank") or 0)
+    except (TypeError, ValueError):
+        pop = 0.0
+    score += min(200.0, max(0.0, pop / 50.0))
+    return score
+
+
+def _resolve_365_competitor_ids_ranked(team_name: str) -> list[int]:
+    """Return up to 5 candidate competitor IDs ordered best-first. Empty if no
+       plausible candidate. Cached. The candidates function walks this list and
+       picks the first squad that actually contains the requested player."""
+    nk = _name_key(team_name)
+    if not nk:
+        return []
+    with _COMPETITOR_SEARCH_LOCK:
+        cached = _COMPETITOR_RANKED_CACHE.get(nk)
+        if cached is not None:
+            return cached
+    query = urllib.parse.quote(team_name.strip())
+    url = f"https://webws.365scores.com/web/search/?q={query}&langId=1&sportId=1"
+    try:
+        payload = _fetch_text(url, timeout=30.0)
+        data = json.loads(payload)
+    except Exception:  # noqa: BLE001 — network/JSON failure shouldn't crash; cache empty.
+        with _COMPETITOR_SEARCH_LOCK:
+            _COMPETITOR_RANKED_CACHE[nk] = []
+        return []
+    competitors = data.get("competitors") if isinstance(data, dict) else []
+    if not isinstance(competitors, list):
+        competitors = []
+    scored: list[tuple[float, int]] = []
+    for item in competitors:
+        s = _score_365_competitor_match(nk, item)
+        if s <= 0:
+            continue
+        try:
+            cid = int(item.get("id"))
+        except (TypeError, ValueError):
+            continue
+        if cid > 0:
+            scored.append((s, cid))
+    scored.sort(key=lambda x: -x[0])
+    ranked = [cid for (_, cid) in scored[:5]]
+    with _COMPETITOR_SEARCH_LOCK:
+        _COMPETITOR_RANKED_CACHE[nk] = ranked
+    return ranked
+
+
 def _resolve_365_competitor_id(team_name: str) -> int | None:
+    """Legacy single-best wrapper preserved for any non-bulk callers."""
     nk = _name_key(team_name)
     if not nk:
         return None
     with _COMPETITOR_SEARCH_LOCK:
         if nk in _COMPETITOR_ID_BY_NAME_CACHE:
-            return _COMPETITOR_ID_BY_NAME_CACHE[nk]
-    query = urllib.parse.quote(team_name.strip())
-    url = f"https://webws.365scores.com/web/search/?q={query}&langId=1&sportId=1"
-    payload = _fetch_text(url, timeout=30.0)
-    data = json.loads(payload)
-    competitors = data.get("competitors") if isinstance(data, dict) else []
-    if not isinstance(competitors, list):
-        competitors = []
-    best_id: int | None = None
-    for item in competitors:
-        if not isinstance(item, dict):
-            continue
-        if int(item.get("sportId") or 0) != 1:
-            continue
-        if int(item.get("type") or 0) != 1:
-            continue
-        names = [
-            _name_key(item.get("name") or ""),
-            _name_key(item.get("shortName") or ""),
-            _name_key(item.get("longName") or ""),
-        ]
-        if nk in names:
-            try:
-                best_id = int(item.get("id"))
-            except (TypeError, ValueError):
-                best_id = None
-            if best_id:
-                break
-    if best_id is None:
-        for item in competitors:
-            if not isinstance(item, dict):
-                continue
-            if int(item.get("sportId") or 0) != 1:
-                continue
-            if int(item.get("type") or 0) != 1:
-                continue
-            names = " ".join(
-                [
-                    _name_key(item.get("name") or ""),
-                    _name_key(item.get("shortName") or ""),
-                    _name_key(item.get("longName") or ""),
-                ]
-            )
-            if nk and nk in names:
-                try:
-                    best_id = int(item.get("id"))
-                except (TypeError, ValueError):
-                    best_id = None
-                if best_id:
-                    break
+            cached = _COMPETITOR_ID_BY_NAME_CACHE[nk]
+            return cached or None
+    ranked = _resolve_365_competitor_ids_ranked(team_name)
+    best = ranked[0] if ranked else None
     with _COMPETITOR_SEARCH_LOCK:
-        _COMPETITOR_ID_BY_NAME_CACHE[nk] = best_id or 0
-    return best_id
+        _COMPETITOR_ID_BY_NAME_CACHE[nk] = best or 0
+    return best
 
 
 def _load_365_competitor_squad(competitor_id: int) -> list[dict]:
@@ -787,8 +872,10 @@ def _try_fetch_365scores_photo(player_name: str, player_club: str = "") -> tuple
             return _fetch_bytes(image_url), "365scores"
 
     if player_club.strip():
-        competitor_id = _resolve_365_competitor_id(player_club)
-        if competitor_id:
+        # Try each ranked candidate club until one's squad has the player.
+        # The strict resolver alone misses clubs with spelling drift
+        # ("Omonoia Nicosia" -> 365's "Omonia"); the ranked walk catches them.
+        for competitor_id in _resolve_365_competitor_ids_ranked(player_club):
             athletes = _load_365_competitor_squad(competitor_id)
             for a in athletes:
                 if not _athlete_name_match(player_name, a):
@@ -840,15 +927,21 @@ def _365scores_candidate_image_urls(player_name: str, player_club: str = "") -> 
         _push(image_url)
 
     if player_club.strip():
-        competitor_id = _resolve_365_competitor_id(player_club)
-        if competitor_id:
+        # Walk the ranked candidate clubs (handles spelling drift) until one's
+        # squad yields matching athletes. Stop after the first hit so we don't
+        # mix athletes from unrelated clubs into the picker grid.
+        for competitor_id in _resolve_365_competitor_ids_ranked(player_club):
             athletes = _load_365_competitor_squad(competitor_id)
+            matched_any = False
             for a in athletes:
                 if not _athlete_name_match(player_name, a):
                     continue
                 athlete_id = str(a.get("id") or "").strip()
                 if athlete_id:
                     _push(_image_url_from_athlete_id(athlete_id))
+                    matched_any = True
+            if matched_any:
+                break
 
     slug = _slugify_name(player_name)
     if slug:
@@ -1037,6 +1130,67 @@ def _next_auto_photo_path(target_dir: Path, source: str) -> Path:
         if not candidate.exists():
             return candidate
         idx += 1
+
+
+# How many candidate images per source we'll try to download for the picker.
+_PHOTO_CANDIDATE_LIMIT = 12
+# Reject obvious garbage so we don't try to load a 100MB binary into the picker.
+_PHOTO_CANDIDATE_MAX_BYTES = 8 * 1024 * 1024
+
+
+def _guess_image_mime(data: bytes) -> str:
+    """Best-effort MIME from magic bytes; defaults to PNG."""
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return "image/png"
+    if data[:3] == b"\xff\xd8\xff":
+        return "image/jpeg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "image/webp"
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return "image/gif"
+    return "image/png"
+
+
+def _persist_player_photo_bytes(
+    target_dir: Path,
+    index_section: str,
+    index_key: str,
+    image_bytes: bytes,
+    source: str,
+) -> tuple[int, dict]:
+    """Dedup against target_dir by sha256, else write with a source-labelled
+    filename (auto - fut.gg / auto - 365scores), then update the image index.
+    Returns (http_status, response_dict) — never raises for the expected cases."""
+    if not image_bytes:
+        return (404, {"ok": False, "error": "Downloaded image is empty."})
+    digest = hashlib.sha256(image_bytes).hexdigest()
+    existing = _find_existing_photo_path_by_sha256(target_dir, digest)
+    if existing is not None:
+        rel_path = existing.relative_to(PROJECT_ROOT).as_posix()
+        try:
+            _update_player_images_index(index_section, index_key, rel_path)
+        except OSError:
+            return (500, {"ok": False, "error": "Failed to update player image index."})
+        return (200, {
+            "ok": True, "source": source, "relativePath": rel_path,
+            "indexSection": index_section, "indexKey": index_key,
+            "reusedExistingFile": True,
+        })
+    target_dir.mkdir(parents=True, exist_ok=True)
+    out_path = _next_auto_photo_path(target_dir, source)
+    try:
+        out_path.write_bytes(image_bytes)
+    except OSError:
+        return (500, {"ok": False, "error": "Failed to write image file."})
+    rel_path = out_path.relative_to(PROJECT_ROOT).as_posix()
+    try:
+        _update_player_images_index(index_section, index_key, rel_path)
+    except OSError:
+        return (500, {"ok": False, "error": "Failed to update player image index."})
+    return (200, {
+        "ok": True, "source": source, "relativePath": rel_path,
+        "indexSection": index_section, "indexKey": index_key,
+    })
 
 
 def _load_football_logos_ac_cached() -> list[dict]:
@@ -2909,6 +3063,92 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         )
         return True
 
+    def _try_list_player_photo_candidates(self) -> bool:
+        """Return up to _PHOTO_CANDIDATE_LIMIT base64-encoded thumbnail candidates
+        from the chosen source ('fut.gg' or '365scores'). The client renders these
+        in a grid so the user can pick the best face photo without writing a file."""
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/list-candidates":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = str(body.get("playerName") or "").strip()
+            player_club = str(body.get("playerClub") or "").strip()
+            player_nationality = str(body.get("playerNationality") or "").strip()
+            source = str(body.get("source") or "").strip().lower()
+            if not player_club and str(body.get("squadType") or "").strip().lower() == "club":
+                player_club = str(body.get("currentSquadName") or "").strip()
+            if not player_name:
+                raise ValueError("Missing player name.")
+            if source not in ("fut.gg", "365scores"):
+                raise ValueError("Unknown photo source.")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            if source == "fut.gg":
+                urls = _futgg_candidate_image_urls(player_name, player_club, player_nationality)
+            else:
+                urls = _365scores_candidate_image_urls(player_name, player_club)
+        except Exception as exc:  # noqa: BLE001 — surface lookup failures to the user
+            self._write_json(502, {"ok": False, "error": f"Lookup failed: {exc}"})
+            return True
+
+        candidates: list[dict] = []
+        seen_hashes: set[str] = set()
+        for url in urls or []:
+            if len(candidates) >= _PHOTO_CANDIDATE_LIMIT:
+                break
+            try:
+                data = _fetch_bytes(url)
+            except Exception:  # noqa: BLE001 — skip a candidate that won't download
+                continue
+            if not data or len(data) > _PHOTO_CANDIDATE_MAX_BYTES:
+                continue
+            digest = hashlib.sha256(data).hexdigest()
+            if digest in seen_hashes:
+                continue
+            seen_hashes.add(digest)
+            mime = _guess_image_mime(data)
+            data_url = f"data:{mime};base64," + base64.b64encode(data).decode("ascii")
+            candidates.append({"url": url, "dataUrl": data_url})
+
+        self._write_json(200, {"ok": True, "source": source, "candidates": candidates})
+        return True
+
+    def _try_save_chosen_player_photo(self) -> bool:
+        """Persist a candidate the client picked from /list-candidates (data URL
+        round-tripped from the picker grid). Source label is preserved for the
+        Auto-<source>.png filename."""
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/save-chosen":
+            return False
+        try:
+            body = self._read_json_body()
+            source = str(body.get("source") or "").strip().lower()
+            data_url = str(body.get("imageDataUrl") or "")
+            if source not in ("fut.gg", "365scores"):
+                raise ValueError("Unknown photo source.")
+            if not data_url.lower().startswith("data:image/") or "," not in data_url:
+                raise ValueError("Missing or invalid image data.")
+            target_dir, index_section, index_key = _resolve_player_image_target(body)
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            image_bytes = base64.b64decode(data_url.split(",", 1)[1], validate=False)
+        except Exception:  # noqa: BLE001
+            self._write_json(400, {"ok": False, "error": "Could not decode chosen image."})
+            return True
+
+        status, payload = _persist_player_photo_bytes(
+            target_dir, index_section, index_key, image_bytes, source
+        )
+        self._write_json(status, payload)
+        return True
+
     def _try_save_player_photo_crop(self) -> bool:
         """Overwrite an existing player photo with a cropped version (data URL)."""
         parsed = urlparse(self.path)
@@ -3063,6 +3303,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_auto_fetch_player_photo():
             return
         if self._try_player_photo_from_url():
+            return
+        if self._try_list_player_photo_candidates():
+            return
+        if self._try_save_chosen_player_photo():
             return
         if self._try_save_player_photo_crop():
             return

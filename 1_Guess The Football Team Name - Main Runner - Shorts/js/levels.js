@@ -42,7 +42,8 @@ function _prepTimerBarWhileCovered() {
   }
 }
 
-export function switchLevel(index) {
+export function switchLevel(index, options = {}) {
+  const instant = !!options.instant;
   let idx = index;
   if (document.body.classList.contains("shorts-mode") && idx === 0) {
     idx = 1;
@@ -184,6 +185,34 @@ export function switchLevel(index) {
   };
 
   if (stageMain) {
+    const teamHeaderEl = document.getElementById("team-header");
+
+    if (instant) {
+      preloadSquadImages(state);
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim",
+      );
+      teamHeaderEl?.classList.remove(
+        "team-header-stage-exit-video-anim",
+        "team-header-stage-enter-video-anim",
+      );
+      if (progressContainer) {
+        progressContainer.classList.remove(
+          "progress-out-reg",
+          "progress-out-shorts",
+          "progress-in-reg",
+          "progress-in-shorts",
+        );
+      }
+      appState._preserveTeamSidebar = false;
+      updateDOMContent();
+      refreshSaveTeamButtonUi();
+      return;
+    }
+
     const isShorts = document.body.classList.contains("shorts-mode");
 
     /** Same as Career Path - Shorts: instant handoff only from logo (0) → first question during Play Video. */
@@ -193,7 +222,6 @@ export function switchLevel(index) {
       idx >= 1 &&
       idx < appState.totalLevelsCount &&
       appState.isVideoPlaying;
-    const teamHeaderEl = document.getElementById("team-header");
 
     if (isShortsFromLogoToFirstQuestion) {
       stageMain.classList.remove(

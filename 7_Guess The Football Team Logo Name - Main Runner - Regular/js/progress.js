@@ -187,7 +187,7 @@ export function renderProgressSteps(totalLevels, switchLevel) {
     }
     step.onclick = () => {
       if (!appState.isVideoPlaying) {
-        switchLevel(i);
+        switchLevel(i, { instant: true });
       }
     };
     els.quizProgressScroll.appendChild(step);

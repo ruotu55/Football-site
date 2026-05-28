@@ -279,7 +279,7 @@ body.play-video-active .prod-btn {
 
 .play-video-btn {
   left: auto;
-  right: calc(22.5rem + 5vw);
+  right: calc(15.5rem + 5vw);
   background: #4da3ff;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(77, 163, 255, 0.4);
@@ -289,10 +289,13 @@ body.play-video-active .prod-btn {
   box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(77, 163, 255, 0.5);
 }
 
-/* Record Video — shifted one slot left to make room for Render Video, red */
+/* Record Video — sits next to PROD on the right end, red.
+   (Render Video is hidden/on-hold, so we close the gap and match the sibling
+   runners' 4-button layout. If Render Video is ever re-enabled, shift these
+   three buttons one slot left and re-instate render-video-btn at 8.5rem.) */
 .record-video-btn {
   left: auto;
-  right: calc(15.5rem + 5vw);
+  right: calc(8.5rem + 5vw);
   background: #ef4444;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(239, 68, 68, 0.4);
@@ -334,7 +337,7 @@ body.play-video-active .prod-btn {
 
 .video-mode-btn {
   left: auto;
-  right: calc(29.5rem + 5vw);
+  right: calc(22.5rem + 5vw);
   background: rgba(255, 255, 255, 0.12);
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 255, 255, 0.18);

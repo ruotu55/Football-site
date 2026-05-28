@@ -2,8 +2,9 @@
  * a queue of the next 20 upcoming episodes for THIS runner (id + type).
  *
  * Each row is a "block" keyed by `<runnerId>|<type>|<episode>`. EN and ES
- * recordings for the same episode share a block; the block carries the script
- * payload and the EN/ES recording timestamps. Persistence is the shared store
+ * recordings for the same episode share a block; the block stores only the
+ * teams list (`teamsImportText`) plus metadata — lineups are rebuilt from the
+ * per-team Save Team files on every load. Persistence is the shared store
  * at /__recording-status — see .Storage/Scripts/dev_server_recording_status.py
  * for the schema.
  *
@@ -34,7 +35,7 @@ const ENDPOINT = "/__recording-status";
 const MONTH_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-let blocks = Object.create(null);       // server-mirrored: { "<key>": {name,script,recorded,updatedAt} }
+let blocks = Object.create(null);       // server-mirrored: { "<key>": {name,teamsImportText,recorded,...} }
 let queue = [];                          // computed: array of { key, episode, en: {date}, es: {date} }
 let listEl = null;
 let activeBlockKey = null;
@@ -172,6 +173,58 @@ async function postStampRecording(key, language, video) {
 }
 
 // ---------------------------------------------------------------------------
+// Block script resolution — always from Save Team files, not frozen snapshots
+// ---------------------------------------------------------------------------
+
+/** Pull team names from a legacy block that only stored a full script object. */
+function extractTeamsImportTextFromScript(script) {
+    if (!script || !Array.isArray(script.levels)) return "";
+    const names = [];
+    for (const lvl of script.levels) {
+        if (!lvl || lvl.isLogo || lvl.isIntro || lvl.isOutro) continue;
+        const name = String(lvl.searchText || lvl.currentSquad?.name || lvl.selectedEntry?.name || "").trim();
+        if (name) names.push(name);
+    }
+    return names.length ? `[${names.join(", ")}]` : "";
+}
+
+/** Teams list for a block: stored paste text, or derived once from a legacy script. */
+function blockTeamsImportText(block) {
+    if (!block) return "";
+    const stored = String(block.teamsImportText || "").trim();
+    if (stored) return stored;
+    return extractTeamsImportTextFromScript(block.script);
+}
+
+/** Build a live script from the block's team list + current Save Team layouts. */
+async function resolveScriptForBlock(block) {
+    const importText = blockTeamsImportText(block);
+    const blockName = String(block?.name || "").trim();
+    if (importText) {
+        const result = await buildScriptFromImportText(importText, blockName || "Recording block");
+        if (!result.ok) {
+            const msg = Array.isArray(result.errors) ? result.errors.join("\n") : "Import failed.";
+            throw new Error(msg);
+        }
+        return result.script;
+    }
+    if (block?.script && typeof block.script === "object" && Array.isArray(block.script.levels)) {
+        return block.script;
+    }
+    throw new Error("This block has no teams list. Open it and paste a teams list.");
+}
+
+function hydrateLegacyBlocks(rawBlocks) {
+    for (const block of Object.values(rawBlocks || {})) {
+        if (!block || typeof block !== "object") continue;
+        if (!String(block.teamsImportText || "").trim() && block.script) {
+            const derived = extractTeamsImportTextFromScript(block.script);
+            if (derived) block.teamsImportText = derived;
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Block status helpers
 // ---------------------------------------------------------------------------
 
@@ -270,7 +323,7 @@ function openSaveModal(item) {
     // Pre-fill: existing block name, or empty.
     const existing = blocks[item.key];
     input.value = existing?.name || "";
-    if (teamsArea) teamsArea.value = "";
+    if (teamsArea) teamsArea.value = blockTeamsImportText(existing);
     clearSaveError();
     root.hidden = false;
     setTimeout(() => input.focus(), 0);
@@ -344,7 +397,7 @@ async function onConfirmSave() {
     const previous = blocks[pendingBlockKey];
     const next = {
         name,
-        script,
+        teamsImportText: importText,
         // Re-saving a block does NOT clear prior recordings — the EN/ES stamps
         // persist. Use the row's ✕ button to wipe a block completely.
         recorded: previous?.recorded || { english: null, spanish: null },
@@ -358,7 +411,7 @@ async function onConfirmSave() {
 
     await postReplace(blocks);
 
-    // Apply the freshly-built script so the live UI reflects the teams.
+    // Apply the freshly-built script so the live UI reflects current Save Team files.
     try {
         await applyScriptObject(script);
     } catch (err) {
@@ -376,15 +429,16 @@ async function onConfirmSave() {
 async function onBlockClick(item) {
     const existing = blocks[item.key];
     if (existing) {
-        // Load the saved script for this block; mark it active so Record Video
-        // uses its name. The script-applied event re-renders the queue.
+        // Rebuild lineups from Save Team files (teams list only in the block).
         activeBlockKey = item.key;
         setActiveScriptName(existing.name);
         appState.activeBlockKey = item.key;
         try {
-            await applyScriptObject(existing.script);
+            const script = await resolveScriptForBlock(existing);
+            await applyScriptObject(script);
         } catch (err) {
-            console.error("[recording-queue] applyScriptObject failed:", err);
+            console.error("[recording-queue] load block failed:", err);
+            window.alert(err?.message || "Could not load this recording block.");
         }
         render();
     } else {
@@ -558,6 +612,7 @@ export async function initRecordingQueue() {
     listEl.classList.add("rq-list");
 
     blocks = await fetchBlocks();
+    hydrateLegacyBlocks(blocks);
     queue = computeQueue();
     render();
 

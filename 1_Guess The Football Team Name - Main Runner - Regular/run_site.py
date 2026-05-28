@@ -280,6 +280,9 @@ DEFAULT_ELEVENLABS_VOICE_ID = "yl2ZDV1MzN4HbQJbMihG"
 DEFAULT_ELEVENLABS_MODEL_ID = "eleven_v3"
 PLAYER_IMAGES_INDEX_PATH = PROJECT_ROOT / ".Storage" / "data" / "player-images.json"
 PLAYER_IMAGE_OVERRIDES_PATH = PROJECT_ROOT / ".Storage" / "data" / "player-photo-overrides.json"
+TEAM_NAME_OVERRIDES_BLOB_PATH = (
+    PROJECT_ROOT / ".Storage" / "storage" / "runner-blobs" / "team_name_overrides_shared.json"
+)
 PLAYERS_IMAGES_CLUB_ROOT = PROJECT_ROOT / "Images/Players" / "Club images"
 PLAYERS_IMAGES_NATIONALITY_ROOT = PROJECT_ROOT / "Images/Players" / "Nationality images"
 FOOTBALL_LOGOS_AUTOCOMPLETE_URL = "https://football-logos.cc/ac.json"
@@ -343,6 +346,13 @@ _PLAYER_OVERRIDES_LOCK = threading.Lock()
 _PLAYER_OVERRIDES_CACHE: dict[str, dict[str, str]] | None = None
 _COMPETITOR_SEARCH_LOCK = threading.Lock()
 _COMPETITOR_ID_BY_NAME_CACHE: dict[str, int] = {}
+# Cache the FULL ranked candidate list so the candidates function can iterate
+# all plausible clubs (handles spelling drift like "Omonoia Nicosia" -> 365's
+# "Omonia", where the strict resolver returns None and the sitemap fallback
+# is empty for non-top-flight leagues).
+_COMPETITOR_RANKED_CACHE: dict[str, list[int]] = {}
+_365_TEAM_SEARCH_ALIASES_LOCK = threading.Lock()
+_365_TEAM_SEARCH_ALIASES_CACHE: dict[str, str] | None = None
 _COMPETITOR_SQUAD_LOCK = threading.Lock()
 _COMPETITOR_SQUAD_CACHE: dict[int, list[dict]] = {}
 _FOOTBALL_LOGOS_AC_LOCK = threading.Lock()
@@ -700,65 +710,199 @@ def _image_url_from_athlete_id(athlete_id: str) -> str:
     )
 
 
+# Tokens that mark a competitor as NOT the senior first team (youth / women /
+# reserves). We demote these so a search for "Real Madrid" picks the senior
+# squad rather than "Real Madrid U21".
+_TEAM_JUNIOR_TOKENS = frozenset({
+    "u15", "u16", "u17", "u18", "u19", "u20", "u21", "u23",
+    "youth", "ii", "iii", "b", "women", "w", "reserves",
+})
+
+
+def _score_365_competitor_match(nk_search: str, item: dict) -> float:
+    """Score 0-1500 for how well a 365scores competitor matches the search name.
+       Tiers (descending strictness):
+         1000 — exact name_key match (existing pass 1 behavior)
+          800 — search name appears as substring of competitor names (pass 2)
+          600 — competitor name equals one of the search TOKENS (boundary-safe
+                reverse-substring; avoids 'Noia' matching 'Omonoia Nicosia')
+          ~200-700 — token similarity via SequenceMatcher (handles 'Omonoia' vs
+                '   Omonia' = 0.92 ratio; rejects 'Nicosia' vs 'Nicolas' = 0.57)
+       Then: -400 if the competitor is a youth/women/reserve squad; +bonus for
+       popularity (higher popularityRank field on 365 = more popular)."""
+    if not isinstance(item, dict):
+        return 0.0
+    if int(item.get("sportId") or 0) != 1:
+        return 0.0
+    if int(item.get("type") or 0) != 1:
+        return 0.0
+    names = [
+        _name_key(item.get("name") or ""),
+        _name_key(item.get("shortName") or ""),
+        _name_key(item.get("longName") or ""),
+    ]
+    name_set = {n for n in names if n}
+    comp_tokens: set[str] = set()
+    for n in names:
+        for t in n.split():
+            if len(t) >= 3:
+                comp_tokens.add(t)
+    if not comp_tokens:
+        return 0.0
+    search_tokens = [t for t in nk_search.split() if len(t) >= 3]
+    if not search_tokens:
+        return 0.0
+    if nk_search in name_set:
+        score = 1000.0
+    else:
+        joined = " ".join(name_set)
+        if nk_search in joined:
+            score = 800.0
+        elif name_set & set(search_tokens):
+            score = 600.0
+        else:
+            # Token-level fuzzy via Ratcliff/Obershelp (difflib). For each
+            # search token, find its best-similarity comp token. Require the
+            # strongest pair to clear 0.80; weight average match (penalizes
+            # candidates that only match ONE of several search tokens) and
+            # add a brand-name bonus when the FIRST search token matches.
+            best_per_st: list[float] = []
+            for st in search_tokens:
+                token_best = 0.0
+                for ct in comp_tokens:
+                    r = difflib.SequenceMatcher(None, st, ct).ratio()
+                    if r > token_best:
+                        token_best = r
+                best_per_st.append(token_best)
+            if max(best_per_st) < 0.80:
+                return 0.0
+            avg_ratio = sum(best_per_st) / len(best_per_st)
+            score = avg_ratio * 500.0
+            if best_per_st[0] >= 0.80:
+                score += best_per_st[0] * 200.0
+    if score <= 0:
+        return 0.0
+    if comp_tokens & _TEAM_JUNIOR_TOKENS:
+        score -= 400.0
+    if score <= 0:
+        return 0.0
+    try:
+        pop = float(item.get("popularityRank") or 0)
+    except (TypeError, ValueError):
+        pop = 0.0
+    score += min(200.0, max(0.0, pop / 50.0))
+    return score
+
+
+def _load_365_team_search_aliases() -> dict[str, str]:
+    """Map canonical club name_key -> 365scores search alias (e.g. Kuopion Palloseura -> KuPS).
+
+    Reuses team_name_overrides_shared.json: keys end in Team.json, values are the short
+  name already used for voice/TTS."""
+    global _365_TEAM_SEARCH_ALIASES_CACHE
+    with _365_TEAM_SEARCH_ALIASES_LOCK:
+        if _365_TEAM_SEARCH_ALIASES_CACHE is not None:
+            return _365_TEAM_SEARCH_ALIASES_CACHE
+        out: dict[str, str] = {}
+        if TEAM_NAME_OVERRIDES_BLOB_PATH.is_file():
+            try:
+                raw = json.loads(TEAM_NAME_OVERRIDES_BLOB_PATH.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                raw = {}
+            if isinstance(raw, dict):
+                for key, val in raw.items():
+                    short = str(val or "").strip()
+                    if not short:
+                        continue
+                    key_str = str(key)
+                    if not key_str.lower().endswith(".json"):
+                        continue
+                    stem = Path(key_str.split("::", 1)[-1]).stem
+                    nk = _name_key(stem)
+                    if nk:
+                        out[nk] = short
+        _365_TEAM_SEARCH_ALIASES_CACHE = out
+        return out
+
+
+def _365_competitor_search_queries(team_name: str) -> list[str]:
+    """Distinct search strings for 365scores competitor lookup (full name + alias)."""
+    queries: list[str] = []
+    seen: set[str] = set()
+
+    def _add(q: str) -> None:
+        q = q.strip()
+        if not q:
+            return
+        nk = _name_key(q)
+        if not nk or nk in seen:
+            return
+        seen.add(nk)
+        queries.append(q)
+
+    _add(team_name)
+    alias = _load_365_team_search_aliases().get(_name_key(team_name))
+    if alias:
+        _add(alias)
+    return queries
+
+
+def _resolve_365_competitor_ids_ranked(team_name: str) -> list[int]:
+    """Return up to 5 candidate competitor IDs ordered best-first. Empty if no
+       plausible candidate. Cached. The candidates function walks this list and
+       picks the first squad that actually contains the requested player."""
+    nk = _name_key(team_name)
+    if not nk:
+        return []
+    with _COMPETITOR_SEARCH_LOCK:
+        cached = _COMPETITOR_RANKED_CACHE.get(nk)
+        if cached is not None:
+            return cached
+    best_by_id: dict[int, float] = {}
+    for query in _365_competitor_search_queries(team_name):
+        nk_q = _name_key(query)
+        url = (
+            "https://webws.365scores.com/web/search/?q="
+            f"{urllib.parse.quote(query)}&langId=1&sportId=1"
+        )
+        try:
+            payload = _fetch_text(url, timeout=30.0)
+            data = json.loads(payload)
+        except Exception:  # noqa: BLE001 — skip a failed query variant
+            continue
+        competitors = data.get("competitors") if isinstance(data, dict) else []
+        if not isinstance(competitors, list):
+            competitors = []
+        for item in competitors:
+            s = _score_365_competitor_match(nk_q, item)
+            if s <= 0:
+                continue
+            try:
+                cid = int(item.get("id"))
+            except (TypeError, ValueError):
+                continue
+            if cid > 0:
+                best_by_id[cid] = max(best_by_id.get(cid, 0.0), s)
+    ranked = [cid for cid, _ in sorted(best_by_id.items(), key=lambda x: -x[1])[:5]]
+    with _COMPETITOR_SEARCH_LOCK:
+        _COMPETITOR_RANKED_CACHE[nk] = ranked
+    return ranked
+
+
 def _resolve_365_competitor_id(team_name: str) -> int | None:
+    """Legacy single-best wrapper preserved for any non-bulk callers."""
     nk = _name_key(team_name)
     if not nk:
         return None
     with _COMPETITOR_SEARCH_LOCK:
         if nk in _COMPETITOR_ID_BY_NAME_CACHE:
-            return _COMPETITOR_ID_BY_NAME_CACHE[nk]
-    query = urllib.parse.quote(team_name.strip())
-    url = f"https://webws.365scores.com/web/search/?q={query}&langId=1&sportId=1"
-    payload = _fetch_text(url, timeout=30.0)
-    data = json.loads(payload)
-    competitors = data.get("competitors") if isinstance(data, dict) else []
-    if not isinstance(competitors, list):
-        competitors = []
-    best_id: int | None = None
-    for item in competitors:
-        if not isinstance(item, dict):
-            continue
-        if int(item.get("sportId") or 0) != 1:
-            continue
-        if int(item.get("type") or 0) != 1:
-            continue
-        names = [
-            _name_key(item.get("name") or ""),
-            _name_key(item.get("shortName") or ""),
-            _name_key(item.get("longName") or ""),
-        ]
-        if nk in names:
-            try:
-                best_id = int(item.get("id"))
-            except (TypeError, ValueError):
-                best_id = None
-            if best_id:
-                break
-    if best_id is None:
-        for item in competitors:
-            if not isinstance(item, dict):
-                continue
-            if int(item.get("sportId") or 0) != 1:
-                continue
-            if int(item.get("type") or 0) != 1:
-                continue
-            names = " ".join(
-                [
-                    _name_key(item.get("name") or ""),
-                    _name_key(item.get("shortName") or ""),
-                    _name_key(item.get("longName") or ""),
-                ]
-            )
-            if nk and nk in names:
-                try:
-                    best_id = int(item.get("id"))
-                except (TypeError, ValueError):
-                    best_id = None
-                if best_id:
-                    break
+            cached = _COMPETITOR_ID_BY_NAME_CACHE[nk]
+            return cached or None
+    ranked = _resolve_365_competitor_ids_ranked(team_name)
+    best = ranked[0] if ranked else None
     with _COMPETITOR_SEARCH_LOCK:
-        _COMPETITOR_ID_BY_NAME_CACHE[nk] = best_id or 0
-    return best_id
+        _COMPETITOR_ID_BY_NAME_CACHE[nk] = best or 0
+    return best
 
 
 def _load_365_competitor_squad(competitor_id: int) -> list[dict]:
@@ -768,8 +912,13 @@ def _load_365_competitor_squad(competitor_id: int) -> list[dict]:
         if competitor_id in _COMPETITOR_SQUAD_CACHE:
             return _COMPETITOR_SQUAD_CACHE[competitor_id]
     url = f"https://webws.365scores.com/web/squads/?competitors={competitor_id}&sportId=1&langId=1"
-    payload = _fetch_text(url, timeout=30.0)
-    data = json.loads(payload)
+    try:
+        payload = _fetch_text(url, timeout=30.0)
+        data = json.loads(payload)
+    except Exception:  # noqa: BLE001 — skip this club on transient API errors
+        with _COMPETITOR_SQUAD_LOCK:
+            _COMPETITOR_SQUAD_CACHE[competitor_id] = []
+        return []
     squads = data.get("squads") if isinstance(data, dict) else []
     athletes: list[dict] = []
     if isinstance(squads, list):
@@ -847,8 +996,10 @@ def _try_fetch_365scores_photo(player_name: str, player_club: str = "") -> tuple
             return _fetch_bytes(image_url), "365scores"
 
     if player_club.strip():
-        competitor_id = _resolve_365_competitor_id(player_club)
-        if competitor_id:
+        # Try each ranked candidate club until one's squad has the player.
+        # The strict resolver alone misses clubs with spelling drift
+        # ("Omonoia Nicosia" -> 365's "Omonia"); the ranked walk catches them.
+        for competitor_id in _resolve_365_competitor_ids_ranked(player_club):
             athletes = _load_365_competitor_squad(competitor_id)
             for a in athletes:
                 if not _athlete_name_match(player_name, a):
@@ -900,15 +1051,24 @@ def _365scores_candidate_image_urls(player_name: str, player_club: str = "") -> 
         _push(image_url)
 
     if player_club.strip():
-        competitor_id = _resolve_365_competitor_id(player_club)
-        if competitor_id:
-            athletes = _load_365_competitor_squad(competitor_id)
+        # Walk the ranked candidate clubs (handles spelling drift) until one's
+        # squad yields matching athletes. Stop after the first hit so we don't
+        # mix athletes from unrelated clubs into the picker grid.
+        for competitor_id in _resolve_365_competitor_ids_ranked(player_club):
+            try:
+                athletes = _load_365_competitor_squad(competitor_id)
+            except Exception:  # noqa: BLE001 — try next ranked club
+                continue
+            matched_any = False
             for a in athletes:
                 if not _athlete_name_match(player_name, a):
                     continue
                 athlete_id = str(a.get("id") or "").strip()
                 if athlete_id:
                     _push(_image_url_from_athlete_id(athlete_id))
+                    matched_any = True
+            if matched_any:
+                break
 
     slug = _slugify_name(player_name)
     if slug:

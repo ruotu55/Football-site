@@ -1565,14 +1565,20 @@ async function init() {
     }
 
     // Load indexes
-    const [idx, photos, flags] = await Promise.all([
+    const [idx, photos, flags, tmNatMap] = await Promise.all([
         fetchJsonSessionCached(".Storage/data/teams-index.json"),
         fetchJsonSessionCached(".Storage/data/player-images.json", { club: {}, nationality: {} }),
         fetchJsonSessionCached(".Storage/data/country-to-flagcode.json", { codes: {} }),
+        /* Maps Transfermarkt numeric nationality IDs to country names so the
+           renderer can resolve legacy "TM nationality id N" placeholders left
+           over from squad ingests where the ID was missing from the map. */
+        fetchJsonSessionCached(".Storage/Squad Formation/_transfermarkt_nationality_id_map.json", {}),
     ]);
     appState.teamsIndex = idx;
     appState.playerImages = migratePlayerImages(photos);
     appState.flagcodes = flags.codes || {};
+    appState.transfermarktNationalityMap =
+        (tmNatMap && typeof tmNatMap === "object" && !Array.isArray(tmNatMap)) ? tmNatMap : {};
 
     {
       const quizIdx = appState.currentLevelIndex;

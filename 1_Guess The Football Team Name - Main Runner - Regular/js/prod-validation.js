@@ -3,7 +3,8 @@ import { transitionSettings } from "./transitions.js";
 import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
 import { getCurrentLanguage } from "./voice-tab.js";
-import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
+import { resolveHeaderTeamDisplayName, resolvePlayerNationalityLabel } from "./pitch-render.js";
+import { getClubLogoUrl, getClubLogoOtherTeamsUrl } from "./photo-helpers.js";
 import { BUNDLED_MILESTONES, getSelectedBundledVariant } from "./bundled-level-voices.js";
 import { getOrAssignRevealPhrase, renderTeamPhrase } from "./audio.js";
 
@@ -192,9 +193,36 @@ function validateTeamAssets() {
                     missing.push(`slot ${si + 1}: no player`);
                     continue;
                 }
+                const pName = player.name || `slot ${si + 1}`;
                 if (!playerHasPhotosForLevel(player, lvl)) {
-                    const pName = player.name || `slot ${si + 1}`;
                     missing.push(`${pName}: no photo`);
+                }
+                /* Each slot on the pitch shows a small badge: in club mode it's
+                   the player's nationality flag; in national-team mode it's the
+                   player's club crest. PROD must catch BOTH the legacy
+                   "TM nationality id N" placeholder (unmapped TM IDs leak in as
+                   that literal string and render as text) and clubs with no
+                   constructible logo URL chain. */
+                if (lvl.squadType === "club") {
+                    const natLabel = resolvePlayerNationalityLabel(player.nationality);
+                    const code = natLabel ? appState.flagcodes?.[natLabel] : null;
+                    if (!code) {
+                        const detail = natLabel
+                            ? `unresolved nationality "${natLabel}"`
+                            : "missing nationality";
+                        missing.push(`${pName}: no country flag (${detail})`);
+                    }
+                } else if (lvl.squadType === "national") {
+                    const clubName = String(player?.club || "").trim();
+                    if (!clubName) {
+                        missing.push(`${pName}: missing club`);
+                    } else {
+                        const primary = getClubLogoUrl(clubName);
+                        const fallback = getClubLogoOtherTeamsUrl(clubName);
+                        if (!primary && !fallback) {
+                            missing.push(`${pName}: no club logo path for "${clubName}"`);
+                        }
+                    }
                 }
             }
         }
@@ -204,7 +232,7 @@ function validateTeamAssets() {
         }
     }
     return {
-        sectionName: "Photos / Logos",
+        sectionName: "Photos / Logos / Flags",
         passed: failures.length === 0,
         failures,
     };

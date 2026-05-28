@@ -9,7 +9,8 @@ import { stopVideoFlow } from "./video.js";
 /** True only while `updateDOMContent` runs for logo→landing; keeps landing copy hidden until logo shift ends. */
 let pendingLogoToLandingContentReveal = false;
 
-export function switchLevel(index) {
+export function switchLevel(index, options = {}) {
+  const instant = !!options.instant;
   if (index === 0) {
     index = 1;
   }
@@ -257,6 +258,26 @@ export function switchLevel(index) {
   };
 
   if (stageMain) {
+    if (instant) {
+      preloadCareerAssets(state);
+      stageMain.classList.remove(
+        "stage-exit-anim",
+        "stage-exit-video-anim",
+        "stage-enter-anim",
+        "stage-enter-video-anim",
+      );
+      if (progressContainer) {
+        progressContainer.classList.remove(
+          "progress-out-reg",
+          "progress-out-shorts",
+          "progress-in-reg",
+          "progress-in-shorts",
+        );
+      }
+      updateDOMContent();
+      return;
+    }
+
     const isShorts = document.body.classList.contains("shorts-mode");
     const isLogoToLanding = prevIndex === 0 && index === 1 && !isShorts;
     if (isLogoToLanding) {

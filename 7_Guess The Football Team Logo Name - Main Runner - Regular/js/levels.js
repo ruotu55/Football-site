@@ -65,13 +65,15 @@ let pendingLogoToLandingContentReveal = false;
 export function switchLevel(
   index,
   {
-    immediate = false,
+    immediate: immediateOpt = false,
+    instant = false,
     syncFullViewportVideoStage = false,
     beforeDomUpdate = null,
     afterPlayVideoStageDomUpdate = null,
     afterPlayVideoStageEnterDone = null,
   } = {},
 ) {
+  const immediate = !!(immediateOpt || instant);
   if (index === 0) {
     index = 1;
   }

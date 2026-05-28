@@ -8,10 +8,11 @@ Schema (all keys + values are JSON-serialisable):
     {
       "blocks": {
         "<runnerId>|<type>|<episode>": {
-          "name":      "<user-entered block name>",
-          "script":    { /* same shape the runner's Save Script flow stores */ },
-          "recorded":  { "english": <timestamp|null>, "spanish": <timestamp|null> },
-          "updatedAt": <timestamp>
+          "name":            "<user-entered block name>",
+          "teamsImportText": "<[Team1, Team2, ...]> paste — source of truth for lineup",
+          "script":          { /* legacy snapshot; optional if teamsImportText set */ },
+          "recorded":        { "english": <timestamp|null>, "spanish": <timestamp|null> },
+          "updatedAt":       <timestamp>
         },
         ...
       }
@@ -56,10 +57,13 @@ def _normalize_block(raw: object) -> dict[str, object] | None:
     if not isinstance(raw, dict):
         return None
     name = raw.get("name")
+    teams_import = raw.get("teamsImportText")
     script = raw.get("script")
     recorded = raw.get("recorded")
     if not isinstance(name, str):
         name = ""
+    if not isinstance(teams_import, str):
+        teams_import = ""
     if not isinstance(script, dict):
         script = {}
     if not isinstance(recorded, dict):
@@ -81,6 +85,7 @@ def _normalize_block(raw: object) -> dict[str, object] | None:
     youtube = raw.get("youtube") if isinstance(raw.get("youtube"), dict) else {}
     return {
         "name": name,
+        "teamsImportText": teams_import,
         "script": script,
         "recorded": {"english": english, "spanish": spanish},
         "video": video,

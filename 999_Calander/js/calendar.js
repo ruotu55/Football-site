@@ -409,24 +409,28 @@
       cell.appendChild(num);
 
       const uploads = monthUploads.get(d) || [];
-      const byType = { short: null, long: null };
+      const shorts = [];
+      let longUpload = null;
       for (const u of uploads) {
         if (!passesFilter(u)) continue;
-        byType[u.type] = u;
+        if (u.type === "short") shorts.push(u);
+        else if (u.type === "long") longUpload = u;
       }
+      shorts.sort((a, b) => (a.hour * 60 + a.min) - (b.hour * 60 + b.min));
 
+      // Fixed 3-slot layout per day so cell heights stay uniform across the
+      // grid: morning short, long (only on Sun/Wed/Fri), evening short.
       const uploadsWrap = document.createElement("div");
       uploadsWrap.className = "day-uploads";
-      for (const type of ["short", "long"]) {
+      const slotsInOrder = [shorts[0] || null, longUpload, shorts[1] || null];
+      for (const u of slotsInOrder) {
         const slot = document.createElement("div");
         slot.className = "upload-slot";
-        const u = byType[type];
         if (!u) {
           slot.classList.add("upload-slot--empty");
-          uploadsWrap.appendChild(slot);
-          continue;
+        } else {
+          slot.appendChild(buildUploadPill(date, u));
         }
-        slot.appendChild(buildUploadPill(date, u));
         uploadsWrap.appendChild(slot);
       }
       if (date >= new Date(START_DATE.getFullYear(), START_DATE.getMonth(), START_DATE.getDate())) {
