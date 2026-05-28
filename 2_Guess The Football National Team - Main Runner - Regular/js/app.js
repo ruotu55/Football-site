@@ -25,7 +25,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName } from "./saved-scripts.js";
+import { getActiveScriptName } from "./saved-scripts.js?v=20260527d";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";

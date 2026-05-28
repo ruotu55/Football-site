@@ -42,12 +42,26 @@ function withCacheBust(url, token = PAGE_LOAD_CACHE_BUST) {
   return `${url}${joiner}v=${encodeURIComponent(normalizedToken)}`;
 }
 
+/** Per-path cache-bust overrides — set when a file is overwritten in-session
+ *  (e.g. after cropping a photo) so its URL changes and the browser re-fetches. */
+const PATH_CACHE_BUST = new Map();
+
+/** Force the next `projectAssetUrlFresh(relativePath)` to return a new URL so an
+ *  overwritten file is re-downloaded instead of served from the browser cache. */
+export function bumpAssetCacheBust(relativePath) {
+  const rel = String(relativePath || "").replace(/^\/+/, "");
+  if (rel) PATH_CACHE_BUST.set(rel, String(Date.now()));
+}
+
 /**
- * Build an asset URL and append a per-page cache-bust token.
+ * Build an asset URL and append a per-page cache-bust token (or a per-path token
+ * when the file was overwritten in this session — see bumpAssetCacheBust).
  * This forces fresh image fetches after reloads without local persistence.
  */
 export function projectAssetUrlFresh(relativePath) {
-  return withCacheBust(projectAssetUrl(relativePath));
+  const rel = String(relativePath || "").replace(/^\/+/, "");
+  const token = PATH_CACHE_BUST.get(rel) || PAGE_LOAD_CACHE_BUST;
+  return withCacheBust(projectAssetUrl(relativePath), token);
 }
 
 /** Same cache-bust as `projectAssetUrlFresh`, for an already-resolved absolute asset URL. */

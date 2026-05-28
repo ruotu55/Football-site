@@ -337,6 +337,10 @@ function normalizeForImport(str) {
                 .replace(/ð/g, "d")
                 .replace(/þ/g, "th")
                 .replace(/ß/g, "ss")
+                .replace(/ł/g, "l").replace(/Ł/g, "l")
+                .replace(/đ/g, "d").replace(/Đ/g, "d")
+                .replace(/\//g, " ")
+                .replace(/-/g, " ")
                 .replace(/[''`´']/g, "")
                 .replace(/\./g, "")
                 .replace(/\s+/g, " ")
@@ -354,6 +358,10 @@ function normalizeForImport(str) {
                 .replace(/ð/g, "d")
                 .replace(/þ/g, "th")
                 .replace(/ß/g, "ss")
+                .replace(/ł/g, "l").replace(/Ł/g, "l")
+                .replace(/đ/g, "d").replace(/Đ/g, "d")
+                .replace(/\//g, " ")
+                .replace(/-/g, " ")
                 .replace(/[''`´']/g, "")
                 .replace(/\./g, "")
                 .replace(/\s+/g, " ")
@@ -362,11 +370,109 @@ function normalizeForImport(str) {
     }
 }
 
+/** Common alternate team names → normalized database name.
+ *  Keys/values are already normalizeForImport()-folded (lowercase, no diacritics,
+ *  hyphen→space). Covers the channel's club list so pasted names resolve EXACTLY
+ *  instead of relying on the fragile substring fallback. */
 const IMPORT_TEAM_ALIASES = {
-    "usa":     "united states",
-    "turkey":  "turkiye",
-    "bosnia":  "bosnia and herzegovina",
+    "1 fc heidenheim": "1fc heidenheim 1846",
+    "1 fc koln": "1fc koln",
+    "1 fc union berlin": "1fc union berlin",
+    "1 fsv mainz 05": "1fsv mainz 05",
+    "aberdeen": "aberdeen fc",
+    "ajax": "ajax amsterdam",
+    "al ahli saudi": "al ahli sfc",
+    "al hilal": "al hilal sfc",
+    "al ittihad": "al ittihad club",
+    "al nassr": "al nassr fc",
+    "arsenal": "arsenal fc",
+    "atalanta": "atalanta bc",
+    "athletic club": "athletic bilbao",
+    "atletico madrid": "atletico de madrid",
+    "barcelona": "fc barcelona",
+    "bayer leverkusen": "bayer 04 leverkusen",
+    "benfica": "sl benfica",
+    "boca juniors": "ca boca juniors",
+    "bodo glimt": "fk bodo glimt",
+    "bologna": "bologna fc 1909",
+    "bosnia": "bosnia and herzegovina",
+    "breidablik": "breidablik kopavogur",
+    "brentford": "brentford fc",
+    "burnley": "burnley fc",
+    "cagliari": "cagliari calcio",
+    "celje": "nk celje",
+    "celta vigo": "celta de vigo",
+    "celtic": "celtic fc",
+    "chelsea": "chelsea fc",
+    "club america": "cf america",
+    "club brugge": "club brugge kv",
+    "como": "como 1907",
+    "copenhagen": "fc copenhagen",
+    "cremonese": "us cremonese",
+    "dinamo zagreb": "gnk dinamo zagreb",
+    "drita": "fc drita",
     "england": "england",
+    "everton": "everton fc",
+    "fc basel": "fc basel 1893",
+    "fc bayern munich": "bayern munich",
+    "ferencvaros": "ferencvarosi tc",
+    "feyenoord": "feyenoord rotterdam",
+    "fiorentina": "acf fiorentina",
+    "flamengo": "cr flamengo",
+    "fulham": "fulham fc",
+    "genoa": "genoa cfc",
+    "inter miami": "inter miami cf",
+    "juventus": "juventus fc",
+    "kups kuopio": "kuopion palloseura",
+    "la galaxy": "los angeles galaxy",
+    "lausanne sport": "fc lausanne sport",
+    "lazio": "ss lazio",
+    "lecce": "us lecce",
+    "lincoln red imps": "lincoln red imps fc",
+    "liverpool": "liverpool fc",
+    "mainz 05": "1fsv mainz 05",
+    "napoli": "ssc napoli",
+    "noah": "fc noah yerevan",
+    "olympiacos": "olympiacos piraeus",
+    "olympique de marseille": "olympique marseille",
+    "olympique lyonnais": "olympique lyon",
+    "omonoia": "omonia nicosia",
+    "pafos": "pafos fc",
+    "palmeiras": "sociedade esportiva palmeiras",
+    "panathinaikos": "panathinaikos fc",
+    "paok": "paok thessaloniki",
+    "parma": "parma calcio 1913",
+    "pisa": "pisa sporting club",
+    "pisa sc": "pisa sporting club",
+    "qarabag": "qarabag fk",
+    "rangers": "rangers fc",
+    "rc celta de vigo": "celta de vigo",
+    "rc strasbourg": "rc strasbourg alsace",
+    "rcd espanyol": "rcd espanyol barcelona",
+    "real betis": "real betis balompie",
+    "rijeka": "hnk rijeka",
+    "river plate": "ca river plate",
+    "roma": "as roma",
+    "sassuolo": "us sassuolo",
+    "shelbourne": "shelbourne fc",
+    "shkendija": "shkendija tetovo",
+    "sigma olomouc": "sk sigma olomouc",
+    "sk rapid": "rapid vienna",
+    "slavia praha": "sk slavia prague",
+    "sparta praha": "ac sparta prague",
+    "stade rennais": "stade rennais fc",
+    "strasbourg": "rc strasbourg alsace",
+    "sturm graz": "sk sturm graz",
+    "sunderland": "sunderland afc",
+    "torino": "torino fc",
+    "toulouse fc": "fc toulouse",
+    "turkey": "turkiye",
+    "udinese": "udinese calcio",
+    "usa": "united states",
+    "viktoria plzen": "fc viktoria plzen",
+    "villarreal": "villarreal cf",
+    "young boys": "bsc young boys",
+    "zrinjski mostar": "hsk zrinjski mostar",
 };
 
 function resolveTeamAlias(normName) {

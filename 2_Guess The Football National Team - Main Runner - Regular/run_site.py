@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import csv
 import difflib
 import errno
@@ -2908,6 +2909,50 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         )
         return True
 
+    def _try_save_player_photo_crop(self) -> bool:
+        """Overwrite an existing player photo with a cropped version (data URL)."""
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/save-crop":
+            return False
+        try:
+            body = self._read_json_body()
+            rel_path_raw = str(body.get("relPath") or "").strip().replace("\\", "/")
+            data_url = str(body.get("imageDataUrl") or "")
+            if not rel_path_raw:
+                raise ValueError("Missing photo path.")
+            if not data_url.lower().startswith("data:image/") or "," not in data_url:
+                raise ValueError("Missing or invalid image data.")
+            target = (PROJECT_ROOT / rel_path_raw).resolve()
+            allowed_roots = [
+                PLAYERS_IMAGES_CLUB_ROOT.resolve(),
+                PLAYERS_IMAGES_NATIONALITY_ROOT.resolve(),
+            ]
+            if not any(target.is_relative_to(r) for r in allowed_roots):
+                raise ValueError("Photo path is outside the players image folders.")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            image_bytes = base64.b64decode(data_url.split(",", 1)[1], validate=False)
+        except Exception:  # noqa: BLE001
+            self._write_json(400, {"ok": False, "error": "Could not decode cropped image."})
+            return True
+        if not image_bytes:
+            self._write_json(400, {"ok": False, "error": "Cropped image is empty."})
+            return True
+        if not target.exists():
+            self._write_json(404, {"ok": False, "error": "Original photo file not found."})
+            return True
+        try:
+            target.write_bytes(image_bytes)
+        except OSError:
+            self._write_json(500, {"ok": False, "error": "Failed to write cropped image."})
+            return True
+
+        self._write_json(200, {"ok": True, "relativePath": rel_path_raw})
+        return True
+
     def _send_live_reload_stream(self) -> None:
         self.send_response(200)
         self.send_header("Content-Type", "text/event-stream; charset=utf-8")
@@ -3018,6 +3063,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_auto_fetch_player_photo():
             return
         if self._try_player_photo_from_url():
+            return
+        if self._try_save_player_photo_crop():
             return
         self.send_error(404, "Not found")
 

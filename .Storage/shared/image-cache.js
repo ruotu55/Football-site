@@ -157,6 +157,21 @@ export function putCachedImage(url, img) {
 }
 
 /**
+ * Drop any cached / in-flight / failed entry for this URL so the next request
+ * re-fetches it. Token-agnostic (the `?v=` is stripped by normalizeUrl), so
+ * call this after a file is OVERWRITTEN in-session (e.g. cropping a photo) —
+ * otherwise the RAM cache keeps serving the pre-overwrite bitmap until refresh.
+ * @param {string} url
+ */
+export function invalidateCachedImage(url) {
+  const key = normalizeUrl(url);
+  if (!key) return;
+  cache.delete(key);
+  pending.delete(key);
+  failedUrls.delete(key);
+}
+
+/**
  * Check whether a URL has previously failed to load.
  * @param {string} url
  * @returns {boolean}

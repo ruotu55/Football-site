@@ -21,7 +21,7 @@ import {
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
-} from "./saved-scripts.js";
+} from "./saved-scripts.js?v=20260527d";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 

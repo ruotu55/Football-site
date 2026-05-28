@@ -21,7 +21,7 @@ import {
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
-} from "./saved-scripts.js";
+} from "./saved-scripts.js?v=20260527d";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 
@@ -208,8 +208,9 @@ function ensureSaveModal() {
         <div class="rq-modal-panel" role="dialog" aria-labelledby="rq-modal-title">
             <h3 id="rq-modal-title">Fill block</h3>
 
-            <label class="rq-modal-label" for="rq-modal-name">Name</label>
-            <input id="rq-modal-name" type="text" class="rq-modal-input" autocomplete="off" />
+            <!-- Shorts: block name is auto-generated; field hidden so only the list is needed -->
+            <label class="rq-modal-label" for="rq-modal-name" hidden>Name</label>
+            <input id="rq-modal-name" type="text" class="rq-modal-input" autocomplete="off" hidden />
 
             <label class="rq-modal-label rq-modal-label-spaced" for="rq-modal-teams">Teams list</label>
             <textarea id="rq-modal-teams" class="rq-modal-textarea" rows="6" autocomplete="off"></textarea>
@@ -273,7 +274,7 @@ function openSaveModal(item) {
     if (teamsArea) teamsArea.value = "";
     clearSaveError();
     root.hidden = false;
-    setTimeout(() => input.focus(), 0);
+    setTimeout(() => (teamsArea || input).focus(), 0);
 
     const saveBtn = root.querySelector("[data-rq-save]");
     saveBtn.onclick = onConfirmSave;
@@ -285,41 +286,41 @@ function closeSaveModal() {
     if (saveModal) saveModal.hidden = true;
 }
 
+/** Shorts: derive a block name when the Name field is left blank — first item
+ *  from the pasted list (filesystem-safe), else the episode number. */
+function autoBlockName(importText, item) {
+    const first = String(importText || "")
+        .replace(/^[\s[]+/, "")
+        .split(/[,\n]/)[0]
+        .replace(/[[\]]/g, "")
+        .replace(/[\\/:*?"<>|]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    if (first) return first;
+    return `Episode ${item?.episode ?? ""}`.trim();
+}
+
 async function onConfirmSave() {
     if (!pendingBlockKey || !pendingItem) return;
     const root = ensureSaveModal();
     const input = root.querySelector("#rq-modal-name");
     const teamsArea = root.querySelector("#rq-modal-teams");
     const saveBtn = root.querySelector("[data-rq-save]");
-    const name = input.value.trim();
     const importText = (teamsArea?.value || "").trim();
 
-    // Both fields are required — the block has no fallback to "current
-    // settings" anymore; every block's script comes from a team list.
-    let firstInvalid = null;
-    if (!name) {
-        input.classList.add("rq-modal-input--error");
-        firstInvalid = firstInvalid || input;
-    } else {
-        input.classList.remove("rq-modal-input--error");
-    }
+    // Shorts: only the teams/players list is required. The block name is
+    // optional — fall back to the existing name (when re-filling) or an
+    // auto-generated one derived from the list / episode.
     if (!importText) {
         teamsArea?.classList.add("rq-modal-input--error");
-        firstInvalid = firstInvalid || teamsArea;
-    } else {
-        teamsArea?.classList.remove("rq-modal-input--error");
-    }
-    if (firstInvalid) {
-        showSaveError(
-            !name && !importText
-                ? "Enter a name and paste a teams list."
-                : !name
-                  ? "Enter a name."
-                  : "Paste a teams list.",
-        );
-        firstInvalid.focus();
+        showSaveError("Paste a teams/players list.");
+        teamsArea?.focus();
         return;
     }
+    teamsArea?.classList.remove("rq-modal-input--error");
+    input.classList.remove("rq-modal-input--error");
+    const existingBlock = blocks[pendingBlockKey];
+    const name = input.value.trim() || existingBlock?.name || autoBlockName(importText, pendingItem);
     clearSaveError();
 
     // Build the script from the pasted "[Team1, Team2, ...]" list using saved
