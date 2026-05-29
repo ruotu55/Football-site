@@ -12,6 +12,10 @@ import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
 import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
 import { getOrAssignRevealPhrase } from "./audio.js";
+import {
+    parseImportText as parseImportTextShared,
+    teamNamesFromPairEntries,
+} from "../../.Storage/shared/import-pair-format.js";
 
 const HAS_BUNDLED_VARIANTS = false;
 const pickRandomBundledVariants = () => ({});
@@ -344,7 +348,9 @@ export async function buildScriptFromImportText(text, name) {
     const parsed = parseImportText(text);
     if (parsed.error) return { ok: false, errors: [parsed.error] };
 
-    const names = await applyImportAliasesToNames(parsed.names);
+    const names = await applyImportAliasesToNames(
+        parsed.entries ? teamNamesFromPairEntries(parsed.entries) : parsed.names,
+    );
 
     const quizType = els.inQuizType?.value || "player-by-career-stats";
     const importTeams = quizType === FAKE_INFO_QUIZ_TYPE;
@@ -753,15 +759,7 @@ function renderImportErrors({ container, errors, searchableNames, items, display
 }
 
 function parseImportText(text) {
-    let s = String(text || "").trim();
-    if (!s) return { error: "Paste the import text first." };
-    if (s.startsWith("[")) s = s.slice(1);
-    if (s.endsWith("]")) s = s.slice(0, -1);
-    const names = s.split(",").map(n => n.trim()).filter(Boolean);
-    if (names.length === 0) {
-        return { error: "No players found. Use format: [Player1, Player2, Player3]" };
-    }
-    return { names };
+    return parseImportTextShared(text, { legacyItemLabel: "teams", entryType: "team-country" });
 }
 
 function findAllBySurnameInitialsPattern(rawName, allPlayers) {
@@ -1360,7 +1358,9 @@ export function initSavedScripts(callbacks) {
             try {
                 const parsed = parseImportText(text);
                 if (parsed.error) { showErr(parsed.error); return; }
-                const names = await applyImportAliasesToNames(parsed.names);
+                const names = await applyImportAliasesToNames(
+        parsed.entries ? teamNamesFromPairEntries(parsed.entries) : parsed.names,
+    );
 
                 const quizType = els.inQuizType?.value || "player-by-career-stats";
                 const importTeams = quizType === FAKE_INFO_QUIZ_TYPE;
@@ -1865,7 +1865,7 @@ async function loadScript(script) {
     });
 
     if (els.quizLevelsInput) {
-        const fromLevels = migratedLevels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
+        const fromLevels = migratedLevels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isBonus && !l.isOutro).length;
         const fromLineup = parseInt(String(script.lineup?.totalLevels ?? ""), 10);
         els.quizLevelsInput.value = String(
             Math.max(1, fromLevels > 0 ? fromLevels : (Number.isFinite(fromLineup) ? fromLineup : 5)),

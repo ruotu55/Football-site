@@ -111,6 +111,14 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
 
     port = _runner_port(runner_id, type_)
     url = f"http://127.0.0.1:{port}/{quote(folder.name)}/index.html"
+    # Optional: auto-open a saved competition on the runner. The runner reads
+    # ?open=<runnerId>|<type>|<episode> on load and loads that block.
+    try:
+        episode = int(body.get("episode"))
+    except (TypeError, ValueError):
+        episode = 0
+    if episode >= 1:
+        url += "?open=" + quote(f"{runner_id}|{type_}|{episode}")
 
     already = _port_open(port)
     if not already:

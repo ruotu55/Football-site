@@ -1,4 +1,4 @@
-﻿import {
+import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
@@ -6,6 +6,7 @@
     getDefaultPlayerPictureValues,
     getState,
     initLevels,
+    getQuizQuestionCount,
 } from "./state.js";
 import { migratePlayerImages, projectAssetUrl } from "./paths.js";
 import { getClubLogoOtherTeamsUrl } from "./photo-helpers.js";
@@ -25,7 +26,8 @@ import { initFloatingEmojis } from "./emojis.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
 import { getActiveScriptName } from "./saved-scripts.js?v=20260529c";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260529c";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-dbwait";
+import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529a";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -101,7 +103,7 @@ function applyDefaultThemeForCurrentQuizType() {
     /* The native <select>s are wrapped by a custom-select widget that mirrors the
        selected option's text into a separate `.custom-select-trigger` element.
        Setting `select.value` programmatically updates the underlying value but
-       does NOT refresh the custom trigger — the user keeps seeing the old label.
+       does NOT refresh the custom trigger � the user keeps seeing the old label.
        Re-running applyCustomSelects re-renders all custom triggers from current values. */
     applyCustomSelects();
 }
@@ -341,7 +343,7 @@ async function refreshEndingTypeVoiceLabels() {
    random picker stay in sync. */
 const ENDING_TYPE_OPTIONS = ["think-you-know", "how-many"];
 
-/* Cache for the random pick — set the first time getSelectedEndingType resolves
+/* Cache for the random pick � set the first time getSelectedEndingType resolves
    "random" within a play/record session, cleared by resetRandomEndingType().
    The Play and Record handlers call reset BEFORE the flow starts; Record only
    resets once at the very start so both EN and ES phases see the same pick. */
@@ -444,7 +446,7 @@ function endpointUrl(relPath) {
 }
 
 function getSpecificTitleForQuizType(quizType) {
-    /* "Add specific competition" was removed — returns "" always. */
+    /* "Add specific competition" was removed � returns "" always. */
     return "";
 }
 
@@ -692,7 +694,7 @@ export function updateLanding() {
     const landingQuestionsCount = document.getElementById("landing-questions-count");
     if (landingQuestionsCount) {
         landingQuestionsCount.textContent = String(
-            Math.max(0, landingDifficultyTotalQuestionsForLevels() - 1),
+            getQuizQuestionCount(),
         );
     }
 }
@@ -779,6 +781,7 @@ async function init() {
     await initPlayerVoiceManager();
     void initRecordingQueue();
     initUpdateData();
+    initThumbnailStudio();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
         quizKey: "fake-info",
@@ -789,7 +792,7 @@ async function init() {
         getActiveScriptName: () => getActiveScriptName(),
     });
 
-    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 29);
+    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 30);
     initLevels(initialLevelCount);
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     if (!didRestoreState) {
@@ -888,7 +891,7 @@ async function init() {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 30;
         appState.levelsData = [];
-        initLevels(levels - 1);
+        initLevels(levels);
         appState.currentLevelIndex = 1;
         const totalQuestions = landingDifficultyTotalQuestionsForLevels();
         const { easy, medium, hard, impossible } =
@@ -906,7 +909,7 @@ async function init() {
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
-        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+        /* Voice tab filters endings by this value � refresh so the list stays in sync. */
         renderVoiceTab();
     };
 
@@ -967,7 +970,7 @@ async function init() {
         els.updateLevelsBtn.onclick = () => {
             let levels = parseInt(els.quizLevelsInput.value, 10);
             if (isNaN(levels) || levels < 1) levels = 30;
-            initLevels(levels - 1);
+            initLevels(levels);
             const totalQuestions = landingDifficultyTotalQuestionsForLevels();
             const { easy, medium, hard, impossible } =
                 computeLandingDifficultyDistribution(totalQuestions);
@@ -1127,7 +1130,7 @@ async function init() {
         }
     };
 
-    // ── PROD button ──
+    // ?? PROD button ??
     if (els.prodBtn) {
         els.prodBtn.onclick = () => {
             toggleProdMode();
@@ -1136,14 +1139,14 @@ async function init() {
         };
     }
 
-    /* Pacing for the EN→ES double-record. Tweak here if you want longer/shorter brakes. */
+    /* Pacing for the EN?ES double-record. Tweak here if you want longer/shorter brakes. */
     const RECORD_LANG_BRAKE_MS = 2000;   // after switching language, before next phase starts
     const RECORD_BETWEEN_PHASES_MS = 3000; // visual brake between phase 1 finish and phase 2 start
     const brake = (ms) => new Promise((r) => setTimeout(r, ms));
 
     /** Hide the top FAB row (Show Controls / Video Mode / Play / Record / Prod)
      *  so the recording's very first frames are a clean stage, not a UI snapshot.
-     *  Mirrors what `startVideoFlow` does — but we do it earlier (before StartRecord). */
+     *  Mirrors what `startVideoFlow` does � but we do it earlier (before StartRecord). */
     function freezeUIForRecording() {
         document.body.classList.add("play-video-active");
         if (els.playVideoBtn) els.playVideoBtn.hidden = true;
@@ -1162,7 +1165,7 @@ async function init() {
     async function runRecordingPhase(savedName, language) {
         /* Defensive: a legacy session may have left transitionSettings.effect = ""
            (the old PROD toggle wiped it). Without this guard the recording skips
-           every transition. Empty/null/undefined → restore to the dropdown's
+           every transition. Empty/null/undefined ? restore to the dropdown's
            selected value, or fall back to "grid-overlay". */
         if (!transitionSettings.effect) {
             const effectSel = document.getElementById("in-transition-effect");
@@ -1176,13 +1179,13 @@ async function init() {
 
         /* Always begin from the landing page (ball animation), regardless of which
            level the user is currently on. This applies to both phase 1 (initial)
-           and phase 2 (after the EN→ES handoff — the user is on the outro page
+           and phase 2 (after the EN?ES handoff � the user is on the outro page
            after phase 1's natural finish). */
         if (appState.currentLevelIndex !== 1) {
             switchLevel(1);
             /* Wait for the actual level-switch transition to fully complete before
-               continuing — otherwise `transitionRunning` may still be true when the
-               video flow triggers level 1→2, causing that transition to be skipped. */
+               continuing � otherwise `transitionRunning` may still be true when the
+               video flow triggers level 1?2, causing that transition to be skipped. */
             if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
                 await appState._transitionDone.catch(() => {});
             }
@@ -1248,7 +1251,7 @@ async function init() {
         }, 0);
     };
 
-    /* Record Video: records once in English, then once in Spanish — both saved under
+    /* Record Video: records once in English, then once in Spanish � both saved under
        Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen between phases
        so the browser doesn't need a fresh user gesture to re-enter fullscreen. */
     if (els.recordVideoBtn) {
@@ -1267,7 +1270,7 @@ async function init() {
             }
             const savedName = (getActiveScriptName() || "").trim();
             if (!savedName) {
-                alert("Load a saved setting first — the OBS file is named after it.");
+                alert("Load a saved setting first � the OBS file is named after it.");
                 return;
             }
 
@@ -1276,7 +1279,7 @@ async function init() {
             resetRandomEndingType();
 
             try {
-                // ── PHASE 1: English ──
+                // ?? PHASE 1: English ??
                 appState.doubleRecording = { phase: 1, savedName };
                 if (getCurrentLanguage() !== "english") {
                     setCurrentLanguage("english");
@@ -1285,10 +1288,10 @@ async function init() {
                 const ok1 = await runRecordingPhase(savedName, "english");
                 if (!ok1) return;
 
-                // ── Brake between phases (fullscreen stays on) ──
+                // ?? Brake between phases (fullscreen stays on) ??
                 await brake(RECORD_BETWEEN_PHASES_MS);
 
-                // ── PHASE 2: Spanish ──
+                // ?? PHASE 2: Spanish ??
                 appState.doubleRecording = { phase: 2, savedName };
                 setCurrentLanguage("spanish");
                 await brake(RECORD_LANG_BRAKE_MS);
@@ -1851,9 +1854,9 @@ function renderPictureControls() {
       <label class="field">
         <span class="label">Up / Down (Y-Offset)</span>
         <div style="display: flex; gap: 0.5rem; align-items: center;">
-          <button type="button" id="pic-up" class="panel-toggle" style="flex:1;">▲</button>
+          <button type="button" id="pic-up" class="panel-toggle" style="flex:1;">?</button>
           <span id="val-y" style="width: 2rem; text-align:center;">${state.silhouetteYOffset || 0}</span>
-          <button type="button" id="pic-down" class="panel-toggle" style="flex:1;">▼</button>
+          <button type="button" id="pic-down" class="panel-toggle" style="flex:1;">?</button>
           <button type="button" id="pic-favorite" class="panel-toggle${hasCareerPictureFavorite(state) ? " is-active" : ""}" style="flex:1;">${hasCareerPictureFavorite(state) ? "&#9829;" : "&#9825;"}</button>
         </div>
       </label>

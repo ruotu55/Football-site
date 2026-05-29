@@ -26,8 +26,8 @@
     <!-- Shared debug overlay: collapsible log panel + 🐞 toggle button (bottom-right).
          Hidden during Play Video / Record Video. Source: .Storage/shared/debug-overlay.js -->
     <script src="../.Storage/shared/debug-overlay.js"></script>
-    <script src="../999_Calander/js/schedule.js?v=20260526-recording-queue-mirror"></script>
-    <script src="../999_Calander/js/recording-status-client.js?v=20260526-recording-queue-mirror"></script>
+    <script src="../999_Calander/js/schedule.js?v=20260601-noconsec"></script>
+    <script src="../999_Calander/js/recording-status-client.js?v=20260601-noconsec"></script>
     <div class="app">
       
       <div id="floating-background" class="floating-background" aria-hidden="true"></div>
@@ -117,7 +117,7 @@
 
         const script = document.createElement('script');
         script.type = 'module';
-        script.src = 'js/app.js';
+        script.src = 'js/app.js?v=' + Date.now();
         document.body.appendChild(script);
       }
 

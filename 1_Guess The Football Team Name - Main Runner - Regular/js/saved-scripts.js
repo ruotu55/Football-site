@@ -1,4 +1,4 @@
-// js/saved-scripts.js (Lineups runner — namespaced storage + one-time legacy import)
+﻿// js/saved-scripts.js (Lineups runner — namespaced storage + one-time legacy import)
 import {
     appState,
     DEFAULT_SLOT_FLAG_SCALE,
@@ -18,6 +18,10 @@ import {
 import { pickRandomBundledVariants } from "./bundled-level-voices.js";
 import { renderVoiceTab } from "./voice-tab.js";
 import { getOrAssignRevealPhrase } from "./audio.js";
+import {
+    parseImportText as parseImportTextShared,
+    teamNamesFromPairEntries,
+} from "../../.Storage/shared/import-pair-format.js";
 
 const HAS_BUNDLED_VARIANTS = true;
 
@@ -303,7 +307,9 @@ export async function buildScriptFromImportText(text, name) {
     const parsed = parseImportText(text);
     if (parsed.error) return { ok: false, errors: [parsed.error] };
 
-    const names = await applyImportAliasesToNames(parsed.names);
+    const names = await applyImportAliasesToNames(
+        parsed.entries ? teamNamesFromPairEntries(parsed.entries) : parsed.names,
+    );
     await ensureSavedLayoutsLoaded();
 
     const allClubs = appState.teamsIndex?.clubs || [];
@@ -822,15 +828,7 @@ function renderImportErrors({ container, errors, searchableNames, items, display
 }
 
 function parseImportText(text) {
-    let s = String(text || "").trim();
-    if (!s) return { error: "Paste the import text first." };
-    if (s.startsWith("[")) s = s.slice(1);
-    if (s.endsWith("]")) s = s.slice(0, -1);
-    const names = s.split(",").map(n => n.trim()).filter(Boolean);
-    if (names.length === 0) {
-        return { error: "No teams found. Use format: [Team1, Team2, Team3]" };
-    }
-    return { names };
+    return parseImportTextShared(text, { legacyItemLabel: "teams", entryType: "team-country" });
 }
 
 function makeEmptyImportLevel(overrides = {}) {
@@ -1038,7 +1036,9 @@ export function initSavedScripts(callbacks) {
                 // 1. Parse "[Team1, Team2, ...]" into an ordered name list
                 const parsed = parseImportText(text);
                 if (parsed.error) { showErr(parsed.error); return; }
-                const names = await applyImportAliasesToNames(parsed.names);
+                const names = await applyImportAliasesToNames(
+                    parsed.entries ? teamNamesFromPairEntries(parsed.entries) : parsed.names,
+                );
 
                 // 2. Make sure saved layouts are loaded before checking
                 await ensureSavedLayoutsLoaded();
@@ -1455,7 +1455,7 @@ async function loadScript(script) {
     });
 
     if (els.quizLevelsInput) {
-        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
+        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isBonus && !l.isOutro).length;
         const fromLineup = parseInt(String(script.lineup?.totalLevels ?? ""), 10);
         els.quizLevelsInput.value = String(
             Math.max(1, fromLevels > 0 ? fromLevels : (Number.isFinite(fromLineup) ? fromLineup : 30)),

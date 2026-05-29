@@ -13,6 +13,10 @@ import { cleanCareerHistory } from "./pitch-render.js";
 import { pickRandomBundledVariants } from "./bundled-level-voices.js";
 import { renderVoiceTab } from "./voice-tab.js";
 import { getOrAssignRevealPhrase } from "./audio.js";
+import {
+    parseImportText as parseImportTextShared,
+    resolvePairEntriesForPlayers,
+} from "../../.Storage/shared/import-pair-format.js";
 
 const HAS_BUNDLED_VARIANTS = true;
 
@@ -347,55 +351,82 @@ export async function buildScriptFromImportText(text, name) {
     const parsed = parseImportText(text);
     if (parsed.error) return { ok: false, errors: [parsed.error] };
 
-    const names = await applyImportAliasesToNames(parsed.names);
-
-    let allPlayers;
-    try {
-        allPlayers = typeof appState.loadAllGlobalPlayers === "function"
-            ? await appState.loadAllGlobalPlayers()
-            : (appState.allGlobalPlayers || []);
-    } catch {
-        allPlayers = appState.allGlobalPlayers || [];
-    }
-    if (!allPlayers || allPlayers.length === 0) {
-        return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
-    }
-
     const errors = [];
     const searchableNames = new Set();
-    const resolved = new Array(names.length).fill(null);
-    for (let i = 0; i < names.length; i++) {
-        const rawName = names[i];
-        const cands = findAllPlayerCandidates(rawName, allPlayers);
-        if (cands.length === 0) {
-            errors.push(`❌ ${rawName}: player not found.`);
-            searchableNames.add(rawName);
-        } else if (cands.length === 1) {
-            resolved[i] = cands[0];
-        } else {
-            // Headless: can't disambiguate without the picker modal — surface it
-            // as a resolution error so the user can refine the paste.
-            errors.push(`❌ ${rawName}: multiple players match — be more specific.`);
-            searchableNames.add(rawName);
+    let pairResolved = null;
+
+    if (parsed.entries) {
+        let allPlayers;
+        try {
+            allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+                ? await appState.loadAllGlobalPlayers()
+                : (appState.allGlobalPlayers || []);
+        } catch {
+            allPlayers = appState.allGlobalPlayers || [];
         }
+        if (!allPlayers || allPlayers.length === 0) {
+            return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
+        }
+        const pairResult = await resolvePairEntriesForPlayers(parsed.entries, {
+            allPlayers,
+            clubs: appState.teamsIndex?.clubs || [],
+            findAllPlayerCandidates,
+            normalizeForImport,
+            applyImportAliasesToNames,
+        });
+        if (pairResult.errors.length > 0) {
+            return { ok: false, errors: pairResult.errors, searchableNames: pairResult.searchableNames };
+        }
+        pairResolved = pairResult.resolved;
     }
-    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    let names;
+    let resolved;
+    if (!pairResolved) {
+        names = await applyImportAliasesToNames(parsed.names);
+
+        let allPlayers;
+        try {
+            allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+                ? await appState.loadAllGlobalPlayers()
+                : (appState.allGlobalPlayers || []);
+        } catch {
+            allPlayers = appState.allGlobalPlayers || [];
+        }
+        if (!allPlayers || allPlayers.length === 0) {
+            return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
+        }
+
+        resolved = new Array(names.length).fill(null);
+        for (let i = 0; i < names.length; i++) {
+            const rawName = names[i];
+            const cands = findAllPlayerCandidates(rawName, allPlayers);
+            if (cands.length === 0) {
+                errors.push(`❌ ${rawName}: player not found.`);
+                searchableNames.add(rawName);
+            } else if (cands.length === 1) {
+                resolved[i] = cands[0];
+            } else {
+                errors.push(`❌ ${rawName}: multiple players match — be more specific.`);
+                searchableNames.add(rawName);
+            }
+        }
+        if (errors.length > 0) return { ok: false, errors, searchableNames };
+    }
 
     const levelDatas = [];
-    for (let i = 0; i < resolved.length; i++) {
-        const player = resolved[i];
-        const rawName = names[i];
-        const clubItem = player._clubItem;
+    const appendPlayerLevel = async (player, clubItem, rawName) => {
         if (!clubItem) {
             errors.push(`❌ ${rawName}: missing club reference.`);
-            continue;
+            searchableNames.add(rawName);
+            return;
         }
         let squad;
         try {
             squad = await loadSquadJson(clubItem);
         } catch {
             errors.push(`❌ ${rawName}: failed to load squad data.`);
-            continue;
+            return;
         }
         const history = cleanCareerHistory(player.transfer_history || []);
         const careerClubsCount = Math.max(2, history.length);
@@ -411,6 +442,16 @@ export async function buildScriptFromImportText(text, name) {
             displayMode: "club",
             landingPageType: "club",
         }));
+    };
+
+    if (pairResolved) {
+        for (const { player, clubItem, label } of pairResolved) {
+            await appendPlayerLevel(player, clubItem, label);
+        }
+    } else {
+        for (let i = 0; i < resolved.length; i++) {
+            await appendPlayerLevel(resolved[i], resolved[i]._clubItem, names[i]);
+        }
     }
 
     if (errors.length > 0) return { ok: false, errors, searchableNames };
@@ -711,15 +752,7 @@ function renderImportErrors({ container, errors, searchableNames, items, display
 }
 
 function parseImportText(text) {
-    let s = String(text || "").trim();
-    if (!s) return { error: "Paste the import text first." };
-    if (s.startsWith("[")) s = s.slice(1);
-    if (s.endsWith("]")) s = s.slice(0, -1);
-    const names = s.split(",").map(n => n.trim()).filter(Boolean);
-    if (names.length === 0) {
-        return { error: "No players found. Use format: [Player1, Player2, Player3]" };
-    }
-    return { names };
+    return parseImportTextShared(text, { legacyItemLabel: "players", entryType: "player-team" });
 }
 
 function findAllBySurnameInitialsPattern(rawName, allPlayers) {
@@ -1558,7 +1591,7 @@ async function loadScript(script) {
     });
 
     if (els.quizLevelsInput) {
-        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
+        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isBonus && !l.isOutro).length;
         const fromLineup = parseInt(String(script.lineup?.totalLevels ?? ""), 10);
         els.quizLevelsInput.value = String(
             Math.max(1, fromLevels > 0 ? fromLevels : (Number.isFinite(fromLineup) ? fromLineup : 30)),

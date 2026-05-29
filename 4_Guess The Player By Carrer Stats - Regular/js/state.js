@@ -231,6 +231,19 @@ export function initLevels(count) {
   appState.bundledVoiceVariants = pickRandomBundledVariants();
 }
 
+export function getQuizQuestionCount() {
+  const { levelsData, totalLevelsCount, els } = appState;
+  if (Array.isArray(levelsData) && levelsData.length > 0) {
+    const fromData = levelsData.filter(
+      (l) => l && !l.isLogo && !l.isIntro && !l.isBonus && !l.isOutro,
+    ).length;
+    if (fromData > 0) return fromData;
+  }
+  const fromInput = parseInt(els?.quizLevelsInput?.value, 10);
+  if (Number.isFinite(fromInput) && fromInput >= 1) return fromInput;
+  return Math.max(0, totalLevelsCount - 3);
+}
+
 export function clearSlotPhotoIndices() {
   getState().slotPhotoIndexBySlot.clear();
 }

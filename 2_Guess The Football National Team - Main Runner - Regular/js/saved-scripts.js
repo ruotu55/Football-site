@@ -1,4 +1,4 @@
-﻿// js/saved-scripts.js (National team runner — own storage, separate from runner #1)
+// js/saved-scripts.js (National team runner � own storage, separate from runner #1)
 import {
     appState,
     DEFAULT_SLOT_FLAG_SCALE,
@@ -18,6 +18,10 @@ import {
 import { pickRandomBundledVariants } from "./bundled-level-voices.js";
 import { renderVoiceTab } from "./voice-tab.js";
 import { getOrAssignRevealPhrase } from "./audio.js";
+import {
+    parseImportText as parseImportTextShared,
+    teamNamesFromPairEntries,
+} from "../../.Storage/shared/import-pair-format.js";
 
 const HAS_BUNDLED_VARIANTS = true;
 
@@ -192,7 +196,7 @@ export function getActiveScriptName() {
     return activeScriptName;
 }
 
-/** Used by the calendar-driven Saved tab when a block is loaded — the Record
+/** Used by the calendar-driven Saved tab when a block is loaded � the Record
  *  Video button reads getActiveScriptName() to derive the OBS file name. */
 export function setActiveScriptName(name) {
     activeScriptName = name == null ? null : String(name);
@@ -200,7 +204,7 @@ export function setActiveScriptName(name) {
 
 /** Build a saved-script object from the current quiz UI state. Public so the
  *  calendar-driven Saved tab can persist a block's script. Mirrors what
- *  els.saveScriptConfirm.onclick captures below — keep in sync if that handler
+ *  els.saveScriptConfirm.onclick captures below � keep in sync if that handler
  *  changes. */
 export function captureCurrentScriptObject(name) {
     const { els } = appState;
@@ -223,7 +227,7 @@ export function captureCurrentScriptObject(name) {
             customXi: lvl.customXi,
             customNames: lvl.customNames,
             videoMode: lvl.videoMode,
-            /* User's renamed header team name (e.g. "Arsenal FC" → "Arsenal"). Persists
+            /* User's renamed header team name (e.g. "Arsenal FC" ? "Arsenal"). Persists
                with the save so loading this script restores the rename. */
             headerTeamNameOverride: lvl.headerTeamNameOverride || "",
             landingPageType: lvl.landingPageType,
@@ -283,7 +287,7 @@ export async function applyScriptObject(script) {
     return loadScript(script);
 }
 
-/** Build a script object from a "[Team1, Team2, ...]" paste — the same flow
+/** Build a script object from a "[Team1, Team2, ...]" paste � the same flow
  *  the legacy Import modal ran, but headless so the calendar-driven Saved tab
  *  can call it from its block-save modal. Returns one of:
  *    { ok: true, script }
@@ -292,7 +296,7 @@ export async function applyScriptObject(script) {
  *  Does NOT mutate UI state (no activeScriptName, no rendering). The caller
  *  decides what to do with the returned script.
  *
- *  This runner is the National Team quiz — only national teams are accepted.
+ *  This runner is the National Team quiz � only national teams are accepted.
  *  Club names get a specific error so the user understands why their paste was
  *  rejected (e.g. pasting "Real Madrid" here). */
 export async function buildScriptFromImportText(text, name) {
@@ -300,7 +304,9 @@ export async function buildScriptFromImportText(text, name) {
     const parsed = parseImportText(text);
     if (parsed.error) return { ok: false, errors: [parsed.error] };
 
-    const names = await applyImportAliasesToNames(parsed.names);
+    const names = await applyImportAliasesToNames(
+        parsed.entries ? teamNamesFromPairEntries(parsed.entries) : parsed.names,
+    );
     await ensureSavedLayoutsLoaded();
 
     const allClubs = appState.teamsIndex?.clubs || [];
@@ -331,15 +337,15 @@ export async function buildScriptFromImportText(text, name) {
                 );
             }
             if (clubMatch) {
-                errors.push(`❌ ${rawName} is a club, not a national team. This runner only accepts national teams.`);
+                errors.push(`? ${rawName} is a club, not a national team. This runner only accepts national teams.`);
             } else {
-                errors.push(`❌ ${rawName}: national team not found.`);
+                errors.push(`? ${rawName}: national team not found.`);
             }
             searchableNames.add(rawName);
             continue;
         }
         if (!hasSavedLayoutForEntry(entry)) {
-            errors.push(`❌ ${rawName} dont have a save team.`);
+            errors.push(`? ${rawName} dont have a save team.`);
             searchableNames.add(rawName);
             continue;
         }
@@ -354,12 +360,12 @@ export async function buildScriptFromImportText(text, name) {
         try {
             squad = await loadSquadJson(entry);
         } catch {
-            errors.push(`❌ ${rawName}: failed to load squad data.`);
+            errors.push(`? ${rawName}: failed to load squad data.`);
             continue;
         }
         const layout = await buildImportLevelDataFromSavedLayout(entry, squad);
         if (!layout) {
-            errors.push(`❌ ${rawName} dont have a save team.`);
+            errors.push(`? ${rawName} dont have a save team.`);
             searchableNames.add(rawName);
             continue;
         }
@@ -499,7 +505,7 @@ function normalizeForImport(str) {
     }
 }
 
-/** Common alternate team names → normalized database name. */
+/** Common alternate team names ? normalized database name. */
 const IMPORT_TEAM_ALIASES = {
     "1 fc heidenheim": "1fc heidenheim 1846",
     "1 fc koln": "1fc koln",
@@ -625,7 +631,7 @@ function showManualSearchModal({ title, items, displayFn }) {
         header.style.cssText = "margin:0; color:#fff; font-size:1rem;";
         const input = document.createElement("input");
         input.type = "search";
-        input.placeholder = "Type to filter…";
+        input.placeholder = "Type to filter�";
         input.style.cssText = "padding:0.5rem; background:#000; color:#fff; border:1px solid #333; border-radius:4px; font-size:0.9rem;";
         const list = document.createElement("div");
         list.style.cssText = "overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:0.25rem; min-height:240px;";
@@ -810,7 +816,7 @@ function renderImportErrors({ container, errors, searchableNames, items, display
             btn.style.cssText = "padding:0.25rem 0.6rem; font-size:0.75rem; background:var(--accent, #ffaa00); color:#000; border:none; border-radius:4px; cursor:pointer; white-space:nowrap;";
             btn.onclick = async () => {
                 const picked = await showManualSearchModal({
-                    title: (modalTitle || "Search manually") + (matchedName ? ` — replace "${matchedName}"` : ""),
+                    title: (modalTitle || "Search manually") + (matchedName ? ` � replace "${matchedName}"` : ""),
                     items,
                     displayFn,
                 });
@@ -828,15 +834,7 @@ function renderImportErrors({ container, errors, searchableNames, items, display
 }
 
 function parseImportText(text) {
-    let s = String(text || "").trim();
-    if (!s) return { error: "Paste the import text first." };
-    if (s.startsWith("[")) s = s.slice(1);
-    if (s.endsWith("]")) s = s.slice(0, -1);
-    const names = s.split(",").map(n => n.trim()).filter(Boolean);
-    if (names.length === 0) {
-        return { error: "No teams found. Use format: [Team1, Team2, Team3]" };
-    }
-    return { names };
+    return parseImportTextShared(text, { legacyItemLabel: "teams", entryType: "team-country" });
 }
 
 function makeEmptyImportLevel(overrides = {}) {
@@ -1038,13 +1036,15 @@ export function initSavedScripts(callbacks) {
             if (!name) { showErr("Enter a save name."); return; }
 
             els.importScriptConfirm.disabled = true;
-            els.importScriptConfirm.textContent = "Importing…";
+            els.importScriptConfirm.textContent = "Importing�";
 
             try {
                 // 1. Parse "[Team1, Team2, ...]" into an ordered name list
                 const parsed = parseImportText(text);
                 if (parsed.error) { showErr(parsed.error); return; }
-                const names = await applyImportAliasesToNames(parsed.names);
+                const names = await applyImportAliasesToNames(
+        parsed.entries ? teamNamesFromPairEntries(parsed.entries) : parsed.names,
+    );
 
                 // 2. Make sure saved layouts are loaded before checking
                 await ensureSavedLayoutsLoaded();
@@ -1253,7 +1253,7 @@ export function renderSavedScripts() {
         
         const titleSpan = document.createElement("span");
         titleSpan.className = "folder-title";
-        titleSpan.innerHTML = `<span class="folder-toggle-icon">▼</span> 📁 ${folderName}`;
+        titleSpan.innerHTML = `<span class="folder-toggle-icon">?</span> ?? ${folderName}`;
         
         header.onclick = (e) => {
             if (e.target.tagName.toLowerCase() === 'button') return;
@@ -1284,7 +1284,7 @@ export function renderSavedScripts() {
         };
 
         const btnDelFolder = document.createElement("button");
-        btnDelFolder.textContent = "✖";
+        btnDelFolder.textContent = "?";
         btnDelFolder.style.background = "none";
         btnDelFolder.style.border = "none";
         btnDelFolder.style.color = "#ef4444";
@@ -1355,7 +1355,7 @@ export function renderSavedScripts() {
 
         if (script.folder) {
             const btnMoveOut = document.createElement("button");
-            btnMoveOut.innerHTML = "↑";
+            btnMoveOut.innerHTML = "?";
             btnMoveOut.title = "Move out to Main Saved List";
             btnMoveOut.style.background = "rgba(255,255,255,0.1)";
             btnMoveOut.style.border = "1px solid rgba(255,255,255,0.2)";
@@ -1373,7 +1373,7 @@ export function renderSavedScripts() {
         }
 
         const btnDel = document.createElement("button");
-        btnDel.textContent = "✖";
+        btnDel.textContent = "?";
         btnDel.style.background = "none";
         btnDel.style.border = "none";
         btnDel.style.color = "#ef4444";
@@ -1471,7 +1471,7 @@ async function loadScript(script) {
     });
 
     if (els.quizLevelsInput) {
-        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
+        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isBonus && !l.isOutro).length;
         const fromLineup = parseInt(String(script.lineup?.totalLevels ?? ""), 10);
         els.quizLevelsInput.value = String(
             Math.max(1, fromLevels > 0 ? fromLevels : (Number.isFinite(fromLineup) ? fromLineup : 30)),
@@ -1499,7 +1499,7 @@ async function loadScript(script) {
                 : pickRandomBundledVariants();
     }
     // Back-fill voiceFreeze on the loaded script if any level lacks it.
-    // freezeVoicePicksForCurrentSession is idempotent — populated levels skip.
+    // freezeVoicePicksForCurrentSession is idempotent � populated levels skip.
     freezeVoicePicksForCurrentSession();
     let voiceFreezeBackfilled = false;
     for (let i = 0; i < script.levels.length; i++) {

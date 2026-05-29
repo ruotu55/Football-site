@@ -218,10 +218,11 @@ body {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   /* Row 1 = day-of-week headers (auto-sized to their text). Rows 2-7 = day
-     cells (~220px minimum each). Splitting them lets the header strip stay
-     a normal-sized bar instead of inheriting the 220px cell height. */
+     cells sized to their content (the tallest cell in the row), so a week with
+     only short pills (e.g. Long-only view = 1 pill/day) doesn't reserve the
+     full 3-pill height and leave a gap between rows. */
   grid-template-rows: auto;
-  grid-auto-rows: minmax(242px, auto);
+  grid-auto-rows: auto;
   gap: 6px;
   padding: 10px 14px 14px;
 }
@@ -247,6 +248,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  align-self: start;   /* hug content height — a day with 1-2 videos isn't stretched to the tallest cell in its row */
   /* No overflow:hidden — let the cell grow taller when a pill's runner name
      wraps to extra lines. The grid uses `minmax(220px, auto)` so cells stay
      uniform at the 220px baseline and only grow when content needs it. */
@@ -256,19 +258,18 @@ body {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  flex: 1;
+  flex: 0 0 auto;     /* size to the pills it has — don't stretch to fill the cell */
   min-height: 0;
 }
 
 .upload-slot {
   display: flex;
-  flex: 1;
-  min-height: 88px;
+  flex: 0 0 auto;     /* each pill keeps its own (fixed) size; no stretching */
+  min-height: 0;
 }
 
 .upload-slot--empty {
-  visibility: hidden;
-  pointer-events: none;
+  display: none;       /* collapse entirely — never reserve space for a missing video */
 }
 
 .day-cell.empty {
@@ -308,9 +309,9 @@ body {
 /* Pill — flat flex column. Top row holds the recording-status chip + the
  * YouTube-upload check. Body holds the upload time and runner name. */
 .upload {
-  flex: 1;
+  flex: 0 0 auto;          /* never stretch — every pill is the same fixed size */
   width: 100%;
-  min-height: 0;
+  min-height: 96px;        /* uniform box height across the whole calendar */
   padding: 8px 9px 9px;
   border-radius: 6px;
   display: flex;
@@ -354,6 +355,33 @@ body {
   border-color: rgba(255, 255, 255, 0.7);
   background: rgba(0, 0, 0, 0.3);
 }
+
+.block-save-btn {
+  flex-shrink: 0;
+  width: clamp(22px, 1.6vw, 28px);
+  height: clamp(22px, 1.6vw, 28px);
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(12px, 0.9vw, 15px);
+  font-weight: 800;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.06s;
+}
+
+.block-save-btn:hover {
+  background: rgba(91, 141, 239, 0.22);
+  border-color: rgba(91, 141, 239, 0.85);
+  color: #fff;
+}
+
+.block-save-btn:active { transform: translateY(1px); }
 
 .upload--done.upload-short .upload-check {
   background: var(--short);
@@ -547,6 +575,53 @@ body {
 .modal-input--error {
   border-color: var(--long);
 }
+
+.block-modal-textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--panel-2);
+  color: var(--text);
+  font-size: 13px;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  resize: vertical;
+  margin-bottom: 14px;
+}
+
+.block-modal-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.block-modal-textarea.modal-input--error {
+  border-color: var(--long);
+}
+
+.modal-hint {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: var(--muted, rgba(255, 255, 255, 0.55));
+  line-height: 1.45;
+}
+
+.modal-template-row {
+  margin: -6px 0 14px;
+}
+
+.modal-error {
+  margin: -4px 0 14px;
+  padding: 8px 10px;
+  background: rgba(229, 57, 53, 0.14);
+  border: 1px solid rgba(229, 57, 53, 0.55);
+  border-radius: 6px;
+  color: #ffd7d7;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.modal-error[hidden] { display: none; }
 
 .modal-actions {
   display: flex;

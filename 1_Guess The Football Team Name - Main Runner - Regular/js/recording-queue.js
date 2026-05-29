@@ -59,7 +59,31 @@ function startOfToday() {
     return new Date(t.getFullYear(), t.getMonth(), t.getDate());
 }
 
+function publishScheduleAvailability() {
+    try {
+        if (!window.FCSchedule || typeof window.FCSchedule.setBlockEpisodes !== "function") return;
+        const out = {};
+        for (const key of Object.keys(blocks)) {
+            const b = blocks[key];
+            const text = String((b && b.teamsImportText) || "").trim();
+            if (!text) continue;
+            const parts = key.split("|");
+            if (parts.length !== 3) continue;
+            const rid = Number(parts[0]);
+            const t = parts[1];
+            const ep = Number(parts[2]);
+            if (!rid || (t !== "long" && t !== "short") || !ep) continue;
+            const opener = ((text.split("\n").find((l) => l.trim())) || "").split(" - ")[0].trim();
+            const mk = t + "|" + rid;
+            (out[mk] || (out[mk] = [])).push({ ep, opener });
+        }
+        for (const mk of Object.keys(out)) out[mk].sort((a, b) => a.ep - b.ep);
+        window.FCSchedule.setBlockEpisodes(out);
+    } catch (_e) { /* non-fatal */ }
+}
+
 function computeQueue() {
+    publishScheduleAvailability();
     const FC = window.FCSchedule;
     if (!FC || typeof FC.uploadsForMonth !== "function") return [];
 
@@ -669,6 +693,37 @@ export async function initRecordingQueue() {
     hydrateLegacyBlocks(blocks);
     queue = computeQueue();
     render();
+    // Auto-open a saved competition when launched from the calendar
+    // (?open=<runnerId>|<type>|<episode>) -> load that block into the editor.
+    try {
+        const _p = new URLSearchParams(location.search);
+        const _open = _p.get("open");
+        if (_open) {
+            const _pp = _open.split("|");
+            if (_pp.length === 3 && Number(_pp[0]) === RUNNER_ID && _pp[1] === RUNNER_TYPE) {
+                const _ep = Number(_pp[2]);
+                const _item = queue.find((q) => q.episode === _ep)
+                    || { key: `${RUNNER_ID}|${RUNNER_TYPE}|${_ep}`, episode: _ep };
+                _p.delete("open");
+                const _qs = _p.toString();
+                history.replaceState(null, "", location.pathname + (_qs ? "?" + _qs : ""));
+                // Wait for the data layer before auto-loading - the page may
+                // still be initializing (team index + player DB load async).
+                for (let _i = 0; _i < 60; _i++) {
+                    const _ti = appState.teamsIndex;
+                    if (_ti && (((_ti.clubs || []).length) || ((_ti.nationalities || []).length))) break;
+                    await new Promise((res) => setTimeout(res, 100));
+                }
+                if (typeof appState.loadAllGlobalPlayers === "function") {
+                    try { await appState.loadAllGlobalPlayers(); } catch (_x) { /* ignore */ }
+                }
+                await onBlockClick(_item);
+            }
+        }
+    } catch (_e) {
+        console.warn("[recording-queue] open-param failed:", _e);
+    }
+
 
     // The legacy loadScript path dispatches this when it finishes applying a
     // script object — we re-render so the active-row highlight follows.

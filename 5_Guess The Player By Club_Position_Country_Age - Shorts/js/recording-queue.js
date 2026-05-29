@@ -58,7 +58,31 @@ function startOfToday() {
     return new Date(t.getFullYear(), t.getMonth(), t.getDate());
 }
 
+function publishScheduleAvailability() {
+    try {
+        if (!window.FCSchedule || typeof window.FCSchedule.setBlockEpisodes !== "function") return;
+        const out = {};
+        for (const key of Object.keys(blocks)) {
+            const b = blocks[key];
+            const text = String((b && b.teamsImportText) || "").trim();
+            if (!text) continue;
+            const parts = key.split("|");
+            if (parts.length !== 3) continue;
+            const rid = Number(parts[0]);
+            const t = parts[1];
+            const ep = Number(parts[2]);
+            if (!rid || (t !== "long" && t !== "short") || !ep) continue;
+            const opener = ((text.split("\n").find((l) => l.trim())) || "").split(" - ")[0].trim();
+            const mk = t + "|" + rid;
+            (out[mk] || (out[mk] = [])).push({ ep, opener });
+        }
+        for (const mk of Object.keys(out)) out[mk].sort((a, b) => a.ep - b.ep);
+        window.FCSchedule.setBlockEpisodes(out);
+    } catch (_e) { /* non-fatal */ }
+}
+
 function computeQueue() {
+    publishScheduleAvailability();
     const FC = window.FCSchedule;
     if (!FC || typeof FC.uploadsForMonth !== "function") return [];
 
@@ -212,8 +236,9 @@ function ensureSaveModal() {
             <label class="rq-modal-label" for="rq-modal-name" hidden>Name</label>
             <input id="rq-modal-name" type="text" class="rq-modal-input" autocomplete="off" hidden />
 
-            <label class="rq-modal-label rq-modal-label-spaced" for="rq-modal-teams">Teams list</label>
-            <textarea id="rq-modal-teams" class="rq-modal-textarea" rows="6" autocomplete="off"></textarea>
+            <label class="rq-modal-label rq-modal-label-spaced" for="rq-modal-teams">Levels</label>
+            <p class="rq-modal-hint">One line per level, e.g. Real Madrid - Spain or Player Name - Team Name.</p>
+            <textarea id="rq-modal-teams" class="rq-modal-textarea" rows="12" autocomplete="off"></textarea>
             <div class="rq-modal-error" hidden></div>
 
             <div class="rq-modal-actions">
@@ -320,7 +345,7 @@ async function onConfirmSave() {
     teamsArea?.classList.remove("rq-modal-input--error");
     input.classList.remove("rq-modal-input--error");
     const existingBlock = blocks[pendingBlockKey];
-    const name = input.value.trim() || existingBlock?.name || autoBlockName(importText, pendingItem);
+    const name = (RUNNER_TYPE === "short") ? "" : (input.value.trim() || existingBlock?.name || autoBlockName(importText, pendingItem));
     clearSaveError();
 
     // Build the script from the pasted "[Team1, Team2, ...]" list using saved
@@ -377,8 +402,6 @@ async function onConfirmSave() {
 async function onBlockClick(item) {
     const existing = blocks[item.key];
     if (existing) {
-        // Load the saved script for this block; mark it active so Record Video
-        // uses its name. The script-applied event re-renders the queue.
         activeBlockKey = item.key;
         setActiveScriptName(existing.name);
         appState.activeBlockKey = item.key;
@@ -386,15 +409,50 @@ async function onBlockClick(item) {
             vf: (s && s.voiceFreeze) || null,
             lvl: (s && Array.isArray(s.levels) ? s.levels : []).map((l) => (l && l.voiceFreeze) || null),
         });
-        const _vfBefore = _vfSig(existing.script);
         try {
-            await applyScriptObject(existing.script);
+            let script = null;
+            const importText = String(existing.teamsImportText || "").trim();
+            if (importText) {
+                const result = await buildScriptFromImportText(importText, existing.name || "Recording block");
+                if (!result.ok) {
+                    throw new Error(Array.isArray(result.errors) ? result.errors.join("\n") : "Import failed.");
+                }
+                script = result.script;
+            } else if (existing.script && Array.isArray(existing.script.levels) && existing.script.levels.length) {
+                script = existing.script;
+            } else {
+                throw new Error("This block has no teams list. Open it and paste a teams list.");
+            }
+            const stash = (existing.script && typeof existing.script === "object") ? existing.script : null;
+            if (stash && script) {
+                if (stash.voiceFreeze) script.voiceFreeze = stash.voiceFreeze;
+                if (Array.isArray(stash.levels) && Array.isArray(script.levels)) {
+                    stash.levels.forEach((lvl, i) => {
+                        if (lvl && lvl.voiceFreeze && script.levels[i]) script.levels[i].voiceFreeze = lvl.voiceFreeze;
+                    });
+                }
+            }
+            const _vfBefore = _vfSig(stash);
+            await applyScriptObject(script);
+            if (stash) {
+                if (script.voiceFreeze) stash.voiceFreeze = script.voiceFreeze;
+                if (Array.isArray(script.levels)) {
+                    if (!Array.isArray(stash.levels)) stash.levels = [];
+                    script.levels.forEach((lvl, i) => {
+                        if (lvl && lvl.voiceFreeze) {
+                            stash.levels[i] = stash.levels[i] && typeof stash.levels[i] === "object"
+                                ? { ...stash.levels[i], voiceFreeze: lvl.voiceFreeze }
+                                : { voiceFreeze: lvl.voiceFreeze };
+                        }
+                    });
+                }
+                if (_vfSig(stash) !== _vfBefore) {
+                    try { await postReplace(blocks); } catch (_) { /* offline */ }
+                }
+            }
         } catch (err) {
-            console.error("[recording-queue] applyScriptObject failed:", err);
-        }
-        const _vfAfter = _vfSig(existing.script);
-        if (_vfAfter !== _vfBefore) {
-            try { await postReplace(blocks); } catch (_) { /* offline — silent */ }
+            console.error("[recording-queue] block load failed:", err);
+            alert(err && err.message ? err.message : "Could not load this block.");
         }
         render();
     } else {
@@ -570,6 +628,36 @@ export async function initRecordingQueue() {
     blocks = await fetchBlocks();
     queue = computeQueue();
     render();
+    // Auto-open a saved competition when launched from the calendar
+    // (?open=<runnerId>|<type>|<episode>) -> load that block into the editor.
+    try {
+        const _p = new URLSearchParams(location.search);
+        const _open = _p.get("open");
+        if (_open) {
+            const _pp = _open.split("|");
+            if (_pp.length === 3 && Number(_pp[0]) === RUNNER_ID && _pp[1] === RUNNER_TYPE) {
+                const _ep = Number(_pp[2]);
+                const _item = queue.find((q) => q.episode === _ep)
+                    || { key: `${RUNNER_ID}|${RUNNER_TYPE}|${_ep}`, episode: _ep };
+                _p.delete("open");
+                const _qs = _p.toString();
+                history.replaceState(null, "", location.pathname + (_qs ? "?" + _qs : ""));
+                // Wait for the data layer before auto-loading - the page may
+                // still be initializing (team index + player DB load async).
+                for (let _i = 0; _i < 60; _i++) {
+                    const _ti = appState.teamsIndex;
+                    if (_ti && (((_ti.clubs || []).length) || ((_ti.nationalities || []).length))) break;
+                    await new Promise((res) => setTimeout(res, 100));
+                }
+                if (typeof appState.loadAllGlobalPlayers === "function") {
+                    try { await appState.loadAllGlobalPlayers(); } catch (_x) { /* ignore */ }
+                }
+                await onBlockClick(_item);
+            }
+        }
+    } catch (_e) {
+        console.warn("[recording-queue] open-param failed:", _e);
+    }
 
     // The legacy loadScript path dispatches this when it finishes applying a
     // script object — we re-render so the active-row highlight follows.

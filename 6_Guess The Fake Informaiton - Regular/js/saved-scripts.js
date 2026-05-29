@@ -1,4 +1,4 @@
-﻿// js/saved-scripts.js — Main Runner - Fake Information - Regular (storage isolated from Four Parameters runner)
+// js/saved-scripts.js � Main Runner - Fake Information - Regular (storage isolated from Four Parameters runner)
 import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
@@ -13,11 +13,15 @@ import { cleanCareerHistory } from "./pitch-render.js";
 import { pickRandomBundledVariants } from "./bundled-level-voices.js";
 import { renderVoiceTab } from "./voice-tab.js";
 import { getOrAssignRevealPhrase } from "./audio.js";
+import {
+    parseImportText as parseImportTextShared,
+    resolvePairEntriesForPlayers,
+} from "../../.Storage/shared/import-pair-format.js";
 
 const HAS_BUNDLED_VARIANTS = true;
 
 /** Force every level to have a reveal phrase picked for both EN + ES, and
- *  ensure the bundled milestone variants are populated. Idempotent — relies on
+ *  ensure the bundled milestone variants are populated. Idempotent � relies on
  *  getOrAssignRevealPhrase and pickRandomBundledVariants being themselves
  *  idempotent (they short-circuit when a pick already exists). */
 function freezeVoicePicksForCurrentSession() {
@@ -88,7 +92,7 @@ const VOICE_FREEZE_MIGRATION_FLAG = "footballQuizVoiceFreezeMigrated_fake_inform
 
 /** Walk every persisted script and bake in voiceFreeze for any that lack it.
  *  Runs once per browser via a localStorage flag. Safe to call at module-init
- *  time — audio.js has already finished its top-level by this point because
+ *  time � audio.js has already finished its top-level by this point because
  *  saved-scripts.js imports it above. */
 function migrateVoiceFreeze() {
     if (localStorage.getItem(VOICE_FREEZE_MIGRATION_FLAG) === "1") return;
@@ -127,7 +131,7 @@ function migrateVoiceFreeze() {
 
     if (changed) {
         try { localStorage.setItem(KEY_SCRIPTS, JSON.stringify(scripts)); }
-        catch { /* quota or serialization failure — best-effort */ }
+        catch { /* quota or serialization failure � best-effort */ }
     }
     localStorage.setItem(VOICE_FREEZE_MIGRATION_FLAG, "1");
 }
@@ -235,13 +239,13 @@ let scriptToDeleteIndex = -1;
 let activeScriptName = null;
 export function getActiveScriptName() { return activeScriptName; }
 
-/** Used by the calendar-driven Saved tab when a block is loaded — the Record
+/** Used by the calendar-driven Saved tab when a block is loaded � the Record
  *  Video button reads getActiveScriptName() to derive the OBS file name. */
 export function setActiveScriptName(name) { activeScriptName = name == null ? null : String(name); }
 
 /** Build a saved-script object from the current quiz UI state. Public so the
  *  calendar-driven Saved tab can persist a block's script. Mirrors what
- *  commitSavedScript captures below — keep in sync if that helper changes. */
+ *  commitSavedScript captures below � keep in sync if that helper changes. */
 export function captureCurrentScriptObject(name) {
     const { els } = appState;
     freezeVoicePicksForCurrentSession();
@@ -326,7 +330,7 @@ export function captureCurrentScriptObject(name) {
  *  up the block name as the OBS file name. */
 export async function applyScriptObject(script) { return loadScript(script); }
 
-/** Build a script object from a "[Player1, Player2, ...]" paste — the same flow
+/** Build a script object from a "[Player1, Player2, ...]" paste � the same flow
  *  the legacy Import modal ran, but headless so the calendar-driven Saved tab
  *  can call it from its block-save modal. Returns one of:
  *    { ok: true, script }
@@ -338,52 +342,82 @@ export async function buildScriptFromImportText(text, name) {
     const parsed = parseImportText(text);
     if (parsed.error) return { ok: false, errors: [parsed.error] };
 
-    const names = await applyImportAliasesToNames(parsed.names);
-
-    let allPlayers;
-    try {
-        allPlayers = typeof appState.loadAllGlobalPlayers === "function"
-            ? await appState.loadAllGlobalPlayers()
-            : (appState.allGlobalPlayers || []);
-    } catch {
-        allPlayers = appState.allGlobalPlayers || [];
-    }
-    if (!allPlayers || allPlayers.length === 0) {
-        return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
-    }
-
     const errors = [];
     const searchableNames = new Set();
-    const resolved = new Array(names.length).fill(null);
-    for (let i = 0; i < names.length; i++) {
-        const rawName = names[i];
-        const cands = findAllPlayerCandidates(rawName, allPlayers);
-        if (cands.length === 0) {
-            errors.push(`❌ ${rawName}: player not found.`);
-            searchableNames.add(rawName);
-        } else {
-            // Headless: take the first candidate when ambiguous.
-            resolved[i] = cands[0];
+    let pairResolved = null;
+
+    if (parsed.entries) {
+        let allPlayers;
+        try {
+            allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+                ? await appState.loadAllGlobalPlayers()
+                : (appState.allGlobalPlayers || []);
+        } catch {
+            allPlayers = appState.allGlobalPlayers || [];
         }
+        if (!allPlayers || allPlayers.length === 0) {
+            return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
+        }
+        const pairResult = await resolvePairEntriesForPlayers(parsed.entries, {
+            allPlayers,
+            clubs: appState.teamsIndex?.clubs || [],
+            findAllPlayerCandidates,
+            normalizeForImport,
+            applyImportAliasesToNames,
+        });
+        if (pairResult.errors.length > 0) {
+            return { ok: false, errors: pairResult.errors, searchableNames: pairResult.searchableNames };
+        }
+        pairResolved = pairResult.resolved;
     }
-    if (errors.length > 0) return { ok: false, errors, searchableNames };
+
+    let names;
+    let resolved;
+    if (!pairResolved) {
+        names = await applyImportAliasesToNames(parsed.names);
+
+        let allPlayers;
+        try {
+            allPlayers = typeof appState.loadAllGlobalPlayers === "function"
+                ? await appState.loadAllGlobalPlayers()
+                : (appState.allGlobalPlayers || []);
+        } catch {
+            allPlayers = appState.allGlobalPlayers || [];
+        }
+        if (!allPlayers || allPlayers.length === 0) {
+            return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
+        }
+
+        resolved = new Array(names.length).fill(null);
+        for (let i = 0; i < names.length; i++) {
+            const rawName = names[i];
+            const cands = findAllPlayerCandidates(rawName, allPlayers);
+            if (cands.length === 0) {
+                errors.push(`? ${rawName}: player not found.`);
+                searchableNames.add(rawName);
+            } else if (cands.length === 1) {
+                resolved[i] = cands[0];
+            } else {
+                errors.push(`? ${rawName}: multiple players match � be more specific.`);
+                searchableNames.add(rawName);
+            }
+        }
+        if (errors.length > 0) return { ok: false, errors, searchableNames };
+    }
 
     const levelDatas = [];
-    for (let i = 0; i < resolved.length; i++) {
-        const player = resolved[i];
-        const rawName = names[i];
-        const clubItem = player._clubItem;
+    const appendPlayerLevel = async (player, clubItem, rawName) => {
         if (!clubItem) {
-            errors.push(`❌ ${rawName}: missing club reference.`);
+            errors.push(`? ${rawName}: missing club reference.`);
             searchableNames.add(rawName);
-            continue;
+            return;
         }
         let squad;
         try {
             squad = await loadSquadJson(clubItem);
         } catch {
-            errors.push(`❌ ${rawName}: failed to load squad data.`);
-            continue;
+            errors.push(`? ${rawName}: failed to load squad data.`);
+            return;
         }
         const history = cleanCareerHistory(player.transfer_history || []);
         const careerClubsCount = Math.max(2, history.length);
@@ -399,6 +433,16 @@ export async function buildScriptFromImportText(text, name) {
             displayMode: "club",
             landingPageType: "club",
         }));
+    };
+
+    if (pairResolved) {
+        for (const { player, clubItem, label } of pairResolved) {
+            await appendPlayerLevel(player, clubItem, label);
+        }
+    } else {
+        for (let i = 0; i < resolved.length; i++) {
+            await appendPlayerLevel(resolved[i], resolved[i]._clubItem, names[i]);
+        }
     }
 
     if (errors.length > 0) return { ok: false, errors, searchableNames };
@@ -469,7 +513,7 @@ function normalizeForImport(str) {
         return foldTurkishLatinForImport(
             str.trim().toLowerCase()
                 .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[̀-ͯ]/g, "")
                 .replace(/ø/g, "o").replace(/å/g, "a").replace(/æ/g, "ae")
                 .replace(/ð/g, "d").replace(/þ/g, "th").replace(/ß/g, "ss").replace(/ł/g, "l").replace(/Ł/g, "l").replace(/đ/g, "d").replace(/Đ/g, "d").replace(/\//g, " ").replace(/-/g, " ")
                 .replace(/[''`´']/g, "")
@@ -495,7 +539,7 @@ function showManualSearchModal({ title, items, displayFn }) {
         header.style.cssText = "margin:0; color:#fff; font-size:1rem;";
         const input = document.createElement("input");
         input.type = "search";
-        input.placeholder = "Type to filter…";
+        input.placeholder = "Type to filter�";
         input.style.cssText = "padding:0.5rem; background:#000; color:#fff; border:1px solid #333; border-radius:4px; font-size:0.9rem;";
         const list = document.createElement("div");
         list.style.cssText = "overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:0.25rem; min-height:240px;";
@@ -680,7 +724,7 @@ function renderImportErrors({ container, errors, searchableNames, items, display
             btn.style.cssText = "padding:0.25rem 0.6rem; font-size:0.75rem; background:var(--accent, #ffaa00); color:#000; border:none; border-radius:4px; cursor:pointer; white-space:nowrap;";
             btn.onclick = async () => {
                 const picked = await showManualSearchModal({
-                    title: (modalTitle || "Search manually") + (matchedName ? ` — replace "${matchedName}"` : ""),
+                    title: (modalTitle || "Search manually") + (matchedName ? ` � replace "${matchedName}"` : ""),
                     items,
                     displayFn,
                 });
@@ -698,19 +742,7 @@ function renderImportErrors({ container, errors, searchableNames, items, display
 }
 
 function parseImportText(text) {
-    let s = String(text || "").trim();
-    if (!s) return { error: "Paste the import text first." };
-    if (s.startsWith("[")) s = s.slice(1);
-    if (s.endsWith("]")) s = s.slice(0, -1);
-    const names = s
-        .split(/[\n,]+/)
-        .map((n) => String(n || "").trim())
-        .map((n) => n.replace(/^["']+|["']+$/g, "").trim())
-        .filter(Boolean);
-    if (names.length === 0) {
-        return { error: "No players found. Use format: [Player1, Player2, Player3]" };
-    }
-    return { names };
+    return parseImportTextShared(text, { legacyItemLabel: "players", entryType: "player-team" });
 }
 
 function findAllBySurnameInitialsPattern(rawName, allPlayers) {
@@ -1163,7 +1195,7 @@ export function initSavedScripts(callbacks) {
             if (!name) { showErr("Enter a save name."); return; }
 
             els.importScriptConfirm.disabled = true;
-            els.importScriptConfirm.textContent = "Importing…";
+            els.importScriptConfirm.textContent = "Importing�";
 
             try {
                 const parsed = parseImportText(text);
@@ -1356,7 +1388,7 @@ export function renderSavedScripts() {
         
         const titleSpan = document.createElement("span");
         titleSpan.className = "folder-title";
-        titleSpan.innerHTML = `<span class="folder-toggle-icon">▼</span> 📁 ${folderName}`;
+        titleSpan.innerHTML = `<span class="folder-toggle-icon">?</span> ?? ${folderName}`;
         
         header.onclick = (e) => {
             if (e.target.tagName.toLowerCase() === 'button') return;
@@ -1387,7 +1419,7 @@ export function renderSavedScripts() {
         };
 
         const btnDelFolder = document.createElement("button");
-        btnDelFolder.textContent = "✖";
+        btnDelFolder.textContent = "?";
         btnDelFolder.style.background = "none";
         btnDelFolder.style.border = "none";
         btnDelFolder.style.color = "#ef4444";
@@ -1458,7 +1490,7 @@ export function renderSavedScripts() {
 
         if (script.folder) {
             const btnMoveOut = document.createElement("button");
-            btnMoveOut.innerHTML = "↑";
+            btnMoveOut.innerHTML = "?";
             btnMoveOut.title = "Move out to Main Saved List";
             btnMoveOut.style.background = "rgba(255,255,255,0.1)";
             btnMoveOut.style.border = "1px solid rgba(255,255,255,0.2)";
@@ -1476,7 +1508,7 @@ export function renderSavedScripts() {
         }
 
         const btnDel = document.createElement("button");
-        btnDel.textContent = "✖";
+        btnDel.textContent = "?";
         btnDel.style.background = "none";
         btnDel.style.border = "none";
         btnDel.style.color = "#ef4444";
@@ -1610,7 +1642,7 @@ async function loadScript(script) {
     });
 
     if (els.quizLevelsInput) {
-        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
+        const fromLevels = script.levels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isBonus && !l.isOutro).length;
         const fromLineup = parseInt(String(script.lineup?.totalLevels ?? ""), 10);
         els.quizLevelsInput.value = String(
             Math.max(1, fromLevels > 0 ? fromLevels : (Number.isFinite(fromLineup) ? fromLineup : 30)),
@@ -1638,7 +1670,7 @@ async function loadScript(script) {
                 : pickRandomBundledVariants();
     }
     // Back-fill voiceFreeze on the loaded script if any level lacks it.
-    // freezeVoicePicksForCurrentSession is idempotent — populated levels skip.
+    // freezeVoicePicksForCurrentSession is idempotent � populated levels skip.
     freezeVoicePicksForCurrentSession();
     let voiceFreezeBackfilled = false;
     for (let i = 0; i < script.levels.length; i++) {

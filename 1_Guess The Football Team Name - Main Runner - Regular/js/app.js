@@ -1,5 +1,5 @@
-﻿import { FORMATIONS } from "./formations.js";
-import { appState, clearSlotPhotoIndices, getState, initLevels } from "./state.js";
+import { FORMATIONS } from "./formations.js";
+import { appState, clearSlotPhotoIndices, getState, getQuizQuestionCount, initLevels } from "./state.js";
 import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
 import { switchLevel } from "./levels.js";
@@ -35,7 +35,8 @@ import {
     setRenderProgressDone,
     setRenderProgressError,
 } from "./render-progress-ui.js";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260529e";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-dbwait";
+import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529b";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -155,7 +156,7 @@ function applyDefaultThemeForCurrentQuizType() {
     /* The native <select>s are wrapped by a custom-select widget that mirrors the
        selected option's text into a separate `.custom-select-trigger` element.
        Setting `select.value` programmatically updates the underlying value but
-       does NOT refresh the custom trigger — re-running applyCustomSelects re-renders
+       does NOT refresh the custom trigger � re-running applyCustomSelects re-renders
        all custom triggers from current values. */
     applyCustomSelects();
 }
@@ -286,7 +287,7 @@ function initHeaderLogoZoom(onClearTeamSelection) {
             }
         };
         /* Re-parent the X to <body> so pitch-wrap's `perspective: 1200px` stops creating
-           a containing block for it — then `position: fixed; top: 5.5vh` anchors to the
+           a containing block for it � then `position: fixed; top: 5.5vh` anchors to the
            viewport and matches the chrome-row X in Career Path / Four params / Player stats. */
         if (clearTeamBtn.parentElement !== document.body) {
             document.body.appendChild(clearTeamBtn);
@@ -297,7 +298,7 @@ function initHeaderLogoZoom(onClearTeamSelection) {
             const st = getState();
             if (!st?.currentSquad) return;
             if (fetchLogo.disabled) return;
-            // Ask for the logo URL up front — going straight to manual paste is
+            // Ask for the logo URL up front � going straight to manual paste is
             // instant, whereas the automatic football-logos.cc lookup is slow.
             const pasted = window.prompt(
                 "Paste a logo image URL (a football-logos.cc team page, or a direct PNG link from images.football-logos.cc / assets.football-logos.cc). Leave empty to cancel.",
@@ -549,7 +550,7 @@ async function refreshEndingTypeVoiceLabels() {
    random picker stay in sync. */
 const ENDING_TYPE_OPTIONS = ["think-you-know", "how-many"];
 
-/* Cache for the random pick — set the first time getSelectedEndingType resolves
+/* Cache for the random pick � set the first time getSelectedEndingType resolves
    "random" within a play/record session, cleared by resetRandomEndingType().
    The Play and Record handlers call reset BEFORE the flow starts; Record only
    resets once at the very start so both EN and ES phases see the same pick. */
@@ -651,7 +652,7 @@ function endpointUrl(relPath) {
 }
 
 function getSpecificTitleForQuizType(quizType) {
-    /* "Add specific competition" was removed — there is no longer a per-quiz title.
+    /* "Add specific competition" was removed � there is no longer a per-quiz title.
        Returning "" preserves the call sites without changing their structure. */
     return "";
 }
@@ -929,7 +930,7 @@ export function updateLanding() {
     const landingQuestionsCount = document.getElementById("landing-questions-count");
     if (landingQuestionsCount) {
         landingQuestionsCount.textContent = String(
-            Math.max(0, landingDifficultyTotalQuestionsForLevels() - 1),
+            getQuizQuestionCount(),
         );
     }
 
@@ -982,13 +983,14 @@ async function init() {
     // Call initialized modules
     initLevelControls();
     initTransitionsUI();
-    /* The Saved tab is now the calendar-driven recording queue — see
+    /* The Saved tab is now the calendar-driven recording queue � see
        recording-queue.js. The legacy savedScripts UI (Save Current Settings,
        +Folder, Import, freeform list) is gone; the saved-scripts.js module
        remains for the underlying capture/apply helpers, but its init wiring
        points at buttons that no longer exist, so we don't call it. */
     void initRecordingQueue();
     initUpdateData();
+    initThumbnailStudio();
 
     FORMATIONS.forEach((f) => {
         const opt = document.createElement("option");
@@ -1015,7 +1017,7 @@ async function init() {
         els.pitchSlots.appendChild(div);
     }
 
-    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 29);
+    const initialLevelCount = getInitialLevelCountFromSnapshot(devLiveReloadSnapshot, 30);
     initLevels(initialLevelCount);
     const didRestoreState = restoreDevLiveReloadState(appState, devLiveReloadSnapshot);
     if (!didRestoreState) {
@@ -1108,7 +1110,7 @@ async function init() {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 30;
         appState.levelsData = [];
-        initLevels(levels - 1);
+        initLevels(levels);
         appState.currentLevelIndex = 1;
         const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
         const { easy, medium, hard, impossible } =
@@ -1127,7 +1129,7 @@ async function init() {
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
-        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+        /* Voice tab filters endings by this value � refresh so the list stays in sync. */
         renderVoiceTab();
     };
 
@@ -1145,7 +1147,7 @@ async function init() {
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 30;
-        initLevels(levels - 1);
+        initLevels(levels);
         const totalQuestions = Math.max(0, appState.totalLevelsCount - 2);
         const { easy, medium, hard, impossible } = computeLandingDifficultyDistribution(totalQuestions);
         els.inEasy.value = String(easy);
@@ -1276,7 +1278,7 @@ async function init() {
         }
     };
 
-    // ── PROD button ──
+    // ?? PROD button ??
     if (els.prodBtn) {
         els.prodBtn.onclick = () => {
             toggleProdMode();
@@ -1285,14 +1287,14 @@ async function init() {
         };
     }
 
-    /* Pacing for the EN→ES double-record. Tweak here if you want longer/shorter brakes. */
+    /* Pacing for the EN?ES double-record. Tweak here if you want longer/shorter brakes. */
     const RECORD_LANG_BRAKE_MS = 2000;   // after switching language, before next phase starts
     const RECORD_BETWEEN_PHASES_MS = 3000; // visual brake between phase 1 finish and phase 2 start
     const brake = (ms) => new Promise((r) => setTimeout(r, ms));
 
     /** Hide the top FAB row (Show Controls / Video Mode / Play / Record / Prod)
      *  so the recording's very first frames are a clean stage, not a UI snapshot.
-     *  Mirrors what `startVideoFlow` does — but we do it earlier (before StartRecord). */
+     *  Mirrors what `startVideoFlow` does � but we do it earlier (before StartRecord). */
     function freezeUIForRecording() {
         document.body.classList.add("play-video-active");
         if (els.playVideoBtn) els.playVideoBtn.hidden = true;
@@ -1311,7 +1313,7 @@ async function init() {
     async function runRecordingPhase(savedName, language) {
         /* Defensive: a legacy session may have left transitionSettings.effect = ""
            (the old PROD toggle wiped it). Without this guard the recording skips
-           every transition. Empty/null/undefined → restore to the dropdown's
+           every transition. Empty/null/undefined ? restore to the dropdown's
            selected value, or fall back to "grid-overlay". */
         if (!transitionSettings.effect) {
             const effectSel = document.getElementById("in-transition-effect");
@@ -1325,13 +1327,13 @@ async function init() {
 
         /* Always begin from the landing page (ball animation), regardless of which
            level the user is currently on. This applies to both phase 1 (initial)
-           and phase 2 (after the EN→ES handoff — the user is on the outro page
+           and phase 2 (after the EN?ES handoff � the user is on the outro page
            after phase 1's natural finish). */
         if (appState.currentLevelIndex !== 1) {
             switchLevel(1);
             /* Wait for the actual level-switch transition to fully complete before
-               continuing — otherwise `transitionRunning` may still be true when the
-               video flow triggers level 1→2, causing that transition to be skipped. */
+               continuing � otherwise `transitionRunning` may still be true when the
+               video flow triggers level 1?2, causing that transition to be skipped. */
             if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
                 await appState._transitionDone.catch(() => {});
             }
@@ -1345,7 +1347,7 @@ async function init() {
 
         /* Cover the landing title with the ball-preloader's opaque bg-stage layer
            BEFORE OBS starts capturing, so the recording's first frames are a clean
-           solid background — never a title flash. The ball element itself sits at
+           solid background � never a title flash. The ball element itself sits at
            `top: -130px` in CSS and ~9px of it pokes into the viewport, so we hide
            it inline until playBallPreloader (via startVideoFlow) takes over. */
         const _preloaderForCover = document.getElementById("ball-preloader");
@@ -1410,7 +1412,7 @@ async function init() {
         }, 0);
     };
 
-    /* Record Video: records once in English, then once in Spanish — both saved under
+    /* Record Video: records once in English, then once in Spanish � both saved under
        Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen between phases
        so the browser doesn't need a fresh user gesture to re-enter fullscreen. */
     if (els.recordVideoBtn) {
@@ -1429,7 +1431,7 @@ async function init() {
             }
             const savedName = (getActiveScriptName() || "").trim();
             if (!savedName) {
-                alert("Load a saved setting first — the OBS file is named after it.");
+                alert("Load a saved setting first � the OBS file is named after it.");
                 return;
             }
 
@@ -1438,7 +1440,7 @@ async function init() {
             resetRandomEndingType();
 
             try {
-                // ── PHASE 1: English ──
+                // ?? PHASE 1: English ??
                 appState.doubleRecording = { phase: 1, savedName };
                 if (getCurrentLanguage() !== "english") {
                     setCurrentLanguage("english");
@@ -1447,10 +1449,10 @@ async function init() {
                 const ok1 = await runRecordingPhase(savedName, "english");
                 if (!ok1) return;
 
-                // ── Brake between phases (fullscreen stays on) ──
+                // ?? Brake between phases (fullscreen stays on) ??
                 await brake(RECORD_BETWEEN_PHASES_MS);
 
-                // ── PHASE 2: Spanish ──
+                // ?? PHASE 2: Spanish ??
                 appState.doubleRecording = { phase: 2, savedName };
                 setCurrentLanguage("spanish");
                 await brake(RECORD_LANG_BRAKE_MS);
@@ -1461,7 +1463,7 @@ async function init() {
         };
     }
 
-    // ── Render Video: build the MP4 frame-by-frame (headless), current language only ──
+    // ?? Render Video: build the MP4 frame-by-frame (headless), current language only ??
     if (els.renderVideoBtn) {
         const startRender = async () => {
             if (appState.rendering) return;
@@ -1472,7 +1474,7 @@ async function init() {
             }
             const savedName = (getActiveScriptName() || "").trim();
             if (!savedName) {
-                alert("Load a saved setting first — the rendered file is named after it.");
+                alert("Load a saved setting first � the rendered file is named after it.");
                 return;
             }
             appState.rendering = true;
@@ -1482,7 +1484,7 @@ async function init() {
             let errored = false;
             try {
                 // Capture the CURRENT on-screen setup so the render matches what's loaded now
-                // (edited levels, etc.) — like Record Video, no re-saving required.
+                // (edited levels, etc.) � like Record Video, no re-saving required.
                 const scriptObject = captureCurrentScriptObject(savedName);
                 const res = await fetch("/__render-video", {
                     method: "POST",
@@ -1502,13 +1504,13 @@ async function init() {
                         return;
                     }
                     switch (m.stage) {
-                        case "probe": updateRenderProgress({ label: "Analyzing video…" }); break;
-                        case "probed": total = m.totalFrames || 0; updateRenderProgress({ label: `Rendering ~${m.virtualSec}s video…`, frame: 0, total }); break;
+                        case "probe": updateRenderProgress({ label: "Analyzing video�" }); break;
+                        case "probed": total = m.totalFrames || 0; updateRenderProgress({ label: `Rendering ~${m.virtualSec}s video�`, frame: 0, total }); break;
                         case "capture": total = m.total || total; setRenderWorkers(m.workers || 4); updateRenderProgress({ frame: 0, total }); break;
                         case "progress": total = m.total || total; updateRenderProgress({ frame: m.frame, total, workers: m.workers }); break;
-                        case "retry": updateRenderProgress({ label: `Part ${m.w + 1} hiccuped — auto-retry ${m.attempt}/${m.max}…` }); break;
-                        case "concat": updateRenderProgress({ frame: total, total, label: "Joining segments…" }); break;
-                        case "audio": updateRenderProgress({ frame: total, total, label: "Building soundtrack…" }); break;
+                        case "retry": updateRenderProgress({ label: `Part ${m.w + 1} hiccuped � auto-retry ${m.attempt}/${m.max}�` }); break;
+                        case "concat": updateRenderProgress({ frame: total, total, label: "Joining segments�" }); break;
+                        case "audio": updateRenderProgress({ frame: total, total, label: "Building soundtrack�" }); break;
                         case "done": setRenderProgressDone(m.path); break;
                         case "error": errored = true; appState.rendering = false; setRenderProgressError(m.message, startRender); break;
                         default:
@@ -1650,7 +1652,7 @@ async function init() {
     els.formation.onchange = () => {
         const state = getState();
         if (!confirmAndDeleteSaveIfPresent()) {
-            // User cancelled — revert the select to the current formation.
+            // User cancelled � revert the select to the current formation.
             els.formation.value = state.formationId;
             applyCustomSelects();
             return;

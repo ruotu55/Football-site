@@ -12,13 +12,9 @@
 
   // State
   const today = new Date();
-  // Open the month containing today, or the start month if start is in the future
+  // Always open on today's month (user can navigate to launch months before/after).
   let viewYear = today.getFullYear();
   let viewMonth = today.getMonth();
-  if (new Date(viewYear, viewMonth, 1) < new Date(START_DATE.getFullYear(), START_DATE.getMonth(), 1)) {
-    viewYear = START_DATE.getFullYear();
-    viewMonth = START_DATE.getMonth();
-  }
 
   let activeChannel = "en"; // "en" or "es"
   const filters = { long: true, short: true };
@@ -28,6 +24,8 @@
   const urlInput = document.getElementById("url-input");
   const urlClearBtn = document.getElementById("url-clear");
   let pendingSlot = null; // { date, upload }
+  let blockModal = null;
+  let pendingBlockSlot = null; // { date, u, block }
 
   function passesFilter(u) {
     return u.channel === activeChannel && filters[u.type];
@@ -67,6 +65,109 @@
     urlInput.value = "";
   }
 
+  function ensureSaveBlockModal() {
+    if (blockModal) return blockModal;
+    const root = document.createElement("div");
+    root.id = "block-save-modal";
+    root.className = "modal";
+    root.hidden = true;
+    root.innerHTML = `
+      <div class="modal-backdrop" data-block-close></div>
+      <div class="modal-panel" role="dialog" aria-labelledby="block-save-title">
+        <h3 id="block-save-title">Save competition</h3>
+        <p id="block-save-meta" class="modal-meta"></p>
+        <label class="modal-label" for="block-save-name">Competition name</label>
+        <input type="text" id="block-save-name" class="modal-input" autocomplete="off">
+        <label class="modal-label" for="block-save-teams">Levels</label>
+        <textarea id="block-save-teams" class="block-modal-textarea" rows="12" autocomplete="off"></textarea>
+        <div id="block-save-error" class="modal-error" hidden></div>
+        <div class="modal-actions">
+          <button type="button" class="navbtn" data-block-close>Cancel</button>
+          <button type="button" class="navbtn modal-save" id="block-save-submit">Save</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(root);
+    blockModal = root;
+    root.addEventListener("click", (e) => {
+      if (e.target.dataset && e.target.dataset.blockClose !== undefined) closeSaveBlockModal();
+    });
+    root.querySelector("#block-save-submit").addEventListener("click", savePendingBlock);
+    return root;
+  }
+
+  function openSaveBlockModal(date, u, block) {
+    const root = ensureSaveBlockModal();
+    pendingBlockSlot = { date, u, block };
+    const isShort = u.type === "short";
+    root.querySelector("#block-save-meta").textContent =
+      `${pad2(date.getDate())} ${MONTH_NAMES[date.getMonth()]} ${date.getFullYear()} · `
+      + `${u.channel.toUpperCase()} · ${isShort ? "Short" : "Long-form"}\n`
+      + `#${u.episode} ${u.runner.name} · ${pad2(u.hour)}:${pad2(u.min)}`;
+    // Shorts have no competition name — hide the name field entirely.
+    root.querySelector("#block-save-title").textContent = isShort ? "Save short" : "Save competition";
+    const nameLabel = root.querySelector('label[for="block-save-name"]');
+    const nameInput = root.querySelector("#block-save-name");
+    // Use inline display (beats the .modal-label CSS rule, which `hidden` doesn't).
+    if (nameLabel) nameLabel.style.display = isShort ? "none" : "";
+    nameInput.style.display = isShort ? "none" : "";
+    nameInput.value = isShort ? "" : (block?.name || "");
+    root.querySelector("#block-save-teams").value = FCRecordingStatus
+      ? FCRecordingStatus.teamsImportTextForBlock(block)
+      : (block?.teamsImportText || "");
+    root.querySelector("#block-save-error").hidden = true;
+    root.hidden = false;
+    root.setAttribute("aria-hidden", "false");
+    (isShort ? root.querySelector("#block-save-teams") : nameInput).focus();
+  }
+
+  function closeSaveBlockModal() {
+    pendingBlockSlot = null;
+    if (!blockModal) return;
+    blockModal.hidden = true;
+    blockModal.setAttribute("aria-hidden", "true");
+  }
+
+  async function savePendingBlock() {
+    if (!pendingBlockSlot || !FCRecordingStatus) return;
+    const root = ensureSaveBlockModal();
+    const nameInput = root.querySelector("#block-save-name");
+    const teamsInput = root.querySelector("#block-save-teams");
+    const err = root.querySelector("#block-save-error");
+    const saveBtn = root.querySelector("#block-save-submit");
+    const isShort = pendingBlockSlot.u.type === "short";
+    const name = isShort ? "" : nameInput.value.trim();   // shorts are nameless
+    const teamsImportText = teamsInput.value.trim();
+
+    if (!isShort) nameInput.classList.toggle("modal-input--error", !name);
+    teamsInput.classList.toggle("modal-input--error", !teamsImportText);
+    if (!teamsImportText || (!isShort && !name)) {
+      err.textContent = (!isShort && !name && !teamsImportText)
+        ? "Enter a competition name and levels list."
+        : (!isShort && !name)
+          ? "Enter a competition name."
+          : "Enter a levels list.";
+      err.hidden = false;
+      ((!isShort && !name) ? nameInput : teamsInput).focus();
+      return;
+    }
+
+    const { u } = pendingBlockSlot;
+    const prevText = saveBtn.textContent;
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+    const ok = await FCRecordingStatus.saveBlock(u.runner.id, u.type, u.episode, { name, teamsImportText });
+    saveBtn.disabled = false;
+    saveBtn.textContent = prevText;
+    if (!ok) {
+      err.textContent = "Could not save this competition to the calendar.";
+      err.hidden = false;
+      return;
+    }
+    closeSaveBlockModal();
+    renderCalendar();
+  }
+
   /* Per-pill lifecycle (this pill = one channel of one episode):
        "empty"    - no block created yet
        "toRecord" - block filled, but this language isn't recorded yet
@@ -93,6 +194,28 @@
 
     const pill = document.createElement("div");
     pill.className = `upload upload-${u.type} channel-${u.channel}`;
+    pill.dataset.recState = STATE_TINT[state] || "empty";
+
+    const top = document.createElement("div");
+    top.className = "upload-top";
+
+    const recChip = document.createElement("span");
+    const blockStatus = FCRecordingStatus ? FCRecordingStatus.statusForBlock(block) : "empty";
+    recChip.className = `rec-chip rec-chip--${blockStatus}`;
+    recChip.textContent = FCRecordingStatus ? FCRecordingStatus.labelForBlock(block) : "Empty";
+    top.appendChild(recChip);
+
+    const saveBlockBtn = document.createElement("button");
+    saveBlockBtn.type = "button";
+    saveBlockBtn.className = "block-save-btn";
+    saveBlockBtn.textContent = "▣";
+    saveBlockBtn.title = block ? "Edit saved competition" : "Save competition for this calendar box";
+    saveBlockBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openSaveBlockModal(date, u, block);
+    });
+    top.appendChild(saveBlockBtn);
+    pill.appendChild(top);
 
     const title =
       `${u.channel.toUpperCase()} · ${u.type === "long" ? "Long-form" : "Short"}\n`
@@ -193,7 +316,7 @@
         const r = await fetch("/__launch-runner", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ runnerId: u.runner.id, type: u.type }),
+          body: JSON.stringify({ runnerId: u.runner.id, type: u.type, episode: u.episode }),
         });
         const res = await r.json();
         if (!res.ok) {
@@ -370,6 +493,13 @@
   }
 
   function renderCalendar() {
+    // Feed the schedule only the episodes that actually have a saved video, so
+    // it places real videos in rotation, skips runners that run out, and leaves
+    // the calendar empty once every video is used.
+    if (FCRecordingStatus && typeof FCRecordingStatus.availableEpisodes === "function"
+        && window.FCSchedule && typeof window.FCSchedule.setBlockEpisodes === "function") {
+      window.FCSchedule.setBlockEpisodes(FCRecordingStatus.availableEpisodes());
+    }
     const cal = document.getElementById("calendar");
     cal.innerHTML = "";
 
@@ -418,20 +548,17 @@
       }
       shorts.sort((a, b) => (a.hour * 60 + a.min) - (b.hour * 60 + b.min));
 
-      // Fixed 3-slot layout per day so cell heights stay uniform across the
-      // grid: morning short, long (every day in launch month, Sun/Wed/Fri after),
-      // evening short.
+      // Render only the videos that actually exist, in time order (morning
+      // short → long → evening short). No empty placeholder slots — a day with
+      // 1 or 2 videos takes only that much space, and every pill is the same
+      // fixed size (see .upload in styles.css).
       const uploadsWrap = document.createElement("div");
       uploadsWrap.className = "day-uploads";
-      const slotsInOrder = [shorts[0] || null, longUpload, shorts[1] || null];
+      const slotsInOrder = [shorts[0] || null, longUpload || null, shorts[1] || null].filter(Boolean);
       for (const u of slotsInOrder) {
         const slot = document.createElement("div");
         slot.className = "upload-slot";
-        if (!u) {
-          slot.classList.add("upload-slot--empty");
-        } else {
-          slot.appendChild(buildUploadPill(date, u));
-        }
+        slot.appendChild(buildUploadPill(date, u));
         uploadsWrap.appendChild(slot);
       }
       if (date >= new Date(START_DATE.getFullYear(), START_DATE.getMonth(), START_DATE.getDate())) {
@@ -558,6 +685,7 @@
   modal.querySelector(".modal-backdrop").addEventListener("click", closeUrlModal);
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !modal.hidden) closeUrlModal();
+    if (e.key === "Escape" && blockModal && !blockModal.hidden) closeSaveBlockModal();
   });
 
   renderAll();

@@ -101,7 +101,7 @@ export function applyDevLiveReloadControls(els, snapshot) {
     }
 }
 
-export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 29) {
+export function getInitialLevelCountFromSnapshot(snapshot, fallbackCount = 30) {
     if (!snapshot || !Number.isFinite(snapshot.totalLevelsCount)) return fallbackCount;
     return Math.max(1, Math.floor(snapshot.totalLevelsCount) - 3);
 }
