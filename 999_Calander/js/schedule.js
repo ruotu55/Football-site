@@ -1,8 +1,12 @@
 /* Football Channel · upload schedule
  *
- * Cadence (per channel): 2 Shorts every day · 3 Long-form per week.
+ * Launch month (May 30 – Jun 28, 2026): 2 Shorts every day · 1 Long-form every
+ * day at 18:00 IL — front-loads channel velocity for the algorithm.
  *
- * Long-form days (18:00 IL) — chosen for even spread + football-audience peaks:
+ * Steady state (from Jun 29, 2026): 2 Shorts every day · 3 Long-form per week.
+ *
+ * Long-form days in steady state (18:00 IL) — chosen for even spread +
+ * football-audience peaks:
  *  - Sunday    — post-PL weekend wrap; Sunday-evening viewing habit
  *  - Wednesday — mid-week recap & UCL build (UCL kickoffs are 22:00 IL, so 18:00
  *                lands in the pre-game buzz window, not the live competition)
@@ -56,29 +60,62 @@ const RUNNERS = [
   { id: 13, name: "Placeholder Runner #13",                      short: "TBD #13",       from: PLACEHOLDER_FROM },
 ];
 
-/* Weekly cadence: 7 shorts + 3 long-form per channel (EN and ES). */
+/* Phases share the same shorts grid — define it once so the launch and steady
+ * phases can't drift apart by accident. 2 shorts/day, uniform across the week. */
+const EN_SHORTS = [
+  // UK morning commute + UK evening prime.
+  { dow: 0, hour: 11, min: 0 }, { dow: 0, hour: 21, min: 0 },
+  { dow: 1, hour: 11, min: 0 }, { dow: 1, hour: 21, min: 0 },
+  { dow: 2, hour: 11, min: 0 }, { dow: 2, hour: 21, min: 0 },
+  { dow: 3, hour: 11, min: 0 }, { dow: 3, hour: 21, min: 0 },
+  { dow: 4, hour: 11, min: 0 }, { dow: 4, hour: 21, min: 0 },
+  { dow: 5, hour: 11, min: 0 }, { dow: 5, hour: 21, min: 0 },
+  { dow: 6, hour: 11, min: 0 }, { dow: 6, hour: 21, min: 0 },
+];
+const ES_SHORTS = [
+  // Spain lunch tail + Spain late prime
+  // (also lands in South America morning + South America afternoon).
+  { dow: 0, hour: 15, min: 0 }, { dow: 0, hour: 23, min: 0 },
+  { dow: 1, hour: 15, min: 0 }, { dow: 1, hour: 23, min: 0 },
+  { dow: 2, hour: 15, min: 0 }, { dow: 2, hour: 23, min: 0 },
+  { dow: 3, hour: 15, min: 0 }, { dow: 3, hour: 23, min: 0 },
+  { dow: 4, hour: 15, min: 0 }, { dow: 4, hour: 23, min: 0 },
+  { dow: 5, hour: 15, min: 0 }, { dow: 5, hour: 23, min: 0 },
+  { dow: 6, hour: 15, min: 0 }, { dow: 6, hour: 23, min: 0 },
+];
+
+/* Long-form 18:00 IL daily — used by the launch phase. */
+const DAILY_LONG = [
+  { dow: 0, hour: 18, min: 0 },
+  { dow: 1, hour: 18, min: 0 },
+  { dow: 2, hour: 18, min: 0 },
+  { dow: 3, hour: 18, min: 0 },
+  { dow: 4, hour: 18, min: 0 },
+  { dow: 5, hour: 18, min: 0 },
+  { dow: 6, hour: 18, min: 0 },
+];
+
 const PHASES = [
   {
     id: 1,
-    name: "Standard",
-    weeks: "From launch (May 30)",
+    name: "Launch",
+    weeks: "First 30 days (May 30 – Jun 28)",
     startsOn: new Date(2026, 4, 30),
+    en: { long: DAILY_LONG, short: EN_SHORTS },
+    es: { long: DAILY_LONG, short: ES_SHORTS },
+  },
+  {
+    id: 2,
+    name: "Standard",
+    weeks: "From Jun 29",
+    startsOn: new Date(2026, 5, 29),
     en: {
       long: [
         { dow: 0, hour: 18, min: 0 }, // Sun 18:00 — weekend wrap, post-Sat/Sun PL window
         { dow: 3, hour: 18, min: 0 }, // Wed 18:00 — mid-week + pre-UCL (kickoffs 22:00 IL)
         { dow: 5, hour: 18, min: 0 }, // Fri 18:00 — highest CTR weekday, weekend hype
       ],
-      // 2 shorts/day, uniform across the week — UK morning + UK evening prime.
-      short: [
-        { dow: 0, hour: 11, min: 0 }, { dow: 0, hour: 21, min: 0 },
-        { dow: 1, hour: 11, min: 0 }, { dow: 1, hour: 21, min: 0 },
-        { dow: 2, hour: 11, min: 0 }, { dow: 2, hour: 21, min: 0 },
-        { dow: 3, hour: 11, min: 0 }, { dow: 3, hour: 21, min: 0 },
-        { dow: 4, hour: 11, min: 0 }, { dow: 4, hour: 21, min: 0 },
-        { dow: 5, hour: 11, min: 0 }, { dow: 5, hour: 21, min: 0 },
-        { dow: 6, hour: 11, min: 0 }, { dow: 6, hour: 21, min: 0 },
-      ],
+      short: EN_SHORTS,
     },
     es: {
       long: [
@@ -86,17 +123,7 @@ const PHASES = [
         { dow: 3, hour: 18, min: 0 }, // Wed 18:00 IL = Spain 17:00
         { dow: 5, hour: 18, min: 0 }, // Fri 18:00 IL = Spain 17:00 (weekend hype)
       ],
-      // 2 shorts/day, uniform — Spain lunch tail + Spain late prime
-      // (also lands in South America morning + South America afternoon).
-      short: [
-        { dow: 0, hour: 15, min: 0 }, { dow: 0, hour: 23, min: 0 },
-        { dow: 1, hour: 15, min: 0 }, { dow: 1, hour: 23, min: 0 },
-        { dow: 2, hour: 15, min: 0 }, { dow: 2, hour: 23, min: 0 },
-        { dow: 3, hour: 15, min: 0 }, { dow: 3, hour: 23, min: 0 },
-        { dow: 4, hour: 15, min: 0 }, { dow: 4, hour: 23, min: 0 },
-        { dow: 5, hour: 15, min: 0 }, { dow: 5, hour: 23, min: 0 },
-        { dow: 6, hour: 15, min: 0 }, { dow: 6, hour: 23, min: 0 },
-      ],
+      short: ES_SHORTS,
     },
   },
 ];

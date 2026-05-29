@@ -1,5 +1,7 @@
 ﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
+import { projectAssetUrl } from "./paths.js";
+import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
 import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
 import { getCurrentLanguage } from "./voice-tab.js";
@@ -95,111 +97,19 @@ function validateTeamsSelected() {
     };
 }
 
-/**
- * Check if a player has photos using the LEVEL's own state data
- * (not getState() which returns the currently active level).
- */
-function playerHasPhotosForLevel(player, lvl) {
-    if (!player) return false;
-    const name = player.name || "";
-    if (!name) return false;
-
-    const sanitize = (raw) =>
-        String(raw || "").trim().replace(/\//g, "").replace(/\\/g, "").replace(/\.\./g, "").replace(/[<>:"|?*]/g, "").replace(/[. ]+$/g, "");
-    const variants = (raw) => {
-        const base = String(raw || "").trim();
-        if (!base) return [];
-        const s = sanitize(base);
-        return s && s !== base ? [base, s] : [base];
-    };
-
-    // Check club photos
-    if (lvl.squadType === "club" && lvl.selectedEntry && appState.playerImages?.club) {
-        const country = lvl.selectedEntry.country || "";
-        const league = lvl.selectedEntry.league || "";
-        const squadNames = variants(lvl.currentSquad?.name);
-        const playerNames = variants(name);
-        for (const sq of squadNames) {
-            for (const pn of playerNames) {
-                const k = `${country}|${league}|${sq}|${pn}`;
-                if (appState.playerImages.club[k]?.length > 0) return true;
-            }
-        }
-    }
-
-    // Check nationality photos
-    if (lvl.squadType === "national" && lvl.selectedEntry && appState.playerImages?.nationality) {
-        const region = lvl.selectedEntry.region || "";
-        const entryName = lvl.selectedEntry.name || "";
-        const k = `${region}|${entryName}|${name}`;
-        if (appState.playerImages.nationality[k]?.length > 0) return true;
-    }
-
-    // Scan all club folders for this player's club
-    if (player.club && appState.playerImages?.club) {
-        const clubVariants = variants(player.club);
-        const playerNames = variants(name);
-        for (const key in appState.playerImages.club) {
-            if (clubVariants.some((c) => playerNames.some((p) => key.endsWith(`|${c}|${p}`)))) {
-                if (appState.playerImages.club[key]?.length > 0) return true;
-            }
-        }
-    }
-
-    // Scan all nationality folders for this player's nationality
-    if (player.nationality && appState.playerImages?.nationality) {
-        const natSuffix = `|${player.nationality}|${name}`;
-        for (const key in appState.playerImages.nationality) {
-            if (key.endsWith(natSuffix) && appState.playerImages.nationality[key]?.length > 0) return true;
-        }
-    }
-
-    return false;
-}
-
-function validateTeamAssets() {
-    const questionLevels = getQuestionLevels();
+async function validateTeamAssets() {
     const quizType = appState.els?.inQuizType?.value || "nat-by-club";
-    const failures = [];
-
-    for (const { lvl, index } of questionLevels) {
-        if (!lvl.currentSquad) continue;
-        const label = getLevelLabel(index, lvl);
-        const teamName = resolveLevelTeamName(lvl, quizType);
-        const missing = [];
-
-        // Check team logo/image
-        const hasImage = !!(lvl.currentSquad.imagePath || lvl.headerLogoOverrideRelPath);
-        if (!hasImage) {
-            missing.push("logo");
-        }
-
-        // Check player photos — use customXi (the actual selected players on the pitch)
-        const formation = FORMATIONS.find((f) => f.id === lvl.formationId) || FORMATIONS[0];
-        const xi = lvl.customXi || (formation ? pickStartingXI(formation, lvl.currentSquad) : []);
-        if (xi && xi.length > 0) {
-            for (let si = 0; si < xi.length; si++) {
-                const player = xi[si];
-                if (!player) {
-                    missing.push(`slot ${si + 1}: no player`);
-                    continue;
-                }
-                if (!playerHasPhotosForLevel(player, lvl)) {
-                    const pName = player.name || `slot ${si + 1}`;
-                    missing.push(`${pName}: no photo`);
-                }
-            }
-        }
-
-        if (missing.length > 0) {
-            failures.push(`${label} (${teamName}): ${missing.join(", ")}`);
-        }
-    }
-    return {
+    return validateTeamAssetsAsync({
+        questionLevels: getQuestionLevels(),
+        quizType,
+        getLevelLabel,
+        resolveLevelTeamName,
+        FORMATIONS,
+        pickStartingXI,
+        appState,
+        projectAssetUrl,
         sectionName: "Photos / Logos",
-        passed: failures.length === 0,
-        failures,
-    };
+    });
 }
 
 function validateBackgroundColor() {
@@ -432,7 +342,7 @@ async function validateUpdateDataFreshness() {
 export async function runProdValidation() {
     const sections = await Promise.all([
         Promise.resolve(validateTeamsSelected()),
-        Promise.resolve(validateTeamAssets()),
+        validateTeamAssets(),
         Promise.resolve(validateEndingType()),
         validateUpdateDataFreshness(),
         validateTeamVoices(),

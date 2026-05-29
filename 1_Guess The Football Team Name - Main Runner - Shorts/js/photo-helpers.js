@@ -1,5 +1,11 @@
 import { appState, getState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
+import {
+  normalizeLegacyTeamImageRelPath,
+  stripLogoOverrideRelPath,
+} from "../../.Storage/shared/team-image-paths.js";
+
+export { normalizeLegacyTeamImageRelPath, stripLogoOverrideRelPath };
 
 /** Loose crests: drop a PNG named exactly like the squad JSON `club` string (e.g. Atlético de Madrid.png). */
 const TEAMS_IMAGES_OTHER_TEAMS_DIR = "Images/Teams/(1) Other Teams";
@@ -99,7 +105,10 @@ export function getClubLogoOtherTeamsUrl(clubField) {
  * if that URL differs (club squads only). National squads use `imagePath` only.
  */
 export function getClubSquadHeaderLogoLoadUrls(squad, squadType, selectedEntryName) {
-  const primaryUrl = squad?.imagePath ? projectAssetUrl(squad.imagePath) : null;
+  const primaryRel = squad?.imagePath
+    ? normalizeLegacyTeamImageRelPath(squad.imagePath)
+    : "";
+  const primaryUrl = primaryRel ? projectAssetUrl(primaryRel) : null;
   if (squadType !== "club") {
     return { primaryUrl, secondaryUrl: null };
   }
@@ -126,12 +135,9 @@ export function getClubLogoOtherTeamsRelPath(clubField) {
 export function getHeaderLogoUrlChain(state, squad, squadType, selectedEntryName, quizType = "nat-by-club") {
   const { primaryUrl, secondaryUrl } = getClubSquadHeaderLogoLoadUrls(squad, squadType, selectedEntryName);
   const chain = [];
-  const ov = state?.headerLogoOverrideRelPath;
-  if (ov && typeof ov === "string") {
-    const t = ov.trim();
-    if (t && !t.includes("..") && !t.includes("\\")) {
-      chain.push(projectAssetUrl(t));
-    }
+  const overrideRel = stripLogoOverrideRelPath(state?.headerLogoOverrideRelPath);
+  if (overrideRel) {
+    chain.push(projectAssetUrl(overrideRel));
   }
   const pushUnique = (u) => {
     if (u && !chain.includes(u)) chain.push(u);

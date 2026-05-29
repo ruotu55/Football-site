@@ -26,7 +26,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260527d";
+import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260529c";
 import { initRenderModeIfRequested } from "./render-mode.js";
 import {
     showRenderProgressModal,
@@ -35,7 +35,7 @@ import {
     setRenderProgressDone,
     setRenderProgressError,
 } from "./render-progress-ui.js";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260529e";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";

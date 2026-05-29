@@ -15,6 +15,108 @@ import {
     hasSavedLayoutForEntry,
     buildImportLevelDataFromSavedLayout,
 } from "./saved-team-layouts.js";
+import { getOrAssignRevealPhrase } from "./audio.js";
+
+const HAS_BUNDLED_VARIANTS = false;
+const pickRandomBundledVariants = () => ({});
+
+function freezeVoicePicksForCurrentSession() {
+    if (Array.isArray(appState.levelsData)) {
+        for (const lang of ["english", "spanish"]) {
+            appState.levelsData.forEach((lvl, idx) => {
+                if (!lvl || typeof lvl !== "object") return;
+                try { getOrAssignRevealPhrase(lvl, idx - 1, lang); } catch { /* non-fatal */ }
+            });
+        }
+    }
+    if (HAS_BUNDLED_VARIANTS) {
+        const current = appState.bundledVoiceVariants;
+        const empty = !current || typeof current !== "object" || Object.keys(current).length === 0;
+        if (empty) appState.bundledVoiceVariants = pickRandomBundledVariants();
+    }
+}
+
+function snapshotLevelVoiceFreeze(level) {
+    if (!level || typeof level !== "object") return null;
+    const out = {};
+    for (const [key, val] of Object.entries(level)) {
+        if (!key.startsWith("__revealPhrase")) continue;
+        const exportKey = key.slice(2);
+        if (typeof val === "string" && val) {
+            out[exportKey] = val;
+        } else if (val && typeof val === "object") {
+            const sub = {};
+            for (const [k, v] of Object.entries(val)) {
+                if (typeof v === "string" && v) sub[k] = v;
+            }
+            if (Object.keys(sub).length > 0) out[exportKey] = sub;
+        }
+    }
+    if (Object.keys(out).length === 0) return null;
+    return out;
+}
+
+function restoreLevelVoiceFreeze(level, frozen) {
+    if (!level || !frozen || typeof frozen !== "object") return;
+    for (const [key, val] of Object.entries(frozen)) {
+        const cacheKey = "__" + key;
+        if (typeof val === "string" && val) {
+            level[cacheKey] = val;
+        } else if (val && typeof val === "object") {
+            const sub = {};
+            for (const [k, v] of Object.entries(val)) {
+                if (typeof v === "string" && v) sub[k] = v;
+            }
+            if (Object.keys(sub).length > 0) level[cacheKey] = sub;
+        }
+    }
+    if (frozen.revealPhraseByLanguage && !level.__revealPhrase) {
+        const byLang = level.__revealPhraseByLanguage;
+        if (byLang) {
+            if (typeof byLang.english === "string") level.__revealPhrase = byLang.english;
+            else if (typeof byLang.spanish === "string") level.__revealPhrase = byLang.spanish;
+        }
+    }
+}
+
+const VOICE_FREEZE_MIGRATION_FLAG = "footballQuizVoiceFreezeMigrated_national_team_shorts_v2";
+
+function migrateVoiceFreeze() {
+    if (localStorage.getItem(VOICE_FREEZE_MIGRATION_FLAG) === "1") return;
+    let scripts;
+    try { scripts = JSON.parse(localStorage.getItem(KEY_SCRIPTS) || "[]"); }
+    catch { scripts = []; }
+    if (!Array.isArray(scripts) || scripts.length === 0) {
+        localStorage.setItem(VOICE_FREEZE_MIGRATION_FLAG, "1");
+        return;
+    }
+    let changed = false;
+    for (const script of scripts) {
+        if (!script || typeof script !== "object" || !Array.isArray(script.levels)) continue;
+        if (HAS_BUNDLED_VARIANTS && !script.voiceFreeze) {
+            script.voiceFreeze = { bundledVariants: { ...pickRandomBundledVariants() } };
+            changed = true;
+        }
+        for (let i = 0; i < script.levels.length; i++) {
+            const lvl = script.levels[i];
+            if (!lvl || typeof lvl !== "object" || lvl.voiceFreeze) continue;
+            const synthLevel = {};
+            for (const lang of ["english", "spanish"]) {
+                try { getOrAssignRevealPhrase(synthLevel, i - 1, lang); } catch {}
+            }
+            const frozen = snapshotLevelVoiceFreeze(synthLevel);
+            if (frozen) {
+                lvl.voiceFreeze = frozen;
+                changed = true;
+            }
+        }
+    }
+    if (changed) {
+        try { localStorage.setItem(KEY_SCRIPTS, JSON.stringify(scripts)); }
+        catch { /* best-effort */ }
+    }
+    localStorage.setItem(VOICE_FREEZE_MIGRATION_FLAG, "1");
+}
 
 /* Each runner gets its own storage bucket. Previously this runner accidentally
    reused runner #1's "lineups_shorts" bucket, so saves bled between the two. */
@@ -90,6 +192,7 @@ function migrateLegacyLineups() {
 }
 
 migrateLegacyLineups();
+migrateVoiceFreeze();
 
 let savedScripts = JSON.parse(localStorage.getItem(KEY_SCRIPTS) || "[]");
 let savedFolders = JSON.parse(localStorage.getItem(KEY_FOLDERS) || "[]");
@@ -110,6 +213,7 @@ export function setActiveScriptName(name) {
  *  saveScriptConfirm.onclick captures below — keep in sync if that handler
  *  changes. */
 export function captureCurrentScriptObject(name) {
+    freezeVoicePicksForCurrentSession();
     const { els } = appState;
     const levelsToSave = appState.levelsData.map((lvl) => {
         ensureSlotFrontFaceScales(lvl);
@@ -150,6 +254,7 @@ export function captureCurrentScriptObject(name) {
                 ? [...lvl.slotTeamLogoScales]
                 : Array(11).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
             slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
+            voiceFreeze: snapshotLevelVoiceFreeze(lvl) || undefined,
         };
     });
 
@@ -172,6 +277,7 @@ export function captureCurrentScriptObject(name) {
         },
         transitions: captureTransitionSettings(),
         levels: levelsToSave,
+        voiceFreeze: HAS_BUNDLED_VARIANTS && appState.bundledVoiceVariants ? { bundledVariants: { ...appState.bundledVoiceVariants } } : undefined,
     };
     return newScript;
 }
@@ -850,69 +956,8 @@ export function initSavedScripts(callbacks) {
     els.saveScriptConfirm.onclick = () => {
         const name = els.saveScriptName.value.trim();
         if (!name) return;
-        
-        const levelsToSave = appState.levelsData.map((lvl) => {
-            ensureSlotFrontFaceScales(lvl);
-            return {
-            isLogo: lvl.isLogo,
-            isIntro: lvl.isIntro,
-            isBonus: lvl.isBonus,
-            isOutro: lvl.isOutro,
-            gameMode: lvl.gameMode || "lineup", 
-            squadType: lvl.squadType,
-            selectedEntry: lvl.selectedEntry,
-            currentSquad: lvl.currentSquad,
-            formationId: lvl.formationId,
-            lastFormationId: lvl.lastFormationId,
-            displayMode: lvl.displayMode,
-            searchText: lvl.searchText,
-            customXi: lvl.customXi,
-            customNames: lvl.customNames,
-            videoMode: lvl.videoMode,
-            landingPageType: lvl.landingPageType,
-            careerClubsCount: lvl.careerClubsCount,
-            careerSilhouetteIndex: lvl.careerSilhouetteIndex,
-            silhouetteYOffset: lvl.silhouetteYOffset,
-            silhouetteScaleX: lvl.silhouetteScaleX,
-            silhouetteScaleY: lvl.silhouetteScaleY,
-            headerLogoScale: lvl.headerLogoScale ?? 1,
-            headerLogoNudgeX: lvl.headerLogoNudgeX ?? 0,
-            headerLogoOverrideRelPath: lvl.headerLogoOverrideRelPath ?? null,
-            slotClubCrestOverrideRelPathBySlot:
-              lvl.slotClubCrestOverrideRelPathBySlot &&
-              typeof lvl.slotClubCrestOverrideRelPathBySlot === "object"
-                ? { ...lvl.slotClubCrestOverrideRelPathBySlot }
-                : {},
-            slotFlagScales: Array.isArray(lvl.slotFlagScales)
-                ? [...lvl.slotFlagScales]
-                : Array(11).fill(DEFAULT_SLOT_FLAG_SCALE),
-            slotTeamLogoScales: Array.isArray(lvl.slotTeamLogoScales)
-                ? [...lvl.slotTeamLogoScales]
-                : Array(11).fill(DEFAULT_SLOT_TEAM_LOGO_SCALE),
-            slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries())
-            };
-        });
 
-        const newScript = {
-            name,
-            folder: null, 
-            landing: {
-                gameMode: "lineup",
-                quizType: els.inQuizType.value,
-                endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
-                easy: els.inEasy.value,
-                medium: els.inMedium.value,
-                hard: els.inHard.value,
-                impossible: els.inImpossible.value
-            },
-            lineup: {
-                videoMode: els.videoModeToggle.checked,
-                totalLevels: els.quizLevelsInput.value,
-                shortsMode: FIXED_SHORTS_MODE
-            },
-            transitions: captureTransitionSettings(),
-            levels: levelsToSave
-        };
+        const newScript = captureCurrentScriptObject(name);
 
         savedScripts.push(newScript);
         persistSaved();
@@ -1411,6 +1456,7 @@ async function loadScript(script) {
             slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
         };
         ensureSlotFrontFaceScales(merged);
+        restoreLevelVoiceFreeze(merged, lvl.voiceFreeze);
         return merged;
     });
 
@@ -1435,6 +1481,24 @@ async function loadScript(script) {
     document.dispatchEvent(new CustomEvent("recording-queue:script-applied", {
         detail: { name: activeScriptName },
     }));
+    // Back-fill voiceFreeze on the loaded script if any level lacks it.
+    // freezeVoicePicksForCurrentSession is idempotent — populated levels skip.
+    freezeVoicePicksForCurrentSession();
+    let voiceFreezeBackfilled = false;
+    for (let i = 0; i < script.levels.length; i++) {
+        const lvl = script.levels[i];
+        if (!lvl || typeof lvl !== "object" || lvl.voiceFreeze) continue;
+        const frozen = snapshotLevelVoiceFreeze(appState.levelsData[i]);
+        if (frozen) {
+            lvl.voiceFreeze = frozen;
+            voiceFreezeBackfilled = true;
+        }
+    }
+    if (HAS_BUNDLED_VARIANTS && !script.voiceFreeze && appState.bundledVoiceVariants) {
+        script.voiceFreeze = { bundledVariants: { ...appState.bundledVoiceVariants } };
+        voiceFreezeBackfilled = true;
+    }
+    if (voiceFreezeBackfilled) persistSaved();
     appState.currentLevelIndex = 0;
     switchLevel(1);
 }

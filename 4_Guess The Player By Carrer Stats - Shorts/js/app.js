@@ -26,8 +26,8 @@ import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-
 import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
-import { getActiveScriptName } from "./saved-scripts.js?v=20260527d";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260527e";
+import { getActiveScriptName } from "./saved-scripts.js?v=20260529b";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260529b";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";

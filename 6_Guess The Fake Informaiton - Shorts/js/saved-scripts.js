@@ -1,4 +1,4 @@
-﻿// js/saved-scripts.js (Career Path runner — namespaced storage + one-time legacy import)
+// js/saved-scripts.js (Career Path runner — namespaced storage + one-time legacy import)
 import {
     appState,
     DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
@@ -10,6 +10,126 @@ import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
+import { getOrAssignRevealPhrase } from "./audio.js";
+
+const HAS_BUNDLED_VARIANTS = false;
+const pickRandomBundledVariants = () => ({});
+
+/** Force every level to have a reveal phrase picked for both EN + ES, and
+ *  ensure the bundled milestone variants are populated. Idempotent — relies on
+ *  getOrAssignRevealPhrase and pickRandomBundledVariants being themselves
+ *  idempotent (they short-circuit when a pick already exists). */
+function freezeVoicePicksForCurrentSession() {
+    if (Array.isArray(appState.levelsData)) {
+        for (const lang of ["english", "spanish"]) {
+            appState.levelsData.forEach((lvl, idx) => {
+                if (!lvl || typeof lvl !== "object") return;
+                try { getOrAssignRevealPhrase(lvl, idx - 1, lang); } catch { /* non-fatal */ }
+            });
+        }
+    }
+    if (HAS_BUNDLED_VARIANTS) {
+        const current = appState.bundledVoiceVariants;
+        const empty = !current || typeof current !== "object" || Object.keys(current).length === 0;
+        if (empty) appState.bundledVoiceVariants = pickRandomBundledVariants();
+    }
+}
+
+/** Snapshot the per-level reveal-phrase cache into a JSON-serializable shape
+ *  suitable for storing inside the saved script. Returns null when no cache. */
+function snapshotLevelVoiceFreeze(level) {
+    if (!level || typeof level !== "object") return null;
+    const out = {};
+    for (const [key, val] of Object.entries(level)) {
+        if (!key.startsWith("__revealPhrase")) continue;
+        const exportKey = key.slice(2);
+        if (typeof val === "string" && val) {
+            out[exportKey] = val;
+        } else if (val && typeof val === "object") {
+            const sub = {};
+            for (const [k, v] of Object.entries(val)) {
+                if (typeof v === "string" && v) sub[k] = v;
+            }
+            if (Object.keys(sub).length > 0) out[exportKey] = sub;
+        }
+    }
+    if (Object.keys(out).length === 0) return null;
+    return out;
+}
+
+/** Hydrate level.__revealPhraseByLanguage from a saved voiceFreeze blob.
+ *  getOrAssignRevealPhrase already short-circuits when a cached pick exists,
+ *  so this is the only restore step needed for reveal phrases. */
+function restoreLevelVoiceFreeze(level, frozen) {
+    if (!level || !frozen || typeof frozen !== "object") return;
+    for (const [key, val] of Object.entries(frozen)) {
+        const cacheKey = "__" + key;
+        if (typeof val === "string" && val) {
+            level[cacheKey] = val;
+        } else if (val && typeof val === "object") {
+            const sub = {};
+            for (const [k, v] of Object.entries(val)) {
+                if (typeof v === "string" && v) sub[k] = v;
+            }
+            if (Object.keys(sub).length > 0) level[cacheKey] = sub;
+        }
+    }
+    if (frozen.revealPhraseByLanguage && !level.__revealPhrase) {
+        const byLang = level.__revealPhraseByLanguage;
+        if (byLang) {
+            if (typeof byLang.english === "string") level.__revealPhrase = byLang.english;
+            else if (typeof byLang.spanish === "string") level.__revealPhrase = byLang.spanish;
+        }
+    }
+}
+
+const VOICE_FREEZE_MIGRATION_FLAG = "footballQuizVoiceFreezeMigrated_fake_information_shorts_v2";
+
+/** Walk every persisted script and bake in voiceFreeze for any that lack it.
+ *  Runs once per browser via a localStorage flag. Safe to call at module-init
+ *  time — audio.js has already finished its top-level by this point because
+ *  saved-scripts.js imports it above. */
+function migrateVoiceFreeze() {
+    if (localStorage.getItem(VOICE_FREEZE_MIGRATION_FLAG) === "1") return;
+    let scripts;
+    try {
+        scripts = JSON.parse(localStorage.getItem(KEY_SCRIPTS) || "[]");
+    } catch { scripts = []; }
+    if (!Array.isArray(scripts) || scripts.length === 0) {
+        localStorage.setItem(VOICE_FREEZE_MIGRATION_FLAG, "1");
+        return;
+    }
+
+    let changed = false;
+    for (const script of scripts) {
+        if (!script || typeof script !== "object" || !Array.isArray(script.levels)) continue;
+
+        if (HAS_BUNDLED_VARIANTS && !script.voiceFreeze) {
+            script.voiceFreeze = { bundledVariants: { ...pickRandomBundledVariants() } };
+            changed = true;
+        }
+
+        for (let i = 0; i < script.levels.length; i++) {
+            const lvl = script.levels[i];
+            if (!lvl || typeof lvl !== "object" || lvl.voiceFreeze) continue;
+            const synthLevel = {};
+            for (const lang of ["english", "spanish"]) {
+                try { getOrAssignRevealPhrase(synthLevel, i - 1, lang); } catch {}
+            }
+            const frozen = snapshotLevelVoiceFreeze(synthLevel);
+            if (frozen) {
+                lvl.voiceFreeze = frozen;
+                changed = true;
+            }
+        }
+    }
+
+    if (changed) {
+        try { localStorage.setItem(KEY_SCRIPTS, JSON.stringify(scripts)); }
+        catch { /* quota or serialization failure — best-effort */ }
+    }
+    localStorage.setItem(VOICE_FREEZE_MIGRATION_FLAG, "1");
+}
 
 const INCLUDE_INTRO_LEVEL = false;
 
@@ -107,6 +227,7 @@ function migrateLegacyCareer() {
 }
 
 migrateLegacyCareer();
+migrateVoiceFreeze();
 
 let savedScripts = JSON.parse(localStorage.getItem(KEY_SCRIPTS) || "[]");
 let savedFolders = JSON.parse(localStorage.getItem(KEY_FOLDERS) || "[]");
@@ -130,6 +251,7 @@ export function setActiveScriptName(name) {
  *  commitSavedScript() captures below — keep in sync if that handler changes. */
 export function captureCurrentScriptObject(name) {
     const { els } = appState;
+    freezeVoicePicksForCurrentSession();
     const levelsToSave = appState.levelsData.map((lvl) => ({
         isLogo: lvl.isLogo,
         isIntro: lvl.isIntro,
@@ -180,6 +302,7 @@ export function captureCurrentScriptObject(name) {
             : [],
         slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
         careerTeamQuizMode: !!lvl.careerTeamQuizMode,
+        voiceFreeze: snapshotLevelVoiceFreeze(lvl) || undefined,
     }));
 
     return {
@@ -201,6 +324,7 @@ export function captureCurrentScriptObject(name) {
         },
         transitions: captureTransitionSettings(),
         levels: levelsToSave,
+        voiceFreeze: HAS_BUNDLED_VARIANTS && appState.bundledVoiceVariants ? { bundledVariants: { ...appState.bundledVoiceVariants } } : undefined,
     };
 }
 
@@ -405,7 +529,7 @@ function normalizeForImport(str) {
         return foldTurkishLatinForImport(
             str.trim().toLowerCase()
                 .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
+                .replace(/[̀-ͯ]/g, "")
                 .replace(/ø/g, "o").replace(/å/g, "a").replace(/æ/g, "ae")
                 .replace(/ð/g, "d").replace(/þ/g, "th").replace(/ß/g, "ss").replace(/ł/g, "l").replace(/Ł/g, "l").replace(/đ/g, "d").replace(/Đ/g, "d").replace(/\//g, " ").replace(/-/g, " ")
                 .replace(/[''`´']/g, "")
@@ -1038,6 +1162,7 @@ export function initSavedScripts(callbacks) {
     };
 
     function buildLevelsSnapshot() {
+        freezeVoicePicksForCurrentSession();
         return appState.levelsData.map((lvl) => ({
             isLogo: lvl.isLogo,
             isIntro: lvl.isIntro,
@@ -1088,31 +1213,12 @@ export function initSavedScripts(callbacks) {
                 : [],
             slotPhotoIndexEntries: Array.from(lvl.slotPhotoIndexBySlot.entries()),
             careerTeamQuizMode: !!lvl.careerTeamQuizMode,
+            voiceFreeze: snapshotLevelVoiceFreeze(lvl) || undefined,
         }));
     }
 
     function commitSavedScript(name) {
-        const levelsToSave = buildLevelsSnapshot();
-        const newScript = {
-            name,
-            folder: null,
-            landing: {
-                gameMode: "career",
-                quizType: els.inQuizType.value,
-                endingType: els.inEndingType ? els.inEndingType.value : "think-you-know",
-                easy: els.inEasy?.value ?? "10",
-                medium: els.inMedium?.value ?? "5",
-                hard: els.inHard?.value ?? "3",
-                impossible: els.inImpossible?.value ?? "1",
-            },
-            lineup: {
-                videoMode: els.videoModeToggle.checked,
-                totalLevels: els.quizLevelsInput.value,
-                shortsMode: FIXED_SHORTS_MODE,
-            },
-            transitions: captureTransitionSettings(),
-            levels: levelsToSave,
-        };
+        const newScript = captureCurrentScriptObject(name);
         savedScripts.push(newScript);
         persistSaved();
         activeScriptName = name;
@@ -1356,13 +1462,13 @@ export function initSavedScripts(callbacks) {
 
                     const players = await loadPlayersDb();
                     if (!players || players.length === 0) {
-                        errors.push(`\u274C ${rawName}: player database not loaded yet.`);
+                        errors.push(`❌ ${rawName}: player database not loaded yet.`);
                         searchableNames.add(rawName);
                         continue;
                     }
                     const playerCands = findAllPlayerCandidates(rawName, players);
                     if (playerCands.length === 0) {
-                        errors.push(`\u274C ${rawName}: not found as team or player.`);
+                        errors.push(`❌ ${rawName}: not found as team or player.`);
                         searchableNames.add(rawName);
                     } else if (playerCands.length === 1) {
                         resolved[i] = { kind: "player", data: playerCands[0] };
@@ -1395,7 +1501,7 @@ export function initSavedScripts(callbacks) {
                     for (let ai = 0; ai < ambiguous.length; ai++) {
                         const picked = result.picks[ai];
                         if (!picked) {
-                            showErr(`\u274C ${ambiguous[ai].rawName}: no selection made.`);
+                            showErr(`❌ ${ambiguous[ai].rawName}: no selection made.`);
                             return;
                         }
                         resolved[ambiguous[ai].listIndex] = {
@@ -1410,7 +1516,7 @@ export function initSavedScripts(callbacks) {
                     const picked = resolved[i];
                     const rawName = names[i];
                     if (!picked?.data) {
-                        errors.push(`\u274C ${rawName}: no match resolved.`);
+                        errors.push(`❌ ${rawName}: no match resolved.`);
                         continue;
                     }
                     if (picked.kind === "team") {
@@ -1419,7 +1525,7 @@ export function initSavedScripts(callbacks) {
                         try {
                             squad = await loadSquadJson(entry);
                         } catch {
-                            errors.push(`\u274C ${rawName}: failed to load squad data.`);
+                            errors.push(`❌ ${rawName}: failed to load squad data.`);
                             continue;
                         }
                         const teamPlayer = createSyntheticTeamCareerPlayer(entry);
@@ -1442,14 +1548,14 @@ export function initSavedScripts(callbacks) {
                     const player = picked.data;
                     const clubItem = player._clubItem;
                     if (!clubItem) {
-                        errors.push(`\u274C ${rawName}: missing club reference.`);
+                        errors.push(`❌ ${rawName}: missing club reference.`);
                         continue;
                     }
                     let squad;
                     try {
                         squad = await loadSquadJson(clubItem);
                     } catch {
-                        errors.push(`\u274C ${rawName}: failed to load squad data.`);
+                        errors.push(`❌ ${rawName}: failed to load squad data.`);
                         continue;
                     }
                     const history = cleanCareerHistory(player.transfer_history || []);
@@ -1557,18 +1663,18 @@ export function renderSavedScripts() {
         const folderDiv = document.createElement("div");
         folderDiv.className = "saved-folder";
         folderDiv.dataset.folder = folderName;
-        
+
         if (folderStates[folderName]) {
             folderDiv.classList.add("collapsed");
         }
 
         const header = document.createElement("div");
         header.className = "saved-folder-header";
-        
+
         const titleSpan = document.createElement("span");
         titleSpan.className = "folder-title";
         titleSpan.innerHTML = `<span class="folder-toggle-icon">▼</span> 📁 ${folderName}`;
-        
+
         header.onclick = (e) => {
             if (e.target.tagName.toLowerCase() === 'button') return;
             folderDiv.classList.toggle("collapsed");
@@ -1592,7 +1698,7 @@ export function renderSavedScripts() {
                 folderDiv.classList.remove("collapsed");
                 folderStates[folderName] = false;
                 persistSaved();
-                
+
                 renderSavedScripts();
             }
         };
@@ -1608,13 +1714,13 @@ export function renderSavedScripts() {
             if(confirm(`Delete folder "${folderName}"? Scripts inside will be moved to the main list.`)) {
                 savedFolders = savedFolders.filter(f => f !== folderName);
                 savedScripts.forEach(s => { if(s.folder === folderName) s.folder = null; });
-                
+
                 delete folderStates[folderName];
                 persistSaved();
                 renderSavedScripts();
             }
         };
-        
+
         header.appendChild(titleSpan);
         header.appendChild(btnDelFolder);
 
@@ -1645,7 +1751,7 @@ export function renderSavedScripts() {
         row.style.background = "rgba(0,0,0,0.3)";
         row.style.padding = "0.5rem 0.8rem";
         row.style.borderRadius = "4px";
-        
+
         if (script.name === activeScriptName) {
             row.style.borderLeft = "4px solid var(--accent)";
             row.style.background = "rgba(255, 202, 40, 0.15)";
@@ -1698,7 +1804,7 @@ export function renderSavedScripts() {
             scriptToDeleteIndex = index;
             els.deleteScriptModal.hidden = false;
         };
-        
+
         actions.appendChild(btnDel);
         row.append(btnLoad, actions);
 
@@ -1729,9 +1835,9 @@ async function loadScript(script) {
     const quizType = (script.landing && script.landing.quizType) ? script.landing.quizType : "player-by-fake-info";
 
     if(uiCallbacks.populateSubTypes) uiCallbacks.populateSubTypes();
-    
+
     els.inQuizType.value = quizType;
-    if(uiCallbacks.updateSetupUI) uiCallbacks.updateSetupUI(); 
+    if(uiCallbacks.updateSetupUI) uiCallbacks.updateSetupUI();
 
     if (script.landing) {
         if (els.inEndingType) {
@@ -1752,7 +1858,7 @@ async function loadScript(script) {
             els.shortsModeToggle.disabled = true;
         }
     }
-    
+
     document.body.classList.toggle("shorts-mode", FIXED_SHORTS_MODE);
     if (els.shortsModeBtn && els.shortsModeToggle) {
         els.shortsModeBtn.setAttribute("aria-pressed", FIXED_SHORTS_MODE ? "true" : "false");
@@ -1764,59 +1870,63 @@ async function loadScript(script) {
 
     const migratedLevels = migrateShortsLevelsRemoveLegacyLanding(script.levels);
     appState.totalLevelsCount = migratedLevels.length - 1;
-    appState.levelsData = migratedLevels.map(lvl => ({
-        ...lvl,
-        gameMode: lvl.gameMode || gameMode, 
-        silhouetteYOffset: lvl.silhouetteYOffset || 0,
-        silhouetteScaleX: lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
-        silhouetteScaleY: lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
-        silhouetteVideoYOffset: lvl.silhouetteVideoYOffset ?? lvl.silhouetteYOffset ?? 0,
-        silhouetteVideoScaleX: lvl.silhouetteVideoScaleX ?? lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
-        silhouetteVideoScaleY: lvl.silhouetteVideoScaleY ?? lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
-        silhouetteNormalYOffset: lvl.silhouetteNormalYOffset ?? lvl.silhouetteYOffset ?? 0,
-        silhouetteNormalScaleX: lvl.silhouetteNormalScaleX ?? lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
-        silhouetteNormalScaleY: lvl.silhouetteNormalScaleY ?? lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
-        silhouetteShortsVideoYOffset:
-          lvl.silhouetteShortsVideoYOffset ??
-          lvl.silhouetteShortsNormalYOffset ??
-          lvl.silhouetteVideoYOffset ??
-          lvl.silhouetteYOffset ??
-          0,
-        silhouetteShortsVideoScaleX:
-          lvl.silhouetteShortsVideoScaleX ??
-          lvl.silhouetteShortsNormalScaleX ??
-          lvl.silhouetteVideoScaleX ??
-          lvl.silhouetteScaleX ??
-          DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
-        silhouetteShortsVideoScaleY:
-          lvl.silhouetteShortsVideoScaleY ??
-          lvl.silhouetteShortsNormalScaleY ??
-          lvl.silhouetteVideoScaleY ??
-          lvl.silhouetteScaleY ??
-          DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
-        silhouetteShortsNormalYOffset:
-          lvl.silhouetteShortsNormalYOffset ?? lvl.silhouetteNormalYOffset ?? lvl.silhouetteYOffset ?? 0,
-        silhouetteShortsNormalScaleX:
-          lvl.silhouetteShortsNormalScaleX ?? lvl.silhouetteNormalScaleX ?? lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
-        silhouetteShortsNormalScaleY:
-          lvl.silhouetteShortsNormalScaleY ?? lvl.silhouetteNormalScaleY ?? lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
-        careerSlotBadgeScales: Array.isArray(lvl.careerSlotBadgeScales)
-            ? [...lvl.careerSlotBadgeScales]
-            : undefined,
-        careerSlotBadgeScalesRegular: Array.isArray(lvl.careerSlotBadgeScalesRegular)
-            ? [...lvl.careerSlotBadgeScalesRegular]
-            : (Array.isArray(lvl.careerSlotBadgeScales) ? [...lvl.careerSlotBadgeScales] : undefined),
-        careerSlotBadgeScalesShorts: Array.isArray(lvl.careerSlotBadgeScalesShorts)
-            ? [...lvl.careerSlotBadgeScalesShorts]
-            : (Array.isArray(lvl.careerSlotBadgeScales) ? [...lvl.careerSlotBadgeScales] : undefined),
-        careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
-            ? [...lvl.careerSlotYearNudges]
-            : undefined,
-        slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
-        careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
-        careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
-        careerTeamQuizMode: !!lvl.careerTeamQuizMode,
-    }));
+    appState.levelsData = migratedLevels.map(lvl => {
+        const merged = {
+            ...lvl,
+            gameMode: lvl.gameMode || gameMode,
+            silhouetteYOffset: lvl.silhouetteYOffset || 0,
+            silhouetteScaleX: lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
+            silhouetteScaleY: lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+            silhouetteVideoYOffset: lvl.silhouetteVideoYOffset ?? lvl.silhouetteYOffset ?? 0,
+            silhouetteVideoScaleX: lvl.silhouetteVideoScaleX ?? lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
+            silhouetteVideoScaleY: lvl.silhouetteVideoScaleY ?? lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+            silhouetteNormalYOffset: lvl.silhouetteNormalYOffset ?? lvl.silhouetteYOffset ?? 0,
+            silhouetteNormalScaleX: lvl.silhouetteNormalScaleX ?? lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
+            silhouetteNormalScaleY: lvl.silhouetteNormalScaleY ?? lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+            silhouetteShortsVideoYOffset:
+              lvl.silhouetteShortsVideoYOffset ??
+              lvl.silhouetteShortsNormalYOffset ??
+              lvl.silhouetteVideoYOffset ??
+              lvl.silhouetteYOffset ??
+              0,
+            silhouetteShortsVideoScaleX:
+              lvl.silhouetteShortsVideoScaleX ??
+              lvl.silhouetteShortsNormalScaleX ??
+              lvl.silhouetteVideoScaleX ??
+              lvl.silhouetteScaleX ??
+              DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
+            silhouetteShortsVideoScaleY:
+              lvl.silhouetteShortsVideoScaleY ??
+              lvl.silhouetteShortsNormalScaleY ??
+              lvl.silhouetteVideoScaleY ??
+              lvl.silhouetteScaleY ??
+              DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+            silhouetteShortsNormalYOffset:
+              lvl.silhouetteShortsNormalYOffset ?? lvl.silhouetteNormalYOffset ?? lvl.silhouetteYOffset ?? 0,
+            silhouetteShortsNormalScaleX:
+              lvl.silhouetteShortsNormalScaleX ?? lvl.silhouetteNormalScaleX ?? lvl.silhouetteScaleX ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_X,
+            silhouetteShortsNormalScaleY:
+              lvl.silhouetteShortsNormalScaleY ?? lvl.silhouetteNormalScaleY ?? lvl.silhouetteScaleY ?? DEFAULT_PLAYER_SILHOUETTE_SCALE_Y,
+            careerSlotBadgeScales: Array.isArray(lvl.careerSlotBadgeScales)
+                ? [...lvl.careerSlotBadgeScales]
+                : undefined,
+            careerSlotBadgeScalesRegular: Array.isArray(lvl.careerSlotBadgeScalesRegular)
+                ? [...lvl.careerSlotBadgeScalesRegular]
+                : (Array.isArray(lvl.careerSlotBadgeScales) ? [...lvl.careerSlotBadgeScales] : undefined),
+            careerSlotBadgeScalesShorts: Array.isArray(lvl.careerSlotBadgeScalesShorts)
+                ? [...lvl.careerSlotBadgeScalesShorts]
+                : (Array.isArray(lvl.careerSlotBadgeScales) ? [...lvl.careerSlotBadgeScales] : undefined),
+            careerSlotYearNudges: Array.isArray(lvl.careerSlotYearNudges)
+                ? [...lvl.careerSlotYearNudges]
+                : undefined,
+            slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
+            careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
+            careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
+            careerTeamQuizMode: !!lvl.careerTeamQuizMode,
+        };
+        restoreLevelVoiceFreeze(merged, lvl.voiceFreeze);
+        return merged;
+    });
 
     if (els.quizLevelsInput) {
         const fromLevels = migratedLevels.filter((l) => l && !l.isLogo && !l.isIntro && !l.isOutro).length;
@@ -1839,6 +1949,24 @@ async function loadScript(script) {
     document.dispatchEvent(new CustomEvent("recording-queue:script-applied", {
         detail: { name: activeScriptName },
     }));
+    // Back-fill voiceFreeze on the loaded script if any level lacks it.
+    // freezeVoicePicksForCurrentSession is idempotent — populated levels skip.
+    freezeVoicePicksForCurrentSession();
+    let voiceFreezeBackfilled = false;
+    for (let i = 0; i < script.levels.length; i++) {
+        const lvl = script.levels[i];
+        if (!lvl || typeof lvl !== "object" || lvl.voiceFreeze) continue;
+        const frozen = snapshotLevelVoiceFreeze(appState.levelsData[i]);
+        if (frozen) {
+            lvl.voiceFreeze = frozen;
+            voiceFreezeBackfilled = true;
+        }
+    }
+    if (HAS_BUNDLED_VARIANTS && !script.voiceFreeze && appState.bundledVoiceVariants) {
+        script.voiceFreeze = { bundledVariants: { ...appState.bundledVoiceVariants } };
+        voiceFreezeBackfilled = true;
+    }
+    if (voiceFreezeBackfilled) persistSaved();
     appState.currentLevelIndex = 0;
     switchLevel(1);
 }

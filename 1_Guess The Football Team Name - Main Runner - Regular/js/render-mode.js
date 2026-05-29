@@ -9,7 +9,7 @@
 import { appState } from "./state.js";
 import { startVideoFlow } from "./video.js?v=20260416-ball";
 import { setCurrentLanguage } from "./voice-tab.js";
-import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260527d";
+import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260529c";
 import { switchLevel } from "./levels.js";
 import { renderSeedDurations, renderGetDurations } from "./audio.js";
 

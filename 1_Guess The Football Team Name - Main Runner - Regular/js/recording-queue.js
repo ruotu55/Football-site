@@ -22,7 +22,7 @@ import {
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
-} from "./saved-scripts.js?v=20260527d";
+} from "./saved-scripts.js?v=20260529c";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 
@@ -200,18 +200,36 @@ function blockTeamsImportText(block) {
 async function resolveScriptForBlock(block) {
     const importText = blockTeamsImportText(block);
     const blockName = String(block?.name || "").trim();
+    let script;
     if (importText) {
         const result = await buildScriptFromImportText(importText, blockName || "Recording block");
         if (!result.ok) {
             const msg = Array.isArray(result.errors) ? result.errors.join("\n") : "Import failed.";
             throw new Error(msg);
         }
-        return result.script;
+        script = result.script;
+    } else if (block?.script && typeof block.script === "object" && Array.isArray(block.script.levels)) {
+        script = block.script;
+    } else {
+        throw new Error("This block has no teams list. Open it and paste a teams list.");
     }
-    if (block?.script && typeof block.script === "object" && Array.isArray(block.script.levels)) {
-        return block.script;
+    // Inject any voiceFreeze data the block previously baked in. We stash it
+    // INSIDE block.script (which the Python server preserves as an opaque dict),
+    // because top-level block fields are whitelisted and would be stripped.
+    // The block.script may also be the load source if no teamsImportText —
+    // either way, copy voiceFreeze across.
+    const stashed = block?.script;
+    if (stashed && typeof stashed === "object") {
+        if (stashed.voiceFreeze) script.voiceFreeze = stashed.voiceFreeze;
+        if (Array.isArray(stashed.levels)) {
+            stashed.levels.forEach((stashedLvl, i) => {
+                if (stashedLvl && stashedLvl.voiceFreeze && script.levels[i]) {
+                    script.levels[i].voiceFreeze = stashedLvl.voiceFreeze;
+                }
+            });
+        }
     }
-    throw new Error("This block has no teams list. Open it and paste a teams list.");
+    return script;
 }
 
 function hydrateLegacyBlocks(rawBlocks) {
@@ -436,6 +454,42 @@ async function onBlockClick(item) {
         try {
             const script = await resolveScriptForBlock(existing);
             await applyScriptObject(script);
+            // Mirror the freshly-rolled voiceFreeze into block.script so the
+            // server (which whitelists top-level block fields but preserves
+            // block.script as an opaque dict) actually persists it. Next load
+            // resolveScriptForBlock will re-inject it into the rebuilt script.
+            const stash = (existing.script && typeof existing.script === "object") ? existing.script : {};
+            let stashChanged = false;
+            const newTopFreeze = script && script.voiceFreeze;
+            if (newTopFreeze && JSON.stringify(stash.voiceFreeze) !== JSON.stringify(newTopFreeze)) {
+                stash.voiceFreeze = newTopFreeze;
+                stashChanged = true;
+            }
+            if (Array.isArray(script?.levels)) {
+                if (!Array.isArray(stash.levels)) {
+                    stash.levels = [];
+                    stashChanged = true;
+                }
+                script.levels.forEach((lvl, i) => {
+                    const lvlFreeze = lvl && lvl.voiceFreeze;
+                    if (!lvlFreeze) return;
+                    if (!stash.levels[i] || typeof stash.levels[i] !== "object") {
+                        // Preserve any other fields if stash had a level object; otherwise create a thin one.
+                        stash.levels[i] = { voiceFreeze: lvlFreeze };
+                        stashChanged = true;
+                        return;
+                    }
+                    if (JSON.stringify(stash.levels[i].voiceFreeze) !== JSON.stringify(lvlFreeze)) {
+                        stash.levels[i].voiceFreeze = lvlFreeze;
+                        stashChanged = true;
+                    }
+                });
+            }
+            if (stashChanged) {
+                existing.script = stash;
+                blocks[item.key] = existing;
+                await postReplace(blocks);
+            }
         } catch (err) {
             console.error("[recording-queue] load block failed:", err);
             window.alert(err?.message || "Could not load this recording block.");

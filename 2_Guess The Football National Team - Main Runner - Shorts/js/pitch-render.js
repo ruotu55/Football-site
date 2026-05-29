@@ -433,6 +433,7 @@ import {
   getClubLogoOtherTeamsUrl,
   getClubLogoUrl,
   getHeaderLogoUrlChain,
+  normalizeLegacyTeamImageRelPath,
   playerPhotoPaths,
   slotPerspectiveScale,
 } from "./photo-helpers.js";
@@ -1227,7 +1228,10 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       const primaryLogoUrl = getClubLogoUrl(clubName);
       const otherTeamsLogoUrl = getClubLogoOtherTeamsUrl(player.club);
       const ovKey = String(slotIndex);
-      const overrideRel = state.slotClubCrestOverrideRelPathBySlot?.[ovKey];
+      const rawOverride = state.slotClubCrestOverrideRelPathBySlot?.[ovKey];
+      const overrideRel = rawOverride
+        ? normalizeLegacyTeamImageRelPath(String(rawOverride).split("?")[0].split("#")[0])
+        : "";
       const overrideUrl = overrideRel ? projectAssetUrlFresh(overrideRel) : null;
       const urlChain = [];
       const pushUrl = (u) => {

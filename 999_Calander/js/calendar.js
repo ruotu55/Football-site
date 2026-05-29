@@ -419,7 +419,8 @@
       shorts.sort((a, b) => (a.hour * 60 + a.min) - (b.hour * 60 + b.min));
 
       // Fixed 3-slot layout per day so cell heights stay uniform across the
-      // grid: morning short, long (only on Sun/Wed/Fri), evening short.
+      // grid: morning short, long (every day in launch month, Sun/Wed/Fri after),
+      // evening short.
       const uploadsWrap = document.createElement("div");
       uploadsWrap.className = "day-uploads";
       const slotsInOrder = [shorts[0] || null, longUpload, shorts[1] || null];

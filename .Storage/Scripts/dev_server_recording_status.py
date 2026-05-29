@@ -80,10 +80,15 @@ def _normalize_block(raw: object) -> dict[str, object] | None:
     # Pass-through opaque sub-objects written by the runner / calendar:
     #   video    = { english: {path,title,description,tags}, spanish: {...} }
     #   youtube  = { english: {videoId,uploadedAt,playlistId,...}, spanish: {...} }
-    # We don't validate their shape here — just preserve them across saves.
+    #   voiceFreeze        = top-level bundled-variant freeze (dict, opaque)
+    #   levelVoiceFreezes  = per-level reveal-phrase freeze (list of dict|None)
+    # We don't validate their shape here — just preserve them across saves so
+    # loading a block replays the same audio instead of re-rolling.
     video = raw.get("video") if isinstance(raw.get("video"), dict) else {}
     youtube = raw.get("youtube") if isinstance(raw.get("youtube"), dict) else {}
-    return {
+    voice_freeze = raw.get("voiceFreeze") if isinstance(raw.get("voiceFreeze"), dict) else None
+    level_voice_freezes = raw.get("levelVoiceFreezes") if isinstance(raw.get("levelVoiceFreezes"), list) else None
+    out = {
         "name": name,
         "teamsImportText": teams_import,
         "script": script,
@@ -92,6 +97,11 @@ def _normalize_block(raw: object) -> dict[str, object] | None:
         "youtube": youtube,
         "updatedAt": updated_at,
     }
+    if voice_freeze is not None:
+        out["voiceFreeze"] = voice_freeze
+    if level_voice_freezes is not None:
+        out["levelVoiceFreezes"] = level_voice_freezes
+    return out
 
 
 def _normalize_payload(raw: object) -> dict[str, object]:

@@ -21,7 +21,7 @@ import {
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
-} from "./saved-scripts.js?v=20260527d";
+} from "./saved-scripts.js?v=20260529b";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 
@@ -382,10 +382,19 @@ async function onBlockClick(item) {
         activeBlockKey = item.key;
         setActiveScriptName(existing.name);
         appState.activeBlockKey = item.key;
+        const _vfSig = (s) => JSON.stringify({
+            vf: (s && s.voiceFreeze) || null,
+            lvl: (s && Array.isArray(s.levels) ? s.levels : []).map((l) => (l && l.voiceFreeze) || null),
+        });
+        const _vfBefore = _vfSig(existing.script);
         try {
             await applyScriptObject(existing.script);
         } catch (err) {
             console.error("[recording-queue] applyScriptObject failed:", err);
+        }
+        const _vfAfter = _vfSig(existing.script);
+        if (_vfAfter !== _vfBefore) {
+            try { await postReplace(blocks); } catch (_) { /* offline — silent */ }
         }
         render();
     } else {
