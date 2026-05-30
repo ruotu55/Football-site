@@ -767,6 +767,40 @@ def _record_failure(job_id: str, path: str, error: str) -> None:
             _JOB["failed"].append({"path": str(path), "error": str(error)})
 
 
+def _per_team_timeout_s() -> float:
+    """Per-team wall-clock cap (seconds). The tmkt (aiohttp) calls have no built-in
+    timeout, so one stalled Transfermarkt connection would otherwise hang the whole
+    job at 0/N forever. Override with FC_UPDATE_DATA_TEAM_TIMEOUT; <=0 disables."""
+    try:
+        v = float(os.environ.get("FC_UPDATE_DATA_TEAM_TIMEOUT", "240") or "0")
+    except (TypeError, ValueError):
+        return 240.0
+    return v if v > 0 else 0.0
+
+
+async def _run_team_guarded(job_id: str, jp, coro, timeout_s: float) -> None:
+    """Await one team's refresh `coro` with a wall-clock cap, then record a failure
+    on timeout so the job advances (done++) instead of hanging forever.
+
+    Call this AFTER acquiring the concurrency semaphore so the clock times only the
+    team's actual work, not time spent queued behind other teams. The inner coro
+    records its own ok/failure on normal completion; asyncio.CancelledError is a
+    BaseException, so the coro's own `except Exception` never swallows the timeout
+    cancellation. A timeout_s <= 0 disables the cap (awaits the coro unguarded)."""
+    import asyncio
+    if not timeout_s or timeout_s <= 0:
+        await coro
+        return
+    try:
+        await asyncio.wait_for(coro, timeout=timeout_s)
+    except asyncio.TimeoutError:
+        _record_failure(
+            job_id,
+            str(jp),
+            f"timed out after {timeout_s:g}s - Transfermarkt stalled (skipped)",
+        )
+
+
 def _history_key(project_root: Path, json_path: Path) -> str:
     """Return the json_path relative to project_root using forward slashes.
 
@@ -1222,190 +1256,194 @@ async def _refresh_all_async(
 
                 async with sem:
                     _set_current(job_id, label)
-                    if cid is None:
-                        # Re-resolve the TM id by team name. Some JSONs have
-                        # transfermarktClubId=null because they were built from
-                        # a fallback when TM search originally failed.
-                        try:
-                            cid = await legacy.resolve_team_id(
-                                tmkt,
-                                [label],
-                                want_national=(kind == "nationality"),
-                            )
-                        except Exception as exc:  # noqa: BLE001
-                            cid = None
-                    if cid is None:
-                        _record_failure(
-                            job_id,
-                            str(jp),
-                            "no Transfermarkt match found by name "
-                            f"(team {label!r} has no transfermarktClubId in JSON)",
-                        )
-                        return
-                    try:
-                        if kind == "club":
-                            cdata = await legacy._get_club_safe(tmkt, cid)
-                            official = (cdata or {}).get("name") or label
-                            official = official.strip() or f"club-{cid}"
-                            season_meta_club, sid_club = await legacy.season_context_for_club(
-                                tmkt,
-                                cid,
-                                club_data=cdata,
-                                fallback_meta=season_meta,
-                            )
-                            smc = season_meta_club if isinstance(season_meta_club, dict) else {}
-                            comp_stats = (
-                                str(smc.get("competitionId")).strip().upper()
-                                if smc.get("competitionId")
-                                else None
-                            )
-                            lbl = (
-                                str(smc.get("label")).strip()
-                                if smc.get("label")
-                                else None
-                            )
-                            squads = await legacy.fetch_squad_payload(
-                                tmkt,
-                                cid,
-                                official_squad_name=official,
-                                nationality_map=nationality_map,
-                                club_name_cache=club_cache,
-                                nt_name_cache=nt_cache,
-                                player_cache=player_cache,
-                                stats_cache=stats_cache,
-                                transfer_cache=transfer_cache,
-                                club_career_cache=club_career_cache,
-                                national_career_cache=national_career_cache,
-                                season_id=sid_club,
-                                national_team_squad=False,
-                                season_competition_id=comp_stats,
-                                season_label_hint=lbl,
-                            )
-                            payload = legacy._serialize_squad(
-                                kind="club",
-                                label=official,
-                                rel_image=rel_img,
-                                tm_id=cid,
-                                season_meta=season_meta_club,
-                                squads=squads,
-                            )
-                        elif kind == "nationality":
-                            cdata = await legacy._get_club_safe(tmkt, cid)
-                            base = (cdata or {}).get("name") or label
+
+                    async def _do_team_work() -> None:
+                        nonlocal cid
+                        if cid is None:
+                            # Re-resolve the TM id by team name. Some JSONs have
+                            # transfermarktClubId=null because they were built from
+                            # a fallback when TM search originally failed.
                             try:
-                                official = legacy._strip_youth_nt_display(base.strip())
-                            except AttributeError:
-                                official = base.strip()
-                            official = official.strip() or f"nt-{cid}"
-                            squads = await legacy.fetch_squad_payload(
-                                tmkt,
-                                cid,
-                                official_squad_name="",
-                                nationality_map=nationality_map,
-                                club_name_cache=club_cache,
-                                nt_name_cache=nt_cache,
-                                player_cache=player_cache,
-                                stats_cache=stats_cache,
-                                transfer_cache=transfer_cache,
-                                club_career_cache=club_career_cache,
-                                national_career_cache=national_career_cache,
-                                season_id=season_id,
-                                national_team_squad=True,
+                                cid = await legacy.resolve_team_id(
+                                    tmkt,
+                                    [label],
+                                    want_national=(kind == "nationality"),
+                                )
+                            except Exception as exc:  # noqa: BLE001
+                                cid = None
+                        if cid is None:
+                            _record_failure(
+                                job_id,
+                                str(jp),
+                                "no Transfermarkt match found by name "
+                                f"(team {label!r} has no transfermarktClubId in JSON)",
                             )
-                            payload = legacy._serialize_squad(
-                                kind="nationality",
-                                label=official,
-                                rel_image=rel_img,
-                                tm_id=cid,
-                                season_meta=season_meta,
-                                squads=squads,
-                            )
-                        else:
-                            _record_failure(job_id, str(jp), f"unsupported kind: {kind!r}")
                             return
-
-                        # Career totals are monotonic — never let a re-fetch regress
-                        # them. Defends against legacy scraper quirks (zeroed
-                        # goals_conceded for GKs, off-by-one clean_sheets, etc).
-                        _apply_career_totals_monotonic_guard(payload, raw)
-                        # Top-level season stats should include all competitions
-                        # (league + cups + continental), not domestic league only.
                         try:
-                            await _patch_current_season_totals_in_payload(
-                                payload,
-                                tmkt,
-                                fill_module,
-                                cid=cid,
-                                season_id=sid_club,
-                            )
-                        except Exception as season_patch_exc:  # noqa: BLE001
-                            import sys as _sys
-                            print(
-                                f"[update-data] current-season patch failed for {jp.name}: "
-                                f"{type(season_patch_exc).__name__}: {season_patch_exc}",
-                                file=_sys.stderr,
-                                flush=True,
-                            )
+                            if kind == "club":
+                                cdata = await legacy._get_club_safe(tmkt, cid)
+                                official = (cdata or {}).get("name") or label
+                                official = official.strip() or f"club-{cid}"
+                                season_meta_club, sid_club = await legacy.season_context_for_club(
+                                    tmkt,
+                                    cid,
+                                    club_data=cdata,
+                                    fallback_meta=season_meta,
+                                )
+                                smc = season_meta_club if isinstance(season_meta_club, dict) else {}
+                                comp_stats = (
+                                    str(smc.get("competitionId")).strip().upper()
+                                    if smc.get("competitionId")
+                                    else None
+                                )
+                                lbl = (
+                                    str(smc.get("label")).strip()
+                                    if smc.get("label")
+                                    else None
+                                )
+                                squads = await legacy.fetch_squad_payload(
+                                    tmkt,
+                                    cid,
+                                    official_squad_name=official,
+                                    nationality_map=nationality_map,
+                                    club_name_cache=club_cache,
+                                    nt_name_cache=nt_cache,
+                                    player_cache=player_cache,
+                                    stats_cache=stats_cache,
+                                    transfer_cache=transfer_cache,
+                                    club_career_cache=club_career_cache,
+                                    national_career_cache=national_career_cache,
+                                    season_id=sid_club,
+                                    national_team_squad=False,
+                                    season_competition_id=comp_stats,
+                                    season_label_hint=lbl,
+                                )
+                                payload = legacy._serialize_squad(
+                                    kind="club",
+                                    label=official,
+                                    rel_image=rel_img,
+                                    tm_id=cid,
+                                    season_meta=season_meta_club,
+                                    squads=squads,
+                                )
+                            elif kind == "nationality":
+                                cdata = await legacy._get_club_safe(tmkt, cid)
+                                base = (cdata or {}).get("name") or label
+                                try:
+                                    official = legacy._strip_youth_nt_display(base.strip())
+                                except AttributeError:
+                                    official = base.strip()
+                                official = official.strip() or f"nt-{cid}"
+                                squads = await legacy.fetch_squad_payload(
+                                    tmkt,
+                                    cid,
+                                    official_squad_name="",
+                                    nationality_map=nationality_map,
+                                    club_name_cache=club_cache,
+                                    nt_name_cache=nt_cache,
+                                    player_cache=player_cache,
+                                    stats_cache=stats_cache,
+                                    transfer_cache=transfer_cache,
+                                    club_career_cache=club_career_cache,
+                                    national_career_cache=national_career_cache,
+                                    season_id=season_id,
+                                    national_team_squad=True,
+                                )
+                                payload = legacy._serialize_squad(
+                                    kind="nationality",
+                                    label=official,
+                                    rel_image=rel_img,
+                                    tm_id=cid,
+                                    season_meta=season_meta,
+                                    squads=squads,
+                                )
+                            else:
+                                _record_failure(job_id, str(jp), f"unsupported kind: {kind!r}")
+                                return
 
-                        jp.write_text(
-                            json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
-                            encoding="utf-8",
-                        )
-                        # Fetch fresh shirt numbers from TM's rueckennummern page
-                        # (the squads endpoint doesn't include them). Failure here
-                        # leaves shirt_numbers blank but the squad data is still
-                        # refreshed, so we count this as ok and log to stderr.
-                        season_label = ""
-                        try:
-                            season_label = (
-                                (payload.get("source") or {})
-                                .get("season", {})
-                                .get("label")
-                                or ""
+                            # Career totals are monotonic — never let a re-fetch regress
+                            # them. Defends against legacy scraper quirks (zeroed
+                            # goals_conceded for GKs, off-by-one clean_sheets, etc).
+                            _apply_career_totals_monotonic_guard(payload, raw)
+                            # Top-level season stats should include all competitions
+                            # (league + cups + continental), not domestic league only.
+                            try:
+                                await _patch_current_season_totals_in_payload(
+                                    payload,
+                                    tmkt,
+                                    fill_module,
+                                    cid=cid,
+                                    season_id=sid_club,
+                                )
+                            except Exception as season_patch_exc:  # noqa: BLE001
+                                import sys as _sys
+                                print(
+                                    f"[update-data] current-season patch failed for {jp.name}: "
+                                    f"{type(season_patch_exc).__name__}: {season_patch_exc}",
+                                    file=_sys.stderr,
+                                    flush=True,
+                                )
+
+                            jp.write_text(
+                                json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+                                encoding="utf-8",
                             )
-                        except Exception:  # noqa: BLE001
+                            # Fetch fresh shirt numbers from TM's rueckennummern page
+                            # (the squads endpoint doesn't include them). Failure here
+                            # leaves shirt_numbers blank but the squad data is still
+                            # refreshed, so we count this as ok and log to stderr.
                             season_label = ""
-                        try:
-                            await fill_module.fill_file(
-                                jp,
-                                tmkt,
-                                season_label=season_label,
-                                dry_run=False,
-                                concurrency=2,
-                                quiet=True,
-                            )
-                        except Exception as shirt_exc:  # noqa: BLE001
-                            import sys as _sys
-                            print(
-                                f"[update-data] shirt-fill failed for {jp.name}: "
-                                f"{type(shirt_exc).__name__}: {shirt_exc}",
-                                file=_sys.stderr,
-                                flush=True,
-                            )
-                        # Fix goalkeeper club_career_totals: the legacy parser
-                        # leaves goals_conceded/clean_sheets at 0 because TM's
-                        # column layout shifted. We re-fetch the GK's
-                        # leistungsdatendetails page and extract by header.
-                        try:
-                            await _patch_gk_career_totals(
-                                jp,
-                                fill_module,
-                                tmkt,
-                                player_cache=player_cache,
-                                legacy=legacy,
-                            )
-                        except Exception as gk_exc:  # noqa: BLE001
-                            import sys as _sys
-                            print(
-                                f"[update-data] gk-totals refresh failed for {jp.name}: "
-                                f"{type(gk_exc).__name__}: {gk_exc}",
-                                file=_sys.stderr,
-                                flush=True,
-                            )
-                        _stamp_history(project_root, jp)
-                        _record_ok(job_id)
-                    except Exception as exc:  # noqa: BLE001
-                        _record_failure(job_id, str(jp), f"{type(exc).__name__}: {exc}")
+                            try:
+                                season_label = (
+                                    (payload.get("source") or {})
+                                    .get("season", {})
+                                    .get("label")
+                                    or ""
+                                )
+                            except Exception:  # noqa: BLE001
+                                season_label = ""
+                            try:
+                                await fill_module.fill_file(
+                                    jp,
+                                    tmkt,
+                                    season_label=season_label,
+                                    dry_run=False,
+                                    concurrency=2,
+                                    quiet=True,
+                                )
+                            except Exception as shirt_exc:  # noqa: BLE001
+                                import sys as _sys
+                                print(
+                                    f"[update-data] shirt-fill failed for {jp.name}: "
+                                    f"{type(shirt_exc).__name__}: {shirt_exc}",
+                                    file=_sys.stderr,
+                                    flush=True,
+                                )
+                            # Fix goalkeeper club_career_totals: the legacy parser
+                            # leaves goals_conceded/clean_sheets at 0 because TM's
+                            # column layout shifted. We re-fetch the GK's
+                            # leistungsdatendetails page and extract by header.
+                            try:
+                                await _patch_gk_career_totals(
+                                    jp,
+                                    fill_module,
+                                    tmkt,
+                                    player_cache=player_cache,
+                                    legacy=legacy,
+                                )
+                            except Exception as gk_exc:  # noqa: BLE001
+                                import sys as _sys
+                                print(
+                                    f"[update-data] gk-totals refresh failed for {jp.name}: "
+                                    f"{type(gk_exc).__name__}: {gk_exc}",
+                                    file=_sys.stderr,
+                                    flush=True,
+                                )
+                            _stamp_history(project_root, jp)
+                            _record_ok(job_id)
+                        except Exception as exc:  # noqa: BLE001
+                            _record_failure(job_id, str(jp), f"{type(exc).__name__}: {exc}")
+                    await _run_team_guarded(job_id, jp, _do_team_work(), _per_team_timeout_s())
 
             await asyncio.gather(*(one(p) for p in resolved_paths))
         _finish(job_id)
@@ -1422,6 +1460,8 @@ __all__ = [
     "_set_current",
     "_record_ok",
     "_record_failure",
+    "_per_team_timeout_s",
+    "_run_team_guarded",
     "_finish",
     "_snapshot_job",
     "_reset_job_for_tests",

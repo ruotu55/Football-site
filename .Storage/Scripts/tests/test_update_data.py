@@ -623,5 +623,50 @@ class PlayerFieldOrderTest(unittest.TestCase):
         )
 
 
+class TeamTimeoutGuardTest(unittest.TestCase):
+    """A single hung team must time out and be recorded as a failure, so the job
+    advances (done++) instead of sitting at 0/N forever."""
+
+    def setUp(self) -> None:
+        self.mod = _load()
+        self.mod._reset_job_for_tests()
+
+    def tearDown(self) -> None:
+        self.mod._reset_job_for_tests()
+
+    def test_hung_team_times_out_and_records_failure(self) -> None:
+        import asyncio
+
+        mod = self.mod
+        jid = mod._register_job(total=1)
+
+        async def hang() -> None:
+            await asyncio.sleep(30)  # simulate a stalled Transfermarkt call
+
+        asyncio.run(mod._run_team_guarded(jid, Path("Liverpool FC.json"), hang(), 0.05))
+
+        snap = mod._snapshot_job(jid)
+        self.assertEqual(snap["done"], 1)
+        self.assertEqual(snap["ok_count"], 0)
+        self.assertEqual(len(snap["failed"]), 1)
+        self.assertIn("timed out", snap["failed"][0]["error"].lower())
+
+    def test_fast_team_completes_without_double_count(self) -> None:
+        import asyncio
+
+        mod = self.mod
+        jid = mod._register_job(total=1)
+
+        async def quick() -> None:
+            mod._record_ok(jid)  # the real coro records its own outcome
+
+        asyncio.run(mod._run_team_guarded(jid, Path("Arsenal FC.json"), quick(), 5))
+
+        snap = mod._snapshot_job(jid)
+        self.assertEqual(snap["done"], 1)
+        self.assertEqual(snap["ok_count"], 1)
+        self.assertEqual(len(snap["failed"]), 0)
+
+
 if __name__ == "__main__":
     unittest.main()
