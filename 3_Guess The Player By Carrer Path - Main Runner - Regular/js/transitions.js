@@ -18,6 +18,9 @@ let gsapLib = null;
 let gsapConfigured = false;
 function configureGsap(gsap) {
   if (!gsapConfigured && gsap && typeof gsap.defaults === "function") {
+    if (gsap.ticker && typeof gsap.ticker.fps === "function") {
+      gsap.ticker.fps(60);
+    }
     gsap.defaults({ force3D: true });
     gsapConfigured = true;
   }

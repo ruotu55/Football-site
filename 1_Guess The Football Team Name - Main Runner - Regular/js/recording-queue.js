@@ -17,12 +17,13 @@
  * place.
  */
 import { appState } from "./state.js";
+import { switchLevel } from "./levels.js";
 import {
     applyScriptObject,
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
-} from "./saved-scripts.js?v=20260529c";
+} from "./saved-scripts.js?v=20260601-autoopen5";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 
@@ -694,7 +695,34 @@ export async function initRecordingQueue() {
     queue = computeQueue();
     render();
     // Auto-open a saved competition when launched from the calendar
-    // (?open=<runnerId>|<type>|<episode>) -> load that block into the editor.
+    // (?open=<runnerId>|<type>|<episode>) -> show a loading box while the page
+    // finishes booting (team index + player DB + blocks store can take several
+    // seconds on some runners), then load the block and land on the first quiz level.
+    const _loader = {
+        show(title) {
+            if (document.getElementById("__ao_loader")) return;
+            if (!document.getElementById("__ao_loader_style")) {
+                const st = document.createElement("style");
+                st.id = "__ao_loader_style";
+                st.textContent =
+                    "@keyframes __aoSpin{to{transform:rotate(360deg)}}" +
+                    "body.play-video-active #__ao_loader{display:none!important}";
+                document.head.appendChild(st);
+            }
+            const el = document.createElement("div");
+            el.id = "__ao_loader";
+            el.style.cssText = "position:fixed;inset:0;z-index:100002;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 38%,rgba(11,74,38,0.97),rgba(4,26,14,0.985));font-family:Montserrat,Arial,sans-serif;";
+            el.innerHTML =
+                '<div style="text-align:center;color:#fff;padding:40px 56px;border:1px solid rgba(255,255,255,0.14);border-radius:18px;background:rgba(0,0,0,0.30);box-shadow:0 18px 60px rgba(0,0,0,0.5);">' +
+                  '<div style="width:64px;height:64px;margin:0 auto 22px;border:6px solid rgba(255,255,255,0.18);border-top-color:#2ecc71;border-radius:50%;animation:__aoSpin 0.9s linear infinite;"></div>' +
+                  '<div style="font-size:24px;font-weight:800;letter-spacing:0.5px;">' + (title || "Loading…") + '</div>' +
+                  '<div id="__ao_loader_sub" style="margin-top:10px;font-size:14px;color:#bfe8cf;min-height:18px;">Preparing…</div>' +
+                '</div>';
+            document.body.appendChild(el);
+        },
+        sub(msg) { const s = document.getElementById("__ao_loader_sub"); if (s) s.textContent = msg; },
+        hide() { const el = document.getElementById("__ao_loader"); if (el) el.remove(); },
+    };
     try {
         const _p = new URLSearchParams(location.search);
         const _open = _p.get("open");
@@ -702,26 +730,49 @@ export async function initRecordingQueue() {
             const _pp = _open.split("|");
             if (_pp.length === 3 && Number(_pp[0]) === RUNNER_ID && _pp[1] === RUNNER_TYPE) {
                 const _ep = Number(_pp[2]);
-                const _item = queue.find((q) => q.episode === _ep)
-                    || { key: `${RUNNER_ID}|${RUNNER_TYPE}|${_ep}`, episode: _ep };
+                const _key = `${RUNNER_ID}|${RUNNER_TYPE}|${_ep}`;
+                _loader.show(`Loading episode #${_ep}…`);
                 _p.delete("open");
                 const _qs = _p.toString();
                 history.replaceState(null, "", location.pathname + (_qs ? "?" + _qs : ""));
-                // Wait for the data layer before auto-loading - the page may
-                // still be initializing (team index + player DB load async).
-                for (let _i = 0; _i < 60; _i++) {
+
+                // Wait until the team index AND this episode's block are ready;
+                // both load async during bootstrap and can take several seconds.
+                let _block = blocks[_key];
+                let _tiReady = false;
+                for (let _i = 0; _i < 150; _i++) { // ~30s ceiling (150 * 200ms)
                     const _ti = appState.teamsIndex;
-                    if (_ti && (((_ti.clubs || []).length) || ((_ti.nationalities || []).length))) break;
-                    await new Promise((res) => setTimeout(res, 100));
+                    _tiReady = !!(_ti && (((_ti.clubs || []).length) || ((_ti.nationalities || []).length)));
+                    if (!_block) _block = blocks[_key];
+                    if (!_block && _i % 10 === 9) {
+                        try {
+                            const _fresh = await fetchBlocks();
+                            if (_fresh && Object.keys(_fresh).length) { blocks = _fresh; _block = blocks[_key]; }
+                        } catch (_x) { /* ignore, retry */ }
+                    }
+                    if (_tiReady && _block) break;
+                    _loader.sub(`Preparing… ${Math.floor(_i / 5)}s`);
+                    await new Promise((res) => setTimeout(res, 200));
                 }
-                if (typeof appState.loadAllGlobalPlayers === "function") {
-                    try { await appState.loadAllGlobalPlayers(); } catch (_x) { /* ignore */ }
+
+
+                if (!_block) {
+                    _loader.sub("Couldn't find this episode, please open it manually.");
+                    setTimeout(() => _loader.hide(), 2500);
+                } else {
+                    const _item = queue.find((q) => q.episode === _ep) || { key: _key, episode: _ep };
+                    _loader.sub("Building lineups…");
+                    // loadScript lands on the first quiz level on its own.
+                    await onBlockClick(_item);
+                    // Let the first-quiz transition get going under the box, then drop it.
+                    await new Promise((res) => setTimeout(res, 300));
+                    _loader.hide();
                 }
-                await onBlockClick(_item);
             }
         }
     } catch (_e) {
-        console.warn("[recording-queue] open-param failed:", _e);
+        _loader.sub("Something went wrong, please open it manually.");
+        setTimeout(() => _loader.hide(), 2500);
     }
 
 

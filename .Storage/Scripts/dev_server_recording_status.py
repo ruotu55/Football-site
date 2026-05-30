@@ -191,11 +191,27 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
 
     if op == "replace":
         payload = _normalize_payload(parsed.get("payload"))
+        new_n = len(payload["blocks"])
         with _LOCK:
+            existing = _read_store(project_root)
+            existing_n = len(existing.get("blocks", {}))
+            # Safeguard against a stale client wiping the store. A runner/calendar
+            # tab that loaded while the store was momentarily empty (e.g. server
+            # restart, transient read error) holds empty in-memory blocks; a save
+            # from it would otherwise clobber a populated store. Legit edits add or
+            # remove a few blocks at a time — never more than half at once — so we
+            # refuse any replace that would delete most of what's there.
+            if existing_n >= 10 and new_n < existing_n // 2:
+                _send_json(handler, 409, {
+                    "error": "Refused: replace would delete too many blocks (stale client?)",
+                    "existing": existing_n,
+                    "incoming": new_n,
+                })
+                return True
             if not _write_store(project_root, payload):
                 _send_json(handler, 500, {"error": "Write failed"})
                 return True
-        _send_json(handler, 200, {"ok": True, "blocks": len(payload["blocks"])})
+        _send_json(handler, 200, {"ok": True, "blocks": new_n})
         return True
 
     if op == "stampRecording":

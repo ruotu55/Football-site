@@ -28,7 +28,7 @@ import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-
 import { applyTranslations, t, endingTitleHTML } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
 import { getActiveScriptName } from "./saved-scripts.js?v=20260529c";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-dbwait";
+import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
@@ -1115,6 +1115,16 @@ async function init() {
         els.shotsSizeOverlay.hidden = !els.inShotsSizeToggle.checked;
     };
 
+    // Total Levels takes effect as soon as you change it (no Apply / refresh
+    // needed). 'change' fires on Enter / blur / the spinner arrows.
+    els.quizLevelsInput.onchange = () => els.updateLevelsBtn.onclick();
+    // When a saved block finishes loading (auto-open from the calendar or a
+    // manual load), loadScript dispatches this after rebuilding the levels.
+    // The legacy uiCallbacks.updateLanding hook is no longer wired here, so
+    // refresh the question-count badge now or it stays stale until refresh.
+    document.addEventListener("recording-queue:script-applied", () => {
+        try { updateLanding(); } catch (_e) { /* non-fatal */ }
+    });
     els.updateLevelsBtn.onclick = () => {
         let levels = parseInt(els.quizLevelsInput.value, 10);
         if (isNaN(levels) || levels < 1) levels = 5;

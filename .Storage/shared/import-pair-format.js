@@ -7,7 +7,7 @@
  * Legacy `[Name1, Name2, …]` comma lists still parse for import.
  */
 
-import { manualClubForPlayer } from "./import-player-manual-clubs.js";
+import { manualClubForPlayer, playerImportAliasFor } from "./import-player-manual-clubs.js";
 
 export function parsePairLine(line) {
   const idx = line.lastIndexOf(" - ");
@@ -177,7 +177,9 @@ export async function resolvePairEntriesForPlayers(entries, {
     const manualClub = manualClubForPlayer(e.left);
     const clubName = manualClub || e.right;
 
-    const cands = findAllPlayerCandidates(e.left, allPlayers);
+    // Resolve display-name variants ("Son Heung-min" -> DB "Heung-min Son",
+    // "Neymar Jr" -> "Neymar", ...) before searching the squad DB.
+    const cands = findAllPlayerCandidates(playerImportAliasFor(e.left), allPlayers);
     if (cands.length === 0) {
       errors.push(`❌ ${e.left}: player not found.`);
       searchableNames.add(e.left);
@@ -201,4 +203,36 @@ export async function resolvePairEntriesForPlayers(entries, {
   }
 
   return { resolved, errors, searchableNames };
+}
+
+/**
+ * Load ONLY the squads referenced by a set of "Player - Team" pair entries, so a
+ * save can resolve its players without pulling the entire global player DB into
+ * memory. Returns a player list shaped like loadAllGlobalPlayers() entries (each
+ * carries `_clubItem`). The club per entry is the manual-club override when
+ * present, otherwise the right-hand team. Unknown/unreadable squads are skipped.
+ */
+export async function loadPlayersForPairEntries(entries, { clubs, normalizeForImport, loadSquadJson }) {
+  const wanted = new Map(); // de-dupe clubs by path/name
+  for (const e of (entries || [])) {
+    const clubName = manualClubForPlayer(e.left) || e.right;
+    const clubItem = findClubEntryLoose(clubName, clubs, normalizeForImport);
+    if (clubItem) wanted.set(clubItem.path || clubItem.name, clubItem);
+  }
+  const players = [];
+  for (const clubItem of wanted.values()) {
+    try {
+      const squad = await loadSquadJson(clubItem);
+      const arr = [
+        ...(squad.goalkeepers || []),
+        ...(squad.defenders || []),
+        ...(squad.midfielders || []),
+        ...(squad.attackers || []),
+      ];
+      for (const p of arr) {
+        if (p && p.name) players.push({ ...p, _clubItem: clubItem });
+      }
+    } catch { /* skip unreadable squad */ }
+  }
+  return players;
 }

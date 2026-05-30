@@ -14,6 +14,7 @@ import { getOrAssignRevealPhrase } from "./audio.js";
 import {
     parseImportText as parseImportTextShared,
     resolvePairEntriesForPlayers,
+    loadPlayersForPairEntries,
 } from "../../.Storage/shared/import-pair-format.js";
 
 const HAS_BUNDLED_VARIANTS = false;
@@ -354,24 +355,34 @@ export async function buildScriptFromImportText(text, name) {
     let pairResolved = null;
 
     if (parsed.entries) {
-        let allPlayers;
-        try {
-            allPlayers = typeof appState.loadAllGlobalPlayers === "function"
-                ? await appState.loadAllGlobalPlayers()
-                : (appState.allGlobalPlayers || []);
-        } catch {
-            allPlayers = appState.allGlobalPlayers || [];
-        }
-        if (!allPlayers || allPlayers.length === 0) {
-            return { ok: false, errors: ["Player database not loaded yet. Try again in a moment."] };
-        }
-        const pairResult = await resolvePairEntriesForPlayers(parsed.entries, {
+        // Load ONLY the squads referenced in this save (fast). Fall back to the
+        // full player DB only if a player isn't in their listed team's squad.
+        const _clubsForImport = appState.teamsIndex?.clubs || [];
+        let allPlayers = await loadPlayersForPairEntries(parsed.entries, {
+            clubs: _clubsForImport,
+            normalizeForImport,
+            loadSquadJson,
+        });
+        let pairResult = await resolvePairEntriesForPlayers(parsed.entries, {
             allPlayers,
-            clubs: appState.teamsIndex?.clubs || [],
+            clubs: _clubsForImport,
             findAllPlayerCandidates,
             normalizeForImport,
             applyImportAliasesToNames,
         });
+        if (pairResult.errors.length > 0 && typeof appState.loadAllGlobalPlayers === "function") {
+            // A player wasn't in their listed team — pay for the full DB once and retry.
+            try {
+                allPlayers = await appState.loadAllGlobalPlayers();
+                pairResult = await resolvePairEntriesForPlayers(parsed.entries, {
+                    allPlayers,
+                    clubs: _clubsForImport,
+                    findAllPlayerCandidates,
+                    normalizeForImport,
+                    applyImportAliasesToNames,
+                });
+            } catch (_e) { /* keep the scoped result/errors */ }
+        }
         if (pairResult.errors.length > 0) {
             return { ok: false, errors: pairResult.errors, searchableNames: pairResult.searchableNames };
         }

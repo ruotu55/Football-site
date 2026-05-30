@@ -28,9 +28,11 @@ export const PLAYER_MANUAL_CLUBS = {
   "emerson palmieri": "Olympique Marseille",
   "matheus cunha": "Manchester United",
   "alexander mitrovic": "Al-Rayyan SC",
+  "antony": "Real Betis Balompié",
 };
 
 export const PLAYER_IMPORT_ALIASES = {
+  "dani carvajal": "daniel carvajal",
   "alexander arnold": "trent alexander arnold",
   "gabriel magalhaes": "gabriel",
   "kim min jae": "min jae kim",
@@ -49,8 +51,8 @@ export const PLAYER_IMPORT_ALIASES = {
   "alexander mitrovic": "aleksandar mitrovic",
 };
 
-export function manualClubForPlayer(rawName) {
-  const key = String(rawName || "")
+function normalizePlayerKey(rawName) {
+  return String(rawName || "")
     .trim()
     .toLowerCase()
     .normalize("NFD")
@@ -58,5 +60,18 @@ export function manualClubForPlayer(rawName) {
     .replace(/-/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  return PLAYER_MANUAL_CLUBS[key] || null;
+}
+
+export function manualClubForPlayer(rawName) {
+  return PLAYER_MANUAL_CLUBS[normalizePlayerKey(rawName)] || null;
+}
+
+/**
+ * Map an import display-name to the canonical name stored in the squad DB
+ * (e.g. "Son Heung-min" -> "heung min son", "Neymar Jr" -> "neymar"). Returns
+ * the original name unchanged when there's no alias. Used by import resolution
+ * so saves built with display names still resolve.
+ */
+export function playerImportAliasFor(rawName) {
+  return PLAYER_IMPORT_ALIASES[normalizePlayerKey(rawName)] || rawName;
 }

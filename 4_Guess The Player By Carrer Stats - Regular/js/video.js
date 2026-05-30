@@ -12,13 +12,19 @@ const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 
 /* ── GSAP lazy loader (eagerly kicked off at module load) ────────── */
 let gsapLib = null;
+function configureGsap(gsap) {
+  if (gsap?.ticker && typeof gsap.ticker.fps === "function") {
+    gsap.ticker.fps(60);
+  }
+  return gsap;
+}
 function loadGsap() {
   if (gsapLib) return Promise.resolve(gsapLib);
   return new Promise((resolve, reject) => {
-    if (window.gsap) { gsapLib = window.gsap; return resolve(gsapLib); }
+    if (window.gsap) { gsapLib = configureGsap(window.gsap); return resolve(gsapLib); }
     const s = document.createElement("script");
     s.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
-    s.onload = () => { gsapLib = window.gsap; resolve(gsapLib); };
+    s.onload = () => { gsapLib = configureGsap(window.gsap); resolve(gsapLib); };
     s.onerror = reject;
     document.head.appendChild(s);
   });
