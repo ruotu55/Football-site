@@ -1556,18 +1556,13 @@ async def _refresh_all_async(
                                 )
                                 return
 
-                            missing_shirts = _players_missing_shirt_numbers(payload)
-                            if missing_shirts or shirt_missing_map or shirt_missing_row:
-                                sample = ", ".join(missing_shirts[:6])
-                                extra = ""
-                                if len(missing_shirts) > 6:
-                                    extra = f" (+{len(missing_shirts) - 6} more)"
+                            if shirt_missing_map or shirt_missing_row:
                                 _record_failure(
                                     job_id,
                                     str(jp),
-                                    "incomplete shirt_number data for "
-                                    f"{len(missing_shirts)} player(s)"
-                                    f"{f': {sample}{extra}' if sample else ''}",
+                                    "incomplete shirt_number data: "
+                                    f"{shirt_missing_map} unmatched name(s), "
+                                    f"{shirt_missing_row} missing shirt(s)",
                                 )
                                 return
 

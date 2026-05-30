@@ -343,6 +343,27 @@ def _shirt_numbers_from_squad_api(squad_response: dict[str, Any]) -> dict[int, i
     return out
 
 
+def _pids_with_null_api_shirt(squad_response: dict[str, Any]) -> set[int]:
+    """Player IDs listed on the squad API with ``shirtNumber: null`` (TM has no number)."""
+    out: set[int] = set()
+    if not isinstance(squad_response, dict) or not squad_response.get("success"):
+        return out
+    data = squad_response.get("data") or {}
+    for entry in data.get("squad") or []:
+        if not isinstance(entry, dict):
+            continue
+        if entry.get("shirtNumber") is not None:
+            continue
+        pid_raw = entry.get("playerId")
+        if pid_raw is None:
+            continue
+        try:
+            out.add(int(pid_raw))
+        except (TypeError, ValueError):
+            continue
+    return out
+
+
 def _lookup_name_meta(
     name_meta: dict[str, tuple[int, str]], pname: str
 ) -> Optional[tuple[int, str]]:
@@ -503,6 +524,7 @@ async def fill_squad_data(
         raise RuntimeError("empty playerIds from squad API")
 
     shirt_by_pid = _shirt_numbers_from_squad_api(squad)
+    null_api_shirt_pids = _pids_with_null_api_shirt(squad)
 
     if prefetched_name_meta is not None:
         name_meta = prefetched_name_meta
@@ -553,6 +575,12 @@ async def fill_squad_data(
         club_hints = [club_hint] if club_hint else []
         n = await shirt_for_pid(pid, rel, club_hints=club_hints)
         if n is None:
+            if pid in null_api_shirt_pids:
+                return (
+                    False,
+                    "ok",
+                    f"{pname}: no TM shirt number (squad API null, pid={pid})",
+                )
             return False, "no_shirt", (
                 f"no shirt from squad API or HTML (seasons tried: {season_try_hint!r}) "
                 f"for {pname!r} (pid={pid})"
