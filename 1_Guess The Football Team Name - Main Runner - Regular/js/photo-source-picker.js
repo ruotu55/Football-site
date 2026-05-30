@@ -11,7 +11,7 @@ let pickerRoot = null;
 function ensureChooserRoot() {
   if (chooserRoot) return chooserRoot;
   const root = document.createElement("div");
-  root.className = "psrc-modal";
+  root.className = "psrc-modal fc-modal-root";
   root.hidden = true;
   root.innerHTML = `
     <div class="psrc-backdrop" data-psrc-close></div>
@@ -70,7 +70,7 @@ export function openPhotoSourceChooser({ playerName, onPasteUrl, onFetchFutgg, o
 function ensurePickerRoot() {
   if (pickerRoot) return pickerRoot;
   const root = document.createElement("div");
-  root.className = "ppick-modal";
+  root.className = "ppick-modal fc-modal-root";
   root.hidden = true;
   root.innerHTML = `
     <div class="ppick-backdrop" data-ppick-close></div>

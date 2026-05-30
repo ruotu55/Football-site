@@ -76,6 +76,7 @@ import {
   bumpAssetCacheBust,
 } from "./paths.js";
 import { openPhotoCropModal } from "./photo-crop.js";
+import { openPhotoSourceChooser, openPhotoCandidatePicker } from "./photo-source-picker.js";
 import { normalizeForSearch } from "./search-normalize.js";
 import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
 import {
@@ -87,6 +88,8 @@ const INTERNATIONAL_POOL_URL = ".Storage/data/international-club-pool-by-nationa
 const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
 const PLAYER_PHOTO_FROM_URL_ENDPOINT = "/__player-photo/from-url";
 const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
+const LIST_PHOTO_CANDIDATES_ENDPOINT = "/__player-photo/list-candidates";
+const SAVE_CHOSEN_PHOTO_ENDPOINT = "/__player-photo/save-chosen";
 const SAVE_CROP_PLAYER_PHOTO_ENDPOINT = "/__player-photo/save-crop";
 /* Shared across Main Runner - Team Name Regular and Shorts (a rename done in
    one should immediately apply in the other). LS holds a fast local cache and
@@ -899,6 +902,7 @@ function debugSlotControlClick(message, detail = {}) {
 }
 
 function findFallbackSlotControlAtPoint(e) {
+  if (window.FCModalLayer?.isAnyOpen?.()) return null;
   const pitchWrap = document.getElementById("pitch-wrap");
   if (!pitchWrap || e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR)) return null;
   // Don't hijack clicks inside an open modal/dialog.
@@ -1061,16 +1065,7 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
       selectedEntry: st?.selectedEntry || {},
       currentSquadName: st?.currentSquad?.name || "",
     };
-    openPlayerPhotoUrlModal(player?.name || "", async (imageUrl) => {
-      const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...photoBodyBase, imageUrl }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || !data?.ok) {
-        throw new Error(data?.error || "Could not download photo from URL.");
-      }
+    const applyFetchedPhoto = (data) => {
       const section = data.indexSection;
       const key = data.indexKey;
       const rel = data.relativePath;
@@ -1095,6 +1090,53 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
       appState.suppressPitchSlotFlipAnimation = true;
       renderPitch();
       appState.suppressPitchSlotFlipAnimation = false;
+    };
+    const submitFromUrl = async (imageUrl) => {
+      const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...photoBodyBase, imageUrl }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Could not download photo from URL.");
+      }
+      applyFetchedPhoto(data);
+    };
+    const fetchFromSource = (source) => {
+      openPhotoCandidatePicker({
+        title: (source === "fut.gg" ? "FUT cards (fut.gg)" : "365scores") + " - " + (player?.name || "photo"),
+        loadCandidates: async () => {
+          const res = await fetch(LIST_PHOTO_CANDIDATES_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...photoBodyBase, source }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data?.ok) {
+            throw new Error(data?.error || "Photo search failed.");
+          }
+          return Array.isArray(data.candidates) ? data.candidates : [];
+        },
+        onSelect: async (candidate) => {
+          const res = await fetch(SAVE_CHOSEN_PHOTO_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...photoBodyBase, source, imageDataUrl: candidate.dataUrl }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data?.ok) {
+            throw new Error(data?.error || "Failed to save photo.");
+          }
+          applyFetchedPhoto(data);
+        },
+      });
+    };
+    openPhotoSourceChooser({
+      playerName: player?.name || "",
+      onPasteUrl: () => openPlayerPhotoUrlModal(player?.name || "", submitFromUrl),
+      onFetchFutgg: () => fetchFromSource("fut.gg"),
+      onFetch365: () => fetchFromSource("365scores"),
     });
   });
 

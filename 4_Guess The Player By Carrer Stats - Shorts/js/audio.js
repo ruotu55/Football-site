@@ -84,14 +84,36 @@ function langAwareCandidates(resolver, ...args) {
 const paths = {
   bgmPlaylist: [
     "../.Storage/Voices/Ringhton/Balada Gitana - House of the Gipsies.mp3",
+    "../.Storage/Voices/Ringhton/Bolereando - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Camargue - House of the Gipsies.mp3",
     "../.Storage/Voices/Ringhton/Chica Linda - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Crack That Case - Nathan Moore.mp3",
     "../.Storage/Voices/Ringhton/Delta - TrackTribe.mp3",
+    "../.Storage/Voices/Ringhton/Disco Knights - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Estrella - House of the Gipsies.mp3",
+    "../.Storage/Voices/Ringhton/Girasol - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Greaser - TrackTribe.mp3",
+    "../.Storage/Voices/Ringhton/Josefina - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Look Both Ways - Nathan Moore.mp3",
     "../.Storage/Voices/Ringhton/Los Cabos - House of the Gipsies.mp3",
+    "../.Storage/Voices/Ringhton/Merengue de Limon - Quincas Moreira.mp3",
     "../.Storage/Voices/Ringhton/Orquidario - Quincas Moreira.mp3",
+    "../.Storage/Voices/Ringhton/Paseo - House of the Gipsies.mp3",
+    "../.Storage/Voices/Ringhton/Recess - TrackTribe.mp3",
+    "../.Storage/Voices/Ringhton/Samba Gitana - House of the Gipsies.mp3",
+    "../.Storage/Voices/Ringhton/Sing Swing Bada Bing - Doug Maxwell.mp3",
     "../.Storage/Voices/Ringhton/Swing Haven 1 - Los Angeles - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 10 - Austin - Reed Mathis.mp3",
     "../.Storage/Voices/Ringhton/Swing Haven 2 - St. Louis - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 3 - Detroit - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 4 - Tulsa - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 5 - Denver - Reed Mathis.mp3",
     "../.Storage/Voices/Ringhton/Swing Haven 6 - New Orleans - Reed Mathis.mp3",
-    "../.Storage/Voices/Ringhton/Up And At Em - Nathan Moore.mp3"
+    "../.Storage/Voices/Ringhton/Swing Haven 8 - Chicago - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Swing Haven 9 - Atlanta - Reed Mathis.mp3",
+    "../.Storage/Voices/Ringhton/Up And At Em - Nathan Moore.mp3",
+    "../.Storage/Voices/Ringhton/Wager With Angels - Nathan Moore.mp3",
+    "../.Storage/Voices/Ringhton/We Got This - Nathan Moore.mp3"
   ],
   dong: "../.Storage/Voices/the answer is/dong.wav",
   revealStinger: "../.Storage/Voices/Transitions/universfield-new-notification-09-352705.mp3",
@@ -100,6 +122,28 @@ const paths = {
 
 let bgMusic = null;
 let currentBgmIndex = 0;
+/* True-shuffle bag for BGM: play every track once in a random order before any
+   repeats, reshuffle on each loop, and never repeat the same track back-to-back
+   across the reshuffle boundary. Reset (bgmShuffleOrder = []) at each play start
+   so every recording gets a fresh random order. */
+let bgmShuffleOrder = [];
+let bgmShufflePos = 0;
+let lastBgmIndex = -1;
+function reshuffleBgmOrder() {
+  bgmShuffleOrder = paths.bgmPlaylist.map((_, i) => i);
+  shuffleInPlace(bgmShuffleOrder);
+  if (bgmShuffleOrder.length > 1 && bgmShuffleOrder[0] === lastBgmIndex) {
+    const j = 1 + Math.floor(Math.random() * (bgmShuffleOrder.length - 1));
+    [bgmShuffleOrder[0], bgmShuffleOrder[j]] = [bgmShuffleOrder[j], bgmShuffleOrder[0]];
+  }
+  bgmShufflePos = 0;
+}
+function nextBgmIndex() {
+  if (bgmShufflePos >= bgmShuffleOrder.length) reshuffleBgmOrder();
+  const idx = bgmShuffleOrder[bgmShufflePos++];
+  lastBgmIndex = idx;
+  return idx;
+}
 let currentVoice = null;
 /** Resolves bundled shorts quiz-title clips when `stopAllAudio` interrupts. */
 let pendingShortsRulesVoiceFinish = null;
@@ -200,7 +244,7 @@ function queueNextBgm(forceHardSwitch = false) {
   const outgoing = bgMusic;
   const outgoingStartVolume = Math.max(0, Math.min(1, outgoing.volume));
 
-  currentBgmIndex = (currentBgmIndex + 1) % paths.bgmPlaylist.length;
+  currentBgmIndex = nextBgmIndex();
   const incoming = new Audio(paths.bgmPlaylist[currentBgmIndex]);
   incoming.volume = forceHardSwitch ? outgoingStartVolume : 0;
 
@@ -264,7 +308,8 @@ export function startBgMusic() {
     clearBgmEventHandlers(bgMusic);
   }
   // Start with a random song from the list
-  currentBgmIndex = Math.floor(Math.random() * paths.bgmPlaylist.length);
+  bgmShuffleOrder = [];
+  currentBgmIndex = nextBgmIndex();
   bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
   bgMusic.volume = NORMAL_VOL;
   bindBgmEventHandlers(bgMusic);

@@ -179,6 +179,31 @@ body {
 .chip-long { border-left: 3px solid var(--long); }
 .chip-short { border-left: 3px solid var(--short); }
 
+/* "Open Remote" — copies the LAN URL to open this calendar on another device. */
+.open-remote-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.open-remote-btn:hover {
+  border-color: var(--en, #4a90e2);
+  color: #fff;
+}
+.open-remote-btn--flash {
+  background: var(--en, #4a90e2);
+  border-color: var(--en, #4a90e2);
+  color: #fff;
+}
+
 .channel-switch {
   display: inline-flex;
   background: var(--panel);
@@ -356,7 +381,8 @@ body {
   background: rgba(0, 0, 0, 0.3);
 }
 
-.block-save-btn {
+.block-save-btn,
+.block-thumb-btn {
   flex-shrink: 0;
   width: clamp(22px, 1.6vw, 28px);
   height: clamp(22px, 1.6vw, 28px);
@@ -375,13 +401,15 @@ body {
   transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.06s;
 }
 
-.block-save-btn:hover {
+.block-save-btn:hover,
+.block-thumb-btn:hover {
   background: rgba(91, 141, 239, 0.22);
   border-color: rgba(91, 141, 239, 0.85);
   color: #fff;
 }
 
-.block-save-btn:active { transform: translateY(1px); }
+.block-save-btn:active,
+.block-thumb-btn:active { transform: translateY(1px); }
 
 .upload--done.upload-short .upload-check {
   background: var(--short);

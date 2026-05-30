@@ -25,6 +25,10 @@ os.environ.setdefault("SSL_CERT_FILE", certifi.where())
 
 from tmkt import TMKT  # noqa: E402
 
+# Windows: run curl subprocesses WITHOUT flashing a console window for each
+# call. Updating ~100 players otherwise spawns ~100 curl.exe windows.
+_SUBPROCESS_NO_WINDOW = 0x08000000 if os.name == "nt" else 0  # CREATE_NO_WINDOW
+
 # curl / browser UA for Transfermarkt website HTML (leistungsdatendetails, nationalmannschaft).
 _CURL_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -444,6 +448,7 @@ async def _ceapi_curl_get_json(url: str, referer: str) -> Optional[Any]:
         curl_cmd.append(url)
         proc = await asyncio.create_subprocess_exec(
             *curl_cmd,
+            creationflags=_SUBPROCESS_NO_WINDOW,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
         )
@@ -929,6 +934,7 @@ async def _fetch_transfermarkt_html_curl(url: str) -> str:
         cmd.append(url)
         proc = await asyncio.create_subprocess_exec(
             *cmd,
+            creationflags=_SUBPROCESS_NO_WINDOW,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
         )
@@ -1400,6 +1406,7 @@ async def _get_transfer_history(pid: int) -> list[dict[str, str]]:
             curl_cmd.append(url)
             proc = await asyncio.create_subprocess_exec(
                 *curl_cmd,
+                creationflags=_SUBPROCESS_NO_WINDOW,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
             )

@@ -215,6 +215,22 @@
       openSaveBlockModal(date, u, block);
     });
     top.appendChild(saveBlockBtn);
+
+    // Thumbnail button — regular (long) videos only. Sets the YouTube thumbnail
+    // for THIS pill's channel ahead of time; the upload uses it automatically.
+    if (u.type === "long") {
+      const thumbBtn = document.createElement("button");
+      thumbBtn.type = "button";
+      thumbBtn.className = "block-thumb-btn";
+      thumbBtn.textContent = "\u{1F5BC}"; // 🖼
+      thumbBtn.title = `Set the ${u.channel.toUpperCase()} YouTube thumbnail for this video`;
+      thumbBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openSetThumbModal(date, u, block);
+      });
+      top.appendChild(thumbBtn);
+    }
+
     pill.appendChild(top);
 
     const title =
@@ -277,7 +293,13 @@
       }
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
-        openThumbnailModal(date, u, block, btn);
+        if (u.type === "long") {
+          // Regular: use the thumbnail you set ahead of time (or tell you to add one).
+          uploadRegularWithSavedThumb(date, u, block, btn);
+        } else {
+          // Shorts: keep the pick-at-upload modal.
+          openThumbnailModal(date, u, block, btn);
+        }
       });
       row.appendChild(btn);
       row.appendChild(makeResetButton(u,
@@ -312,6 +334,12 @@
       const prev = btn.textContent;
       btn.disabled = true;
       btn.textContent = "Opening runner…";
+      // When the calendar is viewed remotely (e.g. on the recording Mac), the
+      // server does NOT open the runner on itself — this browser must. Pre-open
+      // a tab now, inside the click gesture, so it isn't blocked as a popup;
+      // we point it at the runner URL once the server responds.
+      const remoteView = !["127.0.0.1", "localhost", "::1", ""].includes(location.hostname);
+      const popup = remoteView ? window.open("", "_blank") : null;
       try {
         const r = await fetch("/__launch-runner", {
           method: "POST",
@@ -320,16 +348,20 @@
         });
         const res = await r.json();
         if (!res.ok) {
+          if (popup) popup.close();
           alert("Couldn't open the runner:\n\n" + (res.error || "unknown error"));
-          btn.disabled = false;
-          btn.textContent = prev;
-        } else {
-          // The server opened the runner in the browser. Reset the label.
-          btn.disabled = false;
-          btn.textContent = prev;
+        } else if (res.openOnClient && res.url) {
+          // Remote: send our pre-opened tab to the runner on the LAN IP.
+          if (popup) popup.location.href = res.url;
+          else window.open(res.url, "_blank");
+        } else if (popup) {
+          // Server opened it locally; drop the stray pre-opened tab.
+          popup.close();
         }
       } catch (err) {
+        if (popup) popup.close();
         alert("Couldn't reach the calendar server to launch the runner.");
+      } finally {
         btn.disabled = false;
         btn.textContent = prev;
       }
@@ -456,6 +488,162 @@
       ub.disabled = false;
       ub.textContent = "Retry";
       if (btn) { btn.disabled = false; btn.textContent = "Retry upload"; btn.classList.add("yt-btn--error"); }
+      alert("YouTube upload failed:\n\n" + (res.error || "Unknown error"));
+    }
+  }
+
+  // ---- Set-thumbnail-ahead modal (regular videos, per channel) ------------
+  let setThumbModal = null;
+  let setThumbCtx = null;   // { key, channel }
+  let setThumbFile = null;  // { dataBase64, mime, name } chosen this session, or null
+
+  function ensureSetThumbModal() {
+    if (setThumbModal) return setThumbModal;
+    const root = document.createElement("div");
+    root.id = "yt-setthumb-modal";
+    root.className = "modal";
+    root.hidden = true;
+    root.setAttribute("aria-hidden", "true");
+    root.innerHTML = `
+      <div class="modal-backdrop" data-st-close></div>
+      <div class="modal-panel" role="dialog" aria-labelledby="yt-setthumb-title">
+        <h3 id="yt-setthumb-title">Video thumbnail</h3>
+        <p id="yt-setthumb-meta" class="modal-meta"></p>
+        <div id="yt-setthumb-drop" class="yt-drop">
+          <input id="yt-setthumb-file" type="file" accept="image/*" hidden>
+          <div class="yt-drop-inner">
+            <div class="yt-drop-text">Drag an image here, or click to choose</div>
+            <img id="yt-setthumb-preview" class="yt-thumb-preview" hidden alt="">
+            <div id="yt-setthumb-name" class="yt-thumb-name"></div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="navbtn" data-st-close>Close</button>
+          <button type="button" class="navbtn" id="yt-setthumb-remove" hidden>Remove</button>
+          <button type="button" class="navbtn modal-save" id="yt-setthumb-save" disabled>Save</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(root);
+    setThumbModal = root;
+
+    const fileInput = root.querySelector("#yt-setthumb-file");
+    const drop = root.querySelector("#yt-setthumb-drop");
+    const preview = root.querySelector("#yt-setthumb-preview");
+    const nameEl = root.querySelector("#yt-setthumb-name");
+    const saveBtn = root.querySelector("#yt-setthumb-save");
+
+    const readFile = (file) => {
+      if (!file || !file.type.startsWith("image/")) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = String(reader.result || "");
+        const comma = dataUrl.indexOf(",");
+        if (comma < 0) return;
+        setThumbFile = { dataBase64: dataUrl.slice(comma + 1), mime: file.type, name: file.name };
+        preview.src = dataUrl;
+        preview.hidden = false;
+        nameEl.textContent = file.name;
+        saveBtn.disabled = false;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    drop.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", () => readFile(fileInput.files[0]));
+    drop.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("yt-drop--over"); });
+    drop.addEventListener("dragleave", () => drop.classList.remove("yt-drop--over"));
+    drop.addEventListener("drop", (e) => {
+      e.preventDefault();
+      drop.classList.remove("yt-drop--over");
+      readFile(e.dataTransfer.files[0]);
+    });
+    root.addEventListener("click", (e) => {
+      if (e.target.dataset && e.target.dataset.stClose !== undefined) closeSetThumbModal();
+    });
+    saveBtn.addEventListener("click", saveSetThumb);
+    root.querySelector("#yt-setthumb-remove").addEventListener("click", removeSetThumb);
+    return root;
+  }
+
+  async function openSetThumbModal(date, u, block) {
+    const root = ensureSetThumbModal();
+    const key = FCRecordingStatus.blockKey(u.runner.id, u.type, u.episode);
+    setThumbCtx = { key, channel: u.channel };
+    setThumbFile = null;
+    root.querySelector("#yt-setthumb-meta").textContent =
+      `${u.channel.toUpperCase()} · #${u.episode} ${u.runner.name}`;
+    const fileInput = root.querySelector("#yt-setthumb-file");
+    const preview = root.querySelector("#yt-setthumb-preview");
+    const nameEl = root.querySelector("#yt-setthumb-name");
+    const saveBtn = root.querySelector("#yt-setthumb-save");
+    const removeBtn = root.querySelector("#yt-setthumb-remove");
+    fileInput.value = "";
+    preview.hidden = true; preview.src = "";
+    nameEl.textContent = "Loading…";
+    saveBtn.disabled = true; saveBtn.textContent = "Save";
+    removeBtn.hidden = true;
+    root.hidden = false;
+    root.setAttribute("aria-hidden", "false");
+
+    const existing = await FCYouTube.getThumbnail(key, u.channel);
+    // Guard against a stale response if the user already reopened on another box.
+    if (!setThumbCtx || setThumbCtx.key !== key || setThumbCtx.channel !== u.channel) return;
+    if (existing && existing.exists && existing.dataBase64) {
+      preview.src = `data:${existing.mime || "image/jpeg"};base64,${existing.dataBase64}`;
+      preview.hidden = false;
+      nameEl.textContent = existing.name || "Current thumbnail";
+      removeBtn.hidden = false;
+    } else {
+      nameEl.textContent = "No thumbnail set yet.";
+    }
+  }
+
+  function closeSetThumbModal() {
+    if (setThumbModal) { setThumbModal.hidden = true; setThumbModal.setAttribute("aria-hidden", "true"); }
+    setThumbCtx = null; setThumbFile = null;
+  }
+
+  async function saveSetThumb() {
+    if (!setThumbCtx || !setThumbFile) return;
+    const saveBtn = setThumbModal.querySelector("#yt-setthumb-save");
+    saveBtn.disabled = true; saveBtn.textContent = "Saving…";
+    const ok = await FCYouTube.saveThumbnail(setThumbCtx.key, setThumbCtx.channel, setThumbFile);
+    if (ok) { closeSetThumbModal(); }
+    else { saveBtn.disabled = false; saveBtn.textContent = "Save"; alert("Couldn't save the thumbnail."); }
+  }
+
+  async function removeSetThumb() {
+    if (!setThumbCtx) return;
+    const ok = await FCYouTube.deleteThumbnail(setThumbCtx.key, setThumbCtx.channel);
+    if (ok) closeSetThumbModal();
+    else alert("Couldn't remove the thumbnail.");
+  }
+
+  /** Regular upload: use the thumbnail set ahead of time; if none, ask for one. */
+  async function uploadRegularWithSavedThumb(date, u, block, btn) {
+    const key = FCRecordingStatus.blockKey(u.runner.id, u.type, u.episode);
+    const prev = btn.textContent;
+    btn.disabled = true; btn.textContent = "Checking…";
+    const t = await FCYouTube.getThumbnail(key, u.channel);
+    if (!t || !t.exists || !t.dataBase64) {
+      btn.disabled = false; btn.textContent = prev;
+      alert(`No thumbnail set for the ${u.channel.toUpperCase()} video.\n\nClick the \u{1F5BC} button on this box to add one, then upload.`);
+      return;
+    }
+    btn.textContent = "Uploading…";
+    const res = await FCYouTube.upload({
+      key, channel: u.channel, block,
+      date: { y: date.getFullYear(), m: date.getMonth(), d: date.getDate() },
+      time: { hour: u.hour, min: u.min },
+      playlistName: u.runner.name,
+    }, { dataBase64: t.dataBase64, mime: t.mime, name: t.name });
+    if (res.ok) {
+      if (res.warning) alert("Uploaded, with a note:\n\n" + res.warning);
+      await FCRecordingStatus.refresh();
+    } else {
+      btn.disabled = false; btn.textContent = "Retry upload";
+      btn.classList.add("yt-btn--error");
       alert("YouTube upload failed:\n\n" + (res.error || "Unknown error"));
     }
   }
@@ -647,6 +835,48 @@
       renderStats();
     });
   });
+
+  // "Open Remote": copy the LAN URL of this calendar so another device on the
+  // same network (the recording Mac) can open it. The server returns the URL
+  // because the browser doesn't know this PC's LAN IP (it sees 127.0.0.1).
+  const openRemoteBtn = document.getElementById("open-remote");
+  if (openRemoteBtn) {
+    const flashRemote = (msg) => {
+      const prev = openRemoteBtn.dataset.label || openRemoteBtn.textContent;
+      openRemoteBtn.dataset.label = prev;
+      openRemoteBtn.textContent = msg;
+      openRemoteBtn.classList.add("open-remote-btn--flash");
+      setTimeout(() => {
+        openRemoteBtn.textContent = prev;
+        openRemoteBtn.classList.remove("open-remote-btn--flash");
+      }, 1500);
+    };
+    const copyText = async (text) => {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    };
+    openRemoteBtn.addEventListener("click", async () => {
+      try {
+        const res = await fetch("/__remote-url");
+        const data = await res.json();
+        if (!data.url) { flashRemote("No LAN IP"); return; }
+        await copyText(data.url);
+        flashRemote("Copied!");
+      } catch {
+        flashRemote("Failed");
+      }
+    });
+  }
 
   document.body.dataset.channel = activeChannel;
 

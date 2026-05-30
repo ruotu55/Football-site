@@ -555,6 +555,7 @@ function normalizeForImport(str) {
 function showManualSearchModal({ title, items, displayFn }) {
     return new Promise((resolve) => {
         const overlay = document.createElement("div");
+        overlay.className = "fc-modal-root";
         overlay.style.cssText = "position:fixed; inset:0; background:rgba(0,0,0,0.72); z-index:10001; display:flex; align-items:center; justify-content:center;";
         const modal = document.createElement("div");
         modal.style.cssText = "background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:1.1rem 1.25rem; width:min(560px, 92vw); max-height:82vh; display:flex; flex-direction:column; gap:0.75rem;";
@@ -678,6 +679,7 @@ async function applyImportAliasesToNames(names) {
 function showSaveAliasConfirmModal({ rawName, pickedName }) {
     return new Promise((resolve) => {
         const overlay = document.createElement("div");
+        overlay.className = "fc-modal-root";
         overlay.style.cssText = "position:fixed; inset:0; background:rgba(0,0,0,0.72); z-index:10002; display:flex; align-items:center; justify-content:center;";
         const modal = document.createElement("div");
         modal.style.cssText = "background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:1.1rem 1.25rem; width:min(440px, 92vw); display:flex; flex-direction:column; gap:0.85rem;";

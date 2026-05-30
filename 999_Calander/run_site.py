@@ -20,6 +20,7 @@ import argparse
 import errno
 import importlib.util
 import io
+import json
 import os
 import socket
 import sys
@@ -82,6 +83,9 @@ class CalendarRequestHandler(SimpleHTTPRequestHandler):
     """Static file serving for PROJECT_ROOT + recording-status, youtube, launch endpoints."""
 
     def do_GET(self) -> None:  # noqa: N802
+        if self.path.split("?", 1)[0] == "/__remote-url":
+            self._send_remote_url()
+            return
         if _recording_status_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if _youtube_mod.try_handle_get(self, PROJECT_ROOT):
@@ -91,6 +95,24 @@ class CalendarRequestHandler(SimpleHTTPRequestHandler):
         except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
             # Browser tab closed / reloaded mid-response.
             return
+
+    def _send_remote_url(self) -> None:
+        """Return the LAN URL another device (e.g. the recording Mac) can use to
+        open this calendar. The browser only knows it was opened at 127.0.0.1,
+        so the client can't build this itself — only the server knows the LAN IP."""
+        lan_ip = _primary_lan_ipv4()
+        port = self.server.server_address[1]
+        url = (
+            f"http://{lan_ip}:{port}{CALENDAR_WEB_PREFIX}/index.html"
+            if lan_ip else None
+        )
+        body = json.dumps({"url": url}).encode("utf-8")
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.end_headers()
+        self.wfile.write(body)
 
     def do_POST(self) -> None:  # noqa: N802
         if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):

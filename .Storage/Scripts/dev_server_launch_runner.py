@@ -66,10 +66,19 @@ def _launch(folder: Path, port: int) -> bool:
         # DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP — keep running after the
         # calendar process, and don't share its console.
         creationflags = 0x00000008 | subprocess.CREATE_NEW_PROCESS_GROUP
+    # Force UTF-8 stdout/stderr in the child. With --host 0.0.0.0 the runner
+    # prints a LAN banner containing a non-breaking hyphen (U+2011); on a
+    # non-UTF-8 console (e.g. Hebrew cp1255) that raises UnicodeEncodeError and
+    # the server dies on startup -> "did not start in time".
+    env = dict(os.environ)
+    env["PYTHONUTF8"] = "1"
+    env["PYTHONIOENCODING"] = "utf-8"
     try:
         subprocess.Popen(
-            [sys.executable, "run_site.py", "--port", str(port), "--no-browser", "--strict-port"],
+            [sys.executable, "run_site.py", "--port", str(port),
+             "--host", "0.0.0.0", "--no-browser", "--strict-port"],
             cwd=str(folder),
+            env=env,
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             creationflags=creationflags,
@@ -110,7 +119,13 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
         return True
 
     port = _runner_port(runner_id, type_)
-    url = f"http://127.0.0.1:{port}/{quote(folder.name)}/index.html"
+    # Build the runner URL with the SAME host the client used to reach the
+    # calendar (its Host header). Local use -> 127.0.0.1; a remote device like
+    # the recording Mac -> this PC's LAN IP, so the Mac can actually open it.
+    host_header = handler.headers.get("Host", "") or ""
+    req_host = host_header.split(":", 1)[0].strip() or "127.0.0.1"
+    is_local = req_host in ("127.0.0.1", "localhost", "::1")
+    url = f"http://{req_host}:{port}/{quote(folder.name)}/index.html"
     # Optional: auto-open a saved competition on the runner. The runner reads
     # ?open=<runnerId>|<type>|<episode> on load and loads that block.
     try:
@@ -126,13 +141,20 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
             _send_json(handler, 500, {"ok": False, "error": "Runner server did not start in time", "url": url})
             return True
 
-    # Open (or focus) the runner page in the default browser, on this machine.
-    try:
-        webbrowser.open(url)
-    except Exception:
-        pass
+    # Open the runner here ONLY for a local request. For a remote client (the
+    # Mac), don't open on this PC — the calendar page opens it in the browser
+    # where the user actually clicked (via openOnClient below).
+    if is_local:
+        try:
+            webbrowser.open(url)
+        except Exception:
+            pass
 
-    _send_json(handler, 200, {"ok": True, "url": url, "port": port, "alreadyRunning": already, "folder": folder.name})
+    _send_json(handler, 200, {
+        "ok": True, "url": url, "port": port,
+        "alreadyRunning": already, "folder": folder.name,
+        "openOnClient": not is_local,
+    })
     return True
 
 

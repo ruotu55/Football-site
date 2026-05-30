@@ -732,6 +732,10 @@ body.shorts-mode.play-video-active .team-voice-controls {
 /* Shorts: hatch stripes fade out towards the bottom (barely visible near the pitch) */
 body.shorts-mode .team-header::before {
   /* Keep hatch inside the panel — don't bleed onto the pitch */
+  /* Extend the hatch up past the viewport top so the colored lines reach the
+     very top (no gap above the crest); crest/name are unchanged. The linear
+     mask below still fades the hatch out toward the pitch. */
+  top: -4vh;
   bottom: 0;
   -webkit-mask-image: linear-gradient(
     to bottom,

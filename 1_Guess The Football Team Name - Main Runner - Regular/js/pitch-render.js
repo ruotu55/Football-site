@@ -935,6 +935,7 @@ function debugSlotControlClick(message, detail = {}) {
 }
 
 function findFallbackSlotControlAtPoint(e) {
+  if (window.FCModalLayer?.isAnyOpen?.()) return null;
   const pitchWrap = document.getElementById("pitch-wrap");
   if (!pitchWrap || e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR)) return null;
   // Don't hijack clicks inside a known modal/dialog.

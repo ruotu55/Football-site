@@ -1,0 +1,188 @@
+/* =====================================================================
+   MODAL LAYER — shared click-blocking for every runner
+   While any modal/dialog is open, background UI cannot receive clicks.
+   >>> Add new modal root selectors to --fc-modal-roots below. <<<
+   ===================================================================== */
+
+:root {
+    --fc-modal-z: 200000;
+    /* Above screen-size / shots-size safe-zone chrome (1000002) */
+    --fc-modal-z-safe-zone: 1000003;
+}
+
+/* Every full-screen modal root: top of stack + always receives pointer events. */
+.fc-modal-root,
+#prod-validation-overlay,
+.prod-validation-overlay,
+.swap-modal:not([hidden]),
+.pcrop-modal:not([hidden]),
+.psrc-modal:not([hidden]),
+.ppick-modal:not([hidden]),
+.bpick-modal:not([hidden]),
+.rq-modal:not([hidden]),
+.modal:not([hidden]),
+.ts-overlay:not([hidden]),
+.career-ready-photo-switch-modal:not([hidden]),
+.career-ready-photo-switch-modal--portal:not([hidden]),
+.career-ready-photo-url-modal:not([hidden]),
+.career-ready-photo-url-modal--portal:not([hidden]),
+#fc-loading-overlay.fc-show,
+#render-progress-overlay:not([style*="display: none"]):not([style*="display:none"]),
+#recording-preflight-overlay,
+#recording-preflight-failure {
+    z-index: var(--fc-modal-z) !important;
+    pointer-events: auto !important;
+}
+
+/* Regular safe-zone overlay lifts the control panel — modals must sit above it. */
+body:has(#screen-size-overlay:not([hidden])) .fc-modal-root,
+body:has(#screen-size-overlay:not([hidden])) #prod-validation-overlay,
+body:has(#screen-size-overlay:not([hidden])) .prod-validation-overlay,
+body:has(#screen-size-overlay:not([hidden])) .swap-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .pcrop-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .psrc-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .ppick-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .bpick-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .rq-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .ts-overlay:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .career-ready-photo-switch-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .career-ready-photo-switch-modal--portal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .career-ready-photo-url-modal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) .career-ready-photo-url-modal--portal:not([hidden]),
+body:has(#screen-size-overlay:not([hidden])) #render-progress-overlay,
+body:has(#screen-size-overlay:not([hidden])) #recording-preflight-overlay,
+body:has(#screen-size-overlay:not([hidden])) #recording-preflight-failure {
+    z-index: var(--fc-modal-z-safe-zone) !important;
+}
+
+/* Shots safe-zone overlay — same lift (also defined in shots-size-overlay.css). */
+body:has(#shots-size-overlay:not([hidden])) .fc-modal-root,
+body:has(#shots-size-overlay:not([hidden])) #prod-validation-overlay,
+body:has(#shots-size-overlay:not([hidden])) .prod-validation-overlay,
+body:has(#shots-size-overlay:not([hidden])) .swap-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .pcrop-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .psrc-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .ppick-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .bpick-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .rq-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .ts-overlay:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-switch-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-switch-modal--portal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-url-modal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-url-modal--portal:not([hidden]),
+body:has(#shots-size-overlay:not([hidden])) #render-progress-overlay,
+body:has(#shots-size-overlay:not([hidden])) #recording-preflight-overlay,
+body:has(#shots-size-overlay:not([hidden])) #recording-preflight-failure {
+    z-index: var(--fc-modal-z-safe-zone) !important;
+}
+
+/* CSS-only background block when any modal is visible (JS adds body.fc-modal-open too). */
+body:has(.fc-modal-root),
+body:has(#prod-validation-overlay),
+body:has(.swap-modal:not([hidden])),
+body:has(.pcrop-modal:not([hidden])),
+body:has(.psrc-modal:not([hidden])),
+body:has(.ppick-modal:not([hidden])),
+body:has(.bpick-modal:not([hidden])),
+body:has(.rq-modal:not([hidden])),
+body:has(.modal:not([hidden])),
+body:has(.ts-overlay:not([hidden])),
+body:has(.career-ready-photo-switch-modal:not([hidden])),
+body:has(.career-ready-photo-switch-modal--portal:not([hidden])),
+body:has(.career-ready-photo-url-modal:not([hidden])),
+body:has(.career-ready-photo-url-modal--portal:not([hidden])),
+body:has(#fc-loading-overlay.fc-show),
+body:has(#recording-preflight-overlay),
+body:has(#recording-preflight-failure),
+body.fc-modal-open {
+    /* marker — rules below apply to children */
+}
+
+body:has(.fc-modal-root) #pitch-wrap,
+body:has(.fc-modal-root) #pitch-container,
+body:has(.fc-modal-root) .pitch-wrap,
+body:has(.fc-modal-root) .control-panel,
+body:has(.fc-modal-root) .right-panel,
+body:has(.fc-modal-root) .panel-fab,
+body:has(.fc-modal-root) .team-header,
+body:has(.fc-modal-root) #team-header-mount,
+body:has(.fc-modal-root) .quiz-progress,
+body:has(.fc-modal-root) .career-wrap,
+body:has(.fc-modal-root) .career-slots,
+body:has(.fc-modal-root) .lineups-inline-team-picker,
+body:has(.fc-modal-root) #career-inline-player-picker,
+body:has(#prod-validation-overlay) #pitch-wrap,
+body:has(#prod-validation-overlay) #pitch-container,
+body:has(#prod-validation-overlay) .pitch-wrap,
+body:has(#prod-validation-overlay) .control-panel,
+body:has(#prod-validation-overlay) .right-panel,
+body:has(#prod-validation-overlay) .panel-fab,
+body:has(#prod-validation-overlay) .team-header,
+body:has(#prod-validation-overlay) #team-header-mount,
+body:has(#prod-validation-overlay) .quiz-progress,
+body:has(.swap-modal:not([hidden])) #pitch-wrap,
+body:has(.swap-modal:not([hidden])) #pitch-container,
+body:has(.swap-modal:not([hidden])) .pitch-wrap,
+body:has(.swap-modal:not([hidden])) .control-panel,
+body:has(.swap-modal:not([hidden])) .right-panel,
+body:has(.swap-modal:not([hidden])) .panel-fab,
+body:has(.swap-modal:not([hidden])) .team-header,
+body:has(.swap-modal:not([hidden])) #team-header-mount,
+body:has(.swap-modal:not([hidden])) .quiz-progress,
+body:has(.psrc-modal:not([hidden])) #pitch-wrap,
+body:has(.psrc-modal:not([hidden])) #pitch-container,
+body:has(.psrc-modal:not([hidden])) .pitch-wrap,
+body:has(.psrc-modal:not([hidden])) .control-panel,
+body:has(.psrc-modal:not([hidden])) .right-panel,
+body:has(.psrc-modal:not([hidden])) .panel-fab,
+body:has(.psrc-modal:not([hidden])) .team-header,
+body:has(.psrc-modal:not([hidden])) #team-header-mount,
+body:has(.psrc-modal:not([hidden])) .quiz-progress,
+body:has(.ppick-modal:not([hidden])) #pitch-wrap,
+body:has(.ppick-modal:not([hidden])) #pitch-container,
+body:has(.ppick-modal:not([hidden])) .pitch-wrap,
+body:has(.ppick-modal:not([hidden])) .control-panel,
+body:has(.ppick-modal:not([hidden])) .right-panel,
+body:has(.ppick-modal:not([hidden])) .panel-fab,
+body:has(.ppick-modal:not([hidden])) .team-header,
+body:has(.ppick-modal:not([hidden])) #team-header-mount,
+body:has(.ppick-modal:not([hidden])) .quiz-progress,
+body:has(.pcrop-modal:not([hidden])) #pitch-wrap,
+body:has(.pcrop-modal:not([hidden])) #pitch-container,
+body:has(.pcrop-modal:not([hidden])) .pitch-wrap,
+body:has(.pcrop-modal:not([hidden])) .control-panel,
+body:has(.pcrop-modal:not([hidden])) .right-panel,
+body:has(.pcrop-modal:not([hidden])) .panel-fab,
+body:has(.pcrop-modal:not([hidden])) .team-header,
+body:has(.pcrop-modal:not([hidden])) #team-header-mount,
+body:has(.pcrop-modal:not([hidden])) .quiz-progress,
+body:has(.bpick-modal:not([hidden])) #pitch-wrap,
+body:has(.bpick-modal:not([hidden])) #pitch-container,
+body:has(.bpick-modal:not([hidden])) .pitch-wrap,
+body:has(.bpick-modal:not([hidden])) .control-panel,
+body:has(.bpick-modal:not([hidden])) .right-panel,
+body:has(.bpick-modal:not([hidden])) .panel-fab,
+body:has(.bpick-modal:not([hidden])) .team-header,
+body:has(.bpick-modal:not([hidden])) #team-header-mount,
+body:has(.bpick-modal:not([hidden])) .quiz-progress,
+body:has(.rq-modal:not([hidden])) #pitch-wrap,
+body:has(.rq-modal:not([hidden])) .control-panel,
+body:has(.rq-modal:not([hidden])) .right-panel,
+body:has(.rq-modal:not([hidden])) .panel-fab,
+body.fc-modal-open #pitch-wrap,
+body.fc-modal-open #pitch-container,
+body.fc-modal-open .pitch-wrap,
+body.fc-modal-open .control-panel,
+body.fc-modal-open .right-panel,
+body.fc-modal-open .panel-fab,
+body.fc-modal-open .team-header,
+body.fc-modal-open #team-header-mount,
+body.fc-modal-open .quiz-progress,
+body.fc-modal-open .career-wrap,
+body.fc-modal-open .career-slots,
+body.fc-modal-open .lineups-inline-team-picker,
+body.fc-modal-open #career-inline-player-picker {
+    pointer-events: none !important;
+}

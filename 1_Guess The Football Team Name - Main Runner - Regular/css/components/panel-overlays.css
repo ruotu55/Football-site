@@ -65,29 +65,38 @@
 .voice-tab-section__title::-webkit-details-marker { display: none; }
 .voice-tab-section__title::before { content: "▸"; display: inline-block; margin-right: 0.45rem; color: rgba(255,255,255,0.55); transition: transform 160ms ease; }
 .voice-tab-section[open] > .voice-tab-section__title::before { transform: rotate(90deg); }
-.voice-tab-section__empty { color: rgba(255,255,255,0.4); font-size: 0.8rem; font-style: italic; }
+.voice-tab-section__empty.voice-tab-section__empty { color: rgba(255,255,255,0.4); font-size: 0.8rem; font-style: italic; }
 .voice-tab-bulk-btn {
   box-sizing: border-box;
+  display: block;
   width: 100%;
-  margin: 0.15rem 0 0.35rem;
-  padding: 0.45rem 0.65rem;
-  border: 1px solid rgba(255, 202, 40, 0.45);
-  border-radius: 0.45rem;
-  background: rgba(255, 202, 40, 0.12);
-  color: #fff;
+  margin: 0.2rem 0 0.6rem;
+  padding: 0.62rem 0.8rem;
+  border: none;
+  border-radius: 0.6rem;
+  background: linear-gradient(180deg, #ffd24a 0%, #f4b000 100%);
+  color: #2a1d00;
+  font-family: inherit;
   font-size: 0.8rem;
   font-weight: 800;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: filter 0.15s ease, transform 0.06s ease, box-shadow 0.15s ease;
 }
 .voice-tab-bulk-btn:hover:not(:disabled) {
-  background: rgba(255, 202, 40, 0.22);
-  border-color: var(--accent, #ffca28);
+  filter: brightness(1.07);
+  box-shadow: 0 3px 12px rgba(244, 176, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+.voice-tab-bulk-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 .voice-tab-bulk-btn:disabled {
   cursor: not-allowed;
-  opacity: 0.45;
+  opacity: 0.5;
+  filter: grayscale(0.35);
 }
 /* Setup panel's Background + Transition collapsibles get a bit more breathing room
    than the dense voice rows so the form fields sit comfortably. */
@@ -462,7 +471,7 @@ body.youtube-thumbnails-mode .countdown-timer {
 .prod-validation-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 100200;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -606,4 +615,29 @@ body.youtube-thumbnails-mode .countdown-timer {
   background: #ef4444;
   color: #fff;
   border-color: #ef4444;
+}
+
+
+/* =====================================================================
+   MODAL LAYER (centralized click-blocking fix)
+   Every interactive popup/dialog/menu root sits ABOVE the control panel
+   (z-index:100000) and its floating action buttons, so while one is open it
+   covers the whole screen and NOTHING behind it is clickable. The roots are
+   full-screen position:fixed backdrops, so this single z-index bump is enough.
+   >>> When you add a NEW modal, add its root selector to this list. <<<
+   ===================================================================== */
+.prod-validation-overlay,
+.swap-modal,
+.pcrop-modal,
+.psrc-modal,
+.ppick-modal,
+.bpick-modal,
+.rq-modal,
+.modal,
+.ts-overlay,
+.career-ready-photo-switch-modal,
+.career-ready-photo-switch-modal--portal,
+.career-ready-photo-url-modal,
+.career-ready-photo-url-modal--portal {
+  z-index: 200000 !important;
 }

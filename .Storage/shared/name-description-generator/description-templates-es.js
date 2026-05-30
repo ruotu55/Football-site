@@ -326,3 +326,66 @@ export const SIGN_OFFS = [
 // Helpers — reutilizados del módulo en inglés (son agnósticos del idioma).
 // ---------------------------------------------------------------------------
 export { pickRandom, pickOne, rng } from "./description-templates.js";
+
+// ---------------------------------------------------------------------------
+// TÍTULO VIRAL PARA SHORTS — frase de tarea por quiz + un gran banco de frases
+// gancho. buildShortsTitle() elige una frase al azar cada vez, así los títulos
+// de Shorts son casi únicos. {TASK} = la tarea tal cual; {task} = igual con la
+// primera letra en minúscula (uso a mitad de frase).
+// ---------------------------------------------------------------------------
+export const SHORTS_TITLE_TASKS = {
+  "team-by-nat": "Adivina el equipo",
+  "nat-by-club": "Adivina la selección",
+  "career-path": "Adivina el jugador",
+  "career-stats": "Adivina el jugador",
+  "four-params": "Adivina el jugador",
+  "fake-info": "Encuentra el dato FALSO",
+  "logo-name": "Adivina el escudo",
+  "player-name": "Adivina el jugador",
+};
+
+// Infinitive form for mid-sentence use ({task}) — e.g. "¿Puedes adivinar...?".
+// (English doesn't need this; its lowercased imperative reads fine.)
+export const SHORTS_TITLE_TASKS_INF = {
+  "team-by-nat": "adivinar el equipo",
+  "nat-by-club": "adivinar la selección",
+  "career-path": "adivinar el jugador",
+  "career-stats": "adivinar el jugador",
+  "four-params": "adivinar el jugador",
+  "fake-info": "encontrar el dato FALSO",
+  "logo-name": "adivinar el escudo",
+  "player-name": "adivinar el jugador",
+};
+
+export const SHORTS_TITLE_FRAMES = [
+  "¿{TASK}? ⚽🔥",
+  "¿Puedes {task}? 🤔",
+  "¡El 99% FALLA! {TASK} 😱",
+  "Solo el 1% puede 🧠 ¡{TASK}!",
+  "{TASK} en 5 segundos ⏱️🔥",
+  "Quiz de fútbol IMPOSIBLE 🤯 ¡{TASK}!",
+  "¿A que NO puedes? 👀 ¡{TASK}!",
+  "{TASK} 🤔 ¡Casi todos fallan!",
+  "Pon a prueba tu IQ futbolero 🧠 ¡{TASK}!",
+  "POV: intentas {task} 😅⚽",
+  "{TASK} 🏆 ¿Cuántos aciertas?",
+  "Solo para verdaderos fans 🔥 ¡{TASK}!",
+  "{TASK} 😱 ¡No las aciertas todas!",
+  "¿Sabes de fútbol? 🤔 ¡{TASK}!",
+  "{TASK} ⚡ Comenta tu marcador 👇",
+  "Solo los FANS reales pueden ⚽ ¡{TASK}!",
+  "¿{TASK}?? ¡Está DIFÍCIL! 😤",
+  "¿Qué tan rápido puedes {task}? ⏱️",
+  "{TASK} 🔥 ¿Eres un genio del fútbol?",
+  "Nadie las acierta todas 😳 ¡{TASK}!",
+  "{TASK} 👀 ¡Sin trampas!",
+  "El reto de fútbol definitivo 🏆 ¡{TASK}!",
+  "{TASK} ⚽ ¡Los fans casuales fallan!",
+  "¿Puedes con este quiz? {TASK} 🔥",
+  "{TASK} 🤯 ¡Más difícil de lo que parece!",
+  "Intenta {task} 👇 ¡si te atreves!",
+  "{TASK} — ¿eres lo bastante bueno? 😏",
+  "Casi todos fallan 😬 ¡{TASK}!",
+];
+
+export const SHORTS_TITLE_TAILS = ["", " #futbol", " #futbolquiz", " #quizfutbol"];

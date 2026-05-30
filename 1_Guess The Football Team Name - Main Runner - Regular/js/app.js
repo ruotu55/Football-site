@@ -47,7 +47,7 @@ import {
     showValidationModal,
     markBackgroundColorConfirmed,
     markBackgroundEffectConfirmed,
-} from "./prod-validation.js";
+} from "./prod-validation.js?v=20260530-prodtiming";
 import {
     initSavedTeamLayouts,
     refreshSaveTeamButtonUi,
@@ -85,6 +85,7 @@ const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
 function showTeamNameSaveConfirmModal({ oldName, newName }) {
     return new Promise((resolve) => {
         const overlay = document.createElement("div");
+        overlay.className = "fc-modal-root";
         overlay.style.cssText = "position:fixed; inset:0; background:rgba(0,0,0,0.72); z-index:10002; display:flex; align-items:center; justify-content:center;";
         const modal = document.createElement("div");
         modal.style.cssText = "background:#1a1a1a; border:1px solid #333; border-radius:8px; padding:1.1rem 1.25rem; width:min(440px, 92vw); display:flex; flex-direction:column; gap:0.85rem;";
@@ -1291,9 +1292,11 @@ async function init() {
     // ?? PROD button ??
     if (els.prodBtn) {
         els.prodBtn.onclick = () => {
+            const s = performance.now();
             toggleProdMode();
             syncVideoModeButton(!!getState()?.videoMode);
             syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
+            console.log(`[PROD timing] PROD button click (toggleProdMode): ${(performance.now() - s).toFixed(0)}ms`);
         };
     }
 

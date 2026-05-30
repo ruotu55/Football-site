@@ -905,6 +905,83 @@ def _fetch_first_new_photo(urls: list[str], source: str, known_hashes: set[str])
     return None
 
 
+def _find_existing_photo_path_by_sha256(target_dir: Path, digest: str) -> Path | None:
+    if not digest or not target_dir.is_dir():
+        return None
+    try:
+        for p in target_dir.iterdir():
+            if not p.is_file():
+                continue
+            try:
+                if hashlib.sha256(p.read_bytes()).hexdigest() == digest:
+                    return p
+            except OSError:
+                continue
+    except OSError:
+        return None
+    return None
+
+
+_PHOTO_CANDIDATE_LIMIT = 12
+_PHOTO_CANDIDATE_MAX_BYTES = 8 * 1024 * 1024
+
+
+def _guess_image_mime(data: bytes) -> str:
+    """Best-effort MIME from magic bytes; defaults to PNG."""
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return "image/png"
+    if data[:3] == b"\xff\xd8\xff":
+        return "image/jpeg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return "image/webp"
+    if data[:6] in (b"GIF87a", b"GIF89a"):
+        return "image/gif"
+    return "image/png"
+
+
+def _persist_player_photo_bytes(
+    target_dir: Path,
+    index_section: str,
+    index_key: str,
+    image_bytes: bytes,
+    source: str,
+) -> tuple[int, dict]:
+    """Dedup against target_dir by sha256, else write with a source-labelled
+    filename (auto - fut.gg / auto - 365scores), then update the image index.
+    Returns (http_status, response_dict) — never raises for the expected cases.
+    """
+    if not image_bytes:
+        return (404, {"ok": False, "error": "Downloaded image is empty."})
+    digest = hashlib.sha256(image_bytes).hexdigest()
+    existing = _find_existing_photo_path_by_sha256(target_dir, digest)
+    if existing is not None:
+        rel_path = existing.relative_to(PROJECT_ROOT).as_posix()
+        try:
+            _update_player_images_index(index_section, index_key, rel_path)
+        except OSError:
+            return (500, {"ok": False, "error": "Failed to update player image index."})
+        return (200, {
+            "ok": True, "source": source, "relativePath": rel_path,
+            "indexSection": index_section, "indexKey": index_key,
+            "reusedExistingFile": True,
+        })
+    target_dir.mkdir(parents=True, exist_ok=True)
+    out_path = _next_auto_photo_path(target_dir, source)
+    try:
+        out_path.write_bytes(image_bytes)
+    except OSError:
+        return (500, {"ok": False, "error": "Failed to write image file."})
+    rel_path = out_path.relative_to(PROJECT_ROOT).as_posix()
+    try:
+        _update_player_images_index(index_section, index_key, rel_path)
+    except OSError:
+        return (500, {"ok": False, "error": "Failed to update player image index."})
+    return (200, {
+        "ok": True, "source": source, "relativePath": rel_path,
+        "indexSection": index_section, "indexKey": index_key,
+    })
+
+
 def _next_auto_photo_path(target_dir: Path, source: str) -> Path:
     base = f"Auto - {source}"
     first = target_dir / f"{base}.png"
@@ -2550,6 +2627,89 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         )
         return True
 
+    def _try_list_player_photo_candidates(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/list-candidates":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = str(body.get("playerName") or "").strip()
+            player_club = str(body.get("playerClub") or "").strip()
+            player_nationality = str(body.get("playerNationality") or "").strip()
+            source = str(body.get("source") or "").strip().lower()
+            # For a club squad the team itself is the club, so use its name as the
+            # club hint when the player has no explicit club — this is what lets
+            # us pin "Ederson" to the Fenerbahçe GK rather than another Ederson.
+            if not player_club and str(body.get("squadType") or "").strip().lower() == "club":
+                player_club = str(body.get("currentSquadName") or "").strip()
+            if not player_name:
+                raise ValueError("Missing player name.")
+            if source not in ("fut.gg", "365scores"):
+                raise ValueError("Unknown photo source.")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            if source == "fut.gg":
+                urls = _futgg_candidate_image_urls(player_name, player_club, player_nationality)
+            else:
+                urls = _365scores_candidate_image_urls(player_name, player_club)
+        except Exception as exc:  # noqa: BLE001 — surface lookup failures to the user
+            self._write_json(502, {"ok": False, "error": f"Lookup failed: {exc}"})
+            return True
+
+        candidates: list[dict] = []
+        seen_hashes: set[str] = set()
+        for url in urls or []:
+            if len(candidates) >= _PHOTO_CANDIDATE_LIMIT:
+                break
+            try:
+                data = _fetch_bytes(url)
+            except Exception:  # noqa: BLE001 — skip a candidate that won't download
+                continue
+            if not data or len(data) > _PHOTO_CANDIDATE_MAX_BYTES:
+                continue
+            digest = hashlib.sha256(data).hexdigest()
+            if digest in seen_hashes:
+                continue
+            seen_hashes.add(digest)
+            mime = _guess_image_mime(data)
+            data_url = f"data:{mime};base64," + base64.b64encode(data).decode("ascii")
+            candidates.append({"url": url, "dataUrl": data_url})
+
+        self._write_json(200, {"ok": True, "source": source, "candidates": candidates})
+        return True
+
+    def _try_save_chosen_player_photo(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__player-photo/save-chosen":
+            return False
+        try:
+            body = self._read_json_body()
+            source = str(body.get("source") or "").strip().lower()
+            data_url = str(body.get("imageDataUrl") or "")
+            if source not in ("fut.gg", "365scores"):
+                raise ValueError("Unknown photo source.")
+            if not data_url.lower().startswith("data:image/") or "," not in data_url:
+                raise ValueError("Missing or invalid image data.")
+            target_dir, index_section, index_key = _resolve_player_image_target(body)
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        try:
+            image_bytes = base64.b64decode(data_url.split(",", 1)[1], validate=False)
+        except Exception:  # noqa: BLE001
+            self._write_json(400, {"ok": False, "error": "Could not decode chosen image."})
+            return True
+
+        status, payload = _persist_player_photo_bytes(
+            target_dir, index_section, index_key, image_bytes, source
+        )
+        self._write_json(status, payload)
+        return True
+
     def _try_player_photo_from_url(self) -> bool:
         parsed = urlparse(self.path)
         if parsed.path.rstrip("/") != "/__player-photo/from-url":
@@ -2776,6 +2936,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_delete_player_photo():
             return
         if self._try_auto_fetch_player_photo():
+            return
+        if self._try_list_player_photo_candidates():
+            return
+        if self._try_save_chosen_player_photo():
             return
         if self._try_player_photo_from_url():
             return

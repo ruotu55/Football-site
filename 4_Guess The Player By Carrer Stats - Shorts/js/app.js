@@ -849,9 +849,14 @@ async function init() {
                     return;
                 }
             }
-            const savedName = (getActiveScriptName() || "").trim();
+            // Shorts have no typed name - derive a unique filename from the loaded
+            // calendar slot (e.g. "1-short-12"). Only block if nothing is loaded at all.
+            let savedName = (getActiveScriptName() || "").trim();
+            if (!savedName && appState.activeBlockKey) {
+                savedName = String(appState.activeBlockKey).split("|").join("-");
+            }
             if (!savedName) {
-                alert("Load a saved setting first — the OBS file is named after it.");
+                alert("Open a video from the calendar first (Ready to record).");
                 return;
             }
 

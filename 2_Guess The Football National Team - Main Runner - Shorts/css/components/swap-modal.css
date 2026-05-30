@@ -1,15 +1,20 @@
 .swap-modal {
   position: fixed;
   inset: 0;
+  box-sizing: border-box;
   /* Blurred dark backdrop */
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  z-index: 1000;
+  /* ALWAYS IN FRONT: above the control panel (z-index:100000) and right-panel
+     (99990) so an open dialog is never hidden behind them. Centered in the
+     viewport (no left offset) so it sits dead-middle of the window. */
+  z-index: 100100;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .swap-modal[hidden] {
   display: none;
 }

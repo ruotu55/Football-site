@@ -9,6 +9,7 @@
 import * as obsRecorder from "./obs-recorder.js";
 import { ObsLibraryLoadError } from "./obs-recorder.js";
 import { appState } from "./state.js";
+import { runPreflight } from "./recording-preflight.js";
 
 function showRecordingError(message) {
     const existing = document.getElementById("recording-error-overlay");
@@ -75,6 +76,20 @@ export async function startRecordingAndFullscreen(savedName, language = "english
         console.error("[recording-flow] /__obs-config failed:", err);
         showRecordingError("Cannot reach the local server (/__obs-config).");
         return false;
+    }
+
+    /* Preflight: warm every image the recording will render into the browser cache
+       so playback never lags loading an asset. Runs AFTER loadObsConfig (fail-fast on
+       the helper server) and BEFORE OBS connect, so a cancelled preflight never touches
+       OBS. Warm-only — never blocks the recording. */
+    try {
+        const pre = await runPreflight(language);
+        if (!pre || !pre.proceed) {
+            console.info("[recording-flow] preflight cancelled by user");
+            return false;
+        }
+    } catch (err) {
+        console.error("[recording-flow] preflight error:", err);
     }
 
     try {

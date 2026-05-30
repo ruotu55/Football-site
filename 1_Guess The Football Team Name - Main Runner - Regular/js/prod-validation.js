@@ -10,7 +10,7 @@ import {
     getHeaderLogoUrlChain,
 } from "./photo-helpers.js";
 import { projectAssetUrl } from "./paths.js";
-import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
+import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js?v=20260530-prodtiming";
 import { BUNDLED_MILESTONES, getSelectedBundledVariant } from "./bundled-level-voices.js";
 import { getOrAssignRevealPhrase, renderTeamPhrase } from "./audio.js";
 
@@ -366,16 +366,27 @@ async function validateUpdateDataFreshness() {
 
 // ── Run all validations ──
 export async function runProdValidation() {
+    // TEMP timing: logs how long each validation section takes so we can see the
+    // real bottleneck in the console. Remove once PROD speed is confirmed.
+    const t0 = performance.now();
+    const timed = (name, p) => {
+        const s = performance.now();
+        return Promise.resolve(p).then((r) => {
+            console.log(`[PROD timing] ${name}: ${(performance.now() - s).toFixed(0)}ms`);
+            return r;
+        });
+    };
     const sections = await Promise.all([
-        Promise.resolve(validateTeamsSelected()),
-        validateTeamAssets(),
-        Promise.resolve(validateEndingType()),
-        validateUpdateDataFreshness(),
-        validateTeamVoices(),
-        validateQuizIntroVoice(),
-        validateEndingVoice(),
-        validateLevelVoices(),
+        timed("teamsSelected", validateTeamsSelected()),
+        timed("teamAssets", validateTeamAssets()),
+        timed("endingType", validateEndingType()),
+        timed("updateDataFreshness", validateUpdateDataFreshness()),
+        timed("teamVoices", validateTeamVoices()),
+        timed("quizIntroVoice", validateQuizIntroVoice()),
+        timed("endingVoice", validateEndingVoice()),
+        timed("levelVoices", validateLevelVoices()),
     ]);
+    console.log(`[PROD timing] TOTAL runProdValidation: ${(performance.now() - t0).toFixed(0)}ms`);
     const allPassed = sections.every((s) => s.passed);
     return { allPassed, sections };
 }
@@ -388,7 +399,7 @@ export function showValidationModal(result) {
 
     const overlay = document.createElement("div");
     overlay.id = "prod-validation-overlay";
-    overlay.className = "prod-validation-overlay";
+    overlay.className = "prod-validation-overlay fc-modal-root";
 
     const modal = document.createElement("div");
     modal.className = "prod-validation-modal";

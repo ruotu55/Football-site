@@ -16,6 +16,7 @@
   const UPLOAD_ENDPOINT = "/__youtube-upload";
   const STATUS_ENDPOINT = "/__youtube-status";
   const RECSTATUS_ENDPOINT = "/__recording-status";
+  const THUMB_ENDPOINT = "/__youtube-thumbnail";
 
   let auth = { clientSecret: false, channels: { en: false, es: false } };
 
@@ -147,6 +148,49 @@
     return { ok: false, error: errMsg };
   }
 
+  /* ── Per-video custom thumbnails (set ahead of time, used at upload) ── */
+
+  /** Returns { exists, dataBase64?, mime?, name? } for (key, channel). */
+  async function getThumbnail(key, channel) {
+    try {
+      const url = `${THUMB_ENDPOINT}?key=${encodeURIComponent(key)}&channel=${encodeURIComponent(channel)}`;
+      const r = await fetch(url, { cache: "no-store" });
+      if (!r.ok) return { exists: false };
+      return await r.json();
+    } catch (_) {
+      return { exists: false };
+    }
+  }
+
+  /** Save a thumbnail for (key, channel). `file` = { dataBase64, mime, name }. */
+  async function saveThumbnail(key, channel, file) {
+    try {
+      const r = await fetch(THUMB_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key, channel, dataBase64: file.dataBase64, mime: file.mime, name: file.name }),
+      });
+      const data = await r.json().catch(() => ({}));
+      return !!(r.ok && data.ok);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  async function deleteThumbnail(key, channel) {
+    try {
+      const r = await fetch(`${THUMB_ENDPOINT}/delete`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key, channel }),
+      });
+      const data = await r.json().catch(() => ({}));
+      return !!(r.ok && data.ok);
+    } catch (_) {
+      return false;
+    }
+  }
+
   refreshAuth();
 
   window.FCYouTube = {
@@ -157,5 +201,8 @@
     upload,
     resetLanguage,
     israelSlotToUtcISO,
+    getThumbnail,
+    saveThumbnail,
+    deleteThumbnail,
   };
 })();

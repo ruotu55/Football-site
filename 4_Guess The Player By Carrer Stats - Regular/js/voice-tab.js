@@ -9,6 +9,10 @@ import { renderPlayerPhrase, getOrAssignRevealPhrase } from "./audio.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
+// Always open a freshly-loaded runner in English. Resets ONLY the persisted
+// choice on each page load; runtime switches (Spanish recording phase, the
+// Language toggle, headless render) still work via setCurrentLanguage().
+try { localStorage.setItem(LANGUAGE_STORAGE_KEY, "english"); } catch {}
 const SUPPORTED_LANGUAGES = ["english", "spanish"];
 const LANGUAGE_LABELS = { english: "English", spanish: "Español" };
 
@@ -43,15 +47,16 @@ const PLAYS_AT = {
   player:    { english: "Question levels (where assigned)", spanish: "Niveles de pregunta (donde esté asignado)" },
   ending:    { english: "Last page (outro)",                spanish: "Última página (outro)" },
 };
-function plays(key) { const p = PLAYS_AT[key]; const lang = getCurrentLanguage(); return (p && (p[lang] || p.english)) || ""; }
+function plays(key) { const p = PLAYS_AT[key]; return (p && p.english) || ""; }
 function bundledVariantText(entry) { const lang = getCurrentLanguage(); return entry.text[lang] || entry.text.english; }
 function bundledMilestonePlaysAt(milestone) { const lang = getCurrentLanguage(); return milestone.playsAt[lang] || milestone.playsAt.english; }
 /* Display indices are 1-based question numbers. levelsData index 0 = logo page, index 1 =
    landing page, so the first question lives at array-index 2; subtract 1 to convert. */
-function levelLabel(idx)   { const adj = idx.map(i => i - 1); return getCurrentLanguage() === "spanish" ? `Nivel ${adj.join(", ")}` : `Level ${adj.join(", ")}`; }
+function levelLabel(idx)   { const adj = idx.map(i => i - 1); return `Level ${adj.join(", ")}`; }
 
 const busyByKey = new Set();
 let audioEl = null;
+let bulkDownloadActive = false;
 function endpointUrl(p) { return projectAssetUrl(p); }
 function stopPreviewAudio() { if (!audioEl) return; audioEl.pause(); audioEl.currentTime = 0; audioEl = null; }
 function playClip(src) { const s = String(src || "").trim(); if (!s) return; stopPreviewAudio(); const a = new Audio(s); audioEl = a; a.addEventListener("ended", () => { if (audioEl === a) audioEl = null; }, { once: true }); a.play().catch(() => {}); }
@@ -64,7 +69,7 @@ async function fetchQuizTitleStatus(qt, st) { try { const p = new URLSearchParam
 async function fetchEndingStatus(et) { try { const p = new URLSearchParams({ endingType: et, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__ending-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 async function fetchPlayerStatus(name, phrase = "plain") { try { const p = new URLSearchParams({ name, phrase, language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__player-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
 async function fetchBundledStatus(key, variant) { try { const p = new URLSearchParams({ key, variant: String(variant), language: getCurrentLanguage() }); const r = await fetch(`${endpointUrl("__bundled-voice/status")}?${p}`, { cache: "no-store" }); const b = await r.json().catch(() => ({})); return { exists: !!b?.exists, src: String(b?.src || "") }; } catch { return { exists: false, src: "" }; } }
-function playFromStart(src) { const s = String(src || "").trim(); if (!s) return; playClip(s); }
+function playFromStart(src) { if (bulkDownloadActive) return; const s = String(src || "").trim(); if (!s) return; playClip(s); }
 
 async function onVolPressed({ rowKey, cachedExists, cachedSrc, generateEndpoint, generateBody }) {
   if (cachedExists && cachedSrc) { playFromStart(cachedSrc); return; }
@@ -76,8 +81,8 @@ async function onVolPressed({ rowKey, cachedExists, cachedSrc, generateEndpoint,
     if (!res.ok || !p?.ok) throw new Error(p?.error || `Generation failed (${res.status})`);
     const gs = (p.generated && Object.values(p.generated)[0]?.src) || p.src || "";
     playFromStart(gs);
-  } catch (err) { alert(`Could not generate voice.\n${err instanceof Error ? err.message : String(err)}`); }
-  finally { busyByKey.delete(rowKey); renderVoiceTab(); }
+  } catch (err) { if (!bulkDownloadActive) alert(`Could not generate voice.\n${err instanceof Error ? err.message : String(err)}`); }
+  finally { busyByKey.delete(rowKey); if (!bulkDownloadActive) renderVoiceTab(); }
 }
 async function onDeletePressed({ rowKey, deleteEndpoint, deleteBody }) {
   stopPreviewAudio();
@@ -88,7 +93,7 @@ async function onDeletePressed({ rowKey, deleteEndpoint, deleteBody }) {
     const p = await res.json().catch(() => ({}));
     if (!res.ok || !p?.ok) throw new Error(p?.error || `Delete failed (${res.status})`);
   } catch (err) { alert(`Could not delete voice.\n${err instanceof Error ? err.message : String(err)}`); }
-  finally { busyByKey.delete(rowKey); renderVoiceTab(); }
+  finally { busyByKey.delete(rowKey); if (!bulkDownloadActive) renderVoiceTab(); }
 }
 
 
@@ -97,9 +102,9 @@ const BULK_PLAYERS_KEY = "bulk-players";
 function bulkPlayersButtonLabel(done, total) {
   const lang = getCurrentLanguage();
   if (total > 0 && done < total) {
-    return lang === "spanish" ? `Creando voz… ${done}/${total}` : `Creating voice… ${done}/${total}`;
+    return `Creating voice… ${done}/${total}`;
   }
-  return lang === "spanish" ? "Crear voz para todos los jugadores" : "Create voice for all players";
+  return "Create voice for all players";
 }
 
 async function onCreateAllPlayerVoices(playerItems, buttonEl) {
@@ -109,7 +114,7 @@ async function onCreateAllPlayerVoices(playerItems, buttonEl) {
 
   const missing = playerItems.filter((t) => !t.exists);
   if (missing.length === 0) {
-    alert(lang === "spanish" ? "Todos los jugadores ya tienen voz." : "All players already have a voice.");
+    alert("All players already have a voice.");
     return;
   }
 
@@ -152,9 +157,7 @@ async function onCreateAllPlayerVoices(playerItems, buttonEl) {
   await renderVoiceTab();
   if (failed > 0) {
     alert(
-      lang === "spanish"
-        ? `No se pudieron crear ${failed} de ${total} voces.`
-        : `Could not create ${failed} of ${total} player voices.`,
+      `Could not create ${failed} of ${total} player voices.`,
     );
   }
 }
@@ -162,6 +165,7 @@ async function onCreateAllPlayerVoices(playerItems, buttonEl) {
 function buildRow({ text, exists, onPlay, onDelete, playsAt = "", deleteDisabled = null, sessionPick = false }) {
   const row = document.createElement("div"); row.className = `voice-tab-row ${exists ? "is-present" : "is-missing"}${sessionPick ? " is-session-pick" : ""}`;
   const vol = document.createElement("button"); vol.type = "button"; vol.className = "voice-tab-btn voice-tab-btn--vol"; vol.textContent = "Vol"; vol.title = exists ? "Play" : "Generate and play"; vol.onclick = (e) => { e.preventDefault(); onPlay(); };
+  vol.__voiceGen = onPlay;
   const del = document.createElement("button"); del.type = "button"; del.className = "voice-tab-btn voice-tab-btn--x"; del.textContent = "X"; del.title = "Delete cached clip"; del.disabled = deleteDisabled !== null ? !!deleteDisabled : !exists; del.onclick = (e) => { e.preventDefault(); onDelete?.(); };
   const wrap = document.createElement("span"); wrap.className = "voice-tab-row__text";
   const main = document.createElement("span"); main.className = "voice-tab-row__text-main"; main.textContent = text; wrap.appendChild(main);
@@ -251,6 +255,7 @@ export async function renderVoiceTab() {
 
   root.innerHTML = "";
   root.appendChild(buildLanguageToggle());
+  root.appendChild(buildDownloadAllButton());
 
   const playerLevelMap = (() => {
     const map = new Map();
@@ -289,13 +294,14 @@ export async function renderVoiceTab() {
   const bulkCreatePlayersBtn = document.createElement("button");
   bulkCreatePlayersBtn.type = "button";
   bulkCreatePlayersBtn.className = "voice-tab-bulk-btn";
+  bulkCreatePlayersBtn.style.cssText = "display:block;width:100%;box-sizing:border-box;margin:0.2rem 0 0.6rem;padding:0.62rem 0.85rem;border:none;border-radius:0.6rem;background:linear-gradient(180deg,#ffd24a,#f4b000);color:#2a1d00;font-family:inherit;font-size:0.8rem;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.55)";
   bulkCreatePlayersBtn.textContent = bulkPlayersButtonLabel(0, 0);
   bulkCreatePlayersBtn.disabled = playerStatuses.length === 0 || busyByKey.has(`${BULK_PLAYERS_KEY}:${lang}`);
   bulkCreatePlayersBtn.onclick = (e) => {
     e.preventDefault();
     onCreateAllPlayerVoices(playerStatuses, bulkCreatePlayersBtn);
   };
-  root.appendChild(buildSection(SECTION_TITLES.players, playerRows, { prepend: bulkCreatePlayersBtn }));
+  root.appendChild(buildSection(SECTION_TITLES.players, playerRows));
 
   /* Only show the ending row matching the Ending type select on the Quiz (Landing) tab.
      If no valid ending is selected yet, show both so the user can still generate either. */
@@ -326,7 +332,7 @@ export async function renderVoiceTab() {
     const headLabel = document.createElement("span"); headLabel.className = "voice-tab-bundled-milestone__label"; headLabel.textContent = bundledMilestonePlaysAt(milestone);
     const headPick = document.createElement("span"); headPick.className = "voice-tab-bundled-milestone__pick";
     const picked = getSelectedBundledVariant(milestone.audioKey, sessionVariants);
-    headPick.textContent = getCurrentLanguage() === "spanish" ? `En juego: #${picked}` : `In game: #${picked}`;
+    headPick.textContent = `In game: #${picked}`;
     groupHead.appendChild(headLabel); groupHead.appendChild(headPick); bundledRows.push(groupHead);
     for (const { entry, status } of bundledStatusPairs.filter((p) => p.milestone === milestone)) {
       bundledRows.push(buildRow({
@@ -344,10 +350,73 @@ export async function renderVoiceTab() {
   if (typeof requestAnimationFrame === "function") requestAnimationFrame(__restoreScroll);
 }
 
+/* === "Download all voices" — generate every MISSING voice for BOTH languages,
+   across every section the tab renders (quiz intro, teams/players, endings,
+   bundled). Generic: it just drives each missing row's generate handler with
+   playback + per-click re-render suppressed (bulkDownloadActive). === */
+function buildDownloadAllButton() {
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "voice-tab-download-all-btn";
+  btn.textContent = "Create all voices (EN + ES)";
+  btn.style.cssText = "display:block;width:100%;box-sizing:border-box;margin:0.1rem 0 0.7rem;padding:0.62rem 0.85rem;border:none;border-radius:0.6rem;background:linear-gradient(180deg,#5ec1ff,#2f7fd6);color:#06203a;font-family:inherit;font-size:0.82rem;font-weight:800;letter-spacing:0.03em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.45),inset 0 1px 0 rgba(255,255,255,0.45)";
+  btn.onclick = (e) => { e.preventDefault(); downloadAllVoices(); };
+  return btn;
+}
+
+async function downloadAllVoices() {
+  if (bulkDownloadActive) return;
+  const panel = appState.els && appState.els.panelVoice;
+  const root = panel && panel.querySelector(".voice-tab-root");
+  if (!root) return;
+  const liveBtn = () => root.querySelector(".voice-tab-download-all-btn");
+  const orig = getCurrentLanguage();
+  const setLabel = (txt) => { const b = liveBtn(); if (b) { b.disabled = true; b.textContent = txt; } };
+  bulkDownloadActive = true;
+  stopPreviewAudio();
+  let total = 0, failed = 0;
+  try {
+    for (const lang of SUPPORTED_LANGUAGES) {
+      setCurrentLanguage(lang);
+      const code = lang === "spanish" ? "ES" : "EN";
+      // Loop until no missing voices remain for this language. A single pass can
+      // miss a few (a status race / the tab re-rendering mid-run), which is why a
+      // second click used to be needed — re-check and retry automatically. Stop
+      // if a pass makes no progress so it can never loop forever.
+      let prevMissing = Infinity;
+      for (let pass = 0; pass < 8; pass++) {
+        await renderVoiceTab();
+        const missing = Array.from(root.querySelectorAll(".voice-tab-row.is-missing .voice-tab-btn--vol"));
+        if (missing.length === 0) break;
+        if (missing.length >= prevMissing) break;
+        prevMissing = missing.length;
+        for (let i = 0; i < missing.length; i++) {
+          const gen = missing[i].__voiceGen;
+          if (typeof gen !== "function") continue;
+          setLabel("Generating " + code + " " + (i + 1) + "/" + missing.length + "...");
+          try { await gen(); } catch (e) { failed += 1; }
+          total += 1;
+        }
+      }
+    }
+  } finally {
+    bulkDownloadActive = false;
+    setCurrentLanguage(orig);
+    await renderVoiceTab();
+    const b = liveBtn();
+    if (b) {
+      b.disabled = false;
+      b.textContent = total === 0
+        ? "All voices already generated"
+        : (failed > 0 ? ("Done: " + (total - failed) + "/" + total + " ok") : "Create all voices (EN + ES)");
+    }
+  }
+}
+
 function buildLanguageToggle() {
   const w = document.createElement("div"); w.className = "voice-tab-language";
   const l = document.createElement("span"); l.className = "voice-tab-language__label";
-  l.textContent = getCurrentLanguage() === "spanish" ? "Idioma" : "Language"; w.appendChild(l);
+  l.textContent = "Language"; w.appendChild(l);
   const g = document.createElement("div"); g.className = "voice-tab-language__group";
   const cur = getCurrentLanguage();
   SUPPORTED_LANGUAGES.forEach((k) => {

@@ -92,6 +92,16 @@ export const SHORT_HOOKS = [
   "Football fans assemble! ⚽",
   "Quick! What's the answer?",
   "Reveal in 3… 2… 1…",
+  "99% can't do this 😱",
+  "Only legends get 10/10 🏆",
+  "Bet you fail this one 😏",
+  "Harder than it looks 🤯",
+  "Save this & try again later 📌",
+  "Tag a mate who'd fail 😂",
+  "Think fast! ⏱️⚽",
+  "No googling allowed 🚫📱",
+  "Prove you're a real fan 🔥",
+  "Can you beat the timer? ⏱️",
 ];
 
 // ---------------------------------------------------------------------------
@@ -343,3 +353,56 @@ export function pickOne(arr) {
 export function rng(n) {
   return Math.floor(Math.random() * n);
 }
+
+// ---------------------------------------------------------------------------
+// SHORTS VIRAL TITLE — per-quiz task phrase + a big pool of hooky frames.
+// buildShortsTitle() picks a random frame each generate, so Shorts titles are
+// near-unique. {TASK} = the task as-is (e.g. "Guess the football team");
+// {task} = same with a lowercased first letter (mid-sentence use).
+// NOTE: regular (non-Shorts) titles do NOT use this — they stay unchanged.
+// ---------------------------------------------------------------------------
+export const SHORTS_TITLE_TASKS = {
+  "team-by-nat": "Guess the football team",
+  "nat-by-club": "Guess the national team",
+  "career-path": "Guess the player",
+  "career-stats": "Guess the player",
+  "four-params": "Guess the player",
+  "fake-info": "Spot the FAKE stat",
+  "logo-name": "Guess the club badge",
+  "player-name": "Guess the player",
+};
+
+export const SHORTS_TITLE_FRAMES = [
+  "{TASK}? ⚽🔥",
+  "Can YOU {task}? 🤔",
+  "99% FAIL this quiz 😱 {TASK}!",
+  "Only 1% can do this 🧠 {TASK}!",
+  "{TASK} in 5 seconds ⏱️🔥",
+  "IMPOSSIBLE football quiz 🤯 {TASK}!",
+  "Bet you CAN'T 👀 {TASK}!",
+  "{TASK} 🤔 Most fans FAIL!",
+  "Test your football IQ 🧠 {TASK}!",
+  "POV: you try to {task} 😅⚽",
+  "{TASK} 🏆 How many can you get?",
+  "Real footy fans only 🔥 {TASK}!",
+  "{TASK} 😱 You won't get them all!",
+  "Think you know football? 🤔 {TASK}!",
+  "{TASK} ⚡ Comment your score 👇",
+  "Only REAL fans can do this ⚽ {TASK}!",
+  "{TASK}?? This one's HARD 😤",
+  "How fast can YOU {task}? ⏱️",
+  "{TASK} 🔥 Are you a football genius?",
+  "Nobody gets these all 😳 {TASK}!",
+  "{TASK} 👀 No cheating!",
+  "Ultimate football challenge 🏆 {TASK}!",
+  "{TASK} ⚽ Casual fans flunk this!",
+  "Can you beat this quiz? {TASK} 🔥",
+  "{TASK} 🤯 Harder than it looks!",
+  "Try to {task} 👇 if you dare!",
+  "{TASK} — are you good enough? 😏",
+  "Most people fail this 😬 {TASK}!",
+];
+
+// Optional extra hashtag appended after the mandatory #shorts (some are empty
+// so the tail itself varies too).
+export const SHORTS_TITLE_TAILS = ["", " #football", " #soccer", " #footballquiz", " #footyquiz"];

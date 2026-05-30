@@ -362,7 +362,7 @@ export function showValidationModal(result) {
 
     const overlay = document.createElement("div");
     overlay.id = "prod-validation-overlay";
-    overlay.className = "prod-validation-overlay";
+    overlay.className = "prod-validation-overlay fc-modal-root";
 
     const modal = document.createElement("div");
     modal.className = "prod-validation-modal";

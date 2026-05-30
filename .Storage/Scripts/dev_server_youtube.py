@@ -35,6 +35,7 @@ from __future__ import annotations
 import json
 import base64
 import os
+import re
 import ssl
 import threading
 import urllib.error
@@ -317,7 +318,81 @@ def _matches(handler_path: str, endpoint: str) -> bool:
     return urlparse(handler_path).path.rstrip("/") == endpoint
 
 
+# ---------------------------------------------------------------------------
+# Per-video custom thumbnails: set ahead of time in the calendar (one per
+# competition + channel), stored as small JSON files, used at upload time.
+# ---------------------------------------------------------------------------
+
+def _thumb_dir(project_root: Path) -> Path:
+    return _yt_dir(project_root) / "thumbnails"
+
+
+def _safe_token(s: str) -> str:
+    return re.sub(r"[^A-Za-z0-9]+", "_", str(s)).strip("_") or "x"
+
+
+def _thumb_path(project_root: Path, key: str, channel: str) -> Path:
+    return _thumb_dir(project_root) / f"{_safe_token(key)}__{_safe_token(channel)}.json"
+
+
+def _handle_thumbnail_get(handler: BaseHTTPRequestHandler, project_root: Path) -> None:
+    qs = urllib.parse.parse_qs(urlparse(handler.path).query)
+    key = (qs.get("key") or [""])[0]
+    channel = (qs.get("channel") or [""])[0]
+    if not key or channel not in ("en", "es"):
+        _send_json(handler, 400, {"ok": False, "error": "key and channel(en|es) required"})
+        return
+    data = _read_json(_thumb_path(project_root, key, channel))
+    if not data or not data.get("dataBase64"):
+        _send_json(handler, 200, {"ok": True, "exists": False})
+        return
+    _send_json(handler, 200, {
+        "ok": True, "exists": True,
+        "dataBase64": data.get("dataBase64"),
+        "mime": data.get("mime") or "image/jpeg",
+        "name": data.get("name") or "",
+    })
+
+
+def _handle_thumbnail_save(handler: BaseHTTPRequestHandler, project_root: Path, body: dict) -> None:
+    key = body.get("key")
+    channel = body.get("channel")
+    data_b64 = body.get("dataBase64")
+    if not key or channel not in ("en", "es") or not data_b64:
+        _send_json(handler, 400, {"ok": False, "error": "key, channel(en|es) and dataBase64 required"})
+        return
+    try:
+        base64.b64decode(data_b64)  # validate it decodes
+    except Exception:
+        _send_json(handler, 400, {"ok": False, "error": "Invalid image data"})
+        return
+    _thumb_dir(project_root).mkdir(parents=True, exist_ok=True)
+    payload = {
+        "mime": body.get("mime") or "image/jpeg",
+        "name": body.get("name") or "",
+        "dataBase64": data_b64,
+    }
+    _thumb_path(project_root, key, channel).write_text(json.dumps(payload), encoding="utf-8")
+    _send_json(handler, 200, {"ok": True})
+
+
+def _handle_thumbnail_delete(handler: BaseHTTPRequestHandler, project_root: Path, body: dict) -> None:
+    key = body.get("key")
+    channel = body.get("channel")
+    if not key or channel not in ("en", "es"):
+        _send_json(handler, 400, {"ok": False, "error": "key and channel(en|es) required"})
+        return
+    try:
+        _thumb_path(project_root, key, channel).unlink(missing_ok=True)
+    except OSError:
+        pass
+    _send_json(handler, 200, {"ok": True})
+
+
 def try_handle_get(handler: BaseHTTPRequestHandler, project_root: Path) -> bool:
+    if _matches(handler.path, "/__youtube-thumbnail"):
+        _handle_thumbnail_get(handler, project_root)
+        return True
     if not _matches(handler.path, "/__youtube-status"):
         return False
     payload = {
@@ -336,7 +411,9 @@ def try_handle_get(handler: BaseHTTPRequestHandler, project_root: Path) -> bool:
 
 
 def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool:
-    if not _matches(handler.path, "/__youtube-upload"):
+    is_thumb = _matches(handler.path, "/__youtube-thumbnail")
+    is_thumb_delete = _matches(handler.path, "/__youtube-thumbnail/delete")
+    if not (is_thumb or is_thumb_delete or _matches(handler.path, "/__youtube-upload")):
         return False
     try:
         content_len = int(handler.headers.get("Content-Length", "0"))
@@ -344,6 +421,13 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
         body = json.loads(raw.decode("utf-8") if raw else "{}")
     except (ValueError, UnicodeDecodeError, json.JSONDecodeError):
         _send_json(handler, 400, {"ok": False, "error": "Invalid request body"})
+        return True
+
+    if is_thumb_delete:
+        _handle_thumbnail_delete(handler, project_root, body)
+        return True
+    if is_thumb:
+        _handle_thumbnail_save(handler, project_root, body)
         return True
 
     channel = body.get("channel")

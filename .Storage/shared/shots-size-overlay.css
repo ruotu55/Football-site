@@ -150,3 +150,24 @@ body:has(#shots-size-overlay:not([hidden])) .control-panel,
 body:has(#shots-size-overlay:not([hidden])) .right-panel {
     z-index: 1000002 !important;
 }
+
+/* Option dialogs (Update Data, Save / Import / Delete script, Create Folder,
+   Swap, Swap Logo, Player Photo URL, Save/Discard — all .swap-modal) must ride
+   ABOVE the black safe-zone bands (z-index 1000000) and the lifted control
+   panel (1000002) so the dialog is fully visible + clickable while editing in
+   Shots-size mode. They are dev chrome, never part of the recorded frame. */
+body:has(#shots-size-overlay:not([hidden])) .swap-modal,
+body:has(#shots-size-overlay:not([hidden])) .prod-validation-overlay,
+body:has(#shots-size-overlay:not([hidden])) .pcrop-modal,
+body:has(#shots-size-overlay:not([hidden])) .psrc-modal,
+body:has(#shots-size-overlay:not([hidden])) .ppick-modal,
+body:has(#shots-size-overlay:not([hidden])) .bpick-modal,
+body:has(#shots-size-overlay:not([hidden])) .rq-modal,
+body:has(#shots-size-overlay:not([hidden])) .modal,
+body:has(#shots-size-overlay:not([hidden])) .ts-overlay,
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-switch-modal,
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-switch-modal--portal,
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-url-modal,
+body:has(#shots-size-overlay:not([hidden])) .career-ready-photo-url-modal--portal {
+  z-index: 1000003 !important;
+}

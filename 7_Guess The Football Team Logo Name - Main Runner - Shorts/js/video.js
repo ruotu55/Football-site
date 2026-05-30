@@ -1,4 +1,5 @@
 import { appState, getState } from "./state.js";
+import { getCurrentLanguage } from "./voice-tab.js";
 import { switchLevel } from "./levels.js";
 import {
   startBgMusic,
@@ -45,6 +46,8 @@ const PLAY_VIDEO_LEVEL_1_INTRO_DELAY_MS = 2000;
 const SHORTS_LEVEL_1_TIMER_BAR_APPEAR_DELAY_MS = 500;
 const SHORTS_INTRO_QUIZ_TITLE_LINE_1 = "GUESS THE FOOTBALL TEAM";
 const SHORTS_INTRO_QUIZ_TITLE_LINE_2 = "LOGO NAME";
+const SHORTS_INTRO_QUIZ_TITLE_LINE_1_ES = "ADIVINA EL EQUIPO";
+const SHORTS_INTRO_QUIZ_TITLE_LINE_2_ES = "POR SU ESCUDO";
 const SHORTS_INTRO_QUIZ_TITLE_FADE_MS = 780;
 
 /** Logo→first question: skip pre-countdown stage swap once so the bar lines up with title voice `playing`. */
@@ -54,7 +57,10 @@ let shortsIntroQuizTitleHideTimeout = null;
 function setShortsIntroQuizTitleVisible(isVisible, options = {}) {
   const titleEl = document.getElementById("shorts-intro-quiz-title");
   if (!titleEl) return;
-  titleEl.innerHTML = `${SHORTS_INTRO_QUIZ_TITLE_LINE_1}<br>${SHORTS_INTRO_QUIZ_TITLE_LINE_2}`;
+  const __introEs = getCurrentLanguage() === "spanish";
+  const __introL1 = __introEs ? SHORTS_INTRO_QUIZ_TITLE_LINE_1_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_1;
+  const __introL2 = __introEs ? SHORTS_INTRO_QUIZ_TITLE_LINE_2_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_2;
+  titleEl.innerHTML = `${__introL1}<br>${__introL2}`;
   clearTimeout(shortsIntroQuizTitleHideTimeout);
   shortsIntroQuizTitleHideTimeout = null;
 

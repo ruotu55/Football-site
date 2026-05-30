@@ -3,6 +3,7 @@ import { transitionSettings } from "./transitions.js";
 import { pickStartingXI } from "./pick-xi.js";
 import { FORMATIONS } from "./formations.js";
 import { getCurrentLanguage } from "./voice-tab.js";
+import { getOrAssignRevealPhrase } from "./audio.js";
 import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
 import { getHeaderLogoUrlChain } from "./photo-helpers.js";
 import { projectAssetUrl } from "./paths.js";
@@ -78,11 +79,11 @@ export function toggleProdMode() {
 // ── Validation logic ──
 
 function getLevelLabel(index, lvl) {
-    if (lvl.isLogo) return `Level 0 (Logo)`;
-    if (lvl.isIntro) return `Level 1 (Intro)`;
-    if (lvl.isOutro) return `Level ${index - 1} (Outro)`;
-    if (lvl.isBonus) return `Level ${index - 1} (Bonus)`;
-    return `Level ${index - 1}`;
+    if (lvl.isLogo) return `Level ${index} (Logo)`;
+    if (lvl.isIntro) return `Level ${index} (Intro)`;
+    if (lvl.isOutro) return `Level ${index} (Outro)`;
+    if (lvl.isBonus) return `Level ${index} (Bonus)`;
+    return `Level ${index}`;
 }
 
 function getQuestionLevels() {
@@ -196,10 +197,16 @@ async function validateTeamVoices() {
            the Voice tab uses — matches what's actually saved on disk. */
         const teamName = resolveLevelTeamName(lvl, quizType);
         if (!teamName) return null;
+        /* Check the SAME sticky reveal phrase the Voice tab + reveal playback
+           use, or a team whose voice was saved under a sentence phrase reads as
+           "missing" here (mirrors voice-tab.js: questionIndex = levelIdx - 1). */
+        const questionIndex = index - 1;
+        const phrase = getOrAssignRevealPhrase(lvl, questionIndex);
         const { exists } = await fetchExists("/__team-voice/status", {
             name: teamName,
             quizType,
             language,
+            phrase,
         });
         return exists ? null : `${getLevelLabel(index, lvl)} (${teamName}): voice file missing`;
     });
@@ -358,7 +365,7 @@ export function showValidationModal(result) {
 
     const overlay = document.createElement("div");
     overlay.id = "prod-validation-overlay";
-    overlay.className = "prod-validation-overlay";
+    overlay.className = "prod-validation-overlay fc-modal-root";
 
     const modal = document.createElement("div");
     modal.className = "prod-validation-modal";

@@ -249,13 +249,16 @@ function buildContext() {
 // ---------------------------------------------------------------------------
 
 function buildTitle(ctx, lang = "en") {
+  // Shorts get a viral, ever-changing title (see buildShortsTitle).
+  if (CONFIG.isShorts) return buildShortsTitle(ctx, lang);
+
+  // ----- REGULAR title: kept 100% identical to the original behaviour. -----
   const baseTitle = (lang === "es" && QUIZ_TITLE_ES[CONFIG.quizKey])
     ? QUIZ_TITLE_ES[CONFIG.quizKey]
     : CONFIG.quizTitle;
 
   const parts = [];
   parts.push(baseTitle.toUpperCase());
-  if (CONFIG.isShorts) parts.push("#shorts");
 
   let title = `${parts.join(" ")} | ${CONFIG.channelName} ${ctx.year}`;
 
@@ -264,6 +267,35 @@ function buildTitle(ctx, lang = "en") {
     if (withScript.length <= 100) title = withScript;
   }
 
+  return title;
+}
+
+/** Shorts-only viral title. Picks a random hooky frame + per-quiz task phrase
+ *  each call, so consecutive generates are near-unique (~28 frames × tails). */
+function buildShortsTitle(ctx, lang = "en") {
+  const T = tpl(lang);
+  const tasks = T.SHORTS_TITLE_TASKS || TPL_EN.SHORTS_TITLE_TASKS;
+  const frames = T.SHORTS_TITLE_FRAMES || TPL_EN.SHORTS_TITLE_FRAMES;
+  const tails = T.SHORTS_TITLE_TAILS || TPL_EN.SHORTS_TITLE_TAILS;
+
+  const task = tasks[CONFIG.quizKey] || tasks["team-by-nat"] || "Guess the football quiz";
+  // {task} = mid-sentence form. ES needs a real infinitive ("adivinar"); EN's
+  // lowercased imperative already reads correctly mid-sentence.
+  const taskInf = T.SHORTS_TITLE_TASKS_INF && T.SHORTS_TITLE_TASKS_INF[CONFIG.quizKey];
+  const taskLower = taskInf || (task.charAt(0).toLowerCase() + task.slice(1));
+
+  const frame = pickOne(frames);
+  const line = frame.replace(/\{TASK\}/g, task).replace(/\{task\}/g, taskLower);
+
+  // #shorts is mandatory for Shorts classification; the optional extra hashtag
+  // (some tails are empty) varies the ending too.
+  let title = `${line} #shorts${pickOne(tails)}`;
+
+  // Safety: keep under YouTube's 100-char title cap.
+  if (title.length > 100) {
+    title = `${line} #shorts`;
+    if (title.length > 100) title = line.slice(0, 100);
+  }
   return title;
 }
 
