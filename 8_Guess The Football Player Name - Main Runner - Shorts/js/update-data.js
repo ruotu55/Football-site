@@ -1,4 +1,5 @@
 import { appState } from "./state.js";
+import { isUpdateDataFresh } from "../../.Storage/shared/update-data-freshness.js";
 
 const POLL_INTERVAL_MS = 500;
 
@@ -82,6 +83,32 @@ function collectPaths() {
     }
   }
   return out;
+}
+
+function stripLeadingDotDot(s) {
+  return typeof s === "string" && s.startsWith("../") ? s.slice(3) : s;
+}
+
+async function fetchHistoryStamps() {
+  try {
+    const res = await fetch("/__update-data/history", { cache: "no-store" });
+    if (res.ok) {
+      const h = await res.json();
+      return (h && h.paths) || {};
+    }
+  } catch (_) { /* no history reachable -> treat everything as stale */ }
+  return {};
+}
+
+/* Like collectPaths(), but drops teams already refreshed within the freshness
+   window (7 days, shared with PROD validation). Returns { allCount, stale } so the
+   caller can tell "no teams selected" apart from "all already fresh, nothing to do". */
+async function collectStalePaths() {
+  const all = collectPaths();
+  if (all.length === 0) return { allCount: 0, stale: [] };
+  const stamps = await fetchHistoryStamps();
+  const stale = all.filter((p) => !isUpdateDataFresh(stamps[stripLeadingDotDot(p)]));
+  return { allCount: all.length, stale };
 }
 
 function stopPolling() {
@@ -187,12 +214,18 @@ function startPolling(jobId) {
 /* Starts a refresh job using the given cookie. Returns true if the job is
    now running and being polled. */
 async function startJob(cookie) {
-  const paths = collectPaths();
-  if (paths.length === 0) {
+  const { allCount, stale } = await collectStalePaths();
+  if (allCount === 0) {
     showError("No teams selected in your levels.");
     setProgressMode(false);
     return false;
   }
+  if (stale.length === 0) {
+    showError("All teams already refreshed this week - nothing to update.");
+    setProgressMode(false);
+    return false;
+  }
+  const paths = stale;
   const apply = $("update-data-apply");
   if (apply) apply.disabled = true;
   let res, body;
@@ -250,12 +283,18 @@ async function applyUpdate() {
    paste-form modal as before. */
 async function openOrUseCached() {
   resetModalState();
-  const paths = collectPaths();
-  if (paths.length === 0) {
+  const { allCount, stale } = await collectStalePaths();
+  if (allCount === 0) {
     openModal();
     showError("No teams selected in your levels.");
     return;
   }
+  if (stale.length === 0) {
+    openModal();
+    showError("All teams already refreshed this week - nothing to update.");
+    return;
+  }
+  const paths = stale;
   let res, body;
   try {
     res = await fetch("/__update-data/start-cached", {
