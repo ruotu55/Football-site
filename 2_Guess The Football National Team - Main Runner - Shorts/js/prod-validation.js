@@ -8,6 +8,7 @@ import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
 import { getHeaderLogoUrlChain } from "./photo-helpers.js";
 import { projectAssetUrl } from "./paths.js";
 import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
+import { isUpdateDataFresh } from "../../.Storage/shared/update-data-freshness.js";
 
 /** Same name resolution the Voice tab uses — accounts for user renames in the
  *  team-header. Without this, PROD checks "Arsenal FC" while the file is saved
@@ -306,13 +307,6 @@ async function validateUpdateDataFreshness() {
     const stamps = (history && history.paths) || {};
 
     const pad = (n) => String(n).padStart(2, "0");
-    const now = new Date();
-    const todayKey = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
-    const localDateKey = (iso) => {
-        const d = new Date(iso);
-        if (Number.isNaN(d.getTime())) return "";
-        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-    };
     const fmtStamp = (iso) => {
         const d = new Date(iso);
         if (Number.isNaN(d.getTime())) return iso;
@@ -330,12 +324,12 @@ async function validateUpdateDataFreshness() {
             failures.push(`${label} (${teamName}): never updated`);
             continue;
         }
-        if (localDateKey(stamp) !== todayKey) {
-            failures.push(`${label} (${teamName}): last updated ${fmtStamp(stamp)} (not today)`);
+        if (!isUpdateDataFresh(stamp)) {
+            failures.push(`${label} (${teamName}): last updated ${fmtStamp(stamp)} (over a week ago)`);
         }
     }
     return {
-        sectionName: "Update Data (today)",
+        sectionName: "Update Data (this week)",
         passed: failures.length === 0,
         failures,
     };

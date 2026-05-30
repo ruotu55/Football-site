@@ -294,6 +294,66 @@ def _reorder_player_fields_for_output(player: dict, *, is_goalkeeper: bool) -> d
     return ordered
 
 
+def _reorder_all_players_in_payload(payload: dict) -> None:
+    """Apply stable per-player field order across all four buckets."""
+    for bucket in ("goalkeepers", "defenders", "midfielders", "attackers"):
+        players = payload.get(bucket)
+        if not isinstance(players, list):
+            continue
+        is_gk_bucket = bucket == "goalkeepers"
+        for idx, pl in enumerate(players):
+            if isinstance(pl, dict):
+                players[idx] = _reorder_player_fields_for_output(
+                    pl, is_goalkeeper=is_gk_bucket
+                )
+
+
+def _players_missing_shirt_numbers(payload: dict) -> list[str]:
+    """Return display names of players with no ``shirt_number`` after refresh."""
+    missing: list[str] = []
+    for bucket in ("goalkeepers", "defenders", "midfielders", "attackers"):
+        players = payload.get(bucket)
+        if not isinstance(players, list):
+            continue
+        for pl in players:
+            if not isinstance(pl, dict):
+                continue
+            name = (pl.get("name") or "").strip()
+            if name and pl.get("shirt_number") is None:
+                missing.append(name)
+    return missing
+
+
+async def _build_club_name_meta(tmkt, fill_module, cid: int, *, sem=None):
+    """Fetch a club's squad once and build the player name->(pid, relUrl) map.
+
+    Shared by the current-season, shirt-number, and GK passes so each team hits
+    get_club_squad + _build_name_to_meta ONCE per refresh. Returns
+    (squad_response, name_meta); ({}, {}) on any failure."""
+    import asyncio as _ud_asyncio_local
+    try:
+        squad = await tmkt.get_club_squad(cid)
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  name-meta prefetch: get_club_squad({cid}) failed: {type(exc).__name__}: {exc}")
+        return {}, {}
+    if not isinstance(squad, dict) or not squad.get("success"):
+        _gk_log(f"  name-meta prefetch: get_club_squad({cid}) no success")
+        return {}, {}
+    pids = (squad.get("data") or {}).get("playerIds") or []
+    if not pids:
+        _gk_log(f"  name-meta prefetch: get_club_squad({cid}) no playerIds")
+        return squad, {}
+    if sem is None:
+        sem = _ud_asyncio_local.Semaphore(4)
+    try:
+        name_meta = await fill_module._build_name_to_meta(tmkt, pids, sem=sem)
+    except Exception as exc:  # noqa: BLE001
+        _gk_log(f"  name-meta prefetch: _build_name_to_meta failed: {type(exc).__name__}: {exc}")
+        return squad, {}
+    _gk_log(f"  name-meta prefetch: {len(name_meta)} entries from {len(pids)} pids (shared)")
+    return squad, name_meta
+
+
 async def _patch_current_season_totals_in_payload(
     payload: dict,
     tmkt,
@@ -301,35 +361,50 @@ async def _patch_current_season_totals_in_payload(
     *,
     cid: int,
     season_id: int | None,
+    prefetched: tuple | None = None,
 ) -> None:
     """Patch top-level player season stats to include all competitions.
 
     Uses TMKT get_player_stats(..., season=season_id) rows and sums them across
     all competitions (league + cups + continental) for each player.
+
+    `prefetched` (squad_response, name_meta) — when supplied by the caller (shared
+    with the shirt-fill and GK passes), skips this pass's own get_club_squad +
+    _build_name_to_meta.
     """
     if not isinstance(payload, dict):
-        return
-    try:
-        squad = await tmkt.get_club_squad(cid)
-    except Exception as exc:  # noqa: BLE001
-        _gk_log(f"  current-season patch: get_club_squad({cid}) failed: {type(exc).__name__}: {exc}")
-        return
-    if not isinstance(squad, dict) or not squad.get("success"):
-        _gk_log(f"  current-season patch: get_club_squad({cid}) no success")
-        return
-    pids = (squad.get("data") or {}).get("playerIds") or []
-    if not pids:
-        _gk_log(f"  current-season patch: get_club_squad({cid}) returned no playerIds")
         return
 
     import asyncio as _ud_asyncio_local
 
-    sem = _ud_asyncio_local.Semaphore(4)
-    try:
-        name_meta = await fill_module._build_name_to_meta(tmkt, pids, sem=sem)
-    except Exception as exc:  # noqa: BLE001
-        _gk_log(f"  current-season patch: _build_name_to_meta failed: {type(exc).__name__}: {exc}")
-        return
+    if prefetched is not None:
+        squad, name_meta = prefetched
+        if not isinstance(squad, dict) or not squad.get("success") or not name_meta:
+            _gk_log("  current-season patch: empty prefetched squad/name-meta, skip")
+            return
+        pids = (squad.get("data") or {}).get("playerIds") or []
+        if not pids:
+            _gk_log("  current-season patch: prefetched squad has no playerIds, skip")
+            return
+    else:
+        try:
+            squad = await tmkt.get_club_squad(cid)
+        except Exception as exc:  # noqa: BLE001
+            _gk_log(f"  current-season patch: get_club_squad({cid}) failed: {type(exc).__name__}: {exc}")
+            return
+        if not isinstance(squad, dict) or not squad.get("success"):
+            _gk_log(f"  current-season patch: get_club_squad({cid}) no success")
+            return
+        pids = (squad.get("data") or {}).get("playerIds") or []
+        if not pids:
+            _gk_log(f"  current-season patch: get_club_squad({cid}) returned no playerIds")
+            return
+        sem = _ud_asyncio_local.Semaphore(4)
+        try:
+            name_meta = await fill_module._build_name_to_meta(tmkt, pids, sem=sem)
+        except Exception as exc:  # noqa: BLE001
+            _gk_log(f"  current-season patch: _build_name_to_meta failed: {type(exc).__name__}: {exc}")
+            return
 
     stats_by_pid: dict[int, dict[str, int | None]] = {}
 
@@ -602,60 +677,62 @@ async def _refresh_gk_totals_for_player(
     return (gc, cs)
 
 
-async def _patch_gk_career_totals(
-    jp: Path,
+async def _patch_gk_career_totals_in_data(
+    data: dict,
     fill_module,
     tmkt,
     *,
+    label: str,
     player_cache: dict,
     legacy,
-) -> None:
-    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets via the
-    same proven name->pid mapping the shirt-fill uses.
-    """
-    try:
-        data = json.loads(jp.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        _gk_log(f"{jp.name}: bad JSON on read, skip")
-        return
+    prefetched_name_meta: dict | None = None,
+) -> bool:
+    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets.
+
+    Mutates ``data`` in place. Returns True when any GK totals changed."""
     gks = data.get("goalkeepers")
     if not isinstance(gks, list) or not gks:
-        _gk_log(f"{jp.name}: no goalkeepers, skip")
-        return
+        _gk_log(f"{label}: no goalkeepers, skip")
+        return False
     cid_raw = data.get("transfermarktClubId")
     if cid_raw is None:
-        _gk_log(f"{jp.name}: no transfermarktClubId, skip GK refresh")
-        return
+        _gk_log(f"{label}: no transfermarktClubId, skip GK refresh")
+        return False
     try:
         cid = int(cid_raw)
     except (TypeError, ValueError):
-        _gk_log(f"{jp.name}: bad transfermarktClubId={cid_raw!r}, skip")
-        return
+        _gk_log(f"{label}: bad transfermarktClubId={cid_raw!r}, skip")
+        return False
 
-    _gk_log(f"{jp.name}: starting GK refresh ({len(gks)} goalkeepers, cid={cid})")
+    _gk_log(f"{label}: starting GK refresh ({len(gks)} goalkeepers, cid={cid})")
 
-    # Use the same approach the shirt-fill uses for reliable name->pid mapping.
-    import asyncio as _ud_asyncio_local
-    sem = _ud_asyncio_local.Semaphore(2)
-    try:
-        squad = await tmkt.get_club_squad(cid)
-    except Exception as exc:  # noqa: BLE001
-        _gk_log(f"  get_club_squad({cid}) raised {type(exc).__name__}: {exc}")
-        return
-    if not isinstance(squad, dict) or not squad.get("success"):
-        _gk_log(f"  get_club_squad({cid}) did not return success, skip")
-        return
-    pids = (squad.get("data") or {}).get("playerIds") or []
-    if not pids:
-        _gk_log(f"  get_club_squad({cid}) returned no playerIds, skip")
-        return
-    try:
-        name_meta = await fill_module._build_name_to_meta(tmkt, pids, sem=sem)
-    except Exception as exc:  # noqa: BLE001
-        _gk_log(f"  _build_name_to_meta raised {type(exc).__name__}: {exc}")
-        return
-
-    _gk_log(f"  built name_meta with {len(name_meta)} entries from {len(pids)} pids")
+    if prefetched_name_meta is not None:
+        name_meta = prefetched_name_meta
+        if not name_meta:
+            _gk_log(f"  empty prefetched name-meta, skip GK refresh for {label}")
+            return False
+        _gk_log(f"  using shared name_meta with {len(name_meta)} entries")
+    else:
+        import asyncio as _ud_asyncio_local
+        sem = _ud_asyncio_local.Semaphore(2)
+        try:
+            squad = await tmkt.get_club_squad(cid)
+        except Exception as exc:  # noqa: BLE001
+            _gk_log(f"  get_club_squad({cid}) raised {type(exc).__name__}: {exc}")
+            return False
+        if not isinstance(squad, dict) or not squad.get("success"):
+            _gk_log(f"  get_club_squad({cid}) did not return success, skip")
+            return False
+        pids = (squad.get("data") or {}).get("playerIds") or []
+        if not pids:
+            _gk_log(f"  get_club_squad({cid}) returned no playerIds, skip")
+            return False
+        try:
+            name_meta = await fill_module._build_name_to_meta(tmkt, pids, sem=sem)
+        except Exception as exc:  # noqa: BLE001
+            _gk_log(f"  _build_name_to_meta raised {type(exc).__name__}: {exc}")
+            return False
+        _gk_log(f"  built name_meta with {len(name_meta)} entries from {len(pids)} pids")
 
     changed = False
     for gk in gks:
@@ -667,7 +744,6 @@ async def _patch_gk_career_totals(
         old_gc = (gk.get("club_career_totals") or {}).get("goals_conceded")
         meta = name_meta.get(gk_name)
         if not meta:
-            # Try simple fuzzy: case-insensitive equality, then substring matches.
             low = gk_name.lower()
             for k, v in name_meta.items():
                 if k.lower() == low or low in k.lower() or k.lower() in low:
@@ -702,13 +778,48 @@ async def _patch_gk_career_totals(
             _gk_log(f"    no patch applied (gc={gc}, cs={cs})")
 
     if changed:
+        _gk_log(f"{label}: patched GK totals in payload")
+    else:
+        _gk_log(f"{label}: no GK total changes")
+    return changed
+
+
+async def _patch_gk_career_totals(
+    jp: Path,
+    fill_module,
+    tmkt,
+    *,
+    player_cache: dict,
+    legacy,
+    prefetched_name_meta: dict | None = None,
+) -> None:
+    """Re-fetch each goalkeeper's career goals_conceded + clean_sheets via the
+    same proven name->pid mapping the shirt-fill uses.
+
+    `prefetched_name_meta` — when supplied by the caller (shared with the
+    current-season pass), skips this pass's own get_club_squad + _build_name_to_meta.
+    """
+    try:
+        data = json.loads(jp.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        _gk_log(f"{jp.name}: bad JSON on read, skip")
+        return
+
+    changed = await _patch_gk_career_totals_in_data(
+        data,
+        fill_module,
+        tmkt,
+        label=jp.name,
+        player_cache=player_cache,
+        legacy=legacy,
+        prefetched_name_meta=prefetched_name_meta,
+    )
+    if changed:
         jp.write_text(
             json.dumps(data, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
         _gk_log(f"{jp.name}: wrote file with patched GK totals")
-    else:
-        _gk_log(f"{jp.name}: no changes")
 
 
 class JobAlreadyRunningError(RuntimeError):
@@ -1365,6 +1476,18 @@ async def _refresh_all_async(
                             # them. Defends against legacy scraper quirks (zeroed
                             # goals_conceded for GKs, off-by-one clean_sheets, etc).
                             _apply_career_totals_monotonic_guard(payload, raw)
+                            # Both the current-season pass and the GK pass need the
+                            # club's squad + name->id map. Fetch it ONCE here and share
+                            # it so each team hits get_club_squad/_build_name_to_meta a
+                            # single time per refresh instead of twice (the slowest
+                            # repeated per-team work).
+                            try:
+                                _shared_squad, _shared_name_meta = await _build_club_name_meta(
+                                    tmkt, fill_module, cid
+                                )
+                            except Exception:  # noqa: BLE001
+                                _shared_squad, _shared_name_meta = {}, {}
+                            _shared_meta = (_shared_squad, _shared_name_meta)
                             # Top-level season stats should include all competitions
                             # (league + cups + continental), not domestic league only.
                             try:
@@ -1374,6 +1497,7 @@ async def _refresh_all_async(
                                     fill_module,
                                     cid=cid,
                                     season_id=sid_club,
+                                    prefetched=_shared_meta,
                                 )
                             except Exception as season_patch_exc:  # noqa: BLE001
                                 import sys as _sys
@@ -1384,14 +1508,6 @@ async def _refresh_all_async(
                                     flush=True,
                                 )
 
-                            jp.write_text(
-                                json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
-                                encoding="utf-8",
-                            )
-                            # Fetch fresh shirt numbers from TM's rueckennummern page
-                            # (the squads endpoint doesn't include them). Failure here
-                            # leaves shirt_numbers blank but the squad data is still
-                            # refreshed, so we count this as ok and log to stderr.
                             season_label = ""
                             try:
                                 season_label = (
@@ -1402,14 +1518,28 @@ async def _refresh_all_async(
                                 )
                             except Exception:  # noqa: BLE001
                                 season_label = ""
+
+                            # Shirt numbers: tmapi squad list first, rueckennummern HTML fallback.
+                            shirt_missing_map = 0
+                            shirt_missing_row = 0
                             try:
-                                await fill_module.fill_file(
-                                    jp,
-                                    tmkt,
-                                    season_label=season_label,
-                                    dry_run=False,
-                                    concurrency=2,
-                                    quiet=True,
+                                _shirt_updated, shirt_missing_map, shirt_missing_row = (
+                                    await fill_module.fill_squad_data(
+                                        payload,
+                                        tmkt,
+                                        season_label=season_label,
+                                        concurrency=2,
+                                        quiet=True,
+                                        prefetched_squad=(
+                                            _shared_squad
+                                            if isinstance(_shared_squad, dict)
+                                            and _shared_squad.get("success")
+                                            else None
+                                        ),
+                                        prefetched_name_meta=(
+                                            _shared_name_meta if _shared_name_meta else None
+                                        ),
+                                    )
                                 )
                             except Exception as shirt_exc:  # noqa: BLE001
                                 import sys as _sys
@@ -1419,17 +1549,38 @@ async def _refresh_all_async(
                                     file=_sys.stderr,
                                     flush=True,
                                 )
-                            # Fix goalkeeper club_career_totals: the legacy parser
-                            # leaves goals_conceded/clean_sheets at 0 because TM's
-                            # column layout shifted. We re-fetch the GK's
-                            # leistungsdatendetails page and extract by header.
+                                _record_failure(
+                                    job_id,
+                                    str(jp),
+                                    f"shirt numbers: {type(shirt_exc).__name__}: {shirt_exc}",
+                                )
+                                return
+
+                            missing_shirts = _players_missing_shirt_numbers(payload)
+                            if missing_shirts or shirt_missing_map or shirt_missing_row:
+                                sample = ", ".join(missing_shirts[:6])
+                                extra = ""
+                                if len(missing_shirts) > 6:
+                                    extra = f" (+{len(missing_shirts) - 6} more)"
+                                _record_failure(
+                                    job_id,
+                                    str(jp),
+                                    "incomplete shirt_number data for "
+                                    f"{len(missing_shirts)} player(s)"
+                                    f"{f': {sample}{extra}' if sample else ''}",
+                                )
+                                return
+
+                            # Fix goalkeeper club_career_totals before the single write.
                             try:
-                                await _patch_gk_career_totals(
-                                    jp,
+                                await _patch_gk_career_totals_in_data(
+                                    payload,
                                     fill_module,
                                     tmkt,
+                                    label=jp.name,
                                     player_cache=player_cache,
                                     legacy=legacy,
+                                    prefetched_name_meta=_shared_name_meta,
                                 )
                             except Exception as gk_exc:  # noqa: BLE001
                                 import sys as _sys
@@ -1439,6 +1590,12 @@ async def _refresh_all_async(
                                     file=_sys.stderr,
                                     flush=True,
                                 )
+
+                            _reorder_all_players_in_payload(payload)
+                            jp.write_text(
+                                json.dumps(payload, indent=2, ensure_ascii=False) + "\n",
+                                encoding="utf-8",
+                            )
                             _stamp_history(project_root, jp)
                             _record_ok(job_id)
                         except Exception as exc:  # noqa: BLE001
@@ -1456,6 +1613,8 @@ __all__ = [
     "JobAlreadyRunningError",
     "_validate_and_resolve_path",
     "_apply_career_totals_monotonic_guard",
+    "_players_missing_shirt_numbers",
+    "_reorder_all_players_in_payload",
     "_register_job",
     "_set_current",
     "_record_ok",

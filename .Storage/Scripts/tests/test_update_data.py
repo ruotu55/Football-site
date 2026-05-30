@@ -588,6 +588,15 @@ class PlayerFieldOrderTest(unittest.TestCase):
     def setUp(self) -> None:
         self.mod = _load()
 
+    def test_players_missing_shirt_numbers_lists_names(self) -> None:
+        payload = {
+            "goalkeepers": [{"name": "GK", "shirt_number": 1}],
+            "defenders": [{"name": "No Shirt"}],
+            "midfielders": [],
+            "attackers": [{"name": "Striker", "shirt_number": 9}],
+        }
+        self.assertEqual(self.mod._players_missing_shirt_numbers(payload), ["No Shirt"])
+
     def test_goalkeeper_fields_order_puts_gk_stats_after_assists(self) -> None:
         pl = {
             "name": "GK",
@@ -666,6 +675,109 @@ class TeamTimeoutGuardTest(unittest.TestCase):
         self.assertEqual(snap["done"], 1)
         self.assertEqual(snap["ok_count"], 1)
         self.assertEqual(len(snap["failed"]), 0)
+
+
+class _FakeTmkt:
+    """Counts the expensive calls so tests can assert they happen once / are skipped."""
+
+    def __init__(self) -> None:
+        self.squad_calls = 0
+        self.stats_calls = 0
+
+    async def get_club_squad(self, cid):
+        self.squad_calls += 1
+        return {
+            "success": True,
+            "data": {
+                "playerIds": [1, 2, 3],
+                "squad": [
+                    {"playerId": "1", "shirtNumber": 10},
+                    {"playerId": "2", "shirtNumber": 20},
+                    {"playerId": "3", "shirtNumber": 30},
+                ],
+            },
+        }
+
+    async def get_player_stats(self, pid, season=None):
+        self.stats_calls += 1
+        return []
+
+    async def get_player_stats_per_club(self, pid):
+        return {}
+
+
+class _FakeFill:
+    def __init__(self) -> None:
+        self.meta_calls = 0
+
+    async def _build_name_to_meta(self, tmkt, pids, sem=None):
+        self.meta_calls += 1
+        return {"P1": (1, "/profil/spieler/1")}
+
+
+class SharedNameMetaTest(unittest.TestCase):
+    """The current-season pass and the GK pass must share one squad fetch +
+    name->id map instead of each building their own (the slow per-team work)."""
+
+    def setUp(self) -> None:
+        self.mod = _load()
+
+    def test_build_club_name_meta_fetches_once(self) -> None:
+        import asyncio
+
+        tm, fill = _FakeTmkt(), _FakeFill()
+        squad, name_meta = asyncio.run(self.mod._build_club_name_meta(tm, fill, 123))
+        self.assertTrue(squad.get("success"))
+        self.assertEqual((squad.get("data") or {}).get("playerIds"), [1, 2, 3])
+        self.assertEqual(name_meta, {"P1": (1, "/profil/spieler/1")})
+        self.assertEqual(tm.squad_calls, 1)
+        self.assertEqual(fill.meta_calls, 1)
+
+    def test_season_pass_skips_fetch_when_prefetched(self) -> None:
+        import asyncio
+
+        tm, fill = _FakeTmkt(), _FakeFill()
+        payload = {
+            "goalkeepers": [],
+            "defenders": [{"name": "P1"}],
+            "midfielders": [],
+            "attackers": [],
+        }
+        asyncio.run(
+            self.mod._patch_current_season_totals_in_payload(
+                payload, tm, fill, cid=123, season_id=None,
+                prefetched=(
+                    {"success": True, "data": {"playerIds": [1]}},
+                    {"P1": (1, "/x")},
+                ),
+            )
+        )
+        self.assertEqual(tm.squad_calls, 0)   # used the shared map
+        self.assertEqual(fill.meta_calls, 0)
+        self.assertGreaterEqual(tm.stats_calls, 1)  # still fetches season stats
+
+    def test_gk_pass_skips_fetch_when_prefetched(self) -> None:
+        import asyncio
+
+        tmpdir = tempfile.TemporaryDirectory()
+        self.addCleanup(tmpdir.cleanup)
+        jp = Path(tmpdir.name) / "Team.json"
+        jp.write_text(
+            json.dumps({
+                "transfermarktClubId": 123,
+                "goalkeepers": [{"name": "Keeper One", "club_career_totals": {}}],
+            }),
+            encoding="utf-8",
+        )
+        tm, fill = _FakeTmkt(), _FakeFill()
+        asyncio.run(
+            self.mod._patch_gk_career_totals(
+                jp, fill, tm, player_cache={}, legacy=None,
+                prefetched_name_meta={"Keeper One": (99, "/profil/spieler/99")},
+            )
+        )
+        self.assertEqual(tm.squad_calls, 0)   # used the shared map, no re-fetch
+        self.assertEqual(fill.meta_calls, 0)
 
 
 if __name__ == "__main__":

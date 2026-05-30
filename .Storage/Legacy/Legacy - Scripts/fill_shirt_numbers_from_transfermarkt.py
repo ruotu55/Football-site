@@ -323,12 +323,69 @@ def _season_labels_for_matching(primary: str, data: dict[str, Any]) -> list[str]
     return out
 
 
+def _shirt_numbers_from_squad_api(squad_response: dict[str, Any]) -> dict[int, int]:
+    """Build playerId -> shirtNumber from tmapi ``/club/{id}/squad`` (most reliable source)."""
+    out: dict[int, int] = {}
+    if not isinstance(squad_response, dict) or not squad_response.get("success"):
+        return out
+    data = squad_response.get("data") or {}
+    for entry in data.get("squad") or []:
+        if not isinstance(entry, dict):
+            continue
+        pid_raw = entry.get("playerId")
+        num = entry.get("shirtNumber")
+        if pid_raw is None or num is None:
+            continue
+        try:
+            out[int(pid_raw)] = int(num)
+        except (TypeError, ValueError):
+            continue
+    return out
+
+
+def _lookup_name_meta(
+    name_meta: dict[str, tuple[int, str]], pname: str
+) -> Optional[tuple[int, str]]:
+    """Exact then fuzzy name match against the TM squad roster map."""
+    meta = name_meta.get(pname)
+    if meta:
+        return meta
+    low = pname.lower()
+    for k, v in name_meta.items():
+        kl = k.lower()
+        if kl == low or low in kl or kl in low:
+            return v
+    return None
+
+
+def _pick_shirt_from_loose_rows(
+    loose: list[tuple[int, str]],
+    *,
+    squad_name: str,
+    club_hints: list[str],
+) -> Optional[int]:
+    """When several season rows exist, prefer the row whose club label matches."""
+    hints = [h.strip() for h in ([squad_name] + club_hints) if (h or "").strip()]
+    matched: list[int] = []
+    for jersey, club_blob in loose:
+        if any(_club_labels_match(h, club_blob) for h in hints):
+            matched.append(jersey)
+    if len(matched) == 1:
+        return matched[0]
+    if len(matched) > 1:
+        return matched[0]
+    if len(loose) == 1:
+        return loose[0][0]
+    return None
+
+
 def parse_shirt_number_for_season(
     html: str,
     *,
     season_labels: list[str],
     squad_name: str,
     national_team: bool,
+    club_hints: Optional[list[str]] = None,
 ) -> Optional[int]:
     if _tm_html_blocked(html):
         return None
@@ -343,7 +400,9 @@ def parse_shirt_number_for_season(
     if not aliases:
         return None
     alias_set = set(aliases)
+    hints = club_hints or []
     hits: list[int] = []
+    loose: list[tuple[int, str]] = []
     for m in re.finditer(r"<tr[^>]*>(.*?)</tr>", table, re.I | re.DOTALL):
         inner = m.group(1)
         cells = _td_texts_from_tr(inner)
@@ -354,27 +413,19 @@ def parse_shirt_number_for_season(
         if cells[0].strip() not in alias_set:
             continue
         club_blob = _row_club_text_for_match(cells)
-        if not _club_labels_match(squad_name, club_blob):
-            continue
         j = _jersey_from_row_cells(cells)
-        if j is not None:
+        if j is None:
+            continue
+        if _club_labels_match(squad_name, club_blob) or any(
+            _club_labels_match(h, club_blob) for h in hints if h
+        ):
             hits.append(j)
+        loose.append((j, club_blob))
     if hits:
         return hits[0]
-    # Same season but club filter failed: one row only (e.g. name quirks)
-    loose: list[int] = []
-    for m in re.finditer(r"<tr[^>]*>(.*?)</tr>", table, re.I | re.DOTALL):
-        cells = _td_texts_from_tr(m.group(1))
-        if len(cells) < 2 or re.match(r"^season$", cells[0].strip(), re.I):
-            continue
-        if cells[0].strip() not in alias_set:
-            continue
-        j = _jersey_from_row_cells(cells)
-        if j is not None:
-            loose.append(j)
-    if len(loose) == 1:
-        return loose[0]
-    return None
+    return _pick_shirt_from_loose_rows(
+        loose, squad_name=squad_name, club_hints=hints
+    )
 
 
 BUCKETS = ("goalkeepers", "defenders", "midfielders", "attackers")
@@ -405,73 +456,86 @@ async def _build_name_to_meta(
     return out
 
 
-async def fill_file(
-    path: Path,
+async def fill_squad_data(
+    data: dict[str, Any],
     tmkt: TMKT,
     *,
     season_label: str,
-    dry_run: bool,
     concurrency: int,
     quiet: bool = False,
     io_sem: Optional[asyncio.Semaphore] = None,
-) -> int:
-    """When ``io_sem`` is set (directory batch mode), all network calls share that limit
-    across teams; ``concurrency`` is ignored for sizing. Otherwise a local semaphore of
-    ``concurrency`` is used (single-file mode).
+    prefetched_squad: Optional[dict[str, Any]] = None,
+    prefetched_name_meta: Optional[dict[str, tuple[int, str]]] = None,
+) -> tuple[int, int, int]:
+    """Fill ``shirt_number`` on every player in ``data`` (mutates in place).
+
+    Primary source: tmapi ``/club/{id}/squad`` ``shirtNumber`` (current squad list).
+    Fallback: Transfermarkt rueckennummern HTML for the configured season.
+
+    Returns ``(updated_count, missing_map, missing_shirt)``.
     """
-    raw = path.read_text(encoding="utf-8")
-    data = json.loads(raw)
     cid = data.get("transfermarktClubId")
     if cid is None:
-        print("error: JSON missing transfermarktClubId", file=sys.stderr, flush=True)
-        return 2
+        raise ValueError("JSON missing transfermarktClubId")
     kind = (data.get("kind") or "club").strip().lower()
     national_team = kind == "nationality"
     squad_name = (data.get("name") or "").strip()
     if not squad_name:
-        print("error: JSON missing top-level name", file=sys.stderr, flush=True)
-        return 2
+        raise ValueError("JSON missing top-level name")
 
     season_labels = _season_labels_for_matching(season_label, data)
     season_try_hint = ", ".join(season_labels)
 
     sem = io_sem if io_sem is not None else asyncio.Semaphore(max(1, concurrency))
-    try:
-        async with sem:
-            squad = await tmkt.get_club_squad(int(cid))
-    except Exception as e:
-        print(f"error: get_club_squad({cid}): {e}", file=sys.stderr, flush=True)
-        return 2
+
+    if prefetched_squad is not None:
+        squad = prefetched_squad
+    else:
+        try:
+            async with sem:
+                squad = await tmkt.get_club_squad(int(cid))
+        except Exception as e:
+            raise RuntimeError(f"get_club_squad({cid}): {e}") from e
     if not isinstance(squad, dict) or not squad.get("success"):
-        print(
-            "error: club/national squad API did not return success",
-            file=sys.stderr,
-            flush=True,
-        )
-        return 2
+        raise RuntimeError("club/national squad API did not return success")
     pids = (squad.get("data") or {}).get("playerIds") or []
     if not pids:
-        print("error: empty playerIds from squad API", file=sys.stderr, flush=True)
-        return 2
+        raise RuntimeError("empty playerIds from squad API")
 
-    name_meta = await _build_name_to_meta(tmkt, pids, sem=sem)
+    shirt_by_pid = _shirt_numbers_from_squad_api(squad)
+
+    if prefetched_name_meta is not None:
+        name_meta = prefetched_name_meta
+    else:
+        name_meta = await _build_name_to_meta(tmkt, pids, sem=sem)
 
     shirt_cache: dict[int, Optional[int]] = {}
 
-    async def shirt_for_pid(pid: int, rel: str) -> Optional[int]:
+    async def shirt_for_pid(
+        pid: int, rel: str, *, club_hints: list[str]
+    ) -> Optional[int]:
         if pid in shirt_cache:
             return shirt_cache[pid]
+        api_num = shirt_by_pid.get(pid)
+        if api_num is not None:
+            shirt_cache[pid] = api_num
+            return api_num
         path_shirt = _profile_to_shirt_path(rel)
         if not path_shirt:
             shirt_cache[pid] = None
             return None
         async with sem:
             html = await _fetch_tm_html_prefer_session(tmkt, path_shirt)
+        if _tm_html_blocked(html):
+            await asyncio.sleep(0.35)
+            async with sem:
+                html = await _fetch_tm_html_prefer_session(tmkt, path_shirt)
         num = parse_shirt_number_for_season(
             html,
             season_labels=season_labels,
             squad_name=squad_name,
             national_team=national_team,
+            club_hints=club_hints,
         )
         shirt_cache[pid] = num
         return num
@@ -481,15 +545,17 @@ async def fill_file(
     async def process_player(pl: dict[str, Any]) -> tuple[bool, str, str]:
         """Returns (changed, kind, message) where kind is ok|no_map|no_shirt."""
         pname = (pl.get("name") or "").strip()
-        meta = name_meta.get(pname)
+        meta = _lookup_name_meta(name_meta, pname)
         if not meta:
             return False, "no_map", f"no API roster match for name={pname!r}"
         pid, rel = meta
-        n = await shirt_for_pid(pid, rel)
+        club_hint = (pl.get("club") or "").strip()
+        club_hints = [club_hint] if club_hint else []
+        n = await shirt_for_pid(pid, rel, club_hints=club_hints)
         if n is None:
             return False, "no_shirt", (
-                f"no shirt row (seasons tried: {season_try_hint!r}) for {pname!r} "
-                f"(pid={pid})"
+                f"no shirt from squad API or HTML (seasons tried: {season_try_hint!r}) "
+                f"for {pname!r} (pid={pid})"
             )
         if pl.get("shirt_number") != n:
             pl["shirt_number"] = n
@@ -511,6 +577,38 @@ async def fill_file(
         if not quiet:
             print(msg, flush=True)
 
+    return updated, missing_map, missing_shirt
+
+
+async def fill_file(
+    path: Path,
+    tmkt: TMKT,
+    *,
+    season_label: str,
+    dry_run: bool,
+    concurrency: int,
+    quiet: bool = False,
+    io_sem: Optional[asyncio.Semaphore] = None,
+) -> int:
+    """When ``io_sem`` is set (directory batch mode), all network calls share that limit
+    across teams; ``concurrency`` is ignored for sizing. Otherwise a local semaphore of
+    ``concurrency`` is used (single-file mode).
+    """
+    raw = path.read_text(encoding="utf-8")
+    data = json.loads(raw)
+    try:
+        updated, missing_map, missing_shirt = await fill_squad_data(
+            data,
+            tmkt,
+            season_label=season_label,
+            concurrency=concurrency,
+            quiet=quiet,
+            io_sem=io_sem,
+        )
+    except (ValueError, RuntimeError) as exc:
+        print(f"error: {exc}", file=sys.stderr, flush=True)
+        return 2
+
     summary = (
         f"Summary [{path}]: players touched={updated}, "
         f"unmatched names={missing_map}, missing shirt row={missing_shirt}, "
@@ -518,6 +616,7 @@ async def fill_file(
     )
     print(summary, file=sys.stderr, flush=True)
 
+    incomplete = missing_map + missing_shirt
     if not dry_run and updated > 0:
         path.write_text(
             json.dumps(data, ensure_ascii=False, indent=2) + "\n",
@@ -526,10 +625,12 @@ async def fill_file(
         print(f"Wrote {path}", file=sys.stderr, flush=True)
     elif dry_run:
         print("Dry run: file not modified.", file=sys.stderr, flush=True)
+    elif incomplete == 0:
+        print("No shirt_number changes needed.", file=sys.stderr, flush=True)
     else:
-        print("No changes to write.", file=sys.stderr, flush=True)
+        print("No changes written.", file=sys.stderr, flush=True)
 
-    return 0
+    return 2 if incomplete else 0
 
 
 def _collect_squad_json_files(root: Path) -> list[Path]:
