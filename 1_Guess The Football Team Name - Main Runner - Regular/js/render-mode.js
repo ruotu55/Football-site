@@ -4,12 +4,12 @@
 // with seeded randomness so every run is reproducible.
 //
 // IMPORTANT: import specifiers must match app.js exactly, or the browser loads a second
-// copy of the module with separate state. app.js imports video.js as "./video.js?v=20260416-ball".
+// copy of the module with separate state. app.js imports video.js as "./video.js?v=20260601-voicedelay".
 
 import { appState } from "./state.js";
-import { startVideoFlow } from "./video.js?v=20260416-ball";
+import { startVideoFlow } from "./video.js?v=20260601-voicedelay";
 import { setCurrentLanguage } from "./voice-tab.js";
-import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260529c";
+import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260601-autoopen5";
 import { switchLevel } from "./levels.js";
 import { renderSeedDurations, renderGetDurations } from "./audio.js";
 

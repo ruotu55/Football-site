@@ -149,16 +149,30 @@ function fadeSwapMysteryText(el, newText, isName) {
 }
 
 /* Format the revealed player name for the mystery-mark: first name on the
-   first line, the rest on the second line. Single-word names (Pelֳ©, Neymar)
-   stay on one line. The "\n" is rendered as a real line break by the
-   `white-space: pre-line` rule on `.career-portrait-card__mystery-mark--name`. */
+   first line, the rest on the second line. Single-word names (Pelé, Neymar)
+   stay on one line. Long hyphenated surnames (e.g. ALEXANDER-ARNOLD) use a
+   third line at the hyphen so the bar does not auto-wrap mid-word. The "\n"
+   is rendered as a real line break by the `white-space: pre-line` rule on
+   `.career-portrait-card__mystery-mark--name`. */
 function formatPlayerNameTwoLine(name) {
   const trimmed = String(name || "").trim();
   if (!trimmed) return "";
   const upper = trimmed.toUpperCase();
   const idx = upper.indexOf(" ");
   if (idx < 0) return upper;
-  return upper.slice(0, idx) + "\n" + upper.slice(idx + 1).trim();
+  const first = upper.slice(0, idx);
+  const rest = upper.slice(idx + 1).trim();
+  const hyphenIdx = rest.indexOf("-");
+  if (hyphenIdx > 0 && hyphenIdx < rest.length - 1 && rest.length > 11) {
+    return (
+      first +
+      "\n" +
+      rest.slice(0, hyphenIdx + 1) +
+      "\n" +
+      rest.slice(hyphenIdx + 1)
+    );
+  }
+  return first + "\n" + rest;
 }
 
 /* Auto-shrink the revealed name only when the rendered text actually overflows
@@ -168,18 +182,19 @@ function formatPlayerNameTwoLine(name) {
 function autoFitMysteryName(el) {
   if (!el) return;
   el.style.fontSize = "";
+  const badge = el.closest(".career-portrait-card__mystery-badge");
   requestAnimationFrame(() => {
     if (!el.isConnected) return;
     const baseSize = parseFloat(getComputedStyle(el).fontSize);
     if (!Number.isFinite(baseSize) || baseSize <= 0) return;
     let size = baseSize;
-    const floor = baseSize * 0.55;
-    let guard = 60;
-    while (
-      guard-- > 0 &&
-      size > floor &&
-      (el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1)
-    ) {
+    const floor = baseSize * 0.5;
+    let guard = 80;
+    const overflows = () =>
+      el.scrollWidth > el.clientWidth + 1 ||
+      el.scrollHeight > el.clientHeight + 1 ||
+      (badge && badge.scrollHeight > badge.clientHeight + 1);
+    while (guard-- > 0 && size > floor && overflows()) {
       size -= 1;
       el.style.fontSize = size + "px";
     }
@@ -2942,6 +2957,7 @@ export function renderCareer() {
       if (fourParamsVmOffReveal) {
         portraitMysteryMark.textContent = formatPlayerNameTwoLine(playerName);
         portraitMysteryMark.classList.add("career-portrait-card__mystery-mark--name");
+        autoFitMysteryName(portraitMysteryMark);
       } else {
         portraitMysteryMark.textContent = "?";
       }

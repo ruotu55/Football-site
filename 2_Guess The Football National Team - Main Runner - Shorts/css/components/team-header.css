@@ -458,6 +458,7 @@ body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-log
 
 .team-header-name.team-side-panel-country-name {
   /* Grid: stable centering at any inline font-size from the fitter (flex + raw text was inconsistent) */
+  position: relative; /* anchor for the ✎ edit-name button */
   align-self: stretch;
   min-width: 0;
   margin: 0.886rem 0 0;
@@ -487,6 +488,50 @@ body:not(.shorts-mode) .team-header[data-squad-type="national"] .team-header-log
 /* Tight stack only when two+ words (single word keeps h2 line-height: 1.05) */
 .team-header-name.team-side-panel-country-name:has(.team-header-name-line + .team-header-name-line) {
   line-height: 1;
+}
+
+/* ✎ Edit-team-name affordance. It lives in the fixed control row next to the X
+   (positioned by the shorts-mode rule below), styled like the Get-logo button.
+   Hidden during Play/Record so it never appears in the recorded video. */
+.team-header-name-edit-btn {
+  -webkit-text-fill-color: #ffd166;
+  color: #ffd166;
+  cursor: pointer;
+}
+body.play-video-active .team-header-name-edit-btn {
+  display: none !important;
+}
+
+/* Shorts: ✎ sits in the control row immediately to the RIGHT of the X, same box
+   size/style as Get logo. (Get logo, when shown, is pushed one slot further right.) */
+body.shorts-mode .team-header-name-edit-btn {
+  position: fixed !important;
+  top: 5.5vh !important;
+  bottom: auto !important;
+  left: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem + 2.75rem + 0.3rem) !important;
+  right: auto !important;
+  transform: none !important;
+  margin: 0 !important;
+  z-index: 200;
+  pointer-events: auto;
+  width: 2.75rem !important;
+  min-width: 2.75rem !important;
+  height: 2.1rem !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  color: #ffd166 !important;
+  -webkit-text-fill-color: #ffd166 !important;
+  border: 2px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: 0.45rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+body.shorts-mode .team-header-name-edit-btn:active {
+  transform: scale(0.96) !important;
 }
 
 /* Full-width row; grid centers the inner token for any font-size */
@@ -686,7 +731,9 @@ body.shorts-mode .team-header-fetch-logo-btn {
   position: fixed !important;
   top: 5.5vh !important;
   bottom: auto !important;
-  left: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem + 2.75rem + 0.3rem) !important;
+  /* One slot further right than before — the ✎ edit-name button now occupies the
+     slot immediately after the X (+ 2.75rem button + 0.3rem gap). */
+  left: calc(50vw - min(56.25vh, 100vw) / 2 + 1rem + 2.75rem + 0.3rem + 2.75rem + 0.3rem) !important;
   right: auto !important;
   transform: none !important;
   margin: 0 !important;

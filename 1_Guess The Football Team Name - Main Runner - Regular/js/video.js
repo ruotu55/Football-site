@@ -12,6 +12,7 @@ import {
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
 import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
+import { playBallPreloader as runSharedBallPreloader } from "../../.Storage/shared/ball-preloader-animation.js";
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
@@ -41,160 +42,11 @@ loadGsap();
 
 /** Show the ball-drop preloader, run the GSAP animation, then resolve. */
 function playBallPreloader() {
-  const preloader = document.getElementById("ball-preloader");
-  const ball = preloader?.querySelector(".ball-preloader-ball");
-  if (!preloader || !ball) {
-    console.warn("[ball-preloader] element not found, skipping");
-    return Promise.resolve();
-  }
-
-  /* Reset ball to starting position. Re-apply opacity:0 immediately so the ball
-     stays invisible during the brief async window before GSAP's setPulseOrigin
-     runs inside requestAnimationFrame — otherwise ~9px of the ball pokes into
-     the viewport at the top while we wait. */
-  ball.removeAttribute("style");
-  ball.style.opacity = "0";
-  preloader.hidden = false;
-
-  /* Clone DOM background overlays (emojis, question marks) into the preloader if present. */
-  (function mirrorDomBackgroundOverlays() {
-    preloader.querySelectorAll(".ball-bg-mirror").forEach(el => el.remove());
-    ["shared-background-emojis", "shared-background-question-marks"].forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        const clone = el.cloneNode(true);
-        clone.removeAttribute("id");
-        clone.className = "ball-bg-mirror " + el.className;
-        clone.style.zIndex = "2";
-        preloader.appendChild(clone);
-      }
-    });
-  })();
-
-  return loadGsap().then((gsap) => {
-    /* Clear any leftover transforms from a previous run, then immediately re-hide
-       the ball so it stays invisible through the rAF wait until setPulseOrigin
-       sets opacity explicitly. */
-    gsap.set(ball, { clearProps: "all" });
-    gsap.set(ball, {
-      opacity: 0,
-      force3D: true,
-      willChange: "transform, opacity",
-    });
-
-    /* Read the stage colour so the scale-up blends with the background */
-    const stageColor = getComputedStyle(document.documentElement)
-      .getPropertyValue("--bg-stage").trim() || "#3c6553";
-
-    const layer1 = preloader.querySelector(".ball-layer-1");
-    const layer2 = preloader.querySelector(".ball-layer-2");
-
-    /* Both layers start fully solid (no hole) */
-    gsap.set(layer1, { "--reveal-r": "0px" });
-    gsap.set(layer2, { "--reveal-r": "0px" });
-
-    const maxR = Math.ceil(Math.hypot(window.innerWidth, window.innerHeight)) + "px";
-
-    return new Promise((resolve) => {
-      requestAnimationFrame(() => {
-        /* Move the ball to the centre, pin transform-origin to the visual
-           centre of the sphere, and start invisible at 1.3× scale. */
-        (function setPulseOrigin() {
-          gsap.set(ball, { top: "calc(50vh - 60px)" });
-          const sphere = preloader.querySelector(".ball-sphera");
-          const r = (sphere ?? ball).getBoundingClientRect();
-          const bRect = ball.getBoundingClientRect();
-          const ox = (r.left + r.width / 2) - bRect.left;
-          const oy = (r.top  + r.height / 2) - bRect.top;
-          gsap.set(ball, {
-            transformOrigin: `${ox}px ${oy}px`,
-            scale: 1.6,
-            opacity: 0,
-            force3D: true,
-          });
-        })();
-
-        const tl = gsap.timeline();
-
-        /* Fade + bounce-shrink running in parallel:
-           - Opacity fades in over ~0.7s while the ball is already on screen
-           - Scale springs from 1.3 down to 1.0 with elastic oscillation
-             → shrinks past 1.0, grows back, shrinks again, settles at 1.0 */
-        tl.fromTo(
-          ball,
-          { opacity: 0 },
-          { duration: 0.7, opacity: 1, ease: "power2.out", force3D: true },
-          0,
-        )
-        .fromTo(
-          ball,
-          { scale: 1.6 },
-          { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)", force3D: true },
-          0,
-        )
-        /* 3. Prepare: mask + expand origin — fires at 1.0s, when the visible
-           bounce has settled. Killing the elastic's invisible tail removes
-           the ~1s "static" pause before the expand. */
-        .call(() => {
-          const sphere = preloader.querySelector(".ball-sphera");
-          const r = (sphere ?? ball).getBoundingClientRect();
-          const cx = Math.round(r.left + r.width / 2) + "px";
-          const cy = Math.round(r.top + r.height / 2) + "px";
-
-          /* Remove mirrored bg-effect elements and reset layer-1 to flat colour
-             so the reveal mask works cleanly against a solid background. */
-          preloader.querySelectorAll(".ball-bg-mirror").forEach(el => el.remove());
-          layer1.style.cssText = "";
-
-          /* Radial mask on the whole preloader — hole reveals landing */
-          preloader.style.setProperty("--reveal-cx", cx);
-          preloader.style.setProperty("--reveal-cy", cy);
-          preloader.classList.add("revealing");
-          gsap.set(preloader, { "--reveal-r": "0px" });
-
-          /* Scale ball well PAST the viewport so it never stops in view */
-          const diag = Math.hypot(window.innerWidth, window.innerHeight);
-          ball._expandScale = Math.ceil((diag * 3) / r.width);
-
-          /* Transform-origin at the visual centre of the ball */
-          const bRect = ball.getBoundingClientRect();
-          const ox = (r.left + r.width / 2) - bRect.left;
-          const oy = (r.top  + r.height / 2) - bRect.top;
-          gsap.set(ball, { transformOrigin: `${ox}px ${oy}px`, force3D: true });
-        }, null, 0.7)
-        /* 4. Ball EXPANDS outward — starts at 0.7s, overlapping the tail of
-           the bounce so there's no visible stop between the two */
-        .to(ball, {
-          scale: () => ball._expandScale,
-          duration: 1.6,
-          ease: "none",
-          force3D: true,
-        }, 0.7)
-        /* 5. Landing opens from inside while ball keeps going */
-        .to(preloader, {
-          "--reveal-r": maxR,
-          duration: 1.3,
-          ease: "none",
-        }, "<+=0.3")
-        /* 5. Done */
-        .set(preloader, {
-          onComplete: () => {
-            preloader.hidden = true;
-            preloader.classList.remove("revealing");
-            preloader.querySelectorAll(".ball-bg-mirror").forEach(el => el.remove());
-            layer1.removeAttribute("style");
-            gsap.set([ball, layer1, layer2], { clearProps: "all" });
-            resolve();
-          },
-        });
-      });
-    });
-  }).catch((err) => {
-    console.error("[ball-preloader] GSAP failed:", err);
-    preloader.hidden = true;
-  });
+  return runSharedBallPreloader(loadGsap);
 }
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
+/** Landing-page quiz voice waits this long after the ball animation starts (Regular). */
+const LANDING_QUIZ_VOICE_DELAY_MS = 1000;
 /** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
 const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
 
@@ -351,16 +203,19 @@ export function startVideoFlow() {
   if (appState.currentLevelIndex === 1) {
     const quizType = els.inQuizType?.value || "nat-by-club";
     playBallPreloader();
-    /* Voice starts at the same time as the ball fade-in */
-    playRules(quizType, 0).then(() => {
+    /* Voice starts 1s after the ball animation begins (was immediate — too early). */
+    appState.videoTimeout = setTimeout(() => {
       if (!appState.isVideoPlaying) return;
-      /* Skip runVideoStep delays — go straight to level 2 */
-      switchLevel(2);
-      scheduleAfterTransition(() => {
+      playRules(quizType, 0).then(() => {
         if (!appState.isVideoPlaying) return;
-        runVideoStep();
-      }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
-    });
+        /* Skip runVideoStep delays — go straight to level 2 */
+        switchLevel(2);
+        scheduleAfterTransition(() => {
+          if (!appState.isVideoPlaying) return;
+          runVideoStep();
+        }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+      });
+    }, LANDING_QUIZ_VOICE_DELAY_MS);
     return;
   }
 

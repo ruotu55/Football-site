@@ -408,9 +408,9 @@ export async function start(savedName, recordingsDir, opts = {}) {
         parameterName: "FilenameFormatting",
         parameterValue: String(savedName),
     });
-    // TEMP (debug): don't override OBS's recording directory — let OBS save wherever it's currently configured. Restore the line below when done testing.
-    // await obs.call("SetRecordDirectory", { recordDirectory: String(recordingsDir) });
-    void recordingsDir;
+    // Always record into the project's per-language "Ready videos" folder so files
+    // land in one fixed, predictable place (not OBS's own default directory).
+    await obs.call("SetRecordDirectory", { recordDirectory: String(recordingsDir) });
 
     /* Window Capture's audio (WGC on Windows, SCK on macOS) needs a couple of
        seconds after the source is activated before its audio buffer is usable

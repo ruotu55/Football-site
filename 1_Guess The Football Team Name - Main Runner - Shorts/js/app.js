@@ -1585,7 +1585,7 @@ async function init() {
     });
 
     if (els.headerName) {
-        els.headerName.addEventListener("dblclick", async () => {
+        const beginHeaderTeamNameEdit = async () => {
             if (appState.isVideoPlaying) return;
             if (!isCurrentHeaderTeamNameEditable()) return;
             const state = getState();
@@ -1603,19 +1603,17 @@ async function init() {
             const wantSave = await showTeamNameSaveConfirmModal({ oldName: cleanCurr, newName: cleanNext });
             if (wantSave !== true) return;
             renameCurrentClubByNatTeamName(cleanNext);
-            if (cleanCurr && cleanNext) {
-                try {
-                    await fetch("/__team-voice/rename", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ oldName: cleanCurr, newName: cleanNext, quizType }),
-                    });
-                } catch {}
-            }
-            /* Refresh the Voice tab so the renamed team shows up (and the correct voice
-               file is probed/generated/played for the new display name). */
+            /* Renaming only changes the DISPLAY name. We intentionally do NOT rename or
+               reuse the old team's voice files: the recorded audio still says the old
+               name, so repurposing it for the new label would make the voice mismatch the
+               text. The new name simply starts with no voice — renderVoiceTab() shows it
+               as missing so the user can generate a fresh clip for it. */
             renderVoiceTab();
-        });
+        };
+        els.headerName.addEventListener("dblclick", beginHeaderTeamNameEdit);
+        /* Exposed so the ✎ button (built in pitch-render.js) can trigger the exact
+           same flow with a direct call — avoids the pitch click-router swallowing it. */
+        window.__beginHeaderTeamNameEdit = beginHeaderTeamNameEdit;
     }
 
     populateSubTypes();

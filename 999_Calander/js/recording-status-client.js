@@ -187,17 +187,26 @@
     for (const key of Object.keys(blocks)) {
       const b = blocks[key];
       const text = String((b && b.teamsImportText) || "").trim();
-      if (!text) continue; // only blocks that actually have levels
+      // A block is a real video if it has a teams list OR a full stored script
+      // with levels (multiple-choice quizzes carry a script, no teams list).
+      const hasScript = !!(b && b.script && Array.isArray(b.script.levels) && b.script.levels.length);
+      if (!text && !hasScript) continue;
       const parts = key.split("|");
       if (parts.length !== 3) continue;
       const runnerId = Number(parts[0]);
       const type = parts[1];
       const ep = Number(parts[2]);
       if (!runnerId || (type !== "long" && type !== "short") || !ep) continue;
-      // opener = first level's left side (player or team name) — used by the
-      // schedule to avoid two consecutive videos opening with the same one.
-      const firstLine = text.split("\n").find((l) => l.trim()) || "";
-      const opener = firstLine.split(" - ")[0].trim();
+      // opener = first level's left side (player/team) — used by the schedule to
+      // avoid two consecutive videos opening with the same one. Script-only
+      // blocks (no teams list) fall back to the block name.
+      let opener;
+      if (text) {
+        const firstLine = text.split("\n").find((l) => l.trim()) || "";
+        opener = firstLine.split(" - ")[0].trim();
+      } else {
+        opener = String((b && b.name) || ("ep" + ep)).trim();
+      }
       const k = `${type}|${runnerId}`;
       (out[k] || (out[k] = [])).push({ ep, opener });
     }

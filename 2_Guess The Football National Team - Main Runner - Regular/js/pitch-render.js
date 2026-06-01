@@ -93,11 +93,23 @@ const LIST_PHOTO_CANDIDATES_ENDPOINT = "/__player-photo/list-candidates";
 const SAVE_CHOSEN_PHOTO_ENDPOINT = "/__player-photo/save-chosen";
 const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
 const SAVE_CROP_PLAYER_PHOTO_ENDPOINT = "/__player-photo/save-crop";
-const TEAM_NAME_OVERRIDES_STORAGE_KEY = "lineups-regular:club-by-nat-team-name-overrides:v1";
+/* Shared across Main Runner - National Team Regular and Shorts (a rename done in
+   one applies in the other). LS is a fast local cache; the dev server mirrors the
+   same object to .Storage/storage/runner-blobs/ so renames persist across reloads
+   and the sibling runner picks them up on startup. Distinct bucket from runner 1
+   (clubs) so national-team renames never collide with club renames. */
+const TEAM_NAME_OVERRIDES_STORAGE_KEY = "lineups-shared:nat-team-name-overrides:v1";
+const TEAM_NAME_OVERRIDES_LEGACY_LS_KEYS = [
+  "lineups-regular:club-by-nat-team-name-overrides:v1",
+  "lineups-shorts:club-by-nat-team-name-overrides:v1",
+];
+const TEAM_NAME_OVERRIDES_SERVER_ENDPOINT = "/__runner-json-blob/team_name_overrides_shared_national";
 const AUTO_365_PHOTO_RE = /(^|\/)auto - 365scores(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const AUTO_FUTGG_PHOTO_RE = /(^|\/)auto - fut\.gg(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
 const autoPhotoLastSourceBySlot = new Map();
 let teamNameOverridesCache = null;
+let teamNameOverridesServerPushTimer = null;
+let teamNameOverridesServerPullPromise = null;
 
 /**
  * Open the "Add Player Photo" URL-paste modal. The user pastes an image URL;
@@ -188,8 +200,13 @@ function normalizeQuizTypeForTeamNameOverride(quizType) {
 
 function isClubByNatHeaderEditContext(state = getState(), quizTypeRaw = appState.els.inQuizType?.value) {
   if (!state?.currentSquad) return false;
-  if (state.squadType !== "club") return false;
-  return normalizeQuizTypeForTeamNameOverride(quizTypeRaw) === "club-by-nat";
+  const quizType = normalizeQuizTypeForTeamNameOverride(quizTypeRaw);
+  /* Clubs grouped by nationality → editable in club-by-nat mode. */
+  if (state.squadType === "club") return quizType === "club-by-nat";
+  /* National teams (this runner's main mode) → editable in nat-by-club mode, so
+     the country name shown in the header can be renamed like a club name. */
+  if (state.squadType === "national") return quizType === "nat-by-club";
+  return false;
 }
 
 function getCanonicalTeamIdentity(state = getState()) {
@@ -267,6 +284,12 @@ function getBaseTeamName(state = getState()) {
   return String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
 }
 
+function isTeamNameOverridesHttpServerActive() {
+  return typeof location !== "undefined" &&
+    location.protocol === "http:" &&
+    location.hostname !== "";
+}
+
 function readTeamNameOverrides() {
   if (teamNameOverridesCache) return teamNameOverridesCache;
   let parsed = {};
@@ -277,6 +300,24 @@ function readTeamNameOverrides() {
   }
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     parsed = {};
+  }
+  /* One-time merge from the legacy per-runner LS keys so renames saved before
+     this became a shared store aren't lost. Existing shared-key values win. */
+  for (const legacyKey of TEAM_NAME_OVERRIDES_LEGACY_LS_KEYS) {
+    if (legacyKey === TEAM_NAME_OVERRIDES_STORAGE_KEY) continue;
+    let legacy = null;
+    try {
+      legacy = JSON.parse(localStorage.getItem(legacyKey) || "null");
+    } catch {
+      legacy = null;
+    }
+    if (legacy && typeof legacy === "object" && !Array.isArray(legacy)) {
+      for (const [k, v] of Object.entries(legacy)) {
+        if (!(k in parsed) && typeof v === "string" && v.trim()) {
+          parsed[k] = v;
+        }
+      }
+    }
   }
   teamNameOverridesCache = parsed;
   return teamNameOverridesCache;
@@ -294,6 +335,60 @@ function persistTeamNameOverrides() {
   } catch {
     // Ignore storage quota/privacy failures; current session still works.
   }
+  if (!isTeamNameOverridesHttpServerActive()) return;
+  clearTimeout(teamNameOverridesServerPushTimer);
+  teamNameOverridesServerPushTimer = setTimeout(() => {
+    teamNameOverridesServerPushTimer = null;
+    fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(teamNameOverridesCache),
+    }).catch(() => {});
+  }, 300);
+}
+
+/* Pulls the shared team-name-overrides file from the dev server on startup, so a
+   rename made in the sibling Main Runner (Regular vs Shorts) is reflected here
+   without the user having to redo it. Safe to call once at app init. */
+export function initTeamNameOverridesSharedSync() {
+  readTeamNameOverrides();
+  if (!isTeamNameOverridesHttpServerActive()) {
+    teamNameOverridesServerPullPromise = Promise.resolve();
+    return teamNameOverridesServerPullPromise;
+  }
+  teamNameOverridesServerPullPromise = (async () => {
+    try {
+      const r = await fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, { cache: "no-store" });
+      if (!r.ok) return;
+      const remote = await r.json();
+      if (!remote || typeof remote !== "object" || Array.isArray(remote)) return;
+      const localBefore = teamNameOverridesCache || {};
+      if (Object.keys(remote).length > 0) {
+        teamNameOverridesCache = { ...remote };
+        try {
+          localStorage.setItem(
+            TEAM_NAME_OVERRIDES_STORAGE_KEY,
+            JSON.stringify(teamNameOverridesCache)
+          );
+        } catch { /* quota or private mode */ }
+      } else if (Object.keys(localBefore).length > 0) {
+        /* First boot after the fix: server file is empty but we have local data
+           (including data migrated from the legacy per-runner LS keys). Seed the
+           server so the sibling runner picks it up next reload. */
+        try {
+          await fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(localBefore),
+          });
+        } catch { /* offline */ }
+      }
+      try { renderHeader(); } catch { /* not yet mounted */ }
+    } catch {
+      /* offline or file:// — local cache continues to be used. */
+    }
+  })();
+  return teamNameOverridesServerPullPromise;
 }
 
 function getTeamNameOverrideKey(state = getState(), quizTypeRaw = appState.els.inQuizType?.value) {

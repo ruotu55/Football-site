@@ -1,0 +1,67 @@
+/* Shared: 4-ball merge intro before landing ball bounce/expand (Regular runners). */
+
+.ball-merge {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: opacity;
+}
+.ball-merge[hidden] { display: none; }
+.ball-merge-goo {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  filter: none;
+  will-change: transform;
+}
+.ball-merge-goo .merge-liquid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  border-radius: 50%;
+  background: transparent;
+  overflow: visible;
+  will-change: transform;
+}
+.merge-liquid-ball {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.merge-liquid-ball-scale {
+  width: 400px;
+  height: 400px;
+  transform: scale(0.348);
+  transform-origin: center center;
+}
+.merge-liquid-ball-scale .ball {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 16px 20px 0 rgba(0, 0, 0, 0.14), 0 4px 40px 0 rgba(0, 0, 0, 0.12),
+    0 8px 16px -4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+@media (max-width: 967px) {
+  .merge-liquid-ball-scale {
+    transform: scale(0.228);
+  }
+}
+
+.ball-preloader-ball {
+  z-index: 4;
+}

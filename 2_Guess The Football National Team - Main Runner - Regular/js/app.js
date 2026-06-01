@@ -6,6 +6,7 @@ import { switchLevel } from "./levels.js";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
+    initTeamNameOverridesSharedSync,
     isCurrentHeaderTeamNameEditable,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
@@ -25,7 +26,7 @@ import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName } from "./saved-scripts.js?v=20260529b";
+import { getActiveScriptName } from "./saved-scripts.js?v=20260601-autoopen5";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
@@ -1046,6 +1047,7 @@ async function init() {
     applyDefaultThemeForCurrentQuizType();
     syncShortsModeFab();
     initSavedTeamLayouts();
+    initTeamNameOverridesSharedSync();
 
     // Expose for pitch-render.js (avoids circular ES module dependency).
     window.__confirmAndDeleteSaveIfPresent = confirmAndDeleteSaveIfPresent;

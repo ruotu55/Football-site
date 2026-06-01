@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=20260530-shotsmodal" />
+    <link rel="stylesheet" href="css/styles.css?v=20260601-ballmatch" />
     <link rel="stylesheet" href="css/thumbnail-studio.css?v=20260529a" />
   </head>
   <body>
@@ -26,7 +26,7 @@
     <!-- Shared deterministic upload schedule + recording-status client (sets
          window.FCSchedule and window.FCRecordingStatus). recording-queue.js in
          the Saved tab depends on these — load before app.js. -->
-    <script src="../999_Calander/js/schedule.js?v=20260601-noconsec"></script>
+    <script src="../999_Calander/js/schedule.js?v=20260602-r9mcq"></script>
     <script src="../999_Calander/js/recording-status-client.js?v=20260601-noconsec"></script>
     <div class="app">
       
@@ -79,8 +79,25 @@
 
     </div>
 
+    <!-- Gooey SVG filter for the 4-ball merge intro -->
+    <svg id="ball-gooey-svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;">
+      <filter id="ball-gooey">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" />
+      </filter>
+    </svg>
+
     <!-- Ball-drop preloader (shown after Play Video on landing) -->
     <div id="ball-preloader" class="ball-preloader" hidden>
+      <!-- 4 gooey balls that merge into 1 before the soccer ball opens -->
+      <div class="ball-merge" aria-hidden="true" hidden>
+        <div class="ball-merge-goo">
+          <span class="merge-liquid"></span>
+          <span class="merge-liquid"></span>
+          <span class="merge-liquid"></span>
+          <span class="merge-liquid"></span>
+        </div>
+      </div>
       <!-- Layer 2 (bottom): white — looks like ball expanding, opens to reveal landing -->
       <div class="ball-layer ball-layer-2"></div>
       <!-- Layer 1 (top): bg color — the background during bounce -->

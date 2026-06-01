@@ -776,6 +776,14 @@ body:not(.shorts-mode).play-video-active .career-portrait-card:not(.career-portr
   padding: clamp(0.35rem, 1.6cqi, 0.55rem) clamp(0.45rem, 2.2cqi, 0.85rem);
 }
 
+/* Revealed names can use three lines (e.g. TRENT / ALEXANDER- / ARNOLD).
+   Let the bar grow upward instead of clipping at the fixed "?" height. */
+.career-portrait-card__mystery-badge:has(.career-portrait-card__mystery-mark--name) {
+  height: auto;
+  max-height: min(38cqh, 42%);
+  align-items: center;
+}
+
 .career-portrait-card__mystery-mark {
   flex: 1 1 auto;
   display: flex;
@@ -798,16 +806,17 @@ body:not(.shorts-mode).play-video-active .career-portrait-card:not(.career-portr
 .career-portrait-card__mystery-mark--name {
   /* 20% larger font than the original clamp (1.25rem/9.5cqi/2.6rem each * 1.2). */
   transform: none;
+  display: block;
   font-size: clamp(1.5rem, 11.4cqi, 3.12rem);
   line-height: 1.08;
   letter-spacing: 0.03em;
   text-align: center;
   text-wrap: balance;
   padding-inline: 0.2em;
-  overflow: hidden;
+  overflow: visible;
   hyphens: auto;
-  /* JS inserts "\n" between first name and last name so the two parts always
-     render on two lines instead of relying on auto-wrap. */
+  overflow-wrap: anywhere;
+  /* JS inserts "\n" between name parts; long hyphenated surnames may use three. */
   white-space: pre-line;
 }
 

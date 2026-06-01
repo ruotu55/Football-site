@@ -1,9 +1,9 @@
 /* Football Channel · upload schedule
  *
- * Launch month (Jun 1 – Jun 30, 2026): 2 Shorts every day · 1 Long-form every
+ * Launch month (Jun 2 – Jul 1, 2026): 2 Shorts every day · 1 Long-form every
  * day at 18:00 IL — front-loads channel velocity for the algorithm.
  *
- * Steady state (from Jul 1, 2026): 2 Shorts every day · 3 Long-form per week.
+ * Steady state (from Jul 2, 2026): 2 Shorts every day · 3 Long-form per week.
  *
  * Long-form days in steady state (18:00 IL) — chosen for even spread +
  * football-audience peaks:
@@ -41,8 +41,11 @@
  * in Israel. IL summer: UK = IL−2, Spain = IL−1.
  */
 
-const START_DATE = new Date(2026, 5, 1); // 2026-06-01 Monday
-const PLACEHOLDER_FROM = new Date(2026, 6, 3); // 2026-07-03
+/** Bump when START_DATE or phase boundaries change (invalidates buildSchedule cache). */
+const SCHEDULE_REVISION = "20260602-start-r9mcq";
+
+const START_DATE = new Date(2026, 5, 2); // 2026-06-02 Tuesday
+const PLACEHOLDER_FROM = new Date(2026, 6, 4); // 2026-07-04
 
 const RUNNERS = [
   { id: 1,  name: "Guess The Football Team Name",                short: "Team Name",     from: null },
@@ -53,7 +56,7 @@ const RUNNERS = [
   { id: 6,  name: "Guess The Fake Information",                  short: "Fake Info",     from: null },
   { id: 7,  name: "Guess The Football Team Logo Name",           short: "Logo Name",     from: null },
   { id: 8,  name: "Guess The Football Player Name",              short: "Player Name",   from: null },
-  { id: 9,  name: "Placeholder Runner #9",                       short: "TBD #9",        from: PLACEHOLDER_FROM },
+  { id: 9,  name: "Football Quiz - Multiple Choice",             short: "Quiz MCQ",      from: null },
   { id: 10, name: "Placeholder Runner #10",                      short: "TBD #10",       from: PLACEHOLDER_FROM },
   { id: 11, name: "Placeholder Runner #11",                      short: "TBD #11",       from: PLACEHOLDER_FROM },
   { id: 12, name: "Placeholder Runner #12",                      short: "TBD #12",       from: PLACEHOLDER_FROM },
@@ -99,16 +102,16 @@ const PHASES = [
   {
     id: 1,
     name: "Launch",
-    weeks: "First 30 days (Jun 1 – Jun 30)",
-    startsOn: new Date(2026, 5, 1),
+    weeks: "First 30 days (Jun 2 – Jul 1)",
+    startsOn: new Date(2026, 5, 2),
     en: { long: DAILY_LONG, short: EN_SHORTS },
     es: { long: DAILY_LONG, short: ES_SHORTS },
   },
   {
     id: 2,
     name: "Standard",
-    weeks: "From Jul 1",
-    startsOn: new Date(2026, 6, 1),
+    weeks: "From Jul 2",
+    startsOn: new Date(2026, 6, 2),
     en: {
       long: [
         { dow: 0, hour: 18, min: 0 }, // Sun 18:00 — weekend wrap, post-Sat/Sun PL window
@@ -174,6 +177,7 @@ const TYPE_OFFSET = { long: 0, short: 0 };
 
 let _scheduleCache = null;
 let _scheduleCacheEnd = null;
+let _scheduleCacheRevision = null;
 
 // Availability of real videos, set by the calendar from the recording-status
 // store: { "<type>|<runnerId>": [episode, ...] }. Only episodes that have a
@@ -188,11 +192,12 @@ function setBlockEpisodes(map) {
   _blockEpisodes = map || null;
   _scheduleCache = null;
   _scheduleCacheEnd = null;
+  _scheduleCacheRevision = null;
 }
 
 // Mixed calendar rotation order (user preference) — not plain 1..8. Any runner
 // not listed (e.g. placeholders) is appended after, so nothing is lost.
-const CALENDAR_RUNNER_ORDER = [1, 5, 8, 3, 6, 2, 4, 7];
+const CALENDAR_RUNNER_ORDER = [1, 5, 8, 3, 6, 2, 4, 7, 9];
 const ORDERED_RUNNERS = (() => {
   const byId = new Map(RUNNERS.map((r) => [r.id, r]));
   const out = [];
@@ -213,7 +218,12 @@ function _channelSlotsForDay(phase, channel, type, dow) {
 
 function buildSchedule(endDate) {
   // Cache: if we've already built through this date, reuse
-  if (_scheduleCache && _scheduleCacheEnd && endDate <= _scheduleCacheEnd) {
+  if (
+    _scheduleCache
+    && _scheduleCacheEnd
+    && _scheduleCacheRevision === SCHEDULE_REVISION
+    && endDate <= _scheduleCacheEnd
+  ) {
     return _scheduleCache;
   }
 
@@ -323,6 +333,7 @@ function buildSchedule(endDate) {
 
   _scheduleCache = byDate;
   _scheduleCacheEnd = end;
+  _scheduleCacheRevision = SCHEDULE_REVISION;
   return byDate;
 }
 

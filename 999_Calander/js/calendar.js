@@ -293,13 +293,11 @@
       }
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (u.type === "long") {
-          // Regular: use the thumbnail you set ahead of time (or tell you to add one).
-          uploadRegularWithSavedThumb(date, u, block, btn);
-        } else {
-          // Shorts: keep the pick-at-upload modal.
-          openThumbnailModal(date, u, block, btn);
-        }
+        // One click uploads BOTH the English and Spanish videos, one after the
+        // other. It first checks both are fully ready — recorded video, an
+        // authorized channel, and (long-form only) a saved thumbnail. If either
+        // language is missing anything, nothing is uploaded and you're told why.
+        uploadBothLanguages(date, u, block, btn);
       });
       row.appendChild(btn);
       row.appendChild(makeResetButton(u,
@@ -620,31 +618,99 @@
     else alert("Couldn't remove the thumbnail.");
   }
 
-  /** Regular upload: use the thumbnail set ahead of time; if none, ask for one. */
-  async function uploadRegularWithSavedThumb(date, u, block, btn) {
+  /** Find the matching upload slot for the other channel on the same day —
+   *  same runner/episode/type, opposite channel. EN and ES are scheduled as a
+   *  pair (same recording), differing only in upload hour, so this gives us the
+   *  ES slot time when the EN pill was clicked (and vice-versa). */
+  function counterpartSlot(date, u) {
+    const other = u.channel === "en" ? "es" : "en";
+    const all = uploadsForDay(date);
+    return all.find((x) =>
+      x.channel === other && x.type === u.type
+      && x.runner.id === u.runner.id && x.episode === u.episode) || null;
+  }
+
+  /** Upload BOTH languages (English then Spanish) for this episode in one go.
+   *  Pre-flights every language that still needs uploading: a recorded video, an
+   *  authorized channel, and — for long-form — a thumbnail saved ahead of time.
+   *  If anything is missing for either language, NOTHING is uploaded and the
+   *  user is shown every reason. Languages already on YouTube are left alone. */
+  async function uploadBothLanguages(date, u, block, btn) {
     const key = FCRecordingStatus.blockKey(u.runner.id, u.type, u.episode);
     const prev = btn.textContent;
     btn.disabled = true; btn.textContent = "Checking…";
-    const t = await FCYouTube.getThumbnail(key, u.channel);
-    if (!t || !t.exists || !t.dataBase64) {
+
+    // Use the freshest auth + block we can before validating.
+    await FCYouTube.refreshAuth();
+    block = FCRecordingStatus.getBlock(u.runner.id, u.type, u.episode) || block;
+
+    // Build the EN + ES slots (each with its own upload time).
+    const counterpart = counterpartSlot(date, u);
+    const enSlot = u.channel === "en" ? u : counterpart;
+    const esSlot = u.channel === "es" ? u : counterpart;
+    const slots = [enSlot, esSlot].filter(Boolean);
+
+    const problems = [];   // reasons we can't upload (block everything)
+    const targets = [];    // { slot, thumb } that are ready and not yet uploaded
+    for (const s of slots) {
+      const lang = s.channel === "en" ? "english" : "spanish";
+      const label = s.channel.toUpperCase();
+      if (block?.youtube?.[lang]?.videoId) continue; // already on YouTube
+      if (!block?.video?.[lang]?.path) {
+        problems.push(`${label}: no recorded video yet — record it first.`);
+        continue;
+      }
+      if (!FCYouTube.channelAuthorized(s.channel)) {
+        problems.push(`${label}: channel isn't authorized yet — run authorize_youtube.py --channel ${s.channel}.`);
+        continue;
+      }
+      let thumb;
+      if (u.type === "long") {
+        const t = await FCYouTube.getThumbnail(key, s.channel);
+        if (!t || !t.exists || !t.dataBase64) {
+          problems.push(`${label}: no thumbnail set — click the \u{1F5BC} button on its box to add one.`);
+          continue;
+        }
+        thumb = { dataBase64: t.dataBase64, mime: t.mime, name: t.name };
+      }
+      targets.push({ slot: s, thumb });
+    }
+
+    if (problems.length) {
       btn.disabled = false; btn.textContent = prev;
-      alert(`No thumbnail set for the ${u.channel.toUpperCase()} video.\n\nClick the \u{1F5BC} button on this box to add one, then upload.`);
+      alert("Can't upload yet — both the English and Spanish videos must be ready.\n\n"
+        + problems.join("\n"));
       return;
     }
-    btn.textContent = "Uploading…";
-    const res = await FCYouTube.upload({
-      key, channel: u.channel, block,
-      date: { y: date.getFullYear(), m: date.getMonth(), d: date.getDate() },
-      time: { hour: u.hour, min: u.min },
-      playlistName: u.runner.name,
-    }, { dataBase64: t.dataBase64, mime: t.mime, name: t.name });
-    if (res.ok) {
-      if (res.warning) alert("Uploaded, with a note:\n\n" + res.warning);
-      await FCRecordingStatus.refresh();
-    } else {
-      btn.disabled = false; btn.textContent = "Retry upload";
-      btn.classList.add("yt-btn--error");
-      alert("YouTube upload failed:\n\n" + (res.error || "Unknown error"));
+    if (!targets.length) {
+      btn.disabled = false; btn.textContent = prev;
+      alert("Both the English and Spanish videos are already uploaded.");
+      return;
+    }
+
+    // Everything checked out — upload each remaining language in turn.
+    const failures = [];
+    const warnings = [];
+    for (const { slot: s, thumb } of targets) {
+      btn.textContent = `Uploading ${s.channel.toUpperCase()}…`;
+      const res = await FCYouTube.upload({
+        key, channel: s.channel, block,
+        date: { y: date.getFullYear(), m: date.getMonth(), d: date.getDate() },
+        time: { hour: s.hour, min: s.min },
+        playlistName: u.runner.name,
+      }, thumb);
+      if (res.ok) {
+        if (res.warning) warnings.push(`${s.channel.toUpperCase()}: ${res.warning}`);
+      } else {
+        failures.push(`${s.channel.toUpperCase()}: ${res.error || "Unknown error"}`);
+      }
+    }
+
+    await FCRecordingStatus.refresh(); // re-render pills with the new status
+    if (failures.length) {
+      alert("Some uploads failed:\n\n" + failures.join("\n"));
+    } else if (warnings.length) {
+      alert("Uploaded, with a note:\n\n" + warnings.join("\n"));
     }
   }
 

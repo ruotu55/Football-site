@@ -431,6 +431,47 @@ export function renameCurrentClubByNatTeamName(nextNameRaw) {
 export function isCurrentHeaderTeamNameEditable() {
   return isClubByNatHeaderEditContext(getState(), appState.els.inQuizType?.value);
 }
+
+/* The ✎ affordance next to the header team name. Created once and re-attached on
+   each header render (textContent wipes the element's children). Visible only when
+   the name is editable; CSS hides it during Play/Record via body.play-video-active
+   so it never lands in the recorded video. Clicking it triggers the exact same
+   rename flow as double-clicking the name (handler lives in app.js). */
+let headerTeamNameEditBtn = null;
+export function ensureHeaderTeamNameEditButton(
+  state = getState(),
+  quizTypeRaw = appState.els.inQuizType?.value
+) {
+  const editable = isClubByNatHeaderEditContext(state, quizTypeRaw);
+  /* Live in the same fixed control row as the X / Get logo buttons (right next to
+     the X) rather than inside the team-name <h2> — that spot was inside the pitch
+     click-router's capture zone, which swallowed the click. */
+  const clearBtn = document.getElementById("team-header-clear-team");
+  if (!headerTeamNameEditBtn) {
+    headerTeamNameEditBtn = document.createElement("button");
+    headerTeamNameEditBtn.type = "button";
+    headerTeamNameEditBtn.id = "team-header-edit-name";
+    headerTeamNameEditBtn.className = "team-header-name-edit-btn";
+    headerTeamNameEditBtn.textContent = "✎";
+    headerTeamNameEditBtn.title = "Edit team name";
+    headerTeamNameEditBtn.setAttribute("aria-label", "Edit team name");
+    headerTeamNameEditBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof window.__beginHeaderTeamNameEdit === "function") {
+        window.__beginHeaderTeamNameEdit();
+      }
+    });
+  }
+  /* Keep it immediately after the X button so the fixed CSS lands it next to the X. */
+  if (clearBtn && clearBtn.parentElement &&
+      (headerTeamNameEditBtn.previousElementSibling !== clearBtn ||
+       headerTeamNameEditBtn.parentElement !== clearBtn.parentElement)) {
+    clearBtn.insertAdjacentElement("afterend", headerTeamNameEditBtn);
+  }
+  headerTeamNameEditBtn.hidden = !editable;
+}
+
 export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
     return Promise.resolve();
@@ -2113,6 +2154,9 @@ export function scheduleTeamHeaderSidePanelNameFit() {
       } else {
         fitRegularSidePanelTeamHeaderNameImpl();
       }
+      /* The fitter rebuilds/resets the name element's content, which drops the
+         ✎ edit button — re-attach it once the final text is in place. */
+      ensureHeaderTeamNameEditButton();
     });
   });
 }
@@ -2195,6 +2239,7 @@ export function renderHeader() {
   if (els.headerName) {
     els.headerName.textContent = displayedHeaderTeamName;
     els.headerName.dataset.headerPlain = displayedHeaderTeamName;
+    ensureHeaderTeamNameEditButton(state, quizType);
   }
   if (els.headerFlag) {
     const flagLabel = resolveTeamHeaderFlagCountryLabel(state);

@@ -1,0 +1,192 @@
+/* Multiple-choice (A/B/C) quiz layout — fills #career-wrap (position:relative). */
+
+body.mcq-mode #team-header { display: none !important; }
+body.mcq-mode .career-silhouette,
+body.mcq-mode #landing-shirt { display: none !important; }
+
+.career-wrap .mcq-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2vh;
+  padding: 1vh 4vw 2vh;
+  box-sizing: border-box;
+}
+
+.mcq-question {
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #fff;
+  text-align: center;
+  font-size: clamp(26px, 4.2vw, 66px);
+  line-height: 1.06;
+  letter-spacing: 0.5px;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  max-width: 94%;
+  flex: 0 0 auto;
+}
+
+/* ── Trivia: topic image (left) + answer rows (right) ── */
+.mcq-trivia-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4vw;
+}
+
+.mcq-topic-card {
+  flex: 0 0 44%;
+  max-width: 46%;
+  align-self: center;
+  aspect-ratio: 16 / 11;
+  max-height: 88%;
+  border-radius: 26px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  border: 6px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mcq-topic-card--empty { background: rgba(0, 0, 0, 0.2); }
+.mcq-topic-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.mcq-answers {
+  flex: 1 1 0;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.2vh;
+}
+
+.mcq-answer {
+  display: flex;
+  align-items: center;
+  gap: 1.4vw;
+  background: #fff;
+  border-radius: 999px;
+  padding: 1.5vh 1.8vw;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+  transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
+}
+.mcq-letter {
+  flex: 0 0 auto;
+  width: clamp(44px, 4.2vw, 76px);
+  height: clamp(44px, 4.2vw, 76px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffd66b, #e8a13a);
+  color: #7a0e37;
+  font-weight: 900;
+  font-size: clamp(22px, 2.5vw, 42px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.75), 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.mcq-text {
+  font-weight: 900;
+  color: #15151c;
+  font-size: clamp(20px, 2.7vw, 48px);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Which-player: three photo cards ── */
+.mcq-player-cards {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 2.4vw;
+  padding-top: 1.2vh;
+}
+.mcq-pcard {
+  flex: 0 1 28%;
+  max-width: 30%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  border-radius: 24px;
+  background: #fff;
+  position: relative;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+  overflow: visible;
+}
+.mcq-badge {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  z-index: 3;
+  width: clamp(42px, 3.4vw, 62px);
+  height: clamp(42px, 3.4vw, 62px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #c2185b);
+  color: #fff;
+  font-weight: 900;
+  font-size: clamp(20px, 2.1vw, 36px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+.mcq-pcard-photo {
+  flex: 1 1 auto;
+  min-height: 0;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #e9edf2, #c9d2dc);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.mcq-pcard-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+.mcq-pcard-name {
+  flex: 0 0 auto;
+  background: #fff;
+  color: #15151c;
+  text-align: center;
+  font-weight: 900;
+  font-size: clamp(18px, 2vw, 36px);
+  padding: 1.2vh 0.4vw;
+  border-radius: 0 0 24px 24px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Reveal: highlight correct, dim the rest ── */
+body.mcq-reveal .mcq-answer:not(.mcq-answer--correct) { opacity: 0.32; }
+body.mcq-reveal .mcq-answer--correct {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 6px #28c76f, 0 18px 44px rgba(40, 199, 111, 0.5);
+}
+body.mcq-reveal .mcq-answer--correct .mcq-text,
+body.mcq-reveal .mcq-pcard.mcq-answer--correct .mcq-pcard-name { color: #0a7a3f; }
+
+.mcq-stage--empty {
+  color: #fff;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+}

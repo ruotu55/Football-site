@@ -287,11 +287,14 @@ body.shorts-mode .countdown-timer {
     will-change: transform, opacity, filter;
 }
 body.shorts-mode .shorts-intro-quiz-title {
+    --shorts-intro-title-safe-inset: 1.25rem;
     position: fixed;
     top: calc(max(2.65rem, 18.5vh) * 0.7 + 3.5vh - 0.9rem);
     left: 50%;
     z-index: 55;
-    width: min(94vw, 32rem);
+    width: calc(min(56.25vh, 100vw) - (2 * var(--shorts-intro-title-safe-inset)));
+    max-width: calc(min(56.25vh, 100vw) - (2 * var(--shorts-intro-title-safe-inset)));
+    box-sizing: border-box;
     transform: translate3d(-50%, 0, 0);
     color: #fff;
     font-family: "Barlow Condensed", sans-serif;
@@ -301,7 +304,8 @@ body.shorts-mode .shorts-intro-quiz-title {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 0.035em;
-    white-space: nowrap;
+    white-space: normal;
+    overflow: hidden;
     -webkit-text-stroke: clamp(0.5px, 0.08em, 1.25px) #000;
     paint-order: stroke fill;
     text-shadow:
@@ -313,6 +317,20 @@ body.shorts-mode .shorts-intro-quiz-title {
     opacity: 0;
     transition: opacity 780ms ease;
     pointer-events: none;
+}
+
+body.shorts-mode .shorts-intro-quiz-title-line {
+    display: block;
+    white-space: nowrap;
+}
+
+/* Regular layout: same safe inset if the intro title is ever shown outside shorts mode. */
+body:not(.shorts-mode) .shorts-intro-quiz-title {
+    --shorts-intro-title-safe-inset: 5.3vw;
+    width: calc(100vw - (2 * var(--shorts-intro-title-safe-inset)));
+    max-width: calc(100vw - (2 * var(--shorts-intro-title-safe-inset)));
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 body.shorts-mode .shorts-intro-quiz-title.shorts-intro-quiz-title--visible {

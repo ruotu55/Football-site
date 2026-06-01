@@ -26,6 +26,10 @@ import {
   syncShortsVideoModeIdleTimerBar,
 } from "./shorts-idle-timer-bar.js";
 import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
+import {
+  setShortsIntroQuizTitleVisibility,
+  finalizeShortsIntroQuizTitleHide,
+} from "../../.Storage/shared/shorts-intro-quiz-title-fit.js";
 
 /** After Play Video on the logo page: pause before BGM and logo reveal. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
@@ -59,25 +63,21 @@ function setShortsIntroQuizTitleVisible(isVisible, options = {}) {
   const __introEs = getCurrentLanguage() === "spanish";
   const __introL1 = __introEs ? SHORTS_INTRO_QUIZ_TITLE_LINE_1_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_1;
   const __introL2 = __introEs ? SHORTS_INTRO_QUIZ_TITLE_LINE_2_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_2;
-  titleEl.innerHTML = `${__introL1}<br>${__introL2}`;
   clearTimeout(shortsIntroQuizTitleHideTimeout);
   shortsIntroQuizTitleHideTimeout = null;
 
   if (isVisible) {
-    titleEl.hidden = false;
-    titleEl.classList.remove("shorts-intro-quiz-title--visible");
-    void titleEl.offsetWidth;
-    titleEl.classList.add("shorts-intro-quiz-title--visible");
+    setShortsIntroQuizTitleVisibility(titleEl, true, options, __introL1, __introL2);
     return;
   }
 
-  titleEl.classList.remove("shorts-intro-quiz-title--visible");
+  setShortsIntroQuizTitleVisibility(titleEl, false, options);
   if (options.immediate) {
-    titleEl.hidden = true;
+    finalizeShortsIntroQuizTitleHide(titleEl);
     return;
   }
   shortsIntroQuizTitleHideTimeout = setTimeout(() => {
-    titleEl.hidden = true;
+    finalizeShortsIntroQuizTitleHide(titleEl);
     shortsIntroQuizTitleHideTimeout = null;
   }, SHORTS_INTRO_QUIZ_TITLE_FADE_MS);
 }

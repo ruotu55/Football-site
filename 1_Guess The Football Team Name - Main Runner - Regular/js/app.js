@@ -21,12 +21,12 @@ import {
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260416-ball";
+import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260601-voicedelay";
 import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260529c";
+import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260601-autoopen5";
 import { initRenderModeIfRequested } from "./render-mode.js";
 import {
     showRenderProgressModal,
@@ -1732,17 +1732,11 @@ async function init() {
             const wantSave = await showTeamNameSaveConfirmModal({ oldName: cleanCurr, newName: cleanNext });
             if (wantSave !== true) return;
             renameCurrentClubByNatTeamName(cleanNext);
-            if (cleanCurr && cleanNext) {
-                try {
-                    await fetch("/__team-voice/rename", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ oldName: cleanCurr, newName: cleanNext, quizType }),
-                    });
-                } catch {}
-            }
-            /* Refresh the Voice tab so the renamed team shows up (and the correct voice
-               file is probed/generated/played for the new display name). */
+            /* Renaming only changes the DISPLAY name. We intentionally do NOT rename or
+               reuse the old team's voice files: the recorded audio still says the old
+               name, so repurposing it for the new label would make the voice mismatch the
+               text. The new name simply starts with no voice — renderVoiceTab() shows it
+               as missing so the user can generate a fresh clip for it. */
             renderVoiceTab();
         });
     }

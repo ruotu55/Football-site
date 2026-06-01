@@ -219,6 +219,7 @@ const COLORS = [
   { id: "quiz-fake-info", label: "#E57373 - Fake Information", hex: "#E57373" },
   { id: "quiz-nat-by-club", label: "#1B5E20 - National Team by Club", hex: "#1B5E20" },
   { id: "quiz-club-by-nat", label: "#2E7D32 - Club by Nationality", hex: "#2E7D32" },
+  { id: "quiz-football-mcq", label: "#C2185B - Football Quiz (Multiple Choice)", hex: "#C2185B" },
   { id: "extra-orange", label: "Extra 1", hex: "#FFB74D" },
   { id: "extra-slate", label: "Extra 2", hex: "#78909C" },
   { id: "extra-ocean-green", label: "Extra 3", hex: "#4DB6AC" },

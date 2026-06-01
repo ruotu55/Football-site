@@ -6,6 +6,7 @@ import { switchLevel } from "./levels.js";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
+    initTeamNameOverridesSharedSync,
     isCurrentHeaderTeamNameEditable,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
@@ -1017,6 +1018,7 @@ async function init() {
     applyDefaultThemeForCurrentQuizType();
     syncShortsModeFab();
     initSavedTeamLayouts();
+    initTeamNameOverridesSharedSync();
 
     // Expose for pitch-render.js (avoids circular ES module dependency).
     window.__confirmAndDeleteSaveIfPresent = confirmAndDeleteSaveIfPresent;
@@ -1580,7 +1582,7 @@ async function init() {
     });
 
     if (els.headerName) {
-        els.headerName.addEventListener("dblclick", async () => {
+        const beginHeaderTeamNameEdit = async () => {
             if (appState.isVideoPlaying) return;
             if (!isCurrentHeaderTeamNameEditable()) return;
             const state = getState();
@@ -1610,7 +1612,11 @@ async function init() {
             /* Refresh the Voice tab so the renamed team shows up (and the correct voice
                file is probed/generated/played for the new display name). */
             renderVoiceTab();
-        });
+        };
+        els.headerName.addEventListener("dblclick", beginHeaderTeamNameEdit);
+        /* Exposed so the ✎ button (built in pitch-render.js) can trigger the exact
+           same flow with a direct call — avoids the pitch click-router swallowing it. */
+        window.__beginHeaderTeamNameEdit = beginHeaderTeamNameEdit;
     }
 
     populateSubTypes();
