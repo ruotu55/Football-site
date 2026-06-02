@@ -351,10 +351,17 @@ body {
 
 .upload-top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
+}
+
+/* The ▣ edit-save button is always pinned to the far right of the top row, so
+ * it keeps the same position on every pill. The status chip and the 🖼
+ * thumbnail button (regular videos) sit on the left, before it. */
+.block-save-btn {
+  margin-left: auto;
 }
 
 .upload-check {

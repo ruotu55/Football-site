@@ -130,6 +130,15 @@ function getCurrentQuizType() {
   return raw in langMap ? raw : "";
 }
 
+/** Canonical quiz title TEXT for the current quiz type + language — the exact text
+ *  the title voice announces. The landing title and the in-video intro title both
+ *  render this, so the displayed title always matches the spoken one. */
+export function getCurrentQuizTitleText() {
+  const langMap = QUIZ_TYPE_PROMPTS[getCurrentLanguage()] || QUIZ_TYPE_PROMPTS.english;
+  const raw = String(appState.els?.inQuizType?.value || "").trim();
+  return langMap[raw] || "";
+}
+
 /* In the team-name quiz the "name" stored on each level is actually the team's name —
    route those clips to the Team names folder instead of the Players Names folder. */
 export function voiceKindForQuiz(quizType) {

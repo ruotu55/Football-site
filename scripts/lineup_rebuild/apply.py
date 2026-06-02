@@ -50,7 +50,9 @@ for a in assignments:
         errs.append("bad formation %r" % fid)
     if len(xi) != 11:
         errs.append("xi has %d names" % len(xi))
-    players = L.roster_players(L.load_roster(key))
+    roster = L.load_roster(key)
+    team_name = roster.get("name", team)
+    players = L.roster_players(roster)
     by_name = {p.get("name"): p for p in players}
     by_norm = {}
     for p in players:
@@ -61,7 +63,14 @@ for a in assignments:
         if not p:
             errs.append("PLAYER NOT IN ROSTER: %r" % nm)
         else:
-            resolved.append(p)
+            # HARD GUARD: never allow a player who actually belongs to another
+            # club (B-team / reserve / loan entries sitting in the squad file,
+            # e.g. a 'Sevilla Atlético' player inside Sevilla FC).
+            pc = p.get("club")
+            if pc and L.norm(pc) != L.norm(team_name):
+                errs.append("CROSS-CLUB PLAYER: %r belongs to %r, not %r" % (nm, pc, team_name))
+            else:
+                resolved.append(p)
     if errs:
         report.append((team, "ERRORS", errs)); continue
     names = [p.get("name") for p in resolved]

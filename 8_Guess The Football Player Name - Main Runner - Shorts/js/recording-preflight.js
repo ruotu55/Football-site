@@ -23,6 +23,8 @@ import { playerPhotoPaths } from "./photo-helpers.js";
 import { EMOJI_IMAGES } from "./emojis.js";
 import { collectTeamAssetUrls } from "../../.Storage/shared/prod-asset-validation.js";
 import { runPreflightCore } from "../../.Storage/shared/recording-preflight-core.js";
+import { prepareAndWarmBgmSession } from "./audio.js";
+import { warmCareerPlayerPhotoTrim } from "./pitch-render.js";
 
 /** Levels that actually play (skip logo/intro/outro/bonus), with their levelsData index. */
 function questionLevels() {
@@ -65,8 +67,24 @@ function collectImageUnits() {
  * @returns {Promise<{proceed: boolean}>}
  */
 export async function runPreflight(language = "english") {
-  return runPreflightCore({
+  const result = await runPreflightCore({
     collectImageUnits,
     imagesBlocking: false,
   });
+  // Warm the save's 5-song BGM session into the pooled elements so the first
+  // mid-recording song switch reuses an already-decoded element instead of
+  // fetching+decoding on the hot path. Missing songs are non-fatal — the live
+  // player already tolerates a failed track — so this never gates recording.
+  if (result && result.proceed) {
+    // Pre-compute each level's TRIMMED player photo (canvas crop + PNG encode) so
+    // the reveal is instant. The image-warm above only downloads the raw photo;
+    // the expensive trim otherwise runs at reveal time (~1s lag, photo pops in late).
+    try {
+      await Promise.all(questionLevels().map(({ lvl }) => warmCareerPlayerPhotoTrim(lvl)));
+    } catch (e) {
+      console.warn("[preflight] player-photo trim warm failed:", e);
+    }
+    try { await prepareAndWarmBgmSession(); } catch (e) { console.warn("[preflight] BGM warm failed:", e); }
+  }
+  return result;
 }

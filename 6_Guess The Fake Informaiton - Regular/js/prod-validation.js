@@ -1,10 +1,10 @@
 ﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
-import { projectAssetUrl } from "./paths.js";
-import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
+import { projectAssetUrl, careerReadyPhotoClubName, careerReadyPhotoRelCandidates } from "./paths.js";
+import { validateDisplayedImagesAsync } from "../../.Storage/shared/prod-asset-validation.js";
 import { isUpdateDataFresh } from "../../.Storage/shared/update-data-freshness.js";
-import { pickStartingXI } from "./pick-xi.js";
-import { FORMATIONS } from "./formations.js";
+import { getClubLogoUrl, getClubLogoOtherTeamsUrl } from "./photo-helpers.js";
+import { resolvePlayerStatsNationalityFlagUrl } from "./pitch-render.js";
 import { getCurrentLanguage, voiceKindForQuiz } from "./voice-tab.js";
 import { BUNDLED_MILESTONES, getSelectedBundledVariant } from "./bundled-level-voices.js";
 import { getOrAssignRevealPhrase, renderTeamPhrase } from "./audio.js";
@@ -98,17 +98,40 @@ function validateTeamsSelected() {
     };
 }
 
+/* Images the single-player card actually renders for one level: the player PHOTO
+   (the ready-photo candidates the card loads), the club CREST tile, and the country
+   FLAG tile. We use the SAME resolvers as pitch-render so PROD checks exactly what's
+   on screen — NOT the whole club squad (this quiz only ever shows one player). */
+function collectPlayerCardUnits(lvl) {
+    const player = lvl.careerPlayer;
+    const name = String(player?.name || "").trim();
+    if (!name) return [{ label: "player photo", urls: [] }];
+
+    const units = [];
+    const club = careerReadyPhotoClubName(lvl);
+    const vi = Math.max(1, Math.floor(Number(lvl.careerReadyPhotoVariantIndex) || 1));
+    let rels = careerReadyPhotoRelCandidates(name, club, vi);
+    if (vi !== 1) rels = rels.concat(careerReadyPhotoRelCandidates(name, club, 1));
+    units.push({ label: `${name}: photo`, urls: rels.map(projectAssetUrl) });
+
+    const clubName = String(lvl.currentSquad?.name || player.club || "").trim();
+    if (clubName) {
+        const crest = [getClubLogoUrl(clubName), getClubLogoOtherTeamsUrl(clubName)].filter(Boolean);
+        units.push({ label: `${name}: club crest "${clubName}"`, urls: crest });
+    }
+
+    const flagUrl = resolvePlayerStatsNationalityFlagUrl(player?.nationality);
+    if (flagUrl) units.push({ label: `${name}: country flag`, urls: [flagUrl] });
+
+    return units;
+}
+
 async function validateTeamAssets() {
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
-    return validateTeamAssetsAsync({
+    return validateDisplayedImagesAsync({
         questionLevels: getQuestionLevels(),
-        quizType,
         getLevelLabel,
-        resolveLevelTeamName,
-        FORMATIONS,
-        pickStartingXI,
-        appState,
-        projectAssetUrl,
+        hasContent: (lvl) => !!lvl.currentSquad,
+        collectUnits: (lvl) => collectPlayerCardUnits(lvl),
         sectionName: "Photos / Logos",
     });
 }
@@ -183,30 +206,30 @@ async function validateTeamVoices() {
     const kind = voiceKindForQuiz(quizType);
     const checks = questionLevels.map(async ({ lvl, index }) => {
         if (!lvl.currentSquad) return null;
-        /* Use the resolved display name (post-rename) so we hit the same file path
-           the Voice tab uses — matches what's actually saved on disk. */
-        const teamName = resolveLevelTeamName(lvl, quizType);
-        if (!teamName) return null;
+        /* Player quizzes speak the PLAYER'S name on reveal (not the club). Use
+           careerPlayer.name so we hit the exact file the Voice tab manages — the old
+           code used the club name (currentSquad.name) and reported every level as
+           "voice file missing". */
+        const playerName = String(lvl.careerPlayer?.name || "").trim();
+        if (!playerName) return null;
         /* Pre-roll the sticky phrase variant for this level so we check the SAME
            file the reveal playback will request. Mirrors voice-tab.js and
-           video.js#revealCurrentLevel: questionIndex = levelIdx - 1.
-           Endpoint is /__player-voice/status (kind-aware) — this runner's server
-           only exposes that route. */
+           video.js#revealCurrentLevel: questionIndex = levelIdx - 1. */
         const questionIndex = index - 1;
         const phrase = getOrAssignRevealPhrase(lvl, questionIndex, kind);
         const { exists } = await fetchExists("/__player-voice/status", {
-            name: teamName,
+            name: playerName,
             kind,
             language,
             phrase,
         });
         if (exists) return null;
-        const sentence = renderTeamPhrase(phrase, teamName, language);
-        return `${getLevelLabel(index, lvl)}: missing reveal voice — "${sentence}"`;
+        const sentence = renderTeamPhrase(phrase, playerName, language);
+        return `${getLevelLabel(index, lvl)} (${playerName}): missing reveal voice — "${sentence}"`;
     });
     const results = await Promise.all(checks);
     return {
-        sectionName: "Team Voices",
+        sectionName: "Player Voices",
         passed: results.every((r) => !r),
         failures: results.filter(Boolean),
     };

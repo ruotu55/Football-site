@@ -21,13 +21,14 @@ import {
     preloadCareerAssets,
 } from "./pitch-render.js";
 import { loadSquadJson } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js";
+import { startVideoFlow, stopVideoFlow, getShortsIntroQuizTitleHtml } from "./video.js";
 import { syncShortsVideoModeIdleTimerBar } from "./shorts-idle-timer-bar.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls, renderLevelsReorderList } from "./level-control.js";
 import { getActiveScriptName } from "./saved-scripts.js?v=20260529c";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
+import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
 import {
@@ -102,7 +103,7 @@ function applyDefaultThemeForCurrentQuizType() {
     /* The native <select>s are wrapped by a custom-select widget that mirrors the
        selected option's text into a separate `.custom-select-trigger` element.
        Setting `select.value` programmatically updates the underlying value but
-       does NOT refresh the custom trigger — the user keeps seeing the old label.
+       does NOT refresh the custom trigger ï¿½ the user keeps seeing the old label.
        Re-running applyCustomSelects re-renders all custom triggers from current values. */
     applyCustomSelects();
 }
@@ -339,7 +340,7 @@ async function refreshEndingTypeVoiceLabels() {
    random picker stay in sync. */
 const ENDING_TYPE_OPTIONS = ["think-you-know", "how-many"];
 
-/* Cache for the random pick — set the first time getSelectedEndingType resolves
+/* Cache for the random pick ï¿½ set the first time getSelectedEndingType resolves
    "random" within a play/record session, cleared by resetRandomEndingType().
    The Play and Record handlers call reset BEFORE the flow starts; Record only
    resets once at the very start so both EN and ES phases see the same pick. */
@@ -360,6 +361,9 @@ function getSelectedEndingType() {
 
 function resetRandomEndingType() {
     cachedRandomEndingType = null;
+    /* Re-pick now + sync the outro title so the shown ending text ALWAYS
+       matches the ending voice (both read the same cached pick). */
+    updateOutroText();
 }
 window.__resetRandomEndingType = resetRandomEndingType;
 window.__getEndingTypeOptions = () => ENDING_TYPE_OPTIONS.slice();
@@ -438,7 +442,7 @@ function endpointUrl(relPath) {
 }
 
 function getSpecificTitleForQuizType(quizType) {
-    /* "Add specific competition" was removed — returns "" always. */
+    /* "Add specific competition" was removed ï¿½ returns "" always. */
     return "";
 }
 
@@ -673,9 +677,9 @@ export function updateLanding() {
     if (!title) return;
     const isShorts = document.body.classList.contains("shorts-mode");
 
-    title.innerHTML = isShorts
-        ? (getCurrentLanguage() === "spanish" ? t("landingTitle") : shortsLandingTitleFromQuizSubtype(els))
-        : t("landingTitle");
+    // Quiz intro (landing) title MUST equal the in-video intro title â€” both read the
+    // one canonical source in video.js so they can never diverge.
+    title.innerHTML = isShorts ? getShortsIntroQuizTitleHtml() : t("landingTitle");
     const valEasy = document.getElementById("val-easy");
     if (valEasy) valEasy.textContent = els.inEasy.value;
     const valMedium = document.getElementById("val-medium");
@@ -893,7 +897,7 @@ async function init() {
         updateOutroText();
         updateLanding();
         renderEndingTypeVoiceStatusPanel();
-        /* Voice tab filters endings by this value — refresh so the list stays in sync. */
+        /* Voice tab filters endings by this value ï¿½ refresh so the list stays in sync. */
         renderVoiceTab();
     };
 
@@ -1088,7 +1092,7 @@ async function init() {
 
     /** Hide the top FAB row (Show Controls / Video Mode / Play / Record / Prod)
      *  so the recording's very first frames are a clean stage, not a UI snapshot.
-     *  Mirrors what `startVideoFlow` does — but we do it earlier (before StartRecord). */
+     *  Mirrors what `startVideoFlow` does ï¿½ but we do it earlier (before StartRecord). */
     function freezeUIForRecording() {
         document.body.classList.add("play-video-active");
         if (els.playVideoBtn) els.playVideoBtn.hidden = true;
@@ -1125,12 +1129,12 @@ async function init() {
 
         /* Always begin from the landing page (ball animation), regardless of which
            level the user is currently on. This applies to both phase 1 (initial)
-           and phase 2 (after the EN?ES handoff — the user is on the outro page
+           and phase 2 (after the EN?ES handoff ï¿½ the user is on the outro page
            after phase 1's natural finish). */
         if (appState.currentLevelIndex !== 1) {
             switchLevel(1);
             /* Wait for the actual level-switch transition to fully complete before
-               continuing — otherwise `transitionRunning` may still be true when the
+               continuing ï¿½ otherwise `transitionRunning` may still be true when the
                video flow triggers level 1?2, causing that transition to be skipped. */
             if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
                 await appState._transitionDone.catch(() => {});
@@ -1191,7 +1195,7 @@ async function init() {
         startVideoFlow();
     };
 
-    /* Record Video: records once in English, then once in Spanish — both saved under
+    /* Record Video: records once in English, then once in Spanish ï¿½ both saved under
        Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen between phases
        so the browser doesn't need a fresh user gesture to re-enter fullscreen. */
     if (els.recordVideoBtn) {
@@ -1223,24 +1227,28 @@ async function init() {
                (English) and phase 2 (Spanish) end with the same chosen type. */
             resetRandomEndingType();
 
+            const __recLang = await askRecordingLanguage();
+            if (!__recLang) return;
+
             try {
-                // ?? PHASE 1: English ??
-                appState.doubleRecording = { phase: 1, savedName };
-                if (getCurrentLanguage() !== "english") {
-                    setCurrentLanguage("english");
-                    await brake(RECORD_LANG_BRAKE_MS);
+                if (__recLang === "english" || __recLang === "both") {
+                    appState.doubleRecording = { phase: 1, savedName, single: __recLang !== "both" };
+                    if (getCurrentLanguage() !== "english") {
+                        setCurrentLanguage("english");
+                        await brake(RECORD_LANG_BRAKE_MS);
+                    }
+                    const ok1 = await runRecordingPhase(savedName, "english");
+                    if (!ok1) return;
                 }
-                const ok1 = await runRecordingPhase(savedName, "english");
-                if (!ok1) return;
-
-                // ?? Brake between phases (fullscreen stays on) ??
-                await brake(RECORD_BETWEEN_PHASES_MS);
-
-                // ?? PHASE 2: Spanish ??
-                appState.doubleRecording = { phase: 2, savedName };
-                setCurrentLanguage("spanish");
-                await brake(RECORD_LANG_BRAKE_MS);
-                await runRecordingPhase(savedName, "spanish");
+                if (__recLang === "both") {
+                    await brake(RECORD_BETWEEN_PHASES_MS);
+                }
+                if (__recLang === "spanish" || __recLang === "both") {
+                    appState.doubleRecording = { phase: 2, savedName, single: __recLang !== "both" };
+                    setCurrentLanguage("spanish");
+                    await brake(RECORD_LANG_BRAKE_MS);
+                    await runRecordingPhase(savedName, "spanish");
+                }
             } finally {
                 appState.doubleRecording = null;
             }
@@ -1289,7 +1297,7 @@ async function init() {
                 let customImageUrl = "";
                 if (team.country && team.league) {
                     customImageUrl = projectAssetUrl(
-                        `Teams Images/${team.country}/${team.league}/${team.name}.png`
+                        `Images/Teams/${team.country}/${team.league}/${team.name}.png`
                     );
                 } else if (team.region) {
                     customImageUrl = projectAssetUrl(`Nationality images/${team.region}/${team.name}.png`);

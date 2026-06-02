@@ -1,5 +1,5 @@
 import { appState, getState } from "./state.js";
-import { getCurrentLanguage } from "./voice-tab.js";
+import { getCurrentLanguage, getCurrentQuizTitleText } from "./voice-tab.js";
 import { switchLevel } from "./levels.js";
 import {
   startBgMusic,
@@ -38,8 +38,8 @@ const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
 const SHORTS_STAGE_ENTER_MS = 820;
 const SHORTS_STAGE_EXIT_MS = 400;
-/** Question bar + timeouts: `baseSteps` equal slices of this total (default 3 × 1s × 1.1). */
-const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 1.1;
+/** Question bar + timeouts: `baseSteps` equal slices of this total (3 × 1s × 2.5/3 = 2.5s). */
+const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 2.5 / 3;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
 const TICKING_LEAD_BEFORE_RED_MS = 1500;
 /** Last-resort if `playing` never fires (blocked audio, etc.); keep high so slow title-voice generate does not start the bar early. */
@@ -54,6 +54,43 @@ const SHORTS_INTRO_QUIZ_TITLE_LINE_1_ES = "ADIVINA EL JUGADOR";
 const SHORTS_INTRO_QUIZ_TITLE_LINE_2_ES = "POR SU FOTO";
 const SHORTS_INTRO_QUIZ_TITLE_FADE_MS = 780;
 
+/** Balance a title string across two lines (closest equal character length; ties
+ *  put the extra word on line 1). */
+function splitTitleIntoTwoLines(text) {
+  const words = String(text || "").trim().split(/\s+/).filter(Boolean);
+  if (words.length <= 1) return [words.join(" "), ""];
+  let best = 1;
+  let bestDiff = Infinity;
+  for (let i = 1; i < words.length; i++) {
+    const l1 = words.slice(0, i).join(" ");
+    const l2 = words.slice(i).join(" ");
+    const diff = Math.abs(l1.length - l2.length);
+    if (diff <= bestDiff) { bestDiff = diff; best = i; }
+  }
+  return [words.slice(0, best).join(" "), words.slice(best).join(" ")];
+}
+
+/** Canonical shorts quiz title as [line1, line2]. Sourced from the quiz-title voice
+ *  text (voice-tab `getCurrentQuizTitleText`) so the DISPLAYED title always matches
+ *  the SPOKEN title. Falls back to the legacy constants if the map has no entry. */
+export function getShortsIntroQuizTitleLines() {
+  const text = getCurrentQuizTitleText();
+  if (text) return splitTitleIntoTwoLines(text);
+  const es = getCurrentLanguage() === "spanish";
+  return [
+    es ? SHORTS_INTRO_QUIZ_TITLE_LINE_1_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_1,
+    es ? SHORTS_INTRO_QUIZ_TITLE_LINE_2_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_2,
+  ];
+}
+
+/** Same canonical title as "LINE1<br>LINE2" (LINE2 omitted if empty). The in-video
+ *  intro title AND the landing page (updateLanding) both read this single source, so
+ *  the quiz intro and the video can never show different titles. */
+export function getShortsIntroQuizTitleHtml() {
+  const [l1, l2] = getShortsIntroQuizTitleLines();
+  return l2 ? `${l1}<br>${l2}` : l1;
+}
+
 /** Logo→first question: skip pre-countdown stage swap once so the bar lines up with title voice `playing`. */
 let shortsSyncIntroVoiceCountdownOnce = false;
 let shortsIntroQuizTitleHideTimeout = null;
@@ -61,9 +98,7 @@ let shortsIntroQuizTitleHideTimeout = null;
 function setShortsIntroQuizTitleVisible(isVisible, options = {}) {
   const titleEl = document.getElementById("shorts-intro-quiz-title");
   if (!titleEl) return;
-  const __introEs = getCurrentLanguage() === "spanish";
-  const __introL1 = __introEs ? SHORTS_INTRO_QUIZ_TITLE_LINE_1_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_1;
-  const __introL2 = __introEs ? SHORTS_INTRO_QUIZ_TITLE_LINE_2_ES : SHORTS_INTRO_QUIZ_TITLE_LINE_2;
+  const [__introL1, __introL2] = getShortsIntroQuizTitleLines();
   clearTimeout(shortsIntroQuizTitleHideTimeout);
   shortsIntroQuizTitleHideTimeout = null;
 

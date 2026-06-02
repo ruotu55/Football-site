@@ -2846,6 +2846,30 @@ export function preloadCareerAssets(state) {
   if (urls.length) preloadImages(urls);
 }
 
+/**
+ * PROD/validation helper: the single team-logo image "unit" this quiz displays for a
+ * level — resolved from careerPlayer.club/name with the SAME chain the card uses
+ * (indexed league logo → Other Teams). A unit passes if ANY url loads. Returns
+ * [{ label, urls }] (one unit, or an empty-url unit when no team is set).
+ */
+export function collectTeamLogoUnits(state) {
+  const teamName = String(state?.careerPlayer?.club || state?.careerPlayer?.name || "").trim();
+  if (!teamName) return [{ label: "team logo", urls: [] }];
+  const searchName = resolveClubAlias(teamName);
+  const foundTeam = searchName ? findBestCareerClubEntry(searchName) : null;
+  const urls = [];
+  if (foundTeam && foundTeam.path) {
+    const logoRel = foundTeam.path
+      .replace('.Storage/Squad Formation/Teams/', 'Images/Teams/')
+      .replace('.json', '.png');
+    urls.push(projectAssetUrlFresh(logoRel));
+  }
+  const displayName = String(foundTeam?.name || teamName || searchName || "").trim();
+  const otherTeamsRel = getClubLogoOtherTeamsRelPath(displayName || teamName);
+  if (otherTeamsRel) urls.push(projectAssetUrlFresh(otherTeamsRel));
+  return [{ label: `team logo: ${teamName}`, urls }];
+}
+
 export function renderCareer() {
   applyTeamLogoNameOverridesToAllLevels();
   const state = getState();
@@ -2899,7 +2923,10 @@ export function renderCareer() {
   const playerInitKey = careerPlayerNameForReset
     ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
     : "";
-  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+  if (state.__suppressPictureReset) {
+    if (playerInitKey) appliedFavoritePictureKeyByState.set(state, playerInitKey);
+    delete state.__suppressPictureReset;
+  } else if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
     const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
     state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
     state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
@@ -3461,7 +3488,7 @@ export function renderCareer() {
           const country = String(club?.country || "").trim();
           const league = String(club?.league || "").trim();
           if (!country || !league) return "";
-          return `Teams Images/${country}/${league}`;
+          return `Images/Teams/${country}/${league}`;
         })
         .filter(Boolean)
     )
@@ -3492,7 +3519,7 @@ export function renderCareer() {
 
     if (foundClubEntry && foundClubEntry.country && foundClubEntry.league) {
       uniqueNames.forEach((name) => {
-        out.push(`Teams Images/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
+        out.push(`Images/Teams/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
       });
     }
 

@@ -31,11 +31,21 @@ for name, key in ck.items():
         missing.append(name)
         continue
     roster = json.load(open(p, encoding="utf-8"))
+    team_name = roster.get("name", name)
     lines = [f"TEAM: {name}",
              f"Current saved formation: {d[key].get('formationId')}",
              "ROSTER (name | position | appearances | shirt | age):"]
+    excluded = []
     for pl in L.roster_players(roster):
+        # EXCLUDE players who actually belong to another club (B-team / reserve /
+        # loan entries that pollute the squad file). Agents must never pick them.
+        pc = pl.get("club")
+        if pc and L.norm(pc) != L.norm(team_name):
+            excluded.append(f"{pl.get('name')} ({pc})")
+            continue
         lines.append(f"  {pl.get('name')} | {pl.get('position')} | apps={pl.get('appearances')} | #{pl.get('shirt_number')} | age={pl.get('age')}")
+    if excluded:
+        sys.stderr.write(f"  [{name}] excluded {len(excluded)} non-{team_name} player(s): {excluded}\n")
     open(os.path.join(TEAMS, name.replace("/", "_") + ".txt"), "w", encoding="utf-8").write("\n".join(lines))
     written += 1
     grp = key.split("/Teams/")[1].rsplit("/", 1)[0]

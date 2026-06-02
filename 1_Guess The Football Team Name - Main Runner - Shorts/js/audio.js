@@ -118,25 +118,69 @@ const paths = {
 
 let bgMusic = null;
 let currentBgmIndex = 0;
-/* True-shuffle bag for BGM: play every track once in a random order before any
-   repeats, reshuffle on each loop, and never repeat the same track back-to-back
-   across the reshuffle boundary. Reset (bgmShuffleOrder = []) at each play start
-   so every recording gets a fresh random order. */
-let bgmShuffleOrder = [];
-let bgmShufflePos = 0;
 let lastBgmIndex = -1;
-function reshuffleBgmOrder() {
-  bgmShuffleOrder = paths.bgmPlaylist.map((_, i) => i);
-  shuffleInPlace(bgmShuffleOrder);
-  if (bgmShuffleOrder.length > 1 && bgmShuffleOrder[0] === lastBgmIndex) {
-    const j = 1 + Math.floor(Math.random() * (bgmShuffleOrder.length - 1));
-    [bgmShuffleOrder[0], bgmShuffleOrder[j]] = [bgmShuffleOrder[j], bgmShuffleOrder[0]];
-  }
-  bgmShufflePos = 0;
+
+/* Per-save BGM. Each save freezes 5 songs (appState.bgmSongs, stored by basename).
+   At play start we resolve them to playlist indices, shuffle once, then loop that
+   order — crossfading between each, including across the 5→1 seam. A save with no /
+   too few songs (legacy save, or live Play with nothing loaded) is topped up with
+   random tracks so a session is always exactly BGM_SESSION_SIZE. */
+const BGM_SESSION_SIZE = 5;
+let bgmSession = [];          // playlist indices, shuffled
+let bgmSessionPos = 0;
+let bgmSessionPrepared = false; // true when the preflight already built+warmed the session
+
+function bgmBasenameOf(path) {
+  return String(path || "").split("/").pop().replace(/\.mp3$/i, "");
 }
+
+/** Resolve song basenames (or full paths) → distinct playlist indices, in order. */
+function resolveBgmIndices(names) {
+  const out = [];
+  const seen = new Set();
+  for (const raw of (Array.isArray(names) ? names : [])) {
+    const want = bgmBasenameOf(raw);
+    if (!want) continue;
+    const idx = paths.bgmPlaylist.findIndex((p) => bgmBasenameOf(p) === want);
+    if (idx >= 0 && !seen.has(idx)) { seen.add(idx); out.push(idx); }
+  }
+  return out;
+}
+
+/** Up to `n` distinct random playlist indices, excluding any in `exclude`. */
+function randomBgmIndices(n, exclude = new Set()) {
+  const pool = paths.bgmPlaylist.map((_, i) => i).filter((i) => !exclude.has(i));
+  shuffleInPlace(pool);
+  return pool.slice(0, Math.max(0, n));
+}
+
+/** Build this save's session: its frozen 5 (topped up to 5 with random if fewer
+    resolve), shuffled. */
+function buildBgmSession() {
+  let idxs = resolveBgmIndices(appState.bgmSongs);
+  if (idxs.length < BGM_SESSION_SIZE) {
+    idxs = idxs.concat(randomBgmIndices(BGM_SESSION_SIZE - idxs.length, new Set(idxs)));
+  }
+  shuffleInPlace(idxs);
+  return idxs;
+}
+
+function startBgmSession() {
+  bgmSession = buildBgmSession();
+  bgmSessionPos = 0;
+}
+
+/** N distinct random song basenames — used to freeze a save's BGM set on creation. */
+export function pickRandomBgmSongs(n = BGM_SESSION_SIZE) {
+  return randomBgmIndices(n).map((i) => bgmBasenameOf(paths.bgmPlaylist[i]));
+}
+
+/** Next track index, looping over the 5-song session (rebuilds if none yet). */
 function nextBgmIndex() {
-  if (bgmShufflePos >= bgmShuffleOrder.length) reshuffleBgmOrder();
-  const idx = bgmShuffleOrder[bgmShufflePos++];
+  if (!bgmSession.length) startBgmSession();
+  if (!bgmSession.length) return 0; // empty playlist safety
+  const idx = bgmSession[bgmSessionPos % bgmSession.length];
+  bgmSessionPos += 1;
   lastBgmIndex = idx;
   return idx;
 }
@@ -153,6 +197,13 @@ let restoreTimeout = null;
 let progressTimeout = null;
 let bgmCrossfadeInterval = null;
 let isBgmCrossfading = false;
+
+/* Reusable, pre-decoded BGM elements keyed by src path. Filled by prepareAndWarmBgmSession()
+   during the recording preflight so a song switch never has to fetch + decode on the
+   hot path. On a busy encoder (recording on the Mac) a cold `new Audio().play()` shows
+   up as ~2s of stutter right at the crossfade — reusing an already-buffered element
+   removes that. */
+const bgmWarmPool = new Map();
 
 const STARTING_VOL = 1.0;
 const NORMAL_VOL = 1.0;
@@ -222,6 +273,57 @@ function bindBgmEventHandlers(audioEl) {
   audioEl.addEventListener("timeupdate", onBgmTimeUpdate);
 }
 
+/* Get a playback-ready element for `path`: a warm pooled one if we have it (already
+   buffered/decoded), else a fresh element (also pooled for next time). Always returned
+   clean — handlers detached, paused, rewound to 0 — for the caller to configure. */
+function acquireBgmAudio(path) {
+  let a = bgmWarmPool.get(path);
+  if (!a) {
+    a = new Audio(path);
+    a.preload = "auto";
+    bgmWarmPool.set(path, a);
+  }
+  clearBgmEventHandlers(a);
+  try { a.pause(); } catch {}
+  try { a.currentTime = 0; } catch {}
+  return a;
+}
+
+/* Build the CURRENT save's 5-song session and warm exactly those into the pool
+   (mirrors how the preflight warms images + voices). Marks the session "prepared" so
+   startBgMusic() reuses these same shuffled 5 — the songs we warm are the songs that
+   play. Resolves when all 5 have buffered (or errored / timed out) so it never hangs
+   the preflight. */
+export async function prepareAndWarmBgmSession(onProgress) {
+  startBgmSession();
+  bgmSessionPrepared = true;
+  const idxs = bgmSession.slice();
+  let done = 0;
+  await Promise.all(idxs.map((i) => new Promise((resolve) => {
+    const path = paths.bgmPlaylist[i];
+    let a = bgmWarmPool.get(path);
+    if (!a) { a = new Audio(path); a.preload = "auto"; bgmWarmPool.set(path, a); }
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      a.removeEventListener("canplaythrough", finish);
+      a.removeEventListener("loadeddata", finish);
+      a.removeEventListener("error", finish);
+      done += 1;
+      try { if (typeof onProgress === "function") onProgress(done, idxs.length, path); } catch {}
+      resolve();
+    };
+    if (a.readyState >= 3) { finish(); return; } // HAVE_FUTURE_DATA or better — already warm
+    a.addEventListener("canplaythrough", finish, { once: true });
+    a.addEventListener("loadeddata", finish, { once: true });
+    a.addEventListener("error", finish, { once: true });
+    try { a.load(); } catch {}
+    setTimeout(finish, 12000); // hard cap so a stuck file can't freeze preflight
+  })));
+  return { warmed: done, total: idxs.length };
+}
+
 function onBgmEnded() {
   queueNextBgm(true);
 }
@@ -242,7 +344,7 @@ function queueNextBgm(forceHardSwitch = false) {
   const outgoingStartVolume = Math.max(0, Math.min(1, outgoing.volume));
 
   currentBgmIndex = nextBgmIndex();
-  const incoming = new Audio(paths.bgmPlaylist[currentBgmIndex]);
+  const incoming = acquireBgmAudio(paths.bgmPlaylist[currentBgmIndex]);
   incoming.volume = forceHardSwitch ? outgoingStartVolume : 0;
 
   if (forceHardSwitch) {
@@ -304,10 +406,16 @@ export function startBgMusic() {
     bgMusic.pause();
     clearBgmEventHandlers(bgMusic);
   }
-  // Start with a random song from the list
-  bgmShuffleOrder = [];
+  // Use the save's 5-song session (already built + warmed by the preflight if it
+  // ran); otherwise build a fresh shuffled session now (live Play, legacy save).
+  if (bgmSessionPrepared && bgmSession.length) {
+    bgmSessionPos = 0;
+  } else {
+    startBgmSession();
+  }
+  bgmSessionPrepared = false; // consume; the next play start rebuilds/reshuffles
   currentBgmIndex = nextBgmIndex();
-  bgMusic = new Audio(paths.bgmPlaylist[currentBgmIndex]);
+  bgMusic = acquireBgmAudio(paths.bgmPlaylist[currentBgmIndex]);
   bgMusicTargetVolume = STARTING_VOL;
   bgMusic.volume = bgMusicTargetVolume;
   bindBgmEventHandlers(bgMusic);
@@ -930,6 +1038,9 @@ function pickRevealPhraseForQuestion(questionIndex, language = getCurrentLanguag
     creates fresh level objects and fresh phrase picks. */
 export function getOrAssignRevealPhrase(levelData, questionIndex, language = getCurrentLanguage()) {
   if (!levelData || typeof levelData !== "object") return "plain";
+  // Reveal voice = the NAME only ("Rodrygo"), never "the correct answer is ...".
+  // Forced plain for every question in BOTH languages (user request, all Shorts).
+  return "plain";
   const lang = sentenceLanguage(language);
   const byLanguage = levelData.__revealPhraseByLanguage && typeof levelData.__revealPhraseByLanguage === "object"
     ? levelData.__revealPhraseByLanguage

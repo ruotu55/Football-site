@@ -23,6 +23,7 @@ import { playerPhotoPaths } from "./photo-helpers.js";
 import { EMOJI_IMAGES } from "./emojis.js";
 import { collectTeamAssetUrls } from "../../.Storage/shared/prod-asset-validation.js";
 import { runPreflightCore } from "../../.Storage/shared/recording-preflight-core.js";
+import { prepareAndWarmBgmSession } from "./audio.js";
 
 /** Levels that actually play (skip logo/intro/outro/bonus), with their levelsData index. */
 function questionLevels() {
@@ -65,8 +66,15 @@ function collectImageUnits() {
  * @returns {Promise<{proceed: boolean}>}
  */
 export async function runPreflight(language = "english") {
-  return runPreflightCore({
+  const result = await runPreflightCore({
     collectImageUnits,
     imagesBlocking: false,
   });
+  // Warm the save's 5 BGM songs so the first crossfade isn't a cold fetch+decode.
+  // Missing songs are non-fatal — the live player already tolerates a failed track —
+  // so this never gates recording.
+  if (result && result.proceed) {
+    try { await prepareAndWarmBgmSession(); } catch (e) { console.warn("[preflight] BGM warm failed:", e); }
+  }
+  return result;
 }

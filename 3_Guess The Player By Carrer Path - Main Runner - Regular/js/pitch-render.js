@@ -1465,6 +1465,46 @@ export function preloadCareerAssets(state) {
   if (urls.length) preloadImages(urls);
 }
 
+/**
+ * PROD/validation helper: career club-logo image "units" for a level's career path —
+ * one per displayed club ("youth" + "without club" excluded, matching renderCareer's
+ * filter), each carrying the SAME URL fallback chain preloadCareerAssets uses
+ * (customImage → indexed league logo → Other Teams). A unit passes if ANY url loads.
+ * Returns [{ label, urls }].
+ */
+export function collectCareerClubLogoUnits(state) {
+  const isYouth = (name) => {
+    if (!name) return false;
+    const n = name.toLowerCase();
+    return n.includes("youth") || n.includes("yth") || /\bu\d{2}\b/.test(n) ||
+      /\bii\b/.test(n) || /\breserves?\b/.test(n) || n.endsWith(" b");
+  };
+  const isWithoutClub = (name) =>
+    String(name || "").toLowerCase().replace(/\s+/g, " ").trim().includes("without club");
+  const units = [];
+  const history = Array.isArray(state?.careerHistory) ? state.careerHistory : [];
+  for (const entry of history) {
+    if (!entry) continue;
+    const clubName = entry.club || "";
+    if (!clubName || isYouth(clubName) || isWithoutClub(clubName)) continue;
+    const urls = [];
+    if (entry.customImage) urls.push(entry.customImage);
+    const searchName = resolveClubAlias(clubName);
+    const foundClub = searchName ? findBestCareerClubEntry(searchName) : null;
+    if (foundClub && foundClub.path) {
+      const logoRel = foundClub.path
+        .replace('.Storage/Squad Formation/Teams/', 'Images/Teams/')
+        .replace('.json', '.png');
+      urls.push(projectAssetUrlFresh(logoRel));
+    }
+    const displayName = String(foundClub?.name || clubName || searchName || "").trim();
+    const otherTeamsRel = getClubLogoOtherTeamsRelPath(displayName || clubName);
+    if (otherTeamsRel) urls.push(projectAssetUrlFresh(otherTeamsRel));
+    if (urls.length) units.push({ label: `club logo: ${clubName}`, urls });
+  }
+  return units;
+}
+
 export function renderCareer() {
   const state = getState();
   const isShorts = document.body.classList.contains("shorts-mode");
@@ -1494,7 +1534,13 @@ export function renderCareer() {
   const playerInitKey = careerPlayerNameForReset
     ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
     : "";
-  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+  if (state.__suppressPictureReset) {
+    // Loaded from a saved script (incl. Save Video Status) with explicit Adjust
+    // Picture values — keep them. Mark as already-applied for this player so later
+    // re-renders without a real player change don't reset either. One-shot.
+    if (playerInitKey) appliedFavoritePictureKeyByState.set(state, playerInitKey);
+    delete state.__suppressPictureReset;
+  } else if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
     const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
     state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
     state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
@@ -1876,7 +1922,7 @@ export function renderCareer() {
           const country = String(club?.country || "").trim();
           const league = String(club?.league || "").trim();
           if (!country || !league) return "";
-          return `Teams Images/${country}/${league}`;
+          return `Images/Teams/${country}/${league}`;
         })
         .filter(Boolean)
     )
@@ -1936,7 +1982,7 @@ export function renderCareer() {
   const resolveInsertTeamCustomImage = (team) => {
     if (!team) return "";
     if (team.country && team.league) {
-      return projectAssetUrl(`Teams Images/${team.country}/${team.league}/${team.name}.png`);
+      return projectAssetUrl(`Images/Teams/${team.country}/${team.league}/${team.name}.png`);
     }
     if (team.region) {
       return projectAssetUrl(`Images/Nationality/${team.region}/${team.name}.png`);
@@ -2165,7 +2211,7 @@ export function renderCareer() {
 
     if (foundClubEntry && foundClubEntry.country && foundClubEntry.league) {
       uniqueNames.forEach((name) => {
-        out.push(`Teams Images/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
+        out.push(`Images/Teams/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
       });
     }
 
@@ -2253,9 +2299,9 @@ export function renderCareer() {
     const safeFileName = String(displayClubName || clubName || "").replace(/[<>:"/\\|?*\u0000-\u001F]+/g, "").trim();
     if (safeFileName) {
       if (fetchCountryHint && fetchLeagueHint) {
-        targetRelativePath = `Teams Images/${fetchCountryHint}/${fetchLeagueHint}/${safeFileName}.png`;
+        targetRelativePath = `Images/Teams/${fetchCountryHint}/${fetchLeagueHint}/${safeFileName}.png`;
       } else {
-        targetRelativePath = `Teams Images/(1) Other Teams/${safeFileName}.png`;
+        targetRelativePath = `Images/Teams/(1) Other Teams/${safeFileName}.png`;
       }
     }
     const fileNameCandidates = [

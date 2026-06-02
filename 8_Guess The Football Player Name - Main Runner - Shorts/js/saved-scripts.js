@@ -11,7 +11,8 @@ import { captureTransitionSettings, applyTransitionSettings } from "./transition
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
 import { FAKE_INFO_QUIZ_TYPE } from "./fake-info-mode.js";
-import { getOrAssignRevealPhrase } from "./audio.js";
+import { getOrAssignRevealPhrase, pickRandomBgmSongs } from "./audio.js";
+import { resolveCompetitionId } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     parseImportText as parseImportTextShared,
     teamNamesFromPairEntries,
@@ -328,6 +329,9 @@ export function captureCurrentScriptObject(name) {
         transitions: captureTransitionSettings(),
         levels: levelsToSave,
         voiceFreeze: HAS_BUNDLED_VARIANTS && appState.bundledVoiceVariants ? { bundledVariants: { ...appState.bundledVoiceVariants } } : undefined,
+        /* Freeze 5 random songs with the save (reuse the loaded set if there is one). */
+        bgmSongs: (Array.isArray(appState.bgmSongs) && appState.bgmSongs.length) ? appState.bgmSongs.slice() : pickRandomBgmSongs(),
+        competition: (typeof appState.competition === "string" && appState.competition) ? appState.competition : "mixed",
     };
     return newScript;
 }
@@ -1985,6 +1989,7 @@ async function loadScript(script) {
             careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
             careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
         };
+        merged.__suppressPictureReset = true;
         restoreLevelVoiceFreeze(merged, lvl.voiceFreeze);
         return merged;
     });
@@ -2004,9 +2009,12 @@ async function loadScript(script) {
     els.teamResults.replaceChildren();
 
     applyCustomSelects();
+    appState.competition = resolveCompetitionId(script.competition) || resolveCompetitionId(script.name) || "mixed";
     document.dispatchEvent(new CustomEvent("recording-queue:script-applied", {
         detail: { name: activeScriptName },
     }));
+    appState.bgmSongs = (Array.isArray(script.bgmSongs) && script.bgmSongs.length) ? script.bgmSongs.slice() : pickRandomBgmSongs();
+    appState.competition = resolveCompetitionId(script.competition) || resolveCompetitionId(script.name) || "mixed";
     // Back-fill voiceFreeze on the loaded script if any level lacks it.
     // freezeVoicePicksForCurrentSession is idempotent � populated levels skip.
     freezeVoicePicksForCurrentSession();
@@ -2024,6 +2032,7 @@ async function loadScript(script) {
         script.voiceFreeze = { bundledVariants: { ...appState.bundledVoiceVariants } };
         voiceFreezeBackfilled = true;
     }
+    if ((!Array.isArray(script.bgmSongs) || !script.bgmSongs.length) && Array.isArray(appState.bgmSongs) && appState.bgmSongs.length) { script.bgmSongs = appState.bgmSongs.slice(); voiceFreezeBackfilled = true; }
     if (voiceFreezeBackfilled) persistSaved();
     appState.currentLevelIndex = 0;
     switchLevel(1);

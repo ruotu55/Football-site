@@ -946,6 +946,23 @@ body:not(.shorts-mode) .career-club-logo-img {
   pointer-events: none;
 }
 
+/* Raise the whole career club unit (crest + year box together) up within its
+   slot (Shorts). Targets the wrapper that holds BOTH the crest and the year. */
+body.shorts-mode .career-club-badge-scale {
+  transform: translateY(-12%);
+}
+
+/* The later logos (positions 7–12, i.e. the bottom rows of a long career) sit
+   too low — lift them an extra 15% (12% + 15% = 27%). */
+body.shorts-mode .career-club-badge-scale[data-slot-pos="7"],
+body.shorts-mode .career-club-badge-scale[data-slot-pos="8"],
+body.shorts-mode .career-club-badge-scale[data-slot-pos="9"],
+body.shorts-mode .career-club-badge-scale[data-slot-pos="10"],
+body.shorts-mode .career-club-badge-scale[data-slot-pos="11"],
+body.shorts-mode .career-club-badge-scale[data-slot-pos="12"] {
+  transform: translateY(-27%);
+}
+
 body:not(.shorts-mode) .career-club-fallback-text {
   display: none;
   align-items: center;

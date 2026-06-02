@@ -31,6 +31,7 @@ import { getActiveScriptName } from "./saved-scripts.js?v=20260601-autoopen5";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
 import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529a";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
+import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
 import {
@@ -322,6 +323,9 @@ function getSelectedEndingType() {
 
 function resetRandomEndingType() {
     cachedRandomEndingType = null;
+    /* Re-pick now + sync the outro title so the shown ending text ALWAYS
+       matches the ending voice (both read the same cached pick). */
+    updateOutroText();
 }
 window.__resetRandomEndingType = resetRandomEndingType;
 window.__getEndingTypeOptions = () => ENDING_TYPE_OPTIONS.slice();
@@ -1236,24 +1240,28 @@ async function init() {
                (English) and phase 2 (Spanish) end with the same chosen type. */
             resetRandomEndingType();
 
+            const __recLang = await askRecordingLanguage();
+            if (!__recLang) return;
+
             try {
-                // ?? PHASE 1: English ??
-                appState.doubleRecording = { phase: 1, savedName };
-                if (getCurrentLanguage() !== "english") {
-                    setCurrentLanguage("english");
-                    await brake(RECORD_LANG_BRAKE_MS);
+                if (__recLang === "english" || __recLang === "both") {
+                    appState.doubleRecording = { phase: 1, savedName, single: __recLang !== "both" };
+                    if (getCurrentLanguage() !== "english") {
+                        setCurrentLanguage("english");
+                        await brake(RECORD_LANG_BRAKE_MS);
+                    }
+                    const ok1 = await runRecordingPhase(savedName, "english");
+                    if (!ok1) return;
                 }
-                const ok1 = await runRecordingPhase(savedName, "english");
-                if (!ok1) return;
-
-                // ?? Brake between phases (fullscreen stays on) ??
-                await brake(RECORD_BETWEEN_PHASES_MS);
-
-                // ?? PHASE 2: Spanish ??
-                appState.doubleRecording = { phase: 2, savedName };
-                setCurrentLanguage("spanish");
-                await brake(RECORD_LANG_BRAKE_MS);
-                await runRecordingPhase(savedName, "spanish");
+                if (__recLang === "both") {
+                    await brake(RECORD_BETWEEN_PHASES_MS);
+                }
+                if (__recLang === "spanish" || __recLang === "both") {
+                    appState.doubleRecording = { phase: 2, savedName, single: __recLang !== "both" };
+                    setCurrentLanguage("spanish");
+                    await brake(RECORD_LANG_BRAKE_MS);
+                    await runRecordingPhase(savedName, "spanish");
+                }
             } finally {
                 appState.doubleRecording = null;
             }
@@ -1302,7 +1310,7 @@ async function init() {
                 let customImageUrl = "";
                 if (team.country && team.league) {
                     customImageUrl = projectAssetUrl(
-                        `Teams Images/${team.country}/${team.league}/${team.name}.png`
+                        `Images/Teams/${team.country}/${team.league}/${team.name}.png`
                     );
                 } else if (team.region) {
                     customImageUrl = projectAssetUrl(`Nationality images/${team.region}/${team.name}.png`);

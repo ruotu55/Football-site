@@ -1,10 +1,9 @@
 ﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
 import { projectAssetUrl } from "./paths.js";
-import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
+import { validateDisplayedImagesAsync } from "../../.Storage/shared/prod-asset-validation.js";
 import { isUpdateDataFresh } from "../../.Storage/shared/update-data-freshness.js";
-import { pickStartingXI } from "./pick-xi.js";
-import { FORMATIONS } from "./formations.js";
+import { collectTeamLogoUnits } from "./pitch-render.js";
 import { getCurrentLanguage } from "./voice-tab.js";
 import { getOrAssignRevealPhrase } from "./audio.js";
 /* No team-header rename feature in this runner — read the name straight off the level. */
@@ -100,17 +99,15 @@ function validateTeamsSelected() {
     };
 }
 
+/* This quiz shows ONLY the team's logo per level (guess the club by its logo) — no
+   squad XI is rendered. Validate exactly that displayed logo (via pitch-render's own
+   resolver), NOT the whole squad's player photos. */
 async function validateTeamAssets() {
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
-    return validateTeamAssetsAsync({
+    return validateDisplayedImagesAsync({
         questionLevels: getQuestionLevels(),
-        quizType,
         getLevelLabel,
-        resolveLevelTeamName,
-        FORMATIONS,
-        pickStartingXI,
-        appState,
-        projectAssetUrl,
+        hasContent: (lvl) => !!lvl.currentSquad,
+        collectUnits: (lvl) => collectTeamLogoUnits(lvl),
         sectionName: "Photos / Logos",
     });
 }

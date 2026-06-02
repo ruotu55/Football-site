@@ -76,7 +76,9 @@
       <div class="modal-panel" role="dialog" aria-labelledby="block-save-title">
         <h3 id="block-save-title">Save competition</h3>
         <p id="block-save-meta" class="modal-meta"></p>
-        <label class="modal-label" for="block-save-name">Competition name</label>
+        <label class="modal-label" for="block-save-competition">Competition</label>
+        <select id="block-save-competition" class="modal-input"></select>
+        <label class="modal-label" for="block-save-name">Custom name (for Mixed)</label>
         <input type="text" id="block-save-name" class="modal-input" autocomplete="off">
         <label class="modal-label" for="block-save-teams">Levels</label>
         <textarea id="block-save-teams" class="block-modal-textarea" rows="12" autocomplete="off"></textarea>
@@ -96,6 +98,40 @@
     return root;
   }
 
+  /* Competition picker. Selecting one writes a canonical block name that the runner
+     resolves to a brand theme; "Mixed" keeps a free-text name (regular look).
+     Longer/multi-word names are listed before "Euro" so "Europa League" never matches
+     the "euro" substring first. */
+  const CAL_COMPETITIONS = [
+    "World Cup", "Champions League", "Europa League", "Conference League",
+    "Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1", "Euro",
+  ];
+  const CAL_COMP_ALIASES = {
+    "champion league": "Champions League", "seria a": "Serie A",
+    "ucl": "Champions League", "uel": "Europa League", "uecl": "Conference League",
+  };
+  const CAL_MIXED = "__mixed__";
+
+  function matchCompetitionLabel(name) {
+    const n = String(name || "").toLowerCase().replace(/\s+/g, " ").trim();
+    if (!n) return CAL_MIXED;
+    for (const c of CAL_COMPETITIONS) {
+      const cl = c.toLowerCase();
+      if (n === cl || n.startsWith(cl + " ") || n.includes(cl)) return c;
+    }
+    if (CAL_COMP_ALIASES[n]) return CAL_COMP_ALIASES[n];
+    for (const a in CAL_COMP_ALIASES) if (n.includes(a)) return CAL_COMP_ALIASES[a];
+    return CAL_MIXED;
+  }
+
+  function populateCompetitionSelect(selectEl) {
+    if (!selectEl || selectEl.dataset.populated === "1") return;
+    const opts = [`<option value="${CAL_MIXED}">Mixed (custom name)</option>`]
+      .concat(CAL_COMPETITIONS.map((c) => `<option value="${c}">${c}</option>`));
+    selectEl.innerHTML = opts.join("");
+    selectEl.dataset.populated = "1";
+  }
+
   function openSaveBlockModal(date, u, block) {
     const root = ensureSaveBlockModal();
     pendingBlockSlot = { date, u, block };
@@ -106,12 +142,30 @@
       + `#${u.episode} ${u.runner.name} · ${pad2(u.hour)}:${pad2(u.min)}`;
     // Shorts have no competition name — hide the name field entirely.
     root.querySelector("#block-save-title").textContent = isShort ? "Save short" : "Save competition";
+    const compLabel = root.querySelector('label[for="block-save-competition"]');
+    const compSelect = root.querySelector("#block-save-competition");
     const nameLabel = root.querySelector('label[for="block-save-name"]');
     const nameInput = root.querySelector("#block-save-name");
-    // Use inline display (beats the .modal-label CSS rule, which `hidden` doesn't).
-    if (nameLabel) nameLabel.style.display = isShort ? "none" : "";
-    nameInput.style.display = isShort ? "none" : "";
-    nameInput.value = isShort ? "" : (block?.name || "");
+    populateCompetitionSelect(compSelect);
+
+    // Shorts: nameless (no competition/name fields). Non-shorts: competition dropdown
+    // drives the theme; the free-text name appears only for "Mixed".
+    if (compLabel) compLabel.style.display = isShort ? "none" : "";
+    if (compSelect) compSelect.style.display = isShort ? "none" : "";
+    const matched = isShort ? CAL_MIXED : matchCompetitionLabel(block?.name);
+    if (compSelect) compSelect.value = matched;
+
+    const syncNameVisibility = () => {
+      const showName = !isShort && (!compSelect || compSelect.value === CAL_MIXED);
+      if (nameLabel) nameLabel.style.display = showName ? "" : "none";
+      nameInput.style.display = showName ? "" : "none";
+    };
+    if (compSelect && compSelect.dataset.wired !== "1") {
+      compSelect.addEventListener("change", syncNameVisibility);
+      compSelect.dataset.wired = "1";
+    }
+    nameInput.value = (!isShort && matched === CAL_MIXED) ? (block?.name || "") : "";
+    syncNameVisibility();
     root.querySelector("#block-save-teams").value = FCRecordingStatus
       ? FCRecordingStatus.teamsImportTextForBlock(block)
       : (block?.teamsImportText || "");
@@ -136,7 +190,13 @@
     const err = root.querySelector("#block-save-error");
     const saveBtn = root.querySelector("#block-save-submit");
     const isShort = pendingBlockSlot.u.type === "short";
-    const name = isShort ? "" : nameInput.value.trim();   // shorts are nameless
+    const compSelect = root.querySelector("#block-save-competition");
+    const comp = compSelect ? compSelect.value : CAL_MIXED;
+    // A picked competition writes its canonical name (the runner derives the theme from
+    // it); "Mixed" uses the free-text custom name. Shorts stay nameless.
+    const name = isShort
+      ? ""
+      : (comp && comp !== CAL_MIXED ? comp : nameInput.value.trim());
     const teamsImportText = teamsInput.value.trim();
 
     if (!isShort) nameInput.classList.toggle("modal-input--error", !name);
@@ -205,19 +265,11 @@
     recChip.textContent = FCRecordingStatus ? FCRecordingStatus.labelForBlock(block) : "Empty";
     top.appendChild(recChip);
 
-    const saveBlockBtn = document.createElement("button");
-    saveBlockBtn.type = "button";
-    saveBlockBtn.className = "block-save-btn";
-    saveBlockBtn.textContent = "▣";
-    saveBlockBtn.title = block ? "Edit saved competition" : "Save competition for this calendar box";
-    saveBlockBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      openSaveBlockModal(date, u, block);
-    });
-    top.appendChild(saveBlockBtn);
-
     // Thumbnail button — regular (long) videos only. Sets the YouTube thumbnail
     // for THIS pill's channel ahead of time; the upload uses it automatically.
+    // It sits on the LEFT (next to the status chip) so the ▣ edit-save button
+    // always stays pinned to the far right — the save icon keeps the same
+    // position on every pill whether or not a thumbnail button is present.
     if (u.type === "long") {
       const thumbBtn = document.createElement("button");
       thumbBtn.type = "button";
@@ -230,6 +282,17 @@
       });
       top.appendChild(thumbBtn);
     }
+
+    const saveBlockBtn = document.createElement("button");
+    saveBlockBtn.type = "button";
+    saveBlockBtn.className = "block-save-btn";
+    saveBlockBtn.textContent = "▣";
+    saveBlockBtn.title = block ? "Edit saved competition" : "Save competition for this calendar box";
+    saveBlockBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openSaveBlockModal(date, u, block);
+    });
+    top.appendChild(saveBlockBtn);
 
     pill.appendChild(top);
 
@@ -469,6 +532,12 @@
     ub.textContent = "Uploading…";
     if (btn) { btn.disabled = true; btn.textContent = "Uploading…"; }
 
+    // Hand off to the blocking progress window — nothing on the calendar is
+    // clickable until OK lights up at the end.
+    closeThumbModal();
+    openUploadProgress("Uploading to YouTube");
+    setUploadProgressStatus(`Uploading ${u.channel.toUpperCase()}…`);
+
     const res = await FCYouTube.upload({
       key: FCRecordingStatus.blockKey(u.runner.id, u.type, u.episode),
       channel: u.channel,
@@ -479,13 +548,17 @@
     }, thumbFile);
 
     if (res.ok) {
-      closeThumbModal();
-      if (res.warning) alert("Uploaded, with a note:\n\n" + res.warning);
       await FCRecordingStatus.refresh(); // re-render pills with the new status
+      finishUploadProgress(true, "Finished ✓");
+      if (res.persisted === false) {
+        alert("Uploaded to YouTube, but the calendar couldn't mark it as uploaded "
+          + "(the calendar server may need restarting).\n\n"
+          + "Do NOT press Upload again or you'll create a duplicate — refresh the page first.");
+      } else if (res.warning) {
+        alert("Uploaded, with a note:\n\n" + res.warning);
+      }
     } else {
-      ub.disabled = false;
-      ub.textContent = "Retry";
-      if (btn) { btn.disabled = false; btn.textContent = "Retry upload"; btn.classList.add("yt-btn--error"); }
+      finishUploadProgress(false, "Upload failed");
       alert("YouTube upload failed:\n\n" + (res.error || "Unknown error"));
     }
   }
@@ -630,6 +703,96 @@
       && x.runner.id === u.runner.id && x.episode === u.episode) || null;
   }
 
+  // ---- Blocking upload-progress modal -------------------------------------
+  // Covers the whole calendar while a YouTube upload runs so nothing can be
+  // clicked (and the upload can't be re-triggered, which is what created the
+  // duplicate uploads). The OK button is enabled ONLY once the upload finishes.
+  let uploadProgressModal = null;
+  function ensureUploadProgressModal() {
+    if (uploadProgressModal) return uploadProgressModal;
+    const root = document.createElement("div");
+    root.id = "yt-progress-modal";
+    root.className = "modal";
+    root.hidden = true;
+    root.setAttribute("aria-hidden", "true");
+    root.innerHTML = `
+      <style>
+        #yt-progress-modal .modal-backdrop { background: rgba(0,0,0,.74); }
+        #yt-progress-modal .yt-prog-panel { max-width: 440px; text-align: center; }
+        #yt-progress-track {
+          position: relative; height: 14px; border-radius: 999px; margin: 20px 0 12px;
+          background: rgba(255,255,255,.14); overflow: hidden;
+        }
+        #yt-progress-fill {
+          position: absolute; top: 0; bottom: 0; left: 0; width: 100%; border-radius: 999px;
+          background: linear-gradient(90deg, #ff4e50, #f9d423);
+        }
+        #yt-progress-track.is-running #yt-progress-fill {
+          width: 38%;
+          animation: yt-prog-slide 1.05s ease-in-out infinite;
+        }
+        @keyframes yt-prog-slide { 0% { left: -38%; } 100% { left: 100%; } }
+        #yt-progress-status { font-size: 15px; margin: 2px 0 4px; opacity: .92; min-height: 20px; }
+        #yt-progress-ok {
+          margin-top: 8px; padding: 9px 30px; font-size: 15px; font-weight: 700;
+          border: none; border-radius: 8px; cursor: pointer; background: #f9d423; color: #1a1a1a;
+        }
+        #yt-progress-ok[disabled] { opacity: .4; cursor: not-allowed; }
+      </style>
+      <div class="modal-backdrop"></div>
+      <div class="modal-panel yt-prog-panel" role="dialog" aria-labelledby="yt-progress-title" aria-live="polite">
+        <h3 id="yt-progress-title">Uploading to YouTube</h3>
+        <div id="yt-progress-track" class="is-running"><div id="yt-progress-fill"></div></div>
+        <p id="yt-progress-status">Starting…</p>
+        <button id="yt-progress-ok" type="button" disabled>OK</button>
+      </div>`;
+    document.body.appendChild(root);
+    root.querySelector("#yt-progress-ok").addEventListener("click", function () {
+      if (this.disabled) return;
+      closeUploadProgress();
+    });
+    uploadProgressModal = root;
+    return root;
+  }
+
+  function openUploadProgress(title) {
+    const root = ensureUploadProgressModal();
+    root.querySelector("#yt-progress-title").textContent = title || "Uploading to YouTube";
+    const track = root.querySelector("#yt-progress-track");
+    track.classList.add("is-running");
+    const fill = root.querySelector("#yt-progress-fill");
+    fill.style.width = "";
+    fill.style.background = "";
+    root.querySelector("#yt-progress-status").textContent = "Starting…";
+    const ok = root.querySelector("#yt-progress-ok");
+    ok.disabled = true;
+    root.hidden = false;
+    root.setAttribute("aria-hidden", "false");
+  }
+
+  function setUploadProgressStatus(text) {
+    if (uploadProgressModal) uploadProgressModal.querySelector("#yt-progress-status").textContent = text;
+  }
+
+  function finishUploadProgress(ok, statusText) {
+    const root = ensureUploadProgressModal();
+    const track = root.querySelector("#yt-progress-track");
+    track.classList.remove("is-running");
+    const fill = root.querySelector("#yt-progress-fill");
+    fill.style.width = "100%";
+    fill.style.background = ok
+      ? "linear-gradient(90deg, #2e7d32, #7bed9f)"
+      : "linear-gradient(90deg, #b00020, #ff6b6b)";
+    root.querySelector("#yt-progress-status").textContent = statusText || (ok ? "Finished ✓" : "Failed");
+    root.querySelector("#yt-progress-ok").disabled = false;
+  }
+
+  function closeUploadProgress() {
+    if (!uploadProgressModal) return;
+    uploadProgressModal.hidden = true;
+    uploadProgressModal.setAttribute("aria-hidden", "true");
+  }
+
   /** Upload BOTH languages (English then Spanish) for this episode in one go.
    *  Pre-flights every language that still needs uploading: a recorded video, an
    *  authorized channel, and — for long-form — a thumbnail saved ahead of time.
@@ -688,11 +851,16 @@
       return;
     }
 
-    // Everything checked out — upload each remaining language in turn.
+    // Everything checked out — upload each remaining language in turn, behind a
+    // blocking progress window so the calendar can't be touched (and the upload
+    // can't be re-fired) until it's done.
+    openUploadProgress("Uploading to YouTube");
     const failures = [];
     const warnings = [];
+    const persistFails = [];
     for (const { slot: s, thumb } of targets) {
-      btn.textContent = `Uploading ${s.channel.toUpperCase()}…`;
+      const label = s.channel.toUpperCase();
+      setUploadProgressStatus(`Uploading ${label}…`);
       const res = await FCYouTube.upload({
         key, channel: s.channel, block,
         date: { y: date.getFullYear(), m: date.getMonth(), d: date.getDate() },
@@ -700,15 +868,25 @@
         playlistName: u.runner.name,
       }, thumb);
       if (res.ok) {
-        if (res.warning) warnings.push(`${s.channel.toUpperCase()}: ${res.warning}`);
+        if (res.warning) warnings.push(`${label}: ${res.warning}`);
+        // The upload succeeded but the calendar couldn't mark it — pressing
+        // upload again would create a duplicate, so call it out loudly.
+        if (res.persisted === false) persistFails.push(label);
       } else {
-        failures.push(`${s.channel.toUpperCase()}: ${res.error || "Unknown error"}`);
+        failures.push(`${label}: ${res.error || "Unknown error"}`);
       }
     }
 
     await FCRecordingStatus.refresh(); // re-render pills with the new status
+    const okAll = failures.length === 0;
+    finishUploadProgress(okAll, okAll ? "Finished ✓" : `${failures.length} upload(s) failed`);
     if (failures.length) {
       alert("Some uploads failed:\n\n" + failures.join("\n"));
+    } else if (persistFails.length) {
+      alert("Uploaded to YouTube, but the calendar couldn't mark "
+        + persistFails.join(" & ")
+        + " as uploaded (the calendar server may need restarting).\n\n"
+        + "Do NOT press Upload again or you'll create a duplicate — refresh the page first.");
     } else if (warnings.length) {
       alert("Uploaded, with a note:\n\n" + warnings.join("\n"));
     }

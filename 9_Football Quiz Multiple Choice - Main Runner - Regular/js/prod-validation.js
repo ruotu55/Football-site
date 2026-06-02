@@ -1,13 +1,11 @@
 ﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
 import { projectAssetUrl } from "./paths.js";
-import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
+import { validateDisplayedImagesAsync } from "../../.Storage/shared/prod-asset-validation.js";
 import { isUpdateDataFresh } from "../../.Storage/shared/update-data-freshness.js";
-import { pickStartingXI } from "./pick-xi.js";
-import { FORMATIONS } from "./formations.js";
-import { getCurrentLanguage, voiceKindForQuiz } from "./voice-tab.js";
+import { getMcq, localized } from "./mcq-mode.js";
+import { getCurrentLanguage } from "./voice-tab.js";
 import { BUNDLED_MILESTONES, getSelectedBundledVariant } from "./bundled-level-voices.js";
-import { getOrAssignRevealPhrase, renderTeamPhrase } from "./audio.js";
 /* No team-header rename feature in this runner — read the name straight off the level. */
 function resolveLevelTeamName(lvl, _quizType) {
     return String(lvl.currentSquad?.name || lvl.selectedEntry?.name || "").trim();
@@ -87,28 +85,50 @@ function validateTeamsSelected() {
     const questionLevels = getQuestionLevels();
     const failures = [];
     for (const { lvl, index } of questionLevels) {
-        if (!lvl.currentSquad) {
-            failures.push(`${getLevelLabel(index, lvl)}: No team/player selected`);
+        const mcq = getMcq(lvl);
+        if (!mcq || !Array.isArray(mcq.answers) || mcq.answers.length === 0) {
+            failures.push(`${getLevelLabel(index, lvl)}: No question set`);
         }
     }
     return {
-        sectionName: "Teams / Players Selected",
+        sectionName: "Questions Set",
         passed: failures.length === 0,
         failures,
     };
 }
 
+/* Build the runner-relative URL exactly the way mcq-mode.js#assetUrl does, so PROD
+   probes the same file the card renders. */
+function mcqAssetUrl(path) {
+    const clean = String(path || "").replace(/^\.?\/+/, "");
+    if (!clean) return "";
+    return "../" + clean.split("/").map(encodeURIComponent).join("/");
+}
+
+/* The images an MCQ level actually displays:
+   - "which-player": three player PHOTO cards (answers[].photoPath)
+   - "trivia": one topic image (mcq.topicImage), if set (a null topic renders no image).
+   No squad XI exists in this quiz. */
 async function validateTeamAssets() {
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
-    return validateTeamAssetsAsync({
+    return validateDisplayedImagesAsync({
         questionLevels: getQuestionLevels(),
-        quizType,
         getLevelLabel,
-        resolveLevelTeamName,
-        FORMATIONS,
-        pickStartingXI,
-        appState,
-        projectAssetUrl,
+        hasContent: (lvl) => !!getMcq(lvl),
+        collectUnits: (lvl) => {
+            const mcq = getMcq(lvl);
+            if (!mcq) return [];
+            const units = [];
+            if (mcq.questionType === "which-player") {
+                for (const a of (Array.isArray(mcq.answers) ? mcq.answers : [])) {
+                    const id = (a && a.id) || "?";
+                    const url = a && a.photoPath ? mcqAssetUrl(a.photoPath) : "";
+                    units.push({ label: `answer ${id}: player photo`, urls: url ? [url] : [] });
+                }
+            } else if (mcq.topicImage) {
+                units.push({ label: "topic image", urls: [mcqAssetUrl(mcq.topicImage)] });
+            }
+            return units;
+        },
         sectionName: "Photos / Logos",
     });
 }
@@ -176,39 +196,35 @@ async function fetchExists(path, params) {
     }
 }
 
+/* The voices an MCQ level actually plays: the QUESTION voice and the correct ANSWER
+   voice, in the current language. Checks /__mcq-voice/status with the same text→slug
+   the Voice tab + playback use (server slugifies the text). */
 async function validateTeamVoices() {
     const questionLevels = getQuestionLevels();
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
     const language = getCurrentLanguage();
-    const kind = voiceKindForQuiz(quizType);
     const checks = questionLevels.map(async ({ lvl, index }) => {
-        if (!lvl.currentSquad) return null;
-        /* Use the resolved display name (post-rename) so we hit the same file path
-           the Voice tab uses — matches what's actually saved on disk. */
-        const teamName = resolveLevelTeamName(lvl, quizType);
-        if (!teamName) return null;
-        /* Pre-roll the sticky phrase variant for this level so we check the SAME
-           file the reveal playback will request. Mirrors voice-tab.js and
-           video.js#revealCurrentLevel: questionIndex = levelIdx - 1.
-           Endpoint is /__player-voice/status (kind-aware) — this runner's server
-           only exposes that route. */
-        const questionIndex = index - 1;
-        const phrase = getOrAssignRevealPhrase(lvl, questionIndex, kind);
-        const { exists } = await fetchExists("/__player-voice/status", {
-            name: teamName,
-            kind,
-            language,
-            phrase,
-        });
-        if (exists) return null;
-        const sentence = renderTeamPhrase(phrase, teamName, language);
-        return `${getLevelLabel(index, lvl)}: missing reveal voice — "${sentence}"`;
+        const mcq = getMcq(lvl);
+        if (!mcq) return [];
+        const out = [];
+        const qText = localized(mcq.questionText, language);
+        if (qText) {
+            const { exists } = await fetchExists("/__mcq-voice/status", { kind: "questions", text: qText, language });
+            if (!exists) out.push(`${getLevelLabel(index, lvl)}: question voice missing (${language})`);
+        }
+        const answers = Array.isArray(mcq.answers) ? mcq.answers : [];
+        const correct = answers.find((a) => a && a.id === mcq.correctAnswerId);
+        const aText = correct ? localized(correct.text, language) : "";
+        if (aText) {
+            const { exists } = await fetchExists("/__mcq-voice/status", { kind: "answers", text: aText, language });
+            if (!exists) out.push(`${getLevelLabel(index, lvl)}: answer voice missing (${language})`);
+        }
+        return out;
     });
-    const results = await Promise.all(checks);
+    const results = (await Promise.all(checks)).flat();
     return {
-        sectionName: "Team Voices",
-        passed: results.every((r) => !r),
-        failures: results.filter(Boolean),
+        sectionName: "Question & Answer Voices",
+        passed: results.length === 0,
+        failures: results,
     };
 }
 

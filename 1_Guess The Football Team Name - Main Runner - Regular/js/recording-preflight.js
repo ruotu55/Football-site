@@ -33,6 +33,7 @@ import { translateCountry } from "./i18n.js";
 import {
     getOrAssignRevealPhrase,
     buildRevealVoiceCandidates,
+    prepareAndWarmBgmSession,
 } from "./audio.js";
 import { EMOJI_IMAGES } from "./emojis.js";
 
@@ -69,15 +70,25 @@ function collectImageLoadUnits() {
             if (!lvl || typeof lvl !== "object") continue;
             appState.currentLevelIndex = i;
 
-            const headerLogoUrls = getHeaderLogoUrlChain(
-                lvl,
-                lvl.currentSquad,
-                lvl.squadType,
-                lvl.selectedEntry?.name,
-                lvl.quizType
-            ).map((url) => withProjectAssetCacheBust(url));
-            if (headerLogoUrls.length) {
-                units.push({ label: shortPath(headerLogoUrls[0]), urls: headerLogoUrls });
+            // Only question levels (those with a real team squad) show a crest — the
+            // logo/intro/outro/bonus levels have no team, so they must NOT be required.
+            if (lvl.currentSquad) {
+                const headerLogoUrls = getHeaderLogoUrlChain(
+                    lvl,
+                    lvl.currentSquad,
+                    lvl.squadType,
+                    lvl.selectedEntry?.name,
+                    lvl.quizType
+                ).map((url) => withProjectAssetCacheBust(url));
+                if (headerLogoUrls.length) {
+                    // CRITICAL: the team crest is the answer for this quiz. If none of its
+                    // candidate URLs load, recording is hard-blocked (no "record anyway").
+                    units.push({ label: `team logo — ${shortPath(headerLogoUrls[0])}`, urls: headerLogoUrls, critical: true });
+                } else {
+                    // A real team with no resolvable logo path at all — also a hard block.
+                    const teamLabel = String(lvl.currentSquad?.name || lvl.selectedEntry?.name || `level ${i}`);
+                    units.push({ label: `team logo — (no path for ${teamLabel})`, urls: [], critical: true });
+                }
             }
 
             // Per-slot crest overrides (e.g., player photos using a different club crest on the front face)
@@ -214,7 +225,7 @@ function createProgressOverlay() {
     h.style.cssText = "margin: 0 0 6px; font-size: 20px; font-weight: 600;";
 
     const sub = document.createElement("div");
-    sub.textContent = "Pre-loading all images and voices so the recording runs without lag.";
+    sub.textContent = "Pre-loading all images, voices and background music so the recording runs without lag.";
     sub.style.cssText = "margin: 0 0 20px; font-size: 13px; opacity: 0.7;";
 
     const barWrap = document.createElement("div");
@@ -322,11 +333,13 @@ export async function runPreflight(language = "english") {
 
     const imageUnits = collectImageLoadUnits();
     const voiceGroups = collectVoiceUrlGroups(language);
-    const totalUnits = imageUnits.length + voiceGroups.length;
+    const bgmCount = 5; // each save freezes a 5-song BGM set; we warm only those
+    const totalUnits = imageUnits.length + voiceGroups.length + bgmCount;
 
     const ui = createProgressOverlay();
     let done = 0;
     const missing = [];
+    const criticalMissing = []; // team-logo units — these HARD-block (no "record anyway")
 
     const tick = (label) => {
         done += 1;
@@ -350,7 +363,8 @@ export async function runPreflight(language = "english") {
                 }
             }));
             if (!results.some(Boolean)) {
-                missing.push(`(image) ${unit.label}`);
+                if (unit.critical) criticalMissing.push(unit.label);
+                else missing.push(`(image) ${unit.label}`);
             }
             tick("images");
         }));
@@ -371,12 +385,77 @@ export async function runPreflight(language = "english") {
         }));
     }
 
+    // ── Background music ───────────────────────────────
+    // Warm every Ringhton track into the reusable BGM pool so a mid-recording
+    // song switch reuses an already-decoded element instead of fetching+decoding
+    // on the hot path (the ~2s stutter at the crossfade). Missing songs are
+    // non-fatal — the live player already tolerates a failed track — so they
+    // don't gate recording.
+    if (bgmCount > 0) {
+        ui.status.textContent = `Pre-loading this save's ${bgmCount} background songs…`;
+        await prepareAndWarmBgmSession(() => tick("music"));
+    }
+
     ui.overlay.remove();
+
+    // CRITICAL (team logo) failed to load → HARD block, no "record anyway".
+    if (criticalMissing.length) {
+        await showCriticalBlockModal(criticalMissing);
+        return { proceed: false };
+    }
 
     if (missing.length === 0) return { proceed: true };
 
     const proceed = await showFailureModal(missing);
     return { proceed };
+}
+
+/** HARD block modal for a missing team logo — single dismiss, always proceed:false. */
+function showCriticalBlockModal(items) {
+    return new Promise((resolve) => {
+        const overlay = document.createElement("div");
+        overlay.id = "recording-preflight-critical";
+        Object.assign(overlay.style, {
+            position: "fixed", inset: "0", zIndex: "20002",
+            background: "rgba(0,0,0,0.9)", display: "flex",
+            alignItems: "center", justifyContent: "center",
+            fontFamily: "system-ui, -apple-system, sans-serif",
+        });
+        const box = document.createElement("div");
+        Object.assign(box.style, {
+            background: "#1c1c1c", color: "#fff", padding: "24px 28px",
+            borderRadius: "12px", minWidth: "440px", maxWidth: "680px",
+            maxHeight: "78vh", overflow: "auto",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.7)", border: "2px solid #dc2626",
+        });
+        const h = document.createElement("h2");
+        h.textContent = "🚫 Recording blocked — team logo missing";
+        h.style.cssText = "margin: 0 0 8px; font-size: 18px; color: #f87171;";
+        const sub = document.createElement("p");
+        sub.textContent = "The team logo for these levels could not be loaded, so recording is blocked — a video must never be published without the crest. Fix it with GET LOGO / Swap Logo (or add the logo file), then record again.";
+        sub.style.cssText = "margin: 0 0 14px; font-size: 13px; opacity: 0.85;";
+        const list = document.createElement("ul");
+        list.style.cssText = "margin: 0 0 16px; padding: 0 0 0 18px; font-size: 12px; font-family: ui-monospace, Menlo, monospace; opacity: 0.9; line-height: 1.5;";
+        for (const m of items.slice(0, 80)) {
+            const li = document.createElement("li");
+            li.textContent = m;
+            li.style.cssText = "margin: 0 0 3px; word-break: break-all;";
+            list.appendChild(li);
+        }
+        const btnRow = document.createElement("div");
+        btnRow.style.cssText = "display: flex; justify-content: flex-end;";
+        const ok = document.createElement("button");
+        ok.textContent = "OK — I'll fix the logo";
+        Object.assign(ok.style, {
+            background: "#dc2626", color: "#fff", border: "0", padding: "8px 18px",
+            borderRadius: "6px", cursor: "pointer", fontSize: "14px", fontWeight: "700",
+        });
+        ok.onclick = () => { overlay.remove(); resolve(); };
+        btnRow.appendChild(ok);
+        box.append(h, sub, list, btnRow);
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
+    });
 }
 
 /** Trim absolute URLs to something readable in the failure list. */

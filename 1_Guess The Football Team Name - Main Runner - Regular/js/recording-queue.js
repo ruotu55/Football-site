@@ -23,7 +23,9 @@ import {
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
+    captureCurrentScriptObject,
 } from "./saved-scripts.js?v=20260601-autoopen5";
+import { frozenScriptForBlock, wireVideoStatusButton } from "../../.Storage/shared/video-status.js";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 
@@ -40,6 +42,7 @@ let blocks = Object.create(null);       // server-mirrored: { "<key>": {name,tea
 let queue = [];                          // computed: array of { key, episode, en: {date}, es: {date} }
 let listEl = null;
 let activeBlockKey = null;
+let videoStatusController = null;       // Save Video Status button controller
 let saveModal = null;                    // lazily-built inline modal element
 
 // ---------------------------------------------------------------------------
@@ -178,6 +181,16 @@ async function postReplace(allBlocks) {
     } catch (_) { /* offline — silent; the next user save will retry */ }
 }
 
+/** Persist a block's Save Video Status freeze (or pass null to clear). */
+async function postSetVideoStatus(key, videoStatus) {
+    const r = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ op: "setVideoStatus", key, videoStatus: videoStatus || null }),
+    });
+    if (!r.ok) throw new Error("Server rejected setVideoStatus (HTTP " + r.status + ")");
+}
+
 async function postStampRecording(key, language, video) {
     try {
         const r = await fetch(ENDPOINT, {
@@ -246,6 +259,9 @@ async function resolveScriptForBlock(block) {
     const stashed = block?.script;
     if (stashed && typeof stashed === "object") {
         if (stashed.voiceFreeze) script.voiceFreeze = stashed.voiceFreeze;
+        // The save's frozen 5-song BGM set rides along the same way (rebuild from
+        // teamsImportText would otherwise drop it).
+        if (Array.isArray(stashed.bgmSongs)) script.bgmSongs = stashed.bgmSongs;
         if (Array.isArray(stashed.levels)) {
             stashed.levels.forEach((stashedLvl, i) => {
                 if (stashedLvl && stashedLvl.voiceFreeze && script.levels[i]) {
@@ -476,6 +492,19 @@ async function onBlockClick(item) {
         activeBlockKey = item.key;
         setActiveScriptName(existing.name);
         appState.activeBlockKey = item.key;
+        // Save Video Status: if this save's full on-screen layout is frozen, apply
+        // that snapshot verbatim instead of rebuilding from the teams list.
+        const _frozen = frozenScriptForBlock(existing);
+        if (_frozen) {
+            try {
+                await applyScriptObject(_frozen);
+                render();
+                return;
+            } catch (err) {
+                console.warn("[recording-queue] frozen video-status apply failed; rebuilding from teams:", err);
+                // fall through to the normal rebuild path
+            }
+        }
         try {
             const script = await resolveScriptForBlock(existing);
             await applyScriptObject(script);
@@ -545,6 +574,7 @@ async function clearBlock(item, evt) {
 
 function render() {
     if (!listEl) return;
+    if (videoStatusController) videoStatusController.refresh();
     listEl.innerHTML = "";
 
     const header = document.createElement("div");
@@ -689,6 +719,16 @@ export async function initRecordingQueue() {
         return;
     }
     listEl.classList.add("rq-list");
+
+    // Save Video Status button (under Record Video). Heavy lifting is shared.
+    videoStatusController = wireVideoStatusButton({
+        button: document.getElementById("save-video-status-btn"),
+        getActiveKey: () => activeBlockKey,
+        getBlock: (k) => blocks[k] || null,
+        getActiveName: () => (activeBlockKey && blocks[activeBlockKey] && blocks[activeBlockKey].name) || "Recording",
+        captureScript: (name) => captureCurrentScriptObject(name),
+        persist: async (k, vs) => { await postSetVideoStatus(k, vs); },
+    });
 
     blocks = await fetchBlocks();
     hydrateLegacyBlocks(blocks);

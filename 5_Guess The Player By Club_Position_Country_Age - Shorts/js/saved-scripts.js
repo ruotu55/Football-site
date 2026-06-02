@@ -10,7 +10,8 @@ import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";
 import { loadSquadJson } from "./teams.js";
 import { cleanCareerHistory } from "./pitch-render.js";
-import { getOrAssignRevealPhrase } from "./audio.js";
+import { getOrAssignRevealPhrase, pickRandomBgmSongs } from "./audio.js";
+import { resolveCompetitionId } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     parseImportText as parseImportTextShared,
     resolvePairEntriesForPlayers,
@@ -321,6 +322,9 @@ export function captureCurrentScriptObject(name) {
         transitions: captureTransitionSettings(),
         levels: levelsToSave,
         voiceFreeze: HAS_BUNDLED_VARIANTS && appState.bundledVoiceVariants ? { bundledVariants: { ...appState.bundledVoiceVariants } } : undefined,
+        /* Freeze 5 random songs with the save (reuse the loaded set if there is one). */
+        bgmSongs: (Array.isArray(appState.bgmSongs) && appState.bgmSongs.length) ? appState.bgmSongs.slice() : pickRandomBgmSongs(),
+        competition: (typeof appState.competition === "string" && appState.competition) ? appState.competition : "mixed",
     };
 }
 
@@ -1593,6 +1597,10 @@ async function loadScript(script) {
 
     applyTransitionSettings(script.transitions || null);
 
+    // Restore this save's frozen 5-song BGM set (legacy / list-built saves have none).
+    appState.bgmSongs = (Array.isArray(script.bgmSongs) && script.bgmSongs.length) ? script.bgmSongs.slice() : pickRandomBgmSongs();
+    appState.competition = resolveCompetitionId(script.competition) || resolveCompetitionId(script.name) || "mixed";
+
     const migratedLevels = migrateShortsLevelsRemoveLegacyLanding(script.levels);
     appState.totalLevelsCount = migratedLevels.length - 1;
     appState.levelsData = migratedLevels.map(lvl => {
@@ -1648,6 +1656,7 @@ async function loadScript(script) {
         careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
         careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
         };
+        merged.__suppressPictureReset = true;
         restoreLevelVoiceFreeze(merged, lvl.voiceFreeze);
         return merged;
     });
@@ -1688,6 +1697,11 @@ async function loadScript(script) {
     }
     if (HAS_BUNDLED_VARIANTS && !script.voiceFreeze && appState.bundledVoiceVariants) {
         script.voiceFreeze = { bundledVariants: { ...appState.bundledVoiceVariants } };
+        voiceFreezeBackfilled = true;
+    }
+    // Back-fill the frozen 5-song BGM set on older saves that predate per-save BGM.
+    if (!(Array.isArray(script.bgmSongs) && script.bgmSongs.length)) {
+        script.bgmSongs = (Array.isArray(appState.bgmSongs) && appState.bgmSongs.length) ? appState.bgmSongs.slice() : pickRandomBgmSongs();
         voiceFreezeBackfilled = true;
     }
     if (voiceFreezeBackfilled) persistSaved();

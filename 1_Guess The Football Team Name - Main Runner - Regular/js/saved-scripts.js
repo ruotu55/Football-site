@@ -17,7 +17,8 @@ import {
 } from "./saved-team-layouts.js";
 import { pickRandomBundledVariants } from "./bundled-level-voices.js";
 import { renderVoiceTab } from "./voice-tab.js";
-import { getOrAssignRevealPhrase } from "./audio.js";
+import { getOrAssignRevealPhrase, pickRandomBgmSongs } from "./audio.js";
+import { resolveCompetitionId } from "../../.Storage/shared/backgrounds/background-theme.js";
 import {
     parseImportText as parseImportTextShared,
     teamNamesFromPairEntries,
@@ -283,6 +284,13 @@ export function captureCurrentScriptObject(name) {
         transitions: captureTransitionSettings(),
         levels: levelsToSave,
         voiceFreeze: HAS_BUNDLED_VARIANTS && appState.bundledVoiceVariants ? { bundledVariants: { ...appState.bundledVoiceVariants } } : undefined,
+        /* Freeze 5 random songs with the save (reuse the loaded set if there is one). */
+        bgmSongs: (Array.isArray(appState.bgmSongs) && appState.bgmSongs.length)
+            ? appState.bgmSongs.slice()
+            : pickRandomBgmSongs(),
+        /* Competition theme id ("mixed" or e.g. "champions-league") — drives the brand
+           background + pattern + transition colour when the save loads. */
+        competition: (typeof appState.competition === "string" && appState.competition) ? appState.competition : "mixed",
     };
 }
 
@@ -1471,6 +1479,10 @@ async function loadScript(script) {
     els.teamResults.replaceChildren();
 
     applyCustomSelects();
+    /* Resolve the competition theme id BEFORE dispatching script-applied — the
+       app.js theme listener fires synchronously on dispatch and reads
+       appState.competition, so it must be set first (else the theme never applies). */
+    appState.competition = resolveCompetitionId(script.competition) || resolveCompetitionId(script.name) || "mixed";
     /* The calendar-driven Saved tab listens for "recording-queue:script-applied"
        to re-render with the new active block. The legacy savedScripts list no
        longer mounts, so we skip renderSavedScripts() here. */
@@ -1484,6 +1496,14 @@ async function loadScript(script) {
                 ? { ...frozen }
                 : pickRandomBundledVariants();
     }
+    // Per-save BGM: use the save's frozen 5-song set (or roll 5 fresh for a legacy save).
+    appState.bgmSongs = (Array.isArray(script.bgmSongs) && script.bgmSongs.length)
+        ? script.bgmSongs.slice()
+        : pickRandomBgmSongs();
+    // Competition theme: prefer a frozen valid id, else derive from the block/competition
+    // NAME (the single source of truth — handles renames + brand-new calendar blocks),
+    // else "mixed". The "recording-queue:script-applied" listener applies the theme.
+    appState.competition = resolveCompetitionId(script.competition) || resolveCompetitionId(script.name) || "mixed";
     // Back-fill voiceFreeze on the saved entry if any level lacks it (e.g.
     // legacy save, or a save whose migration was wiped by a server-sync pull).
     // freezeVoicePicksForCurrentSession is idempotent — populated levels skip.
@@ -1500,6 +1520,11 @@ async function loadScript(script) {
     }
     if (HAS_BUNDLED_VARIANTS && !script.voiceFreeze && appState.bundledVoiceVariants) {
         script.voiceFreeze = { bundledVariants: { ...appState.bundledVoiceVariants } };
+        voiceFreezeBackfilled = true;
+    }
+    // Bake the rolled BGM set onto a legacy save so it stays stable next load.
+    if ((!Array.isArray(script.bgmSongs) || !script.bgmSongs.length) && Array.isArray(appState.bgmSongs) && appState.bgmSongs.length) {
+        script.bgmSongs = appState.bgmSongs.slice();
         voiceFreezeBackfilled = true;
     }
     if (voiceFreezeBackfilled) persistSaved();

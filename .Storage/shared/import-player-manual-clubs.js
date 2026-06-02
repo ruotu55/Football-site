@@ -11,7 +11,7 @@ export const PLAYER_MANUAL_CLUBS = {
   "luis diaz": "Bayern Munich",
   "cristian romero": "Tottenham Hotspur",
   "diogo jota": "Liverpool FC",
-  "ederson": "Manchester City",
+  "ederson": "Fenerbahce",
   "emiliano martinez": "Aston Villa",
   "lucas hernandez": "Paris Saint-Germain",
   "pablo": "West Ham United",

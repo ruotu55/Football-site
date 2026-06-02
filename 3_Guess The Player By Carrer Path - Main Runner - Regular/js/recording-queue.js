@@ -22,7 +22,9 @@ import {
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
+    captureCurrentScriptObject,
 } from "./saved-scripts.js?v=20260601-autoopen5";
+import { frozenScriptForBlock, wireVideoStatusButton } from "../../.Storage/shared/video-status.js";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 
@@ -39,6 +41,7 @@ let blocks = Object.create(null);       // server-mirrored: { "<key>": {name,scr
 let queue = [];                          // computed: array of { key, episode, en: {date}, es: {date} }
 let listEl = null;
 let activeBlockKey = null;
+let videoStatusController = null;       // Save Video Status button controller
 let saveModal = null;                    // lazily-built inline modal element
 
 // ---------------------------------------------------------------------------
@@ -175,6 +178,16 @@ async function postReplace(allBlocks) {
             body: JSON.stringify({ op: "replace", payload: { blocks: allBlocks } }),
         });
     } catch (_) { /* offline — silent; the next user save will retry */ }
+}
+
+/** Persist a block's Save Video Status freeze (or pass null to clear). */
+async function postSetVideoStatus(key, videoStatus) {
+    const r = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ op: "setVideoStatus", key, videoStatus: videoStatus || null }),
+    });
+    if (!r.ok) throw new Error("Server rejected setVideoStatus (HTTP " + r.status + ")");
 }
 
 async function postStampRecording(key, language, video) {
@@ -407,6 +420,19 @@ async function onBlockClick(item) {
         activeBlockKey = item.key;
         setActiveScriptName(existing.name);
         appState.activeBlockKey = item.key;
+        // Save Video Status: if this save's full on-screen layout is frozen, apply
+        // that snapshot verbatim instead of rebuilding from the teams list.
+        const _frozen = frozenScriptForBlock(existing);
+        if (_frozen) {
+            try {
+                await applyScriptObject(_frozen);
+                render();
+                return;
+            } catch (err) {
+                console.warn("[recording-queue] frozen video-status apply failed; rebuilding from teams:", err);
+                // fall through to the normal rebuild path
+            }
+        }
         const _vfSig = (s) => JSON.stringify({
             vf: (s && s.voiceFreeze) || null,
             lvl: (s && Array.isArray(s.levels) ? s.levels : []).map((l) => (l && l.voiceFreeze) || null),
@@ -434,6 +460,7 @@ async function onBlockClick(item) {
             const stash = (existing.script && typeof existing.script === "object") ? existing.script : null;
             if (stash && script) {
                 if (stash.voiceFreeze) script.voiceFreeze = stash.voiceFreeze;
+                if (Array.isArray(stash.bgmSongs)) script.bgmSongs = stash.bgmSongs;
                 if (Array.isArray(stash.levels) && Array.isArray(script.levels)) {
                     stash.levels.forEach((lvl, i) => {
                         if (lvl && lvl.voiceFreeze && script.levels[i]) {
@@ -447,6 +474,7 @@ async function onBlockClick(item) {
             // Persist any freshly-rolled voice into the stored script.
             if (stash) {
                 if (script.voiceFreeze) stash.voiceFreeze = script.voiceFreeze;
+                if (Array.isArray(script.bgmSongs)) stash.bgmSongs = script.bgmSongs;
                 if (Array.isArray(script.levels)) {
                     if (!Array.isArray(stash.levels)) stash.levels = [];
                     script.levels.forEach((lvl, i) => {
@@ -491,6 +519,7 @@ async function clearBlock(item, evt) {
 
 function render() {
     if (!listEl) return;
+    if (videoStatusController) videoStatusController.refresh();
     listEl.innerHTML = "";
 
     const header = document.createElement("div");
@@ -635,6 +664,18 @@ export async function initRecordingQueue() {
         return;
     }
     listEl.classList.add("rq-list");
+
+    // Save Video Status button (under Record Video). Heavy lifting is shared.
+    videoStatusController = wireVideoStatusButton({
+        button: document.getElementById("save-video-status-btn"),
+        getActiveKey: () => activeBlockKey,
+        getBlock: (k) => blocks[k] || null,
+        getActiveName: () => getActiveScriptName()
+            || (activeBlockKey && blocks[activeBlockKey] && blocks[activeBlockKey].name)
+            || "Recording",
+        captureScript: (name) => captureCurrentScriptObject(name),
+        persist: async (k, vs) => { await postSetVideoStatus(k, vs); },
+    });
 
     blocks = await fetchBlocks();
     queue = computeQueue();

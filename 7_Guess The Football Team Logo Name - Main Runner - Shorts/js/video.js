@@ -38,8 +38,8 @@ const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
 const SHORTS_STAGE_CONTENT_SWAP_MS = 820;
 const SHORTS_STAGE_ENTER_MS = 820;
 const SHORTS_STAGE_EXIT_MS = 400;
-/** Question bar + timeouts: `baseSteps` equal slices of this total (default 3 × 1s × 1.1). */
-const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 1.1;
+/** Question bar + timeouts: `baseSteps` equal slices of this total (3 × 1s × 2.5/3 = 2.5s). */
+const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 2.5 / 3;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
 const TICKING_LEAD_BEFORE_RED_MS = 1500;
 /** Last-resort if `playing` never fires (blocked audio, etc.); keep high so slow title-voice generate does not start the bar early. */

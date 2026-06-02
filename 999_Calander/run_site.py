@@ -24,6 +24,8 @@ import json
 import os
 import socket
 import sys
+import threading
+import time
 import webbrowser
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -79,10 +81,48 @@ def _load_launch_runner():
 _launch_runner_mod = _load_launch_runner()
 
 
+# ---------------------------------------------------------------------------
+# Idle auto-shutdown — free this server's RAM instead of lingering for days.
+# The calendar page polls /__recording-status every ~10s while open, so steady
+# requests mean "a tab is open". If no request has arrived for
+# FC_IDLE_SHUTDOWN_SECONDS (default 300s) AFTER at least one request, the tab is
+# gone and we exit. Set the env var to 0 to disable.
+# ---------------------------------------------------------------------------
+try:
+    IDLE_SHUTDOWN_SECONDS = int(os.environ.get("FC_IDLE_SHUTDOWN_SECONDS", "300"))
+except ValueError:
+    IDLE_SHUTDOWN_SECONDS = 300
+_IDLE_STATE = {"last": time.time(), "ever": False, "started": False}
+_IDLE_LOCK = threading.Lock()
+
+
+def _idle_watchdog() -> None:
+    interval = max(2.0, min(15.0, IDLE_SHUTDOWN_SECONDS / 2.0))
+    while True:
+        time.sleep(interval)
+        with _IDLE_LOCK:
+            idle = time.time() - _IDLE_STATE["last"]
+            ever = _IDLE_STATE["ever"]
+        if IDLE_SHUTDOWN_SECONDS > 0 and ever and idle > IDLE_SHUTDOWN_SECONDS:
+            print(f"[idle] calendar idle for {int(idle)}s - shutting down to free memory.", flush=True)
+            os._exit(0)
+
+
+def _note_browser_activity(connected: bool = False) -> None:
+    with _IDLE_LOCK:
+        _IDLE_STATE["last"] = time.time()
+        if connected:
+            _IDLE_STATE["ever"] = True
+        if not _IDLE_STATE["started"]:
+            _IDLE_STATE["started"] = True
+            threading.Thread(target=_idle_watchdog, daemon=True).start()
+
+
 class CalendarRequestHandler(SimpleHTTPRequestHandler):
     """Static file serving for PROJECT_ROOT + recording-status, youtube, launch endpoints."""
 
     def do_GET(self) -> None:  # noqa: N802
+        _note_browser_activity(connected=True)
         if self.path.split("?", 1)[0] == "/__remote-url":
             self._send_remote_url()
             return
@@ -115,6 +155,7 @@ class CalendarRequestHandler(SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_POST(self) -> None:  # noqa: N802
+        _note_browser_activity(connected=True)
         if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _youtube_mod.try_handle_post(self, PROJECT_ROOT):

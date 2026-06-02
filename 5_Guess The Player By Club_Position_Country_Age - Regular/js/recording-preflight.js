@@ -22,7 +22,9 @@ import { pickStartingXI } from "./pick-xi.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
 import { EMOJI_IMAGES } from "./emojis.js";
 import { collectTeamAssetUrls } from "../../.Storage/shared/prod-asset-validation.js";
+import { collectPlayerCardUnits } from "./prod-validation.js";
 import { runPreflightCore } from "../../.Storage/shared/recording-preflight-core.js";
+import { prepareAndWarmBgmSession } from "./audio.js";
 
 /** Levels that actually play (skip logo/intro/outro/bonus), with their levelsData index. */
 function questionLevels() {
@@ -38,18 +40,19 @@ function resolveLevelTeamName(lvl) {
 }
 
 function collectImageUnits() {
-  const quizType = appState.els?.inQuizType?.value || "";
-  const { imageUnits } = collectTeamAssetUrls({
-    questionLevels: questionLevels(),
-    quizType,
-    resolveLevelTeamName,
-    FORMATIONS,
-    pickStartingXI,
-    appState,
-    projectAssetUrl,
-    projectAssetUrlFresh,
-    playerPhotoPaths,
-  });
+  // This quiz renders ONE player card per level: the player PHOTO (the answer),
+  // the club crest, and the country flag — the exact assets PROD validates
+  // (collectPlayerCardUnits). The PHOTO is marked `critical` so recording
+  // HARD-BLOCKS when it can't load (no "record anyway"), mirroring the team-logo
+  // gate in the team-name runners. Crest/flag stay warm-only (a flag-CDN hiccup
+  // must not block a recording).
+  const imageUnits = [];
+  for (const { lvl } of questionLevels()) {
+    for (const unit of collectPlayerCardUnits(lvl)) {
+      const isPhoto = /:\s*photo$/i.test(unit.label || "") || unit.label === "player photo";
+      imageUnits.push(isPhoto ? { ...unit, critical: true } : unit);
+    }
+  }
   // Floating-emoji sprites (one picked at random per spawn during playback).
   if (Array.isArray(EMOJI_IMAGES)) {
     for (const rel of EMOJI_IMAGES) {
@@ -65,8 +68,16 @@ function collectImageUnits() {
  * @returns {Promise<{proceed: boolean}>}
  */
 export async function runPreflight(language = "english") {
-  return runPreflightCore({
+  const result = await runPreflightCore({
     collectImageUnits,
     imagesBlocking: false,
   });
+  // Pre-load this save's 5 background songs into the reusable BGM pool so a
+  // mid-recording song switch reuses an already-decoded element instead of
+  // fetching+decoding on the hot path. Missing songs are non-fatal — the live
+  // player already tolerates a failed track — so this never gates recording.
+  if (result && result.proceed) {
+    try { await prepareAndWarmBgmSession(); } catch (e) { console.warn("[preflight] BGM warm failed:", e); }
+  }
+  return result;
 }

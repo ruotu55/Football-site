@@ -240,6 +240,61 @@ export async function validateTeamAssetsAsync(opts) {
 }
 
 /**
+ * Probe a list of image "units" and return an array of "missing" strings. Each unit is
+ * { label, urls: [primary, ...fallbacks] }; the unit PASSES if ANY url in its chain loads
+ * (mirrors the runtime's fallback behavior via probeAssetUrlChain). Empty chain = missing.
+ */
+export async function probeImageUnits(imageUnits) {
+  const checks = (Array.isArray(imageUnits) ? imageUnits : []).map(async (u) => {
+    const label = (u && u.label) || "image";
+    const urls = (u && Array.isArray(u.urls) ? u.urls : []).filter(Boolean);
+    if (!urls.length) return `${label}: no path`;
+    return (await probeAssetUrlChain(urls)) ? null : `${label}: missing or failed to load`;
+  });
+  return (await Promise.all(checks)).filter(Boolean);
+}
+
+/**
+ * Generic "validate exactly what each level DISPLAYS" check, for runners whose level shows
+ * a single player / a logo / MCQ cards rather than a full starting XI. The runner supplies
+ * `collectUnits(lvl, index) -> [{label, urls}]` (sync or async) enumerating every image the
+ * level actually renders — player-photo candidates, club-crest chain, country flag, career
+ * club logos, MCQ topic image / answer photos, etc. — built from the runner's OWN render-path
+ * resolvers so PROD matches the screen. Shared code only probes the chains and reports.
+ *
+ * @param {object} opts
+ * @param {Array<{lvl: object, index: number}>} opts.questionLevels
+ * @param {(index: number, lvl: object) => string} opts.getLevelLabel
+ * @param {(lvl: object, index: number) => ({label:string,urls:string[]}[]|Promise<...>)} opts.collectUnits
+ * @param {(lvl: object) => boolean} [opts.hasContent] — skip levels with no content (default: always check)
+ * @param {string} [opts.sectionName]
+ */
+export async function validateDisplayedImagesAsync(opts) {
+  const {
+    questionLevels = [],
+    getLevelLabel,
+    collectUnits,
+    hasContent,
+    sectionName = "Photos / Logos",
+  } = opts || {};
+  const perLevel = await Promise.all(
+    questionLevels.map(async ({ lvl, index }) => {
+      if (typeof hasContent === "function" ? !hasContent(lvl) : !lvl) return null;
+      let units = [];
+      try {
+        units = (await collectUnits(lvl, index)) || [];
+      } catch (err) {
+        return `${getLevelLabel(index, lvl)}: validation error (${(err && err.message) || err})`;
+      }
+      const missing = await probeImageUnits(units);
+      return missing.length ? `${getLevelLabel(index, lvl)}: ${missing.join(", ")}` : null;
+    })
+  );
+  const failures = perLevel.filter(Boolean);
+  return { sectionName, passed: failures.length === 0, failures };
+}
+
+/**
  * Probe-free sibling of validateTeamAssetsAsync used by the recording preflight.
  * Enumerates every image URL the recording will need — team/club logos, starting-XI
  * player photos, player country flags (club squads), club crests (national squads) —

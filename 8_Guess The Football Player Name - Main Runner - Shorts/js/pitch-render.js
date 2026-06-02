@@ -2761,6 +2761,28 @@ export function preloadCareerAssets(state) {
     if (otherTeamsRel) urls.push(projectAssetUrlFresh(otherTeamsRel));
   }
   if (urls.length) preloadImages(urls);
+  void warmCareerPlayerPhotoTrim(state);
+}
+
+/**
+ * Pre-compute the TRIMMED player photo (transparent-margin crop via canvas +
+ * PNG re-encode → object URL) and stash it in `careerPlayerResolvedUrlSync`, so
+ * the reveal can show it synchronously. Without this the trim runs on the reveal
+ * hot path (~1s canvas/PNG-encode), which is why the photo popped in late even
+ * with the raw image already cached. Warm-only: never throws.
+ */
+export async function warmCareerPlayerPhotoTrim(state) {
+  if (!state) return;
+  const playerName = state.careerPlayer?.name?.trim();
+  if (!playerName) return;
+  try {
+    const club = careerReadyPhotoClubName(state);
+    const variantIdx = Math.max(1, Math.floor(Number(state.careerReadyPhotoVariantIndex) || 1));
+    const chosenUrl = await pickLoadableReadyPhotoUrlForVariant(playerName, club, variantIdx);
+    if (chosenUrl) await resolveCareerPlayerPhotoUrl(chosenUrl);
+  } catch {
+    /* warm-only */
+  }
 }
 
 export function renderCareer() {
@@ -2815,7 +2837,10 @@ export function renderCareer() {
   const playerInitKey = careerPlayerNameForReset
     ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
     : "";
-  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+  if (state.__suppressPictureReset) {
+    if (playerInitKey) appliedFavoritePictureKeyByState.set(state, playerInitKey);
+    delete state.__suppressPictureReset;
+  } else if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
     const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
     state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
     state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
@@ -3376,7 +3401,7 @@ export function renderCareer() {
           const country = String(club?.country || "").trim();
           const league = String(club?.league || "").trim();
           if (!country || !league) return "";
-          return `Teams Images/${country}/${league}`;
+          return `Images/Teams/${country}/${league}`;
         })
         .filter(Boolean)
     )
@@ -3407,7 +3432,7 @@ export function renderCareer() {
 
     if (foundClubEntry && foundClubEntry.country && foundClubEntry.league) {
       uniqueNames.forEach((name) => {
-        out.push(`Teams Images/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
+        out.push(`Images/Teams/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
       });
     }
 

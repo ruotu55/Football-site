@@ -525,7 +525,7 @@ function buildClubLogoCandidates(clubName) {
     if (match) {
         if (match.country && match.league) {
             push(`Images/Teams/${match.country}/${match.league}/${match.name}.png`);
-            push(`Teams Images/${match.country}/${match.league}/${match.name}.png`);
+            push(`Images/Teams/${match.country}/${match.league}/${match.name}.png`);
         }
         if (match.path) {
             push(match.path.replace(".Storage/Squad Formation/Teams/", "Images/Teams/").replace(".json", ".png"));

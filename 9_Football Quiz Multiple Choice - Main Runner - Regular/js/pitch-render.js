@@ -1788,7 +1788,10 @@ export function renderCareer() {
   const playerInitKey = careerPlayerNameForReset
     ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
     : "";
-  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+  if (state.__suppressPictureReset) {
+    if (playerInitKey) appliedFavoritePictureKeyByState.set(state, playerInitKey);
+    delete state.__suppressPictureReset;
+  } else if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
     const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
     state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
     state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
@@ -2299,7 +2302,7 @@ export function renderCareer() {
           const country = String(club?.country || "").trim();
           const league = String(club?.league || "").trim();
           if (!country || !league) return "";
-          return `Teams Images/${country}/${league}`;
+          return `Images/Teams/${country}/${league}`;
         })
         .filter(Boolean)
     )
@@ -2330,7 +2333,7 @@ export function renderCareer() {
 
     if (foundClubEntry && foundClubEntry.country && foundClubEntry.league) {
       uniqueNames.forEach((name) => {
-        out.push(`Teams Images/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
+        out.push(`Images/Teams/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
       });
     }
 

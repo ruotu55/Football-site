@@ -50,6 +50,23 @@ export async function loadObsConfig(language = "english") {
     if (!r.ok) throw new Error("/__obs-config returned " + r.status);
     const data = await r.json();
     if (!data.recordingsDir) throw new Error("/__obs-config missing recordingsDir");
+    // Recording on the Mac while the site is served from the PC: OBS must save
+    // to a MAC folder, not the PC's Windows path. If the Mac uploader helper
+    // (999_Mac_Uploader) is running on localhost, ask it where to record and
+    // use that path instead. If it isn't running, keep the PC path.
+    try {
+        let macBase;
+        try { macBase = (localStorage.getItem("fcMacUploaderUrl") || "http://localhost:9876").replace(/\/+$/, ""); }
+        catch (_) { macBase = "http://localhost:9876"; }
+        const ctrl = ("AbortController" in window) ? new AbortController() : null;
+        const t = ctrl ? setTimeout(() => ctrl.abort(), 1500) : null;
+        const mr = await fetch(macBase + "/__obs-recordings-dir?language=" + encodeURIComponent(lang), { cache: "no-store", signal: ctrl ? ctrl.signal : undefined });
+        if (t) clearTimeout(t);
+        if (mr.ok) {
+            const md = await mr.json().catch(() => null);
+            if (md && md.ok && md.recordingsDir) data.recordingsDir = md.recordingsDir;
+        }
+    } catch (_) { /* Mac helper not running — keep the PC path */ }
     configByLang.set(lang, data);
     lastConfig = data;
     return data;

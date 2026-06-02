@@ -172,6 +172,56 @@ function showFailureModal(missing) {
   });
 }
 
+/** HARD block: a CRITICAL asset (the team logo) failed to load. No "record anyway" —
+ *  a team / logo quiz video with no crest is never acceptable. Single dismiss button;
+ *  the caller always treats this as proceed:false. */
+function showCriticalBlockModal(items) {
+  return new Promise((resolve) => {
+    const overlay = document.createElement("div");
+    overlay.id = "recording-preflight-critical";
+    Object.assign(overlay.style, {
+      position: "fixed", inset: "0", zIndex: "2147483602",
+      background: "rgba(0,0,0,0.9)", display: "flex",
+      alignItems: "center", justifyContent: "center",
+      fontFamily: "system-ui, -apple-system, sans-serif",
+    });
+    const box = document.createElement("div");
+    Object.assign(box.style, {
+      background: "#1c1c1c", color: "#fff",
+      padding: "24px 28px", borderRadius: "12px",
+      minWidth: "440px", maxWidth: "680px", maxHeight: "78vh", overflow: "auto",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.7)", border: "2px solid #dc2626",
+    });
+    const h = document.createElement("h2");
+    h.textContent = "🚫 Recording blocked — team logo missing";
+    h.style.cssText = "margin: 0 0 8px; font-size: 18px; color: #f87171;";
+    const sub = document.createElement("p");
+    sub.textContent = "The team logo for these levels could not be loaded, so recording is blocked — a video must never be published without the crest. Fix it with GET LOGO / Swap Logo (or add the logo file), then record again.";
+    sub.style.cssText = "margin: 0 0 14px; font-size: 13px; opacity: 0.85;";
+    const list = document.createElement("ul");
+    list.style.cssText = "margin: 0 0 16px; padding: 0 0 0 18px; font-size: 12px; font-family: ui-monospace, Menlo, monospace; opacity: 0.9; line-height: 1.5;";
+    for (const m of items.slice(0, 80)) {
+      const li = document.createElement("li");
+      li.textContent = m;
+      li.style.cssText = "margin: 0 0 3px; word-break: break-all;";
+      list.appendChild(li);
+    }
+    const btnRow = document.createElement("div");
+    btnRow.style.cssText = "display: flex; justify-content: flex-end;";
+    const ok = document.createElement("button");
+    ok.textContent = "OK — I'll fix the logo";
+    Object.assign(ok.style, {
+      background: "#dc2626", color: "#fff", border: "0",
+      padding: "8px 18px", borderRadius: "6px", cursor: "pointer", fontSize: "14px", fontWeight: "700",
+    });
+    ok.onclick = () => { overlay.remove(); resolve(); };
+    btnRow.appendChild(ok);
+    box.append(h, sub, list, btnRow);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+  });
+}
+
 /** Trim absolute URLs to something readable in the failure list. */
 function shortPath(url) {
   try {
@@ -208,6 +258,7 @@ export async function runPreflightCore({ preRoll, collectImageUnits, collectVoic
   const ui = createProgressOverlay();
   let done = 0;
   const missing = [];
+  const criticalMissing = []; // units marked {critical:true} (the team logo) — these HARD-block
 
   const tick = (label) => {
     done += 1;
@@ -229,8 +280,14 @@ export async function runPreflightCore({ preRoll, collectImageUnits, collectVoic
           return !!(img && img.naturalWidth);
         } catch { return false; }
       }));
-      if (imagesBlocking && urls.length && !results.some(Boolean)) {
-        missing.push(`(image) ${unit.label || shortPath(urls[0])}`);
+      const failed = urls.length && !results.some(Boolean);
+      if (failed) {
+        if (unit && unit.critical) {
+          // Critical (team logo): always blocks, even when imagesBlocking is false.
+          criticalMissing.push(unit.label || shortPath(urls[0]));
+        } else if (imagesBlocking) {
+          missing.push(`(image) ${unit.label || shortPath(urls[0])}`);
+        }
       }
       tick("images");
     }));
@@ -252,6 +309,14 @@ export async function runPreflightCore({ preRoll, collectImageUnits, collectVoic
   }
 
   ui.overlay.remove();
+
+  // A CRITICAL asset (the team logo) that didn't load HARD-BLOCKS recording — no
+  // "record anyway" bypass. This is what guarantees a video is never recorded
+  // without its team crest.
+  if (criticalMissing.length) {
+    await showCriticalBlockModal(criticalMissing);
+    return { proceed: false };
+  }
 
   if (missing.length === 0) return { proceed: true };
 

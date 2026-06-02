@@ -175,7 +175,11 @@ export async function resolvePairEntriesForPlayers(entries, {
 
   for (const e of aliased) {
     const manualClub = manualClubForPlayer(e.left);
-    const clubName = manualClub || e.right;
+    // The club explicitly written in the save ("Player - Club") wins. The manual
+    // map is only a FALLBACK / disambiguation aid — it must never override a club
+    // the user typed (e.g. "Ederson - Fenerbahce" must not become Manchester City
+    // just because the map lists him there).
+    const clubName = e.right || manualClub;
 
     // Resolve display-name variants ("Son Heung-min" -> DB "Heung-min Son",
     // "Neymar Jr" -> "Neymar", ...) before searching the squad DB.
@@ -215,7 +219,7 @@ export async function resolvePairEntriesForPlayers(entries, {
 export async function loadPlayersForPairEntries(entries, { clubs, normalizeForImport, loadSquadJson }) {
   const wanted = new Map(); // de-dupe clubs by path/name
   for (const e of (entries || [])) {
-    const clubName = manualClubForPlayer(e.left) || e.right;
+    const clubName = e.right || manualClubForPlayer(e.left);
     const clubItem = findClubEntryLoose(clubName, clubs, normalizeForImport);
     if (clubItem) wanted.set(clubItem.path || clubItem.name, clubItem);
   }

@@ -1277,6 +1277,8 @@ ${getBallPreloaderEffectCss(normalizedEffectId, selectedColor.hex, normalizedOpa
   try {
     localStorage.setItem(STORAGE_COLOR_KEY, normalizedColorId);
     localStorage.setItem(STORAGE_EFFECT_KEY, normalizedEffectId);
+    // A plain palette theme supersedes any competition theme.
+    localStorage.removeItem(STORAGE_COMPETITION_KEY);
   } catch (_) {
     // Ignore storage failures (private mode / browser restrictions).
   }
@@ -1301,6 +1303,210 @@ function populateSelect(selectEl, values) {
     .join("");
 }
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   COMPETITION THEMES
+   Each special competition gets a full-bleed brand background (gradient + a
+   procedural pattern) and a dominant colour that drives `--bg-stage` (so the
+   transition auto-matches). "mixed" videos are NOT themed here — they keep the
+   per-quiz-type default. The runner freezes `script.competition` (an id below, or
+   "mixed") into the save and applies it on load.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+export const COMPETITION_MIXED = "mixed";
+
+/* Persist the active competition so a page refresh keeps it (overriding the runner's
+   forcedDefaults). Cleared whenever a plain palette theme is applied. */
+const STORAGE_COMPETITION_KEY = "football-channel.shared-background-competition";
+let compColorSelectEl = null;
+let compEffectSelectEl = null;
+
+function readSavedCompetition() {
+  try {
+    const v = localStorage.getItem(STORAGE_COMPETITION_KEY);
+    return v && COMPETITION_THEMES[v] ? v : "";
+  } catch (_) {
+    return "";
+  }
+}
+
+function compGradient(angle, c1, c2) {
+  return `linear-gradient(${angle}deg, ${c1} 0%, ${c2} 100%)`;
+}
+
+/** Tiled SVG of scattered 5-point stars (Champions-League look). */
+function starsTileDataUri(starHex, alpha) {
+  const { r, g, b } = hexToRgb(starHex);
+  const fill = `rgb(${r}, ${g}, ${b})`;
+  const star = (cx, cy, rad, rot, a) => {
+    const pts = [];
+    for (let i = 0; i < 10; i += 1) {
+      const ang = (Math.PI / 5) * i - Math.PI / 2 + rot;
+      const rr = i % 2 === 0 ? rad : rad * 0.42;
+      pts.push(`${(cx + rr * Math.cos(ang)).toFixed(1)},${(cy + rr * Math.sin(ang)).toFixed(1)}`);
+    }
+    return `<polygon points="${pts.join(" ")}" fill="${fill}" fill-opacity="${a.toFixed(3)}"/>`;
+  };
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+    ${star(62, 70, 36, 0.1, alpha)}${star(212, 52, 22, 0.5, alpha * 0.8)}
+    ${star(150, 168, 48, 0.2, alpha)}${star(252, 212, 26, 0.0, alpha * 0.75)}
+    ${star(72, 244, 20, 0.4, alpha * 0.7)}</svg>`;
+  return svgDataUri(svg);
+}
+
+/** Tiled SVG of bold chevrons / zigzags (Premier-League look). */
+function chevronTileDataUri(lineHex, alpha) {
+  const { r, g, b } = hexToRgb(lineHex);
+  const stroke = `rgb(${r}, ${g}, ${b})`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170">
+    <g fill="none" stroke="${stroke}" stroke-opacity="${alpha.toFixed(3)}" stroke-width="26">
+      <path d="M-30,46 L85,-26 L200,46"/><path d="M-30,128 L85,56 L200,128"/>
+      <path d="M-30,210 L85,138 L200,210"/></g></svg>`;
+  return svgDataUri(svg);
+}
+
+/* Infinite downward drop for tiled patterns: moves only the pattern tile layer by
+   exactly one tile height (so it loops seamlessly); the gradient layer stays put via
+   the "center" position. One keyframe per tile size (stars 300px, chevron 170px). */
+const COMP_DROP_KEYFRAMES = `
+@keyframes comp-stars-drop {
+  0%   { background-position: 0 0, center; }
+  100% { background-position: 0 300px, center; }
+}
+@keyframes comp-chevron-drop {
+  0%   { background-position: 0 0, center; }
+  100% { background-position: 0 170px, center; }
+}
+`;
+
+/** A competition recipe → the CSS the body background uses. `motion: "drop"` makes a
+    tiled pattern continuously fall downward. */
+function buildCompetitionBackground({ angle = 135, c1, c2, pattern, patternHex, patternAlpha, motion }) {
+  const gradient = compGradient(angle, c1, c2);
+  if (pattern === "stars") {
+    return {
+      background: `${starsTileDataUri(patternHex, patternAlpha)}, ${gradient}`,
+      backgroundSize: "300px 300px, 100% 100%",
+      backgroundRepeat: "repeat, no-repeat",
+      animation: motion === "drop" ? "comp-stars-drop 34s linear infinite" : "none",
+    };
+  }
+  if (pattern === "chevron") {
+    return {
+      background: `${chevronTileDataUri(patternHex, patternAlpha)}, ${gradient}`,
+      backgroundSize: "170px 170px, 100% 100%",
+      backgroundRepeat: "repeat, no-repeat",
+      animation: motion === "drop" ? "comp-chevron-drop 24s linear infinite" : "none",
+    };
+  }
+  if (pattern === "diagonal") {
+    const stripe = rgbaFromHex(patternHex, patternAlpha);
+    return {
+      background: `repeating-linear-gradient(135deg, ${stripe} 0 64px, ${WHITE_0} 64px 128px), ${gradient}`,
+      backgroundSize: "auto, 100% 100%",
+      backgroundRepeat: "repeat, no-repeat",
+      animation: "none",
+    };
+  }
+  // rays
+  const ray = rgbaFromHex(patternHex, patternAlpha);
+  return {
+    background: `repeating-conic-gradient(from 0deg at 50% 42%, ${ray} 0deg 5deg, ${WHITE_0} 5deg 13deg), ${gradient}`,
+    backgroundSize: "100% 100%, 100% 100%",
+    backgroundRepeat: "no-repeat, no-repeat",
+    animation: "none",
+  };
+}
+
+const COMPETITION_THEMES_LIST = [
+  { id: "champions-league", label: "Champions League", aliases: ["champion league", "champions league", "ucl"], dominantHex: "#0a1a4a", recipe: { c1: "#06122e", c2: "#1e3fb0", pattern: "stars", patternHex: "#ffffff", patternAlpha: 0.045, motion: "drop" } },
+  { id: "europa-league", label: "Europa League", aliases: ["europa league", "uel"], dominantHex: "#1a1a1a", recipe: { c1: "#141414", c2: "#ff7a00", pattern: "diagonal", patternHex: "#000000", patternAlpha: 0.18 } },
+  { id: "conference-league", label: "Conference League", aliases: ["conference league", "uecl"], dominantHex: "#0a3d2e", recipe: { c1: "#07331f", c2: "#22c36a", pattern: "diagonal", patternHex: "#ffffff", patternAlpha: 0.12 } },
+  { id: "premier-league", label: "Premier League", aliases: ["premier league", "epl", "premier"], dominantHex: "#2b0036", recipe: { c1: "#2b0036", c2: "#ff2d8b", pattern: "chevron", patternHex: "#04f5ff", patternAlpha: 0.16 } },
+  { id: "la-liga", label: "La Liga", aliases: ["la liga", "laliga"], dominantHex: "#001433", recipe: { c1: "#001433", c2: "#ff5a5a", pattern: "chevron", patternHex: "#ffffff", patternAlpha: 0.12 } },
+  { id: "bundesliga", label: "Bundesliga", aliases: ["bundesliga"], dominantHex: "#141414", recipe: { c1: "#141414", c2: "#d50a17", pattern: "diagonal", patternHex: "#ffffff", patternAlpha: 0.10 } },
+  { id: "serie-a", label: "Serie A", aliases: ["serie a", "seria a"], dominantHex: "#021a3a", recipe: { c1: "#021a3a", c2: "#1e63b8", pattern: "diagonal", patternHex: "#ffffff", patternAlpha: 0.10 } },
+  { id: "ligue-1", label: "Ligue 1", aliases: ["ligue 1", "ligue1"], dominantHex: "#07173a", recipe: { c1: "#07173a", c2: "#a6d400", pattern: "chevron", patternHex: "#ffffff", patternAlpha: 0.12 } },
+  { id: "world-cup", label: "World Cup", aliases: ["world cup", "fifa world cup"], dominantHex: "#4a0a16", recipe: { c1: "#4a0a16", c2: "#c79a3a", pattern: "rays", patternHex: "#ffe9a8", patternAlpha: 0.10 } },
+  { id: "euro", label: "Euro", aliases: ["euro", "european championship", "uefa euro"], dominantHex: "#07303a", recipe: { angle: 135, c1: "#07303a", c2: "#0d2a66", pattern: "chevron", patternHex: "#ffffff", patternAlpha: 0.05, motion: "drop" } },
+];
+
+const COMPETITION_THEMES = Object.fromEntries(
+  COMPETITION_THEMES_LIST.map((t) => [t.id, t]),
+);
+
+/** The persisted active competition id (survives refresh), or "" if none / palette. */
+export function getSavedCompetition() {
+  return readSavedCompetition();
+}
+
+/** All competitions for a calendar dropdown (id + label), excluding "mixed". */
+export function listCompetitionThemes() {
+  return COMPETITION_THEMES_LIST.map(({ id, label }) => ({ id, label }));
+}
+
+/** Map a free-text competition / block name → a competition id, or null (=> mixed). */
+export function resolveCompetitionId(name) {
+  const n = String(name || "").toLowerCase().replace(/\s+/g, " ").trim();
+  if (!n) return null;
+  if (COMPETITION_THEMES[n]) return n; // already an id
+  for (const t of COMPETITION_THEMES_LIST) {
+    if (t.aliases.some((a) => n === a || n.startsWith(a + " ") || n.includes(a))) return t.id;
+  }
+  return null;
+}
+
+function compBallPreloaderCss(background, backgroundSize, backgroundRepeat) {
+  const sel = `.ball-preloader:not(.revealing) .ball-layer-1`;
+  return `${sel} { background: ${background}; background-size: ${backgroundSize}; background-repeat: ${backgroundRepeat}; animation: none; }`;
+}
+
+/**
+ * Apply a competition theme by id (e.g. "champions-league"). Sibling of applyTheme:
+ * sets `--bg-stage` to the brand dominant colour (so the transition matches), tags the
+ * root, and injects the gradient+pattern background for body + shorts stage + ball
+ * preloader. Returns true if applied, false if the id is unknown (caller falls back to
+ * the per-quiz-type default).
+ */
+export function applyCompetitionTheme(competitionId) {
+  const theme = COMPETITION_THEMES[competitionId];
+  if (!theme) return false;
+  const recipe = buildCompetitionBackground(theme.recipe);
+  const attr = `comp-${theme.id}`;
+  const root = document.documentElement;
+  root.setAttribute(ROOT_COLOR_ATTR, attr);
+  root.setAttribute(ROOT_EFFECT_ATTR, attr);
+  root.style.setProperty("--bg-stage", theme.dominantHex);
+  root.style.setProperty("--shared-line-opacity", "6");
+  root.style.setProperty("--shared-effect-opacity", "0.3");
+  ensureStyleTag().textContent = `
+:root[${ROOT_COLOR_ATTR}="${attr}"][${ROOT_EFFECT_ATTR}="${attr}"] body,
+:root[${ROOT_COLOR_ATTR}="${attr}"][${ROOT_EFFECT_ATTR}="${attr}"] body.shorts-mode {
+  background: ${recipe.background};
+  background-size: ${recipe.backgroundSize};
+  background-repeat: ${recipe.backgroundRepeat};
+  animation: ${recipe.animation};
+}
+
+:root[${ROOT_COLOR_ATTR}="${attr}"][${ROOT_EFFECT_ATTR}="${attr}"] body.shorts-mode .stage::before {
+  --shorts-stage-background: ${recipe.background};
+  --shorts-stage-background-size: ${recipe.backgroundSize};
+  --shorts-stage-background-animation: ${recipe.animation};
+}
+
+${compBallPreloaderCss(recipe.background, recipe.backgroundSize, recipe.backgroundRepeat)}
+${COMP_DROP_KEYFRAMES}
+`;
+  // Competition themes don't use the particle containers.
+  syncEmojiEffect("none");
+  syncQuestionMarksEffect("none");
+  syncSoccerBallsEffect("none");
+  // Persist (so a refresh restores it) and reflect the choice in both dropdowns.
+  try { localStorage.setItem(STORAGE_COMPETITION_KEY, theme.id); } catch (_) { /* ignore */ }
+  if (compColorSelectEl) compColorSelectEl.value = attr;
+  if (compEffectSelectEl) compEffectSelectEl.value = attr;
+  return true;
+}
+
 /**
  * Initializes the shared background theme controls.
  * @param {Object} [options.forcedDefaults] Per-runner override applied on every reload
@@ -1316,6 +1522,15 @@ export function initSharedBackgroundTheme(
   const { forcedDefaults = null } = options;
   populateSelect(colorSelectEl, COLORS);
   populateSelect(effectSelectEl, EFFECTS);
+  // Add competition themes as options in BOTH dropdowns (value "comp-<id>"), and keep
+  // refs so applyCompetitionTheme can reflect the active competition in them.
+  compColorSelectEl = colorSelectEl;
+  compEffectSelectEl = effectSelectEl;
+  const compOptionsHtml = COMPETITION_THEMES_LIST
+    .map((t) => `<option value="comp-${t.id}">\u{1F3C6} ${t.label}</option>`)
+    .join("");
+  if (colorSelectEl) colorSelectEl.insertAdjacentHTML("beforeend", compOptionsHtml);
+  if (effectSelectEl) effectSelectEl.insertAdjacentHTML("beforeend", compOptionsHtml);
   opacityProfiles = readOpacityProfilesFromLocalStorage();
   const initialTheme = forcedDefaults
     ? {
@@ -1331,6 +1546,16 @@ export function initSharedBackgroundTheme(
   const applyCurrentSelection = () => {
     const colorId = colorSelectEl ? colorSelectEl.value : initialTheme.colorId;
     const effectId = effectSelectEl ? effectSelectEl.value : initialTheme.effectId;
+    // A competition picked in EITHER dropdown wins — apply its brand theme + reflect
+    // it in both selects (applyCompetitionTheme syncs them).
+    const compId =
+      (typeof colorId === "string" && colorId.startsWith("comp-") && colorId.slice(5)) ||
+      (typeof effectId === "string" && effectId.startsWith("comp-") && effectId.slice(5)) ||
+      "";
+    if (compId && COMPETITION_THEMES[compId]) {
+      applyCompetitionTheme(compId);
+      return;
+    }
     const opacity = opacityInputEl
       ? normalizeOpacityPercent(opacityInputEl.value)
       : readSavedOpacityForColor(colorId);
@@ -1352,7 +1577,13 @@ export function initSharedBackgroundTheme(
     opacityInputEl.addEventListener("change", applyCurrentSelection);
   }
 
-  applyCurrentSelection();
+  // Restore a persisted competition (survives refresh, overrides forcedDefaults).
+  const savedCompetition = readSavedCompetition();
+  if (savedCompetition) {
+    applyCompetitionTheme(savedCompetition);
+  } else {
+    applyCurrentSelection();
+  }
 
   if (colorSelectEl) {
     colorSelectEl.addEventListener("change", () => {

@@ -613,8 +613,10 @@ body.play-video-active .career-player-controls-row {
   color: #0a0a0a;
   perspective: 900px;
   pointer-events: none;
-  /* Single geometry for hidden ג†” color; tweak here only */
-  --career-portrait-photo-base-y: 12%;
+  /* Single geometry for hidden ג†” color; tweak here only.
+     Net up 3% from original (12% ג†’ 9%) ג€” applies to video mode ON (hidden) + OFF (color)
+     and every reveal preset, which all read this var. */
+  --career-portrait-photo-base-y: 9%;
 }
 
 .career-portrait-card::before {

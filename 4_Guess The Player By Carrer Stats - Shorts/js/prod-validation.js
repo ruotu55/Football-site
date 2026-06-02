@@ -1,10 +1,9 @@
 ﻿import { appState, getState } from "./state.js";
 import { transitionSettings } from "./transitions.js";
-import { projectAssetUrl } from "./paths.js";
-import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
+import { projectAssetUrl, careerReadyPhotoClubName, careerReadyPhotoRelCandidates } from "./paths.js";
+import { validateDisplayedImagesAsync } from "../../.Storage/shared/prod-asset-validation.js";
 import { isUpdateDataFresh } from "../../.Storage/shared/update-data-freshness.js";
-import { pickStartingXI } from "./pick-xi.js";
-import { FORMATIONS } from "./formations.js";
+import { collectCareerClubLogoUnits } from "./pitch-render.js";
 import { getCurrentLanguage } from "./voice-tab.js";
 import { getOrAssignRevealPhrase } from "./audio.js";
 /* No team-header rename feature in this runner — read the name straight off the level. */
@@ -100,17 +99,32 @@ function validateTeamsSelected() {
     };
 }
 
+/* This quiz shows ONE player per level — the player PHOTO plus the club logos along
+   the career PATH. Validate exactly those: the ready-photo candidates the card loads,
+   plus each displayed career club logo (via pitch-render's own resolver). NOT a squad XI. */
+function collectCareerCardUnits(lvl) {
+    const player = lvl.careerPlayer;
+    const name = String(player?.name || "").trim();
+    const units = [];
+    if (!name) {
+        units.push({ label: "player photo", urls: [] });
+    } else {
+        const club = careerReadyPhotoClubName(lvl);
+        const vi = Math.max(1, Math.floor(Number(lvl.careerReadyPhotoVariantIndex) || 1));
+        let rels = careerReadyPhotoRelCandidates(name, club, vi);
+        if (vi !== 1) rels = rels.concat(careerReadyPhotoRelCandidates(name, club, 1));
+        units.push({ label: `${name}: photo`, urls: rels.map(projectAssetUrl) });
+    }
+    for (const u of collectCareerClubLogoUnits(lvl)) units.push(u);
+    return units;
+}
+
 async function validateTeamAssets() {
-    const quizType = appState.els?.inQuizType?.value || "nat-by-club";
-    return validateTeamAssetsAsync({
+    return validateDisplayedImagesAsync({
         questionLevels: getQuestionLevels(),
-        quizType,
         getLevelLabel,
-        resolveLevelTeamName,
-        FORMATIONS,
-        pickStartingXI,
-        appState,
-        projectAssetUrl,
+        hasContent: (lvl) => !!lvl.currentSquad,
+        collectUnits: (lvl) => collectCareerCardUnits(lvl),
         sectionName: "Photos / Logos",
     });
 }
@@ -184,26 +198,26 @@ async function validateTeamVoices() {
     const language = getCurrentLanguage();
     const checks = questionLevels.map(async ({ lvl, index }) => {
         if (!lvl.currentSquad) return null;
-        /* Use the resolved display name (post-rename) so we hit the same file path
-           the Voice tab uses — matches what's actually saved on disk. */
-        const teamName = resolveLevelTeamName(lvl, quizType);
-        if (!teamName) return null;
-        /* Check the SAME sticky reveal phrase the Voice tab + reveal playback
-           use, or a team whose voice was saved under a sentence phrase reads as
-           "missing" here (mirrors voice-tab.js: questionIndex = levelIdx - 1). */
+        /* Player quizzes speak the PLAYER'S name on reveal (not the club). Use
+           careerPlayer.name + the /__player-voice/status endpoint so we hit the exact
+           file the Voice tab manages — the old code used the club name and the
+           team-voice route, reporting every level as "voice file missing". */
+        const playerName = String(lvl.careerPlayer?.name || "").trim();
+        if (!playerName) return null;
+        /* Check the SAME sticky reveal phrase the Voice tab + reveal playback use
+           (mirrors voice-tab.js: questionIndex = levelIdx - 1). */
         const questionIndex = index - 1;
         const phrase = getOrAssignRevealPhrase(lvl, questionIndex);
-        const { exists } = await fetchExists("/__team-voice/status", {
-            name: teamName,
-            quizType,
+        const { exists } = await fetchExists("/__player-voice/status", {
+            name: playerName,
             language,
             phrase,
         });
-        return exists ? null : `${getLevelLabel(index, lvl)} (${teamName}): voice file missing`;
+        return exists ? null : `${getLevelLabel(index, lvl)} (${playerName}): voice file missing`;
     });
     const results = await Promise.all(checks);
     return {
-        sectionName: "Team Voices",
+        sectionName: "Player Voices",
         passed: results.every((r) => !r),
         failures: results.filter(Boolean),
     };

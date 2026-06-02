@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import errno
 import importlib.util
 import io
@@ -19,6 +20,7 @@ import ssl
 import sys
 import threading
 import time
+import unicodedata
 import urllib.error
 import urllib.request
 import webbrowser
@@ -284,6 +286,41 @@ DEFAULT_PORT = 8886
 CAREER_SIZE_FAVORITES_FILE = RUNNER_DIR / "storage" / "career-size-favorites.json"
 LIVE_RELOAD_POLL_SECONDS = 0.6
 LIVE_RELOAD_HEARTBEAT_SECONDS = 2.0
+
+# ---------------------------------------------------------------------------
+# Idle auto-shutdown — free this server's RAM instead of lingering for days.
+# A browser tab keeps an open live-reload SSE stream (see _send_live_reload_stream)
+# that pings every LIVE_RELOAD_HEARTBEAT_SECONDS while the tab is open. If no
+# ping has arrived for FC_IDLE_SHUTDOWN_SECONDS (default 300s) AFTER at least one
+# tab has connected, every tab is gone and we exit. During recording the tab is
+# open, so keepalives keep us alive — we never exit mid-record. Set the env var
+# to 0 to disable.
+try:
+    IDLE_SHUTDOWN_SECONDS = int(os.environ.get("FC_IDLE_SHUTDOWN_SECONDS", "300"))
+except ValueError:
+    IDLE_SHUTDOWN_SECONDS = 300
+_IDLE_STATE = {"last": time.time(), "ever": False, "started": False}
+_IDLE_LOCK = threading.Lock()
+
+def _idle_watchdog():
+    interval = max(2.0, min(15.0, IDLE_SHUTDOWN_SECONDS / 2.0))
+    while True:
+        time.sleep(interval)
+        with _IDLE_LOCK:
+            idle = time.time() - _IDLE_STATE["last"]
+            ever = _IDLE_STATE["ever"]
+        if IDLE_SHUTDOWN_SECONDS > 0 and ever and idle > IDLE_SHUTDOWN_SECONDS:
+            print(f"[idle] no open browser tab for {int(idle)}s - shutting down to free memory.", flush=True)
+            os._exit(0)
+
+def _note_browser_activity(connected=False):
+    with _IDLE_LOCK:
+        _IDLE_STATE["last"] = time.time()
+        if connected:
+            _IDLE_STATE["ever"] = True
+        if not _IDLE_STATE["started"]:
+            _IDLE_STATE["started"] = True
+            threading.Thread(target=_idle_watchdog, daemon=True).start()
 LIVE_RELOAD_IGNORED_DIRS = {".git", ".hg", ".svn", ".idea", ".vscode", "__pycache__", "node_modules", "storage"}
 LIVE_RELOAD_IGNORED_SUFFIXES = {".pyc", ".pyo", ".tmp", ".swp", ".log"}
 LIVE_RELOAD_SNIPPET = """
@@ -796,6 +833,282 @@ def _fetch_external_image_bytes(url: str) -> bytes:
             parts.append(chunk)
     print(f"[Ready photo] downloaded {total} bytes", flush=True)
     return b"".join(parts)
+
+
+# ---------------------------------------------------------------------------
+# Player-photo search: Champions League (UEFA) + Sorare.
+# Both resolve a player NAME -> candidate image URL(s); the front-end previews
+# them (as data URLs) and, on click, reuses /__ready-photo/from-url to save the
+# chosen URL. Network-grounded: UEFA's comp API returns imageUrl per player and
+# Sorare's public GraphQL returns pictureUrl unauthenticated.
+# ---------------------------------------------------------------------------
+
+_PHOTO_NAME_TRANSLIT = {
+    "ð": "d", "Ð": "d", "þ": "th", "Þ": "th", "ø": "o", "Ø": "o",
+    "ł": "l", "Ł": "l", "đ": "d", "Đ": "d", "ħ": "h", "Ħ": "h",
+    "æ": "ae", "Æ": "ae", "œ": "oe", "Œ": "oe", "ß": "ss",
+}
+
+
+def _photo_name_key(s: object) -> str:
+    """Accent/diacritic-insensitive comparison key, e.g. 'Désiré Doué' -> 'desire doue'."""
+    t = unicodedata.normalize("NFKD", str(s or ""))
+    t = "".join(_PHOTO_NAME_TRANSLIT.get(c, c) for c in t)
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    t = t.casefold().replace("-", " ").replace("'", " ").replace(".", " ")
+    return " ".join(t.split())
+
+
+def _sorare_slug(name: object) -> str:
+    """Sorare player slug, e.g. 'Désiré Doué' -> 'desire-doue'."""
+    t = unicodedata.normalize("NFKD", str(name or ""))
+    t = "".join(_PHOTO_NAME_TRANSLIT.get(c, c) for c in t)
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    t = t.lower()
+    t = re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+    return t
+
+
+_UEFA_CL_SEASON = "2026"
+_UEFA_CL_PLAYERS_CACHE: dict[str, list[dict]] = {}
+_UEFA_CL_PLAYERS_LOCK = threading.Lock()
+
+
+def _load_uefa_cl_players(season: str = _UEFA_CL_SEASON) -> list[dict]:
+    """All UEFA Champions League players for the season (competitionId=1), cached.
+    The comp API has no name filter, so we page the full squad list (≈500/page)
+    and match locally."""
+    with _UEFA_CL_PLAYERS_LOCK:
+        cached = _UEFA_CL_PLAYERS_CACHE.get(season)
+    if cached is not None:
+        return cached
+    players: list[dict] = []
+    offset = 0
+    for _ in range(20):  # safety cap: 20 * 500 = 10k
+        url = (
+            "https://comp.uefa.com/v2/players"
+            f"?competitionId=1&seasonYear={season}&limit=500&offset={offset}"
+        )
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": HTTP_USER_AGENT,
+                "Accept": "application/json",
+                "Referer": "https://www.uefa.com/",
+            },
+            method="GET",
+        )
+        with urllib.request.urlopen(req, timeout=30.0, context=SSL_CTX) as r:
+            chunk = json.loads(r.read().decode("utf-8"))
+        if not isinstance(chunk, list) or not chunk:
+            break
+        players.extend(chunk)
+        if len(chunk) < 500:
+            break
+        offset += 500
+    # Only cache a plausibly-complete list. A transient short read (e.g. an empty
+    # page on page 1) must NOT get cached forever, or players on later pages would
+    # be permanently "Not found" for this server's lifetime.
+    if len(players) >= 1000:
+        with _UEFA_CL_PLAYERS_LOCK:
+            _UEFA_CL_PLAYERS_CACHE[season] = players
+    return players
+
+
+def _uefa_player_names(p: dict) -> list[str]:
+    names = [str(p.get("internationalName") or "")]
+    tr = p.get("translations")
+    if isinstance(tr, dict):
+        name_tr = tr.get("name")
+        if isinstance(name_tr, dict):
+            names.append(str(name_tr.get("EN") or ""))
+        first = tr.get("firstName")
+        last = tr.get("lastName")
+        if isinstance(first, dict) and isinstance(last, dict):
+            names.append(f"{first.get('EN') or ''} {last.get('EN') or ''}".strip())
+    return [n for n in names if n]
+
+
+def _uefa_cl_candidate_image_urls(name: str, season: str = _UEFA_CL_SEASON) -> list[str]:
+    """Match a name against the CL squad list -> cutoff .webp (transparent) URLs,
+    with the square .jpg as a per-player fallback (deduped downstream by id)."""
+    qk = _photo_name_key(name)
+    if not qk:
+        return []
+    qtokens = set(qk.split())
+    players = _load_uefa_cl_players(season)
+    exact: list[str] = []
+    partial: list[str] = []
+    for p in players:
+        img = str(p.get("imageUrl") or "")
+        if not img:
+            continue
+        keys = {_photo_name_key(n) for n in _uefa_player_names(p)}
+        keys.discard("")
+        if qk in keys:
+            exact.append(img)
+            continue
+        if qtokens and any(qtokens.issubset(set(k.split())) for k in keys):
+            partial.append(img)
+    ordered: list[str] = []
+    for img in exact + partial:
+        if img not in ordered:
+            ordered.append(img)
+    ordered = ordered[:8]
+    # Prefer cutoff .webp; append the original .jpg as fallback (same id -> deduped).
+    cutoffs = []
+    jpgs = []
+    for img in ordered:
+        cutoff = re.sub(r"/\d+x\d+/", "/cutoff/", img)
+        cutoff = re.sub(r"\.jpe?g$", ".webp", cutoff)
+        cutoffs.append(cutoff)
+        jpgs.append(img)
+    return cutoffs + jpgs
+
+
+_SORARE_ALGOLIA_CFG: dict[str, str] = {}
+_SORARE_ALGOLIA_LOCK = threading.Lock()
+
+
+def _sorare_algolia_config() -> tuple[str, str]:
+    """Sorare's site search is Algolia. The app id + (rotating) search key are
+    exposed by the public GraphQL `config`; fetch + cache them for this process.
+    Sorare's GraphQL has NO unauthenticated name search (slugs are full legal
+    names, e.g. 'kylian-mbappe-lottin'), so Algolia is the only name resolver."""
+    with _SORARE_ALGOLIA_LOCK:
+        if _SORARE_ALGOLIA_CFG:
+            return _SORARE_ALGOLIA_CFG.get("appId", ""), _SORARE_ALGOLIA_CFG.get("key", "")
+    body = json.dumps(
+        {"query": "{ config { algoliaApplicationId algoliaSearchApiKey } }"}
+    ).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.sorare.com/graphql",
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": HTTP_USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15.0, context=SSL_CTX) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception:  # noqa: BLE001
+        return "", ""
+    cfg = (((data or {}).get("data") or {}).get("config")) or {}
+    app_id = str(cfg.get("algoliaApplicationId") or "")
+    key = str(cfg.get("algoliaSearchApiKey") or "")
+    if app_id and key:
+        with _SORARE_ALGOLIA_LOCK:
+            _SORARE_ALGOLIA_CFG["appId"] = app_id
+            _SORARE_ALGOLIA_CFG["key"] = key
+    return app_id, key
+
+
+def _sorare_candidate_image_urls(name: str) -> list[str]:
+    """Resolve a name via Sorare's Algolia 'Player' index -> squaredPictureUrl
+    (the square cutout) + avatarUrl, straight from the search record."""
+    qk = _photo_name_key(name)
+    if not qk:
+        return []
+    app_id, key = _sorare_algolia_config()
+    if not app_id or not key:
+        return []
+    qtokens = set(qk.split())
+    params = f"query={quote(str(name))}&hitsPerPage=20"
+    body = json.dumps({"params": params}).encode("utf-8")
+    req = urllib.request.Request(
+        f"https://{app_id}-dsn.algolia.net/1/indexes/Player/query",
+        data=body,
+        headers={
+            "X-Algolia-Application-Id": app_id,
+            "X-Algolia-API-Key": key,
+            "Content-Type": "application/json",
+            "User-Agent": HTTP_USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15.0, context=SSL_CTX) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception:  # noqa: BLE001
+        return []
+    hits = data.get("hits") if isinstance(data, dict) else None
+    if not isinstance(hits, list):
+        return []
+    exact_sq: list[str] = []
+    exact_av: list[str] = []
+    partial_sq: list[str] = []
+    partial_av: list[str] = []
+    for h in hits:
+        if not isinstance(h, dict):
+            continue
+        if str(h.get("sport") or "football").lower() != "football":
+            continue
+        dk = _photo_name_key(h.get("display_name"))
+        if not dk:
+            continue
+        sq = h.get("squaredPictureUrl") or h.get("squared_picture_url")
+        av = h.get("avatarUrl") or h.get("avatar_url")
+        if dk == qk:
+            if sq:
+                exact_sq.append(str(sq))
+            if av:
+                exact_av.append(str(av))
+        elif qtokens and qtokens.issubset(set(dk.split())):
+            if sq:
+                partial_sq.append(str(sq))
+            if av:
+                partial_av.append(str(av))
+    urls: list[str] = []
+    for u in exact_sq + partial_sq + exact_av + partial_av:  # squared first (best crop)
+        if u not in urls:
+            urls.append(u)
+    return urls[:8]
+
+
+def _photo_candidate_group_key(url: str) -> str:
+    """Group images that are the same player (so a cutoff + its jpg fallback don't
+    both show). UEFA images are keyed by numeric id; everything else is per-URL."""
+    m = re.search(r"/players/\d+/\d+/[^/]+/(\d+)\.(?:webp|jpe?g|png)", url)
+    if m:
+        return "uefa:" + m.group(1)
+    return url
+
+
+def _photo_mime_for_url(url: str) -> str:
+    u = url.lower().split("?", 1)[0]
+    if u.endswith(".webp"):
+        return "image/webp"
+    if u.endswith(".png"):
+        return "image/png"
+    if u.endswith(".gif"):
+        return "image/gif"
+    return "image/jpeg"
+
+
+def _build_photo_candidates(urls: list[str], cap: int = 10) -> list[dict]:
+    """Fetch each candidate URL server-side (handles UEFA Referer/AVIF quirks) and
+    return [{url, dataUrl}] for preview. One image per player group; skips misses."""
+    out: list[dict] = []
+    seen_groups: set[str] = set()
+    for u in urls:
+        if len(out) >= cap:
+            break
+        grp = _photo_candidate_group_key(u)
+        if grp in seen_groups:
+            continue
+        try:
+            raw = _fetch_external_image_bytes(u)
+        except Exception:  # noqa: BLE001 — a 404/timeout on one URL must not kill the rest
+            continue
+        if not _ready_photo_bytes_look_like_image(raw):
+            continue
+        b64 = base64.b64encode(raw).decode("ascii")
+        out.append({"url": u, "dataUrl": f"data:{_photo_mime_for_url(u)};base64,{b64}"})
+        seen_groups.add(grp)
+    return out
 
 
 def _ready_photo_subdir(player_name: str, club_name: str | None) -> str:
@@ -1525,6 +1838,38 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self._send_json(200, {"ok": True, "removed": removed})
         return True
 
+    def _try_ready_photo_search_candidates(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ready-photo/search-candidates":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = str(body.get("playerName") or "").strip()
+            source = str(body.get("source") or "").strip().lower()
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        if not player_name:
+            self._send_json(400, {"ok": False, "error": "Missing player name."})
+            return True
+        if source not in ("uefa", "sorare"):
+            self._send_json(400, {"ok": False, "error": "source must be 'uefa' or 'sorare'."})
+            return True
+        try:
+            if source == "uefa":
+                urls = _uefa_cl_candidate_image_urls(player_name)
+            else:
+                urls = _sorare_candidate_image_urls(player_name)
+        except Exception as exc:  # noqa: BLE001
+            self._send_json(
+                502,
+                {"ok": False, "error": f"Search failed ({type(exc).__name__}: {exc})."},
+            )
+            return True
+        candidates = _build_photo_candidates(urls, cap=10)
+        self._send_json(200, {"ok": True, "source": source, "candidates": candidates})
+        return True
+
     def _try_ready_photo_from_url(self) -> bool:
         parsed = urlparse(self.path)
         if parsed.path.rstrip("/") != "/__ready-photo/from-url":
@@ -1720,6 +2065,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self.send_header("Connection", "keep-alive")
         self.end_headers()
         self.wfile.flush()
+        _note_browser_activity(connected=True)
 
         with self.server.reload_lock:
             # Baseline on connect so first subscription does not force a reload loop.
@@ -1737,6 +2083,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 self.wfile.flush()
             except (BrokenPipeError, ConnectionResetError, OSError):
                 return
+            _note_browser_activity()
             time.sleep(LIVE_RELOAD_HEARTBEAT_SECONDS)
 
     def _inject_live_reload_script(self, body: bytes) -> bytes:
@@ -1845,6 +2192,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_generate_bundled_voice():
             return
         if self._try_delete_bundled_voice():
+            return
+        if self._try_ready_photo_search_candidates():
             return
         if self._try_ready_photo_from_url():
             return

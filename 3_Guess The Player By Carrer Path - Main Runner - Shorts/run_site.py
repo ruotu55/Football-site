@@ -297,19 +297,28 @@ def _normalize_external_image_url(raw: object) -> str:
 
 
 def _fetch_external_image_request_headers(url: str) -> dict[str, str]:
-    """Build request headers; UEFA CDNs often reject or stall ``Referer: https://img.uefa.com/``."""
+    """Build request headers. Some CDNs (UEFA, Cloudinary-fronted img.fcbayern.com,
+    etc.) hang or reject when ``Referer`` points to the image's own host — set a
+    plausible browser-style Referer per host instead."""
     p = urlparse(url)
-    origin = f"{p.scheme}://{p.netloc}/"
     host = (p.hostname or "").lower()
     headers: dict[str, str] = {
         "User-Agent": HTTP_USER_AGENT,
-        "Accept": "image/avif,image/webp,image/apng,image/png,image/jpeg,image/*,*/*;q=0.8",
+        # Skip AVIF: stock Pillow can't decode it without an extra plugin, and
+        # content-negotiating CDNs (e.g. Cloudinary `f_auto`) fall back to
+        # PNG/JPEG/WebP when it's absent — all of which Pillow handles natively.
+        # Advertising image/avif also makes UEFA's CDN stall (content-negotiation).
+        "Accept": "image/png,image/jpeg,image/webp,image/*;q=0.8,*/*;q=0.5",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "identity",
     }
     if host.endswith("uefa.com"):
         headers["Referer"] = "https://www.uefa.com/"
         headers["Origin"] = "https://www.uefa.com"
-    else:
-        headers["Referer"] = origin
+    elif host.endswith("fcbayern.com"):
+        headers["Referer"] = "https://fcbayern.com/"
+    # Other hosts: omit Referer entirely. Self-referencing Referer is what
+    # caused img.fcbayern.com (and similar Cloudinary-fronted CDNs) to stall.
     return headers
 
 
@@ -849,6 +858,91 @@ def _try_fetch_football_logo_png_3000(
     return None
 
 
+_FOOTBALL_LOGOS_HTML_PNG_URL_RE = re.compile(
+    r"https://(?:images|assets)\.football-logos\.cc/[^\s\"'<>]+?\.png(?:\?[^\s\"'<>]*)?",
+    re.IGNORECASE,
+)
+
+
+def _football_logos_png_url_dimension_hint(url: str) -> int:
+    u = (url or "").lower()
+    best = 0
+    for m in re.finditer(r"/(\d{3,4})(?=/[^/]+\.png)", u):
+        try:
+            best = max(best, int(m.group(1)))
+        except ValueError:
+            continue
+    m2 = re.search(r"(\d{3,4})x(\d{3,4})", u)
+    if m2:
+        try:
+            best = max(best, int(m2.group(1)))
+        except ValueError:
+            pass
+    return best
+
+
+def _try_fetch_football_logo_png_from_user_url(page_url: str) -> tuple[bytes, dict] | None:
+    """Resolve a PASTED football-logos.cc URL → PNG bytes. Accepts either a direct
+    PNG on images/assets.football-logos.cc, or a football-logos.cc team page (we
+    scrape its highest-resolution PNG). Mirrors runner 1's manual-paste path."""
+    raw = (page_url or "").strip()
+    if not raw:
+        return None
+    try:
+        parsed = urlparse(raw)
+    except ValueError:
+        return None
+    if parsed.scheme not in ("http", "https"):
+        return None
+    host = (parsed.netloc or "").lower()
+    base_headers = {
+        "User-Agent": HTTP_USER_AGENT,
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    cdn_hosts = ("images.football-logos.cc", "assets.football-logos.cc")
+    if host in cdn_hosts and re.search(r"\.png(\?|$)", raw, re.IGNORECASE):
+        try:
+            req = urllib.request.Request(
+                raw, headers={**base_headers, "Referer": "https://football-logos.cc/"}, method="GET"
+            )
+            with urllib.request.urlopen(req, timeout=35.0, context=SSL_CTX) as r:
+                data = r.read()
+            if data:
+                return data, {"name": "", "categoryId": "", "id": "", "fromUrl": raw}
+        except Exception:
+            return None
+        return None
+    if host not in ("football-logos.cc", "www.football-logos.cc"):
+        return None
+    try:
+        html = _fetch_text(raw)
+    except Exception:
+        return None
+    found = list(dict.fromkeys(_FOOTBALL_LOGOS_HTML_PNG_URL_RE.findall(html)))
+    found = [u for u in found if "${" not in u]
+    if not found:
+        return None
+    path_parts = [p for p in (parsed.path or "").split("/") if p]
+    team_slug = path_parts[-1].casefold() if path_parts else ""
+    if team_slug:
+        preferred = [u for u in found if f"/{team_slug}." in u.casefold()]
+        if preferred:
+            found = preferred
+    found.sort(key=lambda u: (_football_logos_png_url_dimension_hint(u), len(u)), reverse=True)
+    referer = raw if raw.startswith("http") else f"https://{host}{parsed.path or '/'}"
+    req_headers = {**base_headers, "Referer": referer}
+    for url in found:
+        try:
+            req = urllib.request.Request(url, headers=req_headers, method="GET")
+            with urllib.request.urlopen(req, timeout=35.0, context=SSL_CTX) as r:
+                data = r.read()
+            if data:
+                return data, {"name": "", "categoryId": "", "id": "", "fromUrl": raw}
+        except Exception:
+            continue
+    return None
+
+
 def _resolve_team_logo_target(body: dict) -> tuple[Path, str]:
     team_name = _safe_path_component(body.get("teamName") or body.get("currentSquadName"))
     if not team_name:
@@ -1236,6 +1330,41 @@ DEFAULT_PORT = 8887
 CAREER_SIZE_FAVORITES_FILE = RUNNER_DIR / "storage" / "career-size-favorites.json"
 LIVE_RELOAD_POLL_SECONDS = 0.6
 LIVE_RELOAD_HEARTBEAT_SECONDS = 2.0
+
+# ---------------------------------------------------------------------------
+# Idle auto-shutdown — free this server's RAM instead of lingering for days.
+# A browser tab keeps an open live-reload SSE stream (see _send_live_reload_stream)
+# that pings every LIVE_RELOAD_HEARTBEAT_SECONDS while the tab is open. If no
+# ping has arrived for FC_IDLE_SHUTDOWN_SECONDS (default 300s) AFTER at least one
+# tab has connected, every tab is gone and we exit. During recording the tab is
+# open, so keepalives keep us alive — we never exit mid-record. Set the env var
+# to 0 to disable.
+try:
+    IDLE_SHUTDOWN_SECONDS = int(os.environ.get("FC_IDLE_SHUTDOWN_SECONDS", "300"))
+except ValueError:
+    IDLE_SHUTDOWN_SECONDS = 300
+_IDLE_STATE = {"last": time.time(), "ever": False, "started": False}
+_IDLE_LOCK = threading.Lock()
+
+def _idle_watchdog():
+    interval = max(2.0, min(15.0, IDLE_SHUTDOWN_SECONDS / 2.0))
+    while True:
+        time.sleep(interval)
+        with _IDLE_LOCK:
+            idle = time.time() - _IDLE_STATE["last"]
+            ever = _IDLE_STATE["ever"]
+        if IDLE_SHUTDOWN_SECONDS > 0 and ever and idle > IDLE_SHUTDOWN_SECONDS:
+            print(f"[idle] no open browser tab for {int(idle)}s - shutting down to free memory.", flush=True)
+            os._exit(0)
+
+def _note_browser_activity(connected=False):
+    with _IDLE_LOCK:
+        _IDLE_STATE["last"] = time.time()
+        if connected:
+            _IDLE_STATE["ever"] = True
+        if not _IDLE_STATE["started"]:
+            _IDLE_STATE["started"] = True
+            threading.Thread(target=_idle_watchdog, daemon=True).start()
 LIVE_RELOAD_IGNORED_DIRS = {".git", ".hg", ".svn", ".idea", ".vscode", "__pycache__", "node_modules", "storage"}
 LIVE_RELOAD_IGNORED_SUFFIXES = {".pyc", ".pyo", ".tmp", ".swp", ".log"}
 LIVE_RELOAD_SNIPPET = """
@@ -1799,24 +1928,32 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 raise ValueError("Missing team name.")
             country_hint = str(body.get("countryHint") or "").strip()
             league_hint = str(body.get("leagueHint") or "").strip()
+            page_url = str(body.get("pageUrl") or "").strip()
             target_path, rel_path = _resolve_team_logo_target(body)
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
         try:
-            fetched = _try_fetch_football_logo_png_3000(
-                team_name,
-                country_hint=country_hint,
-                league_hint=league_hint,
-            )
+            # A pasted football-logos.cc URL wins (instant + exact); otherwise fall
+            # back to the slow automatic by-name lookup.
+            if page_url:
+                fetched = _try_fetch_football_logo_png_from_user_url(page_url)
+            else:
+                fetched = _try_fetch_football_logo_png_3000(
+                    team_name,
+                    country_hint=country_hint,
+                    league_hint=league_hint,
+                )
         except Exception:
             fetched = None
         if fetched is None:
-            self._send_json(
-                404,
-                {"ok": False, "error": "Could not fetch logo from football-logos.cc."},
+            err = (
+                "Could not download logo from the pasted URL."
+                if page_url
+                else "Could not fetch logo from football-logos.cc."
             )
+            self._send_json(404, {"ok": False, "error": err})
             return True
 
         image_bytes, entry = fetched
@@ -2042,6 +2179,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self.send_header("Connection", "keep-alive")
         self.end_headers()
         self.wfile.flush()
+        _note_browser_activity(connected=True)
 
         with self.server.reload_lock:
             # Baseline on connect so first subscription does not force a reload loop.
@@ -2059,6 +2197,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 self.wfile.flush()
             except (BrokenPipeError, ConnectionResetError, OSError):
                 return
+            _note_browser_activity()
             time.sleep(LIVE_RELOAD_HEARTBEAT_SECONDS)
 
     def _inject_live_reload_script(self, body: bytes) -> bytes:

@@ -242,6 +242,38 @@ async function requestReadyPhotoFromUrl(playerName, clubName, imageUrl) {
   return data;
 }
 
+/** Ask the local server to search a source (uefa | sorare) for this player and
+ *  return preview candidates [{ url, dataUrl }]. UEFA's first call pages the whole
+ *  Champions League squad list, so allow a generous timeout. Never throws on a
+ *  "no results" miss — returns [] so the picker just shows "none found". */
+async function requestPhotoSearchCandidates(playerName, source) {
+  const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
+  const timer = ctrl && setTimeout(() => { try { ctrl.abort(); } catch {} }, 60000);
+  let response;
+  try {
+    response = await fetch("/__ready-photo/search-candidates", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ playerName, source }),
+      signal: ctrl ? ctrl.signal : undefined,
+    });
+  } catch (e) {
+    if (e && e.name === "AbortError") throw new Error("Search timed out.");
+    throw new Error(e?.message || "Could not reach the local server.");
+  } finally {
+    if (timer) clearTimeout(timer);
+  }
+  const data = await response.json().catch(() => ({}));
+  if (response.status === 404) {
+    // The endpoint isn't registered → this runner's server is running old code.
+    throw new Error("Restart this runner's server (run_site.py) — photo search not loaded.");
+  }
+  if (!response.ok || !data.ok) {
+    throw new Error(data?.error || `Search failed (${response.status})`);
+  }
+  return Array.isArray(data.candidates) ? data.candidates : [];
+}
+
 async function postReadyPhotoAction(endpoint, payload, timeoutMs) {
   const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
   const timer = ctrl && setTimeout(() => { try { ctrl.abort(); } catch {} }, timeoutMs);
@@ -377,6 +409,67 @@ function createCareerGetPhotoControls(playerName, clubName) {
   switchPanel.appendChild(switchCloseRow);
   switchModal.appendChild(switchPanel);
 
+  // ── "Add player photo" source-candidate picker (Champions League + Sorare) ──
+  // Reuses the switch-modal CSS classes for a consistent look. Opened by the
+  // main "Get photo" button; auto-fetches both sources and shows thumbnails to
+  // click. "Paste image URL" (footer) is the fallback the user reaches if none fit.
+  const pickModal = document.createElement("div");
+  pickModal.className = "career-ready-photo-switch-modal career-ready-photo-pick-modal";
+  pickModal.hidden = true;
+  pickModal.setAttribute("role", "dialog");
+  pickModal.setAttribute("aria-label", "Add player photo");
+  const pickPanel = document.createElement("div");
+  pickPanel.className = "career-ready-photo-switch-modal__panel";
+  const pickTitle = document.createElement("div");
+  pickTitle.className = "career-ready-photo-switch-modal__title";
+  pickTitle.textContent = "Add player photo";
+  const pickErr = document.createElement("div");
+  pickErr.className = "career-ready-photo-switch-modal__empty";
+  pickErr.hidden = true;
+  pickErr.style.color = "#ff9a9a";
+
+  const makePickSection = (label) => {
+    const wrap = document.createElement("div");
+    wrap.className = "career-ready-photo-pick-section";
+    wrap.style.marginTop = "0.6rem";
+    const head = document.createElement("div");
+    head.className = "career-ready-photo-pick-section__head";
+    head.textContent = label;
+    head.style.cssText =
+      "font-weight:700;font-size:0.92rem;opacity:0.85;margin:0 0 0.3rem;letter-spacing:0.02em;";
+    const status = document.createElement("div");
+    status.className = "career-ready-photo-switch-modal__loading";
+    status.textContent = "Searching…";
+    const list = document.createElement("div");
+    list.className = "career-ready-photo-switch-modal__list";
+    wrap.appendChild(head);
+    wrap.appendChild(status);
+    wrap.appendChild(list);
+    return { wrap, list, status };
+  };
+  const pickUefa = makePickSection("Champions League");
+  const pickSorare = makePickSection("Sorare");
+
+  const pickFooter = document.createElement("div");
+  pickFooter.className = "career-ready-photo-switch-modal__footer";
+  const pickBtnUrl = document.createElement("button");
+  pickBtnUrl.type = "button";
+  pickBtnUrl.className = "career-ready-photo-switch-modal__btn-close";
+  pickBtnUrl.textContent = "Paste image URL";
+  const pickBtnClose = document.createElement("button");
+  pickBtnClose.type = "button";
+  pickBtnClose.className = "career-ready-photo-switch-modal__btn-close";
+  pickBtnClose.textContent = "Cancel";
+  pickFooter.appendChild(pickBtnUrl);
+  pickFooter.appendChild(pickBtnClose);
+
+  pickPanel.appendChild(pickTitle);
+  pickPanel.appendChild(pickErr);
+  pickPanel.appendChild(pickUefa.wrap);
+  pickPanel.appendChild(pickSorare.wrap);
+  pickPanel.appendChild(pickFooter);
+  pickModal.appendChild(pickPanel);
+
   let switchKeyHandler = null;
 
   const closeSwitchModal = () => {
@@ -504,6 +597,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
   host.appendChild(hint);
   host.appendChild(modal);
   host.appendChild(switchModal);
+  host.appendChild(pickModal);
 
   const showHint = (text, isErr) => {
     hint.hidden = !text;
@@ -548,6 +642,110 @@ function createCareerGetPhotoControls(playerName, clubName) {
 
   btnCancel.addEventListener("click", closeModal);
 
+  // ── Source-candidate picker behaviour ──
+  let pickKeyHandler = null;
+
+  const closePickModal = () => {
+    pickModal.classList.remove("career-ready-photo-switch-modal--portal");
+    if (pickModal.parentElement === document.body) host.appendChild(pickModal);
+    pickModal.hidden = true;
+    pickUefa.list.innerHTML = "";
+    pickSorare.list.innerHTML = "";
+    pickErr.hidden = true;
+    pickErr.textContent = "";
+    if (pickKeyHandler) {
+      document.removeEventListener("keydown", pickKeyHandler);
+      pickKeyHandler = null;
+    }
+  };
+
+  const renderPickCandidates = (section, candidates) => {
+    section.list.innerHTML = "";
+    if (!candidates.length) {
+      section.status.hidden = false;
+      section.status.textContent = "No photos found.";
+      return;
+    }
+    section.status.hidden = true;
+    candidates.forEach((c) => {
+      const opt = document.createElement("button");
+      opt.type = "button";
+      opt.className = "career-ready-photo-switch-option";
+      const img = document.createElement("img");
+      img.className = "career-ready-photo-switch-option__img";
+      img.alt = "";
+      img.decoding = "async";
+      img.src = c.dataUrl;
+      opt.appendChild(img);
+      opt.addEventListener("click", async () => {
+        if (opt.disabled) return;
+        const allOpts = pickModal.querySelectorAll(".career-ready-photo-switch-option");
+        allOpts.forEach((b) => (b.disabled = true));
+        opt.classList.add("career-ready-photo-switch-option--current");
+        pickErr.hidden = true;
+        try {
+          const data = await requestReadyPhotoFromUrl(playerName, clubName, c.url);
+          const st = getState();
+          if (st && data && data.variantIndex != null) {
+            const vi = Math.floor(Number(data.variantIndex));
+            if (Number.isFinite(vi) && vi >= 1) st.careerReadyPhotoVariantIndex = vi;
+          }
+          bumpProjectAssetCacheBust();
+          closePickModal();
+          renderCareer();
+        } catch (e) {
+          pickErr.hidden = false;
+          pickErr.textContent = e?.message || "Could not save photo.";
+          allOpts.forEach((b) => (b.disabled = false));
+          opt.classList.remove("career-ready-photo-switch-option--current");
+        }
+      });
+      section.list.appendChild(opt);
+    });
+  };
+
+  const loadPickSection = async (section, source) => {
+    section.status.hidden = false;
+    section.status.textContent = "Searching…";
+    section.list.innerHTML = "";
+    try {
+      const candidates = await requestPhotoSearchCandidates(playerName, source);
+      renderPickCandidates(section, candidates);
+    } catch (e) {
+      section.status.hidden = false;
+      section.status.textContent = e?.message || "Search failed.";
+    }
+  };
+
+  const openPickModal = () => {
+    closeModal();
+    closeSwitchModal();
+    pickTitle.textContent = playerName ? `Add player photo — ${playerName}` : "Add player photo";
+    pickErr.hidden = true;
+    pickErr.textContent = "";
+    pickModal.classList.add("career-ready-photo-switch-modal--portal");
+    if (pickModal.parentElement !== document.body) document.body.appendChild(pickModal);
+    pickModal.hidden = false;
+    pickKeyHandler = (ev) => {
+      if (ev.key === "Escape") {
+        ev.preventDefault();
+        closePickModal();
+      }
+    };
+    document.addEventListener("keydown", pickKeyHandler);
+    // Auto-fetch both sources in parallel — the user "just clicks" a result.
+    void loadPickSection(pickUefa, "uefa");
+    void loadPickSection(pickSorare, "sorare");
+  };
+
+  pickPanel.addEventListener("click", (e) => e.stopPropagation());
+  pickModal.addEventListener("click", () => closePickModal());
+  pickBtnClose.addEventListener("click", closePickModal);
+  pickBtnUrl.addEventListener("click", () => {
+    closePickModal();
+    openModal();
+  });
+
   btn.addEventListener("click", () => {
     if (!careerReadyPhotoFetchServerActive()) {
       showHint(
@@ -557,7 +755,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
       return;
     }
     showHint("", false);
-    openModal();
+    openPickModal();
   });
 
   btnDl.addEventListener("click", async () => {
@@ -598,6 +796,7 @@ function createCareerGetPhotoControls(playerName, clubName) {
       host.hidden = true;
       closeModal();
       closeSwitchModal();
+      closePickModal();
       showHint("", false);
     },
   };
@@ -651,7 +850,7 @@ function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
 }
 
 /** Regular flag image URL: repo England asset or flagcdn (regular layout, centered overlay). */
-function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
+export function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
   const natLabel = playerStatsNationalityLabelForFlagcode(nationalityRaw);
   if (!natLabel) return null;
   if (natLabel === "England") {
@@ -844,7 +1043,7 @@ const CAREER_LOGO_ALPHA_THRESHOLD = 18;
 const CAREER_LOGO_SLACK_CSS_MAX = 108;
 const CAREER_LOGO_SLACK_MAX_FRAC_OF_BOX = 0.38;
 const CAREER_SHADOW_UNIFORM_Y = -2;
-const CAREER_SHADOW_UNIFORM_SCALE = 0.82;
+const CAREER_SHADOW_UNIFORM_SCALE = 0.902; /* 0.82 +10% — player picture made 10% bigger (video on + off + revealed) */
 /* Video mode OFF: same caps as Main Runner - Career Path - Regular (viewBox 1000ֳ—400). */
 const CAREER_SILHOUETTE_MAX_REGULAR_VIDEO_OFF = 760;
 const CAREER_SILHOUETTE_MAX_SHORTS_VIDEO_OFF = 580;
@@ -1776,7 +1975,10 @@ export function renderCareer() {
   const playerInitKey = careerPlayerNameForReset
     ? careerPlayerNameForReset + "|" + careerReadyPhotoClubName(state) + "|" + (state?.careerReadyPhotoVariantIndex ?? 1)
     : "";
-  if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
+  if (state.__suppressPictureReset) {
+    if (playerInitKey) appliedFavoritePictureKeyByState.set(state, playerInitKey);
+    delete state.__suppressPictureReset;
+  } else if (playerInitKey && appliedFavoritePictureKeyByState.get(state) !== playerInitKey) {
     const pictureDefaults = getDefaultPlayerPictureValues(isShorts);
     state.silhouetteYOffset = pictureDefaults.silhouetteYOffset;
     state.silhouetteScaleX = pictureDefaults.silhouetteScaleX;
@@ -2280,7 +2482,7 @@ export function renderCareer() {
           const country = String(club?.country || "").trim();
           const league = String(club?.league || "").trim();
           if (!country || !league) return "";
-          return `Teams Images/${country}/${league}`;
+          return `Images/Teams/${country}/${league}`;
         })
         .filter(Boolean)
     )
@@ -2311,7 +2513,7 @@ export function renderCareer() {
 
     if (foundClubEntry && foundClubEntry.country && foundClubEntry.league) {
       uniqueNames.forEach((name) => {
-        out.push(`Teams Images/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
+        out.push(`Images/Teams/${foundClubEntry.country}/${foundClubEntry.league}/${name}.png`);
       });
     }
 

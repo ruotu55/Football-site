@@ -58,7 +58,7 @@ function exitFullscreenSafe() {
     /* During the EN→ES double-recording handoff (between phase 1 and phase 2),
        keep fullscreen on — browsers won't grant a fresh requestFullscreen
        without a user gesture, and we don't have one. */
-    if (appState?.doubleRecording?.phase === 1) return;
+    if (appState?.doubleRecording?.phase === 1 && !appState?.doubleRecording?.single) return;
     if (document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {});
     }

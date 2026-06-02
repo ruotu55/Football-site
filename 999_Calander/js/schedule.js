@@ -42,10 +42,17 @@
  */
 
 /** Bump when START_DATE or phase boundaries change (invalidates buildSchedule cache). */
-const SCHEDULE_REVISION = "20260602-start-r9mcq";
+const SCHEDULE_REVISION = "20260603-gap-jun3to6";
 
 const START_DATE = new Date(2026, 5, 2); // 2026-06-02 Tuesday
 const PLACEHOLDER_FROM = new Date(2026, 6, 4); // 2026-07-04
+
+/* Blackout gap: Jun 2 is already published on YouTube (EN+ES) and stays put.
+   Everything after it shifts +4 days, so Jun 3–6 are intentionally EMPTY and the
+   next upload day becomes Jun 7. The schedule walk skips these days WITHOUT
+   advancing the runner counter, so the order is preserved — only the dates move. */
+const GAP_START = new Date(2026, 5, 3); // 2026-06-03 (inclusive)
+const GAP_END = new Date(2026, 5, 7);   // 2026-06-07 (exclusive) → skips Jun 3, 4, 5, 6
 
 const RUNNERS = [
   { id: 1,  name: "Guess The Football Team Name",                short: "Team Name",     from: null },
@@ -275,6 +282,12 @@ function buildSchedule(endDate) {
 
   while (cursor <= end) {
     if (cursor < START_DATE) {
+      cursor.setDate(cursor.getDate() + 1);
+      continue;
+    }
+    // Blackout gap (Jun 3–6): place nothing AND don't advance the counter, so the
+    // videos that would have aired here shift forward to Jun 7 onward.
+    if (cursor >= GAP_START && cursor < GAP_END) {
       cursor.setDate(cursor.getDate() + 1);
       continue;
     }

@@ -284,6 +284,41 @@ DEFAULT_PORT = 8886
 CAREER_SIZE_FAVORITES_FILE = RUNNER_DIR / "storage" / "career-size-favorites.json"
 LIVE_RELOAD_POLL_SECONDS = 0.6
 LIVE_RELOAD_HEARTBEAT_SECONDS = 2.0
+
+# ---------------------------------------------------------------------------
+# Idle auto-shutdown — free this server's RAM instead of lingering for days.
+# A browser tab keeps an open live-reload SSE stream (see _send_live_reload_stream)
+# that pings every LIVE_RELOAD_HEARTBEAT_SECONDS while the tab is open. If no
+# ping has arrived for FC_IDLE_SHUTDOWN_SECONDS (default 300s) AFTER at least one
+# tab has connected, every tab is gone and we exit. During recording the tab is
+# open, so keepalives keep us alive — we never exit mid-record. Set the env var
+# to 0 to disable.
+try:
+    IDLE_SHUTDOWN_SECONDS = int(os.environ.get("FC_IDLE_SHUTDOWN_SECONDS", "300"))
+except ValueError:
+    IDLE_SHUTDOWN_SECONDS = 300
+_IDLE_STATE = {"last": time.time(), "ever": False, "started": False}
+_IDLE_LOCK = threading.Lock()
+
+def _idle_watchdog():
+    interval = max(2.0, min(15.0, IDLE_SHUTDOWN_SECONDS / 2.0))
+    while True:
+        time.sleep(interval)
+        with _IDLE_LOCK:
+            idle = time.time() - _IDLE_STATE["last"]
+            ever = _IDLE_STATE["ever"]
+        if IDLE_SHUTDOWN_SECONDS > 0 and ever and idle > IDLE_SHUTDOWN_SECONDS:
+            print(f"[idle] no open browser tab for {int(idle)}s - shutting down to free memory.", flush=True)
+            os._exit(0)
+
+def _note_browser_activity(connected=False):
+    with _IDLE_LOCK:
+        _IDLE_STATE["last"] = time.time()
+        if connected:
+            _IDLE_STATE["ever"] = True
+        if not _IDLE_STATE["started"]:
+            _IDLE_STATE["started"] = True
+            threading.Thread(target=_idle_watchdog, daemon=True).start()
 LIVE_RELOAD_IGNORED_DIRS = {".git", ".hg", ".svn", ".idea", ".vscode", "__pycache__", "node_modules", "storage"}
 LIVE_RELOAD_IGNORED_SUFFIXES = {".pyc", ".pyo", ".tmp", ".swp", ".log"}
 LIVE_RELOAD_SNIPPET = """
@@ -1719,6 +1754,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         self.send_header("Connection", "keep-alive")
         self.end_headers()
         self.wfile.flush()
+        _note_browser_activity(connected=True)
 
         with self.server.reload_lock:
             # Baseline on connect so first subscription does not force a reload loop.
@@ -1736,6 +1772,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 self.wfile.flush()
             except (BrokenPipeError, ConnectionResetError, OSError):
                 return
+            _note_browser_activity()
             time.sleep(LIVE_RELOAD_HEARTBEAT_SECONDS)
 
     def _inject_live_reload_script(self, body: bytes) -> bytes:

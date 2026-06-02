@@ -83,8 +83,8 @@ const SHORTS_INTRO_QUIZ_TITLE_LINE_2 = "BY CAREER STATS";
 const SHORTS_INTRO_QUIZ_TITLE_LINE_1_ES = "ADIVINA EL JUGADOR";
 const SHORTS_INTRO_QUIZ_TITLE_LINE_2_ES = "POR SUS ESTADÍSTICAS";
 const SHORTS_INTRO_QUIZ_TITLE_FADE_MS = 780;
-/** Question bar + timeouts: `baseSteps` equal slices of this total (default 3 × 1s × 1.1). */
-const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 1.1;
+/** Question bar + timeouts: `baseSteps` equal slices of this total (5 × 1s × 1.0 = 5s). */
+const SHORTS_QUESTION_COUNTDOWN_DURATION_MULT = 1.0;
 /** Start ticking this many ms before the bar enters the red phase (last ~25% of the countdown scale). */
 const TICKING_LEAD_BEFORE_RED_MS = 1500;
 
@@ -510,7 +510,7 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    const baseSteps = 3;
+    const baseSteps = 5;
     let count = baseSteps;
     const totalDurationMs = Math.round(baseSteps * 1000 * SHORTS_QUESTION_COUNTDOWN_DURATION_MULT);
     const totalTime = totalDurationMs / 1000;

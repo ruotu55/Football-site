@@ -1,10 +1,12 @@
 # How to Build a Calendar Item for this Runner
 
-**Runner:** 6_Guess The Fake Informaiton
+**Runner:** 9_Football Quiz Multiple Choice - Main Runner
 **Variant:** Regular
-**Quiz:** Guess the fake piece of information about the player
+**Quiz:** Multiple-choice football quiz (A/B/C) — two question styles: a "trivia"
+question (topic image + three text answers) or a "which-player" question (three
+player photo cards). Each level is ONE multiple-choice question.
 
-A "calendar item" = one video's worth of content (a block of players) that you
+A "calendar item" = one video's worth of content (a block of questions) that you
 build in the Calendar / recording-queue and import into this runner. This file
 records the rules the channel owner set for filling these blocks. Follow them
 every time you add or edit a block here.
@@ -14,57 +16,84 @@ every time you add or edit a block here.
 > most-known→least-known (easy/med/hard), (2) no same country/team adjacent
 > (relaxes in harder levels), (3) 95% globally-known players, no obscure South
 > Americans, world-famous (Messi/Ronaldo) welcome even outside Europe,
-> (4) mixed videos ≥35 levels."*
+> (4) mixed videos ≥35 levels."* The bullets below translate those rules to the
+> multiple-choice format, where each level is a **question** rather than a single
+> team or player.
 
 ---
 
 ## Two kinds of blocks
 
-1. **Competition blocks** — a real competition (a league, World Cup, Euro,
-   Champions League, etc.). Use that competition's actual players.
-2. **Mixed blocks** — random well-known players, no competition theme. Most of
+1. **Themed blocks** — every question is about one subject (e.g. *World Cup*,
+   *Champions League*, a single club, a single country). Use questions that
+   genuinely belong to that theme.
+2. **Mixed blocks** — random well-known football trivia, no single theme. Most of
    the rules below are about these.
 
-**Do not invent new competition videos** — keep the existing competitions as
-they are; only add/edit **mixed** videos unless the owner asks otherwise.
+**Do not invent new themed videos** — keep the existing themed blocks as they
+are; only add/edit **mixed** blocks unless the owner asks otherwise.
 
 ---
 
 ## The rules
 
 ### 1. Difficulty order: easy → medium → hard
-- Arrange the players **most-known first, least-known last**
+- Arrange the **questions** from easiest to hardest
   (*"arrange the teams by the most known to less known — easy - med - hard"*).
-- Within the video the difficulty climbs smoothly from Tier 1 (most famous) down
-  through the harder tiers. Spread your tiers evenly so the gradient is smooth.
+- Easy = an obvious answer about a globally-famous subject; hard = a trickier
+  question or a more obscure subject. The difficulty should climb smoothly across
+  the video — spread the levels so the gradient is even, not lumpy.
 
-### 2. No same club/country back-to-back
-- **Never two players from the same CLUB back-to-back.** This is a hard rule the user repeated: *"don't put 2 players from the same team one after another"* and *"i told you this is a rule that cannot happen!!!"*
-- **Never two players from the same COUNTRY back-to-back** either (*"also not from the same country"*).
-- The adjacency rule may relax slightly in the hardest tail levels if the pool is exhausted, but aim for **0 same-club and 0 same-country adjacency** everywhere.
+### 2. Keep adjacent questions varied (no repeats back-to-back)
+- **Alternate the two question styles** — don't run a long stretch of all
+  "trivia" or all "which-player" questions; mix them so the video stays lively.
+- **No two questions in a row about the same subject** — don't follow a question
+  about a club/country/player with another question about that same club/country
+  /player. For "which-player" questions in particular, don't put two players from
+  the same CLUB or the same COUNTRY in adjacent questions' photo options.
+- **Vary the correct-answer letter** — don't let the right answer keep landing on
+  the same letter (A/B/C). Spread the correct answers roughly evenly so there's no
+  guessable pattern.
+- These may relax slightly in the hardest tail levels if the pool is exhausted,
+  but aim for **0 back-to-back repeats** everywhere.
 
 ### 3. Fame / who is allowed in mixed videos
-- **95% of the players must be globally known** — known in European AND worldwide football (*"Make sure 95% all the players in player quizzes are known in european football and world wide football"*).
-- **No obscure South Americans.** *"don't include players from brazil or argentina where they are unknown by 90% of the people."*
-- **World-famous players are welcome even if they never played in Europe** — e.g. Messi or Ronaldo. *"find more players like this to make it more"* recognisable.
+- Every question's subject must be **globally known** — known in European AND
+  worldwide football. For "which-player" questions, **95% of the players must be
+  globally known** (*"Make sure 95% all the players in player quizzes are known in
+  european football and world wide football"*).
+- **No obscure South Americans.** *"don't include players from brazil or argentina
+  where they are unknown by 90% of the people."*
+- **World-famous players are welcome even if they never played in Europe** — e.g.
+  Messi or Ronaldo.
+- For "trivia" questions, the facts should be about well-known teams, competitions
+  and players — nothing 90% of viewers wouldn't recognise.
 
 ### 4. Size
-- **Every mixed video must have at least 35 levels** (*"each mixed video — that is not a competition and just random players — needs to be at least 35 levels"*). Target ~35–50.
-- **Competition** videos (leagues / World Cup / Euro) use that competition's full set of players — size is whatever the competition has (e.g. Euro = 24, World Cup = 48).
-- **Don't create NEW competition videos** unless explicitly asked. Edit/extend the existing competition blocks and the mixed blocks only.
+- **Every mixed video must have at least 35 levels (= 35 questions)** (*"each mixed
+  video — that is not a competition and just random teams — needs to be at least 35
+  levels"*). Target ~35–50 questions.
+- **Themed** videos (World Cup, Champions League, a club, a country) use that
+  theme's natural set of questions — size is whatever the theme supports (the
+  existing World Cup block, for example, is a 50-question set).
+- **Don't create NEW themed videos** unless explicitly asked. Edit/extend the
+  existing themed blocks and the mixed blocks only.
 
 ### 5. Don't repeat across blocks of the same quiz type
-- Different videos in THIS runner should **not share a lot of the same players**
+- Different videos in THIS runner should **not share a lot of the same questions**
   (*"block 9 and 10 should not have the same teams"*).
-- A given player should appear in **at most 2 videos** across this runner —
-  never 3+. Use the full available pool before reusing anyone.
+- A given question should appear in **at most 2 videos** across this runner —
+  never 3+. Use the full available pool before reusing one.
 
 ---
 
 ## Quick checklist before you save a block
-- [ ] Easy → med → hard order (most-known first).
-- [ ] No two adjacent items break the same-club/country rule.
-- [ ] ≥95% of players are globally known; no obscure players.
-- [ ] Mixed block has ≥35 levels (competition block = full competition set).
-- [ ] No player appears 3+ times across this runner; minimal overlap with other blocks.
-- [ ] Mixed block has no competition name; competition block uses the real roster.
+- [ ] Easy → med → hard order (easiest/most-known questions first).
+- [ ] Question styles alternate; no same subject back-to-back; correct-answer
+      letter is varied (not always A/B/C in a pattern).
+- [ ] Every subject is globally known; ≥95% of "which-player" players are known;
+      no obscure players.
+- [ ] Mixed block has ≥35 questions (themed block = its natural set).
+- [ ] No question appears 3+ times across this runner; minimal overlap with other
+      blocks.
+- [ ] Mixed block has no theme name; themed block stays true to its theme.

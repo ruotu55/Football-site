@@ -88,6 +88,10 @@ def _normalize_block(raw: object) -> dict[str, object] | None:
     youtube = raw.get("youtube") if isinstance(raw.get("youtube"), dict) else {}
     voice_freeze = raw.get("voiceFreeze") if isinstance(raw.get("voiceFreeze"), dict) else None
     level_voice_freezes = raw.get("levelVoiceFreezes") if isinstance(raw.get("levelVoiceFreezes"), list) else None
+    # "Save Video Status": opaque frozen full-state snapshot for this block.
+    # MUST be preserved across reads/writes — otherwise the freeze is stripped on
+    # the next load and the save reverts to rebuilding from the teams list.
+    video_status = raw.get("videoStatus") if isinstance(raw.get("videoStatus"), dict) else None
     out = {
         "name": name,
         "teamsImportText": teams_import,
@@ -101,6 +105,8 @@ def _normalize_block(raw: object) -> dict[str, object] | None:
         out["voiceFreeze"] = voice_freeze
     if level_voice_freezes is not None:
         out["levelVoiceFreezes"] = level_voice_freezes
+    if video_status is not None:
+        out["videoStatus"] = video_status
     return out
 
 
@@ -306,6 +312,35 @@ def try_handle_post(handler: BaseHTTPRequestHandler, project_root: Path) -> bool
                 block["video"].pop(language, None)
             if isinstance(block.get("youtube"), dict):
                 block["youtube"].pop(language, None)
+            if not _write_store(project_root, payload):
+                _send_json(handler, 500, {"error": "Write failed"})
+                return True
+        _send_json(handler, 200, {"ok": True})
+        return True
+
+    if op == "setVideoStatus":
+        # "Save Video Status": freeze the full on-screen video config onto a block so
+        # the save loads verbatim instead of rebuilding from teams. videoStatus =
+        # {enabled, frozenScript, savedAt}; pass null/falsy to clear it.
+        key = parsed.get("key")
+        vs = parsed.get("videoStatus")
+        if not isinstance(key, str) or not _BLOCK_KEY_RE.fullmatch(key):
+            _send_json(handler, 400, {"error": "Invalid block key"})
+            return True
+        if vs is not None and not isinstance(vs, dict):
+            _send_json(handler, 400, {"error": "Invalid videoStatus"})
+            return True
+        with _LOCK:
+            payload = _read_store(project_root)
+            blocks = payload.setdefault("blocks", {})
+            block = blocks.get(key)
+            if not isinstance(block, dict):
+                _send_json(handler, 404, {"error": "Block not found"})
+                return True
+            if vs:
+                block["videoStatus"] = vs
+            else:
+                block.pop("videoStatus", None)
             if not _write_store(project_root, payload):
                 _send_json(handler, 500, {"error": "Write failed"})
                 return True
