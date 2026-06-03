@@ -2376,7 +2376,7 @@ def _note_browser_activity(connected=False):
         if not _IDLE_STATE["started"]:
             _IDLE_STATE["started"] = True
             threading.Thread(target=_idle_watchdog, daemon=True).start()
-LIVE_RELOAD_IGNORED_DIRS = {".git", ".hg", ".svn", ".idea", ".vscode", "__pycache__", "node_modules", "storage"}
+LIVE_RELOAD_IGNORED_DIRS = {".git", ".hg", ".svn", ".idea", ".vscode", "__pycache__", "node_modules", "storage", "remotion"}
 LIVE_RELOAD_IGNORED_SUFFIXES = {".pyc", ".pyo", ".tmp", ".swp", ".log"}
 LIVE_RELOAD_SNIPPET = """
 <script>
