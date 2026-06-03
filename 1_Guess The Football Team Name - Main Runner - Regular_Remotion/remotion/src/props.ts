@@ -46,4 +46,6 @@ export interface RemotionProps {
   assetBase: string;
   // Injected by calculateMetadata after probing the outro voice audio duration.
   outroVoiceMs?: number;
+  // Probed real durations for all named voices (ms). Keys: rules, ending, reveal, warmUp, serious, nerds, genius.
+  voiceDurationsMs?: Record<string, number>;
 }

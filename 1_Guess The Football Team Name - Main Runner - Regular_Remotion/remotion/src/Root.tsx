@@ -4,7 +4,7 @@ import { getAudioDurationInSeconds } from "@remotion/media-utils";
 import { QuizComposition } from "./QuizComposition";
 import { buildTimeline } from "./timeline";
 import { assetUrl } from "./assets";
-import { endingVoiceRelPath } from "./audio/voicePaths";
+import { endingVoiceRelPath, quizTitleRelPath, progressVoiceRelPath, revealVoiceRelPath } from "./audio/voicePaths";
 import type { RemotionProps } from "./props";
 import { transitionDurationMs } from "./transitions/transitionDurations";
 
@@ -27,23 +27,48 @@ export const RemotionRoot: React.FC = () => (
     calculateMetadata={async ({ props }) => {
       const p = props as unknown as RemotionProps;
       const fps = p.fps ?? 60;
-      let outroVoiceMs = 2500; // safe default if probe fails
-      try {
-        const rel = endingVoiceRelPath(p.endingType, p.language);
-        if (rel && p.assetBase) {
-          const url = assetUrl(rel, p.assetBase);
-          outroVoiceMs = Math.round((await getAudioDurationInSeconds(url)) * 1000);
+      const lang = p.language ?? "english";
+
+      /** Probe one voice file; return ms rounded, or fallback on any error. */
+      async function probeDurationMs(rel: string, fallback: number): Promise<number> {
+        if (!rel || !p.assetBase) return fallback;
+        try {
+          return Math.round((await getAudioDurationInSeconds(assetUrl(rel, p.assetBase))) * 1000);
+        } catch {
+          return fallback;
         }
-      } catch {
-        outroVoiceMs = 2500;
       }
+
+      // Probe all named voices in parallel.
+      const [rulesMs, endingMs, revealMs, warmUpMs, seriousMs, nerdsMs, geniusMs] =
+        await Promise.all([
+          probeDurationMs(quizTitleRelPath(p.quizType ?? "club-by-nat", lang), 3000),
+          probeDurationMs(endingVoiceRelPath(p.endingType, lang), 2500),
+          // Reveal: probe the first question level's revealVoiceRel if present.
+          probeDurationMs(
+            (p.levels?.find((l) => !l.isLogo && !l.isIntro && !l.isOutro)?.revealVoiceRel) ??
+              revealVoiceRelPath("Arsenal", "plain", lang),
+            1500,
+          ),
+          probeDurationMs(progressVoiceRelPath("warmUp", lang), 2000),
+          probeDurationMs(progressVoiceRelPath("serious", lang), 2000),
+          probeDurationMs(progressVoiceRelPath("nerds",   lang), 2000),
+          probeDurationMs(progressVoiceRelPath("genius",  lang), 2000),
+        ]);
+
+      const outroVoiceMs = endingMs;
+      const voiceDurationsMs: Record<string, number> = {
+        rules: rulesMs, ending: endingMs, reveal: revealMs,
+        warmUp: warmUpMs, serious: seriousMs, nerds: nerdsMs, genius: geniusMs,
+      };
+
       const tl = buildTimeline({ questionCount: p.questionCount, fps, endingType: p.endingType, outroVoiceMs, transitionMs: transitionDurationMs(p.transitionEffect) });
       return {
         durationInFrames: tl.totalDurationFrames,
         fps,
         width: p.width ?? 2560,
         height: p.height ?? 1440,
-        props: { ...p, outroVoiceMs },
+        props: { ...p, outroVoiceMs, voiceDurationsMs },
       };
     }}
   />

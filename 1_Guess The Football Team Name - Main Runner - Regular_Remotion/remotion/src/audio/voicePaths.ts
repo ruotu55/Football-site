@@ -35,4 +35,21 @@ export function endingVoiceRelPath(endingType: string, lang: string): string {
 export const TICKING_REL = "../.Storage/Voices/Ticking sound/ticking sound.mp3";
 export const REVEAL_STINGER_REL = "../.Storage/Voices/Transitions/mixkit-arcade-bonus-alert-767.wav";
 
-// TODO(Phase 5): progress + reveal voice path resolution
+// Progress/milestone voices — Levels/<lang>/<file> (audio.js bundled milestones, base variant)
+const PROGRESS_FILENAMES: Record<string, string> = {
+  warmUp: "Worm up round dont mess this one .mp3",
+  serious: "OK now it's getting serious.mp3",
+  nerds: "Only true football nerd know this!!!.mp3",
+  genius: "If you get this you are basically a genius!!!.mp3",
+};
+// TODO: ES progress filenames (Spanish equivalents differ; only EN provided here)
+export function progressVoiceRelPath(milestone: string, lang: string): string {
+  const f = PROGRESS_FILENAMES[milestone];
+  return f ? `../.Storage/Voices/Levels/${lang}/${f}` : "";
+}
+
+// Reveal team-name voice — Team names/<lang>/<phrase>/<Team>.mp3
+export function revealVoiceRelPath(teamFileName: string, phrase: string, lang: string): string {
+  if (!teamFileName) return "";
+  return `../.Storage/Voices/Team names/${lang}/${phrase || "plain"}/${teamFileName}.mp3`;
+}

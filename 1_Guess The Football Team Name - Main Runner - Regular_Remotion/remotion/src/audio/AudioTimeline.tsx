@@ -99,6 +99,12 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
   const questionPhases = timeline.phases.filter((p) => p.kind === "question");
 
   // ── 3. Build voice windows for BGM ducking ────────────────────────────────
+  // Use real probed durations when available (voiceDurationsMs); fall back to EST_* estimates.
+  const dur = props.voiceDurationsMs ?? {};
+  const rulesMs    = dur.rules   ?? EST_RULES_MS;
+  const revealMsDur = dur.reveal  ?? EST_REVEAL_MS;
+  const endingMsDur = dur.ending  ?? EST_ENDING_MS;
+
   const voiceWindows: VoiceWindow[] = useMemo(() => {
     const wins: VoiceWindow[] = [];
 
@@ -108,23 +114,24 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
       wins.push({
         duckStartFrame: duckStart,
         delayFrames: 0,
-        voiceEndFrame: duckStart + msToFrames(EST_RULES_MS, fps),
+        voiceEndFrame: duckStart + msToFrames(rulesMs, fps),
       });
     }
 
     // Per-question voices.
-    questionPhases.forEach((phase, phaseIdx) => {
+    questionPhases.forEach((phase) => {
       // app questionIndex = phase.index + 1 (phase.index is 0-based question index).
       const questionIndex = phase.index + 1;
 
-      // Progress voice (fires near question start).
+      // Progress voice (fires near question start) — use probed duration for the milestone key.
       const progressKey = progressVoiceForQuestion(questionIndex, props.questionCount);
       if (progressKey !== null) {
+        const progressDurMs = (props.voiceDurationsMs ?? {})[progressKey] ?? EST_PROGRESS_MS;
         const duckStart = phase.startFrame + msToFrames(MS.PROGRESS_VOICE_DELAY, fps);
         wins.push({
           duckStartFrame: duckStart,
           delayFrames: msToFrames(MS.PROGRESS_VOICE_DELAY, fps),
-          voiceEndFrame: duckStart + msToFrames(MS.PROGRESS_VOICE_DELAY, fps) + msToFrames(EST_PROGRESS_MS, fps),
+          voiceEndFrame: duckStart + msToFrames(MS.PROGRESS_VOICE_DELAY, fps) + msToFrames(progressDurMs, fps),
         });
       }
 
@@ -134,7 +141,7 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
         wins.push({
           duckStartFrame: duckStart,
           delayFrames: msToFrames(MS.REVEAL_VOICE_DELAY, fps),
-          voiceEndFrame: duckStart + msToFrames(MS.REVEAL_VOICE_DELAY, fps) + msToFrames(EST_REVEAL_MS, fps),
+          voiceEndFrame: duckStart + msToFrames(MS.REVEAL_VOICE_DELAY, fps) + msToFrames(revealMsDur, fps),
         });
       }
     });
@@ -145,13 +152,13 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
       wins.push({
         duckStartFrame: duckStart,
         delayFrames: 0,
-        voiceEndFrame: duckStart + msToFrames(EST_ENDING_MS, fps),
+        voiceEndFrame: duckStart + msToFrames(endingMsDur, fps),
       });
     }
 
     // Sort chronologically for chain detection.
     return wins.sort((a, b) => a.duckStartFrame - b.duckStartFrame);
-  }, [timeline, fps, props.questionCount]);
+  }, [timeline, fps, props.questionCount, rulesMs, revealMsDur, endingMsDur, props.voiceDurationsMs]);
 
   // ── 4. Lay out BGM song sequences ─────────────────────────────────────────
   // Songs play sequentially from frame 0, each overlapping the next by crossfadeFrames.
@@ -251,23 +258,28 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
             {!phase.skipReveal && phase.cues && level?.revealVoiceRel && (
               <Sequence
                 from={phase.startFrame + msToFrames(phase.cues.voiceMs, fps)}
-                durationInFrames={msToFrames(EST_REVEAL_MS + 500, fps)}
+                durationInFrames={msToFrames(revealMsDur + 500, fps)}
                 name={`reveal-voice Q${phase.index}`}
               >
                 <Audio src={assetUrl(level.revealVoiceRel, props.assetBase)} />
               </Sequence>
             )}
 
-            {/* Progress voice (optional — skipped if no path) */}
-            {level?.progressVoiceRel && (
-              <Sequence
-                from={phase.startFrame + msToFrames(MS.PROGRESS_VOICE_DELAY * 2, fps)}
-                durationInFrames={msToFrames(EST_PROGRESS_MS + 500, fps)}
-                name={`progress-voice Q${phase.index}`}
-              >
-                <Audio src={assetUrl(level.progressVoiceRel, props.assetBase)} />
-              </Sequence>
-            )}
+            {/* Progress voice (optional — skipped if no path; fires at question start + PROGRESS_VOICE_DELAY) */}
+            {level?.progressVoiceRel && (() => {
+              const questionIndex = phase.index + 1;
+              const progressKey = progressVoiceForQuestion(questionIndex, props.questionCount);
+              const progressDurMs = (props.voiceDurationsMs ?? {})[progressKey ?? "warmUp"] ?? EST_PROGRESS_MS;
+              return (
+                <Sequence
+                  from={phase.startFrame + msToFrames(MS.PROGRESS_VOICE_DELAY, fps)}
+                  durationInFrames={msToFrames(progressDurMs + 500, fps)}
+                  name={`progress-voice Q${phase.index}`}
+                >
+                  <Audio src={assetUrl(level.progressVoiceRel, props.assetBase)} />
+                </Sequence>
+              );
+            })()}
           </React.Fragment>
         );
       })}
@@ -279,7 +291,7 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
         return (
           <Sequence
             from={logoPhase.startFrame + msToFrames(MS.LOGO_VOICE_DELAY, fps)}
-            durationInFrames={msToFrames(EST_RULES_MS + 1000, fps)}
+            durationInFrames={msToFrames(rulesMs + 1000, fps)}
             name="rules-voice"
           >
             <Audio src={assetUrl(rel, props.assetBase)} />
@@ -294,7 +306,7 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
         return (
           <Sequence
             from={outroPhase.startFrame + msToFrames(100, fps)}
-            durationInFrames={msToFrames(EST_ENDING_MS + 1000, fps)}
+            durationInFrames={msToFrames(endingMsDur + 1000, fps)}
             name="ending-voice"
           >
             <Audio src={assetUrl(rel, props.assetBase)} />
