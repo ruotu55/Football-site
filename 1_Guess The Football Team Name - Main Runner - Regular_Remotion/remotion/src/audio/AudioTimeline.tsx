@@ -58,14 +58,18 @@ const BgmSongLayer: React.FC<BgmSongLayerProps> = ({
   const volume = useMemo(() => (localF: number) => {
     const globalFrame = startFrame + localF;
 
-    // Crossfade gain: fade in from 0 → 1 over fadeInFrames, fade out 1 → 0 over last fadeOutFrames.
+    // Equal-power (cosine) crossfade gain — smoother overlaps than linear.
+    // fade-in:  gain = sin(t * π/2),  t = 0→1  over fadeInFrames
+    // fade-out: gain = cos(t * π/2),  t = 0→1  over fadeOutFrames
     let crossfadeGain = 1.0;
     if (fadeInFrames > 0 && localF < fadeInFrames) {
-      crossfadeGain = Math.min(crossfadeGain, localF / fadeInFrames);
+      const t = Math.max(0, Math.min(1, localF / fadeInFrames));
+      crossfadeGain = Math.min(crossfadeGain, Math.sin(t * (Math.PI / 2)));
     }
     const framesFromEnd = durationFrames - localF;
     if (fadeOutFrames > 0 && framesFromEnd < fadeOutFrames) {
-      crossfadeGain = Math.min(crossfadeGain, Math.max(0, framesFromEnd / fadeOutFrames));
+      const t = Math.max(0, Math.min(1, framesFromEnd / fadeOutFrames));
+      crossfadeGain = Math.min(crossfadeGain, Math.cos((1 - t) * (Math.PI / 2)));
     }
 
     // Duck envelope (global frame).

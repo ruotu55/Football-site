@@ -10,10 +10,10 @@ export interface SlotData {
 
 interface PlayerSlotProps {
   slot: SlotData;
-  /** Pitch-area percent coordinate for left position (0–100) */
-  x: number;
-  /** Pitch-area percent coordinate for top position (0–100) */
-  y: number;
+  /** Absolute pixel x (centre of slot, already scaled to render resolution) */
+  xPx: number;
+  /** Absolute pixel y (centre of slot, already scaled to render resolution) */
+  yPx: number;
   /** Scale multiplier for the front badge (flag/crest) */
   frontScale: number;
   /** Global frame at which the flip begins */
@@ -26,15 +26,36 @@ interface PlayerSlotProps {
 
 /**
  * A single player slot rendered as an absolutely-positioned flip card.
- * The wrapper is centred at (x%, y%) via translate(-50%,-50%).
+ *
+ * FIX 2+3 — Slot sizing:
+ *   CSS source: .player-slot { width: calc(9.11% * 1.02 * 1.1) } = ~10.22% of pitch surface.
+ *   The app's pitch surface fills most of the stage; slot diameter in the app
+ *   ≈ 10.22% of pitch width. The Remotion pitch rect spans PITCH_W ≈ 2174px at 2560px wide.
+ *   So slot diameter ≈ 0.1022 × 2174 ≈ 222px at full resolution.
+ *   We scale proportionally: BASE_SLOT_PX = 222 at CANVAS_W=2560.
+ *
+ * The wrapper is centred at (xPx, yPx) via translate(-50%,-50%).
  * The .slot-inner div rotates Y from 0→180° at reveal.
  * Front face: nationality flag (circular badge).
  * Back face: player photo + name label.
  */
+
+const CANVAS_W = 2560;
+// Pitch rect (must match Pitch.tsx)
+const REM = 16;
+const PANEL_LEFT  = Math.round(0.053 * CANVAS_W);
+const PANEL_WIDTH = Math.min(Math.round(0.1635 * CANVAS_W), Math.round(14.4 * REM));
+const PITCH_LEFT  = PANEL_LEFT + PANEL_WIDTH;
+const PITCH_RIGHT = CANVAS_W - 20;
+const PITCH_W     = PITCH_RIGHT - PITCH_LEFT; // ~2174px at 2560
+
+// slot diameter ≈ 10.22% of pitch width (matches CSS calc(9.11%*1.02*1.1))
+const BASE_SLOT_PX = Math.round(0.1022 * PITCH_W); // ~222px at 2560
+
 export const PlayerSlot: React.FC<PlayerSlotProps> = ({
   slot,
-  x,
-  y,
+  xPx,
+  yPx,
   frontScale,
   flipStartFrame,
   flipDurationFrames,
@@ -43,11 +64,11 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
   const frame = useCurrentFrame();
   const { width } = useVideoConfig();
 
-  // Scale slot size relative to 2560-wide canvas; base size 90px → becomes ~90px at 2560.
-  const BASE_BADGE_PX = 90;
-  const slotSize = Math.round((width / 2560) * BASE_BADGE_PX);
+  // Scale slot to current render resolution
+  const scaleRatio = width / CANVAS_W;
+  const slotSize = Math.round(BASE_SLOT_PX * scaleRatio);
 
-  // Frame-driven rotateY: 0→180 over the flip window, clamped outside.
+  // Frame-driven rotateY: 0→180 over the flip window
   const rot = interpolate(
     frame,
     [flipStartFrame, flipStartFrame + flipDurationFrames],
@@ -60,17 +81,16 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
   );
 
   const frontUrl = assetUrl(slot.frontRel, assetBase);
-  const backUrl = assetUrl(slot.photoRel, assetBase);
+  const backUrl  = assetUrl(slot.photoRel, assetBase);
 
-  // Outer wrapper: centred at (x%, y%) inside the pitch area.
+  // Outer wrapper: centred at absolute pixel position (xPx, yPx)
   const wrapperStyle: React.CSSProperties = {
     position: "absolute",
-    left: `${x}%`,
-    top: `${y}%`,
-    width: slotSize,
+    left: xPx,
+    top:  yPx,
+    width:  slotSize,
     height: slotSize,
     transform: "translate(-50%, -50%)",
-    // Ensure 3D context propagates
     perspective: 600,
   };
 
@@ -95,24 +115,19 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     WebkitBackfaceVisibility: "hidden",
   };
 
-  // Front face: circular badge with white ring
-  const frontFaceStyle: React.CSSProperties = {
-    ...faceBase,
-    transform: "translateZ(0)",
-  };
+  // Front face
+  const frontFaceStyle: React.CSSProperties = { ...faceBase, transform: "translateZ(0)" };
+  // Back face pre-rotated 180° — mirrors .slot-back
+  const backFaceStyle: React.CSSProperties  = { ...faceBase, transform: "rotateY(180deg) translateZ(0)" };
 
-  // Back face: pre-rotated 180° — mirrors .slot-back
-  const backFaceStyle: React.CSSProperties = {
-    ...faceBase,
-    transform: "rotateY(180deg) translateZ(0)",
-  };
-
-  // Badge circle (white disc + flag image inside)
+  // Badge circle (white disc + flag image inside) — mirrors .slot-avatar
+  // --slot-ring: clamp(2px, 1.7%, 2.35px)
+  const ringPx = Math.max(2, Math.min(slotSize * 0.017, 2.35));
   const avatarStyle: React.CSSProperties = {
     position: "absolute",
     inset: 0,
     borderRadius: "50%",
-    padding: "clamp(2px, 1.7%, 2.35px)",
+    padding: `${ringPx}px`,
     boxSizing: "border-box",
     backgroundColor: "#ffffff",
     overflow: "hidden",
@@ -131,7 +146,7 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     transformOrigin: "center center",
   };
 
-  // Photo frame: fill the slot, object-fit cover, slight border-radius
+  // Photo frame
   const photoImgStyle: React.CSSProperties = {
     position: "absolute",
     inset: 0,
@@ -143,12 +158,16 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     backgroundColor: "#1a1a2e",
   };
 
-  // Name label below the slot (only visible on the back / revealed side)
-  // Because it's outside the flip card, we fade it in when rot > 90 (back is showing)
+  // Name label — fades in after reveal (rot > 90°)
   const nameOpacity = interpolate(rot, [80, 100], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
+
+  // Name badge — mirrors .slot-name
+  // width: 3.35rem at base; scale proportionally to slot size
+  const nameBadgeW = Math.round(slotSize * (3.35 * REM / BASE_SLOT_PX));
+  const nameFontPx = Math.round(slotSize * 0.165); // ~0.165 × slotSize
 
   const nameLabelStyle: React.CSSProperties = {
     position: "absolute",
@@ -156,13 +175,27 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     left: "50%",
     transform: "translateX(-50%)",
     whiteSpace: "nowrap",
-    fontSize: Math.round(slotSize * 0.22),
-    fontWeight: 700,
+    width: nameBadgeW,
+    minWidth: nameBadgeW,
+    maxWidth: nameBadgeW,
+    height: Math.round(nameFontPx * 1.4),
+    overflow: "hidden",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: nameFontPx,
+    fontWeight: 800,
     color: "#ffffff",
-    textShadow: "0 1px 4px rgba(0,0,0,0.9)",
+    backgroundColor: "#ef5350",
+    borderRadius: 2,
+    boxShadow: "0 2px 4px rgba(0,0,0,0.5)",
+    fontFamily: '"Barlow Condensed", "Arial Narrow", Arial, sans-serif',
+    letterSpacing: "0.04em",
+    textTransform: "uppercase",
+    padding: `0 ${Math.round(nameFontPx * 0.3)}px`,
+    textShadow: "-0.05em -0.05em 0 #000, 0.05em -0.05em 0 #000, -0.05em 0.05em 0 #000, 0.05em 0.05em 0 #000",
     opacity: nameOpacity,
     pointerEvents: "none",
-    fontFamily: "sans-serif",
   };
 
   return (
