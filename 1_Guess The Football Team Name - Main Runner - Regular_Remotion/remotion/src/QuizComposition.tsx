@@ -1,12 +1,9 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-
-export const QuizComposition: React.FC<{ title?: string }> = ({ title = "Quiz" }) => {
+import type { RemotionProps } from "./props";
+export const QuizComposition: React.FC<RemotionProps> = (props) => {
   const frame = useCurrentFrame();
-  return (
-    <AbsoluteFill style={{ backgroundColor: "#0d1117", color: "#fff",
-      justifyContent: "center", alignItems: "center", fontSize: 80 }}>
-      {title} — frame {frame}
-    </AbsoluteFill>
-  );
+  return (<AbsoluteFill style={{ backgroundColor:"#0d1117", color:"#fff", justifyContent:"center", alignItems:"center", fontSize:64 }}>
+    {props.script} · Q{props.questionCount} · frame {frame}
+  </AbsoluteFill>);
 };
