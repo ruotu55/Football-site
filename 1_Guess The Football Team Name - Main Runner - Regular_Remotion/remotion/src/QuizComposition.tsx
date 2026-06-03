@@ -73,12 +73,13 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
               />
             );
           } else if (p.kind === "question") {
-            const level = props.levels[2 + p.index];
-            inner = (
+            const qLevel = props.levels[2 + p.index];
+            // Guard: skip rendering inner content when level data is missing (e.g. Studio defaultProps).
+            inner = qLevel ? (
               <>
                 <ProgressSteps total={props.questionCount} current={p.index} />
                 <QuestionLevel
-                  level={level}
+                  level={qLevel}
                   questionIndex={p.index}
                   cues={p.cues}
                   skipReveal={!!p.skipReveal}
@@ -86,7 +87,7 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
                   assetBase={props.assetBase}
                 />
               </>
-            );
+            ) : null;
           } else if (p.kind === "outro") {
             inner = (
               <OutroLevel

@@ -81,6 +81,9 @@ function slotY(y: number): number {
 export const Pitch: React.FC<PitchProps> = ({ level, cues, assetBase }) => {
   const { fps, width, height } = useVideoConfig();
 
+  // Guard: level may be undefined when defaultProps has empty levels[] (Studio preview).
+  if (!level) return null;
+
   const slots = level.slots;
   if (!slots || slots.length === 0) return null;
 

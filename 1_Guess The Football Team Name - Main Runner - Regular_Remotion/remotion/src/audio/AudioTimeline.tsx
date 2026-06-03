@@ -81,6 +81,9 @@ const BgmSongLayer: React.FC<BgmSongLayerProps> = ({
   // Suppress unused variable warning — volume callback uses localFrame via closure.
   void localFrame;
 
+  // Never render <Audio> with an empty src (causes NotSupportedError).
+  if (!src) return null;
+
   return <Audio src={src} volume={volume} />;
 };
 
@@ -237,7 +240,7 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
         return (
           <React.Fragment key={`q-audio-${phase.index}`}>
             {/* Ticking (tickStartMs → revealMs) — only when not skipReveal */}
-            {!phase.skipReveal && phase.cues && (
+            {!phase.skipReveal && phase.cues && TICKING_REL && props.assetBase && (
               <Sequence
                 from={phase.startFrame + msToFrames(phase.cues.tickStartMs, fps)}
                 durationInFrames={msToFrames(phase.cues.revealMs - phase.cues.tickStartMs, fps)}
@@ -248,7 +251,7 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
             )}
 
             {/* Reveal stinger — one-shot at stingerMs */}
-            {!phase.skipReveal && phase.cues && (
+            {!phase.skipReveal && phase.cues && REVEAL_STINGER_REL && props.assetBase && (
               <Sequence
                 from={phase.startFrame + msToFrames(phase.cues.stingerMs, fps)}
                 durationInFrames={msToFrames(1500, fps)} // generous window; stinger is short
@@ -259,7 +262,7 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
             )}
 
             {/* Reveal team-name voice (optional — skipped if no path) */}
-            {!phase.skipReveal && phase.cues && level?.revealVoiceRel && (
+            {!phase.skipReveal && phase.cues && level?.revealVoiceRel && props.assetBase && (
               <Sequence
                 from={phase.startFrame + msToFrames(phase.cues.voiceMs, fps)}
                 durationInFrames={msToFrames(revealMsDur + 500, fps)}
@@ -270,17 +273,19 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
             )}
 
             {/* Progress voice (optional — skipped if no path; fires at question start + PROGRESS_VOICE_DELAY) */}
-            {level?.progressVoiceRel && (() => {
+            {level?.progressVoiceRel && props.assetBase && (() => {
               const questionIndex = phase.index + 1;
               const progressKey = progressVoiceForQuestion(questionIndex, props.questionCount);
               const progressDurMs = (props.voiceDurationsMs ?? {})[progressKey ?? "warmUp"] ?? EST_PROGRESS_MS;
+              const progressSrc = assetUrl(level.progressVoiceRel, props.assetBase);
+              if (!progressSrc) return null;
               return (
                 <Sequence
                   from={phase.startFrame + msToFrames(MS.PROGRESS_VOICE_DELAY, fps)}
                   durationInFrames={msToFrames(progressDurMs + 500, fps)}
                   name={`progress-voice Q${phase.index}`}
                 >
-                  <Audio src={assetUrl(level.progressVoiceRel, props.assetBase)} />
+                  <Audio src={progressSrc} />
                 </Sequence>
               );
             })()}
@@ -291,14 +296,16 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
       {/* Rules / quiz-title voice on LOGO phase */}
       {logoPhase && (() => {
         const rel = quizTitleRelPath(props.quizType ?? "club-by-nat", props.language);
-        if (!rel) return null;
+        if (!rel || !props.assetBase) return null;
+        const rulesSrc = assetUrl(rel, props.assetBase);
+        if (!rulesSrc) return null;
         return (
           <Sequence
             from={logoPhase.startFrame + msToFrames(MS.LOGO_VOICE_DELAY, fps)}
             durationInFrames={msToFrames(rulesMs + 1000, fps)}
             name="rules-voice"
           >
-            <Audio src={assetUrl(rel, props.assetBase)} />
+            <Audio src={rulesSrc} />
           </Sequence>
         );
       })()}
@@ -306,14 +313,16 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
       {/* Ending voice on OUTRO phase */}
       {outroPhase && (() => {
         const rel = endingVoiceRelPath(props.endingType, props.language);
-        if (!rel) return null;
+        if (!rel || !props.assetBase) return null;
+        const endingSrc = assetUrl(rel, props.assetBase);
+        if (!endingSrc) return null;
         return (
           <Sequence
             from={outroPhase.startFrame + msToFrames(100, fps)}
             durationInFrames={msToFrames(endingMsDur + 1000, fps)}
             name="ending-voice"
           >
-            <Audio src={assetUrl(rel, props.assetBase)} />
+            <Audio src={endingSrc} />
           </Sequence>
         );
       })()}

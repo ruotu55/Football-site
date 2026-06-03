@@ -7,13 +7,11 @@ import { assetUrl } from "./assets";
 import { endingVoiceRelPath, quizTitleRelPath, progressVoiceRelPath, revealVoiceRelPath } from "./audio/voicePaths";
 import type { RemotionProps } from "./props";
 import { transitionDurationMs } from "./transitions/transitionDurations";
+import samplePropsJson from "../sample-props.json";
 
-const SAMPLE_PROPS: RemotionProps = {
-  script: "sample", totalLevelsCount: 6, questionCount: 3, bgmSongs: [],
-  bundledVoiceVariants: null, endingType: "think-you-know", transitionEffect: "grid-overlay",
-  levels: [], width: 2560, height: 1440, fps: 60, language: "english",
-  assetBase: "http://127.0.0.1:8975",
-};
+// Use the real sample JSON as defaultProps so Studio renders the full Arsenal pitch.
+// The cast via unknown handles the loose JSON type vs. strict RemotionProps.
+const SAMPLE_PROPS: RemotionProps = samplePropsJson as unknown as RemotionProps;
 
 export const RemotionRoot: React.FC = () => (
   <Composition

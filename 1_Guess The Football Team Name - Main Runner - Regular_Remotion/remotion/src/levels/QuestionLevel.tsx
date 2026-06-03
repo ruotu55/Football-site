@@ -26,6 +26,9 @@ export const QuestionLevel: React.FC<QuestionLevelProps> = ({
 }) => {
   const { fps } = useVideoConfig();
 
+  // Guard: level may be undefined when defaultProps has empty levels[] (Studio preview).
+  if (!level) return null;
+
   // Reveal frame: when countdown ends. Null if skipReveal (bonus last question).
   const revealFrame = cues && !skipReveal ? msToFrames(cues.revealMs, fps) : null;
 
