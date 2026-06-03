@@ -46,6 +46,9 @@ RUNNER_VARIANT = "Lineups Regular"
 RENDER_FEATURE_ENABLED = False
 _RENDER_JOBS: dict = {}
 
+# ── Remotion render jobs (npx remotion render) ──
+_REMOTION_JOBS: dict = {}
+
 
 def _node_exe() -> str:
     return shutil.which("node") or "node"
@@ -65,6 +68,49 @@ def _pump_render_job(job_id: str) -> None:
     proc.wait()
     job["code"] = proc.returncode
     job["done"] = True
+
+
+_REMOTION_RENDER_RE = re.compile(r"Rendered\s+(\d+)/(\d+)", re.IGNORECASE)
+# Noisy bundler/webpack lines we skip to keep the buffer small.
+_REMOTION_NOISE_RE = re.compile(
+    r"(webpack|esbuild|chunk|asset|module|bundle|Hash:|Time:|Built at:)", re.IGNORECASE
+)
+
+
+def _pump_remotion_job(job_id: str) -> None:
+    """Drain npx remotion render stdout into the job's line buffer with parsed progress."""
+    job = _REMOTION_JOBS.get(job_id)
+    if not job:
+        return
+    proc = job["proc"]
+    try:
+        for raw_line in proc.stdout:
+            line = raw_line.rstrip("\n")
+            m = _REMOTION_RENDER_RE.search(line)
+            if m:
+                frame = int(m.group(1))
+                total = int(m.group(2))
+                pct = round(frame / total * 100) if total else 0
+                job["lines"].append(
+                    json.dumps({"stage": "render", "frame": frame, "total": total, "pct": pct})
+                )
+            elif _REMOTION_NOISE_RE.search(line):
+                pass  # skip noisy bundler output
+            else:
+                text = line.strip()
+                if text:
+                    job["lines"].append(json.dumps({"stage": "log", "line": text}))
+    except Exception:  # noqa: BLE001
+        pass
+    proc.wait()
+    job["code"] = proc.returncode
+    job["done"] = True
+    if proc.returncode == 0:
+        job["lines"].append(json.dumps({"stage": "done", "path": job["out"]}))
+    else:
+        job["lines"].append(
+            json.dumps({"stage": "error", "message": "render exited " + str(proc.returncode)})
+        )
 
 SUPPORTED_LANGUAGES = ("english", "spanish")
 DEFAULT_LANGUAGE = "english"
@@ -3463,6 +3509,102 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             pass  # client disconnected
         return True
 
+    def _try_remotion_render(self) -> bool:
+        """POST /__remotion-render — spawn npx remotion render and return a job ID."""
+        if urlparse(self.path).path.rstrip("/") != "/__remotion-render":
+            return False
+        try:
+            body = self._read_json_body()
+            width = int(body.get("width") or 2560)
+            height = int(body.get("height") or 1440)
+            fps = int(body.get("fps") or 60)
+            language = _normalize_language(body.get("language"))
+            script = str(body.get("script") or "").strip()
+            state = body.get("stateJson")
+            if not script:
+                raise ValueError("script is required")
+            if not isinstance(state, dict):
+                raise ValueError("stateJson object required")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        out_dir = PROJECT_ROOT / "Ready videos" / language
+        out_dir.mkdir(parents=True, exist_ok=True)
+        out_path = out_dir / f"{script}.mp4"
+        server_port = self.server.server_address[1]
+        props = {**state, "width": width, "height": height, "fps": fps,
+                 "language": language, "assetBase": f"http://127.0.0.1:{server_port}"}
+        render_dir = RUNNER_DIR / "remotion"
+        props_path = render_dir / "out" / f"props-{uuid.uuid4().hex}.json"
+        props_path.parent.mkdir(parents=True, exist_ok=True)
+        props_path.write_text(json.dumps(props), encoding="utf-8")
+        cmd = ["npx", "remotion", "render", "src/index.ts", "Quiz", str(out_path),
+               f"--props={props_path}", f"--width={width}", f"--height={height}",
+               "--log=verbose"]
+        creationflags = subprocess.CREATE_NO_WINDOW if hasattr(subprocess, "CREATE_NO_WINDOW") else 0
+        try:
+            proc = subprocess.Popen(
+                cmd, cwd=str(render_dir),
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                text=True, bufsize=1, creationflags=creationflags,
+            )
+        except FileNotFoundError:
+            # On Windows npx is npx.cmd; retry via shell as a fallback.
+            try:
+                proc = subprocess.Popen(
+                    " ".join(f'"{c}"' if " " in c else c for c in cmd),
+                    cwd=str(render_dir),
+                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                    text=True, bufsize=1, shell=True, creationflags=creationflags,
+                )
+            except FileNotFoundError:
+                self._write_json(500, {"ok": False, "error": "npx/node not found on PATH."})
+                return True
+        job_id = uuid.uuid4().hex
+        _REMOTION_JOBS[job_id] = {
+            "proc": proc, "lines": [], "done": False, "code": None, "out": str(out_path),
+        }
+        threading.Thread(target=_pump_remotion_job, args=(job_id,), daemon=True).start()
+        self._write_json(200, {"ok": True, "jobId": job_id, "out": str(out_path)})
+        return True
+
+    def _try_remotion_progress(self) -> bool:
+        """GET /__remotion-render/progress?job=ID — SSE stream of Remotion progress lines."""
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__remotion-render/progress":
+            return False
+        job_id = (urllib.parse.parse_qs(parsed.query).get("job") or [""])[0]
+        job = _REMOTION_JOBS.get(job_id)
+        self.send_response(200)
+        self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+        self.send_header("Cache-Control", "no-cache")
+        self.send_header("Connection", "keep-alive")
+        self.end_headers()
+        if not job:
+            try:
+                self.wfile.write(b'data: {"stage":"error","message":"unknown job"}\n\n')
+                self.wfile.flush()
+            except OSError:
+                pass
+            return True
+        sent = 0
+        try:
+            while True:
+                while sent < len(job["lines"]):
+                    line = job["lines"][sent]
+                    sent += 1
+                    self.wfile.write(("data: " + line + "\n\n").encode("utf-8"))
+                    self.wfile.flush()
+                if job["done"]:
+                    tail = '{"stage":"finished","code":%s}' % (json.dumps(job.get("code")))
+                    self.wfile.write(("data: " + tail + "\n\n").encode("utf-8"))
+                    self.wfile.flush()
+                    break
+                time.sleep(0.25)
+        except OSError:
+            pass  # client disconnected
+        return True
+
     def do_GET(self) -> None:  # noqa: N802
         if _runner_blob_mod.try_handle_get(self, PROJECT_ROOT):
             return
@@ -3477,6 +3619,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_aliases_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if self._try_render_progress():
+            return
+        if self._try_remotion_progress():
             return
         if self._try_serve_team_voice_voices():
             return
@@ -3515,6 +3659,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_aliases_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if self._try_render_video():
+            return
+        if self._try_remotion_render():
             return
         if self._try_generate_team_voice():
             return
