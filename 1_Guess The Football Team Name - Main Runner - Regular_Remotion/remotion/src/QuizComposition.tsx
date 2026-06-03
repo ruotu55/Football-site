@@ -12,6 +12,7 @@ import { TransitionOverlay } from "./transitions/TransitionOverlay";
 import { transitionDurationMs } from "./transitions/transitionDurations";
 import { AudioTimeline } from "./audio/AudioTimeline";
 import { SideText } from "./SideText";
+import { generateBgTheme, generateCompetitionBgTheme } from "./background/themeEngine";
 
 export const QuizComposition: React.FC<RemotionProps> = (props) => {
   const { fps } = useVideoConfig();
@@ -27,10 +28,24 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
 
   const outroLevel = props.levels[props.levels.length - 1];
 
+  // Studio background controls: when backgroundColor is overridden (not "__captured__"),
+  // regenerate the theme from the ported engine so the Studio dropdowns preview live.
+  // Real renders leave it "__captured__" → keep the app-captured bgTheme.
+  let effectiveBg = props.bgTheme;
+  if (props.backgroundColor && props.backgroundColor !== "__captured__") {
+    effectiveBg = props.backgroundColor.startsWith("comp-")
+      ? generateCompetitionBgTheme(props.backgroundColor.slice(5))
+      : generateBgTheme(
+          props.backgroundColor,
+          props.backgroundEffect ?? "youtube-thumbnails",
+          props.backgroundOpacity ?? 3.5,
+        );
+  }
+
   return (
     <AbsoluteFill>
       {/* Background — always the bottom layer (no zIndex override so it stays at 0) */}
-      <BackgroundTheme bgTheme={props.bgTheme} />
+      <BackgroundTheme bgTheme={effectiveBg} />
 
       {/* App-wide decorative side text — above all content, persists on every frame */}
       <SideText />

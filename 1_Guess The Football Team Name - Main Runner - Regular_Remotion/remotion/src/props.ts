@@ -64,4 +64,9 @@ export interface RemotionProps {
   voiceDurationsMs?: Record<string, number>;
   // Live-captured background theme from the app (palette OR competition).
   bgTheme?: BgTheme | null;
+  // Studio background controls (schema-driven). "__captured__" = keep bgTheme as-is
+  // (the default for real renders). A COLOR id or "comp-<id>" overrides it live.
+  backgroundColor?: string;
+  backgroundEffect?: string;
+  backgroundOpacity?: number;
 }

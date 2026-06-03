@@ -1,5 +1,6 @@
 import React from "react";
 import { Composition } from "remotion";
+import { z } from "zod";
 import { getAudioDurationInSeconds } from "@remotion/media-utils";
 import { QuizComposition } from "./QuizComposition";
 import { buildTimeline } from "./timeline";
@@ -7,21 +8,45 @@ import { assetUrl } from "./assets";
 import { endingVoiceRelPath, quizTitleRelPath, progressVoiceRelPath, revealVoiceRelPath } from "./audio/voicePaths";
 import type { RemotionProps } from "./props";
 import { transitionDurationMs } from "./transitions/transitionDurations";
+import { COLORS, EFFECTS, COMPETITION_THEMES_LIST } from "./background/themeEngine";
 import samplePropsJson from "../sample-props.json";
 
 // Use the real sample JSON as defaultProps so Studio renders the full Arsenal pitch.
 // The cast via unknown handles the loose JSON type vs. strict RemotionProps.
 const SAMPLE_PROPS: RemotionProps = samplePropsJson as unknown as RemotionProps;
 
+// ── Studio Background controls (Zod schema) ──────────────────────────────────
+// Enum values: "__captured__" (keep the app-captured bgTheme — default for real
+// renders) + every palette color id + every competition ("comp-<id>"). Studio
+// renders dropdowns for the enums and a number field for opacity automatically.
+const BACKGROUND_COLOR_VALUES = [
+  "__captured__",
+  ...COLORS.map((c) => c.id),
+  ...COMPETITION_THEMES_LIST.map((t) => `comp-${t.id}`),
+] as [string, ...string[]];
+const BACKGROUND_EFFECT_VALUES = EFFECTS.map((e) => e.id) as [string, ...string[]];
+
+const quizSchema = z.object({
+  backgroundColor: z.enum(BACKGROUND_COLOR_VALUES).default("__captured__"),
+  backgroundEffect: z.enum(BACKGROUND_EFFECT_VALUES).default("youtube-thumbnails"),
+  backgroundOpacity: z.number().min(0).max(10).step(0.5).default(3.5),
+});
+
 export const RemotionRoot: React.FC = () => (
   <Composition
     id="Quiz"
     component={QuizComposition as any}
+    schema={quizSchema as any}
     width={2560}
     height={1440}
     fps={60}
     durationInFrames={600}
-    defaultProps={SAMPLE_PROPS}
+    defaultProps={{
+      ...SAMPLE_PROPS,
+      backgroundColor: "__captured__",
+      backgroundEffect: "youtube-thumbnails",
+      backgroundOpacity: 3.5,
+    } as any}
     calculateMetadata={async ({ props }) => {
       const p = props as unknown as RemotionProps;
       const fps = p.fps ?? 60;

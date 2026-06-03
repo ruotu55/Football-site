@@ -53,10 +53,23 @@ export const BackgroundTheme: React.FC<BackgroundThemeProps> = ({ bgTheme }) => 
           show correctly (flat bgStage was hiding the gradient behind this layer). */}
       <AbsoluteFill style={{ ...baseStyle, zIndex: 0 }} />
 
-      {/* The captured CSS: targets `body` which is the Remotion render root.
-          Includes the `:root[attr][attr] body { background: ... }` rule + keyframes
-          + ::before/::after overlays. */}
+      {/* The CSS: keyframes + (for engine-generated palette themes) the overlay
+          effect CSS RETARGETED from `body` onto `.bg-fx-host` so the rays/rings/
+          diagonal pseudo-elements paint above our opaque base color layer. */}
       {bgTheme.css ? <style>{bgTheme.css}</style> : null}
+
+      {/* Transparent full-bleed host for the retargeted `.bg-fx-host::before/::after`
+          overlay effects. The `:root[data-shared-background-effect="X"]` attribute
+          prefix on those rules still matches because we set the attr on documentElement
+          (above) AND on this host. Sits above the base color (zIndex 0) but below
+          content (zIndex 1). */}
+      <div
+        className="bg-fx-host"
+        data-shared-background-effect={bgTheme.effectAttr}
+        data-shared-background-color={bgTheme.colorAttr}
+        style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none" }}
+      />
+
 
       {/* Particle containers (emoji / question-marks / soccer-balls).
           Competition themes have none; palette effects may have them. */}
