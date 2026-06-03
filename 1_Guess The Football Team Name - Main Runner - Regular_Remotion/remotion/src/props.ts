@@ -38,6 +38,10 @@ export interface BgTheme {
   lineOpacity: string;
   effectOpacity: string;
   particlesHtml: string[];
+  computed?: {
+    backgroundImage: string; backgroundColor: string;
+    backgroundSize: string; backgroundRepeat: string; backgroundPosition: string;
+  } | null;
 }
 
 export interface RemotionProps {

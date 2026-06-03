@@ -326,6 +326,22 @@ export function buildRemotionState() {
       const styleEl = document.getElementById("shared-background-theme-style");
       const cs = getComputedStyle(root);
       const grab = (id) => { const el = document.getElementById(id); return el ? el.outerHTML : ""; };
+
+      // Capture the computed body background so the renderer can paint the exact
+      // resolved gradient + pattern directly, without relying on body CSS rules
+      // that are hidden behind an opaque AbsoluteFill layer.
+      let computed = null;
+      try {
+        const bodyCS = getComputedStyle(document.body);
+        computed = {
+          backgroundImage: bodyCS.backgroundImage || "",
+          backgroundColor: bodyCS.backgroundColor || "",
+          backgroundSize: bodyCS.backgroundSize || "",
+          backgroundRepeat: bodyCS.backgroundRepeat || "",
+          backgroundPosition: bodyCS.backgroundPosition || "",
+        };
+      } catch { computed = null; }
+
       return {
         css: styleEl ? styleEl.textContent : "",
         colorAttr: root.getAttribute("data-shared-background-color") || "",
@@ -334,6 +350,7 @@ export function buildRemotionState() {
         lineOpacity: (root.style.getPropertyValue("--shared-line-opacity") || cs.getPropertyValue("--shared-line-opacity") || "3.5").trim(),
         effectOpacity: (root.style.getPropertyValue("--shared-effect-opacity") || cs.getPropertyValue("--shared-effect-opacity") || "0.3").trim(),
         particlesHtml: [grab("shared-background-emojis"), grab("shared-background-question-marks"), grab("shared-background-soccer-balls")].filter(Boolean),
+        computed,
       };
     } catch (_) { return null; }
   })();

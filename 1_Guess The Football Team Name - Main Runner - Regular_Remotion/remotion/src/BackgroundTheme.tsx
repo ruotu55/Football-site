@@ -30,12 +30,28 @@ export const BackgroundTheme: React.FC<BackgroundThemeProps> = ({ bgTheme }) => 
     );
   }
 
+  // Build the base layer style: use the exact computed background captured from the
+  // live app body (resolved gradient + pattern) when available. This ensures competition
+  // themes (diagonal gradient + stripe pattern) render correctly even though the body's
+  // CSS rules are hidden behind this opaque full-bleed layer.
+  // TODO: palette ::before/::after effects hidden behind base layer; reproduce as real layers later.
+  const c = bgTheme.computed;
+  const baseStyle: React.CSSProperties =
+    c && c.backgroundImage && c.backgroundImage !== "none"
+      ? {
+          backgroundColor: c.backgroundColor || bgTheme.bgStage || "#0b1622",
+          backgroundImage: c.backgroundImage,
+          backgroundSize: c.backgroundSize || "100% 100%",
+          backgroundRepeat: c.backgroundRepeat || "no-repeat",
+          backgroundPosition: c.backgroundPosition || "center",
+        }
+      : { backgroundColor: bgTheme.bgStage || "#0b1622" };
+
   return (
     <>
-      {/* Solid base fill so the dominant colour shows even before body-targeted CSS paints */}
-      <AbsoluteFill
-        style={{ backgroundColor: bgTheme.bgStage || "#0b1622", zIndex: 0 }}
-      />
+      {/* Base fill: paints the computed gradient/pattern directly so competition themes
+          show correctly (flat bgStage was hiding the gradient behind this layer). */}
+      <AbsoluteFill style={{ ...baseStyle, zIndex: 0 }} />
 
       {/* The captured CSS: targets `body` which is the Remotion render root.
           Includes the `:root[attr][attr] body { background: ... }` rule + keyframes
