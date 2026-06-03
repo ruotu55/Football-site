@@ -10,18 +10,15 @@ import { QuestionLevel } from "./levels/QuestionLevel";
 import { OutroLevel } from "./levels/OutroLevel";
 import { TransitionOverlay } from "./transitions/TransitionOverlay";
 
-// TODO(reconcile outro duration via props): pass probed outroVoiceMs through RemotionProps so
-// the in-composition buildTimeline() call matches calculateMetadata's total exactly.
-
 export const QuizComposition: React.FC<RemotionProps> = (props) => {
   const { fps } = useVideoConfig();
-  // Rebuild timeline without outroVoiceMs (unknown at render time).
-  // The composition's durationInFrames (from calculateMetadata) may be slightly longer;
-  // trailing frames after the outro Sequence are fine — the outro simply stays visible.
+  // Use outroVoiceMs injected by calculateMetadata (via props reconcile) so the
+  // in-component timeline matches the metadata duration exactly.
   const tl = buildTimeline({
     questionCount: props.questionCount,
     fps,
     endingType: props.endingType,
+    outroVoiceMs: props.outroVoiceMs ?? 0,
   });
 
   const outroLevel = props.levels[props.levels.length - 1];
@@ -49,9 +46,19 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
         let inner: React.ReactNode = null;
 
         if (p.kind === "logo") {
-          inner = <LogoLevel level={props.levels[0]} />;
+          inner = (
+            <LogoLevel
+              assetBase={props.assetBase}
+              language={props.language}
+            />
+          );
         } else if (p.kind === "landing") {
-          inner = <LandingLevel level={props.levels[1]} />;
+          inner = (
+            <LandingLevel
+              language={props.language}
+              questionCount={props.questionCount}
+            />
+          );
         } else if (p.kind === "question") {
           const level = props.levels[2 + p.index];
           inner = (
@@ -68,7 +75,14 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
             </>
           );
         } else if (p.kind === "outro") {
-          inner = <OutroLevel level={outroLevel} endingType={props.endingType} />;
+          inner = (
+            <OutroLevel
+              level={outroLevel}
+              endingType={props.endingType}
+              language={props.language}
+              assetBase={props.assetBase}
+            />
+          );
         }
 
         return (

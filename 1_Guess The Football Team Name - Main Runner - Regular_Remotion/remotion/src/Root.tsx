@@ -37,7 +37,13 @@ export const RemotionRoot: React.FC = () => (
         outroVoiceMs = 2500;
       }
       const tl = buildTimeline({ questionCount: p.questionCount, fps, endingType: p.endingType, outroVoiceMs });
-      return { durationInFrames: tl.totalDurationFrames, fps, width: p.width ?? 2560, height: p.height ?? 1440 };
+      return {
+        durationInFrames: tl.totalDurationFrames,
+        fps,
+        width: p.width ?? 2560,
+        height: p.height ?? 1440,
+        props: { ...p, outroVoiceMs },
+      };
     }}
   />
 );

@@ -40,4 +40,6 @@ export interface RemotionProps {
   width: number; height: number; fps: number;
   language: "english" | "spanish";
   assetBase: string;
+  // Injected by calculateMetadata after probing the outro voice audio duration.
+  outroVoiceMs?: number;
 }
