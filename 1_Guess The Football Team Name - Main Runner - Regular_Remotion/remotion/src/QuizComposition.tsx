@@ -56,6 +56,7 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
           inner = (
             <LandingLevel
               language={props.language}
+              quizType={props.quizType ?? "club-by-nat"}
               questionCount={props.questionCount}
             />
           );

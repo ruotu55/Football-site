@@ -28,6 +28,7 @@ export function buildRemotionState() {
     bundledVoiceVariants: appState.bundledVoiceVariants || null,
     endingType: typeof window.__getSelectedEndingType === "function" ? window.__getSelectedEndingType() : "think-you-know",
     transitionEffect: (window.__captureTransitionEffect && window.__captureTransitionEffect()) || "grid-overlay",
+    quizType: (document.getElementById("in-quiz-type")?.value) || "club-by-nat",
     levels,
   };
 }

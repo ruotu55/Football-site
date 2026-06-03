@@ -35,6 +35,7 @@ export interface RemotionProps {
   bundledVoiceVariants: Record<string, number> | null;
   endingType: "think-you-know" | "how-many";
   transitionEffect: string;
+  quizType?: string;
   levels: RemotionLevel[];
   // injected by the server:
   width: number; height: number; fps: number;

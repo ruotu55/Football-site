@@ -4,15 +4,26 @@ import { AbsoluteFill } from "remotion";
 // i18n text matching app's i18n.js TRANSLATIONS map.
 const TEXTS = {
   english: {
-    // Runner 1 is "nat-by-club" mode by default (national team by players' club)
-    title: ["GUESS THE FOOTBALL", "NATIONAL TEAM NAME", "BY PLAYERS' CLUB"],
-    subtitle: "2025/6 SEASON",
+    clubByNat: {
+      title: ["GUESS THE FOOTBALL", "TEAM NAME BY", "PLAYERS NATIONALITY"],
+      subtitle: "2025/6 SEASON",
+    },
+    natByClub: {
+      title: ["GUESS THE FOOTBALL", "NATIONAL TEAM NAME", "BY PLAYERS' CLUB"],
+      subtitle: "2025/6 SEASON",
+    },
     questionsLabel: "QUESTIONS",
     bonus: "BONUS",
   },
   spanish: {
-    title: ["ADIVINA EL NOMBRE DEL", "EQUIPO NACIONAL POR", "EL CLUB DE LOS JUGADORES"],
-    subtitle: "TEMPORADA 2025/6",
+    clubByNat: {
+      title: ["ADIVINA EL EQUIPO DE FÚTBOL", "POR LA NACIONALIDAD", "DE LOS JUGADORES"],
+      subtitle: "TEMPORADA 2025/6",
+    },
+    natByClub: {
+      title: ["ADIVINA EL NOMBRE DEL", "EQUIPO NACIONAL POR", "EL CLUB DE LOS JUGADORES"],
+      subtitle: "TEMPORADA 2025/6",
+    },
     questionsLabel: "PREGUNTAS",
     bonus: "BONUS",
   },
@@ -20,6 +31,7 @@ const TEXTS = {
 
 interface LandingLevelProps {
   language?: string;
+  quizType?: string;
   questionCount?: number;
 }
 
@@ -27,10 +39,13 @@ const FONT_FAMILY = '"Barlow Condensed", "Arial Black", sans-serif';
 
 export const LandingLevel: React.FC<LandingLevelProps> = ({
   language = "english",
+  quizType = "club-by-nat",
   questionCount = 30,
 }) => {
   const lang = language === "spanish" ? "spanish" : "english";
+  const variant = quizType === "nat-by-club" ? "natByClub" : "clubByNat";
   const tx = TEXTS[lang];
+  const { title, subtitle } = tx[variant];
 
   return (
     <AbsoluteFill
@@ -66,10 +81,10 @@ export const LandingLevel: React.FC<LandingLevelProps> = ({
             letterSpacing: 1,
           }}
         >
-          {tx.title.map((line, i) => (
+          {title.map((line, i) => (
             <React.Fragment key={i}>
               {line}
-              {i < tx.title.length - 1 && <br />}
+              {i < title.length - 1 && <br />}
             </React.Fragment>
           ))}
         </div>
@@ -87,7 +102,7 @@ export const LandingLevel: React.FC<LandingLevelProps> = ({
               "0 8px 22px rgba(0,0,0,0.8), 0 2.5px 5px rgba(0,0,0,0.5)",
           }}
         >
-          {tx.subtitle}
+          {subtitle}
         </div>
 
         {/* Questions count pill */}
