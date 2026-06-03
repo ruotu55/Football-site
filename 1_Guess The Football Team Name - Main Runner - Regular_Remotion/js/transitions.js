@@ -813,6 +813,7 @@ export const transitionSettings = {
   effect: "grid-overlay",
   random: false,
 };
+window.__captureTransitionEffect = () => transitionSettings.effect;
 
 function isProdModeFromUi() {
   const btn = appState.els?.prodBtn || document.getElementById("prod-btn");

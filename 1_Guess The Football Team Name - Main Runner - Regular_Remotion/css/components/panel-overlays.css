@@ -638,6 +638,116 @@ body.youtube-thumbnails-mode .countdown-timer {
 .career-ready-photo-switch-modal,
 .career-ready-photo-switch-modal--portal,
 .career-ready-photo-url-modal,
-.career-ready-photo-url-modal--portal {
+.career-ready-photo-url-modal--portal,
+.remotion-config-overlay {
   z-index: 200000 !important;
+}
+
+/* ── Remotion render config modal ─────────────────────────────────── */
+.remotion-config-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 100100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.remotion-config-modal {
+  background: rgba(10, 15, 22, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 1.8rem 2rem 1.5rem;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  color: #fff;
+}
+.remotion-config-modal h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent, #ffca28);
+}
+.rc-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.rc-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.6);
+}
+.rc-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.rc-options button {
+  padding: 0.45rem 0.9rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.rc-options button:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.rc-options button.sel {
+  background: rgba(255, 202, 40, 0.15);
+  border-color: var(--accent, #ffca28);
+  color: var(--accent, #ffca28);
+  font-weight: 700;
+}
+.rc-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.4rem;
+}
+.rc-cancel {
+  padding: 0.55rem 1.3rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.rc-cancel:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+.rc-confirm {
+  padding: 0.55rem 1.5rem;
+  background: linear-gradient(180deg, #ffd24a 0%, #f4b000 100%);
+  border: none;
+  border-radius: 6px;
+  color: #1a0e00;
+  font-size: 0.9rem;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+.rc-confirm:hover {
+  filter: brightness(1.1);
 }

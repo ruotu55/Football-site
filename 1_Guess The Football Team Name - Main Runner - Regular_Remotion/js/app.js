@@ -68,6 +68,8 @@ import {
     getInitialLevelCountFromSnapshot,
     restoreDevLiveReloadState,
 } from "./dev-live-reload-state.js";
+import { openRemotionConfigModal } from "./remotion-config-modal.js";
+import { startRemotionRender } from "./remotion-render-client.js";
 
 const HEADER_LOGO_SCALE_STEP = 0.1;
 const HEADER_LOGO_SCALE_MIN_POSITIVE = 0.001;
@@ -1435,30 +1437,30 @@ async function init() {
     if (els.recordVideoBtn) {
         els.recordVideoBtn.onclick = async () => {
             if (appState.doubleRecording) return; // already running; ignore duplicate clicks
+
+            // ── Remotion render path (replaces OBS recording) ──────────────────────
             if (appState.isVideoPlaying) {
-                startVideoFlow(); // toggles to stop (also tears down recording)
+                startVideoFlow(); // toggles to stop
                 return;
-            }
-            if (isProdMode()) {
-                const result = await runProdValidation();
-                if (!result.allPassed) {
-                    showValidationModal(result);
-                    return;
-                }
             }
             const savedName = (getActiveScriptName() || "").trim();
             if (!savedName) {
-                alert("Load a saved setting first � the OBS file is named after it.");
+                alert("Load a saved setting first — the rendered file is named after it.");
                 return;
             }
+            const cfg = await openRemotionConfigModal();
+            if (!cfg) return;
+            await startRemotionRender(cfg);
+            return; // do NOT fall through to the old OBS record flow
 
-            /* Pick the random ending ONCE for the whole double-record, so phase 1
-               (English) and phase 2 (Spanish) end with the same chosen type. */
+            /* ── Legacy OBS record flow (unreachable; preserved for reference) ───────
+            Record Video: records once in English, then once in Spanish — both saved
+            under Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen
+            between phases so the browser doesn't need a fresh user gesture.
+
             resetRandomEndingType();
-
             const __recLang = await askRecordingLanguage();
             if (!__recLang) return;
-
             try {
                 if (__recLang === "english" || __recLang === "both") {
                     appState.doubleRecording = { phase: 1, savedName, single: __recLang !== "both" };
@@ -1469,18 +1471,15 @@ async function init() {
                     const ok1 = await runRecordingPhase(savedName, "english");
                     if (!ok1) return;
                 }
-                if (__recLang === "both") {
-                    await brake(RECORD_BETWEEN_PHASES_MS);
-                }
+                if (__recLang === "both") { await brake(RECORD_BETWEEN_PHASES_MS); }
                 if (__recLang === "spanish" || __recLang === "both") {
                     appState.doubleRecording = { phase: 2, savedName, single: __recLang !== "both" };
                     setCurrentLanguage("spanish");
                     await brake(RECORD_LANG_BRAKE_MS);
                     await runRecordingPhase(savedName, "spanish");
                 }
-            } finally {
-                appState.doubleRecording = null;
-            }
+            } finally { appState.doubleRecording = null; }
+            ── end legacy ── */
         };
     }
 
