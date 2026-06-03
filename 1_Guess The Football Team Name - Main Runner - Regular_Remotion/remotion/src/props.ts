@@ -22,6 +22,10 @@ export interface RemotionLevel {
   headerLogoOverrideRelPath: string | null;
   selectedEntry: { name?: string; country?: string; league?: string; region?: string } | null;
   __revealPhraseByLanguage: Record<string, string> | null;
+  // Optional fields filled by the question-level fixture / real flow:
+  teamName?: string;
+  headerLogoRel?: string;
+  slots?: Array<{ name: string; frontRel: string; photoRel: string }>;
 }
 export interface RemotionProps {
   script: string;
