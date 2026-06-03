@@ -3,6 +3,7 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import type { RemotionLevel } from "../props";
 import type { QuestionCues } from "../timeline";
 import { msToFrames } from "../timeline";
+import { Pitch } from "../pitch/Pitch";
 
 interface QuestionLevelProps {
   level: RemotionLevel;
@@ -11,26 +12,23 @@ interface QuestionLevelProps {
   cues?: QuestionCues;
   skipReveal?: boolean;
   localDurationInFrames: number;
+  assetBase: string;
 }
 
-const PANEL: React.CSSProperties = {
-  background: "rgba(0,0,0,0.6)",
-  borderRadius: 20,
-  padding: "48px 80px",
+const INDICATOR: React.CSSProperties = {
+  position: "absolute",
+  top: 32,
+  left: "50%",
+  transform: "translateX(-50%)",
+  background: "rgba(0,0,0,0.55)",
+  borderRadius: 14,
+  padding: "10px 32px",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: 20,
-  maxWidth: 1200,
-};
-
-const SLOT_LIST: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-start",
   gap: 6,
-  marginTop: 16,
-  width: "100%",
+  zIndex: 10,
+  pointerEvents: "none",
 };
 
 export const QuestionLevel: React.FC<QuestionLevelProps> = ({
@@ -39,6 +37,7 @@ export const QuestionLevel: React.FC<QuestionLevelProps> = ({
   cues,
   skipReveal,
   localDurationInFrames: _localDurationInFrames,
+  assetBase,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -50,33 +49,29 @@ export const QuestionLevel: React.FC<QuestionLevelProps> = ({
   const qLabel = `Q${questionIndex + 1}`;
 
   return (
-    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
-      <div style={PANEL}>
-        <span style={{ fontSize: 80, fontWeight: 900, color: "#e8b500", letterSpacing: 4 }}>
+    <AbsoluteFill>
+      {/* Pitch (the visual centerpiece) */}
+      <Pitch level={level} cues={skipReveal ? undefined : cues} assetBase={assetBase} />
+
+      {/* Minimal dev indicator (keeps builds verifiable, unobtrusive) */}
+      <div style={INDICATOR}>
+        <span style={{ fontSize: 52, fontWeight: 900, color: "#e8b500", letterSpacing: 3 }}>
           {qLabel}: {level.teamName ?? "(no team)"}
         </span>
         <span
           style={{
-            fontSize: 52,
+            fontSize: 36,
             fontWeight: 700,
             color: isRevealed ? "#6dffb0" : "rgba(255,255,255,0.75)",
-            marginTop: 4,
           }}
         >
           {phase}
         </span>
         {revealFrame !== null && (
-          <span style={{ fontSize: 30, color: "rgba(255,255,255,0.4)" }}>
+          <span style={{ fontSize: 22, color: "rgba(255,255,255,0.4)" }}>
             local frame: {frame} / reveal @ {revealFrame}
           </span>
         )}
-        <div style={SLOT_LIST}>
-          {(level.slots ?? []).map((slot, i) => (
-            <span key={i} style={{ fontSize: 28, color: "rgba(255,255,255,0.7)" }}>
-              {i + 1}. {slot.name}
-            </span>
-          ))}
-        </div>
       </div>
     </AbsoluteFill>
   );
