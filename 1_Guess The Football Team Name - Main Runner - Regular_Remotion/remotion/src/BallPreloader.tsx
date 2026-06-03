@@ -370,8 +370,11 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
 
     if (currentTime <= MERGE_DURATION) {
       // Phase 1: merge phase
-      // Show merge balls, hide main ball
-      goo.style.filter = `url(#bp-ball-gooey)`;
+      // Show merge balls, hide main ball.
+      // NO gooey blur on the goo container — the heavy feGaussianBlur (stdDev≈15)
+      // smears the soccer pentagon detail into fuzzy white blobs.  Crisp balls
+      // overlap at center instead; that's the visual "merge into one".
+      goo.style.filter = `none`;
       const mergeEl = goo.parentElement as HTMLElement;
       if (mergeEl) {
         mergeEl.style.display = "flex";
