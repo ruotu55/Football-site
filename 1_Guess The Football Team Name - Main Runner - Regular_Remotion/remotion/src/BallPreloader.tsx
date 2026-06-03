@@ -8,7 +8,7 @@
  * - The exact DOM structure from index.html is reproduced via React refs.
  * - A paused GSAP timeline is built once (lazily on first useLayoutEffect call)
  *   with the byte-identical tweens from ball-preloader-animation.js.
- * - Every render calls tl.seek(frame / fps) so GSAP sets inline styles on the
+ * - Every render calls tl.seek(currentTime) so GSAP sets inline styles on the
  *   real DOM nodes; Remotion captures the result deterministically.
  *
  * GSAP timeline phases (total ~3.35 s):
@@ -25,16 +25,16 @@ import gsap from "gsap";
 // ── Geometry constants ────────────────────────────────────────────────────────
 // Soccer ball: the outer .ball-preloader-ball is 400×400; inner scale is 0.348.
 const BALL_OUTER_PX = 400;
-const INNER_SCALE = 0.348;
-const HANDOFF_SCALE = 1.6; // merge hands off at this scale
-const MERGE_R = 116; // radius of the 4 merge balls
+const INNER_SCALE_BASE = 0.348;
+const HANDOFF_SCALE = 1.6; // merge hands off at this scale (relative, not px)
+const MERGE_R_BASE = 116;  // orbit radius of the 4 merge balls at base size
 
-// Cardinal starts: N, E, S, W
-const STARTS: [number, number][] = [
-  [0, -MERGE_R],
-  [MERGE_R, 0],
-  [0, MERGE_R],
-  [-MERGE_R, 0],
+// Cardinal starts: N, E, S, W (computed per render using scaled MERGE_R)
+const CARDINAL_DIRS: [number, number][] = [
+  [0, -1],
+  [1, 0],
+  [0, 1],
+  [-1, 0],
 ];
 
 // ── Soccer ball CSS (reproduced exactly from landing.css) ─────────────────────
@@ -141,120 +141,6 @@ const ballCss = `
 }
 `;
 
-// ── Inline style objects ──────────────────────────────────────────────────────
-const styles = {
-  preloader: {
-    position: "absolute" as const,
-    inset: 0,
-    zIndex: 9998,
-    overflow: "hidden",
-    contain: "layout paint style" as const,
-    isolation: "isolate" as const,
-  } as React.CSSProperties,
-  layer2: {
-    position: "absolute" as const,
-    inset: 0,
-    background: "#ffffff",
-    zIndex: 1,
-  } as React.CSSProperties,
-  layer1: {
-    position: "absolute" as const,
-    inset: 0,
-    background: "#3c6553",
-    zIndex: 2,
-  } as React.CSSProperties,
-  ballOuter: {
-    position: "absolute" as const,
-    top: "calc(50% - 200px)",
-    left: "calc(50% - 200px)",
-    zIndex: 4,
-    width: BALL_OUTER_PX,
-    height: BALL_OUTER_PX,
-    transformStyle: "preserve-3d" as const,
-    backfaceVisibility: "hidden" as const,
-    willChange: "transform, opacity",
-  } as React.CSSProperties,
-  ballScale: {
-    width: "100%",
-    height: "100%",
-    transform: `scale(${INNER_SCALE})`,
-    // center center so the outer div's center (200,200) aligns with the visible
-    // ball's center — GSAP scales the outer from 50%/50% by default and the
-    // visual ball must expand from the same pivot.
-    transformOrigin: "center center",
-    backfaceVisibility: "hidden" as const,
-    willChange: "transform",
-  } as React.CSSProperties,
-  ballInner: {
-    position: "relative" as const,
-    width: "100%",
-    height: "100%",
-    margin: "0 auto",
-    borderRadius: "50%",
-    boxShadow:
-      "0 16px 20px 0 rgba(0,0,0,0.14), 0 4px 40px 0 rgba(0,0,0,0.12), 0 8px 16px -4px rgba(0,0,0,0.2)",
-    overflow: "hidden",
-    transform: "translateZ(0)",
-    backfaceVisibility: "hidden" as const,
-  } as React.CSSProperties,
-  ballMerge: {
-    position: "absolute" as const,
-    inset: 0,
-    zIndex: 3,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    pointerEvents: "none" as const,
-    willChange: "opacity",
-  } as React.CSSProperties,
-  ballMergeGoo: {
-    position: "relative" as const,
-    width: 340,
-    height: 340,
-    willChange: "transform",
-    // filter is set by JS (gooey effect)
-  } as React.CSSProperties,
-  mergeLiquid: {
-    position: "absolute" as const,
-    top: "50%",
-    left: "50%",
-    width: 120,
-    height: 120,
-    marginTop: -60,
-    marginLeft: -60,
-    borderRadius: "50%",
-    background: "transparent",
-    overflow: "visible" as const,
-    willChange: "transform",
-  } as React.CSSProperties,
-  mergeLiquidBall: {
-    position: "absolute" as const,
-    inset: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    pointerEvents: "none" as const,
-  } as React.CSSProperties,
-  mergeLiquidBallScale: {
-    width: 400,
-    height: 400,
-    transform: "scale(0.348)",
-    transformOrigin: "center center",
-  } as React.CSSProperties,
-  mergeBallInner: {
-    position: "relative" as const,
-    width: 400,
-    height: 400,
-    margin: "0 auto",
-    borderRadius: "50%",
-    boxShadow:
-      "0 16px 20px 0 rgba(0,0,0,0.14), 0 4px 40px 0 rgba(0,0,0,0.12), 0 8px 16px -4px rgba(0,0,0,0.2)",
-    overflow: "hidden",
-    transform: "translateZ(0)",
-    backfaceVisibility: "hidden" as const,
-  } as React.CSSProperties,
-};
-
 // ── Soccer ball JSX (reused for main and 4 merge clones) ─────────────────────
 const SoccerBall: React.FC = () => (
   <div className="bp-ball-sphera">
@@ -314,31 +200,49 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
 
-  // ── Geometry derived from composition size ────────────────────────────────
+  // ── Size factor: scales everything proportionally with composition width ──
+  // At 2560px: SIZE = 2560/1707 ≈ 1.5 (matches app's ROOT 24 vs 16 scale-up)
+  // This is the single knob — increase for even bigger balls.
+  const SIZE = width / 1707;
+
+  // ── Scaled geometry ───────────────────────────────────────────────────────
+  // INNER_SCALE drives the visible ball size: effective visible diameter
+  const INNER_SCALE = INNER_SCALE_BASE * SIZE;  // ≈0.522 at 2560
+  const MERGE_R = MERGE_R_BASE * SIZE;           // ≈174px at 2560
+
+  // Merge liquid box: each merge-ball container, centered at 0,0 in the goo div
+  // Size must match BALL_OUTER_PX * INNER_SCALE so the merge clone looks the
+  // same as the main ball.  We use BALL_OUTER_PX as fixed; INNER_SCALE handles
+  // the visual size.
+  const MERGE_LIQUID_BOX = Math.round(BALL_OUTER_PX * INNER_SCALE); // ≈209px at 2560
+  const MERGE_LIQUID_HALF = Math.round(MERGE_LIQUID_BOX / 2);
+
+  // The goo container must be large enough to hold the orbit + ball at full scale
+  const GOO_BOX = Math.round((MERGE_R + MERGE_LIQUID_BOX) * 2 + 40);
+
+  // The visible ball diameter at INNER_SCALE:
+  const ballVisibleDiameter = BALL_OUTER_PX * INNER_SCALE; // ≈208.8px at 2560
+
+  // expandScale: ball (BALL_OUTER_PX px outer) GSAP scales by expandScale;
+  // effective size = BALL_OUTER_PX * INNER_SCALE * expandScale must cover diag
   const diag = Math.hypot(width, height);
-  // The ball element that GSAP scales is .ball-preloader-ball (400px square).
-  // The actual visible ball radius after INNER_SCALE:
-  const ballVisibleDiameter = BALL_OUTER_PX * INNER_SCALE; // 139.2 px
-  // expandScale: ball scales until it fills screen — diag * 3 / visibleDiameter
   const expandScale = Math.ceil((diag * 3) / ballVisibleDiameter);
   // maxR for the reveal mask: diag * 1.5 (in px)
   const maxRpx = Math.ceil(diag * 1.5);
 
+  // Gooey blur scales with ball size so the metaball threshold looks clean
+  const gooStdDeviation = Math.round(10 * SIZE); // ≈15 at 2560
+
   // Total animation duration in seconds
-  // Phase 1 ends at 1.05s, Phase 2/3/4 adds 1.8s bounce + 0.7 offset + 1.6s expand
-  // Last tween: expand 1.6s starting at 0.7s → ends at 2.3s
-  // Reveal: 1.3s starting at 0.7+0.3=1.0s → ends at 2.3s
-  // Total: 1.05 (merge) + 2.3s = 3.35s
   const TOTAL_DURATION = 3.35;
   const totalFrames = Math.ceil(TOTAL_DURATION * fps);
+  // Exact fractional time — no rounding; ensures GSAP motion is continuous
   const currentTime = frame / fps;
 
-  // After animation completes, hide if configured
-  if (hideAfterReveal && frame > totalFrames) {
-    return null;
-  }
+  // ── ALL hooks MUST run unconditionally (Rules of Hooks) ───────────────────
+  // DO NOT put any early return before this block.
 
-  // ── Refs for DOM elements GSAP writes to ─────────────────────────────────
+  // Refs for DOM elements GSAP writes to
   const preloaderRef = useRef<HTMLDivElement>(null);
   const layer1Ref = useRef<HTMLDivElement>(null);
   const layer2Ref = useRef<HTMLDivElement>(null);
@@ -349,11 +253,14 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
   const liquid2Ref = useRef<HTMLSpanElement>(null);
   const liquid3Ref = useRef<HTMLSpanElement>(null);
 
-  // Stable timeline ref — built once, seeked every render
+  // Stable timeline refs — built once, seeked every render
   const tlMergeRef = useRef<gsap.core.Timeline | null>(null);
   const tlBounceRef = useRef<gsap.core.Timeline | null>(null);
+  // Track the SIZE used to build timelines so we rebuild on resize
+  const builtSizeRef = useRef<number>(-1);
 
   // ── Build + seek GSAP timelines synchronously in useLayoutEffect ──────────
+  // useLayoutEffect runs after every render, keeping GSAP in sync each frame.
   useLayoutEffect(() => {
     const preloader = preloaderRef.current;
     const ball = ballOuterRef.current;
@@ -368,13 +275,20 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
 
     if (!preloader || !ball || !goo || !layer1 || liquids.length < 4) return;
 
+    // Invalidate cached timelines if SIZE changed (e.g. composition resized)
+    if (builtSizeRef.current !== SIZE) {
+      tlMergeRef.current = null;
+      tlBounceRef.current = null;
+      builtSizeRef.current = SIZE;
+    }
+
     // ── Build merge timeline once ──────────────────────────────────────────
     if (!tlMergeRef.current) {
-      // Set initial positions (cardinal points)
-      STARTS.forEach(([x, y], i) => {
+      // Cardinal start positions scaled by SIZE
+      CARDINAL_DIRS.forEach(([dx, dy], i) => {
         gsap.set(liquids[i], {
-          x,
-          y,
+          x: dx * MERGE_R,
+          y: dy * MERGE_R,
           scale: 0.2,
           opacity: 1,
           force3D: true,
@@ -445,7 +359,6 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
           duration: 1.3,
           ease: "none",
         },
-        // "<+=0.3" = same start as the last tween + 0.3s
         0.7 + 0.3, // = 1.0s absolute
       );
 
@@ -458,7 +371,7 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
     if (currentTime <= MERGE_DURATION) {
       // Phase 1: merge phase
       // Show merge balls, hide main ball
-      goo.style.filter = "url(#bp-ball-gooey)";
+      goo.style.filter = `url(#bp-ball-gooey)`;
       const mergeEl = goo.parentElement as HTMLElement;
       if (mergeEl) {
         mergeEl.style.display = "flex";
@@ -467,12 +380,9 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
       ball.style.opacity = "0";
 
       tlMergeRef.current?.seek(currentTime);
-
-      // Hide main ball during merge
-      ball.style.opacity = "0";
     } else {
       // Phase 2+: bounce/expand/reveal
-      // Hide merge, show main ball
+      // Hide merge, show main ball — main ball has NO gooey filter
       const mergeEl = goo.parentElement as HTMLElement;
       if (mergeEl) mergeEl.style.display = "none";
 
@@ -484,28 +394,23 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
       // The bounce timeline starts at 0; offset by the merge duration
       const bounceTime = currentTime - MERGE_DURATION;
       tlBounceRef.current?.seek(bounceTime);
-
-      // At 0.7s into bounce (= 1.75s absolute), start the reveal
-      // The reveal-r is animated by the tlBounce timeline itself
-      // We also need to update the CSS variable for the mask
-      if (bounceTime >= 0.3) {
-        // Ensure the --reveal-r CSS var is applied from GSAP's tween
-        // GSAP animates it directly on the preloader element's style
-        // Nothing extra needed here; GSAP already set it via the timeline seek
-      }
     }
-  });
+  }); // runs every frame (no deps) — that's intentional for GSAP seek
+
+  // ── Early return AFTER all hooks ─────────────────────────────────────────
+  // Rules of Hooks: all useRef/useLayoutEffect must run unconditionally.
+  // Only return null (hide) after hooks have run for this frame.
+  if (hideAfterReveal && frame > totalFrames) {
+    return null;
+  }
 
   // Layer1 background color (can be themed)
   const layer1Style: React.CSSProperties = {
-    ...styles.layer1,
+    position: "absolute",
+    inset: 0,
     background: bgColor,
+    zIndex: 2,
   };
-
-  // ── CSS for the revealing mask (applied to the preloader div) ────────────
-  // We use a data attribute to toggle the mask via inline style rather than
-  // a class that would require a stylesheet injection.
-  // The actual --reveal-r value is set by GSAP on the element's style.
 
   return (
     <>
@@ -513,7 +418,8 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
       <style>{ballCss}</style>
       <style>{revealingCss}</style>
 
-      {/* Gooey SVG filter — same as index.html */}
+      {/* Gooey SVG filter — same as index.html.
+          stdDeviation scales with SIZE for clean metaball blobs at higher res. */}
       <svg
         aria-hidden="true"
         style={{
@@ -526,7 +432,12 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
       >
         <defs>
           <filter id="bp-ball-gooey">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation={gooStdDeviation}
+              result="blur"
+            />
+            {/* feColorMatrix sharpens blurred alpha into solid blobs — KEEP */}
             <feColorMatrix
               in="blur"
               mode="matrix"
@@ -547,18 +458,33 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
           overflow: "hidden",
           contain: "layout paint style",
           isolation: "isolate",
-          // The reveal mask CSS is applied dynamically via .bp-revealing class below
         }}
       >
         {/* 4-ball gooey merge */}
         <div
           style={{
-            ...styles.ballMerge,
-            // Initially shown; GSAP hides in phase 2
+            position: "absolute",
+            inset: 0,
+            zIndex: 3,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            pointerEvents: "none",
+            willChange: "opacity",
           }}
         >
-          <div ref={gooRef} style={styles.ballMergeGoo}>
-            {STARTS.map((_, i) => {
+          {/* Goo container: sized to hold the orbit + balls.
+              No gooey filter here — filter is set via JS on goo.style.filter. */}
+          <div
+            ref={gooRef}
+            style={{
+              position: "relative",
+              width: GOO_BOX,
+              height: GOO_BOX,
+              willChange: "transform",
+            }}
+          >
+            {CARDINAL_DIRS.map((_, i) => {
               const liquidRef = [
                 liquid0Ref,
                 liquid1Ref,
@@ -566,10 +492,62 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
                 liquid3Ref,
               ][i];
               return (
-                <span key={i} ref={liquidRef} style={styles.mergeLiquid}>
-                  <div style={styles.mergeLiquidBall}>
-                    <div style={styles.mergeLiquidBallScale}>
-                      <div style={styles.mergeBallInner}>
+                // Each merge-ball: centered at 50%/50% of the goo container.
+                // The box is MERGE_LIQUID_BOX × MERGE_LIQUID_BOX (≈209px at 2560).
+                // GSAP translates it to [±MERGE_R, ±MERGE_R] then back to (0,0).
+                <span
+                  key={i}
+                  ref={liquidRef}
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    width: MERGE_LIQUID_BOX,
+                    height: MERGE_LIQUID_BOX,
+                    marginTop: -MERGE_LIQUID_HALF,
+                    marginLeft: -MERGE_LIQUID_HALF,
+                    borderRadius: "50%",
+                    background: "transparent",
+                    overflow: "visible",
+                    willChange: "transform",
+                  }}
+                >
+                  {/* The ball is a full 400×400 element scaled down by INNER_SCALE
+                      so that the visible diameter = MERGE_LIQUID_BOX. */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      pointerEvents: "none",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: BALL_OUTER_PX,
+                        height: BALL_OUTER_PX,
+                        // Scale matches main ball's INNER_SCALE so merge clone
+                        // and main ball are the same visual size
+                        transform: `scale(${INNER_SCALE})`,
+                        transformOrigin: "center center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "relative",
+                          width: BALL_OUTER_PX,
+                          height: BALL_OUTER_PX,
+                          margin: "0 auto",
+                          borderRadius: "50%",
+                          boxShadow:
+                            "0 16px 20px 0 rgba(0,0,0,0.14), 0 4px 40px 0 rgba(0,0,0,0.12), 0 8px 16px -4px rgba(0,0,0,0.2)",
+                          overflow: "hidden",
+                          transform: "translateZ(0)",
+                          backfaceVisibility: "hidden",
+                        }}
+                      >
                         <SoccerBall />
                       </div>
                     </div>
@@ -581,15 +559,61 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
         </div>
 
         {/* Layer 2 — white, bottom (z=1): looks like expanding ball */}
-        <div ref={layer2Ref} style={styles.layer2} />
+        <div
+          ref={layer2Ref}
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "#ffffff",
+            zIndex: 1,
+          }}
+        />
 
         {/* Layer 1 — bg color, top (z=2): background during bounce */}
         <div ref={layer1Ref} style={layer1Style} />
 
-        {/* Main soccer ball — bounces then expands */}
-        <div ref={ballOuterRef} style={styles.ballOuter}>
-          <div style={styles.ballScale}>
-            <div style={styles.ballInner}>
+        {/* Main soccer ball — bounces then expands.
+            NO gooey filter on this element. */}
+        <div
+          ref={ballOuterRef}
+          style={{
+            position: "absolute",
+            // Center the 400×400 outer div; GSAP scales from center (default)
+            top: `calc(50% - ${BALL_OUTER_PX / 2}px)`,
+            left: `calc(50% - ${BALL_OUTER_PX / 2}px)`,
+            zIndex: 4,
+            width: BALL_OUTER_PX,
+            height: BALL_OUTER_PX,
+            transformStyle: "preserve-3d",
+            backfaceVisibility: "hidden",
+            willChange: "transform, opacity",
+          }}
+        >
+          {/* Inner scale wrapper — scales the 400px ball to the visible size */}
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              transform: `scale(${INNER_SCALE})`,
+              transformOrigin: "center center",
+              backfaceVisibility: "hidden",
+              willChange: "transform",
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: "100%",
+                margin: "0 auto",
+                borderRadius: "50%",
+                boxShadow:
+                  "0 16px 20px 0 rgba(0,0,0,0.14), 0 4px 40px 0 rgba(0,0,0,0.12), 0 8px 16px -4px rgba(0,0,0,0.2)",
+                overflow: "hidden",
+                transform: "translateZ(0)",
+                backfaceVisibility: "hidden",
+              }}
+            >
               <SoccerBall />
             </div>
           </div>
