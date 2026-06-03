@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { MS, msToFrames, questionBlockMs } from "./timeline";
+import { MS, msToFrames, questionBlockMs, buildTimeline } from "./timeline";
 
 describe("frame math", () => {
   it("rounds ms to frames", () => {
@@ -31,5 +31,72 @@ describe("MS constants (verified against source)", () => {
     expect(MS.OUTRO_TAIL).toBe(1000);
     expect(MS.PROGRESS_VOICE_DELAY).toBe(1000);
     expect(MS.DEFAULT_TRANSITION_PHASE).toBe(840);
+  });
+});
+
+describe("buildTimeline (Regular flow)", () => {
+  const fps = 60;
+  const tl = buildTimeline({ questionCount: 3, fps, transitionMs: 820 });
+
+  it("phase order", () => {
+    expect(tl.phases.map(p => p.kind)).toEqual([
+      "logo","transition","landing","transition","question",
+      "transition","question","transition","question","transition","outro",
+    ]);
+  });
+  it("logo block duration", () => { expect(tl.phases[0].durationMs).toBe(2000+1200+1000+1000); });
+  it("landing block", () => { expect(tl.phases[2].durationMs).toBe(500+1000); });
+  it("each question block = 13000ms", () => {
+    const q = tl.phases.find(p => p.kind === "question")!;
+    expect(q.durationMs).toBe(13000);
+  });
+  it("transitions are 820ms", () => {
+    expect(tl.phases.filter(p => p.kind === "transition").every(p => p.durationMs === 820)).toBe(true);
+  });
+  it("question cue offsets", () => {
+    const q = tl.phases.find(p => p.kind === "question")!;
+    expect(q.cues!.tickStartMs).toBe(7000);
+    expect(q.cues!.revealMs).toBe(10000);
+    expect(q.cues!.stingerMs).toBe(10150);
+    expect(q.cues!.voiceMs).toBe(10600);
+    expect(q.cues!.flipStartMs).toBe(10000);
+    expect(q.cues!.flipDurationMs).toBe(780);
+  });
+  it("logo starts at frame 0; first transition at 5200ms", () => {
+    expect(tl.phases[0].startFrame).toBe(0);
+    expect(tl.phases[1].startFrame).toBe(Math.round((5200/1000)*fps));
+  });
+  it("totalDurationFrames = sum of blocks", () => {
+    const sumMs = tl.phases.reduce((a,p)=>a+p.durationMs,0);
+    expect(tl.totalDurationFrames).toBe(Math.round((sumMs/1000)*fps));
+  });
+});
+
+describe("buildTimeline (Regular flow) at fps=30", () => {
+  const fps = 30;
+  const tl = buildTimeline({ questionCount: 3, fps, transitionMs: 820 });
+
+  it("phase order is identical at fps=30", () => {
+    expect(tl.phases.map(p => p.kind)).toEqual([
+      "logo","transition","landing","transition","question",
+      "transition","question","transition","question","transition","outro",
+    ]);
+  });
+  it("logo block duration is fps-independent", () => { expect(tl.phases[0].durationMs).toBe(2000+1200+1000+1000); });
+  it("landing block duration is fps-independent", () => { expect(tl.phases[2].durationMs).toBe(500+1000); });
+  it("each question block = 13000ms at fps=30", () => {
+    const q = tl.phases.find(p => p.kind === "question")!;
+    expect(q.durationMs).toBe(13000);
+  });
+  it("transitions are 820ms at fps=30", () => {
+    expect(tl.phases.filter(p => p.kind === "transition").every(p => p.durationMs === 820)).toBe(true);
+  });
+  it("logo starts at frame 0 at fps=30; first transition scales with fps", () => {
+    expect(tl.phases[0].startFrame).toBe(0);
+    expect(tl.phases[1].startFrame).toBe(Math.round((5200/1000)*fps));
+  });
+  it("totalDurationFrames scales with fps", () => {
+    const sumMs = tl.phases.reduce((a,p)=>a+p.durationMs,0);
+    expect(tl.totalDurationFrames).toBe(Math.round((sumMs/1000)*fps));
   });
 });
