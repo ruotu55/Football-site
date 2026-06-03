@@ -1,0 +1,2495 @@
+/* js/pitch-render.js */
+
+import { formationById } from "./formations.js";
+import {
+  appState,
+  DEFAULT_SLOT_FLAG_SCALE,
+  DEFAULT_SLOT_TEAM_LOGO_SCALE,
+  ensureSlotFrontFaceScales,
+  getState,
+  sanitizeSlotBadgeScale,
+  SLOT_BADGE_SCALE_STEP,
+} from "./state.js";
+
+const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
+
+/** Seconds between each slot starting the logo→player flip; `0` = all flip together. */
+const SLOT_FLIP_STAGGER_SEC = 0;
+/** Must match `.slot-inner` `transition` duration in css/components/pitch.css */
+const SLOT_FLIP_DURATION_SEC = 0.78;
+
+/** Stable wrapper: float animation runs here so `renderSlot` can replace only inner content without resetting bob. */
+function getOrCreateSlotMount(slotEl) {
+  let mount = slotEl.querySelector(":scope > .slot-mount");
+  if (!mount) {
+    mount = document.createElement("div");
+    mount.className = "slot-mount";
+    slotEl.appendChild(mount);
+  }
+  return mount;
+}
+
+/** Time from flip start until all flips finish (sync with pitch height transition). */
+export function getVideoRevealSyncedPitchTransitionSec(flipSlotCount) {
+  const n = Math.max(0, Math.floor(Number(flipSlotCount)) || 0);
+  if (n <= 1) return SLOT_FLIP_DURATION_SEC;
+  return (n - 1) * SLOT_FLIP_STAGGER_SEC + SLOT_FLIP_DURATION_SEC;
+}
+
+export function syncPitchWrapTransitionToVideoReveal(flipSlotCount) {
+  const wrap = appState.els.pitchWrap;
+  if (!wrap) return;
+  wrap.style.setProperty(
+    "--pitch-wrap-height-duration",
+    `${getVideoRevealSyncedPitchTransitionSec(flipSlotCount)}s`
+  );
+}
+
+export function clearPitchWrapTransitionOverride() {
+  appState.els.pitchWrap?.style.removeProperty("--pitch-wrap-height-duration");
+}
+
+/** Apply --header-logo-scale / --header-logo-nudge-x from the current level (per-level; regular + shorts). */
+export function syncTeamHeaderLogoVarsFromLevel() {
+  const state = getState();
+  const th = appState.els.teamHeader;
+  if (!state || !th) {
+    return;
+  }
+  let s = Number(state.headerLogoScale);
+  if (!Number.isFinite(s) || s < 0.001) {
+    s = 1;
+  }
+  s = Math.round(s * 1000) / 1000;
+  let n = Number(state.headerLogoNudgeX);
+  if (!Number.isFinite(n)) {
+    n = 0;
+  }
+  n = Math.round(Math.min(HEADER_LOGO_NUDGE_ABS_MAX, Math.max(-HEADER_LOGO_NUDGE_ABS_MAX, n)));
+  th.style.setProperty("--header-logo-scale", String(s));
+  th.style.setProperty("--header-logo-nudge-x", `${n}px`);
+}
+import {
+  projectAssetUrl,
+  projectAssetUrlFresh,
+  withProjectAssetCacheBust,
+  bumpAssetCacheBust,
+} from "./paths.js";
+import { openPhotoCropModal } from "./photo-crop.js";
+import { openPhotoSourceChooser, openPhotoCandidatePicker } from "./photo-source-picker.js";
+import { openBulkPhotoPicker } from "./bulk-photo-picker.js";
+import { normalizeForSearch } from "./search-normalize.js";
+import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCachedSrc, applyCachedSrcChain, isImageCached, invalidateCachedImage } from "../../.Storage/shared/image-cache.js";
+import { getInternationalClubPlayersForNation } from "./nationality-pool-key.js";
+import {
+  applyTeamHeaderStripesFromFlagImage,
+  resetTeamHeaderStripeVars,
+} from "./flag-stripe-colors.js";
+
+const INTERNATIONAL_POOL_URL = ".Storage/data/international-club-pool-by-nationality.json";
+const AUTO_FETCH_PLAYER_PHOTO_ENDPOINT = "/__player-photo/auto-fetch";
+const PLAYER_PHOTO_FROM_URL_ENDPOINT = "/__player-photo/from-url";
+const DELETE_PLAYER_PHOTO_ENDPOINT = "/__player-photo/delete";
+const SAVE_CROP_PLAYER_PHOTO_ENDPOINT = "/__player-photo/save-crop";
+const LIST_PHOTO_CANDIDATES_ENDPOINT = "/__player-photo/list-candidates";
+const SAVE_CHOSEN_PHOTO_ENDPOINT = "/__player-photo/save-chosen";
+/* Shared across Main Runner - Team Name Regular and Shorts (a rename done in
+   one should immediately apply in the other). LS holds a fast local cache and
+   the dev server mirrors the same object to a JSON file under
+   .Storage/storage/runner-blobs/ so renames persist across page reloads and
+   are picked up by the sibling runner on startup. */
+const TEAM_NAME_OVERRIDES_STORAGE_KEY = "lineups-shared:club-by-nat-team-name-overrides:v1";
+const TEAM_NAME_OVERRIDES_LEGACY_LS_KEYS = [
+  "lineups-regular:club-by-nat-team-name-overrides:v1",
+  "lineups-shorts:club-by-nat-team-name-overrides:v1",
+];
+const TEAM_NAME_OVERRIDES_SERVER_ENDPOINT = "/__runner-json-blob/team_name_overrides_shared";
+const AUTO_365_PHOTO_RE = /(^|\/)auto - 365scores(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
+const AUTO_FUTGG_PHOTO_RE = /(^|\/)auto - fut\.gg(?: - \d+)?\.(png|jpe?g|webp|avif|gif)$/i;
+const autoPhotoLastSourceBySlot = new Map();
+let teamNameOverridesCache = null;
+let teamNameOverridesServerPushTimer = null;
+let teamNameOverridesServerPullPromise = null;
+
+/**
+ * Open the "Add Player Photo" URL-paste modal. The user pastes an image URL;
+ * `submitFn(imageUrl)` is awaited — it should download via the backend and
+ * resolve when the photo is applied. Resolves silently after success; the
+ * modal stays open and shows the error message on rejection.
+ * @param {string} playerName Displayed under the title for context.
+ * @param {(imageUrl: string) => Promise<void>} submitFn
+ */
+function openPlayerPhotoUrlModal(playerName, submitFn) {
+  const modal = document.getElementById("player-photo-url-modal");
+  const input = document.getElementById("player-photo-url-input");
+  const nameEl = document.getElementById("player-photo-url-modal-name");
+  const errEl = document.getElementById("player-photo-url-modal-error");
+  const cancelBtn = document.getElementById("player-photo-url-cancel");
+  const confirmBtn = document.getElementById("player-photo-url-confirm");
+  if (!modal || !input || !cancelBtn || !confirmBtn) return;
+
+  if (nameEl) nameEl.textContent = playerName ? `For: ${playerName}` : "";
+  if (errEl) {
+    errEl.style.display = "none";
+    errEl.textContent = "";
+  }
+  input.value = "";
+
+  const close = () => {
+    modal.hidden = true;
+    cancelBtn.onclick = null;
+    confirmBtn.onclick = null;
+    input.onkeydown = null;
+  };
+
+  const showErr = (msg) => {
+    if (!errEl) return;
+    errEl.textContent = msg;
+    errEl.style.display = "block";
+  };
+
+  const submit = async () => {
+    const url = String(input.value || "").trim();
+    if (!url) {
+      showErr("Please paste an image URL.");
+      input.focus();
+      return;
+    }
+    if (!/^https?:\/\//i.test(url)) {
+      showErr("URL must start with http:// or https://.");
+      input.focus();
+      return;
+    }
+    confirmBtn.disabled = true;
+    cancelBtn.disabled = true;
+    const prevConfirmText = confirmBtn.textContent;
+    confirmBtn.textContent = "Downloading…";
+    if (errEl) errEl.style.display = "none";
+    try {
+      await submitFn(url);
+      close();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Download failed.";
+      showErr(msg);
+    } finally {
+      confirmBtn.disabled = false;
+      cancelBtn.disabled = false;
+      confirmBtn.textContent = prevConfirmText;
+    }
+  };
+
+  cancelBtn.onclick = close;
+  confirmBtn.onclick = submit;
+  input.onkeydown = (ev) => {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      submit();
+    } else if (ev.key === "Escape") {
+      ev.preventDefault();
+      close();
+    }
+  };
+
+  modal.hidden = false;
+  // Defer focus so the modal is visible before focusing.
+  setTimeout(() => input.focus(), 0);
+}
+
+function normalizeQuizTypeForTeamNameOverride(quizType) {
+  return quizType === "club-by-nat" ? "club-by-nat" : "nat-by-club";
+}
+
+function isClubByNatHeaderEditContext(state = getState(), quizTypeRaw = appState.els.inQuizType?.value) {
+  if (!state?.currentSquad) return false;
+  if (state.squadType !== "club") return false;
+  return normalizeQuizTypeForTeamNameOverride(quizTypeRaw) === "club-by-nat";
+}
+
+function getCanonicalTeamIdentity(state = getState()) {
+  if (!state) return "";
+  const fromPath = String(state.selectedEntry?.path || "").trim();
+  if (fromPath) return fromPath;
+  const fromEntryName = String(state.selectedEntry?.name || "").trim().toLowerCase();
+  if (fromEntryName) return `name:${fromEntryName}`;
+  const fromSquadName = String(state.currentSquad?.name || "").trim().toLowerCase();
+  if (fromSquadName) return `name:${fromSquadName}`;
+  return "";
+}
+
+/** Identity for side-panel slide: team, level, and XI so team / player / level changes re-animate. */
+function getTeamSidebarSlideKey(state = getState()) {
+  if (!state?.currentSquad) return "";
+  const id = getCanonicalTeamIdentity(state);
+  const xiSig = (appState.currentXi || [])
+    .filter(Boolean)
+    .map((p) => String(p.name || "").trim())
+    .join("\u001f");
+  return `${state.squadType}|${id}|L${appState.currentLevelIndex}|${xiSig}`;
+}
+
+/**
+ * Slide panel out/in with CSS transition (reflow between off → on).
+ * When `wantsOpen` is false or `#team-header` is [hidden], panel stays off-screen.
+ */
+function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
+  const th = els.teamHeader;
+  if (!th) {
+    return;
+  }
+  // During overlay transitions between quiz levels, keep sidebar exactly as-is
+  if (appState._preserveTeamSidebar && appState.teamSidebarLastOpen) {
+    appState.teamSidebarLastKey = String(slideKey || "");
+    return;
+  }
+  if (th.hidden || !wantsOpen) {
+    appState.teamSidebarAnimGeneration += 1;
+    th.classList.remove("team-header--show");
+    appState.teamSidebarLastOpen = false;
+    appState.teamSidebarLastKey = "";
+    return;
+  }
+  const needSlideIn =
+    !appState.teamSidebarLastOpen || slideKey !== appState.teamSidebarLastKey;
+  if (needSlideIn) {
+    appState.teamSidebarAnimGeneration += 1;
+    const gen = appState.teamSidebarAnimGeneration;
+    th.classList.remove("team-header--show");
+    void th.offsetWidth;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (gen !== appState.teamSidebarAnimGeneration) {
+          return;
+        }
+        if (th.hidden) {
+          return;
+        }
+        th.classList.add("team-header--show");
+        appState.teamSidebarLastOpen = true;
+        appState.teamSidebarLastKey = slideKey;
+      });
+    });
+  } else {
+    th.classList.add("team-header--show");
+    appState.teamSidebarLastOpen = true;
+    appState.teamSidebarLastKey = slideKey;
+  }
+}
+
+function getBaseTeamName(state = getState()) {
+  if (!state) return "";
+  return String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
+}
+
+function isTeamNameOverridesHttpServerActive() {
+  return typeof location !== "undefined" &&
+    location.protocol === "http:" &&
+    location.hostname !== "";
+}
+
+function readTeamNameOverrides() {
+  if (teamNameOverridesCache) return teamNameOverridesCache;
+  let parsed = {};
+  try {
+    parsed = JSON.parse(localStorage.getItem(TEAM_NAME_OVERRIDES_STORAGE_KEY) || "{}");
+  } catch {
+    parsed = {};
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    parsed = {};
+  }
+  /* One-time merge from the legacy per-runner LS keys so renames saved before
+     this became a shared store aren't lost. Existing shared-key values win. */
+  for (const legacyKey of TEAM_NAME_OVERRIDES_LEGACY_LS_KEYS) {
+    if (legacyKey === TEAM_NAME_OVERRIDES_STORAGE_KEY) continue;
+    let legacy = null;
+    try {
+      legacy = JSON.parse(localStorage.getItem(legacyKey) || "null");
+    } catch {
+      legacy = null;
+    }
+    if (legacy && typeof legacy === "object" && !Array.isArray(legacy)) {
+      for (const [k, v] of Object.entries(legacy)) {
+        if (!(k in parsed) && typeof v === "string" && v.trim()) {
+          parsed[k] = v;
+        }
+      }
+    }
+  }
+  teamNameOverridesCache = parsed;
+  return teamNameOverridesCache;
+}
+
+function persistTeamNameOverrides() {
+  if (!teamNameOverridesCache || typeof teamNameOverridesCache !== "object") {
+    teamNameOverridesCache = {};
+  }
+  try {
+    localStorage.setItem(
+      TEAM_NAME_OVERRIDES_STORAGE_KEY,
+      JSON.stringify(teamNameOverridesCache)
+    );
+  } catch {
+    // Ignore storage quota/privacy failures; current session still works.
+  }
+  if (!isTeamNameOverridesHttpServerActive()) return;
+  clearTimeout(teamNameOverridesServerPushTimer);
+  teamNameOverridesServerPushTimer = setTimeout(() => {
+    teamNameOverridesServerPushTimer = null;
+    fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(teamNameOverridesCache),
+    }).catch(() => {});
+  }, 300);
+}
+
+/* Pulls the shared team-name-overrides file from the dev server on startup,
+   so a rename made in the sibling Main Runner (Regular vs Shorts) is reflected
+   here without the user having to redo it. Safe to call once at app init. */
+export function initTeamNameOverridesSharedSync() {
+  readTeamNameOverrides();
+  if (!isTeamNameOverridesHttpServerActive()) {
+    teamNameOverridesServerPullPromise = Promise.resolve();
+    return teamNameOverridesServerPullPromise;
+  }
+  teamNameOverridesServerPullPromise = (async () => {
+    try {
+      const r = await fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, { cache: "no-store" });
+      if (!r.ok) return;
+      const remote = await r.json();
+      if (!remote || typeof remote !== "object" || Array.isArray(remote)) return;
+      const localBefore = teamNameOverridesCache || {};
+      if (Object.keys(remote).length > 0) {
+        teamNameOverridesCache = { ...remote };
+        try {
+          localStorage.setItem(
+            TEAM_NAME_OVERRIDES_STORAGE_KEY,
+            JSON.stringify(teamNameOverridesCache)
+          );
+        } catch { /* quota or private mode */ }
+      } else if (Object.keys(localBefore).length > 0) {
+        /* First boot after the fix: server file is empty but we have local
+           data (including data migrated from the legacy per-runner LS keys).
+           Seed the server so the sibling runner picks it up next reload. */
+        try {
+          await fetch(TEAM_NAME_OVERRIDES_SERVER_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(localBefore),
+          });
+        } catch { /* offline */ }
+      }
+      try { renderHeader(); } catch { /* not yet mounted */ }
+    } catch {
+      /* offline or file:// — local cache continues to be used. */
+    }
+  })();
+  return teamNameOverridesServerPullPromise;
+}
+
+function getTeamNameOverrideKey(state = getState(), quizTypeRaw = appState.els.inQuizType?.value) {
+  const quizType = normalizeQuizTypeForTeamNameOverride(quizTypeRaw);
+  const identity = getCanonicalTeamIdentity(state);
+  if (!identity) return "";
+  return `${quizType}::${identity}`;
+}
+
+export function resolveHeaderTeamDisplayName(
+  state = getState(),
+  quizTypeRaw = appState.els.inQuizType?.value || "nat-by-club"
+) {
+  const baseName = getBaseTeamName(state);
+  if (!baseName) return "";
+  if (!isClubByNatHeaderEditContext(state, quizTypeRaw)) {
+    return baseName;
+  }
+  /* Per-level override travels with the saved script, so a loaded save keeps
+     the user's chosen name even when the global overrides map has been
+     overwritten by a different save in the meantime. Check it first. */
+  const perLevel = String(state?.headerTeamNameOverride || "").trim();
+  if (perLevel) return perLevel;
+  const key = getTeamNameOverrideKey(state, quizTypeRaw);
+  if (!key) return baseName;
+  const raw = readTeamNameOverrides()[key];
+  const custom = String(raw || "").trim();
+  return custom || baseName;
+}
+
+export function renameCurrentClubByNatTeamName(nextNameRaw) {
+  const state = getState();
+  if (!isClubByNatHeaderEditContext(state)) return false;
+  const key = getTeamNameOverrideKey(state);
+  if (!key) return false;
+  const baseName = getBaseTeamName(state);
+  const nextName = String(nextNameRaw || "").trim();
+  const normalizedBase = baseName.toLowerCase();
+  const normalizedNext = nextName.toLowerCase();
+  const overrides = readTeamNameOverrides();
+  if (!nextName || normalizedNext === normalizedBase) {
+    delete overrides[key];
+    state.headerTeamNameOverride = "";
+  } else {
+    overrides[key] = nextName;
+    /* Stamp the override onto the level too so it rides along with future saves. */
+    state.headerTeamNameOverride = nextName;
+  }
+  persistTeamNameOverrides();
+  renderHeader();
+  return true;
+}
+
+export function isCurrentHeaderTeamNameEditable() {
+  return isClubByNatHeaderEditContext(getState(), appState.els.inQuizType?.value);
+}
+export function ensureInternationalClubPoolLoaded() {
+  if (appState.internationalClubPool != null) {
+    return Promise.resolve();
+  }
+  if (appState.internationalClubPoolLoadPromise) {
+    return appState.internationalClubPoolLoadPromise;
+  }
+  appState.internationalClubPoolLoadPromise = fetch(projectAssetUrl(INTERNATIONAL_POOL_URL), {
+    cache: "no-store",
+  })
+    .then((r) => (r.ok ? r.json() : { byNationality: {} }))
+    .then((data) => {
+      appState.internationalClubPool = data.byNationality && typeof data.byNationality === "object"
+        ? data.byNationality
+        : {};
+    })
+    .catch(() => {
+      appState.internationalClubPool = {};
+    })
+    .finally(() => {
+      appState.internationalClubPoolLoadPromise = null;
+    });
+  return appState.internationalClubPoolLoadPromise;
+}
+
+function getSwapBenchMergeContext(state) {
+  const allPlayers = [
+    ...(state.currentSquad.goalkeepers || []),
+    ...(state.currentSquad.defenders || []),
+    ...(state.currentSquad.midfielders || []),
+    ...(state.currentSquad.attackers || []),
+  ];
+  const currentNames = appState.currentXi.filter((p) => p).map((p) => p.name);
+  const bench = allPlayers.filter((p) => !currentNames.includes(p.name));
+  const benchNameSet = new Set(bench.map((p) => p.name));
+  return { bench, benchNameSet, currentNames, allPlayers };
+}
+
+function mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, extraFromClubPool) {
+  const raw = Array.isArray(extraFromClubPool) ? extraFromClubPool : [];
+  const extra = raw.filter(
+    (p) => p && p.name && !currentNames.includes(p.name) && !benchNameSet.has(p.name)
+  );
+  appState.swapAvailablePlayers = [...bench, ...extra].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+  refreshSwapPlayerListFromSearch();
+}
+
+/** Re-apply swap search box filter to `swapAvailablePlayers` and redraw the list. */
+export function refreshSwapPlayerListFromSearch() {
+  const q = normalizeForSearch(appState.els.swapSearch?.value || "");
+  const filtered = appState.swapAvailablePlayers.filter((p) => {
+    if (!q) return true;
+    const name = normalizeForSearch(p.name || "");
+    const club = normalizeForSearch(p.club != null ? String(p.club) : "");
+    const pos = normalizeForSearch(p.position || "");
+    const nat = normalizeForSearch(p.nationality != null ? String(p.nationality) : "");
+    return (
+      name.includes(q) ||
+      club.includes(q) ||
+      pos.includes(q) ||
+      nat.includes(q)
+    );
+  });
+  renderSwapList(filtered);
+}
+
+/** Bench + club players from `international-club-pool-by-nationality.json` (same nationality string). */
+export function applySwapSearchAllNationality() {
+  const state = getState();
+  if (!state || !state.currentSquad) return;
+  const slotIndex = appState.swapActiveSlotIndex;
+  if (slotIndex < 0) return;
+  const { bench, benchNameSet, currentNames } = getSwapBenchMergeContext(state);
+  const slotPlayer = appState.currentXi[slotIndex];
+  let nat = (slotPlayer?.nationality && String(slotPlayer.nationality).trim()) || "";
+  if (!nat && state.squadType === "national") {
+    nat = String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
+  }
+  if (!nat) return;
+  ensureInternationalClubPoolLoaded().then(() => {
+    if (appState.swapActiveSlotIndex !== slotIndex) return;
+    appState.els.swapSearch.value = "";
+    const pool = getInternationalClubPlayersForNation(appState.internationalClubPool, nat);
+    mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, pool);
+  });
+}
+import { pickStartingXI } from "./pick-xi.js";
+import {
+  getClubLogoOtherTeamsRelPath,
+  getClubLogoOtherTeamsUrl,
+  getClubLogoUrl,
+  getHeaderLogoUrlChain,
+  normalizeLegacyTeamImageRelPath,
+  playerPhotoPaths,
+  slotPerspectiveScale,
+} from "./photo-helpers.js";
+import { syncTeamVoiceControls } from "./team-voice-manager.js";
+import { translateCountry } from "./i18n.js";
+
+export function shouldUseVideoQuestionLayout(state = getState()) {
+  if (!state || !state.currentSquad) return false;
+  return appState.currentLevelIndex > 1 && appState.currentLevelIndex < appState.totalLevelsCount;
+}
+
+export function getVideoQuestionPreviewState(state = getState()) {
+  const useVideoQuestionLayout = shouldUseVideoQuestionLayout(state);
+  const previewPostTimer =
+    useVideoQuestionLayout &&
+    (appState.videoRevealPostTimerActive || (!state.videoMode && !appState.isVideoPlaying));
+  const previewPreTimer = useVideoQuestionLayout && state.videoMode && !previewPostTimer;
+  return { useVideoQuestionLayout, previewPreTimer, previewPostTimer };
+}
+
+function pitchLabelFromPlayerName(fullName) {
+  if (!fullName) return "";
+  const parts = fullName.trim().split(" ");
+  if (parts.length === 1) return parts[0].toUpperCase();
+
+  const prefixes = [
+    "van", "de", "der", "da", "di", "del", "la", "le",
+    "von", "ten", "ter", "mac", "mc", "dos", "das", "do", "do", "du", "el", "al"
+  ];
+
+  let startIndex = parts.length - 1;
+  for (let i = parts.length - 2; i >= 0; i--) {
+    if (prefixes.includes(parts[i].toLowerCase())) {
+      startIndex = i;
+    } else {
+      break;
+    }
+  }
+
+  return parts.slice(startIndex).join(" ").toUpperCase();
+}
+
+/** Red name chip: custom edit, else short name, else club (national XIs), else nationality, else em dash. */
+function pitchSlotDisplayLabel(state, player) {
+  const nameKey = player?.name != null ? String(player.name) : "";
+  const custom = state.customNames[nameKey];
+  if (custom != null && String(custom).trim() !== "") {
+    return String(custom).trim();
+  }
+  const trimmedName = nameKey.trim();
+  if (trimmedName) {
+    const fromName = pitchLabelFromPlayerName(trimmedName);
+    if (fromName && fromName.trim()) return fromName;
+  }
+  const club = (player?.club && String(player.club).trim()) || "";
+  if (club) return club.toUpperCase();
+  const nat = resolvePlayerNationalityLabel(player?.nationality);
+  if (nat) return nat.toUpperCase();
+  return "—";
+}
+
+function applySlotNameEdit(label, player) {
+  const state = getState();
+  const key = player?.name != null ? String(player.name) : "";
+  if (!label || !key) return;
+  const next = window.prompt(
+    "Enter a custom player name.\nLeave empty to reset.",
+    String(label.textContent || "").trim()
+  );
+  if (next === null) return;
+  const clean = String(next).trim();
+  if (clean) {
+    state.customNames[key] = clean;
+    label.textContent = clean;
+  } else {
+    delete state.customNames[key];
+    label.textContent = pitchSlotDisplayLabel(state, player);
+  }
+  scheduleSlotNameFit();
+}
+
+function wireSlotNameEditing(label, player) {
+  label.contentEditable = "true";
+  label.spellcheck = false;
+  label.title = "Double-click to edit player name";
+  label.ondblclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    applySlotNameEdit(label, player);
+  };
+  label.onblur = () => {
+    const key = player?.name != null ? String(player.name) : "";
+    if (!key) return;
+    const clean = String(label.textContent || "").trim();
+    if (clean) {
+      getState().customNames[key] = clean;
+    } else {
+      delete getState().customNames[key];
+      label.textContent = pitchSlotDisplayLabel(getState(), player);
+    }
+    scheduleSlotNameFit();
+  };
+  label.onkeydown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      label.blur();
+    }
+  };
+}
+
+function createSlotNameEditButton(label, player, slotIndex) {
+  const editBtn = document.createElement("button");
+  editBtn.type = "button";
+  editBtn.className = "slot-name-edit-btn";
+  editBtn.textContent = "✎";
+  editBtn.title = "Edit player name";
+  editBtn.dataset.slotControl = "edit-name";
+  editBtn.dataset.slotIndex = String(slotIndex);
+  editBtn.onclick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    debugSlotControlClick("Edit name handler fired", {
+      slotIndex,
+      player: player?.name || "",
+    });
+    applySlotNameEdit(label, player);
+  };
+  return editBtn;
+}
+
+export function openSwapModal(slotIndex) {
+  const state = getState();
+  if (!state.currentSquad) return;
+
+  appState.swapActiveSlotIndex = slotIndex;
+
+  const { bench, benchNameSet, currentNames } = getSwapBenchMergeContext(state);
+
+  appState.els.swapSearch.value = "";
+  appState.swapAvailablePlayers = [...bench].sort((a, b) => a.name.localeCompare(b.name));
+  renderSwapList(appState.swapAvailablePlayers);
+
+  appState.els.swapModal.hidden = false;
+  appState.els.swapSearch.focus();
+
+  if (state.squadType === "national") {
+    const nation = String(state.currentSquad?.name || state.selectedEntry?.name || "").trim();
+    ensureInternationalClubPoolLoaded().then(() => {
+      if (appState.swapActiveSlotIndex !== slotIndex) return;
+      const pool = getInternationalClubPlayersForNation(appState.internationalClubPool, nation);
+      mergeSwapPoolIntoBench(bench, benchNameSet, currentNames, pool);
+    });
+  }
+}
+
+export function renderSwapList(players) {
+  const { els } = appState;
+  els.swapList.replaceChildren();
+  players.forEach((p) => {
+    const btn = document.createElement("button");
+    btn.className = "swap-player-item";
+
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = p.name;
+
+    const posSpan = document.createElement("span");
+    posSpan.className = "pos";
+    const pos = p.position || "UNK";
+    const clubHint = p.club && String(p.club).trim();
+    posSpan.textContent = clubHint ? `${pos} · ${clubHint}` : pos;
+
+    btn.append(nameSpan, posSpan);
+
+    btn.onclick = () => {
+      if (window.__confirmAndDeleteSaveIfPresent && !window.__confirmAndDeleteSaveIfPresent()) return;
+      const state = getState();
+      appState.suppressPitchSlotFlipAnimation = true;
+      const si = appState.swapActiveSlotIndex;
+      if (state.slotClubCrestOverrideRelPathBySlot && si >= 0) {
+        delete state.slotClubCrestOverrideRelPathBySlot[String(si)];
+      }
+      state.customXi[si] = p;
+      els.swapModal.hidden = true;
+      renderPitch();
+      appState.suppressPitchSlotFlipAnimation = false;
+    };
+
+    els.swapList.appendChild(btn);
+  });
+}
+
+/** Served by `run_site.py` from disk each request; falls back to static JSON if not using that server. */
+const OTHER_TEAMS_LOGOS_LIVE_PATH = "__other-teams-logos.json";
+const OTHER_TEAMS_LOGOS_STATIC_FALLBACK = ".Storage/data/other-teams-logos.json";
+
+async function loadOtherTeamsLogoNamesForModal() {
+  const fetchNames = async (rel) => {
+    try {
+      const res = await fetch(projectAssetUrl(rel), { cache: "no-store" });
+      if (!res.ok) return null;
+      const data = await res.json();
+      return Array.isArray(data.names) ? data.names : [];
+    } catch {
+      return null;
+    }
+  };
+  let names = await fetchNames(OTHER_TEAMS_LOGOS_LIVE_PATH);
+  if (names == null) {
+    names = await fetchNames(OTHER_TEAMS_LOGOS_STATIC_FALLBACK);
+  }
+  appState.otherTeamsLogoNames = names ?? [];
+}
+
+export function refreshSwapLogoListFromSearch() {
+  const names = appState.otherTeamsLogoNames;
+  if (!names) return;
+  renderSwapLogoList(names);
+}
+
+/**
+ * @param {null | { kind: "slot"; slotIndex: number }} pickContext
+ *        `null` = team header crest (club XI). `{ kind: "slot", slotIndex }` = national XI front-face club crest.
+ */
+export async function openSwapLogoModal(pickContext = null) {
+  const state = getState();
+  if (!state.currentSquad) return;
+  if (pickContext?.kind === "slot") {
+    if (state.squadType !== "national") return;
+  } else if (state.squadType !== "club") {
+    return;
+  }
+  appState.swapLogoPickContext = pickContext;
+  appState.swapLogoThumbCacheToken = String(Date.now());
+  await loadOtherTeamsLogoNamesForModal();
+  const { els } = appState;
+  if (!els.swapLogoModal || !els.swapLogoList) return;
+  const titleEl = document.getElementById("swap-logo-modal-title");
+  if (titleEl) {
+    titleEl.textContent =
+      pickContext?.kind === "slot" ? "Slot club crest" : "Team header crest";
+  }
+  if (els.swapLogoReset) {
+    els.swapLogoReset.textContent =
+      pickContext?.kind === "slot" ? "Use player default" : "Use default";
+  }
+  els.swapLogoSearch.value = "";
+  renderSwapLogoList(appState.otherTeamsLogoNames || []);
+  els.swapLogoModal.hidden = false;
+  els.swapLogoSearch.focus();
+}
+
+function renderSwapLogoList(names) {
+  const { els } = appState;
+  els.swapLogoList.replaceChildren();
+  const q = (els.swapLogoSearch?.value || "").trim().toLowerCase();
+  const filtered = names.filter((n) => !q || String(n).toLowerCase().includes(q));
+  filtered.sort((a, b) => String(a).localeCompare(String(b)));
+
+  filtered.forEach((name) => {
+    const rel = getClubLogoOtherTeamsRelPath(name);
+    if (!rel) return;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "swap-logo-item";
+    const img = document.createElement("img");
+    img.className = "swap-logo-item-img";
+    const baseUrl = projectAssetUrl(rel);
+    const bust = appState.swapLogoThumbCacheToken || "";
+    img.src = bust
+      ? `${baseUrl}${baseUrl.includes("?") ? "&" : "?"}_sb=${encodeURIComponent(bust)}`
+      : baseUrl;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    const span = document.createElement("span");
+    span.className = "swap-logo-item-label";
+    span.textContent = name;
+    btn.append(img, span);
+    btn.onclick = () => {
+      const ctx = appState.swapLogoPickContext;
+      const st = getState();
+      if (ctx?.kind === "slot") {
+        const k = String(ctx.slotIndex);
+        if (
+          !st.slotClubCrestOverrideRelPathBySlot ||
+          typeof st.slotClubCrestOverrideRelPathBySlot !== "object"
+        ) {
+          st.slotClubCrestOverrideRelPathBySlot = {};
+        }
+        st.slotClubCrestOverrideRelPathBySlot[k] = rel;
+        els.swapLogoModal.hidden = true;
+        appState.swapLogoPickContext = null;
+        renderPitch();
+        return;
+      }
+      st.headerLogoOverrideRelPath = rel;
+      els.swapLogoModal.hidden = true;
+      appState.swapLogoPickContext = null;
+      renderHeader();
+    };
+    els.swapLogoList.appendChild(btn);
+  });
+}
+
+function applyStrictAvatarBounds(avatarEl, options = {}) {
+  const clipCircle = options.clipCircle !== false;
+  avatarEl.style.display = "flex";
+  avatarEl.style.justifyContent = "center";
+  avatarEl.style.alignItems = "center";
+  avatarEl.style.overflow = clipCircle ? "hidden" : "visible";
+  avatarEl.style.width = "100%";
+  avatarEl.style.aspectRatio = "1 / 1";
+  avatarEl.style.borderRadius = clipCircle ? "50%" : "0";
+}
+
+/** Legacy ingest left some player records with `nationality: "TM nationality id N"`
+ *  because that TM ID was missing from `_transfermarkt_nationality_id_map.json`
+ *  when the squad was generated. Map back to the real country name at READ time
+ *  so the flag lookup hits a valid key — we don't rewrite the saved JSON
+ *  (which would lose the original TM ID context). Returns the raw string
+ *  unchanged when it's already a country name. */
+const TM_NATIONALITY_ID_RE = /^TM\s*nationality\s*id\s+(\d+)$/i;
+export function resolvePlayerNationalityLabel(rawNationality) {
+  const raw = String(rawNationality || "").trim();
+  if (!raw) return "";
+  const m = TM_NATIONALITY_ID_RE.exec(raw);
+  if (!m) return raw;
+  const map = appState.transfermarktNationalityMap;
+  if (map && typeof map === "object") {
+    const mapped = map[m[1]];
+    if (mapped && String(mapped).trim()) return String(mapped).trim();
+  }
+  return raw;
+}
+
+/** Video-mode card front when flag/club image is missing — full name, not initials. */
+function appendSlotBadgeTextFallback(badgeWrap, displayText) {
+  const el = document.createElement("div");
+  el.className = "slot-badge-fallback-text";
+  const t = String(displayText ?? "").trim();
+  el.textContent = t.length ? t : "—";
+  badgeWrap.appendChild(el);
+}
+
+/** No player photo: show club (national squads) or nationality (club squads) inside the grey circle. */
+function appendAvatarTeamFallback(avatar, player) {
+  const club = (player?.club && String(player.club).trim()) || "";
+  const nat = resolvePlayerNationalityLabel(player?.nationality);
+  const text = (club || nat || "—").toUpperCase();
+  const el = document.createElement("div");
+  el.className = "slot-avatar-team-fallback";
+  el.textContent = text;
+  avatar.appendChild(el);
+}
+
+function isAuto365PhotoRelPath(relPath) {
+  return AUTO_365_PHOTO_RE.test(String(relPath || "").trim());
+}
+
+function autoPhotoSourceFromRelPath(relPath) {
+  const v = String(relPath || "").trim();
+  if (!v) return "";
+  if (AUTO_FUTGG_PHOTO_RE.test(v)) return "fut.gg";
+  if (AUTO_365_PHOTO_RE.test(v)) return "365scores";
+  return "";
+}
+
+export function applyPlayerPhotoFramingForSourceRelPath(imgEl, relPath) {
+  if (!imgEl) return;
+  void relPath;
+  imgEl.style.removeProperty("object-position");
+  imgEl.style.removeProperty("transform");
+  imgEl.style.removeProperty("transform-origin");
+  imgEl.style.removeProperty("background");
+  imgEl.style.removeProperty("background-color");
+  imgEl.style.removeProperty("border");
+  imgEl.style.removeProperty("box-sizing");
+}
+
+const SLOT_CONTROL_DEBUG_SELECTOR = ".slot-photo-fetch-btn, .slot-photo-crop-btn, .slot-photo-delete-btn, .slot-name-edit-btn, .slot-swap-btn";
+let slotControlClickDebugInstalled = false;
+
+function describeDebugElement(el) {
+  if (!el || el.nodeType !== 1) return "";
+  const tag = el.tagName ? el.tagName.toLowerCase() : "element";
+  const id = el.id ? `#${el.id}` : "";
+  const cls = el.className && typeof el.className === "string"
+    ? `.${el.className.trim().split(/\s+/).filter(Boolean).join(".")}`
+    : "";
+  const control = el.dataset?.slotControl ? `[data-slot-control="${el.dataset.slotControl}"]` : "";
+  const text = String(el.textContent || "").trim().slice(0, 24);
+  return `${tag}${id}${cls}${control}${text ? ` "${text}"` : ""}`;
+}
+
+function debugSlotControlClick(message, detail = {}) {
+  console.error("[slot controls debug]", message, detail);
+}
+
+function findFallbackSlotControlAtPoint(e) {
+  if (window.FCModalLayer?.isAnyOpen?.()) return null;
+  const pitchWrap = document.getElementById("pitch-wrap");
+  if (!pitchWrap || e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR)) return null;
+  // Don't hijack clicks inside a known modal/dialog.
+  if (e.target?.closest?.("#swap-modal, .pcrop-modal, .rq-modal, .psrc-modal, .ppick-modal")) return null;
+  // Generic guard: never reroute a click the user made on a real interactive
+  // control (modal action buttons, links, inputs, …). The rescue is only meant
+  // for clicks that land on inert space overlapping a slot button.
+  if (e.target?.closest?.("button, a, input, select, textarea, label, [role='button'], [contenteditable='true']")) return null;
+  // Generic guard: never reroute a click inside a full-viewport fixed overlay
+  // (any modal/dialog/backdrop, present or future). The small fixed team crest
+  // that legitimately overlaps the goalkeeper is not full-screen, so it still
+  // rescues. This is what stops "Yes/Save" dialogs from hitting buttons behind.
+  for (let node = e.target; node && node !== document.body; node = node.parentElement) {
+    if (node.nodeType !== 1) continue;
+    const cs = window.getComputedStyle(node);
+    if (cs.position === "fixed") {
+      const r = node.getBoundingClientRect();
+      if (r.width >= window.innerWidth * 0.8 && r.height >= window.innerHeight * 0.8) return null;
+    }
+  }
+  // Normally the click lands on a pitch descendant. But an overlapping element
+  // (e.g. the position:fixed team-header crest sitting over the goalkeeper) can
+  // steal the hit-test — so also accept clicks geometrically within the pitch.
+  if (!pitchWrap.contains(e.target)) {
+    const wr = pitchWrap.getBoundingClientRect();
+    const M = 100;
+    if (
+      e.clientX < wr.left - M || e.clientX > wr.right + M ||
+      e.clientY < wr.top - M || e.clientY > wr.bottom + M
+    ) {
+      return null;
+    }
+  }
+
+  const x = e.clientX;
+  const y = e.clientY;
+  let nearest = null;
+  let nearestDistance = Infinity;
+  for (const control of pitchWrap.querySelectorAll(SLOT_CONTROL_DEBUG_SELECTOR)) {
+    const rect = control.getBoundingClientRect();
+    const pad = control.classList.contains("slot-photo-fetch-btn") ||
+      control.classList.contains("slot-photo-crop-btn") ||
+      control.classList.contains("slot-photo-delete-btn")
+      ? 24
+      : 12;
+    if (
+      x >= rect.left - pad &&
+      x <= rect.right + pad &&
+      y >= rect.top - pad &&
+      y <= rect.bottom + pad
+    ) {
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const distance = Math.hypot(x - cx, y - cy);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearest = control;
+      }
+    }
+  }
+  return nearest;
+}
+
+function installSlotControlClickDebug() {
+  if (slotControlClickDebugInstalled || typeof document === "undefined") return;
+  slotControlClickDebugInstalled = true;
+
+  const logPitchClick = (e) => {
+    const pitchWrap = document.getElementById("pitch-wrap");
+    if (!pitchWrap || !pitchWrap.contains(e.target)) return;
+    const stack = typeof document.elementsFromPoint === "function"
+      ? document.elementsFromPoint(e.clientX, e.clientY)
+      : [];
+    const targetControl = e.target?.closest?.(SLOT_CONTROL_DEBUG_SELECTOR) || null;
+    const stackedControl = stack.find((el) => el.matches?.(SLOT_CONTROL_DEBUG_SELECTOR)) || null;
+    debugSlotControlClick(`${e.type} inside pitch`, {
+      x: Math.round(e.clientX),
+      y: Math.round(e.clientY),
+      target: describeDebugElement(e.target),
+      targetControl: describeDebugElement(targetControl),
+      stackedControl: describeDebugElement(stackedControl),
+      topStack: stack.slice(0, 6).map(describeDebugElement).filter(Boolean),
+    });
+  };
+
+  document.addEventListener("pointerdown", logPitchClick, true);
+  document.addEventListener("click", (e) => {
+    logPitchClick(e);
+    const fallbackControl = findFallbackSlotControlAtPoint(e);
+    if (!fallbackControl) return;
+    debugSlotControlClick("fallback routed click to control", {
+      target: describeDebugElement(e.target),
+      routedTo: describeDebugElement(fallbackControl),
+    });
+    e.preventDefault();
+    e.stopPropagation();
+    fallbackControl.click();
+  }, true);
+}
+
+/* "Get all team photos" button next to the X in the team header. Wired once
+   per page-load via `installBulkPhotoButton`, fired against the current 11. */
+let bulkPhotoButtonInstalled = false;
+
+function installBulkPhotoButton() {
+  if (bulkPhotoButtonInstalled) return;
+  const btn = document.getElementById("team-header-get-all-photos");
+  if (!btn) return;
+  bulkPhotoButtonInstalled = true;
+  /* Re-parent to <body> so the team-header / pitch-wrap perspective transforms
+     don't break `position: fixed`. Mirrors what the clear-team X does. */
+  if (btn.parentElement !== document.body) {
+    document.body.appendChild(btn);
+  }
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openBulkTeamPhotoModal();
+  });
+}
+
+function openBulkTeamPhotoModal() {
+  const state = getState();
+  if (!state?.currentSquad) return;
+  const xi = appState.currentXi || [];
+  const players = [];
+  xi.forEach((p, slotIndex) => {
+    if (!p || !p.name) return;
+    players.push({
+      slotIndex,
+      name: p.name,
+      club: p.club || "",
+      nationality: p.nationality || "",
+      photoBodyBase: {
+        playerName: p.name,
+        playerClub: p.club || "",
+        playerNationality: p.nationality || "",
+        squadType: state.squadType || "",
+        selectedEntry: state.selectedEntry || {},
+        currentSquadName: state.currentSquad?.name || "",
+      },
+    });
+  });
+  if (!players.length) {
+    window.alert("No players in the lineup yet.");
+    return;
+  }
+
+  const applyFetchedPhotoForSlot = (data, slotIndex) => {
+    const section = data?.indexSection;
+    const key = data?.indexKey;
+    const rel = data?.relativePath;
+    if (!section || !key || !rel) {
+      throw new Error("Invalid image index update payload.");
+    }
+    if (!appState.playerImages[section]) {
+      appState.playerImages[section] = {};
+    }
+    const prevPaths = appState.playerImages[section][key];
+    const paths = Array.isArray(prevPaths)
+      ? prevPaths.filter((x) => typeof x === "string" && x.trim())
+      : typeof prevPaths === "string" && prevPaths.trim()
+        ? [prevPaths.trim()]
+        : [];
+    if (!paths.includes(rel)) {
+      paths.unshift(rel);
+    }
+    appState.playerImages[section][key] = paths;
+    autoPhotoLastSourceBySlot.set(slotIndex, String(data?.source || "").trim().toLowerCase());
+    const st = getState();
+    st.slotPhotoIndexBySlot.set(slotIndex, 0);
+    appState.suppressPitchSlotFlipAnimation = true;
+    renderPitch();
+    appState.suppressPitchSlotFlipAnimation = false;
+  };
+
+  openBulkPhotoPicker({
+    teamLabel: state.currentSquad?.name || "",
+    players,
+    sources: ["fut.gg", "365scores"],
+    loadCandidates: async ({ player, source }) => {
+      const res = await fetch(LIST_PHOTO_CANDIDATES_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Search failed.");
+      }
+      return Array.isArray(data.candidates) ? data.candidates : [];
+    },
+    onSelectCandidate: async ({ player, candidate, source }) => {
+      const res = await fetch(SAVE_CHOSEN_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source, imageDataUrl: candidate.dataUrl }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Failed to save photo.");
+      }
+      applyFetchedPhotoForSlot(data, player.slotIndex);
+    },
+    onPasteUrl: (player) => {
+      openPlayerPhotoUrlModal(player.name, async (imageUrl) => {
+        const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...player.photoBodyBase, imageUrl }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.ok) {
+          throw new Error(data?.error || "Could not download photo from URL.");
+        }
+        applyFetchedPhotoForSlot(data, player.slotIndex);
+      });
+    },
+  });
+}
+
+function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
+  const state = getState();
+  if (!containerEl || !player || appState.isVideoPlaying) return;
+  if (containerEl.querySelector(".slot-photo-controls")) return;
+  const controls = document.createElement("div");
+  controls.className = "slot-photo-controls";
+
+  const photoBtn = document.createElement("button");
+  photoBtn.type = "button";
+  photoBtn.className = "slot-photo-fetch-btn";
+  photoBtn.textContent = "PHOTO";
+  photoBtn.title = "Fetch another player photo";
+  photoBtn.dataset.slotControl = "photo";
+  photoBtn.dataset.slotIndex = String(slotIndex);
+
+  const deleteBtn = document.createElement("button");
+  deleteBtn.type = "button";
+  deleteBtn.className = "slot-photo-delete-btn";
+  deleteBtn.textContent = "X";
+  deleteBtn.title = "Delete current photo";
+  deleteBtn.dataset.slotControl = "delete-photo";
+  deleteBtn.dataset.slotIndex = String(slotIndex);
+
+  const getCurrentSlotPhoto = () => {
+    const st = getState();
+    const paths = playerPhotoPaths(player, st.displayMode);
+    if (!paths.length) return { relPath: "", paths: [] };
+    let idx = st.slotPhotoIndexBySlot.get(slotIndex) ?? 0;
+    idx = ((idx % paths.length) + paths.length) % paths.length;
+    st.slotPhotoIndexBySlot.set(slotIndex, idx);
+    return { relPath: String(paths[idx] || ""), paths };
+  };
+
+  const removeRelPathFromPlayerImagesState = (relPath) => {
+    const rel = String(relPath || "").trim();
+    if (!rel) return;
+    for (const section of ["club", "nationality"]) {
+      const sectionMap = appState.playerImages[section];
+      if (!sectionMap || typeof sectionMap !== "object") continue;
+      for (const key of Object.keys(sectionMap)) {
+        const current = sectionMap[key];
+        if (Array.isArray(current)) {
+          const next = current.filter((x) => String(x || "").trim() && String(x || "").trim() !== rel);
+          if (next.length !== current.length) {
+            if (next.length) sectionMap[key] = next;
+            else delete sectionMap[key];
+          }
+          continue;
+        }
+        if (typeof current === "string" && current.trim() === rel) {
+          delete sectionMap[key];
+        }
+      }
+    }
+  };
+
+  photoBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    debugSlotControlClick("PHOTO handler fired", {
+      slotIndex,
+      player: player?.name || "",
+      disabled: photoBtn.disabled,
+    });
+    if (photoBtn.disabled) return;
+    const st = getState();
+    if (!st?.selectedEntry) {
+      debugSlotControlClick("PHOTO handler stopped: no selectedEntry", { slotIndex });
+      return;
+    }
+    const photoBodyBase = {
+      playerName: player?.name || "",
+      playerClub: player?.club || "",
+      playerNationality: player?.nationality || "",
+      squadType: st?.squadType || "",
+      selectedEntry: st?.selectedEntry || {},
+      currentSquadName: st?.currentSquad?.name || "",
+    };
+    const applyFetchedPhoto = (data) => {
+      const section = data.indexSection;
+      const key = data.indexKey;
+      const rel = data.relativePath;
+      if (!section || !key || !rel) {
+        throw new Error("Invalid image index update payload.");
+      }
+      if (!appState.playerImages[section]) {
+        appState.playerImages[section] = {};
+      }
+      const prevPaths = appState.playerImages[section][key];
+      const paths = Array.isArray(prevPaths)
+        ? prevPaths.filter((x) => typeof x === "string" && x.trim())
+        : typeof prevPaths === "string" && prevPaths.trim()
+          ? [prevPaths.trim()]
+          : [];
+      if (!paths.includes(rel)) {
+        paths.unshift(rel);
+      }
+      appState.playerImages[section][key] = paths;
+      autoPhotoLastSourceBySlot.set(slotIndex, String(data?.source || "").trim().toLowerCase());
+      st.slotPhotoIndexBySlot.set(slotIndex, 0);
+      appState.suppressPitchSlotFlipAnimation = true;
+      renderPitch();
+      appState.suppressPitchSlotFlipAnimation = false;
+    };
+    const submitFromUrl = async (imageUrl) => {
+      const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...photoBodyBase, imageUrl }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Could not download photo from URL.");
+      }
+      applyFetchedPhoto(data);
+    };
+    const fetchFromSource = (source) => {
+      openPhotoCandidatePicker({
+        title: `${source === "fut.gg" ? "FUT cards (fut.gg)" : "365scores"} — ${player?.name || "photo"}`,
+        loadCandidates: async () => {
+          const res = await fetch(LIST_PHOTO_CANDIDATES_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...photoBodyBase, source }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data?.ok) {
+            throw new Error(data?.error || "Photo search failed.");
+          }
+          return Array.isArray(data.candidates) ? data.candidates : [];
+        },
+        onSelect: async (candidate) => {
+          const res = await fetch(SAVE_CHOSEN_PHOTO_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...photoBodyBase, source, imageDataUrl: candidate.dataUrl }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data?.ok) {
+            throw new Error(data?.error || "Failed to save photo.");
+          }
+          applyFetchedPhoto(data);
+        },
+      });
+    };
+    openPhotoSourceChooser({
+      playerName: player?.name || "",
+      onPasteUrl: () => openPlayerPhotoUrlModal(player?.name || "", submitFromUrl),
+      onFetchFutgg: () => fetchFromSource("fut.gg"),
+      onFetch365: () => fetchFromSource("365scores"),
+    });
+  });
+
+  deleteBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    debugSlotControlClick("X handler fired", {
+      slotIndex,
+      player: player?.name || "",
+      disabled: deleteBtn.disabled,
+    });
+    if (deleteBtn.disabled) return;
+    const current = getCurrentSlotPhoto();
+    if (!current.relPath) {
+      debugSlotControlClick("X handler stopped: no current photo", { slotIndex });
+      window.alert("No photo to delete.");
+      return;
+    }
+    photoBtn.disabled = true;
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = "...";
+    try {
+      const res = await fetch(DELETE_PLAYER_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ relPath: current.relPath }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Failed to delete photo.");
+      }
+      removeRelPathFromPlayerImagesState(current.relPath);
+      const st = getState();
+      st.slotPhotoIndexBySlot.set(slotIndex, 0);
+      autoPhotoLastSourceBySlot.delete(slotIndex);
+      appState.suppressPitchSlotFlipAnimation = true;
+      renderPitch();
+      appState.suppressPitchSlotFlipAnimation = false;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to delete photo.";
+      window.alert(msg);
+    } finally {
+      photoBtn.disabled = false;
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = "X";
+    }
+  });
+  const cropBtn = document.createElement("button");
+  cropBtn.type = "button";
+  cropBtn.className = "slot-photo-crop-btn";
+  cropBtn.textContent = "CROP";
+  cropBtn.title = "Crop this photo (e.g. down to the shirt) — overwrites the saved image";
+  cropBtn.dataset.slotControl = "crop";
+  cropBtn.dataset.slotIndex = String(slotIndex);
+  cropBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (cropBtn.disabled) return;
+    const current = getCurrentSlotPhoto();
+    if (!current.relPath) {
+      window.alert("No photo to crop.");
+      return;
+    }
+    const relPath = current.relPath;
+    openPhotoCropModal({
+      imageUrl: projectAssetUrlFresh(relPath),
+      title: `Crop — ${player?.name || "photo"}`,
+      onSave: async (dataUrl) => {
+        const res = await fetch(SAVE_CROP_PLAYER_PHOTO_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ relPath, imageDataUrl: dataUrl }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.ok) {
+          throw new Error(data?.error || "Failed to save crop.");
+        }
+        // Same file overwritten — drop the RAM-cached bitmap AND change its URL
+        // so both the in-memory image cache and the browser HTTP cache miss.
+        invalidateCachedImage(projectAssetUrl(relPath));
+        bumpAssetCacheBust(relPath);
+        appState.suppressPitchSlotFlipAnimation = true;
+        renderPitch();
+        appState.suppressPitchSlotFlipAnimation = false;
+      },
+    });
+  });
+
+  controls.append(cropBtn, photoBtn, deleteBtn);
+  containerEl.appendChild(controls);
+}
+
+function getSlotFrontFaceScale(state, slotIndex) {
+  ensureSlotFrontFaceScales(state);
+  if (state.squadType === "national") {
+    return sanitizeSlotBadgeScale(
+      state.slotTeamLogoScales[slotIndex] ?? DEFAULT_SLOT_TEAM_LOGO_SCALE
+    );
+  }
+  // Start slightly zoomed so "-" has an immediate effect while never going below full-fit.
+  return sanitizeSlotBadgeScale(state.slotFlagScales[slotIndex] ?? 1.15);
+}
+
+/** Video mode only: +/- for front-face flag (club XI) or club logo (national XI); not the player photo. */
+/** @param {HTMLElement} rootEl `.slot-mount` (flip-card + badge controls live here). */
+function appendSlotBadgeZoomControls(rootEl, slotIndex) {
+  const state = getState();
+  const controls = document.createElement("div");
+  controls.className = "slot-badge-controls";
+  const makeBtn = (sign, ariaLabel) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "slot-badge-zoom-btn";
+    b.setAttribute("aria-label", ariaLabel);
+    b.textContent = sign < 0 ? "-" : "+";
+    b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const st = getState();
+      ensureSlotFrontFaceScales(st);
+      const isNational = st.squadType === "national";
+      const arr = isNational ? st.slotTeamLogoScales : st.slotFlagScales;
+      const def = isNational ? DEFAULT_SLOT_TEAM_LOGO_SCALE : DEFAULT_SLOT_FLAG_SCALE;
+      const cur = sanitizeSlotBadgeScale(arr[slotIndex] ?? def);
+
+      // Flags: allow real zoom-out (below 1x) so "-" is always meaningful.
+      const minScale = isNational ? 0.1 : 0.7;
+      const maxScale = isNational ? 3.0 : 3.0;
+      const next = Math.min(maxScale, Math.max(minScale, cur + sign * SLOT_BADGE_SCALE_STEP));
+      arr[slotIndex] = next;
+      const wrap = rootEl.querySelector(".slot-badge-scale-wrap");
+      if (wrap) wrap.style.setProperty("--slot-badge-scale", String(next));
+    });
+    return b;
+  };
+  const shrinkLabel =
+    state.squadType === "national" ? "Zoom out club logo" : "Zoom out nationality flag";
+  const growLabel =
+    state.squadType === "national" ? "Zoom in club logo" : "Zoom in nationality flag";
+  controls.append(makeBtn(-1, shrinkLabel), makeBtn(1, growLabel));
+  if (state.squadType === "national") {
+    const crestPick = document.createElement("button");
+    crestPick.type = "button";
+    crestPick.className = "slot-badge-zoom-btn slot-badge-swap-crest-btn";
+    crestPick.setAttribute("aria-label", "Pick club crest from Other Teams folder");
+    crestPick.title = "Swap crest";
+    crestPick.textContent = "⇄";
+    crestPick.addEventListener("click", (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      openSwapLogoModal({ kind: "slot", slotIndex });
+    });
+    controls.appendChild(crestPick);
+  }
+  rootEl.appendChild(controls);
+}
+
+function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayout) {
+  const state = getState();
+  const mount = getOrCreateSlotMount(slotEl);
+  mount.replaceChildren();
+  slotEl.classList.remove("has-player", "empty");
+  if (!player) {
+    slotEl.classList.add("empty");
+    return;
+  }
+  slotEl.classList.add("has-player");
+
+  if (useVideoQuestionLayout) {
+    const inner = document.createElement("div");
+    inner.className = "slot-inner";
+    const shouldFlipToPlayers = getVideoQuestionPreviewState(state).previewPostTimer;
+
+    const front = document.createElement("div");
+    front.className =
+      "slot-face slot-front" +
+      (state.squadType === "national" ? " slot-front--national-crest" : "");
+
+    const frontAvatar = document.createElement("div");
+    frontAvatar.className = "slot-avatar";
+    applyStrictAvatarBounds(
+      frontAvatar,
+      state.squadType === "national" ? { clipCircle: false } : {}
+    );
+
+    const badgeWrap = document.createElement("div");
+    badgeWrap.className = "slot-badge-scale-wrap";
+    badgeWrap.style.setProperty("--slot-badge-scale", String(getSlotFrontFaceScale(state, slotIndex)));
+
+    if (state.squadType === "club") {
+      const natLabel = resolvePlayerNationalityLabel(player.nationality);
+      const code = appState.flagcodes[natLabel];
+      if (code) {
+        // England: repo St George asset (not Union Jack / generic CDN crop).
+        const flagUrl =
+          natLabel === "England"
+            ? projectAssetUrl("Images/Nationality/Europe/England.png")
+            : `https://flagcdn.com/w320/${code.toLowerCase()}.png`;
+        const img = document.createElement("img");
+        img.className = "slot-img";
+        img.src = flagUrl;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "100%";
+        img.style.objectFit = "cover";
+        img.style.display = "block";
+        img.style.borderRadius = "50%";
+        img.onerror = () => {
+          img.remove();
+          appendSlotBadgeTextFallback(badgeWrap, natLabel);
+        };
+        badgeWrap.appendChild(img);
+      } else {
+        appendSlotBadgeTextFallback(badgeWrap, natLabel);
+      }
+    } else {
+      const clubName = player.club || "UNK";
+      const primaryLogoUrl = getClubLogoUrl(clubName);
+      const otherTeamsLogoUrl = getClubLogoOtherTeamsUrl(player.club);
+      const ovKey = String(slotIndex);
+      const rawOverride = state.slotClubCrestOverrideRelPathBySlot?.[ovKey];
+      const overrideRel = rawOverride
+        ? normalizeLegacyTeamImageRelPath(String(rawOverride).split("?")[0].split("#")[0])
+        : "";
+      const overrideUrl = overrideRel ? projectAssetUrlFresh(overrideRel) : null;
+      const urlChain = [];
+      const pushUrl = (u) => {
+        if (u && !urlChain.includes(u)) urlChain.push(u);
+      };
+      pushUrl(overrideUrl);
+      pushUrl(primaryLogoUrl ? withProjectAssetCacheBust(primaryLogoUrl) : null);
+      pushUrl(otherTeamsLogoUrl ? withProjectAssetCacheBust(otherTeamsLogoUrl) : null);
+      const firstLogoUrl = urlChain[0] || null;
+      const clubLabel = player.club?.trim() ? player.club.trim() : "Unknown club";
+
+      if (!firstLogoUrl) {
+        appendSlotBadgeTextFallback(badgeWrap, clubLabel);
+      } else {
+        const img = document.createElement("img");
+        img.className = "slot-img";
+        img.decoding = "async";
+        img.loading = "eager";
+
+        /* Same box as flags; +/- adjusts --slot-badge-scale on the wrap (clip stays inside black ring) */
+        img.style.width = "100%";
+        img.style.height = "100%";
+        img.style.maxWidth = "100%";
+        img.style.maxHeight = "100%";
+        img.style.objectFit = "contain";
+        img.style.display = "block";
+
+        // Use cache-first loading: check RAM cache before network
+        let chainIndex = 0;
+        const trySetSrc = (idx) => {
+          const url = urlChain[idx];
+          const cached = getCachedImage(url);
+          if (cached) {
+            img.src = cached.src;
+            putCachedImage(url, img);
+          } else {
+            preloadImage(url); // ensure it goes through decode pipeline
+            img.src = url;
+          }
+        };
+        trySetSrc(chainIndex);
+        img.onload = () => { putCachedImage(urlChain[chainIndex], img); };
+        img.onerror = () => {
+          chainIndex += 1;
+          if (chainIndex < urlChain.length) {
+            trySetSrc(chainIndex);
+            return;
+          }
+          img.remove();
+          appendSlotBadgeTextFallback(badgeWrap, clubLabel);
+        };
+        badgeWrap.appendChild(img);
+      }
+    }
+    frontAvatar.appendChild(badgeWrap);
+    front.appendChild(frontAvatar);
+
+    const back = document.createElement("div");
+    back.className = "slot-face slot-back";
+
+    const backAvatar = document.createElement("div");
+    backAvatar.className = "slot-avatar";
+    applyStrictAvatarBounds(backAvatar);
+
+    const paths = playerPhotoPaths(player, displayMode);
+    if (paths.length) {
+      let idx = state.slotPhotoIndexBySlot.get(slotIndex) ?? 0;
+      idx = ((idx % paths.length) + paths.length) % paths.length;
+      state.slotPhotoIndexBySlot.set(slotIndex, idx);
+      const rel = paths[idx];
+      const img = document.createElement("img");
+      img.className = "slot-img";
+      img.alt = "";
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.maxWidth = "100%";
+      img.style.maxHeight = "100%";
+      img.style.objectFit = "cover";
+      img.style.display = "block";
+      img.style.borderRadius = "50%"; 
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.onerror = () => {
+        img.remove();
+        state.slotPhotoIndexBySlot.delete(slotIndex);
+        backAvatar.classList.add("slot-avatar--no-photo");
+        appendAvatarTeamFallback(backAvatar, player);
+        appendAutoPhotoFetchButton(back, slotIndex, player);
+      };
+      backAvatar.appendChild(img);
+      applyPlayerPhotoFramingForSourceRelPath(img, rel);
+      const _photoUrl = projectAssetUrlFresh(rel);
+      const _cachedPhoto = getCachedImage(_photoUrl);
+      if (_cachedPhoto) {
+        img.src = _cachedPhoto.src;
+      } else {
+        preloadImage(_photoUrl);
+        img.src = _photoUrl;
+      }
+      img.onload = () => { putCachedImage(_photoUrl, img); };
+    } else {
+      state.slotPhotoIndexBySlot.delete(slotIndex);
+      backAvatar.classList.add("slot-avatar--no-photo");
+      appendAvatarTeamFallback(backAvatar, player);
+      appendAutoPhotoFetchButton(back, slotIndex, player);
+    }
+    appendAutoPhotoFetchButton(back, slotIndex, player);
+
+    const labelContainer = document.createElement("div");
+    labelContainer.className = "slot-label-container";
+    const label = document.createElement("span");
+    label.className = "slot-name";
+    label.textContent = pitchSlotDisplayLabel(state, player);
+    wireSlotNameEditing(label, player);
+
+    const editBtn = createSlotNameEditButton(label, player, slotIndex);
+
+    const swapBtn = document.createElement("button");
+    swapBtn.type = "button";
+    swapBtn.className = "slot-swap-btn";
+    swapBtn.innerHTML = "⇄";
+    swapBtn.title = "Swap player";
+    swapBtn.dataset.slotControl = "swap-player";
+    swapBtn.dataset.slotIndex = String(slotIndex);
+    swapBtn.onclick = (e) => {
+      e.stopPropagation();
+      debugSlotControlClick("Swap handler fired", {
+        slotIndex,
+        player: player?.name || "",
+      });
+      openSwapModal(slotIndex);
+    };
+
+    labelContainer.append(editBtn, label, swapBtn);
+    back.append(backAvatar, labelContainer);
+
+    inner.append(front, back);
+    mount.appendChild(inner);
+    slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
+    /* If we add "flipped" in the same frame as insert, the rotateY transition is skipped.
+       Double rAF + optional per-slot delay (see SLOT_FLIP_STAGGER_SEC). */
+    if (shouldFlipToPlayers) {
+      if (appState.suppressPitchSlotFlipAnimation) {
+        inner.style.transition = "none";
+        inner.style.transitionDelay = "";
+        inner.classList.add("flipped");
+        requestAnimationFrame(() => {
+          inner.style.removeProperty("transition");
+          inner.style.removeProperty("transition-delay");
+        });
+      } else {
+        inner.style.transitionDelay = `${slotIndex * SLOT_FLIP_STAGGER_SEC}s`;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            inner.classList.add("flipped");
+          });
+        });
+      }
+    }
+    if (state.videoMode && !appState.isVideoPlaying) {
+      appendSlotBadgeZoomControls(mount, slotIndex);
+    }
+  } else {
+    const avatar = document.createElement("div");
+    avatar.className = "slot-avatar";
+    applyStrictAvatarBounds(avatar);
+
+    const paths = playerPhotoPaths(player, displayMode);
+
+    if (paths.length) {
+      let idx = state.slotPhotoIndexBySlot.get(slotIndex) ?? 0;
+      idx = ((idx % paths.length) + paths.length) % paths.length;
+      state.slotPhotoIndexBySlot.set(slotIndex, idx);
+      const rel = paths[idx];
+      const img = document.createElement("img");
+      img.className = "slot-img";
+      img.alt = "";
+      img.style.width = "100%";
+      img.style.height = "100%";
+      img.style.maxWidth = "100%";
+      img.style.maxHeight = "100%";
+      img.style.objectFit = "cover";
+      img.style.display = "block";
+      img.style.borderRadius = "50%"; 
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.onerror = () => {
+        img.remove();
+        state.slotPhotoIndexBySlot.delete(slotIndex);
+        avatar.classList.add("slot-avatar--no-photo");
+        appendAvatarTeamFallback(avatar, player);
+        appendAutoPhotoFetchButton(mount, slotIndex, player);
+      };
+      avatar.appendChild(img);
+      applyPlayerPhotoFramingForSourceRelPath(img, rel);
+      const _photoUrl2 = projectAssetUrlFresh(rel);
+      const _cachedPhoto2 = getCachedImage(_photoUrl2);
+      if (_cachedPhoto2) {
+        img.src = _cachedPhoto2.src;
+      } else {
+        preloadImage(_photoUrl2);
+        img.src = _photoUrl2;
+      }
+      img.onload = () => { putCachedImage(_photoUrl2, img); };
+    } else {
+      state.slotPhotoIndexBySlot.delete(slotIndex);
+      avatar.classList.add("slot-avatar--no-photo");
+      appendAvatarTeamFallback(avatar, player);
+      appendAutoPhotoFetchButton(mount, slotIndex, player);
+    }
+    appendAutoPhotoFetchButton(mount, slotIndex, player);
+
+    const labelContainer = document.createElement("div");
+    labelContainer.className = "slot-label-container";
+
+    const label = document.createElement("span");
+    label.className = "slot-name";
+    label.textContent = pitchSlotDisplayLabel(state, player);
+    wireSlotNameEditing(label, player);
+
+    const editBtn = createSlotNameEditButton(label, player, slotIndex);
+
+    const swapBtn = document.createElement("button");
+    swapBtn.type = "button";
+    swapBtn.className = "slot-swap-btn";
+    swapBtn.innerHTML = "⇄";
+    swapBtn.title = "Swap player";
+    swapBtn.dataset.slotControl = "swap-player";
+    swapBtn.dataset.slotIndex = String(slotIndex);
+    swapBtn.onclick = (e) => {
+      e.stopPropagation();
+      debugSlotControlClick("Swap handler fired", {
+        slotIndex,
+        player: player?.name || "",
+      });
+      openSwapModal(slotIndex);
+    };
+
+    labelContainer.append(editBtn, label, swapBtn);
+    slotEl.title = paths.length > 1 ? "Double-click avatar to cycle photos" : "";
+    mount.append(avatar, labelContainer);
+  }
+}
+
+/**
+ * Preload all images needed for the current squad into the RAM cache.
+ * Call this after a squad is loaded so level switches are instant.
+ */
+export function preloadSquadImages(state) {
+  if (!state || !state.currentSquad) return;
+  const urls = [];
+  const squad = state.currentSquad;
+
+  // Team header logo
+  if (squad.imagePath) {
+    urls.push(projectAssetUrlFresh(squad.imagePath));
+  }
+
+  // Player photos
+  const allPlayers = [
+    ...(squad.goalkeepers || []),
+    ...(squad.defenders || []),
+    ...(squad.midfielders || []),
+    ...(squad.attackers || []),
+  ];
+  for (const player of allPlayers) {
+    if (!player) continue;
+    const paths = playerPhotoPaths(player, state.displayMode);
+    for (const rel of paths) {
+      if (rel) urls.push(projectAssetUrlFresh(rel));
+    }
+  }
+
+  if (urls.length) preloadImages(urls);
+}
+
+let slotNameFitRaf = 0;
+
+function fitSlotNameEl(labelEl) {
+  labelEl.style.removeProperty("font-size");
+  labelEl.style.removeProperty("letter-spacing");
+  const nameLen = String(labelEl.textContent || "").trim().length;
+  if (nameLen >= 15) {
+    labelEl.style.fontSize = "0.4rem";
+    labelEl.style.letterSpacing = "0";
+  } else if (nameLen >= 13) {
+    labelEl.style.fontSize = "0.49rem";
+  } else if (nameLen >= 11) {
+    labelEl.style.fontSize = "0.54rem";
+  } else if (nameLen >= 9) {
+    labelEl.style.fontSize = "0.64rem";
+  }
+}
+
+function fitSlotNamesImpl() {
+  const labels = appState.els.pitchSlots?.querySelectorAll(".slot-name");
+  if (!labels?.length) {
+    return;
+  }
+  labels.forEach((el) => fitSlotNameEl(el));
+}
+
+function scheduleSlotNameFit() {
+  cancelAnimationFrame(slotNameFitRaf);
+  slotNameFitRaf = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      slotNameFitRaf = 0;
+      fitSlotNamesImpl();
+    });
+  });
+}
+
+export function renderPitch() {
+  installSlotControlClickDebug();
+  installBulkPhotoButton();
+  const state = getState();
+  const formation = formationById(state.formationId);
+  const displayMode = state.displayMode;
+  const useVideoQuestionLayout = shouldUseVideoQuestionLayout(state);
+  const inlineTeamPicker = document.getElementById("lineups-inline-team-picker");
+  if (inlineTeamPicker) {
+    inlineTeamPicker.hidden = !!state.currentSquad;
+  }
+
+  let xi;
+  if (!state.currentSquad) {
+    xi = Array(11).fill(null);
+  } else if (
+    state.customXi &&
+    state.customXi.length === formation.slots.length &&
+    state.lastFormationId === state.formationId
+  ) {
+    xi = state.customXi;
+  } else {
+    xi = pickStartingXI(formation, state.currentSquad);
+    state.customXi = [...xi];
+    state.lastFormationId = state.formationId;
+  }
+
+  appState.currentXi = xi;
+
+  appState.els.pitchSlots.querySelectorAll(".player-slot").forEach((node, i) => {
+    const slot = formation.slots[i];
+    if (slot) {
+      node.style.left = `${slot.x}%`;
+      node.style.top = `${slot.y}%`;
+      node.style.setProperty("--slot-scale", String(slotPerspectiveScale(slot.y)));
+    }
+    renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
+  });
+  scheduleSlotNameFit();
+}
+
+/**
+ * Play video: after countdown, do not rebuild pitch (that reloads logos and fights the pitch-height transition).
+ * Flip existing flip-cards in place while the field/header layout animates.
+ */
+export function applyVideoQuestionPostTimerFlip() {
+  const state = getState();
+  if (!shouldUseVideoQuestionLayout(state) || !appState.els.pitchSlots) {
+    return;
+  }
+  const slots = appState.els.pitchSlots.querySelectorAll(".player-slot.has-player");
+  slots.forEach((slotEl) => {
+    const inner = slotEl.querySelector(".slot-inner");
+    if (!inner || inner.classList.contains("flipped")) {
+      return;
+    }
+    const slotIndex = Number(slotEl.dataset.slotIndex);
+    const idx = Number.isFinite(slotIndex) ? slotIndex : 0;
+    inner.style.transitionDelay = `${idx * SLOT_FLIP_STAGGER_SEC}s`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        inner.classList.add("flipped");
+      });
+    });
+  });
+}
+
+let teamHeaderShiftRaf = 0;
+
+function updateTeamHeaderNameCenterShift() {
+  const th = appState.els.teamHeader;
+  if (!th) {
+    return;
+  }
+  /* Side panel: title is centered in the column; no horizontal shift */
+  th.style.setProperty("--team-header-name-center-shift", "0px");
+}
+
+function resolveTeamHeaderFlagCountryLabel(state) {
+  if (!state?.currentSquad) return "";
+  if (state.squadType === "national") {
+    return String(state.currentSquad.name || "").trim();
+  }
+  if (state.squadType === "club") {
+    const fromEntry = String(state.selectedEntry?.country || "").trim();
+    if (fromEntry) return fromEntry;
+    const squadName = String(state.currentSquad?.name || "").trim();
+    const hit = appState.teamsIndex?.clubs?.find((c) => c.name === squadName);
+    return String(hit?.country || "").trim();
+  }
+  return "";
+}
+
+function getTeamHeaderFlagUrl(countryLabel) {
+  const label = String(countryLabel || "").trim();
+  if (!label) return null;
+  const code = appState.flagcodes[label];
+  if (!code) return null;
+  if (label === "England") {
+    return projectAssetUrl("Images/Nationality/Europe/England.png");
+  }
+  return `https://flagcdn.com/w320/${String(code).toLowerCase()}.png`;
+}
+
+/** Centers the team name on the viewport with the crest immediately to its left (regular mode only). */
+export function scheduleTeamHeaderNameCenterShift() {
+  cancelAnimationFrame(teamHeaderShiftRaf);
+  teamHeaderShiftRaf = requestAnimationFrame(() => {
+    teamHeaderShiftRaf = 0;
+    updateTeamHeaderNameCenterShift();
+  });
+}
+
+let teamHeaderNameFitRaf = 0;
+
+function escapeHtmlForSidePanelName(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** Extra px toward column center (negative = left in LTR); italic/tracking still read a hair right of bbox math */
+const SIDE_PANEL_NAME_CENTER_FINE_PX = 0;
+
+/**
+ * Snap each word line to the side column’s horizontal center (logo + title + controls share
+ * this width). Uses the column box, not .team-header-name-line, so the target matches the
+ * green strip. Double rAF so font-size / grid layout are committed before measuring.
+ */
+function applySidePanelNameLineCenterNudge(nameEl) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const inners = nameEl.querySelectorAll(".team-header-name-inner");
+      if (!inners.length) return;
+      inners.forEach((inner) => {
+        inner.style.removeProperty("transform");
+      });
+      void nameEl.offsetWidth;
+
+      const anchor = nameEl.closest(".team-side-panel-column") || nameEl;
+      const ar = anchor.getBoundingClientRect();
+      const wantX = ar.left + ar.width / 2;
+
+      inners.forEach((inner) => {
+        const ir = inner.getBoundingClientRect();
+        const haveX = ir.left + ir.width / 2;
+        const dx = wantX - haveX;
+        const total = dx + SIDE_PANEL_NAME_CENTER_FINE_PX;
+        if (Math.abs(total) < 0.005) return;
+        inner.style.transform = `translateX(${total}px)`;
+      });
+    });
+  });
+}
+
+/** Regular: one word per line when multi-word (nowrap per word); shrink whole title uniformly — never break inside a word. */
+function fitRegularSidePanelTeamHeaderNameImpl() {
+  const nameEl = appState.els.headerName;
+  const th = appState.els.teamHeader;
+  if (!nameEl || !th || th.hidden) {
+    return;
+  }
+  if (document.body.classList.contains("shorts-mode")) {
+    return;
+  }
+
+  const raw = String(nameEl.dataset.headerPlain ?? nameEl.textContent ?? "").trim();
+  nameEl.style.removeProperty("font-size");
+  nameEl.style.removeProperty("text-align");
+
+  if (!raw) {
+    nameEl.textContent = "";
+    nameEl.removeAttribute("data-header-plain");
+    nameEl.style.removeProperty("white-space");
+    return;
+  }
+
+  const words = raw.split(/\s+/).filter(Boolean);
+  /* Always use line + inner (even one word) so flex/grid centering matches after inline font-size shrink */
+  nameEl.innerHTML = words
+    .map(
+      (w) =>
+        `<span class="team-header-name-line"><span class="team-header-name-inner">${escapeHtmlForSidePanelName(
+          w
+        )}</span></span>`
+    )
+    .join("");
+  nameEl.style.whiteSpace = "normal";
+
+  void nameEl.offsetWidth;
+
+  const clearTitleInnerFontSizes = () => {
+    nameEl.querySelectorAll(".team-header-name-inner").forEach((el) => {
+      el.style.removeProperty("font-size");
+      el.style.removeProperty("transform");
+    });
+  };
+  clearTitleInnerFontSizes();
+
+  const cs = getComputedStyle(nameEl);
+  const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+  const thRect = th.getBoundingClientRect();
+  const logoBlock = th.querySelector(".team-header-logo-block");
+  const lbRect = logoBlock?.getBoundingClientRect();
+  const lbCs = logoBlock ? getComputedStyle(logoBlock) : null;
+  const lbPadX = lbCs
+    ? (parseFloat(lbCs.paddingLeft) || 0) + (parseFloat(lbCs.paddingRight) || 0)
+    : 0;
+  /* Prefer the title’s own box; fallback to logo block inner width; avoids narrow intrinsic width */
+  const fromName = Math.max(
+    nameEl.clientWidth,
+    nameEl.getBoundingClientRect().width
+  );
+  const fromLb = lbRect ? lbRect.width - lbPadX : 0;
+  let containerW = Math.max(fromName, fromLb, thRect.width - lbPadX);
+  if (containerW < 48) {
+    containerW = thRect.width || fromLb || fromName;
+  }
+  if (containerW < 48) {
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  const maxW = Math.max(120, containerW - padX);
+  const tol = 12;
+  const maxLineScrollWidth = () => {
+    const inners = nameEl.querySelectorAll(".team-header-name-inner");
+    if (inners.length) {
+      let m = 0;
+      inners.forEach((el) => {
+        m = Math.max(m, el.scrollWidth);
+      });
+      return m;
+    }
+    return nameEl.scrollWidth;
+  };
+  const fits = () => maxLineScrollWidth() <= maxW + tol;
+
+  const hardMinPx = 14;
+  /* Shrink font on .team-header-name-inner only — inline h2 font-size throws off grid/em centering vs clamp() */
+  const setInnerFontSizesPx = (px) => {
+    nameEl.querySelectorAll(".team-header-name-inner").forEach((el) => {
+      el.style.removeProperty("transform");
+      el.style.fontSize = `${px}px`;
+    });
+    nameEl.style.textAlign = "center";
+    void nameEl.offsetWidth;
+  };
+
+  if (fits()) {
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  const firstInner = nameEl.querySelector(".team-header-name-inner");
+  const hi = Math.max(
+    hardMinPx,
+    parseFloat(
+      firstInner ? getComputedStyle(firstInner).fontSize : getComputedStyle(nameEl).fontSize
+    ) || 48
+  );
+
+  /* Monotonic: smaller px ⇒ narrower lines. Find largest px in [hardMin, hi] that fits. */
+  setInnerFontSizesPx(hardMinPx);
+  if (!fits()) {
+    setInnerFontSizesPx(hi);
+    const w = Math.max(1, maxLineScrollWidth());
+    setInnerFontSizesPx(Math.max(hardMinPx, hi * ((maxW + tol) / w)));
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  setInnerFontSizesPx(hi);
+  if (fits()) {
+    nameEl.style.removeProperty("font-size");
+    clearTitleInnerFontSizes();
+    nameEl.style.textAlign = "center";
+    applySidePanelNameLineCenterNudge(nameEl);
+    return;
+  }
+
+  let goodLo = hardMinPx;
+  let badHi = hi;
+  while (badHi - goodLo > 0.4) {
+    const mid = (goodLo + badHi) / 2;
+    setInnerFontSizesPx(mid);
+    if (fits()) {
+      goodLo = mid;
+    } else {
+      badHi = mid;
+    }
+  }
+  setInnerFontSizesPx(goodLo);
+  if (!fits()) {
+    const w = Math.max(1, maxLineScrollWidth());
+    const innerEl = nameEl.querySelector(".team-header-name-inner");
+    const cur =
+      parseFloat(innerEl ? getComputedStyle(innerEl).fontSize : "") || goodLo;
+    setInnerFontSizesPx(Math.max(hardMinPx, cur * ((maxW + tol) / w)));
+  }
+  nameEl.style.textAlign = "center";
+  applySidePanelNameLineCenterNudge(nameEl);
+}
+
+function fitShortsTeamHeaderNameImpl() {
+  const nameEl = appState.els.headerName;
+  const th = appState.els.teamHeader;
+  if (!nameEl || !th || th.hidden) {
+    return;
+  }
+  if (!document.body.classList.contains("shorts-mode")) {
+    nameEl.style.removeProperty("font-size");
+    nameEl.querySelectorAll(".team-header-name-inner").forEach((el) => {
+      el.style.removeProperty("font-size");
+      el.style.removeProperty("transform");
+    });
+    return;
+  }
+  const plain = String(nameEl.dataset.headerPlain ?? nameEl.textContent ?? "").trim();
+  if (plain) {
+    nameEl.textContent = plain;
+  }
+  const column = nameEl.closest(".team-side-panel-column");
+  const maxW = Math.max(
+    64,
+    column?.clientWidth ?? th.clientWidth ?? th.getBoundingClientRect().width
+  );
+
+  nameEl.style.removeProperty("font-size");
+  nameEl.style.whiteSpace = "nowrap";
+  void nameEl.offsetWidth;
+
+  let high = parseFloat(getComputedStyle(nameEl).fontSize) || 36;
+  nameEl.style.fontSize = `${high}px`;
+  void nameEl.offsetWidth;
+  if (nameEl.scrollWidth <= maxW + 1) {
+    nameEl.style.removeProperty("font-size");
+    return;
+  }
+
+  let low = 6;
+  while (high - low > 0.25) {
+    const mid = (low + high) / 2;
+    nameEl.style.fontSize = `${mid}px`;
+    void nameEl.offsetWidth;
+    if (nameEl.scrollWidth > maxW + 1) {
+      high = mid;
+    } else {
+      low = mid;
+    }
+  }
+
+  let fs = Math.max(6, low);
+  nameEl.style.fontSize = `${fs}px`;
+  void nameEl.offsetWidth;
+  while (nameEl.scrollWidth > maxW + 1 && fs > 6) {
+    fs -= 0.5;
+    nameEl.style.fontSize = `${fs}px`;
+    void nameEl.offsetWidth;
+  }
+}
+
+/** Regular + shorts: refit title after layout / mode. */
+export function scheduleTeamHeaderSidePanelNameFit() {
+  cancelAnimationFrame(teamHeaderNameFitRaf);
+  teamHeaderNameFitRaf = requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      teamHeaderNameFitRaf = 0;
+      if (document.body.classList.contains("shorts-mode")) {
+        fitShortsTeamHeaderNameImpl();
+      } else {
+        fitRegularSidePanelTeamHeaderNameImpl();
+      }
+    });
+  });
+}
+
+/** Shorts: one-line shrink fit. Same scheduler as regular side panel (see scheduleTeamHeaderSidePanelNameFit). */
+export function scheduleShortsTeamNameFit() {
+  scheduleTeamHeaderSidePanelNameFit();
+}
+
+export function renderHeader() {
+  syncTeamHeaderLogoVarsFromLevel();
+  appState.teamHeaderRenderGeneration =
+    (Number(appState.teamHeaderRenderGeneration) || 0) + 1;
+  const teamHeaderRenderGen = appState.teamHeaderRenderGeneration;
+  const isStaleHeaderRender = () =>
+    teamHeaderRenderGen !== appState.teamHeaderRenderGeneration;
+  const state = getState();
+  const { els } = appState;
+  const quizType = appState.els.inQuizType?.value || "nat-by-club";
+  const { previewPostTimer } = getVideoQuestionPreviewState(state);
+
+  document.body.classList.toggle("video-mode-on", !!state.videoMode);
+  document.body.classList.toggle("play-video-active", !!appState.isVideoPlaying);
+
+  if (els.teamHeader) {
+    const st = state.squadType;
+    els.teamHeader.dataset.squadType = st === "national" ? "national" : "club";
+    els.teamHeader.classList.toggle("video-preview-revealed", previewPostTimer);
+    els.teamHeader.classList.remove("video-hidden", "video-revealed");
+  }
+
+  const logoBlock = document.getElementById("team-header-logo-block");
+  const fetchLogoBtn = document.getElementById("team-header-fetch-logo");
+  const swapLogoBtn = document.getElementById("team-header-swap-logo");
+  const clearTeamBtn = document.getElementById("team-header-clear-team");
+  const getAllPhotosBtn = document.getElementById("team-header-get-all-photos");
+  const pitchSwapBtn = document.getElementById("pitch-swap-logo");
+  const flagSectionEl = document.getElementById("team-side-panel-flag-section");
+
+  if (!state.currentSquad) {
+    if (els.headerName) {
+      els.headerName.textContent = "";
+      els.headerName.removeAttribute("data-header-plain");
+      els.headerName.style.removeProperty("font-size");
+      els.headerName.style.removeProperty("white-space");
+    }
+    if (els.headerLogo) {
+      els.headerLogo.onload = null;
+      els.headerLogo.onerror = null;
+      els.headerLogo.removeAttribute("src");
+      els.headerLogo.hidden = true;
+    }
+    if (els.headerFlag) {
+      els.headerFlag.hidden = true;
+      els.headerFlag.removeAttribute("src");
+    }
+    resetTeamHeaderStripeVars(els.teamHeader);
+    if (flagSectionEl) {
+      flagSectionEl.classList.add("team-side-panel-flag-section--empty");
+    }
+    if (fetchLogoBtn) fetchLogoBtn.hidden = true;
+    if (swapLogoBtn) swapLogoBtn.hidden = true;
+    if (clearTeamBtn) clearTeamBtn.hidden = true;
+    if (getAllPhotosBtn) getAllPhotosBtn.hidden = true;
+    if (pitchSwapBtn) pitchSwapBtn.hidden = true;
+    if (els.teamVoiceControls) els.teamVoiceControls.hidden = true;
+    syncTeamVoiceControls("", appState.els.inQuizType?.value || "nat-by-club");
+    if (logoBlock) {
+      logoBlock.classList.add("team-header-logo-block--empty");
+      logoBlock.classList.remove("team-header-show-swap-logo");
+    }
+    syncTeamSidebarPanel(els, false, "");
+    scheduleTeamHeaderNameCenterShift();
+    scheduleTeamHeaderSidePanelNameFit();
+    return;
+  }
+  const displayedHeaderTeamNameRaw = resolveHeaderTeamDisplayName(state, quizType);
+  /* For "national team" mode the header text is a country name — translate it
+     to Spanish when that's the active language. Club mode names pass through. */
+  const displayedHeaderTeamName = state?.squadType === "national"
+    ? translateCountry(displayedHeaderTeamNameRaw)
+    : displayedHeaderTeamNameRaw;
+  if (els.headerName) {
+    els.headerName.textContent = displayedHeaderTeamName;
+    els.headerName.dataset.headerPlain = displayedHeaderTeamName;
+  }
+  if (els.headerFlag) {
+    const flagLabel = resolveTeamHeaderFlagCountryLabel(state);
+    const flagUrl = getTeamHeaderFlagUrl(flagLabel);
+    els.headerFlag.alt = flagLabel ? `Flag for ${flagLabel}` : "";
+    if (flagUrl) {
+      if (/^https?:\/\//i.test(flagUrl)) {
+        els.headerFlag.crossOrigin = "anonymous";
+      } else {
+        els.headerFlag.removeAttribute("crossorigin");
+      }
+      els.headerFlag.onload = () => {
+        if (isStaleHeaderRender()) return;
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+        applyTeamHeaderStripesFromFlagImage(els.headerFlag, els.teamHeader);
+      };
+      els.headerFlag.onerror = () => {
+        if (isStaleHeaderRender()) return;
+        els.headerFlag.hidden = true;
+        els.headerFlag.removeAttribute("src");
+        resetTeamHeaderStripeVars(els.teamHeader);
+        if (flagSectionEl) {
+          flagSectionEl.classList.add("team-side-panel-flag-section--empty");
+        }
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+      };
+      els.headerFlag.src = flagUrl;
+      els.headerFlag.hidden = false;
+      if (els.headerFlag.complete) {
+        if (!isStaleHeaderRender()) {
+          scheduleTeamHeaderNameCenterShift();
+          scheduleTeamHeaderSidePanelNameFit();
+          applyTeamHeaderStripesFromFlagImage(els.headerFlag, els.teamHeader);
+        }
+      }
+    } else {
+      els.headerFlag.hidden = true;
+      els.headerFlag.removeAttribute("src");
+      resetTeamHeaderStripeVars(els.teamHeader);
+      scheduleTeamHeaderNameCenterShift();
+      scheduleTeamHeaderSidePanelNameFit();
+    }
+  }
+  if (clearTeamBtn) clearTeamBtn.hidden = false;
+  if (getAllPhotosBtn) getAllPhotosBtn.hidden = false;
+  syncTeamVoiceControls(
+    displayedHeaderTeamName,
+    appState.els.inQuizType?.value || "nat-by-club"
+  );
+  if (els.teamVoiceControls) els.teamVoiceControls.hidden = true;
+  if (els.headerLogo) {
+    const chain = getHeaderLogoUrlChain(
+      state,
+      state.currentSquad,
+      state.squadType,
+      state.selectedEntry?.name,
+      quizType
+    ).map((u) => withProjectAssetCacheBust(u));
+    if (chain.length) {
+      const logoImg = els.headerLogo;
+      logoImg.onload = null;
+      logoImg.onerror = null;
+      let chainIndex = 0;
+      const expectedSrc = chain[0];
+      const revealIfFresh = () => {
+        if (isStaleHeaderRender()) return;
+        /* Only reveal if the element's current src is the one we kicked off — protects
+           against in-flight loads from previous renders finishing after us. */
+        const cur = logoImg.getAttribute("src") || "";
+        if (cur !== chain[chainIndex]) return;
+        logoImg.hidden = false;
+        logoImg.style.visibility = "";
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+      };
+      logoImg.onload = () => {
+        if (isStaleHeaderRender()) return;
+        putCachedImage(chain[chainIndex], logoImg);
+        revealIfFresh();
+      };
+      logoImg.onerror = () => {
+        if (isStaleHeaderRender()) return;
+        chainIndex += 1;
+        if (chainIndex < chain.length) {
+          const cachedLogo = getCachedImage(chain[chainIndex]);
+          logoImg.src = cachedLogo ? cachedLogo.src : chain[chainIndex];
+          if (!cachedLogo) preloadImage(chain[chainIndex]);
+          return;
+        }
+        logoImg.hidden = true;
+        logoImg.style.visibility = "";
+        logoImg.removeAttribute("src");
+        const fetchLogoBtnErr = document.getElementById("team-header-fetch-logo");
+        if (fetchLogoBtnErr) fetchLogoBtnErr.hidden = false;
+        if (logoBlock) {
+          logoBlock.classList.add("team-header-logo-block--empty");
+        }
+        scheduleTeamHeaderNameCenterShift();
+        scheduleTeamHeaderSidePanelNameFit();
+      };
+      const cachedHeaderLogo = getCachedImage(chain[0]);
+      const srcIsChanging = logoImg.getAttribute("src") !== expectedSrc;
+      /* Always hide visually BEFORE assigning src so the browser can't paint the old
+         bitmap for the current frame. Use visibility (layout stays) — display: none
+         via `hidden` can race with other code reading the img's layout. The reveal
+         below (or in onload) clears both hidden and visibility together. */
+      if (srcIsChanging) {
+        logoImg.style.visibility = "hidden";
+      }
+      if (cachedHeaderLogo && cachedHeaderLogo.naturalWidth && cachedHeaderLogo.src === expectedSrc) {
+        /* Cached entry's src matches the URL we're asking for — safe to reuse. */
+        logoImg.src = expectedSrc;
+        logoImg.hidden = false;
+        logoImg.style.visibility = "";
+        if (!isStaleHeaderRender()) {
+          scheduleTeamHeaderNameCenterShift();
+          scheduleTeamHeaderSidePanelNameFit();
+        }
+      } else {
+        /* Not cached (or cache entry's src was mutated by a later render) — hide via
+           `hidden` too so `display: none` guarantees nothing stale paints, then wait
+           for onload. */
+        if (srcIsChanging) {
+          logoImg.hidden = true;
+        }
+        if (!cachedHeaderLogo) preloadImage(chain[0]);
+        logoImg.src = expectedSrc;
+      }
+    } else {
+      els.headerLogo.onload = null;
+      els.headerLogo.onerror = null;
+      els.headerLogo.removeAttribute("src");
+      els.headerLogo.hidden = true;
+      els.headerLogo.style.visibility = "";
+    }
+  }
+  const showSwapLogo =
+    state.squadType === "club" &&
+    state.currentSquad &&
+    quizType !== "club-by-nat";
+  const headerCollapsed = !els.teamHeader?.classList.contains("team-header--show");
+  if (swapLogoBtn) {
+    /* Video mode collapses the header — use pitch-level control instead */
+    swapLogoBtn.hidden = !showSwapLogo || (state.videoMode && headerCollapsed);
+  }
+  if (pitchSwapBtn) {
+    pitchSwapBtn.hidden =
+      !showSwapLogo || !state.videoMode || !headerCollapsed;
+  }
+  if (fetchLogoBtn) {
+    const empty = Boolean(els.headerLogo?.hidden);
+    fetchLogoBtn.hidden = !state.currentSquad || !empty;
+  }
+  if (logoBlock) {
+    const empty = Boolean(els.headerLogo?.hidden);
+    logoBlock.classList.toggle("team-header-logo-block--empty", empty);
+    logoBlock.classList.toggle(
+      "team-header-show-swap-logo",
+      showSwapLogo && empty
+    );
+  }
+  if (flagSectionEl && els.headerFlag) {
+    const noFlag =
+      els.headerFlag.hidden || !els.headerFlag.getAttribute("src");
+    flagSectionEl.classList.toggle("team-side-panel-flag-section--empty", noFlag);
+  }
+  /* Video mode on + question layout: hide side panel until post-reveal (countdown or manual preview).
+     Same during Play Video so the strip opens only after the timer, not between levels. */
+  const hideSidebarInVideoHold =
+    shouldUseVideoQuestionLayout(state) && state.videoMode && !previewPostTimer;
+  const sidebarWantsOpen =
+    !!state.currentSquad &&
+    !els.teamHeader.hidden &&
+    !hideSidebarInVideoHold;
+  syncTeamSidebarPanel(
+    els,
+    sidebarWantsOpen,
+    sidebarWantsOpen ? getTeamSidebarSlideKey(state) : ""
+  );
+  scheduleTeamHeaderNameCenterShift();
+  scheduleTeamHeaderSidePanelNameFit();
+}

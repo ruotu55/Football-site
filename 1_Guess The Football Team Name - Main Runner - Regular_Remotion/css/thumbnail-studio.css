@@ -1,0 +1,158 @@
+/* Thumbnail Studio — full-screen overlay with the 1280×720 canvas + control rail. */
+
+.ts-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0b0d12;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    color: #fff;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.ts-stage {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(255,255,255,0.04), transparent 60%),
+        #0b0d12;
+    overflow: hidden;
+}
+
+.ts-canvas {
+    /* Maintain 16:9, fit to whichever dimension is smaller. */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 10px;
+    box-shadow: 0 14px 50px rgba(0,0,0,0.6);
+}
+
+.ts-rail {
+    flex: 0 0 320px;
+    background: #14171f;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+}
+
+.ts-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    letter-spacing: 0.04em;
+    color: #fff;
+}
+
+.ts-btn {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.12s ease, transform 0.05s ease;
+}
+
+.ts-btn:hover { background: rgba(255,255,255,0.10); }
+.ts-btn:active { transform: translateY(1px); }
+
+.ts-btn--primary {
+    background: #2563eb;
+    border-color: #2563eb;
+}
+.ts-btn--primary:hover { background: #1d4ed8; }
+
+.ts-btn--accent {
+    background: #facc15;
+    color: #111;
+    border-color: #facc15;
+}
+.ts-btn--accent:hover { background: #eab308; }
+
+.ts-btn--ghost {
+    background: transparent;
+    border-color: rgba(255,255,255,0.18);
+}
+
+.ts-btn--small {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+.ts-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.7);
+}
+
+.ts-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(0,0,0,0.3);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+}
+.ts-input:focus {
+    outline: none;
+    border-color: #facc15;
+    background: rgba(0,0,0,0.5);
+}
+
+.ts-icon-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ts-icon-status {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    padding: 8px 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed rgba(255,255,255,0.15);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.ts-drop {
+    position: relative;
+    display: block;
+    padding: 12px;
+    border: 2px dashed rgba(255,255,255,0.2);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    cursor: pointer;
+}
+.ts-drop:hover { border-color: #facc15; color: #facc15; }
+.ts-file {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
