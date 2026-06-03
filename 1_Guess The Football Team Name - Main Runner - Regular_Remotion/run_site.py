@@ -112,6 +112,48 @@ def _pump_remotion_job(job_id: str) -> None:
             json.dumps({"stage": "error", "message": "render exited " + str(proc.returncode)})
         )
 
+
+# ── Remotion asset sanitizer ─────────────────────────────────────────────────
+
+def _remotion_local_asset_exists(rel: str, project_root) -> bool:
+    """rel is a repo-relative asset path as the app emits it ('Images/..', '../.Storage/..',
+    '/Images/..'). http(s) URLs are considered always-OK (external). Returns True if the
+    local file exists under project_root."""
+    if not rel or not isinstance(rel, str):
+        return False
+    if rel.startswith("http://") or rel.startswith("https://"):
+        return True
+    clean = rel.lstrip("/")
+    while clean.startswith("../"):
+        clean = clean[3:]
+    return (project_root / clean).is_file()
+
+
+def _sanitize_remotion_assets(props: dict, project_root) -> dict:
+    """Blank out any LOCAL asset path that doesn't exist on disk so the renderer skips it
+    instead of 404-crashing on a missing <Img>/<Audio>. Mirrors the live app's
+    play-first-existing-clip behaviour. http(s) URLs (e.g. flagcdn) pass through."""
+    levels = props.get("levels")
+    if isinstance(levels, list):
+        for lvl in levels:
+            if not isinstance(lvl, dict):
+                continue
+            for key in ("headerLogoRel", "revealVoiceRel", "progressVoiceRel"):
+                v = lvl.get(key)
+                if v and not _remotion_local_asset_exists(v, project_root):
+                    lvl[key] = ""
+            slots = lvl.get("slots")
+            if isinstance(slots, list):
+                for s in slots:
+                    if not isinstance(s, dict):
+                        continue
+                    for key in ("photoRel", "frontRel"):
+                        v = s.get(key)
+                        if v and not _remotion_local_asset_exists(v, project_root):
+                            s[key] = ""
+    return props
+
+
 SUPPORTED_LANGUAGES = ("english", "spanish")
 DEFAULT_LANGUAGE = "english"
 OTHER_TEAMS_LOGOS_DIR = PROJECT_ROOT / "Images/Teams" / "(1) Other Teams"
@@ -3534,6 +3576,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         server_port = self.server.server_address[1]
         props = {**state, "width": width, "height": height, "fps": fps,
                  "language": language, "assetBase": f"http://127.0.0.1:{server_port}"}
+        props = _sanitize_remotion_assets(props, PROJECT_ROOT)
         render_dir = RUNNER_DIR / "remotion"
         props_path = render_dir / "out" / f"props-{uuid.uuid4().hex}.json"
         props_path.parent.mkdir(parents=True, exist_ok=True)

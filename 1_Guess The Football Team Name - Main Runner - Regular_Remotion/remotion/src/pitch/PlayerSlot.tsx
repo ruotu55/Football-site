@@ -120,8 +120,8 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     }
   );
 
-  const frontUrl = assetUrl(slot.frontRel, assetBase);
-  const backUrl  = assetUrl(slot.photoRel, assetBase);
+  const frontUrl = slot.frontRel ? assetUrl(slot.frontRel, assetBase) : "";
+  const backUrl  = slot.photoRel ? assetUrl(slot.photoRel, assetBase) : "";
 
   // Outer wrapper: centred at absolute pixel position (xPx, yPx)
   const wrapperStyle: React.CSSProperties = {
@@ -253,14 +253,22 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
         {/* Front face: flag badge */}
         <div style={frontFaceStyle}>
           <div style={avatarStyle}>
-            <Img src={frontUrl} style={flagImgStyle} />
+            {frontUrl ? (
+              <Img src={frontUrl} style={flagImgStyle} />
+            ) : (
+              <div style={{ ...flagImgStyle, backgroundColor: "rgba(255,255,255,0.15)" }} />
+            )}
           </div>
         </div>
 
         {/* Back face: player photo */}
         <div style={backFaceStyle}>
           <div style={avatarStyle}>
-            <Img src={backUrl} style={photoImgStyle} />
+            {backUrl ? (
+              <Img src={backUrl} style={photoImgStyle} />
+            ) : (
+              <div style={{ ...photoImgStyle, backgroundColor: "#1a1a2e" }} />
+            )}
           </div>
         </div>
       </div>
