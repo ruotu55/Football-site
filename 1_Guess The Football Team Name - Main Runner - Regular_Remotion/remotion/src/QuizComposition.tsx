@@ -28,84 +28,88 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
 
   return (
     <AbsoluteFill>
-      <BackgroundTheme competition={undefined} />
+      {/* Background — always the bottom layer (no zIndex override so it stays at 0) */}
+      <BackgroundTheme bgTheme={props.bgTheme} />
 
-      {/* Audio layer — always-on, spans whole composition */}
-      <AudioTimeline timeline={tl} props={props} />
+      {/* All quiz content sits above the background (zIndex 1 so body::before/::after at 0 don't cover it) */}
+      <AbsoluteFill style={{ zIndex: 1 }}>
+        {/* Audio layer — always-on, spans whole composition */}
+        <AudioTimeline timeline={tl} props={props} />
 
-      {tl.phases.map((p, i) => {
-        const key = `${p.kind}-${p.index}-${i}`;
+        {tl.phases.map((p, i) => {
+          const key = `${p.kind}-${p.index}-${i}`;
 
-        if (p.kind === "transition") {
+          if (p.kind === "transition") {
+            return (
+              <Sequence
+                key={key}
+                from={p.startFrame}
+                durationInFrames={p.durationFrames}
+                name={`transition ${p.index}`}
+              >
+                <TransitionOverlay
+                  durationInFrames={p.durationFrames}
+                  effect={props.transitionEffect}
+                />
+              </Sequence>
+            );
+          }
+
+          let inner: React.ReactNode = null;
+
+          if (p.kind === "logo") {
+            inner = (
+              <LogoLevel
+                assetBase={props.assetBase}
+                language={props.language}
+              />
+            );
+          } else if (p.kind === "landing") {
+            inner = (
+              <LandingLevel
+                language={props.language}
+                quizType={props.quizType ?? "club-by-nat"}
+                questionCount={props.questionCount}
+              />
+            );
+          } else if (p.kind === "question") {
+            const level = props.levels[2 + p.index];
+            inner = (
+              <>
+                <ProgressSteps total={props.questionCount} current={p.index} />
+                <QuestionLevel
+                  level={level}
+                  questionIndex={p.index}
+                  cues={p.cues}
+                  skipReveal={!!p.skipReveal}
+                  localDurationInFrames={p.durationFrames}
+                  assetBase={props.assetBase}
+                />
+              </>
+            );
+          } else if (p.kind === "outro") {
+            inner = (
+              <OutroLevel
+                level={outroLevel}
+                endingType={props.endingType}
+                language={props.language}
+                assetBase={props.assetBase}
+              />
+            );
+          }
+
           return (
             <Sequence
               key={key}
               from={p.startFrame}
               durationInFrames={p.durationFrames}
-              name={`transition ${p.index}`}
+              name={`${p.kind} ${p.index}`}
             >
-              <TransitionOverlay
-                durationInFrames={p.durationFrames}
-                effect={props.transitionEffect}
-              />
+              {inner}
             </Sequence>
           );
-        }
-
-        let inner: React.ReactNode = null;
-
-        if (p.kind === "logo") {
-          inner = (
-            <LogoLevel
-              assetBase={props.assetBase}
-              language={props.language}
-            />
-          );
-        } else if (p.kind === "landing") {
-          inner = (
-            <LandingLevel
-              language={props.language}
-              quizType={props.quizType ?? "club-by-nat"}
-              questionCount={props.questionCount}
-            />
-          );
-        } else if (p.kind === "question") {
-          const level = props.levels[2 + p.index];
-          inner = (
-            <>
-              <ProgressSteps total={props.questionCount} current={p.index} />
-              <QuestionLevel
-                level={level}
-                questionIndex={p.index}
-                cues={p.cues}
-                skipReveal={!!p.skipReveal}
-                localDurationInFrames={p.durationFrames}
-                assetBase={props.assetBase}
-              />
-            </>
-          );
-        } else if (p.kind === "outro") {
-          inner = (
-            <OutroLevel
-              level={outroLevel}
-              endingType={props.endingType}
-              language={props.language}
-              assetBase={props.assetBase}
-            />
-          );
-        }
-
-        return (
-          <Sequence
-            key={key}
-            from={p.startFrame}
-            durationInFrames={p.durationFrames}
-            name={`${p.kind} ${p.index}`}
-          >
-            {inner}
-          </Sequence>
-        );
-      })}
+        })}
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };

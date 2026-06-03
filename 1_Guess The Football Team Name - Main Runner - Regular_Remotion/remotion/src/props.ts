@@ -30,6 +30,16 @@ export interface RemotionLevel {
   revealVoiceRel?: string;
   progressVoiceRel?: string;
 }
+export interface BgTheme {
+  css: string;
+  colorAttr: string;
+  effectAttr: string;
+  bgStage: string;
+  lineOpacity: string;
+  effectOpacity: string;
+  particlesHtml: string[];
+}
+
 export interface RemotionProps {
   script: string;
   totalLevelsCount: number;
@@ -48,4 +58,6 @@ export interface RemotionProps {
   outroVoiceMs?: number;
   // Probed real durations for all named voices (ms). Keys: rules, ending, reveal, warmUp, serious, nerds, genius.
   voiceDurationsMs?: Record<string, number>;
+  // Live-captured background theme from the app (palette OR competition).
+  bgTheme?: BgTheme | null;
 }

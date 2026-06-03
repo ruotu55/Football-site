@@ -318,6 +318,26 @@ export function buildRemotionState() {
     };
   });
 
+  // ── Background theme capture ──────────────────────────────────────────────────
+  // Read the LIVE applied DOM — do not re-derive from settings.
+  const bgTheme = (() => {
+    try {
+      const root = document.documentElement;
+      const styleEl = document.getElementById("shared-background-theme-style");
+      const cs = getComputedStyle(root);
+      const grab = (id) => { const el = document.getElementById(id); return el ? el.outerHTML : ""; };
+      return {
+        css: styleEl ? styleEl.textContent : "",
+        colorAttr: root.getAttribute("data-shared-background-color") || "",
+        effectAttr: root.getAttribute("data-shared-background-effect") || "",
+        bgStage: (root.style.getPropertyValue("--bg-stage") || cs.getPropertyValue("--bg-stage") || "").trim(),
+        lineOpacity: (root.style.getPropertyValue("--shared-line-opacity") || cs.getPropertyValue("--shared-line-opacity") || "3.5").trim(),
+        effectOpacity: (root.style.getPropertyValue("--shared-effect-opacity") || cs.getPropertyValue("--shared-effect-opacity") || "0.3").trim(),
+        particlesHtml: [grab("shared-background-emojis"), grab("shared-background-question-marks"), grab("shared-background-soccer-balls")].filter(Boolean),
+      };
+    } catch (_) { return null; }
+  })();
+
   return {
     script: getActiveScriptName() || "",
     totalLevelsCount: appState.totalLevelsCount,
@@ -332,5 +352,6 @@ export function buildRemotionState() {
     transitionEffect: (window.__captureTransitionEffect && window.__captureTransitionEffect()) || "grid-overlay",
     quizType,
     levels,
+    bgTheme,
   };
 }
