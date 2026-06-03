@@ -83,9 +83,21 @@ def _pump_remotion_job(job_id: str) -> None:
     if not job:
         return
     proc = job["proc"]
+    log_path = job.get("log")
+    lf = None
+    if log_path:
+        try:
+            lf = open(log_path, "a", encoding="utf-8")
+        except Exception:  # noqa: BLE001
+            lf = None
     try:
         for raw_line in proc.stdout:
             line = raw_line.rstrip("\n")
+            if lf:
+                try:
+                    lf.write(line + "\n"); lf.flush()
+                except Exception:  # noqa: BLE001
+                    pass
             m = _REMOTION_RENDER_RE.search(line)
             if m:
                 frame = int(m.group(1))
@@ -100,16 +112,27 @@ def _pump_remotion_job(job_id: str) -> None:
                 text = line.strip()
                 if text:
                     job["lines"].append(json.dumps({"stage": "log", "line": text}))
-    except Exception:  # noqa: BLE001
-        pass
+    except Exception as exc:  # noqa: BLE001
+        if lf:
+            try:
+                import traceback as _tb
+                lf.write("PUMP ERROR:\n" + _tb.format_exc() + "\n")
+            except Exception:  # noqa: BLE001
+                pass
+        job["lines"].append(json.dumps({"stage": "log", "line": "pump error: " + str(exc)}))
     proc.wait()
     job["code"] = proc.returncode
     job["done"] = True
+    if lf:
+        try:
+            lf.write(f"\n=== EXIT code={proc.returncode} ===\n"); lf.close()
+        except Exception:  # noqa: BLE001
+            pass
     if proc.returncode == 0:
         job["lines"].append(json.dumps({"stage": "done", "path": job["out"]}))
     else:
         job["lines"].append(
-            json.dumps({"stage": "error", "message": "render exited " + str(proc.returncode)})
+            json.dumps({"stage": "error", "message": "render exited " + str(proc.returncode) + " — see remotion/out/last-render.log"})
         )
 
 
@@ -129,10 +152,12 @@ def _remotion_local_asset_exists(rel: str, project_root) -> bool:
     return (project_root / clean).is_file()
 
 
-def _sanitize_remotion_assets(props: dict, project_root) -> dict:
+def _sanitize_remotion_assets(props: dict, project_root) -> int:
     """Blank out any LOCAL asset path that doesn't exist on disk so the renderer skips it
     instead of 404-crashing on a missing <Img>/<Audio>. Mirrors the live app's
-    play-first-existing-clip behaviour. http(s) URLs (e.g. flagcdn) pass through."""
+    play-first-existing-clip behaviour. http(s) URLs (e.g. flagcdn) pass through.
+    Mutates props in place; returns the number of paths blanked."""
+    blanked = 0
     levels = props.get("levels")
     if isinstance(levels, list):
         for lvl in levels:
@@ -142,6 +167,7 @@ def _sanitize_remotion_assets(props: dict, project_root) -> dict:
                 v = lvl.get(key)
                 if v and not _remotion_local_asset_exists(v, project_root):
                     lvl[key] = ""
+                    blanked += 1
             slots = lvl.get("slots")
             if isinstance(slots, list):
                 for s in slots:
@@ -151,7 +177,8 @@ def _sanitize_remotion_assets(props: dict, project_root) -> dict:
                         v = s.get(key)
                         if v and not _remotion_local_asset_exists(v, project_root):
                             s[key] = ""
-    return props
+                            blanked += 1
+    return blanked
 
 
 SUPPORTED_LANGUAGES = ("english", "spanish")
@@ -3570,42 +3597,65 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
-        out_dir = PROJECT_ROOT / "Ready videos" / language
-        out_dir.mkdir(parents=True, exist_ok=True)
-        out_path = out_dir / f"{script}.mp4"
-        server_port = self.server.server_address[1]
-        props = {**state, "width": width, "height": height, "fps": fps,
-                 "language": language, "assetBase": f"http://127.0.0.1:{server_port}"}
-        props = _sanitize_remotion_assets(props, PROJECT_ROOT)
         render_dir = RUNNER_DIR / "remotion"
-        props_path = render_dir / "out" / f"props-{uuid.uuid4().hex}.json"
-        props_path.parent.mkdir(parents=True, exist_ok=True)
-        props_path.write_text(json.dumps(props), encoding="utf-8")
-        cmd = ["npx", "remotion", "render", "src/index.ts", "Quiz", str(out_path),
-               f"--props={props_path}", f"--width={width}", f"--height={height}",
-               "--log=verbose"]
-        creationflags = subprocess.CREATE_NO_WINDOW if hasattr(subprocess, "CREATE_NO_WINDOW") else 0
+        log_path = render_dir / "out" / "last-render.log"
         try:
-            proc = subprocess.Popen(
-                cmd, cwd=str(render_dir),
-                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                text=True, bufsize=1, creationflags=creationflags,
-            )
-        except FileNotFoundError:
-            # On Windows npx is npx.cmd; retry via shell as a fallback.
+            out_dir = PROJECT_ROOT / "Ready videos" / language
+            out_dir.mkdir(parents=True, exist_ok=True)
+            out_path = out_dir / f"{script}.mp4"
+            server_port = self.server.server_address[1]
+            props = {**state, "width": width, "height": height, "fps": fps,
+                     "language": language, "assetBase": f"http://127.0.0.1:{server_port}"}
+            blanked = _sanitize_remotion_assets(props, PROJECT_ROOT)
+            props_path = render_dir / "out" / f"props-{uuid.uuid4().hex}.json"
+            props_path.parent.mkdir(parents=True, exist_ok=True)
+            props_path.write_text(json.dumps(props), encoding="utf-8")
+            cmd = ["npx", "remotion", "render", "src/index.ts", "Quiz", str(out_path),
+                   f"--props={props_path}", f"--width={width}", f"--height={height}",
+                   "--log=verbose"]
+            # Fresh log each render — persists even if the server console window closes.
+            with open(log_path, "w", encoding="utf-8") as lf:
+                lf.write("=== REMOTION RENDER ===\n")
+                lf.write(f"script={script!r} lang={language} {width}x{height}@{fps}\n")
+                lf.write(f"out={out_path}\n")
+                lf.write(f"props={props_path}\n")
+                lf.write(f"blanked_missing_assets={blanked if isinstance(blanked, int) else 'n/a'}\n")
+                lf.write(f"cmd={cmd}\n\n")
+            creationflags = subprocess.CREATE_NO_WINDOW if hasattr(subprocess, "CREATE_NO_WINDOW") else 0
             try:
                 proc = subprocess.Popen(
-                    " ".join(f'"{c}"' if " " in c else c for c in cmd),
-                    cwd=str(render_dir),
+                    cmd, cwd=str(render_dir),
                     stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                    text=True, bufsize=1, shell=True, creationflags=creationflags,
+                    text=True, bufsize=1, creationflags=creationflags,
                 )
             except FileNotFoundError:
-                self._write_json(500, {"ok": False, "error": "npx/node not found on PATH."})
-                return True
+                # On Windows npx is npx.cmd; retry via shell as a fallback.
+                try:
+                    proc = subprocess.Popen(
+                        " ".join(f'"{c}"' if " " in c else c for c in cmd),
+                        cwd=str(render_dir),
+                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                        text=True, bufsize=1, shell=True, creationflags=creationflags,
+                    )
+                except FileNotFoundError:
+                    with open(log_path, "a", encoding="utf-8") as lf:
+                        lf.write("ERROR: npx/node not found on PATH.\n")
+                    self._write_json(500, {"ok": False, "error": "npx/node not found on PATH."})
+                    return True
+        except Exception as exc:  # noqa: BLE001
+            import traceback as _tb
+            tb = _tb.format_exc()
+            try:
+                with open(log_path, "a", encoding="utf-8") as lf:
+                    lf.write("SERVER ERROR before spawn:\n" + tb + "\n")
+            except Exception:  # noqa: BLE001
+                pass
+            self._write_json(500, {"ok": False, "error": "Server error preparing render: " + str(exc)})
+            return True
         job_id = uuid.uuid4().hex
         _REMOTION_JOBS[job_id] = {
-            "proc": proc, "lines": [], "done": False, "code": None, "out": str(out_path),
+            "proc": proc, "lines": [], "done": False, "code": None,
+            "out": str(out_path), "log": str(log_path),
         }
         threading.Thread(target=_pump_remotion_job, args=(job_id,), daemon=True).start()
         self._write_json(200, {"ok": True, "jobId": job_id, "out": str(out_path)})
