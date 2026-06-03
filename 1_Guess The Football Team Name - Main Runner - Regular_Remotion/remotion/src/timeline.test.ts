@@ -100,3 +100,17 @@ describe("buildTimeline (Regular flow) at fps=30", () => {
     expect(tl.totalDurationFrames).toBe(Math.round((sumMs/1000)*fps));
   });
 });
+
+describe("buildTimeline bonus-skip variants", () => {
+  it("bonus skip: think-you-know drops last question's reveal hold", () => {
+    const tl = buildTimeline({ questionCount: 3, fps: 60, endingType: "think-you-know" });
+    const qs = tl.phases.filter(p => p.kind === "question");
+    expect(qs[qs.length-1].durationMs).toBe(10000);
+    expect(qs[0].durationMs).toBe(13000);
+  });
+  it("how-many keeps last question reveal", () => {
+    const tl = buildTimeline({ questionCount: 3, fps: 60, endingType: "how-many" });
+    const qs = tl.phases.filter(p => p.kind === "question");
+    expect(qs[qs.length-1].durationMs).toBe(13000);
+  });
+});
