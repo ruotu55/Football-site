@@ -1,37 +1,22 @@
 import React from "react";
-import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
+import { useVideoConfig } from "remotion";
+import { GridOverlay } from "./gridOverlay";
 
 interface TransitionOverlayProps {
   durationInFrames: number;
+  /** Transition effect key. Defaults to "grid-overlay". */
+  effect?: string;
 }
 
-export const TransitionOverlay: React.FC<TransitionOverlayProps> = ({ durationInFrames }) => {
-  const frame = useCurrentFrame();
-  const half = durationInFrames / 2;
-  const opacity = interpolate(frame, [0, half, durationInFrames], [0, 1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
+export const TransitionOverlay: React.FC<TransitionOverlayProps> = ({
+  durationInFrames,
+  effect = "grid-overlay",
+}) => {
+  const { fps } = useVideoConfig();
 
-  return (
-    <AbsoluteFill
-      style={{
-        backgroundColor: `rgba(10, 15, 30, ${opacity})`,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <span
-        style={{
-          fontSize: 60,
-          fontWeight: 700,
-          color: `rgba(255,255,255,${opacity * 0.7})`,
-          letterSpacing: 8,
-          textTransform: "uppercase",
-        }}
-      >
-        TRANSITION
-      </span>
-    </AbsoluteFill>
-  );
+  // Only "grid-overlay" is implemented as a frame-driven effect.
+  // Other effect keys fall through to the same grid-overlay renderer as a
+  // visual default until they are individually implemented.
+  // (effect routing can be extended here: if (effect === "bars-left") return <BarsLeft .../>)
+  return <GridOverlay durationInFrames={durationInFrames} fps={fps} />;
 };

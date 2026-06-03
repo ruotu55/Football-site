@@ -9,6 +9,7 @@ import { LandingLevel } from "./levels/LandingLevel";
 import { QuestionLevel } from "./levels/QuestionLevel";
 import { OutroLevel } from "./levels/OutroLevel";
 import { TransitionOverlay } from "./transitions/TransitionOverlay";
+import { transitionDurationMs } from "./transitions/transitionDurations";
 
 export const QuizComposition: React.FC<RemotionProps> = (props) => {
   const { fps } = useVideoConfig();
@@ -19,6 +20,7 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
     fps,
     endingType: props.endingType,
     outroVoiceMs: props.outroVoiceMs ?? 0,
+    transitionMs: transitionDurationMs(props.transitionEffect),
   });
 
   const outroLevel = props.levels[props.levels.length - 1];
@@ -38,7 +40,10 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
               durationInFrames={p.durationFrames}
               name={`transition ${p.index}`}
             >
-              <TransitionOverlay durationInFrames={p.durationFrames} />
+              <TransitionOverlay
+                durationInFrames={p.durationFrames}
+                effect={props.transitionEffect}
+              />
             </Sequence>
           );
         }

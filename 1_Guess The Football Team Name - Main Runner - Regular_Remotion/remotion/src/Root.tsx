@@ -6,6 +6,7 @@ import { buildTimeline } from "./timeline";
 import { assetUrl } from "./assets";
 import { endingVoiceRelPath } from "./audio/voicePaths";
 import type { RemotionProps } from "./props";
+import { transitionDurationMs } from "./transitions/transitionDurations";
 
 const SAMPLE_PROPS: RemotionProps = {
   script: "sample", totalLevelsCount: 6, questionCount: 3, bgmSongs: [],
@@ -36,7 +37,7 @@ export const RemotionRoot: React.FC = () => (
       } catch {
         outroVoiceMs = 2500;
       }
-      const tl = buildTimeline({ questionCount: p.questionCount, fps, endingType: p.endingType, outroVoiceMs });
+      const tl = buildTimeline({ questionCount: p.questionCount, fps, endingType: p.endingType, outroVoiceMs, transitionMs: transitionDurationMs(p.transitionEffect) });
       return {
         durationInFrames: tl.totalDurationFrames,
         fps,
