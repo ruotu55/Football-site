@@ -11,6 +11,7 @@ import { OutroLevel } from "./levels/OutroLevel";
 import { TransitionOverlay } from "./transitions/TransitionOverlay";
 import { transitionDurationMs } from "./transitions/transitionDurations";
 import { AudioTimeline } from "./audio/AudioTimeline";
+import { SideText } from "./SideText";
 
 export const QuizComposition: React.FC<RemotionProps> = (props) => {
   const { fps } = useVideoConfig();
@@ -30,6 +31,9 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
     <AbsoluteFill>
       {/* Background — always the bottom layer (no zIndex override so it stays at 0) */}
       <BackgroundTheme bgTheme={props.bgTheme} />
+
+      {/* App-wide decorative side text — above all content, persists on every frame */}
+      <SideText />
 
       {/* All quiz content sits above the background (zIndex 1 so body::before/::after at 0 don't cover it) */}
       <AbsoluteFill style={{ zIndex: 1 }}>
