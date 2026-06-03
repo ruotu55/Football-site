@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { MS, msToFrames, questionBlockMs, buildTimeline } from "./timeline";
+import { MS, msToFrames, questionBlockMs, buildTimeline, progressVoiceForQuestion } from "./timeline";
 
 describe("frame math", () => {
   it("rounds ms to frames", () => {
@@ -112,5 +112,18 @@ describe("buildTimeline bonus-skip variants", () => {
     const tl = buildTimeline({ questionCount: 3, fps: 60, endingType: "how-many" });
     const qs = tl.phases.filter(p => p.kind === "question");
     expect(qs[qs.length-1].durationMs).toBe(13000);
+  });
+});
+
+describe("progress voice milestones", () => {
+  const n = 10;
+  it("warmUp/serious/nerds/genius", () => {
+    expect(progressVoiceForQuestion(1, n)).toBe("warmUp");
+    expect(progressVoiceForQuestion(Math.max(2, Math.round(n*0.3)), n)).toBe("serious");
+    expect(progressVoiceForQuestion(Math.max(2, Math.round(n*0.6)), n)).toBe("nerds");
+    expect(progressVoiceForQuestion(Math.max(2, Math.round(n*0.9)), n)).toBe("genius");
+  });
+  it("non-milestone returns null", () => {
+    expect(progressVoiceForQuestion(5, n)).toBe(null);
   });
 });

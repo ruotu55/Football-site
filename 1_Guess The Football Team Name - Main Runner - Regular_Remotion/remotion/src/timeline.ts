@@ -90,3 +90,17 @@ export function buildTimeline(opts: BuildOpts): Timeline {
   const totalDurationFrames = Math.round((cursorMs / 1000) * fps);
   return { phases, totalDurationFrames, fps };
 }
+
+export type ProgressVoiceKey = "warmUp" | "serious" | "nerds" | "genius";
+
+/** questionIndex is the app's (levelIndex - 1). totalQuestions = app's totalLevelsCount - 3. */
+export function progressVoiceForQuestion(questionIndex: number, totalQuestions: number): ProgressVoiceKey | null {
+  if (questionIndex === 1) return "warmUp";
+  const t30 = Math.max(2, Math.round(totalQuestions * 0.3));
+  const t60 = Math.max(2, Math.round(totalQuestions * 0.6));
+  const t90 = Math.max(2, Math.round(totalQuestions * 0.9));
+  if (questionIndex === t30) return "serious";
+  if (questionIndex === t60) return "nerds";
+  if (questionIndex === t90) return "genius";
+  return null;
+}
