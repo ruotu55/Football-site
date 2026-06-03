@@ -8,6 +8,46 @@ export interface SlotData {
   photoRel: string;
 }
 
+/**
+ * Mirrors pitch-render.js `pitchLabelFromPlayerName`.
+ * Returns the surname (or suffix including any lowercase prefix like "de", "van")
+ * in upper-case. Single-part names are returned as-is (uppercased).
+ */
+function pitchLabelFromPlayerName(fullName: string): string {
+  if (!fullName) return "";
+  const parts = fullName.trim().split(" ");
+  if (parts.length === 1) return parts[0].toUpperCase();
+
+  const prefixes = new Set([
+    "van", "de", "der", "da", "di", "del", "la", "le",
+    "von", "ten", "ter", "mac", "mc", "dos", "das", "do", "du", "el", "al",
+  ]);
+
+  let startIndex = parts.length - 1;
+  for (let i = parts.length - 2; i >= 0; i--) {
+    if (prefixes.has(parts[i].toLowerCase())) {
+      startIndex = i;
+    } else {
+      break;
+    }
+  }
+
+  return parts.slice(startIndex).join(" ").toUpperCase();
+}
+
+/**
+ * Mirrors pitch-render.js `fitSlotNameEl`.
+ * Returns a font-size override (in px) for long labels, or null to use the base size.
+ */
+function fittedFontPx(label: string, baseFontPx: number): number {
+  const len = label.trim().length;
+  if (len >= 15) return Math.round(baseFontPx * (0.4 / 1.02));
+  if (len >= 13) return Math.round(baseFontPx * (0.49 / 1.02));
+  if (len >= 11) return Math.round(baseFontPx * (0.54 / 1.02));
+  if (len >= 9)  return Math.round(baseFontPx * (0.64 / 1.02));
+  return baseFontPx;
+}
+
 interface PlayerSlotProps {
   slot: SlotData;
   /** Absolute pixel x (centre of slot, already scaled to render resolution) */
@@ -164,10 +204,17 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     extrapolateRight: "clamp",
   });
 
+  // Derive the display label (surname / suffix), matching pitchLabelFromPlayerName
+  const nameLabel = pitchLabelFromPlayerName(slot.name) || slot.name.toUpperCase();
+
   // Name badge — mirrors .slot-name
-  // width: 3.35rem at base; scale proportionally to slot size
-  const nameBadgeW = Math.round(slotSize * (3.35 * REM / BASE_SLOT_PX));
-  const nameFontPx = Math.round(slotSize * 0.165); // ~0.165 × slotSize
+  // CSS: font-size: clamp(0.61rem, 0.92vw, 1.02rem) → max 1.02rem = 16.32px at design width.
+  // Scale proportionally to render resolution (scaleRatio = width / CANVAS_W).
+  const baseFontPx = Math.round(1.02 * REM * scaleRatio);
+  const nameFontPx = fittedFontPx(nameLabel, baseFontPx);
+
+  // CSS: width: 3.35rem; scale with render resolution.
+  const nameBadgeW = Math.round(3.35 * REM * scaleRatio);
 
   const nameLabelStyle: React.CSSProperties = {
     position: "absolute",
@@ -178,12 +225,14 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     width: nameBadgeW,
     minWidth: nameBadgeW,
     maxWidth: nameBadgeW,
-    height: Math.round(nameFontPx * 1.4),
+    height: Math.round(1.05 * REM * scaleRatio),
     overflow: "hidden",
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
+    boxSizing: "border-box",
     fontSize: nameFontPx,
+    lineHeight: 1,
     fontWeight: 800,
     color: "#ffffff",
     backgroundColor: "#ef5350",
@@ -192,7 +241,7 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     fontFamily: '"Barlow Condensed", "Arial Narrow", Arial, sans-serif',
     letterSpacing: "0.04em",
     textTransform: "uppercase",
-    padding: `0 ${Math.round(nameFontPx * 0.3)}px`,
+    padding: `0 ${Math.round(0.3 * REM * scaleRatio)}px`,
     textShadow: "-0.05em -0.05em 0 #000, 0.05em -0.05em 0 #000, -0.05em 0.05em 0 #000, 0.05em 0.05em 0 #000",
     opacity: nameOpacity,
     pointerEvents: "none",
@@ -217,7 +266,7 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
       </div>
 
       {/* Name label (outside flip card, fades in after reveal) */}
-      <span style={nameLabelStyle}>{slot.name}</span>
+      <span style={nameLabelStyle}>{nameLabel}</span>
     </div>
   );
 };
