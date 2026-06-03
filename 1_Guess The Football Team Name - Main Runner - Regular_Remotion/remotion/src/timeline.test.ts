@@ -1,5 +1,16 @@
 import { describe, it, expect } from "vitest";
-import { MS } from "./timeline";
+import { MS, msToFrames, questionBlockMs } from "./timeline";
+
+describe("frame math", () => {
+  it("rounds ms to frames", () => {
+    expect(msToFrames(1000, 60)).toBe(60);
+    expect(msToFrames(780, 60)).toBe(47);
+    expect(msToFrames(1000, 30)).toBe(30);
+  });
+  it("question block = countdown + reveal hold", () => {
+    expect(questionBlockMs()).toBe(13000);
+  });
+});
 
 describe("MS constants (verified against source)", () => {
   it("matches the live app", () => {

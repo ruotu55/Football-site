@@ -18,3 +18,6 @@ export const MS = {
   PROGRESS_VOICE_DELAY: 1000,   // audio.js:1100 progress voice delayMs
   DEFAULT_TRANSITION_PHASE: 840,// transitions.js:45 PHASE_DUR=0.84
 } as const;
+
+export const msToFrames = (ms: number, fps: number) => Math.round((ms / 1000) * fps);
+export const questionBlockMs = () => MS.COUNTDOWN_TOTAL + MS.FLIP_DELAY_REVEAL; // 13000
