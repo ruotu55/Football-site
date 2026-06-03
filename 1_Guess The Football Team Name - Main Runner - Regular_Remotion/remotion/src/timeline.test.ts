@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { MS, msToFrames, questionBlockMs, buildTimeline, progressVoiceForQuestion } from "./timeline";
+import { MS, BALL_PRELOADER_MS, msToFrames, questionBlockMs, buildTimeline, progressVoiceForQuestion } from "./timeline";
 
 describe("frame math", () => {
   it("rounds ms to frames", () => {
@@ -31,21 +31,37 @@ describe("MS constants (verified against source)", () => {
     expect(MS.OUTRO_TAIL).toBe(1000);
     expect(MS.PROGRESS_VOICE_DELAY).toBe(1000);
     expect(MS.DEFAULT_TRANSITION_PHASE).toBe(840);
+    expect(MS.LANDING_QUIZ_VOICE_DELAY).toBe(1000);
+  });
+});
+
+describe("BALL_PRELOADER_MS", () => {
+  it("is 3350ms", () => {
+    expect(BALL_PRELOADER_MS).toBe(3350);
   });
 });
 
 describe("buildTimeline (Regular flow)", () => {
   const fps = 60;
-  const tl = buildTimeline({ questionCount: 3, fps, transitionMs: 820 });
+  // rulesVoiceMs=2500 (default) → landingHoldMs = max(1000+2500, 1500) = 3500
+  // openingLandingMs = round(3350 + 3500) = 6850
+  const tl = buildTimeline({ questionCount: 3, fps, transitionMs: 820, rulesVoiceMs: 2500 });
 
-  it("phase order", () => {
+  it("phase order starts with landing (no logo)", () => {
     expect(tl.phases.map(p => p.kind)).toEqual([
-      "logo","transition","landing","transition","question",
+      "landing","transition","question",
       "transition","question","transition","question","transition","outro",
     ]);
   });
-  it("logo block duration", () => { expect(tl.phases[0].durationMs).toBe(2000+1200+1000+1000); });
-  it("landing block", () => { expect(tl.phases[2].durationMs).toBe(500+1000); });
+  it("opening landing hasBallPreloader flag is set", () => {
+    const landing = tl.phases.find(p => p.kind === "landing")!;
+    expect(landing.hasBallPreloader).toBe(true);
+  });
+  it("opening landing duration = BALL_PRELOADER_MS + landingHoldMs", () => {
+    const landing = tl.phases.find(p => p.kind === "landing")!;
+    // landingHoldMs = max(1000+2500, 1500) = 3500; total = round(3350+3500) = 6850
+    expect(landing.durationMs).toBe(6850);
+  });
   it("each question block = 13000ms", () => {
     const q = tl.phases.find(p => p.kind === "question")!;
     expect(q.durationMs).toBe(13000);
@@ -62,9 +78,9 @@ describe("buildTimeline (Regular flow)", () => {
     expect(q.cues!.flipStartMs).toBe(10000);
     expect(q.cues!.flipDurationMs).toBe(780);
   });
-  it("logo starts at frame 0; first transition at 5200ms", () => {
+  it("landing starts at frame 0; first transition at 6850ms", () => {
     expect(tl.phases[0].startFrame).toBe(0);
-    expect(tl.phases[1].startFrame).toBe(Math.round((5200/1000)*fps));
+    expect(tl.phases[1].startFrame).toBe(Math.round((6850/1000)*fps));
   });
   it("totalDurationFrames = sum of blocks", () => {
     const sumMs = tl.phases.reduce((a,p)=>a+p.durationMs,0);
@@ -74,16 +90,20 @@ describe("buildTimeline (Regular flow)", () => {
 
 describe("buildTimeline (Regular flow) at fps=30", () => {
   const fps = 30;
-  const tl = buildTimeline({ questionCount: 3, fps, transitionMs: 820 });
+  const tl = buildTimeline({ questionCount: 3, fps, transitionMs: 820, rulesVoiceMs: 2500 });
 
   it("phase order is identical at fps=30", () => {
     expect(tl.phases.map(p => p.kind)).toEqual([
-      "logo","transition","landing","transition","question",
+      "landing","transition","question",
       "transition","question","transition","question","transition","outro",
     ]);
   });
-  it("logo block duration is fps-independent", () => { expect(tl.phases[0].durationMs).toBe(2000+1200+1000+1000); });
-  it("landing block duration is fps-independent", () => { expect(tl.phases[2].durationMs).toBe(500+1000); });
+  it("opening landing hasBallPreloader at fps=30", () => {
+    expect(tl.phases.find(p => p.kind === "landing")!.hasBallPreloader).toBe(true);
+  });
+  it("opening landing block duration is fps-independent", () => {
+    expect(tl.phases.find(p => p.kind === "landing")!.durationMs).toBe(6850);
+  });
   it("each question block = 13000ms at fps=30", () => {
     const q = tl.phases.find(p => p.kind === "question")!;
     expect(q.durationMs).toBe(13000);
@@ -91,13 +111,30 @@ describe("buildTimeline (Regular flow) at fps=30", () => {
   it("transitions are 820ms at fps=30", () => {
     expect(tl.phases.filter(p => p.kind === "transition").every(p => p.durationMs === 820)).toBe(true);
   });
-  it("logo starts at frame 0 at fps=30; first transition scales with fps", () => {
+  it("landing starts at frame 0 at fps=30; first transition scales with fps", () => {
     expect(tl.phases[0].startFrame).toBe(0);
-    expect(tl.phases[1].startFrame).toBe(Math.round((5200/1000)*fps));
+    expect(tl.phases[1].startFrame).toBe(Math.round((6850/1000)*fps));
   });
   it("totalDurationFrames scales with fps", () => {
     const sumMs = tl.phases.reduce((a,p)=>a+p.durationMs,0);
     expect(tl.totalDurationFrames).toBe(Math.round((sumMs/1000)*fps));
+  });
+});
+
+describe("buildTimeline opening landing duration varies with rulesVoiceMs", () => {
+  it("short rules voice still ensures minimum hold", () => {
+    // rulesVoiceMs=0 → landingHoldMs = max(1000+0, 1500) = 1500; total = round(3350+1500) = 4850
+    const tl = buildTimeline({ questionCount: 1, fps: 60, rulesVoiceMs: 0 });
+    expect(tl.phases[0].durationMs).toBe(4850);
+  });
+  it("longer rules voice extends the landing hold", () => {
+    // rulesVoiceMs=4000 → landingHoldMs = max(1000+4000, 1500) = 5000; total = round(3350+5000) = 8350
+    const tl = buildTimeline({ questionCount: 1, fps: 60, rulesVoiceMs: 4000 });
+    expect(tl.phases[0].durationMs).toBe(8350);
+  });
+  it("default (no rulesVoiceMs arg) uses 2500ms fallback → 6850ms landing", () => {
+    const tl = buildTimeline({ questionCount: 1, fps: 60 });
+    expect(tl.phases[0].durationMs).toBe(6850);
   });
 });
 

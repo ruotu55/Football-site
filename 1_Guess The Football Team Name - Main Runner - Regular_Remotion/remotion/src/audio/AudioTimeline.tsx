@@ -2,7 +2,7 @@
  * AudioTimeline (Phase 5.3) — renders all audio layers for the composition:
  *   1. BGM: up to 5 songs played sequentially, ducked via bgmVolumeAtFrame.
  *   2. Per-question ticking, stinger, reveal voice, progress voice.
- *   3. Rules (quiz title) voice on LOGO phase.
+ *   3. Rules (quiz title) voice on OPENING LANDING phase at +LANDING_QUIZ_VOICE_DELAY.
  *   4. Ending voice on OUTRO phase.
  *
  * Voice file paths for reveal/progress are optional (Phase 6.1 real capture);
@@ -101,7 +101,8 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
   const bgmRelPaths = resolveBgmRelPaths(props.bgmSongs ?? []);
 
   // ── 2. Find phase references ──────────────────────────────────────────────
-  const logoPhase  = timeline.phases.find((p) => p.kind === "logo");
+  // Opening landing: the first landing phase (hasBallPreloader); rules voice fires here.
+  const openingLandingPhase = timeline.phases.find((p) => p.kind === "landing" && p.hasBallPreloader);
   const outroPhase = timeline.phases.find((p) => p.kind === "outro");
   const questionPhases = timeline.phases.filter((p) => p.kind === "question");
 
@@ -115,9 +116,9 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
   const voiceWindows: VoiceWindow[] = useMemo(() => {
     const wins: VoiceWindow[] = [];
 
-    // Rules / quiz-title voice (logo phase + LOGO_VOICE_DELAY offset, no delay ramp).
-    if (logoPhase) {
-      const duckStart = logoPhase.startFrame + msToFrames(MS.LOGO_VOICE_DELAY, fps);
+    // Rules / quiz-title voice — opening landing phase + LANDING_QUIZ_VOICE_DELAY (1000ms after ball reveal).
+    if (openingLandingPhase) {
+      const duckStart = openingLandingPhase.startFrame + msToFrames(MS.LANDING_QUIZ_VOICE_DELAY, fps);
       wins.push({
         duckStartFrame: duckStart,
         delayFrames: 0,
@@ -165,7 +166,7 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
 
     // Sort chronologically for chain detection.
     return wins.sort((a, b) => a.duckStartFrame - b.duckStartFrame);
-  }, [timeline, fps, props.questionCount, rulesMs, revealMsDur, endingMsDur, props.voiceDurationsMs]);
+  }, [timeline, fps, props.questionCount, rulesMs, revealMsDur, endingMsDur, props.voiceDurationsMs, openingLandingPhase, outroPhase]);
 
   // ── 4. Lay out BGM song sequences ─────────────────────────────────────────
   // Songs play sequentially from frame 0, each overlapping the next by crossfadeFrames.
@@ -293,15 +294,15 @@ export const AudioTimeline: React.FC<AudioTimelineProps> = ({ timeline, props })
         );
       })}
 
-      {/* Rules / quiz-title voice on LOGO phase */}
-      {logoPhase && (() => {
+      {/* Rules / quiz-title voice on OPENING LANDING phase (ball reveal done; +LANDING_QUIZ_VOICE_DELAY) */}
+      {openingLandingPhase && (() => {
         const rel = quizTitleRelPath(props.quizType ?? "club-by-nat", props.language);
         if (!rel || !props.assetBase) return null;
         const rulesSrc = assetUrl(rel, props.assetBase);
         if (!rulesSrc) return null;
         return (
           <Sequence
-            from={logoPhase.startFrame + msToFrames(MS.LOGO_VOICE_DELAY, fps)}
+            from={openingLandingPhase.startFrame + msToFrames(MS.LANDING_QUIZ_VOICE_DELAY, fps)}
             durationInFrames={msToFrames(rulesMs + 1000, fps)}
             name="rules-voice"
           >

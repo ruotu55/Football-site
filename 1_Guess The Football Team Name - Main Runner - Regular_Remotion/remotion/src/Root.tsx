@@ -33,6 +33,7 @@ const quizSchema = z.object({
 });
 
 export const RemotionRoot: React.FC = () => (
+  <>
   <Composition
     id="Quiz"
     component={QuizComposition as any}
@@ -85,7 +86,14 @@ export const RemotionRoot: React.FC = () => (
         warmUp: warmUpMs, serious: seriousMs, nerds: nerdsMs, genius: geniusMs,
       };
 
-      const tl = buildTimeline({ questionCount: p.questionCount, fps, endingType: p.endingType, outroVoiceMs, transitionMs: transitionDurationMs(p.transitionEffect) });
+      const tl = buildTimeline({
+        questionCount: p.questionCount,
+        fps,
+        endingType: p.endingType,
+        outroVoiceMs,
+        rulesVoiceMs: rulesMs,
+        transitionMs: transitionDurationMs(p.transitionEffect),
+      });
       return {
         durationInFrames: tl.totalDurationFrames,
         fps,
@@ -95,4 +103,5 @@ export const RemotionRoot: React.FC = () => (
       };
     }}
   />
+  </>
 );

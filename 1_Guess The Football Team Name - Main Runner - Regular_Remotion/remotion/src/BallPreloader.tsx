@@ -277,6 +277,26 @@ const SoccerBall: React.FC = () => (
   </div>
 );
 
+// ── Revealing mask CSS (injected by BallPreloader into the document) ─────────
+// The bp-revealing class adds the radial mask that creates the "hole" reveal.
+// This must be a real stylesheet because Remotion renders real DOM.
+// Exported so wrappers/tests can reuse without duplication.
+export const revealingCss = `
+.bp-preloader.bp-revealing {
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 50%,
+    transparent calc(var(--reveal-r, 0px) - 1px),
+    black var(--reveal-r, 0px)
+  );
+  mask-image: radial-gradient(
+    circle at 50% 50%,
+    transparent calc(var(--reveal-r, 0px) - 1px),
+    black var(--reveal-r, 0px)
+  );
+  will-change: mask-image, -webkit-mask-image;
+}
+`;
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export interface BallPreloaderProps {
@@ -489,8 +509,9 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
 
   return (
     <>
-      {/* Inject CSS for the soccer ball patches */}
+      {/* Inject CSS for the soccer ball patches + reveal mask */}
       <style>{ballCss}</style>
+      <style>{revealingCss}</style>
 
       {/* Gooey SVG filter — same as index.html */}
       <svg
@@ -577,25 +598,6 @@ export const BallPreloader: React.FC<BallPreloaderProps> = ({
     </>
   );
 };
-
-// ── Inject the revealing mask style as a global style ────────────────────────
-// The bp-revealing class adds the radial mask that creates the "hole" reveal.
-// This must be a real stylesheet because Remotion renders real DOM.
-const revealingCss = `
-.bp-preloader.bp-revealing {
-  -webkit-mask-image: radial-gradient(
-    circle at 50% 50%,
-    transparent calc(var(--reveal-r, 0px) - 1px),
-    black var(--reveal-r, 0px)
-  );
-  mask-image: radial-gradient(
-    circle at 50% 50%,
-    transparent calc(var(--reveal-r, 0px) - 1px),
-    black var(--reveal-r, 0px)
-  );
-  will-change: mask-image, -webkit-mask-image;
-}
-`;
 
 // Export a helper to mount BallPreloader with background for visual testing
 export const BallPreloaderWithBackground: React.FC<{

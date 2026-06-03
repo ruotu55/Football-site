@@ -1,10 +1,9 @@
 import React from "react";
 import { AbsoluteFill, Sequence, useVideoConfig } from "remotion";
 import type { RemotionProps } from "./props";
-import { buildTimeline } from "./timeline";
+import { buildTimeline, BALL_PRELOADER_MS, msToFrames } from "./timeline";
 import { BackgroundTheme } from "./BackgroundTheme";
 import { ProgressSteps } from "./ProgressSteps";
-import { LogoLevel } from "./levels/LogoLevel";
 import { LandingLevel } from "./levels/LandingLevel";
 import { QuestionLevel } from "./levels/QuestionLevel";
 import { OutroLevel } from "./levels/OutroLevel";
@@ -13,6 +12,7 @@ import { transitionDurationMs } from "./transitions/transitionDurations";
 import { AudioTimeline } from "./audio/AudioTimeline";
 import { SideText } from "./SideText";
 import { generateBgTheme, generateCompetitionBgTheme } from "./background/themeEngine";
+import { BallPreloader } from "./BallPreloader";
 
 export const QuizComposition: React.FC<RemotionProps> = (props) => {
   const { fps } = useVideoConfig();
@@ -23,6 +23,7 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
     fps,
     endingType: props.endingType,
     outroVoiceMs: props.outroVoiceMs ?? 0,
+    rulesVoiceMs: props.voiceDurationsMs?.rules,
     transitionMs: transitionDurationMs(props.transitionEffect),
   });
 
@@ -76,20 +77,28 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
 
           let inner: React.ReactNode = null;
 
-          if (p.kind === "logo") {
+          if (p.kind === "landing") {
+            const ballFrames = msToFrames(BALL_PRELOADER_MS, fps);
             inner = (
-              <LogoLevel
-                assetBase={props.assetBase}
-                language={props.language}
-              />
-            );
-          } else if (p.kind === "landing") {
-            inner = (
-              <LandingLevel
-                language={props.language}
-                quizType={props.quizType ?? "club-by-nat"}
-                questionCount={props.questionCount}
-              />
+              <>
+                {/* Landing screen (quiz-type title + pill) — always visible underneath */}
+                <LandingLevel
+                  language={props.language}
+                  quizType={props.quizType ?? "club-by-nat"}
+                  questionCount={props.questionCount}
+                />
+                {/* BallPreloader overlaid on top; its reveal-mask wipes away to expose the landing */}
+                {p.hasBallPreloader && (
+                  <Sequence durationInFrames={ballFrames} name="ball-preloader">
+                    <AbsoluteFill style={{ zIndex: 10 }}>
+                      <BallPreloader
+                        bgColor={effectiveBg?.bgStage ?? "#3c6553"}
+                        hideAfterReveal={false}
+                      />
+                    </AbsoluteFill>
+                  </Sequence>
+                )}
+              </>
             );
           } else if (p.kind === "question") {
             const qLevel = props.levels[2 + p.index];

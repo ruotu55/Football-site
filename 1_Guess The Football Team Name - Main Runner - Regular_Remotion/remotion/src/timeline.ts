@@ -17,7 +17,11 @@ export const MS = {
   OUTRO_TAIL: 1000,             // levels.js:222 setTimeout 1000 after outro voice
   PROGRESS_VOICE_DELAY: 1000,   // audio.js:1100 progress voice delayMs
   DEFAULT_TRANSITION_PHASE: 840,// transitions.js:45 PHASE_DUR=0.84
+  LANDING_QUIZ_VOICE_DELAY: 1000, // delay before rules voice fires on opening landing
 } as const;
+
+/** Duration of the BallPreloader animation in ms (~3.35s). */
+export const BALL_PRELOADER_MS = 3350;
 
 export const msToFrames = (ms: number, fps: number) => Math.round((ms / 1000) * fps);
 export const questionBlockMs = () => MS.COUNTDOWN_TOTAL + MS.FLIP_DELAY_REVEAL; // 13000
@@ -33,6 +37,8 @@ export interface Phase {
   kind: PhaseKind; index: number; durationMs: number;
   startMs: number; startFrame: number; durationFrames: number;
   cues?: QuestionCues; skipReveal?: boolean;
+  /** True on the opening landing phase — BallPreloader overlays this phase. */
+  hasBallPreloader?: boolean;
 }
 
 export interface Timeline { phases: Phase[]; totalDurationFrames: number; fps: number; }
@@ -40,17 +46,25 @@ export interface Timeline { phases: Phase[]; totalDurationFrames: number; fps: n
 export interface BuildOpts {
   questionCount: number; fps: number; transitionMs?: number;
   outroVoiceMs?: number; endingType?: "think-you-know" | "how-many";
+  /** Probed duration of the rules/quiz-title voice in ms (default 2500). */
+  rulesVoiceMs?: number;
 }
 
 export function buildTimeline(opts: BuildOpts): Timeline {
   const fps = opts.fps;
   const transitionMs = opts.transitionMs ?? MS.STAGE_TRANSITION;
   const outroVoiceMs = opts.outroVoiceMs ?? 0;
-  const seq: { kind: PhaseKind; durationMs: number; cues?: QuestionCues; skipReveal?: boolean }[] = [];
+  const rulesVoiceMs = opts.rulesVoiceMs ?? 2500;
+  // Opening landing holds for: ball animation + 1000ms delay before voice + voice duration (min 1500ms extra)
+  const landingHoldMs = Math.max(1000 + rulesVoiceMs, 1500);
+  const openingLandingMs = Math.round(BALL_PRELOADER_MS + landingHoldMs);
 
-  seq.push({ kind: "logo", durationMs: MS.LOGO_REVEAL_DELAY + MS.LOGO_AFTER_REVEAL + MS.INTRO_STEP_DELAY_IDX0 + MS.FLIP_DELAY_INTRO });
-  seq.push({ kind: "transition", durationMs: transitionMs });
-  seq.push({ kind: "landing", durationMs: MS.INTRO_STEP_DELAY_IDX1 + MS.FLIP_DELAY_INTRO });
+  const seq: { kind: PhaseKind; durationMs: number; cues?: QuestionCues; skipReveal?: boolean; hasBallPreloader?: boolean }[] = [];
+
+  // Opening landing: BallPreloader plays for BALL_PRELOADER_MS, then reveals the landing screen.
+  seq.push({ kind: "landing", durationMs: openingLandingMs, hasBallPreloader: true });
+
+  // (No second landing phase — questions follow directly after the opening landing.)
 
   for (let i = 0; i < opts.questionCount; i++) {
     const isLast = i === opts.questionCount - 1;
