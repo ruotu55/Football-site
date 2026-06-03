@@ -26,6 +26,9 @@ export interface RemotionLevel {
   teamName?: string;
   headerLogoRel?: string;
   slots?: Array<{ name: string; frontRel: string; photoRel: string }>;
+  // Optional audio voice paths (Phase 5.3 / real capture Phase 6.1):
+  revealVoiceRel?: string;
+  progressVoiceRel?: string;
 }
 export interface RemotionProps {
   script: string;

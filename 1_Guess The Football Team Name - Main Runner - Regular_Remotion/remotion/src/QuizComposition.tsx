@@ -10,6 +10,7 @@ import { QuestionLevel } from "./levels/QuestionLevel";
 import { OutroLevel } from "./levels/OutroLevel";
 import { TransitionOverlay } from "./transitions/TransitionOverlay";
 import { transitionDurationMs } from "./transitions/transitionDurations";
+import { AudioTimeline } from "./audio/AudioTimeline";
 
 export const QuizComposition: React.FC<RemotionProps> = (props) => {
   const { fps } = useVideoConfig();
@@ -28,6 +29,9 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
   return (
     <AbsoluteFill>
       <BackgroundTheme competition={undefined} />
+
+      {/* Audio layer — always-on, spans whole composition */}
+      <AudioTimeline timeline={tl} props={props} />
 
       {tl.phases.map((p, i) => {
         const key = `${p.kind}-${p.index}-${i}`;
