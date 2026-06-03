@@ -321,7 +321,11 @@ export function buildRemotionState() {
   return {
     script: getActiveScriptName() || "",
     totalLevelsCount: appState.totalLevelsCount,
-    questionCount: Math.max(0, appState.totalLevelsCount - 3),
+    // Question PHASES = indices 2 .. totalLevelsCount-1 (includes the bonus level at
+    // totalLevelsCount-1, which IS played with a countdown). Outro is index===totalLevelsCount.
+    // (totalQuestions for progress-voice milestones stays -3, computed above.)
+    questionCount: Math.max(0, appState.totalLevelsCount - 2),
+    totalQuestions: Math.max(0, appState.totalLevelsCount - 3),
     bgmSongs: Array.isArray(appState.bgmSongs) ? appState.bgmSongs.slice() : [],
     bundledVoiceVariants: appState.bundledVoiceVariants || null,
     endingType: typeof window.__getSelectedEndingType === "function" ? window.__getSelectedEndingType() : "think-you-know",
