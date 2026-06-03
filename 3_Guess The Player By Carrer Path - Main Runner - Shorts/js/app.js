@@ -1114,6 +1114,12 @@ async function init() {
         }
         /* Fresh random pick per Play click. */
         resetRandomEndingType();
+        /* Match Record: turn the "Shots size" toggle OFF so Play previews at the
+           real recording size (it otherwise stays marked on Play). */
+        if (els.inShotsSizeToggle && els.inShotsSizeToggle.checked) {
+            els.inShotsSizeToggle.checked = false;
+            els.inShotsSizeToggle.dispatchEvent(new Event("change"));
+        }
         appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
         if (els.videoModeToggle && !els.videoModeToggle.checked) {
             els.videoModeToggle.checked = true;

@@ -636,7 +636,8 @@ function runVideoStep() {
           fillEl.style.width = "";
         }
         clearShortsCountdownSoccer(els.countdownTimer);
-        document.body.classList.remove("shorts-question-countdown");
+        // shorts-question-countdown is dropped in proceedToReveal (reveal path only),
+        // NOT here: finalize fires mid-slide, so dropping it here flashed the answer.
       };
 
       const proceedToReveal = () => {
@@ -653,6 +654,10 @@ function runVideoStep() {
           scheduleAfterTransition(() => runVideoStepAfterLevelSwitchIfNeeded());
           return;
         }
+        // Reveal path only: drop the countdown class here. The skip (think-you-know)
+        // path returns above WITHOUT dropping it, so the last question slides to the
+        // outro exactly as-is, with no silhouette/answer flash.
+        document.body.classList.remove("shorts-question-countdown");
         revealCurrentLevel();
       };
 

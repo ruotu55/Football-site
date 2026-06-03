@@ -591,7 +591,8 @@ function runVideoStep() {
           fillEl.style.width = "";
         }
         clearShortsCountdownSoccer(els.countdownTimer);
-        document.body.classList.remove("shorts-question-countdown");
+        // shorts-question-countdown is dropped in proceedToReveal (reveal path only),
+        // NOT here: finalize fires mid-slide, so dropping it here flashed the answer.
       };
 
       const proceedToReveal = () => {
@@ -608,6 +609,10 @@ function runVideoStep() {
           scheduleAfterTransition(() => runVideoStepAfterLevelSwitchIfNeeded());
           return;
         }
+        // Reveal path only: drop the countdown class here. The skip (think-you-know)
+        // path returns above WITHOUT dropping it, so the last question slides to the
+        // outro exactly as-is, with no silhouette/answer flash.
+        document.body.classList.remove("shorts-question-countdown");
         revealCurrentLevel();
       };
 
@@ -622,11 +627,6 @@ function runVideoStep() {
         );
         void els.countdownTimer.offsetWidth;
         els.countdownTimer.classList.add("countdown-timer-stage-exit");
-        // Drop the countdown body class before renderCareer rebuilds the photo:
-        // otherwise its `.career-reveal-photo.show { animation: none }` override pins the
-        // fresh photo at its final position, then drops 400ms later — restarting the
-        // rise animation from keyframe 0 and flashing the photo out and back.
-        document.body.classList.remove("shorts-question-countdown");
         setTimeout(finalizeTimerVisualState, SHORTS_STAGE_EXIT_MS);
         proceedToReveal();
         return;
