@@ -49,10 +49,12 @@ const vh = (v: number) => (v / 100) * CANVAS_H;
 // LEFT edge (the 5.3vw is only the letterbox fallback). The composition is full-bleed, so we
 // use 0 — no gap between the screen edge and the panel.
 const PANEL_LEFT = 0;
+// Widened toward the pitch: use the full 16.35vw (the app's primary width term) instead of
+// capping at 14.4rem, so the panel's right edge nearly meets the tilted pitch's left side.
 const PANEL_WIDTH = Math.max(
   rem(7.2),
-  Math.min(rem(17), Math.min(vw(16.35), rem(14.4)))
-); // min(419, 345) = 345px
+  Math.min(vw(16.35), rem(18))
+); // ≈ min(419, 432) = 419px
 
 // Logo top margin — css: calc(min(14.44vh, 5.9rem) - 1.3rem) → min(208,141.6)-31.2 = 110.4px
 const LOGO_MARGIN_TOP = Math.min(vh(14.44), rem(5.9)) - rem(1.3);
@@ -288,7 +290,10 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
     maskSize: "100% 100%",
   };
 
-  // Crest + name column (above the flag).
+  // Crest + name column (above the flag). Fills the panel height and reserves the bottom
+  // 35% for the flag band; the crest block flex-grows (app's .team-header-logo-block
+  // flex:1 1 auto) so the crest is centred in the upper area and the name is pushed down to
+  // sit just above the flag — instead of both hugging the top.
   const columnStyle: React.CSSProperties = {
     position: "relative",
     zIndex: 2,
@@ -296,18 +301,21 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
     flexDirection: "column",
     alignItems: "center",
     width: "100%",
-    padding: `0 ${COL_PAD_X}px`,
+    height: "100%",
+    // top = crest offset, sides = column pad, bottom = flag band (keep name above the flag)
+    padding: `${LOGO_MARGIN_TOP}px ${COL_PAD_X}px 35%`,
     boxSizing: "border-box",
   };
 
-  // .team-side-panel-logo-wrap
+  // .team-side-panel-logo-wrap — crest stays near the top (at the column's paddingTop); a
+  // flex spacer after it pushes the NAME down toward the flag, so the name is no longer
+  // hugging the crest while the crest keeps its position.
   const logoWrapStyle: React.CSSProperties = {
-    marginTop: LOGO_MARGIN_TOP,
+    flex: "0 0 auto",
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    flexShrink: 0,
   };
 
   // nudgeX wrap (.team-header-logo-shift), scale wrap (.team-header-logo-inner),
@@ -424,6 +432,8 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
           </div>
         </div>
 
+        {/* Spacers above + below the name center it in the gap between crest and flag */}
+        <div style={{ flex: "1 1 0", minHeight: 0 }} />
         {teamName ? (
           <div style={nameStyle}>
             {words.map((w, i) => (
@@ -433,6 +443,7 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
             ))}
           </div>
         ) : null}
+        <div style={{ flex: "1 1 0", minHeight: 0 }} />
       </div>
     </div>
   );

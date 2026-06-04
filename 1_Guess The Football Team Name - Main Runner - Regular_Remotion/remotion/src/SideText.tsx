@@ -17,7 +17,11 @@ export const SideText: React.FC = () => {
     color: "rgba(255,255,255,0.3)",
     letterSpacing: 4,
     pointerEvents: "none",
-    zIndex: 100,
+    // Sits just above the background but BELOW the quiz-content layer (zIndex 1), so the
+    // team-header panel (inside that layer) covers the left "ULTIMATE FOOTBALL QUIZ" text
+    // when it slides in — matching the app, where the panel (z160) is above the side text.
+    // The right side text still shows through the transparent content layer.
+    zIndex: 0,
     whiteSpace: "nowrap",
     textAlign: "center",
     lineHeight: 1,
