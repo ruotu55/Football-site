@@ -1,5 +1,5 @@
 import React from "react";
-import { Img } from "remotion";
+import { Img, useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
 import { loadFont } from "@remotion/google-fonts/BarlowCondensed";
 import type { RemotionLevel } from "./props";
 import { assetUrl } from "./assets";
@@ -27,8 +27,13 @@ interface TeamHeaderProps {
  * Root convention matches LandingLevel: rem(r) = r * 24 (REM=24). Composition
  * viewport = 2560×1440, so vw→2560 basis, vh→1440 basis.
  *
- * TODO: the app slides the panel in from the left over 0.5s (transition: transform
- * 0.5s ease-out). We render it shown for now.
+ * Slide-in: the app keeps the panel off-screen (translateX(-100%)) during the
+ * countdown and slides it to translateX(0) only when the answer is revealed
+ * (css: transition: transform 0.5s ease-out; .team-header--show adds translateX(0)).
+ * We reproduce that frame-deterministically: hidden before `visibleFromFrame`
+ * (the question-local reveal frame), then translateX(-100%)→0 over 0.5s with a
+ * CSS ease-out bezier. QuestionLevel only mounts this for questions that have a
+ * reveal (never the bonus skip-reveal level), so the panel never shows there.
  */
 
 const REM = 24;
@@ -78,9 +83,32 @@ function fitFontPx(teamName: string): number {
   return Math.max(14, Math.min(NAME_FONT_MAX, fit));
 }
 
-export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibleFromFrame: _visibleFromFrame, bgStage }) => {
-  // Rendered shown (no slide-in for now — see TODO above). visibleFromFrame is
-  // accepted for API compatibility; QuestionLevel gates mounting on the reveal.
+export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibleFromFrame, bgStage }) => {
+  // Slide-in driven by the question-local frame. Before `visibleFromFrame` the
+  // panel sits fully off-screen (translateX(-100%), i.e. hidden during the
+  // countdown); at the reveal frame it slides to translateX(0) over 0.5s using
+  // the CSS "ease-out" bezier (0,0,0.58,1) — matching css/components/team-header.css.
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const slideFrames = Math.max(1, Math.round((500 / 1000) * fps)); // 0.5s
+  // Hidden offset: translate the panel fully off the left edge. The app uses
+  // translateX(-100%), which clears it because in the fullscreen play-video the
+  // panel sits at left:0 (--screen-size-inset-left = 0). Our panel rests at
+  // left:PANEL_LEFT (the approved letterbox-matched offset), so -100% (= -PANEL_WIDTH)
+  // would leave a PANEL_LEFT-wide sliver on screen. Push past the left offset AND the
+  // 15px/30px-blur box-shadow so nothing of the panel is visible during the countdown.
+  const SHADOW_REACH = 48; // box-shadow 15px x + 30px blur, with margin
+  const hiddenX = -(PANEL_LEFT + PANEL_WIDTH + SHADOW_REACH);
+  const slidePx = interpolate(
+    frame,
+    [visibleFromFrame, visibleFromFrame + slideFrames],
+    [hiddenX, 0],
+    {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: Easing.bezier(0, 0, 0.58, 1),
+    },
+  );
 
   const teamName = level.teamName ?? "";
   const logoRel = level.headerLogoOverrideRelPath || level.headerLogoRel || "";
@@ -107,6 +135,8 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
     left: PANEL_LEFT,
     width: PANEL_WIDTH,
     height: CANVAS_H,
+    transform: `translateX(${slidePx}px)`,
+    willChange: "transform",
     ["--bg-stage" as string]: bgStage || "var(--bg-stage, #3c6553)",
     backgroundColor: "color-mix(in srgb, var(--bg-stage) 82%, black 18%)",
     boxShadow: "15px 0 30px rgba(0,0,0,0.7)",
