@@ -63,10 +63,12 @@ export const LandingLevel: React.FC<LandingLevelProps> = ({
   const { title, subtitle } = tx[variant];
 
   // Float bob animation: @keyframes float-up-down 3.2s ease-in-out infinite
-  // 0%,100% -> translateY(0); 50% -> translateY(-12px)
-  // Using cosine for ease-in-out: y = -12 * 0.5 * (1 - cos(2π * t/T))
+  // 0%,100% -> translateY(0); 50% -> translateY(-12px). Cosine = ease-in-out.
+  // Amplitude scaled by the root factor (24/16 = 1.5) so it matches the app's
+  // relative motion on this larger canvas (12px * 1.5 ≈ 18px).
+  const BOB_PX = 18;
   const t = (frame / fps) % 3.2;
-  const bobY = -12 * 0.5 * (1 - Math.cos((t / 3.2) * 2 * Math.PI));
+  const bobY = -BOB_PX * 0.5 * (1 - Math.cos((t / 3.2) * 2 * Math.PI));
 
   const FONT = fontFamily;
 
@@ -91,7 +93,12 @@ export const LandingLevel: React.FC<LandingLevelProps> = ({
           flexDirection: "column",
           alignItems: "center",
           width: "100%",
-          transform: `translateY(${bobY}px)`,
+          // translate3d + will-change forces a composited GPU layer so the bob
+          // moves with sub-pixel precision (plain translateY snapped the big
+          // shadowed text to whole pixels = visible stepping).
+          transform: `translate3d(0, ${bobY}px, 0)`,
+          willChange: "transform",
+          backfaceVisibility: "hidden",
         }}
       >
         {/* .landing-title */}
