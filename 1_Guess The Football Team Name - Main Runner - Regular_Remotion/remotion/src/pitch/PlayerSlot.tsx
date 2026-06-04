@@ -301,29 +301,23 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
    * Badge width mirrors .slot-name { width: 3.35rem } = 3.35×16 / 222 × slotSize ≈ 24.1%.
    * Badge height mirrors .slot-name { height: 1.05rem } = 1.05×16 / 222 × slotSize ≈ 7.57%.
    */
-  // Badge sized like the app's .slot-name: width 3.35rem, height 1.05rem, font clamp ≤1.02rem,
-  // with rem scaled to the render height (24px at the 1440 design basis) so it is identical at
-  // any resolution / in Studio. The font shrinks to fit the fixed-width box for long surnames
-  // (mirrors the app's fitSlotNameEl); a floor keeps very long names legible.
+  // Name badge: CONSTANT, readable font (no per-name shrink); the red box wraps the text with a
+  // little side space. Drawn as SVG so the caps centre EXACTLY via an explicit baseline (CSS
+  // line-height/flex left them riding low — the loaded Barlow Condensed has a large ascent).
+  // rem scales with the render height (24px at the 1440 design basis) → identical at any
+  // resolution / in Studio. The box WIDTH is derived from the surname length using a generous
+  // per-char advance so the box always covers the text plus even side padding.
   const remPx = 24 * (height / 1440);
-  const badgeWidthPx = 3.35 * remPx;
-  const badgeHeightPx = 1.05 * remPx; // app's .slot-name height
-  const fontMaxPx = 1.02 * remPx;
-  const padXPx = 0.3 * remPx;
-  const innerW = badgeWidthPx - 2 * padXPx;
-  const labelLen = Math.max(1, nameLabel.length);
-  // Barlow Condensed 800 advance ≈ 0.48em; shrink to fit the box, floor at 0.5× the cap.
-  const fittedFontPxVal = Math.max(
-    fontMaxPx * 0.5,
-    Math.min(fontMaxPx, innerW / (labelLen * 0.48)),
-  );
-
-  // The badge is drawn as SVG: <text dominant-baseline="central"> centres the caps EXACTLY
-  // regardless of the font's vertical metrics (CSS line-height left them riding low and
-  // clipping), and paint-order:stroke gives the app's black outline (.slot-name -webkit-text-
-  // stroke + text-shadow). The red rounded rect + drop shadow are part of the SVG.
+  const badgeFontPx = 1.0 * remPx; // constant — same size for every name
+  const sidePadPx = 0.42 * badgeFontPx; // "little space on the sides"
   const radiusPx = 2 * (height / 1440);
-  const strokePx = Math.max(0.6, fittedFontPxVal * 0.07); // ≈ app's 0.07em stroke
+  const CHAR_ADV = 0.56; // Barlow Condensed 800 caps advance (em); generous so text never spills
+  const labelLen = Math.max(1, nameLabel.length);
+  const textWPx = labelLen * CHAR_ADV * badgeFontPx;
+  const badgeWidthPx = textWPx + 2 * sidePadPx;
+  const badgeHeightPx = 1.32 * badgeFontPx;
+  const strokePx = Math.max(0.6, badgeFontPx * 0.05);
+
   const badgeWrapStyle: React.CSSProperties = {
     position: "absolute",
     top: `calc(100% + ${4 * (height / 1440)}px)`,
@@ -332,13 +326,11 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     opacity: nameOpacity,
     pointerEvents: "none",
     filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))",
-    lineHeight: 0,
     overflow: "visible",
+    lineHeight: 0,
   };
 
-  // Suppress TS warnings for unused module constants kept for reference.
   void CANVAS_W;
-  void padXPx;
 
   return (
     <div style={wrapperStyle}>
@@ -391,24 +383,18 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
         height={badgeHeightPx}
         viewBox={`0 0 ${badgeWidthPx} ${badgeHeightPx}`}
       >
-        <rect
-          x={0}
-          y={0}
-          width={badgeWidthPx}
-          height={badgeHeightPx}
-          rx={radiusPx}
-          fill="#ef5350"
-        />
+        <rect x={0} y={0} width={badgeWidthPx} height={badgeHeightPx} rx={radiusPx} fill="#ef5350" />
         <text
           x={badgeWidthPx / 2}
-          // dominant-baseline:central lands ~0.36×height too low with this web font's metrics
-          // (measured), so lift y by that fraction to optically centre the caps in the box.
-          y={badgeHeightPx * 0.14}
+          // dominant-baseline:central lands the caps low with this web font's metrics (large
+          // ascent); lift y by ~0.30×fontSize (font-relative, works at any box height/resolution)
+          // to optically centre the uppercase caps in the box.
+          y={badgeHeightPx / 2 - 0.3 * badgeFontPx}
           dominantBaseline="central"
           textAnchor="middle"
           fontFamily={`${barlowFamily}, "Barlow Condensed", "Arial Narrow", Arial, sans-serif`}
           fontWeight={800}
-          fontSize={fittedFontPxVal}
+          fontSize={badgeFontPx}
           fill="#ffffff"
           stroke="#000000"
           strokeWidth={strokePx}
