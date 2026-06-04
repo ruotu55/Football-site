@@ -44,7 +44,10 @@ export const RemotionRoot: React.FC = () => (
     durationInFrames={600}
     defaultProps={{
       ...SAMPLE_PROPS,
-      backgroundColor: "__captured__",
+      // Studio default mirrors the sample (green club-by-nat) so the live preview
+      // matches what you actually render. (Real renders send no backgroundColor, so
+      // the schema default "__captured__" applies and uses the captured theme.)
+      backgroundColor: "quiz-club-by-nat",
       backgroundEffect: "youtube-thumbnails",
       backgroundOpacity: 0.5,
     } as any}
