@@ -2361,6 +2361,14 @@ def _idle_watchdog():
     interval = max(2.0, min(15.0, IDLE_SHUTDOWN_SECONDS / 2.0))
     while True:
         time.sleep(interval)
+        # NEVER shut down while a Remotion render is in progress: the render subprocess
+        # (headless Chrome) fetches every image/audio asset from THIS server via the baked
+        # assetBase. Exiting mid-render kills asset serving → "no supported sources" /
+        # "Error loading image" and the render cancels. Treat an active job as activity.
+        if any(not j.get("done") for j in list(_REMOTION_JOBS.values())):
+            with _IDLE_LOCK:
+                _IDLE_STATE["last"] = time.time()
+            continue
         with _IDLE_LOCK:
             idle = time.time() - _IDLE_STATE["last"]
             ever = _IDLE_STATE["ever"]

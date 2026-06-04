@@ -1,6 +1,7 @@
 import React from "react";
-import { Img, useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
+import { useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
 import { loadFont } from "@remotion/google-fonts/BarlowCondensed";
+import { SafeImg } from "./SafeImg";
 import type { RemotionLevel } from "./props";
 import { assetUrl } from "./assets";
 
@@ -279,7 +280,7 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
       {flagUrl ? (
         <div style={flagSectionStyle}>
           <div style={flagWrapStyle}>
-            <Img src={flagUrl} style={flagImgStyle} />
+            <SafeImg src={flagUrl} style={flagImgStyle} fallback={null} />
           </div>
         </div>
       ) : null}
@@ -287,23 +288,25 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
       {/* Crest + name column */}
       <div style={columnStyle}>
         <div style={logoWrapStyle}>
-          {logoUrl ? (
-            <div style={logoShiftStyle}>
-              <div style={logoInnerStyle}>
-                <Img src={logoUrl} style={logoImgStyle} alt={teamName} />
-              </div>
+          <div style={logoShiftStyle}>
+            <div style={logoInnerStyle}>
+              <SafeImg
+                src={logoUrl}
+                style={logoImgStyle}
+                fallback={
+                  <div
+                    style={{
+                      width: LOGO_W,
+                      height: LOGO_H,
+                      maxWidth: Math.min(LOGO_W, PANEL_WIDTH - 2 * COL_PAD_X - rem(0.5)),
+                      borderRadius: "50%",
+                      background: "rgba(255,255,255,0.1)",
+                    }}
+                  />
+                }
+              />
             </div>
-          ) : (
-            <div
-              style={{
-                width: LOGO_W,
-                height: LOGO_H,
-                maxWidth: Math.min(LOGO_W, PANEL_WIDTH - 2 * COL_PAD_X - rem(0.5)),
-                borderRadius: "50%",
-                background: "rgba(255,255,255,0.1)",
-              }}
-            />
-          )}
+          </div>
         </div>
 
         {teamName ? (

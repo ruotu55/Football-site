@@ -1,6 +1,7 @@
 import React from "react";
-import { useCurrentFrame, useVideoConfig, interpolate, Easing, Img } from "remotion";
+import { useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
 import { assetUrl } from "../assets";
+import { SafeImg } from "../SafeImg";
 
 export interface SlotData {
   name: string;
@@ -357,11 +358,11 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
             <div style={avatarStyle}>
               {/* Scale-wrap clips the 1.15x-zoomed flag to the circle */}
               <div style={flagScaleWrapStyle}>
-                {frontUrl ? (
-                  <Img src={frontUrl} style={flagImgStyle} />
-                ) : (
-                  <div style={{ ...flagImgStyle, backgroundColor: "rgba(255,255,255,0.15)" }} />
-                )}
+                <SafeImg
+                  src={frontUrl}
+                  style={flagImgStyle}
+                  fallback={<div style={{ ...flagImgStyle, backgroundColor: "rgba(255,255,255,0.15)" }} />}
+                />
               </div>
               {/* Gloss overlay (mirrors ::before gradient) */}
               <div style={glossStyle} />
@@ -371,11 +372,11 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
           {/* Back face: player photo */}
           <div style={backFaceStyle}>
             <div style={avatarStyle}>
-              {backUrl ? (
-                <Img src={backUrl} style={photoImgStyle} />
-              ) : (
-                <div style={{ ...photoImgStyle, backgroundColor: "#1a1a2e" }} />
-              )}
+              <SafeImg
+                src={backUrl}
+                style={photoImgStyle}
+                fallback={<div style={{ ...photoImgStyle, backgroundColor: "#1a1a2e" }} />}
+              />
               {/* Gloss overlay on back face too */}
               <div style={glossStyle} />
             </div>
