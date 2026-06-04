@@ -301,31 +301,34 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
    * Badge width mirrors .slot-name { width: 3.35rem } = 3.35×16 / 222 × slotSize ≈ 24.1%.
    * Badge height mirrors .slot-name { height: 1.05rem } = 1.05×16 / 222 × slotSize ≈ 7.57%.
    */
-  // Name badge: CONSTANT, readable font (no per-name shrink); the red box wraps the text with a
-  // little side space. Drawn as SVG so the caps centre EXACTLY via an explicit baseline (CSS
-  // line-height/flex left them riding low — the loaded Barlow Condensed has a large ascent).
-  // rem scales with the render height (24px at the 1440 design basis) → identical at any
-  // resolution / in Studio. The box WIDTH is derived from the surname length using a generous
-  // per-char advance so the box always covers the text plus even side padding.
+  // Name badge: SVG so the caps can be centred precisely via the text's `y` (HTML child
+  // transform/position were dropped in this flattened-3D flex context; only SVG geometry moves
+  // reliably). CONSTANT readable font for every name; rem scales with the render height (24px at
+  // the 1440 design basis) → identical at any resolution / in Studio. Box WIDTH is derived from
+  // the surname length with a generous per-char advance so the rounded red box always wraps the
+  // text with even side space; box HEIGHT is generous so the text always sits inside.
   const remPx = 24 * (height / 1440);
   const badgeFontPx = 1.0 * remPx; // constant — same size for every name
-  const sidePadPx = 0.42 * badgeFontPx; // "little space on the sides"
-  const radiusPx = 2 * (height / 1440);
+  const sidePadPx = 0.5 * badgeFontPx; // side space
   const CHAR_ADV = 0.56; // Barlow Condensed 800 caps advance (em); generous so text never spills
   const labelLen = Math.max(1, nameLabel.length);
-  const textWPx = labelLen * CHAR_ADV * badgeFontPx;
-  const badgeWidthPx = textWPx + 2 * sidePadPx;
-  const badgeHeightPx = 1.32 * badgeFontPx;
+  const badgeWidthPx = labelLen * CHAR_ADV * badgeFontPx + 2 * sidePadPx;
+  const badgeHeightPx = 1.4 * badgeFontPx; // room above/below so caps never touch the edges
+  const radiusPx = 0.26 * badgeFontPx; // rounded, clean edges
   const strokePx = Math.max(0.6, badgeFontPx * 0.05);
+  // dominant-baseline:central aligns the font em-centre to y; with this font the caps sit
+  // ~0.378×fontSize BELOW the em-centre, so lifting y by that amount centres the caps in the
+  // box (verified: at H=1.05em this is y=H*0.14, which rendered perfectly centred).
+  const baselineY = badgeHeightPx / 2 - 0.378 * badgeFontPx;
 
   const badgeWrapStyle: React.CSSProperties = {
     position: "absolute",
-    top: `calc(100% + ${4 * (height / 1440)}px)`,
+    top: `calc(100% + ${5 * (height / 1440)}px)`,
     left: "50%",
     transform: "translateX(-50%)",
     opacity: nameOpacity,
     pointerEvents: "none",
-    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))",
+    filter: "drop-shadow(0 3px 6px rgba(0,0,0,0.4))",
     overflow: "visible",
     lineHeight: 0,
   };
@@ -386,10 +389,7 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
         <rect x={0} y={0} width={badgeWidthPx} height={badgeHeightPx} rx={radiusPx} fill="#ef5350" />
         <text
           x={badgeWidthPx / 2}
-          // dominant-baseline:central lands the caps low with this web font's metrics (large
-          // ascent); lift y by ~0.30×fontSize (font-relative, works at any box height/resolution)
-          // to optically centre the uppercase caps in the box.
-          y={badgeHeightPx / 2 - 0.3 * badgeFontPx}
+          y={baselineY}
           dominantBaseline="central"
           textAnchor="middle"
           fontFamily={`${barlowFamily}, "Barlow Condensed", "Arial Narrow", Arial, sans-serif`}
@@ -399,7 +399,7 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
           stroke="#000000"
           strokeWidth={strokePx}
           paintOrder="stroke"
-          style={{ letterSpacing: "0.04em" }}
+          style={{ letterSpacing: "0.05em" }}
         >
           {nameLabel}
         </text>
