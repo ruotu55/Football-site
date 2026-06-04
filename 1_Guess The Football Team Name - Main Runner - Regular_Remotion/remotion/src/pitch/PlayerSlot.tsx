@@ -316,10 +316,10 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
   const badgeHeightPx = 1.4 * badgeFontPx; // room above/below so caps never touch the edges
   const radiusPx = 0.26 * badgeFontPx; // rounded, clean edges
   const strokePx = Math.max(0.6, badgeFontPx * 0.05);
-  // dominant-baseline:central aligns the font em-centre to y; with this font the caps sit
-  // ~0.378×fontSize BELOW the em-centre, so lifting y by that amount centres the caps in the
-  // box (verified: at H=1.05em this is y=H*0.14, which rendered perfectly centred).
-  const baselineY = badgeHeightPx / 2 - 0.378 * badgeFontPx;
+  // dominant-baseline:central aligns the font em-centre to y; with this font the caps sit a bit
+  // below the em-centre, so lift y to optically centre the caps in the box. Tuned against the
+  // real render (0.378 sat the text a touch high → more red below than above).
+  const baselineY = badgeHeightPx / 2 - 0.20 * badgeFontPx;
 
   const badgeWrapStyle: React.CSSProperties = {
     position: "absolute",
