@@ -29,7 +29,7 @@ const BACKGROUND_EFFECT_VALUES = EFFECTS.map((e) => e.id) as [string, ...string[
 const quizSchema = z.object({
   backgroundColor: z.enum(BACKGROUND_COLOR_VALUES).default("__captured__"),
   backgroundEffect: z.enum(BACKGROUND_EFFECT_VALUES).default("youtube-thumbnails"),
-  backgroundOpacity: z.number().min(0).max(10).step(0.5).default(3.5),
+  backgroundOpacity: z.number().min(0).max(10).step(0.5).default(0.5),
 });
 
 export const RemotionRoot: React.FC = () => (
@@ -46,7 +46,7 @@ export const RemotionRoot: React.FC = () => (
       ...SAMPLE_PROPS,
       backgroundColor: "__captured__",
       backgroundEffect: "youtube-thumbnails",
-      backgroundOpacity: 3.5,
+      backgroundOpacity: 0.5,
     } as any}
     calculateMetadata={async ({ props }) => {
       const p = props as unknown as RemotionProps;
