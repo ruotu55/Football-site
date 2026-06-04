@@ -42,6 +42,20 @@ Then:
 - `src/audio/` — envelopes.ts (BGM duck math, tested), AudioTimeline.tsx (BGM/ticking/stinger/
   voices), bgmPlaylist.ts, voicePaths.ts.
 
+## Studio mirrors Record Video
+
+`remotion/studio-props.json` is what Remotion Studio (`npx remotion studio`) uses as its
+default props for the `Quiz` composition (imported in `src/Root.tsx` as `defaultProps`).
+
+- **Before any capture:** the file is the seeded OGC Nice sample (green `quiz-club-by-nat`
+  theme, 3 questions). Studio shows that fixture on startup.
+- **After Record Video:** `run_site.py` overwrites `studio-props.json` with the exact sanitized
+  props it just passed to `npx remotion render` (same teams, photos, language, theme, voices).
+  Studio hot-reloads the file automatically, so the preview instantly shows what you just recorded.
+
+`studio-props.json` is tracked in git (the import must resolve at build/type-check time).
+Runtime overwrites are local-only diffs — not pushed. Re-running Record Video always refreshes it.
+
 ## Status / validation TODO (Phase 6 follow-ups)
 - **Timing** is verified against the app source (every `timeline.ts` constant cross-checked).
   The empirical double-check — diffing against a real `window.__audioTap` manifest captured from

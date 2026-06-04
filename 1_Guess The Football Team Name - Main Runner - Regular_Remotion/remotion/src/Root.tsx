@@ -9,11 +9,13 @@ import { endingVoiceRelPath, quizTitleRelPath, progressVoiceRelPath, revealVoice
 import type { RemotionProps } from "./props";
 import { transitionDurationMs } from "./transitions/transitionDurations";
 import { COLORS, EFFECTS, COMPETITION_THEMES_LIST } from "./background/themeEngine";
-import samplePropsJson from "../sample-props.json";
+import studioPropsJson from "../studio-props.json";
 
-// Use the real sample JSON as defaultProps so Studio renders the full Arsenal pitch.
+// studio-props.json is the seed shown in Studio before any real capture.
+// After Record Video, run_site.py overwrites it with the exact rendered props
+// so Studio (hot-reload) mirrors what was just recorded.
 // The cast via unknown handles the loose JSON type vs. strict RemotionProps.
-const SAMPLE_PROPS: RemotionProps = samplePropsJson as unknown as RemotionProps;
+const SAMPLE_PROPS: RemotionProps = studioPropsJson as unknown as RemotionProps;
 
 // ── Studio Background controls (Zod schema) ──────────────────────────────────
 // Enum values: "__captured__" (keep the app-captured bgTheme — default for real
@@ -42,15 +44,7 @@ export const RemotionRoot: React.FC = () => (
     height={1440}
     fps={60}
     durationInFrames={600}
-    defaultProps={{
-      ...SAMPLE_PROPS,
-      // Studio default mirrors the sample (green club-by-nat) so the live preview
-      // matches what you actually render. (Real renders send no backgroundColor, so
-      // the schema default "__captured__" applies and uses the captured theme.)
-      backgroundColor: "quiz-club-by-nat",
-      backgroundEffect: "youtube-thumbnails",
-      backgroundOpacity: 0.5,
-    } as any}
+    defaultProps={{ ...SAMPLE_PROPS } as any}
     calculateMetadata={async ({ props }) => {
       const p = props as unknown as RemotionProps;
       const fps = p.fps ?? 60;

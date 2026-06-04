@@ -3610,6 +3610,14 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             props_path = render_dir / "out" / f"props-{uuid.uuid4().hex}.json"
             props_path.parent.mkdir(parents=True, exist_ok=True)
             props_path.write_text(json.dumps(props), encoding="utf-8")
+            # Mirror props to studio-props.json so Remotion Studio (hot-reload) shows
+            # exactly what was just rendered — Studio loads this as its defaultProps seed.
+            try:
+                (render_dir / "studio-props.json").write_text(
+                    json.dumps(props, ensure_ascii=False), encoding="utf-8"
+                )
+            except Exception:
+                pass
             cmd = ["npx", "remotion", "render", "src/index.ts", "Quiz", str(out_path),
                    f"--props={props_path}", f"--width={width}", f"--height={height}",
                    "--log=verbose"]
