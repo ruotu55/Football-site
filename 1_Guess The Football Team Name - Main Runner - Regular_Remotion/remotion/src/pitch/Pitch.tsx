@@ -10,6 +10,9 @@ interface PitchProps {
   level: RemotionLevel;
   cues?: QuestionCues;
   assetBase: string;
+  /** Frames to add to cue-driven timing (the transition pre-roll, so the flip fires after
+   *  the level has been revealed). The bob is unaffected — it runs continuously. Default 0. */
+  frameOffset?: number;
 }
 
 /**
@@ -59,7 +62,7 @@ const SURFACE_HEIGHT_VH = 90.35; // vh (≈ 65.34 × 1.383)
  */
 const SLOT_DIAMETER_VH = 11.82; // vh
 
-export const Pitch: React.FC<PitchProps> = ({ level, cues, assetBase }) => {
+export const Pitch: React.FC<PitchProps> = ({ level, cues, assetBase, frameOffset = 0 }) => {
   const { fps } = useVideoConfig();
 
   if (!level) return null;
@@ -69,7 +72,7 @@ export const Pitch: React.FC<PitchProps> = ({ level, cues, assetBase }) => {
 
   const formation = getFormation(level.formationId);
 
-  const flipStartFrame = cues ? msToFrames(cues.flipStartMs, fps) : 999999;
+  const flipStartFrame = cues ? msToFrames(cues.flipStartMs, fps) + frameOffset : 999999;
   const flipDurationFrames = cues ? msToFrames(cues.flipDurationMs, fps) : 47;
 
   const isNational = level.squadType === "national";

@@ -38,23 +38,38 @@ const COLOR_GREEN = "#22c55e";
 const COLOR_YELLOW = "#eab308";
 const COLOR_RED = "#ef4444";
 
-export const CountdownRing: React.FC = () => {
-  const frame = useCurrentFrame();
+interface CountdownRingProps {
+  /** Local frame at which the countdown begins draining. Before this the ring sits full
+   *  (the "pre-countdown" state shown while a transition reveals the level). Default 0. */
+  startFrame?: number;
+}
+
+export const CountdownRing: React.FC<CountdownRingProps> = ({ startFrame = 0 }) => {
+  const rawFrame = useCurrentFrame();
   const { fps } = useVideoConfig();
+
+  // Countdown-local frame: clamped at 0 before startFrame so the ring stays full during
+  // the transition reveal/pre-roll, then drains once the countdown actually starts.
+  const frame = rawFrame - startFrame;
 
   const revealFrame = msToFrames(COUNTDOWN_MS, fps);
 
   // Hide once the ring is done
   if (frame >= revealFrame) return null;
 
-  // Linear drain: offset 0 → 283 over 10s
+  // Before the countdown starts: full ring, no drain.
+  if (frame < 0) {
+    // fall through with offset 0 / full remaining handled below
+  }
+
+  // Linear drain: offset 0 → 283 over 10s (clamped full before startFrame)
   const offset = interpolate(frame, [0, revealFrame], [0, DASH], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
   // Remaining seconds (floored-ish for color logic matching the app's integer `count`)
-  const remaining = COUNTDOWN_MS / 1000 - frame / fps;
+  const remaining = COUNTDOWN_MS / 1000 - Math.max(0, frame) / fps;
 
   let strokeColor: string;
   if (remaining > 6) {
