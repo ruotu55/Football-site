@@ -1,5 +1,5 @@
 import React from "react";
-import { useCurrentFrame, interpolate, Easing, Img } from "remotion";
+import { useCurrentFrame, useVideoConfig, interpolate, Easing, Img } from "remotion";
 import { assetUrl } from "../assets";
 
 export interface SlotData {
@@ -76,16 +76,24 @@ interface PlayerSlotProps {
  *   transform: translate(-50%,-50%) translateZ(60px) rotateX(-38deg) scale(1)
  *   transform-style: preserve-3d; backface-visibility: hidden
  *
- * The outer slot div uses left/top % (relative to pitch surface) + the
- * counter-rotation so circles stay round and upright despite the 38deg tilt.
+ * .slot-mount (child of outer) gets the bob animation:
+ *   @keyframes float-up-down { 0%,100%{translate3d(0,0,0)} 50%{translate3d(0,-12px,0)} }
+ *   4s ease-in-out infinite, no stagger — all 11 bob in unison.
+ *   In Remotion this is driven per-frame using cosine with BOB=18px (1.5x the app's
+ *   12px to account for the canvas being ~1.5x the app viewport).
  *
- * The flip card (.slot-inner) rotates Y 0→180 at reveal.
+ * The flip card (.slot-inner rotateY) stays INSIDE the slot-mount.
  * Front face: flag/crest badge.  Back face: player photo.
  * Name badge fades in after reveal, also upright (outside flip, inherits counter-rotation).
  */
 
 const REM = 16; // 1rem in px (for font/badge sizing at 2560-wide canvas)
 const CANVAS_W = 2560;
+
+// Bob animation constants — matches app's float-up-down keyframes
+// App: 12px amplitude, 4s period. Canvas is ~1.5x app viewport → 18px.
+const BOB_PX = 18;
+const BOB_PERIOD_S = 4;
 
 export const PlayerSlot: React.FC<PlayerSlotProps> = ({
   slot,
@@ -98,6 +106,12 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
   assetBase,
 }) => {
   const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+
+  // ── Bob animation (mirrors app's float-up-down 4s ease-in-out infinite) ──
+  // t: seconds within the 4s period, cosine gives ease-in-out shape
+  const t = (frame / fps) % BOB_PERIOD_S;
+  const bobY = -BOB_PX * 0.5 * (1 - Math.cos((t / BOB_PERIOD_S) * 2 * Math.PI)); // 0 -> -18 -> 0
 
   // Frame-driven rotateY: 0→180 over the flip window
   const rot = interpolate(
@@ -142,6 +156,24 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     WebkitBackfaceVisibility: "hidden",
   };
 
+  /**
+   * .slot-mount — child of the counter-rotated wrapper.
+   * Carries the bob animation (translate Y). Since the parent is already
+   * counter-rotated, this Y movement translates cleanly up/down on screen.
+   * All slots share the same `frame` so they bob in unison (0 stagger).
+   */
+  const slotMountStyle: React.CSSProperties = {
+    position: "absolute",
+    inset: 0,
+    width: "100%",
+    height: "100%",
+    transform: `translate3d(0, ${bobY}px, 0)`,
+    willChange: "transform",
+    backfaceVisibility: "hidden",
+    WebkitBackfaceVisibility: "hidden",
+    transformStyle: "preserve-3d",
+  };
+
   // .slot-inner: flip card container
   const innerStyle: React.CSSProperties = {
     position: "absolute",
@@ -174,6 +206,8 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
    * Avatar circle (white ring + image inside) — mirrors .slot-avatar
    * --slot-ring: clamp(2px, 1.7%, 2.35px)
    * Ring is 1.7% of slot width; we use the same % on the padding.
+   * The ::before gloss (linear-gradient overlay) is reproduced as an
+   * absolutely-positioned div inside the avatar, above the image.
    */
   const avatarStyle: React.CSSProperties = {
     position: "absolute",
@@ -189,21 +223,50 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     justifyContent: "center",
   };
 
+  /**
+   * Scale-wrap for front flag: overflow:hidden + borderRadius so the scaled
+   * image (1.15x) is clipped to the circle. Fills the padded inner area.
+   * Mirrors the app's default flag badge zoom of scale(1.15).
+   */
+  const flagScaleWrapStyle: React.CSSProperties = {
+    position: "absolute",
+    inset: "1.7%", // same as avatar padding — the inner area after the white ring
+    borderRadius: "50%",
+    overflow: "hidden",
+  };
+
   const flagImgStyle: React.CSSProperties = {
     width: "100%",
     height: "100%",
     borderRadius: "50%",
     objectFit: "cover",
-    transform: `scale(${frontScale})`,
+    // frontScale from props (1.0 for club-by-nat flags) combined with the app's
+    // default 1.15 badge zoom.
+    transform: `scale(${frontScale * 1.15})`,
     transformOrigin: "center center",
+    display: "block",
+  };
+
+  /**
+   * Gloss overlay — mirrors .slot-avatar::before
+   * linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 55%)
+   * Absolutely positioned on top of the image, inside the avatar.
+   */
+  const glossStyle: React.CSSProperties = {
+    position: "absolute",
+    inset: 0,
+    borderRadius: "50%",
+    background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 55%)",
+    pointerEvents: "none",
+    zIndex: 1,
   };
 
   const photoImgStyle: React.CSSProperties = {
     position: "absolute",
-    inset: 0,
-    width: "100%",
-    height: "100%",
+    inset: "1.7%", // inner area after white ring
     borderRadius: "50%",
+    width: "calc(100% - 3.4%)",
+    height: "calc(100% - 3.4%)",
     objectFit: "cover",
     objectPosition: "top center",
     backgroundColor: "#1a1a2e",
@@ -286,31 +349,41 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
 
   return (
     <div style={wrapperStyle}>
-      <div style={innerStyle}>
-        {/* Front face: flag / crest badge */}
-        <div style={frontFaceStyle}>
-          <div style={avatarStyle}>
-            {frontUrl ? (
-              <Img src={frontUrl} style={flagImgStyle} />
-            ) : (
-              <div style={{ ...flagImgStyle, backgroundColor: "rgba(255,255,255,0.15)" }} />
-            )}
+      {/* .slot-mount — bob animation wrapper (child of counter-rotated outer) */}
+      <div style={slotMountStyle}>
+        <div style={innerStyle}>
+          {/* Front face: flag / crest badge */}
+          <div style={frontFaceStyle}>
+            <div style={avatarStyle}>
+              {/* Scale-wrap clips the 1.15x-zoomed flag to the circle */}
+              <div style={flagScaleWrapStyle}>
+                {frontUrl ? (
+                  <Img src={frontUrl} style={flagImgStyle} />
+                ) : (
+                  <div style={{ ...flagImgStyle, backgroundColor: "rgba(255,255,255,0.15)" }} />
+                )}
+              </div>
+              {/* Gloss overlay (mirrors ::before gradient) */}
+              <div style={glossStyle} />
+            </div>
           </div>
-        </div>
 
-        {/* Back face: player photo */}
-        <div style={backFaceStyle}>
-          <div style={avatarStyle}>
-            {backUrl ? (
-              <Img src={backUrl} style={photoImgStyle} />
-            ) : (
-              <div style={{ ...photoImgStyle, backgroundColor: "#1a1a2e" }} />
-            )}
+          {/* Back face: player photo */}
+          <div style={backFaceStyle}>
+            <div style={avatarStyle}>
+              {backUrl ? (
+                <Img src={backUrl} style={photoImgStyle} />
+              ) : (
+                <div style={{ ...photoImgStyle, backgroundColor: "#1a1a2e" }} />
+              )}
+              {/* Gloss overlay on back face too */}
+              <div style={glossStyle} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Name badge (outside flip card; inherits counter-rotation from wrapper — stays upright) */}
+      {/* Name badge (outside slot-mount; inherits counter-rotation from wrapper — stays upright) */}
       <span style={nameLabelStyle}>{nameLabel}</span>
     </div>
   );
