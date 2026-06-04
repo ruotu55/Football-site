@@ -1,7 +1,12 @@
 import React from "react";
 import { useCurrentFrame, useVideoConfig, interpolate, Easing } from "remotion";
+import { loadFont } from "@remotion/google-fonts/BarlowCondensed";
 import { assetUrl } from "../assets";
 import { SafeImg } from "../SafeImg";
+
+// Same font the app uses for the .slot-name badge. loadFont dedupes across components; we use
+// the returned (resolved) family so the weight-800 face actually renders (not a fallback).
+const { fontFamily: barlowFamily } = loadFont("normal", { weights: ["800"], subsets: ["latin"] });
 
 export interface SlotData {
   name: string;
@@ -34,19 +39,6 @@ function pitchLabelFromPlayerName(fullName: string): string {
   }
 
   return parts.slice(startIndex).join(" ").toUpperCase();
-}
-
-/**
- * Mirrors pitch-render.js `fitSlotNameEl`.
- * Returns a font-size override (in px) for long labels, or null to use the base size.
- */
-function fittedFontPx(label: string, baseFontPx: number): number {
-  const len = label.trim().length;
-  if (len >= 15) return Math.round(baseFontPx * (0.4 / 1.02));
-  if (len >= 13) return Math.round(baseFontPx * (0.49 / 1.02));
-  if (len >= 11) return Math.round(baseFontPx * (0.54 / 1.02));
-  if (len >= 9)  return Math.round(baseFontPx * (0.64 / 1.02));
-  return baseFontPx;
 }
 
 interface PlayerSlotProps {
@@ -88,7 +80,6 @@ interface PlayerSlotProps {
  * Name badge fades in after reveal, also upright (outside flip, inherits counter-rotation).
  */
 
-const REM = 16; // 1rem in px (for font/badge sizing at 2560-wide canvas)
 const CANVAS_W = 2560;
 
 // Bob animation constants — matches app's float-up-down keyframes
@@ -155,7 +146,12 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     aspectRatio: "1 / 1",
     // Centre the slot on its (x,y) position, lift off the surface, counter-rotate
     transform: `translate(-50%, -50%) translateZ(${zLiftPx}px) rotateX(-38deg) scale(1)`,
-    transformStyle: "preserve-3d",
+    // FLAT (matches the app's .player-slot, which has no transform-style → default flat).
+    // The counter-rotation still composes with the pitch's +38° (pitch-slots is preserve-3d),
+    // so the slot faces the viewer; but children (the name badge especially) are FLATTENED
+    // into that upright plane instead of receding in 3D — which previously clipped the badge
+    // text. The flip card re-establishes its own preserve-3d below for the rotateY flip.
+    transformStyle: "flat",
     backfaceVisibility: "hidden",
     WebkitBackfaceVisibility: "hidden",
   };
@@ -305,54 +301,44 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
    * Badge width mirrors .slot-name { width: 3.35rem } = 3.35×16 / 222 × slotSize ≈ 24.1%.
    * Badge height mirrors .slot-name { height: 1.05rem } = 1.05×16 / 222 × slotSize ≈ 7.57%.
    */
-  const slotSizePx = (slotDiameterVh / 100) * 1440; // px at 1440 canvas height
-  const baseFontPx = Math.round(1.02 * REM * (slotSizePx / (0.1022 * 2560 * (1440 / 1440))));
-  // Simpler: font-size = 1.02rem relative to CANVAS_W=2560 design, scaled by slotSize/BASE_SLOT
-  // BASE_SLOT at 2560 canvas = 0.1022 × (2560 - 366) * (2560/2560) ... let's just use vh directly.
-  const fontPxAtCanvas = 0.87 * 14.4; // 0.87vh at 1440px canvas height = 12.5px
-  const fittedFontPxVal = fittedFontPx(nameLabel, Math.round(fontPxAtCanvas));
+  // Badge sized like the app's .slot-name: width 3.35rem, height 1.05rem, font clamp ≤1.02rem,
+  // with rem scaled to the render height (24px at the 1440 design basis) so it is identical at
+  // any resolution / in Studio. The font shrinks to fit the fixed-width box for long surnames
+  // (mirrors the app's fitSlotNameEl); a floor keeps very long names legible.
+  const remPx = 24 * (height / 1440);
+  const badgeWidthPx = 3.35 * remPx;
+  const badgeHeightPx = 1.05 * remPx; // app's .slot-name height
+  const fontMaxPx = 1.02 * remPx;
+  const padXPx = 0.3 * remPx;
+  const innerW = badgeWidthPx - 2 * padXPx;
+  const labelLen = Math.max(1, nameLabel.length);
+  // Barlow Condensed 800 advance ≈ 0.48em; shrink to fit the box, floor at 0.5× the cap.
+  const fittedFontPxVal = Math.max(
+    fontMaxPx * 0.5,
+    Math.min(fontMaxPx, innerW / (labelLen * 0.48)),
+  );
 
-  // Badge width: 3.35rem / 222px × slotSize = ~24.1% of slot width
-  const badgeWidthPct = (3.35 * 16) / (0.1022 * 1440 * 1.28) * 100; // small enough
-
-  const nameLabelStyle: React.CSSProperties = {
+  // The badge is drawn as SVG: <text dominant-baseline="central"> centres the caps EXACTLY
+  // regardless of the font's vertical metrics (CSS line-height left them riding low and
+  // clipping), and paint-order:stroke gives the app's black outline (.slot-name -webkit-text-
+  // stroke + text-shadow). The red rounded rect + drop shadow are part of the SVG.
+  const radiusPx = 2 * (height / 1440);
+  const strokePx = Math.max(0.6, fittedFontPxVal * 0.07); // ≈ app's 0.07em stroke
+  const badgeWrapStyle: React.CSSProperties = {
     position: "absolute",
-    top: "calc(100% + 4px)",
+    top: `calc(100% + ${4 * (height / 1440)}px)`,
     left: "50%",
     transform: "translateX(-50%)",
-    whiteSpace: "nowrap",
-    // Use vw-relative for width to stay consistent with app's rem sizing
-    width: "24.1%",
-    minWidth: "24.1%",
-    maxWidth: "24.1%",
-    height: "7.57%",
-    minHeight: "7.57%",
-    overflow: "hidden",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    boxSizing: "border-box",
-    fontSize: `${fittedFontPxVal}px`,
-    lineHeight: 1,
-    fontWeight: 800,
-    color: "#ffffff",
-    backgroundColor: "#ef5350",
-    borderRadius: "2px",
-    boxShadow: "0 2px 4px rgba(0,0,0,0.5)",
-    fontFamily: '"Barlow Condensed", "Arial Narrow", Arial, sans-serif',
-    letterSpacing: "0.04em",
-    textTransform: "uppercase",
-    padding: "0 4%",
-    textShadow: "-0.05em -0.05em 0 #000, 0.05em -0.05em 0 #000, -0.05em 0.05em 0 #000, 0.05em 0.05em 0 #000",
     opacity: nameOpacity,
     pointerEvents: "none",
+    filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.5))",
+    lineHeight: 0,
+    overflow: "visible",
   };
 
-  // Suppress TS warnings for unused variables from old API
+  // Suppress TS warnings for unused module constants kept for reference.
   void CANVAS_W;
-  void baseFontPx;
-  void badgeWidthPct;
-  void slotSizePx;
+  void padXPx;
 
   return (
     <div style={wrapperStyle}>
@@ -399,7 +385,39 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
       </div>
 
       {/* Name badge (outside slot-mount; inherits counter-rotation from wrapper — stays upright) */}
-      <span style={nameLabelStyle}>{nameLabel}</span>
+      <svg
+        style={badgeWrapStyle}
+        width={badgeWidthPx}
+        height={badgeHeightPx}
+        viewBox={`0 0 ${badgeWidthPx} ${badgeHeightPx}`}
+      >
+        <rect
+          x={0}
+          y={0}
+          width={badgeWidthPx}
+          height={badgeHeightPx}
+          rx={radiusPx}
+          fill="#ef5350"
+        />
+        <text
+          x={badgeWidthPx / 2}
+          // dominant-baseline:central lands ~0.36×height too low with this web font's metrics
+          // (measured), so lift y by that fraction to optically centre the caps in the box.
+          y={badgeHeightPx * 0.14}
+          dominantBaseline="central"
+          textAnchor="middle"
+          fontFamily={`${barlowFamily}, "Barlow Condensed", "Arial Narrow", Arial, sans-serif`}
+          fontWeight={800}
+          fontSize={fittedFontPxVal}
+          fill="#ffffff"
+          stroke="#000000"
+          strokeWidth={strokePx}
+          paintOrder="stroke"
+          style={{ letterSpacing: "0.04em" }}
+        >
+          {nameLabel}
+        </text>
+      </svg>
     </div>
   );
 };
