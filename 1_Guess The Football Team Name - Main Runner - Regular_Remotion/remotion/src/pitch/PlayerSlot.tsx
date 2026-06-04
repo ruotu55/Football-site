@@ -270,7 +270,10 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     height: "calc(100% - 3.4%)",
     objectFit: "cover",
     objectPosition: "top center",
-    backgroundColor: "#1a1a2e",
+    // WHITE — matches the app's .slot-avatar > * { background:#fff }. The player photos are
+    // transparent cutouts, so their transparent areas must show white (bright circle), not a
+    // dark fill (which read as "black/blurry" circles).
+    backgroundColor: "#ffffff",
   };
 
   // Name label fades in after the flip passes 90°
@@ -375,7 +378,15 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
               <SafeImg
                 src={backUrl}
                 style={photoImgStyle}
-                fallback={<div style={{ ...photoImgStyle, backgroundColor: "#1a1a2e" }} />}
+                fallback={
+                  <div
+                    style={{
+                      ...photoImgStyle,
+                      // App's no-photo look: light grey, not black.
+                      background: "linear-gradient(165deg, #e8ecf0 0%, #cfd6de 55%, #c5ccd5 100%)",
+                    }}
+                  />
+                }
               />
               {/* Gloss overlay on back face too */}
               <div style={glossStyle} />
