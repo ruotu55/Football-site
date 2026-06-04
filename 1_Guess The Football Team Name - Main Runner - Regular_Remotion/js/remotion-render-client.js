@@ -73,7 +73,7 @@ export async function startRemotionRender(cfg) {
   const script = (getActiveScriptName() || "").trim();
   if (!script) { boxError("Load a saved setting first — the output file is named after it."); return; }
   let state;
-  try { state = buildRemotionState(); }
+  try { state = await buildRemotionState(); }
   catch (e) { boxError("Could not read the on-screen state:\n" + (e?.stack || e?.message || e)); return; }
   const body = { width: cfg.width, height: cfg.height, fps: cfg.fps, script, language: currentLanguage(), stateJson: state };
 

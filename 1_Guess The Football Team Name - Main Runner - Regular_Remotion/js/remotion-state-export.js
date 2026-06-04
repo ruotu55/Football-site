@@ -26,6 +26,34 @@ import {
   buildRevealVoiceCandidates,
 } from "./audio.js";
 import { getBundledLevelPath } from "./bundled-level-voices.js";
+import { applyTeamHeaderStripesFromFlagImage } from "./flag-stripe-colors.js";
+
+/**
+ * Sample a flag image into the app's --team-stripe-1/2/3 colours (same logic the live
+ * #team-header uses) so the Remotion team-header crosshatch is tinted with the team colours.
+ * Returns up to 3 rgba() strings, or null on any failure (renderer falls back to neutral).
+ */
+async function _sampleStripeColorsFromFlag(flagRelOrUrl) {
+  if (!flagRelOrUrl) return null;
+  try {
+    const img = new Image();
+    img.crossOrigin = "anonymous"; // flagcdn sends ACAO:*; local assets are same-origin
+    const loaded = new Promise((res, rej) => {
+      img.onload = () => res(true);
+      img.onerror = () => rej(new Error("flag load failed"));
+    });
+    img.src = flagRelOrUrl;
+    await loaded;
+    const el = document.createElement("div");
+    applyTeamHeaderStripesFromFlagImage(img, el);
+    const cols = ["--team-stripe-1", "--team-stripe-2", "--team-stripe-3"]
+      .map((v) => (el.style.getPropertyValue(v) || "").trim())
+      .filter(Boolean);
+    return cols.length ? cols : null;
+  } catch {
+    return null;
+  }
+}
 
 // ── Internal helpers (mirrors of pitch-render internals, not exported there) ───
 
@@ -197,7 +225,7 @@ function resolveProgressAudioKey(questionIndex, totalQuestions) {
 
 /** Serialize the live on-screen state into Remotion render props.
  *  Photos/logos are emitted as repo-relative paths; the server maps them to URLs. */
-export function buildRemotionState() {
+export async function buildRemotionState() {
   const quizType =
     (document.getElementById("in-quiz-type")?.value) || "club-by-nat";
 
@@ -363,6 +391,18 @@ export function buildRemotionState() {
       progressVoiceRel,
     };
   });
+
+  // ── Team-header crosshatch stripe colours ─────────────────────────────────────
+  // Sample each level's flag (same as the live header) so the renderer tints the
+  // diagonal crosshatch with the team colours. Best-effort, parallel, fail-safe.
+  await Promise.all(
+    levels.map(async (lv) => {
+      if (lv && lv.headerFlagRel) {
+        const sc = await _sampleStripeColorsFromFlag(lv.headerFlagRel);
+        if (sc && sc.length) lv.stripeColors = sc;
+      }
+    })
+  );
 
   // ── Background theme capture ──────────────────────────────────────────────────
   // Read the LIVE applied DOM — do not re-derive from settings.

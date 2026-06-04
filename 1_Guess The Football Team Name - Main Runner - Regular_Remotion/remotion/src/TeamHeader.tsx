@@ -44,8 +44,11 @@ const rem = (r: number) => r * REM;
 const vw = (v: number) => (v / 100) * CANVAS_W;
 const vh = (v: number) => (v / 100) * CANVAS_H;
 
-// Panel geometry — css: inset:0 auto 0 5.3vw; width: min(16.35vw, 14.4rem); min 7.2rem; max 17rem
-const PANEL_LEFT = vw(5.3); // ≈136px
+// Panel geometry — css: inset:0 auto 0 var(--screen-size-inset-left, 5.3vw).
+// In the fullscreen play video --screen-size-inset-left is 0, so the panel is flush to the
+// LEFT edge (the 5.3vw is only the letterbox fallback). The composition is full-bleed, so we
+// use 0 — no gap between the screen edge and the panel.
+const PANEL_LEFT = 0;
 const PANEL_WIDTH = Math.max(
   rem(7.2),
   Math.min(rem(17), Math.min(vw(16.35), rem(14.4)))
@@ -82,6 +85,110 @@ function fitFontPx(teamName: string): number {
   // width(px) ≈ fontPx * longest * 0.52  ⇒  fontPx = innerW / (longest * 0.52)
   const fit = NAME_INNER_W / (longest * 0.52);
   return Math.max(14, Math.min(NAME_FONT_MAX, fit));
+}
+
+// ── Team-coloured broken crosshatch (port of js/team-header-hatch.js) ─────────
+// A 132×132 tile of dashed diagonal segments (both \ and /) in the team's flag stripe
+// colours, with irregular dashes/gaps. The app uses Math.random per page load; here we use a
+// SEEDED PRNG so the pattern is identical on every frame (no flicker) yet still looks broken.
+const HATCH_TILE = 132;
+const DEFAULT_STRIPES = [
+  "rgba(255, 255, 255, 0.5)",
+  "rgba(0, 122, 204, 0.5)",
+  "rgba(200, 200, 220, 0.5)",
+];
+
+function hashStr(s: string): number {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+type Seg = [number, number, number, number];
+function segmentFromCandidates(cand: number[][]): Seg | null {
+  const eps = 1e-4;
+  const uniq: number[][] = [];
+  for (const p of cand) {
+    if (!uniq.some((q) => Math.hypot(p[0] - q[0], p[1] - q[1]) < eps)) uniq.push(p);
+  }
+  if (uniq.length < 2) return null;
+  let bi = 0, bj = 1, bd = 0;
+  for (let i = 0; i < uniq.length; i++) {
+    for (let j = i + 1; j < uniq.length; j++) {
+      const d = Math.hypot(uniq[i][0] - uniq[j][0], uniq[i][1] - uniq[j][1]);
+      if (d > bd) { bd = d; bi = i; bj = j; }
+    }
+  }
+  return [uniq[bi][0], uniq[bi][1], uniq[bj][0], uniq[bj][1]];
+}
+function clipXYminus(W: number, H: number, c: number): Seg | null {
+  const cand: number[][] = [];
+  if (c >= 0 && c <= W) cand.push([c, 0]);
+  if (H + c >= 0 && H + c <= W) cand.push([H + c, H]);
+  if (c >= -H && c <= 0) cand.push([0, -c]);
+  if (W - c >= 0 && W - c <= H) cand.push([W, W - c]);
+  return segmentFromCandidates(cand);
+}
+function clipXYplus(W: number, H: number, c: number): Seg | null {
+  const cand: number[][] = [];
+  if (c >= 0 && c <= H) cand.push([0, c]);
+  if (c >= W && c <= W + H) cand.push([W, c - W]);
+  if (c >= 0 && c <= W) cand.push([c, 0]);
+  if (c >= H && c <= W + H) cand.push([c - H, H]);
+  return segmentFromCandidates(cand);
+}
+function dashedLinesAlongSegment(
+  seg: Seg, colors: string[], parts: string[], rng: () => number,
+): void {
+  let [x0, y0, x1, y1] = seg;
+  let dx = x1 - x0, dy = y1 - y0;
+  const L = Math.hypot(dx, dy);
+  if (L < 0.5) return;
+  if (rng() < 0.5) { x0 = x1; y0 = y1; dx = -dx; dy = -dy; }
+  const ux = dx / L, uy = dy / L;
+  let u = rng() * 4;
+  while (u < L - 0.2) {
+    const dashLen = 1.2 + rng() * 6.3;
+    const gapLen = 1.5 + rng() * 14.5;
+    const u1 = Math.min(u + dashLen, L);
+    if (u1 - u > 0.25) {
+      const col = colors[Math.floor(rng() * colors.length)] ?? colors[0];
+      const ax = x0 + ux * u, ay = y0 + uy * u;
+      const bx = x0 + ux * u1, by = y0 + uy * u1;
+      parts.push(
+        `<line x1="${ax.toFixed(2)}" y1="${ay.toFixed(2)}" x2="${bx.toFixed(2)}" y2="${by.toFixed(2)}" stroke="${col}" stroke-width="0.82" stroke-linecap="square"/>`,
+      );
+    }
+    u = u1 + gapLen;
+  }
+}
+function buildTeamHatchDataUri(colors: string[], seed: number): string {
+  const rng = mulberry32(seed);
+  const W = HATCH_TILE, H = HATCH_TILE;
+  const step = 9 + Math.floor(rng() * 5);
+  const parts: string[] = [];
+  const kMax = Math.ceil((W + H) / step) + 1;
+  for (let k = -kMax; k <= kMax; k++) {
+    const c = k * step;
+    const s1 = clipXYminus(W, H, c);
+    if (s1) dashedLinesAlongSegment(s1, colors, parts, rng);
+    const s2 = clipXYplus(W, H, c);
+    if (s2) dashedLinesAlongSegment(s2, colors, parts, rng);
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}">${parts.join("")}</svg>`;
+  return `url("data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}")`;
 }
 
 export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibleFromFrame, bgStage }) => {
@@ -125,6 +232,15 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
   const nameFontPx = fitFontPx(teamName);
   const multiWord = words.length > 1;
 
+  // Team-coloured diagonal crosshatch. Colours come from the flag stripes (level.stripeColors,
+  // exported from the browser); seed by team so it is stable per team and per frame.
+  const stripeColors =
+    level.stripeColors && level.stripeColors.length ? level.stripeColors : DEFAULT_STRIPES;
+  const hatchBg = React.useMemo(
+    () => buildTeamHatchDataUri(stripeColors, hashStr(`${teamName}|${stripeColors.join(",")}`)),
+    [teamName, stripeColors],
+  );
+
   // .team-header — fixed left vertical band, theme-tinted dark bg.
   // #1 fix: panel reads as a dark tint of the CURRENT theme. We set --bg-stage as a
   // LOCAL inline custom property (from the threaded bgStage) so the color-mix resolves
@@ -159,10 +275,9 @@ export const TeamHeader: React.FC<TeamHeaderProps> = ({ level, assetBase, visibl
     inset: 0,
     zIndex: 0,
     pointerEvents: "none",
-    backgroundImage:
-      "repeating-linear-gradient(45deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 9px)," +
-      "repeating-linear-gradient(-45deg, rgba(0,122,204,0.06) 0 1px, transparent 1px 11px)," +
-      "repeating-linear-gradient(45deg, rgba(200,200,220,0.05) 0 1px, transparent 1px 13px)",
+    backgroundImage: hatchBg,
+    backgroundRepeat: "repeat",
+    backgroundSize: `${HATCH_TILE}px ${HATCH_TILE}px`,
     WebkitMaskImage:
       "radial-gradient(ellipse 118% 68% at 50% 29%, rgba(0,0,0,0.44) 0%, rgba(0,0,0,0.58) 14%, rgba(0,0,0,0.74) 30%, rgba(0,0,0,0.88) 50%, rgba(0,0,0,1) 76%)",
     maskImage:

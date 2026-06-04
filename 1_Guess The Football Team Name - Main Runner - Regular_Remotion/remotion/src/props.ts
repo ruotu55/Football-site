@@ -28,6 +28,9 @@ export interface RemotionLevel {
   /** Team-header country flag (club → selectedEntry.country; national → squad name).
    *  flagcdn URL or repo-relative "Images/Nationality/Europe/England.png". Empty = hide. */
   headerFlagRel?: string;
+  /** 2–3 rgba() stripe colors sampled from the team flag (app's --team-stripe-1/2/3),
+   *  used to tint the team-header diagonal crosshatch. Empty/absent → neutral default. */
+  stripeColors?: string[];
   slots?: Array<{ name: string; frontRel: string; photoRel: string }>;
   // Optional audio voice paths (Phase 5.3 / real capture Phase 6.1):
   revealVoiceRel?: string;
