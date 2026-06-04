@@ -65,16 +65,20 @@ const MAX_STAGGER_S = MAX_DIST_GRID * EACH_S; // ≈ 0.443s
 const ANIM_DUR_S = 0.4;   // source: duration: 0.4
 const PHASE_DUR_S = 0.84; // source: PHASE_DUR = 0.84 (wall-clock per phase)
 
-// Cell color matching CSS: color-mix(in srgb, #3c6553 70%, white 30%) ≈ #6b9080
-// This is the default --bg-stage color blended with white.
-const CELL_COLOR = "#6b9080";
+// Cell color matching CSS (.grid-transition-overlay > div):
+//   color-mix(in srgb, var(--bg-stage) 70%, white 30%)
+// Default falls back to the #3c6553 blend (≈ #6b9080) when no theme color is threaded.
+const DEFAULT_CELL_COLOR = "color-mix(in srgb, #3c6553 70%, white 30%)";
 
 interface GridOverlayProps {
   durationInFrames: number;
   fps: number;
+  /** color-mix string built from the live theme's --bg-stage (matches the app cells). */
+  fxColor?: string;
 }
 
-export const GridOverlay: React.FC<GridOverlayProps> = ({ durationInFrames, fps }) => {
+export const GridOverlay: React.FC<GridOverlayProps> = ({ durationInFrames, fps, fxColor }) => {
+  const CELL_COLOR = fxColor || DEFAULT_CELL_COLOR;
   const frame = useCurrentFrame();
   const totalSecs = durationInFrames / fps;
   const currentSecs = frame / fps;

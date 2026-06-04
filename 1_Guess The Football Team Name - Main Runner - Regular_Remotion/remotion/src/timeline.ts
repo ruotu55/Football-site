@@ -1,4 +1,6 @@
 // SOURCE OF TRUTH for timing. Every value cites the live-app line it mirrors.
+import { TRANSITION_TOTAL_MS } from "./transitions/transitionDurations";
+
 export const MS = {
   LOGO_VOICE_DELAY: 500,        // video.js:47 INTRO_GAME_NAME_VOICE_DELAY_MS
   LOGO_REVEAL_DELAY: 2000,      // video.js:18 LOGO_PAGE_PLAY_VIDEO_DELAY_MS
@@ -52,7 +54,10 @@ export interface BuildOpts {
 
 export function buildTimeline(opts: BuildOpts): Timeline {
   const fps = opts.fps;
-  const transitionMs = opts.transitionMs ?? MS.STAGE_TRANSITION;
+  // Full transition phase = cover(850) + reveal(850) + pad(200) = 1900ms (see
+  // transitionDurations.ts). STAGE_TRANSITION(820) is only the app's NO-custom-transition
+  // fallback; with a real overlay effect the gap is the full show+hide+pad.
+  const transitionMs = opts.transitionMs ?? TRANSITION_TOTAL_MS;
   const outroVoiceMs = opts.outroVoiceMs ?? 0;
   const rulesVoiceMs = opts.rulesVoiceMs ?? 2500;
   // Opening landing holds for: ball animation + 1000ms delay before voice + voice duration (min 1500ms extra)
