@@ -1,111 +1,4486 @@
 {
-  "_comment": "Dev fixture for Phase 4 visual QA. Real on-disk asset paths (verified). NOT a real captured state; Phase 6.3 tunes against genuine app output. questionCount=3, endingType=how-many so all 3 reveals/flips render. levels: 0 logo, 1 landing, 2-4 questions, 5 outro.",
-  "script": "Arsenal FC (sample)",
-  "quizType": "club-by-nat",
+  "script": "OGC Nice (sample)",
   "totalLevelsCount": 5,
   "questionCount": 3,
-  "bgmSongs": [],
-  "bundledVoiceVariants": null,
-  "endingType": "how-many",
+  "quizType": "club-by-nat",
+  "endingType": "think-you-know",
+  "bgmSongs": [
+    "Los Cabos - House of the Gipsies",
+    "Look Both Ways - Nathan Moore",
+    "Sing Swing Bada Bing - Doug Maxwell",
+    "Camargue - House of the Gipsies",
+    "Disco Knights - Quincas Moreira"
+  ],
+  "bundledVoiceVariants": {
+    "warmUp": 5,
+    "serious": 3,
+    "nerds": 2,
+    "genius": 1
+  },
   "transitionEffect": "grid-overlay",
   "width": 2560,
   "height": 1440,
   "fps": 60,
   "language": "english",
-  "assetBase": "http://127.0.0.1:8975",
+  "assetBase": "http://127.0.0.1:8888",
   "backgroundColor": "quiz-club-by-nat",
   "backgroundEffect": "youtube-thumbnails",
   "backgroundOpacity": 0.5,
   "levels": [
-    { "isLogo": true,  "isIntro": false, "isOutro": false, "isBonus": false, "squadType": "club", "displayMode": "nationality", "formationId": "433", "videoMode": true, "teamName": "", "headerLogoRel": "", "slots": [], "slotFlagScales": [], "slotTeamLogoScales": [], "slotClubCrestOverrideRelPathBySlot": {}, "headerLogoScale": 1, "headerLogoNudgeX": 0, "headerLogoOverrideRelPath": null, "selectedEntry": null, "__revealPhraseByLanguage": null, "currentSquad": null, "slotPhotoIndexBySlot": {} },
-    { "isLogo": false, "isIntro": true,  "isOutro": false, "isBonus": false, "squadType": "club", "displayMode": "nationality", "formationId": "433", "videoMode": true, "teamName": "", "headerLogoRel": "", "slots": [], "slotFlagScales": [], "slotTeamLogoScales": [], "slotClubCrestOverrideRelPathBySlot": {}, "headerLogoScale": 1, "headerLogoNudgeX": 0, "headerLogoOverrideRelPath": null, "selectedEntry": null, "__revealPhraseByLanguage": null, "currentSquad": null, "slotPhotoIndexBySlot": {} },
     {
-      "isLogo": false, "isIntro": false, "isOutro": false, "isBonus": false,
-      "squadType": "club", "displayMode": "nationality", "formationId": "433", "videoMode": true,
-      "teamName": "Arsenal FC",
-      "headerLogoRel": "Images/Teams/England/Premier League/Arsenal FC.png",
-      "slotFlagScales": [1,1,1,1,1,1,1,1,1,1,1],
-      "slotTeamLogoScales": [0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8],
-      "slotClubCrestOverrideRelPathBySlot": {},
-      "headerLogoScale": 1, "headerLogoNudgeX": 0, "headerLogoOverrideRelPath": null,
-      "selectedEntry": { "name": "Arsenal FC", "country": "England", "league": "Premier League" },
-      "__revealPhraseByLanguage": null,
-      "currentSquad": { "name": "Arsenal FC", "imagePath": "Images/Teams/England/Premier League/Arsenal FC.png" },
-      "revealVoiceRel": "../.Storage/Voices/Team names/english/plain/Arsenal.mp3",
-      "progressVoiceRel": "../.Storage/Voices/Levels/english/Worm up round dont mess this one .mp3",
+      "isLogo": true,
+      "isIntro": false,
+      "isOutro": false,
+      "isBonus": false,
+      "squadType": "club",
+      "displayMode": "club",
+      "formationId": "433",
+      "videoMode": true,
+      "currentSquad": null,
       "slotPhotoIndexBySlot": {},
-      "slots": [
-        { "name": "Emiliano Martínez", "frontRel": "https://flagcdn.com/w320/ar.png", "photoRel": "Images/Players No Background/Ready photos/Emiliano Martínez_Aston Villa/Emiliano Martínez.png" },
-        { "name": "Trent Alexander-Arnold", "frontRel": "Images/Nationality/Europe/England.png", "photoRel": "Images/Players No Background/Ready photos/Trent Alexander-Arnold_Real Madrid/Trent Alexander-Arnold.png" },
-        { "name": "Cristian Romero", "frontRel": "https://flagcdn.com/w320/ar.png", "photoRel": "Images/Players No Background/Ready photos/Cristian Romero_Tottenham/Cristian Romero.png" },
-        { "name": "Matthijs de Ligt", "frontRel": "https://flagcdn.com/w320/nl.png", "photoRel": "Images/Players No Background/Ready photos/Matthijs de Ligt_Man Utd/Matthijs de Ligt.png" },
-        { "name": "Theo Hernández", "frontRel": "https://flagcdn.com/w320/fr.png", "photoRel": "Images/Players No Background/Ready photos/Theo Hernández_Al-Hilal/Theo Hernández.png" },
-        { "name": "Rodri", "frontRel": "https://flagcdn.com/w320/es.png", "photoRel": "Images/Players No Background/Ready photos/Rodri_Man City/Rodri.png" },
-        { "name": "Jude Bellingham", "frontRel": "Images/Nationality/Europe/England.png", "photoRel": "Images/Players No Background/Ready photos/Jude Bellingham_Real Madrid/Jude Bellingham.png" },
-        { "name": "Pedri", "frontRel": "https://flagcdn.com/w320/es.png", "photoRel": "Images/Players No Background/Ready photos/Pedri_Barcelona/Pedri.png" },
-        { "name": "Mohamed Salah", "frontRel": "https://flagcdn.com/w320/eg.png", "photoRel": "Images/Players No Background/Ready photos/Mohamed Salah_Liverpool/Mohamed Salah.png" },
-        { "name": "Erling Haaland", "frontRel": "https://flagcdn.com/w320/no.png", "photoRel": "Images/Players No Background/Ready photos/Erling Haaland_Man City/Erling Haaland.png" },
-        { "name": "Kylian Mbappé", "frontRel": "https://flagcdn.com/w320/fr.png", "photoRel": "Images/Players No Background/Ready photos/Kylian Mbappé_Real Madrid/Kylian Mbappé.png" }
-      ]
+      "slotFlagScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "slotTeamLogoScales": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "slotClubCrestOverrideRelPathBySlot": {},
+      "headerLogoScale": 1,
+      "headerLogoNudgeX": 0,
+      "headerLogoOverrideRelPath": null,
+      "selectedEntry": null,
+      "__revealPhraseByLanguage": {
+        "english": "right-answer",
+        "spanish": "and-its"
+      },
+      "teamName": "",
+      "headerLogoRel": "",
+      "slots": [],
+      "revealVoiceRel": "",
+      "progressVoiceRel": ""
     },
     {
-      "isLogo": false, "isIntro": false, "isOutro": false, "isBonus": false,
-      "squadType": "club", "displayMode": "nationality", "formationId": "433", "videoMode": true,
-      "teamName": "Arsenal FC",
-      "headerLogoRel": "Images/Teams/England/Premier League/Arsenal FC.png",
-      "slotFlagScales": [1,1,1,1,1,1,1,1,1,1,1],
-      "slotTeamLogoScales": [0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8],
-      "slotClubCrestOverrideRelPathBySlot": {},
-      "headerLogoScale": 1, "headerLogoNudgeX": 0, "headerLogoOverrideRelPath": null,
-      "selectedEntry": { "name": "Arsenal FC", "country": "England", "league": "Premier League" },
-      "__revealPhraseByLanguage": null,
-      "currentSquad": { "name": "Arsenal FC", "imagePath": "Images/Teams/England/Premier League/Arsenal FC.png" },
-      "revealVoiceRel": "../.Storage/Voices/Team names/english/plain/Arsenal.mp3",
-      "progressVoiceRel": "../.Storage/Voices/Levels/english/OK now it's getting serious.mp3",
+      "isLogo": false,
+      "isIntro": true,
+      "isOutro": false,
+      "isBonus": false,
+      "squadType": "club",
+      "displayMode": "club",
+      "formationId": "433",
+      "videoMode": true,
+      "currentSquad": null,
       "slotPhotoIndexBySlot": {},
-      "slots": [
-        { "name": "Emiliano Martínez", "frontRel": "https://flagcdn.com/w320/ar.png", "photoRel": "Images/Players No Background/Ready photos/Emiliano Martínez_Aston Villa/Emiliano Martínez.png" },
-        { "name": "Trent Alexander-Arnold", "frontRel": "Images/Nationality/Europe/England.png", "photoRel": "Images/Players No Background/Ready photos/Trent Alexander-Arnold_Real Madrid/Trent Alexander-Arnold.png" },
-        { "name": "Cristian Romero", "frontRel": "https://flagcdn.com/w320/ar.png", "photoRel": "Images/Players No Background/Ready photos/Cristian Romero_Tottenham/Cristian Romero.png" },
-        { "name": "Matthijs de Ligt", "frontRel": "https://flagcdn.com/w320/nl.png", "photoRel": "Images/Players No Background/Ready photos/Matthijs de Ligt_Man Utd/Matthijs de Ligt.png" },
-        { "name": "Theo Hernández", "frontRel": "https://flagcdn.com/w320/fr.png", "photoRel": "Images/Players No Background/Ready photos/Theo Hernández_Al-Hilal/Theo Hernández.png" },
-        { "name": "Rodri", "frontRel": "https://flagcdn.com/w320/es.png", "photoRel": "Images/Players No Background/Ready photos/Rodri_Man City/Rodri.png" },
-        { "name": "Jude Bellingham", "frontRel": "Images/Nationality/Europe/England.png", "photoRel": "Images/Players No Background/Ready photos/Jude Bellingham_Real Madrid/Jude Bellingham.png" },
-        { "name": "Pedri", "frontRel": "https://flagcdn.com/w320/es.png", "photoRel": "Images/Players No Background/Ready photos/Pedri_Barcelona/Pedri.png" },
-        { "name": "Mohamed Salah", "frontRel": "https://flagcdn.com/w320/eg.png", "photoRel": "Images/Players No Background/Ready photos/Mohamed Salah_Liverpool/Mohamed Salah.png" },
-        { "name": "Erling Haaland", "frontRel": "https://flagcdn.com/w320/no.png", "photoRel": "Images/Players No Background/Ready photos/Erling Haaland_Man City/Erling Haaland.png" },
-        { "name": "Kylian Mbappé", "frontRel": "https://flagcdn.com/w320/fr.png", "photoRel": "Images/Players No Background/Ready photos/Kylian Mbappé_Real Madrid/Kylian Mbappé.png" }
-      ]
+      "slotFlagScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "slotTeamLogoScales": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "slotClubCrestOverrideRelPathBySlot": {},
+      "headerLogoScale": 1,
+      "headerLogoNudgeX": 0,
+      "headerLogoOverrideRelPath": null,
+      "selectedEntry": null,
+      "__revealPhraseByLanguage": {
+        "english": "plain",
+        "spanish": "team-is"
+      },
+      "teamName": "",
+      "headerLogoRel": "",
+      "slots": [],
+      "revealVoiceRel": "",
+      "progressVoiceRel": ""
     },
     {
-      "isLogo": false, "isIntro": false, "isOutro": false, "isBonus": false,
-      "squadType": "club", "displayMode": "nationality", "formationId": "433", "videoMode": true,
-      "teamName": "Arsenal FC",
-      "headerLogoRel": "Images/Teams/England/Premier League/Arsenal FC.png",
-      "slotFlagScales": [1,1,1,1,1,1,1,1,1,1,1],
-      "slotTeamLogoScales": [0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8,0.8],
+      "isLogo": false,
+      "isIntro": false,
+      "isOutro": false,
+      "isBonus": false,
+      "squadType": "club",
+      "displayMode": "country",
+      "formationId": "3421",
+      "videoMode": true,
+      "currentSquad": {
+        "kind": "club",
+        "name": "OGC Nice",
+        "imagePath": "Images/Teams/France/Ligue 1/OGC Nice.png",
+        "transfermarktClubId": 417,
+        "source": {
+          "provider": "Transfermarkt",
+          "apiBase": "https://tmapi-alpha.transfermarkt.technology",
+          "season": {
+            "seasonId": 2025,
+            "label": "25/26",
+            "cyclicalName": "2026",
+            "competitionId": "FR1"
+          },
+          "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present."
+        },
+        "goalkeepers": [
+          {
+            "name": "Yehvann Diouf",
+            "position": "Goalkeeper",
+            "age": 26,
+            "nationality": "Senegal",
+            "club": "OGC Nice",
+            "appearances": 19,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Troyes",
+                "year": "2016"
+              },
+              {
+                "club": "Stade Reims",
+                "year": "2019"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 215,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 269,
+              "clean_sheets": 68
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": 2,
+              "clean_sheets": 0
+            }
+          },
+          {
+            "name": "Maxime Dupé",
+            "position": "Goalkeeper",
+            "age": 33,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 8,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "FC Nantes",
+                "year": "2011"
+              },
+              {
+                "club": "Clermont Foot",
+                "year": "2019"
+              },
+              {
+                "club": "FC Nantes",
+                "year": "2020"
+              },
+              {
+                "club": "Toulouse",
+                "year": "2020"
+              },
+              {
+                "club": "RSC Anderlecht",
+                "year": "2023"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 270,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 301,
+              "clean_sheets": 94
+            },
+            "national_team_career_totals": {
+              "appearances": 8,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Bartosz Zelazowski",
+            "position": "Goalkeeper",
+            "age": 20,
+            "nationality": "Poland",
+            "club": "OGC Nice",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Nice Espoir",
+                "year": "2024"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 34,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 56,
+              "clean_sheets": 4
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ],
+        "defenders": [
+          {
+            "name": "Juma Bah",
+            "position": "Centre-Back",
+            "age": 19,
+            "nationality": "Sierra Leone",
+            "club": "OGC Nice",
+            "appearances": 21,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "AIK Freetong",
+                "year": "2023"
+              },
+              {
+                "club": "Real Valladolid",
+                "year": "2024"
+              },
+              {
+                "club": "AIK Freetong",
+                "year": "2024"
+              },
+              {
+                "club": "Real Valladolid",
+                "year": "2025"
+              },
+              {
+                "club": "Man City",
+                "year": "2025"
+              },
+              {
+                "club": "Lens",
+                "year": "2025"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              },
+              {
+                "club": "Man City",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 60,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 7,
+              "goals": 1,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Kojo Peprah Oppong",
+            "position": "Centre-Back",
+            "age": 21,
+            "nationality": "Ghana",
+            "club": "OGC Nice",
+            "appearances": 23,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Norrköping",
+                "year": "2023"
+              },
+              {
+                "club": "GIF Sundsvall",
+                "year": "2023"
+              },
+              {
+                "club": "GIF Sundsvall",
+                "year": "2024"
+              },
+              {
+                "club": "Norrköping",
+                "year": "2024"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 98,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Youssouf Ndayishimiye",
+            "position": "Centre-Back",
+            "age": 27,
+            "nationality": "Burundi",
+            "club": "OGC Nice",
+            "appearances": 2,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Aigle Noir FC",
+                "year": "2016"
+              },
+              {
+                "club": "Y. Malatyaspor",
+                "year": "2020"
+              },
+              {
+                "club": "Basaksehir",
+                "year": "2021"
+              },
+              {
+                "club": "Nice",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 174,
+              "goals": 16,
+              "assists": 8,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 18,
+              "goals": 1,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 55
+          },
+          {
+            "name": "Moïse Bombito",
+            "position": "Centre-Back",
+            "age": 26,
+            "nationality": "Canada",
+            "club": "OGC Nice",
+            "appearances": 2,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Iowa Reivers",
+                "year": "2020"
+              },
+              {
+                "club": "Seacoast United",
+                "year": "2022"
+              },
+              {
+                "club": "Iowa Reivers",
+                "year": "2022"
+              },
+              {
+                "club": "UNH Wildcats",
+                "year": "2022"
+              },
+              {
+                "club": "Colorado",
+                "year": "2022"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 75,
+              "goals": 2,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 19,
+              "goals": 0,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 64
+          },
+          {
+            "name": "Antoine Mendy",
+            "position": "Centre-Back",
+            "age": 21,
+            "nationality": "Senegal",
+            "club": "OGC Nice",
+            "appearances": 18,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "SC Air Bel Jgd.",
+                "year": "2015"
+              },
+              {
+                "club": "Nice",
+                "year": "2022"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 104,
+              "goals": 5,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 6,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Mohamed Abdelmonem",
+            "position": "Centre-Back",
+            "age": 27,
+            "nationality": "Egypt",
+            "club": "OGC Nice",
+            "appearances": 0,
+            "goals": 2,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Smouha",
+                "year": "2020"
+              },
+              {
+                "club": "Al Ahly",
+                "year": "2021"
+              },
+              {
+                "club": "Future FC",
+                "year": "2021"
+              },
+              {
+                "club": "Al Ahly",
+                "year": "2022"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 173,
+              "goals": 10,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 34,
+              "goals": 3,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 5
+          },
+          {
+            "name": "Dante",
+            "position": "Centre-Back",
+            "age": 42,
+            "nationality": "Brazil",
+            "club": "OGC Nice",
+            "appearances": 10,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Juventude",
+                "year": "2002"
+              },
+              {
+                "club": "Lille",
+                "year": "2004"
+              },
+              {
+                "club": "R Charleroi SC",
+                "year": "2006"
+              },
+              {
+                "club": "Lille",
+                "year": "2006"
+              },
+              {
+                "club": "Standard Liège",
+                "year": "2007"
+              },
+              {
+                "club": "Mönchengladbach",
+                "year": "2009"
+              },
+              {
+                "club": "Bayern Munich",
+                "year": "2012"
+              },
+              {
+                "club": "Wolfsburg",
+                "year": "2015"
+              },
+              {
+                "club": "Nice",
+                "year": "2016"
+              },
+              {
+                "club": "Retired",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 750,
+              "goals": 29,
+              "assists": 27,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 13,
+              "goals": 2,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 4
+          },
+          {
+            "name": "Melvin Bard",
+            "position": "Left-Back",
+            "age": 25,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 23,
+            "goals": 2,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Lyon",
+                "year": "2020"
+              },
+              {
+                "club": "Nice",
+                "year": "2021"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 251,
+              "goals": 8,
+              "assists": 11,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Ali Abdi",
+            "position": "Left-Back",
+            "age": 32,
+            "nationality": "Tunisia",
+            "club": "OGC Nice",
+            "appearances": 16,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "JS Kairouan",
+                "year": "2011"
+              },
+              {
+                "club": "Esperance",
+                "year": "2012"
+              },
+              {
+                "club": "Stade Tunisien",
+                "year": "2014"
+              },
+              {
+                "club": "Esperance",
+                "year": "2014"
+              },
+              {
+                "club": "Club Africain",
+                "year": "2016"
+              },
+              {
+                "club": "Paris FC",
+                "year": "2019"
+              },
+              {
+                "club": "SM Caen",
+                "year": "2021"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 339,
+              "goals": 45,
+              "assists": 23,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 45,
+              "goals": 7,
+              "assists": 8,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Jonathan Clauss",
+            "position": "Right-Back",
+            "age": 33,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 24,
+            "goals": 1,
+            "assists": 6,
+            "transfer_history": [
+              {
+                "club": "Vauban S.",
+                "year": "2010"
+              },
+              {
+                "club": "SV Linx",
+                "year": "2013"
+              },
+              {
+                "club": "US Raon-l'Étape",
+                "year": "2015"
+              },
+              {
+                "club": "US Avranches",
+                "year": "2016"
+              },
+              {
+                "club": "Quevilly Rouen",
+                "year": "2017"
+              },
+              {
+                "club": "Arm. Bielefeld",
+                "year": "2018"
+              },
+              {
+                "club": "Lens",
+                "year": "2020"
+              },
+              {
+                "club": "Marseille",
+                "year": "2022"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 434,
+              "goals": 46,
+              "assists": 83,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 14,
+              "goals": 2,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ],
+        "midfielders": [
+          {
+            "name": "Charles Vanhoutte",
+            "position": "Defensive Midfield",
+            "age": 27,
+            "nationality": "Belgium",
+            "club": "OGC Nice",
+            "appearances": 21,
+            "goals": 0,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "Cercle Brugge",
+                "year": "2018"
+              },
+              {
+                "club": "AFC Tubize",
+                "year": "2019"
+              },
+              {
+                "club": "Cercle Brugge",
+                "year": "2020"
+              },
+              {
+                "club": "Union SG",
+                "year": "2023"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 251,
+              "goals": 5,
+              "assists": 20,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Salis Abdul Samed",
+            "position": "Defensive Midfield",
+            "age": 26,
+            "nationality": "Ghana",
+            "club": "OGC Nice",
+            "appearances": 14,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "JMG Abidjan",
+                "year": "2016"
+              },
+              {
+                "club": "Clermont Foot",
+                "year": "2019"
+              },
+              {
+                "club": "JMG Abidjan",
+                "year": "2021"
+              },
+              {
+                "club": "Clermont Foot",
+                "year": "2021"
+              },
+              {
+                "club": "Lens",
+                "year": "2022"
+              },
+              {
+                "club": "Sunderland",
+                "year": "2024"
+              },
+              {
+                "club": "Lens",
+                "year": "2025"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 157,
+              "goals": 2,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 22,
+              "goals": 0,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Everton",
+            "position": "Defensive Midfield",
+            "age": 18,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 3,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Nice",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 42,
+              "goals": 10,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Hicham Boudaoui",
+            "position": "Central Midfield",
+            "age": 26,
+            "nationality": "Algeria",
+            "club": "OGC Nice",
+            "appearances": 19,
+            "goals": 1,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "Paradou AC",
+                "year": "2018"
+              },
+              {
+                "club": "Nice",
+                "year": "2019"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 240,
+              "goals": 15,
+              "assists": 18,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 32,
+              "goals": 0,
+              "assists": 3,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 6
+          },
+          {
+            "name": "Morgan Sanson",
+            "position": "Central Midfield",
+            "age": 31,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 25,
+            "goals": 0,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "Le Mans FC",
+                "year": "2012"
+              },
+              {
+                "club": "Montpellier",
+                "year": "2013"
+              },
+              {
+                "club": "Marseille",
+                "year": "2017"
+              },
+              {
+                "club": "Aston Villa",
+                "year": "2021"
+              },
+              {
+                "club": "R. Strasbourg",
+                "year": "2023"
+              },
+              {
+                "club": "Aston Villa",
+                "year": "2023"
+              },
+              {
+                "club": "Nice",
+                "year": "2023"
+              },
+              {
+                "club": "Aston Villa",
+                "year": "2024"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 422,
+              "goals": 58,
+              "assists": 44,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 10,
+              "goals": 2,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Tanguy Ndombélé",
+            "position": "Central Midfield",
+            "age": 29,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 7,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Amiens SC",
+                "year": "2016"
+              },
+              {
+                "club": "Lyon",
+                "year": "2017"
+              },
+              {
+                "club": "Amiens SC",
+                "year": "2018"
+              },
+              {
+                "club": "Lyon",
+                "year": "2018"
+              },
+              {
+                "club": "Tottenham",
+                "year": "2019"
+              },
+              {
+                "club": "Lyon",
+                "year": "2022"
+              },
+              {
+                "club": "Tottenham",
+                "year": "2022"
+              },
+              {
+                "club": "Napoli",
+                "year": "2022"
+              },
+              {
+                "club": "Tottenham",
+                "year": "2023"
+              },
+              {
+                "club": "Galatasaray",
+                "year": "2023"
+              },
+              {
+                "club": "Tottenham",
+                "year": "2024"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 362,
+              "goals": 22,
+              "assists": 39,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 7,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Djibril Coulibaly",
+            "position": "Central Midfield",
+            "age": 17,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 1,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 33,
+              "goals": 5,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 8,
+              "goals": 2,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Tom Louchet",
+            "position": "Right Midfield",
+            "age": 22,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 21,
+            "goals": 3,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "Nice",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 142,
+              "goals": 19,
+              "assists": 4,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Gabin Bernardeau",
+            "position": "Attacking Midfield",
+            "age": 20,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 4,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Le Mans FC",
+                "year": "2024"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 50,
+              "goals": 8,
+              "assists": 10,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 1,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ],
+        "attackers": [
+          {
+            "name": "Sofiane Diop",
+            "position": "Left Winger",
+            "age": 25,
+            "nationality": "Morocco",
+            "club": "OGC Nice",
+            "appearances": 26,
+            "goals": 7,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "Monaco",
+                "year": "2018"
+              },
+              {
+                "club": "FC Sochaux",
+                "year": "2019"
+              },
+              {
+                "club": "Monaco",
+                "year": "2020"
+              },
+              {
+                "club": "Nice",
+                "year": "2022"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 258,
+              "goals": 40,
+              "assists": 23,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Isak Jansson",
+            "position": "Left Winger",
+            "age": 24,
+            "nationality": "Sweden",
+            "club": "OGC Nice",
+            "appearances": 16,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Kalmar FF",
+                "year": "2019"
+              },
+              {
+                "club": "FC Cartagena",
+                "year": "2022"
+              },
+              {
+                "club": "Rapid Vienna",
+                "year": "2024"
+              },
+              {
+                "club": "FC Cartagena",
+                "year": "2024"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 194,
+              "goals": 23,
+              "assists": 19,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 1,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Mohamed-Ali Cho",
+            "position": "Right Winger",
+            "age": 22,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 17,
+            "goals": 4,
+            "assists": 3,
+            "transfer_history": [
+              {
+                "club": "PSG Youth",
+                "year": "2011"
+              },
+              {
+                "club": "Everton Youth",
+                "year": "2015"
+              },
+              {
+                "club": "Angers SCO",
+                "year": "2020"
+              },
+              {
+                "club": "Real Sociedad",
+                "year": "2022"
+              },
+              {
+                "club": "Nice",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 177,
+              "goals": 18,
+              "assists": 16,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 8,
+              "goals": 0,
+              "assists": 4,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Kaïl Boudache",
+            "position": "Right Winger",
+            "age": 19,
+            "nationality": "France",
+            "club": "OGC Nice",
+            "appearances": 8,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Nice Espoir",
+                "year": "2025"
+              },
+              {
+                "club": "Nice",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 59,
+              "goals": 17,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Tiago Gouveia",
+            "position": "Right Winger",
+            "age": 24,
+            "nationality": "Portugal",
+            "club": "OGC Nice",
+            "appearances": 14,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Tires Fo.",
+                "year": "2011"
+              },
+              {
+                "club": "Sporting Sub-15",
+                "year": "2014"
+              },
+              {
+                "club": "Benfica",
+                "year": "2022"
+              },
+              {
+                "club": "Estoril",
+                "year": "2022"
+              },
+              {
+                "club": "Benfica",
+                "year": "2023"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              },
+              {
+                "club": "Benfica",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 174,
+              "goals": 32,
+              "assists": 18,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Elye Wahi",
+            "position": "Centre-Forward",
+            "age": 23,
+            "nationality": "Ivory Coast",
+            "club": "OGC Nice",
+            "appearances": 8,
+            "goals": 4,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Montpellier",
+                "year": "2021"
+              },
+              {
+                "club": "Lens",
+                "year": "2023"
+              },
+              {
+                "club": "Marseille",
+                "year": "2024"
+              },
+              {
+                "club": "Frankfurt",
+                "year": "2025"
+              },
+              {
+                "club": "Nice",
+                "year": "2026"
+              },
+              {
+                "club": "Frankfurt",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 196,
+              "goals": 60,
+              "assists": 19,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Kevin Carlos",
+            "position": "Centre-Forward",
+            "age": 24,
+            "nationality": "Spain",
+            "club": "OGC Nice",
+            "appearances": 18,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "SD Huesca",
+                "year": "2022"
+              },
+              {
+                "club": "Betis Deportivo",
+                "year": "2023"
+              },
+              {
+                "club": "SD Huesca",
+                "year": "2023"
+              },
+              {
+                "club": "Yverdon Sport",
+                "year": "2023"
+              },
+              {
+                "club": "Yverdon Sport",
+                "year": "2024"
+              },
+              {
+                "club": "Basel",
+                "year": "2024"
+              },
+              {
+                "club": "Nice",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 164,
+              "goals": 53,
+              "assists": 8,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ]
+      },
+      "slotPhotoIndexBySlot": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0
+      },
+      "slotFlagScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "slotTeamLogoScales": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
       "slotClubCrestOverrideRelPathBySlot": {},
-      "headerLogoScale": 1, "headerLogoNudgeX": 0, "headerLogoOverrideRelPath": null,
-      "selectedEntry": { "name": "Arsenal FC", "country": "England", "league": "Premier League" },
-      "__revealPhraseByLanguage": null,
-      "currentSquad": { "name": "Arsenal FC", "imagePath": "Images/Teams/England/Premier League/Arsenal FC.png" },
-      "revealVoiceRel": "../.Storage/Voices/Team names/english/plain/Arsenal.mp3",
-      "progressVoiceRel": "../.Storage/Voices/Levels/english/If you get this you are basically a genius!!!.mp3",
-      "slotPhotoIndexBySlot": {},
+      "headerLogoScale": 1,
+      "headerLogoNudgeX": 0,
+      "headerLogoOverrideRelPath": null,
+      "selectedEntry": {
+        "id": ".Storage/Squad Formation/Teams/France/Ligue 1/OGC Nice.json",
+        "name": "OGC Nice",
+        "country": "France",
+        "league": "Ligue 1",
+        "path": "../.Storage/Squad Formation/Teams/France/Ligue 1/OGC Nice.json"
+      },
+      "__revealPhraseByLanguage": {
+        "english": "answer-is",
+        "spanish": "right-answer"
+      },
+      "teamName": "Nice",
+      "headerLogoRel": "Images/Teams/France/Ligue 1/OGC Nice.png",
       "slots": [
-        { "name": "Emiliano Martínez", "frontRel": "https://flagcdn.com/w320/ar.png", "photoRel": "Images/Players No Background/Ready photos/Emiliano Martínez_Aston Villa/Emiliano Martínez.png" },
-        { "name": "Trent Alexander-Arnold", "frontRel": "Images/Nationality/Europe/England.png", "photoRel": "Images/Players No Background/Ready photos/Trent Alexander-Arnold_Real Madrid/Trent Alexander-Arnold.png" },
-        { "name": "Cristian Romero", "frontRel": "https://flagcdn.com/w320/ar.png", "photoRel": "Images/Players No Background/Ready photos/Cristian Romero_Tottenham/Cristian Romero.png" },
-        { "name": "Matthijs de Ligt", "frontRel": "https://flagcdn.com/w320/nl.png", "photoRel": "Images/Players No Background/Ready photos/Matthijs de Ligt_Man Utd/Matthijs de Ligt.png" },
-        { "name": "Theo Hernández", "frontRel": "https://flagcdn.com/w320/fr.png", "photoRel": "Images/Players No Background/Ready photos/Theo Hernández_Al-Hilal/Theo Hernández.png" },
-        { "name": "Rodri", "frontRel": "https://flagcdn.com/w320/es.png", "photoRel": "Images/Players No Background/Ready photos/Rodri_Man City/Rodri.png" },
-        { "name": "Jude Bellingham", "frontRel": "Images/Nationality/Europe/England.png", "photoRel": "Images/Players No Background/Ready photos/Jude Bellingham_Real Madrid/Jude Bellingham.png" },
-        { "name": "Pedri", "frontRel": "https://flagcdn.com/w320/es.png", "photoRel": "Images/Players No Background/Ready photos/Pedri_Barcelona/Pedri.png" },
-        { "name": "Mohamed Salah", "frontRel": "https://flagcdn.com/w320/eg.png", "photoRel": "Images/Players No Background/Ready photos/Mohamed Salah_Liverpool/Mohamed Salah.png" },
-        { "name": "Erling Haaland", "frontRel": "https://flagcdn.com/w320/no.png", "photoRel": "Images/Players No Background/Ready photos/Erling Haaland_Man City/Erling Haaland.png" },
-        { "name": "Kylian Mbappé", "frontRel": "https://flagcdn.com/w320/fr.png", "photoRel": "Images/Players No Background/Ready photos/Kylian Mbappé_Real Madrid/Kylian Mbappé.png" }
-      ]
+        {
+          "name": "Yehvann Diouf",
+          "frontRel": "https://flagcdn.com/w320/sn.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Yehvann Diouf/26-235633.4d8b0c6198b3b26dd0c01b31c3533a00d34374fa1b1b284e875b2f7d4b4b8d52.webp"
+        },
+        {
+          "name": "Juma Bah",
+          "frontRel": "https://flagcdn.com/w320/sl.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Juma Bah/26-75148.09d8c36e2ad15582273869d92b88750dca256d154d13257535cec1aa070ebdda.webp"
+        },
+        {
+          "name": "Moïse Bombito",
+          "frontRel": "https://flagcdn.com/w320/ca.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Moïse Bombito/26-274536.f23dd792262dc7b792fb33f5f6fd76373849659b7c0702ef9434e80096a78e04.webp"
+        },
+        {
+          "name": "Kojo Peprah Oppong",
+          "frontRel": "https://flagcdn.com/w320/gh.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Kojo Peprah Oppong/26-273948.c7ba651cc67a53529dbb8d275b4e734f459ee63cc27edfc3a02d760ae1f36347.webp"
+        },
+        {
+          "name": "Melvin Bard",
+          "frontRel": "https://flagcdn.com/w320/fr.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Melvin Bard/26-254548.e3f77397af744d66dcf630af401005907708e441bfab883de69d659540846e92.webp"
+        },
+        {
+          "name": "Jonathan Clauss",
+          "frontRel": "https://flagcdn.com/w320/fr.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Jonathan Clauss/26-239093.12e7c0b6245f91228056283e78746bc7e8f7684a1a8b7a1e52e8a5079859044f.webp"
+        },
+        {
+          "name": "Charles Vanhoutte",
+          "frontRel": "https://flagcdn.com/w320/be.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Charles Vanhoutte/26-244889.b6d748f8defd790fa22e8b52d3ac35092d42f15eac1268e29cf28855cffe1b0d.webp"
+        },
+        {
+          "name": "Morgan Sanson",
+          "frontRel": "https://flagcdn.com/w320/fr.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Morgan Sanson/26-210896.e07fbee46df69126be93aee79bbb847d29181e243874c32c8b6ac0f085ccd35c.webp"
+        },
+        {
+          "name": "Sofiane Diop",
+          "frontRel": "https://flagcdn.com/w320/ma.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Sofiane Diop/26-244892.494a0d2c216ccc31dd8ba1afa73933974912d970b464b8e428282acbed8d2a6f.webp"
+        },
+        {
+          "name": "Mohamed-Ali Cho",
+          "frontRel": "https://flagcdn.com/w320/fr.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Mohamed-Ali Cho/26-256476.37ed8905b06619b4552252c03cad8dde7179b50316bfddfee518a50f31d00bff.webp"
+        },
+        {
+          "name": "Elye Wahi",
+          "frontRel": "https://flagcdn.com/w320/ci.png",
+          "photoRel": "Images/Players/Club images/France/Ligue 1/OGC Nice/Elye Wahi/26-260407.a061253d6f45f503b2facb278bf34423d1dde0fd5d2acd9a09c4cf47111bb32d.webp"
+        }
+      ],
+      "revealVoiceRel": "../.Storage/Voices/Team names/english/answer-is/Nice.mp3",
+      "progressVoiceRel": "../.Storage/Voices/Levels/english/bundled-warm-up-05.mp3"
     },
-    { "isLogo": false, "isIntro": false, "isOutro": true, "isBonus": false, "squadType": "club", "displayMode": "nationality", "formationId": "433", "videoMode": true, "teamName": "", "headerLogoRel": "", "slots": [], "slotFlagScales": [], "slotTeamLogoScales": [], "slotClubCrestOverrideRelPathBySlot": {}, "headerLogoScale": 1, "headerLogoNudgeX": 0, "headerLogoOverrideRelPath": null, "selectedEntry": null, "__revealPhraseByLanguage": null, "currentSquad": null, "slotPhotoIndexBySlot": {} }
+    {
+      "isLogo": false,
+      "isIntro": false,
+      "isOutro": false,
+      "isBonus": false,
+      "squadType": "club",
+      "displayMode": "country",
+      "formationId": "4231",
+      "videoMode": true,
+      "currentSquad": {
+        "kind": "club",
+        "name": "Go Ahead Eagles",
+        "imagePath": "Images/Teams/Netherlands/Eredivisie/Go Ahead Eagles.png",
+        "transfermarktClubId": 1435,
+        "source": {
+          "provider": "Transfermarkt",
+          "apiBase": "https://tmapi-alpha.transfermarkt.technology",
+          "season": {
+            "seasonId": 2025,
+            "label": "25/26",
+            "cyclicalName": "2026",
+            "competitionId": "NL1"
+          },
+          "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
+          "missingLogoFile": true
+        },
+        "goalkeepers": [
+          {
+            "name": "Jari De Busser",
+            "position": "Goalkeeper",
+            "age": 26,
+            "nationality": "Belgium",
+            "club": "Go Ahead Eagles",
+            "appearances": 28,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Lierse SK",
+                "year": "2017"
+              },
+              {
+                "club": "KAA Gent",
+                "year": "2018"
+              },
+              {
+                "club": "Lommel SK",
+                "year": "2020"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 125,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 169,
+              "clean_sheets": 31
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 22
+          },
+          {
+            "name": "Luca Plogmann",
+            "position": "Goalkeeper",
+            "age": 26,
+            "nationality": "Germany",
+            "club": "Go Ahead Eagles",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Werder Bremen",
+                "year": "2018"
+              },
+              {
+                "club": "SV Meppen",
+                "year": "2020"
+              },
+              {
+                "club": "Werder Bremen",
+                "year": "2021"
+              },
+              {
+                "club": "Without Club",
+                "year": "2022"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2022"
+              },
+              {
+                "club": "FC Dordrecht",
+                "year": "2023"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2024"
+              },
+              {
+                "club": "Without Club",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 184,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 210,
+              "clean_sheets": 65
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": 0,
+              "clean_sheets": 1
+            },
+            "shirt_number": 1
+          },
+          {
+            "name": "Sven Jansen",
+            "position": "Goalkeeper",
+            "age": 21,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2021"
+              },
+              {
+                "club": "Without Club",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 55,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 81,
+              "clean_sheets": 10
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Nando Verdoni",
+            "position": "Goalkeeper",
+            "age": 22,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 43,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 66,
+              "clean_sheets": 13
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ],
+        "defenders": [
+          {
+            "name": "Joris Kramer",
+            "position": "Centre-Back",
+            "age": 29,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 28,
+            "goals": 1,
+            "assists": 3,
+            "transfer_history": [
+              {
+                "club": "FC Dordrecht",
+                "year": "2016"
+              },
+              {
+                "club": "AZ Alkmaar",
+                "year": "2019"
+              },
+              {
+                "club": "SC Cambuur",
+                "year": "2020"
+              },
+              {
+                "club": "AZ Alkmaar",
+                "year": "2021"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2021"
+              },
+              {
+                "club": "AZ Alkmaar",
+                "year": "2022"
+              },
+              {
+                "club": "NEC Nijmegen",
+                "year": "2022"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 350,
+              "goals": 10,
+              "assists": 11,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 4
+          },
+          {
+            "name": "Gerrit Nauber",
+            "position": "Centre-Back",
+            "age": 33,
+            "nationality": "Germany",
+            "club": "Go Ahead Eagles",
+            "appearances": 9,
+            "goals": 2,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "SF Lotte",
+                "year": "2012"
+              },
+              {
+                "club": "MSV Duisburg",
+                "year": "2017"
+              },
+              {
+                "club": "SV Sandhausen",
+                "year": "2019"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2021"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 592,
+              "goals": 29,
+              "assists": 3,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 3
+          },
+          {
+            "name": "Julius Dirksen",
+            "position": "Centre-Back",
+            "age": 23,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 12,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "FC Twente Youth",
+                "year": "2013"
+              },
+              {
+                "club": "PEC Youth",
+                "year": "2014"
+              },
+              {
+                "club": "Ajax Youth",
+                "year": "2018"
+              },
+              {
+                "club": "FC Emmen",
+                "year": "2022"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 135,
+              "goals": 2,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 3,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 26
+          },
+          {
+            "name": "Giovanni van Zwam",
+            "position": "Centre-Back",
+            "age": 22,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 10,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "NEC Youth",
+                "year": "2013"
+              },
+              {
+                "club": "Vitesse Youth",
+                "year": "2015"
+              },
+              {
+                "club": "Vitesse",
+                "year": "2023"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 121,
+              "goals": 3,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 25
+          },
+          {
+            "name": "Pim Saathof",
+            "position": "Centre-Back",
+            "age": 22,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2016"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2023"
+              },
+              {
+                "club": "Kongsvinger",
+                "year": "2025"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 69,
+              "goals": 6,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 28
+          },
+          {
+            "name": "Dean James",
+            "position": "Left-Back",
+            "age": 25,
+            "nationality": "Indonesia",
+            "club": "Go Ahead Eagles",
+            "appearances": 22,
+            "goals": 1,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Volendam Youth",
+                "year": "2014"
+              },
+              {
+                "club": "FC Volendam",
+                "year": "2020"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 217,
+              "goals": 5,
+              "assists": 18,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 5,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 5
+          },
+          {
+            "name": "Aske Adelgaard",
+            "position": "Left-Back",
+            "age": 22,
+            "nationality": "Denmark",
+            "club": "Go Ahead Eagles",
+            "appearances": 22,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Odense BK",
+                "year": "2022"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 154,
+              "goals": 1,
+              "assists": 4,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 12,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 29
+          },
+          {
+            "name": "Alfons Sampsted",
+            "position": "Right-Back",
+            "age": 27,
+            "nationality": "Iceland",
+            "club": "Go Ahead Eagles",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Breidablik",
+                "year": "2014"
+              },
+              {
+                "club": "Thór",
+                "year": "2015"
+              },
+              {
+                "club": "Breidablik",
+                "year": "2015"
+              },
+              {
+                "club": "Norrköping",
+                "year": "2017"
+              },
+              {
+                "club": "Landskrona",
+                "year": "2018"
+              },
+              {
+                "club": "Norrköping",
+                "year": "2018"
+              },
+              {
+                "club": "IF Sylvia",
+                "year": "2019"
+              },
+              {
+                "club": "Norrköping",
+                "year": "2019"
+              },
+              {
+                "club": "Breidablik",
+                "year": "2019"
+              },
+              {
+                "club": "Bodø/Glimt",
+                "year": "2020"
+              },
+              {
+                "club": "FC Twente",
+                "year": "2023"
+              },
+              {
+                "club": "Birmingham",
+                "year": "2024"
+              },
+              {
+                "club": "FC Twente",
+                "year": "2025"
+              },
+              {
+                "club": "Birmingham",
+                "year": "2025"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 315,
+              "goals": 14,
+              "assists": 21,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 23,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Eus Waayers",
+            "position": "Right-Back",
+            "age": 19,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 3,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 93,
+              "goals": 1,
+              "assists": 9,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ],
+        "midfielders": [
+          {
+            "name": "Melle Meulensteen",
+            "position": "Defensive Midfield",
+            "age": 26,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 28,
+            "goals": 5,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "Lancaster City",
+                "year": "2017"
+              },
+              {
+                "club": "RKC Waalwijk",
+                "year": "2018"
+              },
+              {
+                "club": "Vitesse",
+                "year": "2022"
+              },
+              {
+                "club": "Sampdoria",
+                "year": "2024"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 276,
+              "goals": 19,
+              "assists": 9,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 21
+          },
+          {
+            "name": "Evert Linthorst",
+            "position": "Central Midfield",
+            "age": 26,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 24,
+            "goals": 1,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "VVV-Venlo Youth",
+                "year": "2009"
+              },
+              {
+                "club": "VVV-Venlo",
+                "year": "2018"
+              },
+              {
+                "club": "Ittihad Kalba",
+                "year": "2021"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2022"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 227,
+              "goals": 19,
+              "assists": 13,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 8
+          },
+          {
+            "name": "Kenzo Goudmijn",
+            "position": "Central Midfield",
+            "age": 24,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 15,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "AZ Alkmaar",
+                "year": "2019"
+              },
+              {
+                "club": "Sparta R.",
+                "year": "2021"
+              },
+              {
+                "club": "AZ Alkmaar",
+                "year": "2022"
+              },
+              {
+                "club": "Excelsior",
+                "year": "2022"
+              },
+              {
+                "club": "AZ Alkmaar",
+                "year": "2023"
+              },
+              {
+                "club": "Excelsior",
+                "year": "2024"
+              },
+              {
+                "club": "AZ Alkmaar",
+                "year": "2024"
+              },
+              {
+                "club": "Derby",
+                "year": "2024"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              },
+              {
+                "club": "Derby",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 306,
+              "goals": 21,
+              "assists": 24,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 13,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Yassir Salah Rahmouni",
+            "position": "Central Midfield",
+            "age": 19,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 19,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 55,
+              "goals": 3,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Robbin Weijenberg",
+            "position": "Central Midfield",
+            "age": 21,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 2,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2017"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 98,
+              "goals": 13,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 15
+          },
+          {
+            "name": "Jakob Breum",
+            "position": "Attacking Midfield",
+            "age": 22,
+            "nationality": "Denmark",
+            "club": "Go Ahead Eagles",
+            "appearances": 22,
+            "goals": 6,
+            "assists": 4,
+            "transfer_history": [
+              {
+                "club": "Odense BK Youth",
+                "year": "2018"
+              },
+              {
+                "club": "Odense BK",
+                "year": "2022"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 200,
+              "goals": 41,
+              "assists": 26,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 9,
+              "goals": 7,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 7
+          },
+          {
+            "name": "Søren Tengstedt",
+            "position": "Attacking Midfield",
+            "age": 25,
+            "nationality": "Denmark",
+            "club": "Go Ahead Eagles",
+            "appearances": 7,
+            "goals": 2,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Aalborg Freja IK",
+                "year": "2011"
+              },
+              {
+                "club": "Aalborg BK",
+                "year": "2019"
+              },
+              {
+                "club": "Aarhus GF",
+                "year": "2020"
+              },
+              {
+                "club": "Silkeborg IF",
+                "year": "2021"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 198,
+              "goals": 42,
+              "assists": 9,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 10
+          }
+        ],
+        "attackers": [
+          {
+            "name": "Mathis Suray",
+            "position": "Left Winger",
+            "age": 24,
+            "nationality": "Belgium",
+            "club": "Go Ahead Eagles",
+            "appearances": 26,
+            "goals": 10,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "FC Dordrecht",
+                "year": "2020"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 198,
+              "goals": 38,
+              "assists": 17,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 17
+          },
+          {
+            "name": "Oskar Sivertsen",
+            "position": "Left Winger",
+            "age": 22,
+            "nationality": "Norway",
+            "club": "Go Ahead Eagles",
+            "appearances": 11,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Kristiansund BK",
+                "year": "2019"
+              },
+              {
+                "club": "Hødd",
+                "year": "2022"
+              },
+              {
+                "club": "Kristiansund BK",
+                "year": "2022"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 111,
+              "goals": 17,
+              "assists": 18,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 3,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 11
+          },
+          {
+            "name": "Jaden Slory",
+            "position": "Right Winger",
+            "age": 20,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 16,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Feyenoord Youth",
+                "year": "2013"
+              },
+              {
+                "club": "FC Dordrecht",
+                "year": "2024"
+              },
+              {
+                "club": "Feyenoord",
+                "year": "2025"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2026"
+              },
+              {
+                "club": "Feyenoord",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 150,
+              "goals": 46,
+              "assists": 24,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Stefán Ingi Sigurdarson",
+            "position": "Centre-Forward",
+            "age": 25,
+            "nationality": "Iceland",
+            "club": "Go Ahead Eagles",
+            "appearances": 8,
+            "goals": 2,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Breidablik",
+                "year": "2018"
+              },
+              {
+                "club": "Augnablik",
+                "year": "2019"
+              },
+              {
+                "club": "Breidablik",
+                "year": "2019"
+              },
+              {
+                "club": "Boston Eagles",
+                "year": "2019"
+              },
+              {
+                "club": "Breidablik",
+                "year": "2020"
+              },
+              {
+                "club": "Grindavík",
+                "year": "2020"
+              },
+              {
+                "club": "Boston Eagles",
+                "year": "2021"
+              },
+              {
+                "club": "Breidablik",
+                "year": "2021"
+              },
+              {
+                "club": "ÍBV",
+                "year": "2021"
+              },
+              {
+                "club": "Breidablik",
+                "year": "2022"
+              },
+              {
+                "club": "HK Kópavogs",
+                "year": "2022"
+              },
+              {
+                "club": "Boston Eagles",
+                "year": "2022"
+              },
+              {
+                "club": "Breidablik",
+                "year": "2023"
+              },
+              {
+                "club": "Patro Eisden",
+                "year": "2023"
+              },
+              {
+                "club": "Sandefjord",
+                "year": "2024"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 138,
+              "goals": 67,
+              "assists": 8,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 14,
+              "goals": 3,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 9
+          },
+          {
+            "name": "Victor Edvardsen",
+            "position": "Centre-Forward",
+            "age": 30,
+            "nationality": "Sweden",
+            "club": "Go Ahead Eagles",
+            "appearances": 20,
+            "goals": 2,
+            "assists": 5,
+            "transfer_history": [
+              {
+                "club": "Utsiktens BK",
+                "year": "2015"
+              },
+              {
+                "club": "Elverum",
+                "year": "2016"
+              },
+              {
+                "club": "Stenungsunds IF",
+                "year": "2016"
+              },
+              {
+                "club": "IK Oddevold",
+                "year": "2017"
+              },
+              {
+                "club": "Karlstad BK",
+                "year": "2018"
+              },
+              {
+                "club": "Degerfors",
+                "year": "2020"
+              },
+              {
+                "club": "Djurgården",
+                "year": "2022"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 348,
+              "goals": 128,
+              "assists": 50,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 16
+          },
+          {
+            "name": "Richonell Margaret",
+            "position": "Centre-Forward",
+            "age": 25,
+            "nationality": "Suriname",
+            "club": "Go Ahead Eagles",
+            "appearances": 20,
+            "goals": 1,
+            "assists": 3,
+            "transfer_history": [
+              {
+                "club": "Ajax Youth",
+                "year": "2009"
+              },
+              {
+                "club": "TOP Oss",
+                "year": "2021"
+              },
+              {
+                "club": "Without Club",
+                "year": "2022"
+              },
+              {
+                "club": "TOP Oss",
+                "year": "2022"
+              },
+              {
+                "club": "RKC Waalwijk",
+                "year": "2023"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 233,
+              "goals": 35,
+              "assists": 26,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 13,
+              "goals": 4,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 18
+          },
+          {
+            "name": "Thibo Baeten",
+            "position": "Centre-Forward",
+            "age": 23,
+            "nationality": "Belgium",
+            "club": "Go Ahead Eagles",
+            "appearances": 16,
+            "goals": 1,
+            "assists": 3,
+            "transfer_history": [
+              {
+                "club": "NEC Nijmegen",
+                "year": "2021"
+              },
+              {
+                "club": "NEC Nijmegen",
+                "year": "2022"
+              },
+              {
+                "club": "Beerschot VA",
+                "year": "2022"
+              },
+              {
+                "club": "NEC Nijmegen",
+                "year": "2023"
+              },
+              {
+                "club": "Beerschot VA",
+                "year": "2023"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2023"
+              },
+              {
+                "club": "Roda JC",
+                "year": "2024"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 193,
+              "goals": 45,
+              "assists": 14,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 23
+          },
+          {
+            "name": "Finn Stokkers",
+            "position": "Centre-Forward",
+            "age": 29,
+            "nationality": "Netherlands",
+            "club": "Go Ahead Eagles",
+            "appearances": 15,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Sparta Youth",
+                "year": "2009"
+              },
+              {
+                "club": "Sparta R.",
+                "year": "2014"
+              },
+              {
+                "club": "Fortuna Sittard",
+                "year": "2017"
+              },
+              {
+                "club": "NAC Breda",
+                "year": "2019"
+              },
+              {
+                "club": "RKC Waalwijk",
+                "year": "2020"
+              },
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2022"
+              },
+              {
+                "club": "Without Club",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 375,
+              "goals": 88,
+              "assists": 45,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 6,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 27
+          },
+          {
+            "name": "Ofosu Boakye",
+            "position": "Centre-Forward",
+            "age": 18,
+            "nationality": "Ghana",
+            "club": "Go Ahead Eagles",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Go Ahead Eagles",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 46,
+              "goals": 18,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ]
+      },
+      "slotPhotoIndexBySlot": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0
+      },
+      "slotFlagScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "slotTeamLogoScales": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "slotClubCrestOverrideRelPathBySlot": {},
+      "headerLogoScale": 1,
+      "headerLogoNudgeX": 0,
+      "headerLogoOverrideRelPath": null,
+      "selectedEntry": {
+        "id": ".Storage/Squad Formation/Teams/Netherlands/Eredivisie/Go Ahead Eagles.json",
+        "name": "Go Ahead Eagles",
+        "country": "Netherlands",
+        "league": "Eredivisie",
+        "path": "../.Storage/Squad Formation/Teams/Netherlands/Eredivisie/Go Ahead Eagles.json"
+      },
+      "__revealPhraseByLanguage": {
+        "english": "plain",
+        "spanish": "answer-is"
+      },
+      "teamName": "Go Ahead Eagles",
+      "headerLogoRel": "Images/Teams/Netherlands/Eredivisie/Go Ahead Eagles.png",
+      "slots": [
+        {
+          "name": "Jari De Busser",
+          "frontRel": "https://flagcdn.com/w320/be.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Jari De Busser/26-244218.a5eaf0e517eda8ca623b8e67bc9847c2640d8f4adeeedea8f3f04787d6d7d825.webp"
+        },
+        {
+          "name": "Alfons Sampsted",
+          "frontRel": "https://flagcdn.com/w320/is.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Alfons Sampsted/26-237511.b9cc9753c08e079d34a9c205338cb411ae61ef159ef33ac13edfdeeafec3f3d5.webp"
+        },
+        {
+          "name": "Joris Kramer",
+          "frontRel": "https://flagcdn.com/w320/nl.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Joris Kramer/26-228363.c1f24a989e2408e57268cb05f7d72e6a24f7eec0ff040f0d3f1f94d0d6a577dc.webp"
+        },
+        {
+          "name": "Julius Dirksen",
+          "frontRel": "https://flagcdn.com/w320/nl.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Julius Dirksen/26-269747.ab37fdb3fcd588c63cad8ff8839da7c019577f3be66f25551792b8cf6be344dd.webp"
+        },
+        {
+          "name": "Dean James",
+          "frontRel": "https://flagcdn.com/w320/id.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Dean James/26-269247.44821a690962755ee22f5bb4e59441d8d834b537191377fdab4869e789e8b7e2.webp"
+        },
+        {
+          "name": "Melle Meulensteen",
+          "frontRel": "https://flagcdn.com/w320/nl.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Melle Meulensteen/26-239512.daa723837c7cb23ca64a77503684553514174957e295d042e33df2bf0fdc7c77.webp"
+        },
+        {
+          "name": "Evert Linthorst",
+          "frontRel": "https://flagcdn.com/w320/nl.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Evert Linthorst/26-244725.abfdbbab44af79b643b8d422ffeb72d955be7c5139c157f9e93097ba93d82c63.webp"
+        },
+        {
+          "name": "Mathis Suray",
+          "frontRel": "https://flagcdn.com/w320/be.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Mathis Suray/26-72892.eac813f04c9ca235e4bde935d4671b98a289c08247479a2100170131c87dc601.webp"
+        },
+        {
+          "name": "Jakob Breum",
+          "frontRel": "https://flagcdn.com/w320/dk.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Jakob Breum/26-256800.8f505a820893db7d89081b97cd855347a09293b0c18fc6873a86c862247a6fa0.webp"
+        },
+        {
+          "name": "Jaden Slory",
+          "frontRel": "https://flagcdn.com/w320/nl.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Jaden Slory/26-50403719.582432564636cda39e91aeca26cbabd0c350b7d0775112951612fca5107f52b6.webp"
+        },
+        {
+          "name": "Victor Edvardsen",
+          "frontRel": "https://flagcdn.com/w320/se.png",
+          "photoRel": "Images/Players/Club images/Netherlands/Eredivisie/Go Ahead Eagles/Victor Edvardsen/26-259921.5923c334e45c6f8d074f6100d8c86fc8051cefacdf7a3a573980d7d077437015.webp"
+        }
+      ],
+      "revealVoiceRel": "../.Storage/Voices/Team names/english/plain/Go%20Ahead%20Eagles.mp3",
+      "progressVoiceRel": "../.Storage/Voices/Levels/english/bundled-serious-03.mp3"
+    },
+    {
+      "isLogo": false,
+      "isIntro": false,
+      "isOutro": false,
+      "isBonus": false,
+      "squadType": "club",
+      "displayMode": "country",
+      "formationId": "41212",
+      "videoMode": true,
+      "currentSquad": {
+        "kind": "club",
+        "name": "SK Sturm Graz",
+        "imagePath": "Images/Teams/Austria/Bundesliga/SK Sturm Graz.png",
+        "transfermarktClubId": 122,
+        "source": {
+          "provider": "Transfermarkt",
+          "apiBase": "https://tmapi-alpha.transfermarkt.technology",
+          "season": {
+            "seasonId": 2025,
+            "label": "25/26",
+            "cyclicalName": "2026",
+            "competitionId": "A1"
+          },
+          "note": "Top-level appearances/goals/assists: current season for this club's domestic league (source.season.seasonId + competitionId): ceapi performance via curl + cookie, else leistungsdaten HTML row for wettbewerb/COMP (same cookie). club_career_totals: leistungsdatendetails HTML (set TRANSFERMARKT_COOKIE if WAF blocks) else CEAPI sum; goalkeepers also get goals_conceded and clean_sheets from HTML when present. national_team_career_totals: nationalmannschaft HTML else tmapi caps/goals; goalkeepers also get conceded/clean sheets from HTML when present.",
+          "missingLogoFile": true
+        },
+        "goalkeepers": [
+          {
+            "name": "Daniil Khudyakov",
+            "position": "Goalkeeper",
+            "age": 22,
+            "nationality": "Russia",
+            "club": "SK Sturm Graz",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Loko-Kazanka M.",
+                "year": "2020"
+              },
+              {
+                "club": "Loko Moscow",
+                "year": "2021"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 65,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 104,
+              "clean_sheets": 15
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Matteo Bignetti",
+            "position": "Goalkeeper",
+            "age": 21,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 10,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Stmk.-Sturm U15",
+                "year": "2018"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 112,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": 159,
+              "clean_sheets": 31
+            },
+            "national_team_career_totals": {
+              "appearances": 7,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": 6,
+              "clean_sheets": 3
+            },
+            "shirt_number": 40
+          },
+          {
+            "name": "Elias Lorenz",
+            "position": "Goalkeeper",
+            "age": 20,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 0,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "W. Innsbruck J.",
+                "year": "2014"
+              },
+              {
+                "club": "Salzburg Youth",
+                "year": "2019"
+              },
+              {
+                "club": "AKA Salzb. U15",
+                "year": "2020"
+              },
+              {
+                "club": "ASK Voitsberg",
+                "year": "2024"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 65,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": 96,
+              "clean_sheets": 15
+            },
+            "national_team_career_totals": {
+              "appearances": 7,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ],
+        "defenders": [
+          {
+            "name": "Dimitri Lavalée",
+            "position": "Centre-Back",
+            "age": 29,
+            "nationality": "Belgium",
+            "club": "SK Sturm Graz",
+            "appearances": 14,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Standard Liège",
+                "year": "2016"
+              },
+              {
+                "club": "MVV Maastricht",
+                "year": "2018"
+              },
+              {
+                "club": "Standard Liège",
+                "year": "2019"
+              },
+              {
+                "club": "Mainz",
+                "year": "2020"
+              },
+              {
+                "club": "Sint-Truiden",
+                "year": "2021"
+              },
+              {
+                "club": "Mainz",
+                "year": "2022"
+              },
+              {
+                "club": "KV Mechelen",
+                "year": "2022"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2023"
+              },
+              {
+                "club": "KV Mechelen",
+                "year": "2024"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 215,
+              "goals": 4,
+              "assists": 9,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 24
+          },
+          {
+            "name": "Jeyland Mitchell",
+            "position": "Centre-Back",
+            "age": 21,
+            "nationality": "Costa Rica",
+            "club": "SK Sturm Graz",
+            "appearances": 13,
+            "goals": 1,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Guanacasteca",
+                "year": "2021"
+              },
+              {
+                "club": "Liberia",
+                "year": "2023"
+              },
+              {
+                "club": "LD Alajuelense",
+                "year": "2024"
+              },
+              {
+                "club": "Feyenoord",
+                "year": "2024"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2025"
+              },
+              {
+                "club": "Feyenoord",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 85,
+              "goals": 3,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 23,
+              "goals": 2,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 2
+          },
+          {
+            "name": "Paul Koller",
+            "position": "Centre-Back",
+            "age": 24,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 23,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "AKA Admira U15",
+                "year": "2016"
+              },
+              {
+                "club": "Admira Wacker",
+                "year": "2019"
+              },
+              {
+                "club": "Grazer AK 1902",
+                "year": "2022"
+              },
+              {
+                "club": "Admira Wacker",
+                "year": "2022"
+              },
+              {
+                "club": "SCR Altach",
+                "year": "2023"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 171,
+              "goals": 15,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 12,
+              "goals": 3,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Emanuel Aiwu",
+            "position": "Centre-Back",
+            "age": 25,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 13,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Admira Youth",
+                "year": "2013"
+              },
+              {
+                "club": "AKA Admira U15",
+                "year": "2014"
+              },
+              {
+                "club": "Admira Wacker",
+                "year": "2018"
+              },
+              {
+                "club": "Rapid Vienna",
+                "year": "2021"
+              },
+              {
+                "club": "Cremonese",
+                "year": "2022"
+              },
+              {
+                "club": "Birmingham",
+                "year": "2023"
+              },
+              {
+                "club": "Cremonese",
+                "year": "2024"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 288,
+              "goals": 11,
+              "assists": 6,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 13,
+              "goals": 2,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 47
+          },
+          {
+            "name": "Niklas Geyrhofer",
+            "position": "Centre-Back",
+            "age": 26,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Stmk.-Sturm U15",
+                "year": "2014"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2020"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 176,
+              "goals": 4,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 0,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Albert Vallci",
+            "position": "Centre-Back",
+            "age": 30,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 6,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "AKA Kapfenberg",
+                "year": "2009"
+              },
+              {
+                "club": "SV Kapfenberg",
+                "year": "2014"
+              },
+              {
+                "club": "SV Lafnitz",
+                "year": "2015"
+              },
+              {
+                "club": "SV Horn",
+                "year": "2016"
+              },
+              {
+                "club": "FC Wacker",
+                "year": "2017"
+              },
+              {
+                "club": "Salzburg",
+                "year": "2019"
+              },
+              {
+                "club": "FC St. Gallen",
+                "year": "2022"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 348,
+              "goals": 29,
+              "assists": 20,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Emir Karic",
+            "position": "Left-Back",
+            "age": 28,
+            "nationality": "TM nationality id 24",
+            "club": "SK Sturm Graz",
+            "appearances": 24,
+            "goals": 0,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "LASK Youth",
+                "year": "2005"
+              },
+              {
+                "club": "FC Pasching You",
+                "year": "2007"
+              },
+              {
+                "club": "FAL U15",
+                "year": "2011"
+              },
+              {
+                "club": "FC Liefering",
+                "year": "2015"
+              },
+              {
+                "club": "SCR Altach",
+                "year": "2018"
+              },
+              {
+                "club": "Darmstadt 98",
+                "year": "2021"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 337,
+              "goals": 7,
+              "assists": 19,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 1,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 17
+          },
+          {
+            "name": "Jusuf Gazibegovic",
+            "position": "Right-Back",
+            "age": 26,
+            "nationality": "TM nationality id 24",
+            "club": "SK Sturm Graz",
+            "appearances": 3,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Salzburg Youth",
+                "year": "2011"
+              },
+              {
+                "club": "Salzburg Youth",
+                "year": "2013"
+              },
+              {
+                "club": "AKA Salzb. U15",
+                "year": "2014"
+              },
+              {
+                "club": "FC Liefering",
+                "year": "2018"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2020"
+              },
+              {
+                "club": "1.FC Köln",
+                "year": "2025"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2026"
+              },
+              {
+                "club": "1.FC Köln",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 263,
+              "goals": 8,
+              "assists": 19,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 23,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Arjan Malic",
+            "position": "Right-Back",
+            "age": 20,
+            "nationality": "Bosnia-Herzegovina",
+            "club": "SK Sturm Graz",
+            "appearances": 15,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "AKA SV Ried U15",
+                "year": "2019"
+              },
+              {
+                "club": "SV Ried",
+                "year": "2023"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2024"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 128,
+              "goals": 3,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 6,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 23
+          }
+        ],
+        "midfielders": [
+          {
+            "name": "Jon Gorenc Stankovic",
+            "position": "Defensive Midfield",
+            "age": 30,
+            "nationality": "Slovenia",
+            "club": "SK Sturm Graz",
+            "appearances": 22,
+            "goals": 2,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "NK Domzale",
+                "year": "2013"
+              },
+              {
+                "club": "Huddersfield",
+                "year": "2016"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2020"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 363,
+              "goals": 25,
+              "assists": 16,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 33,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 4
+          },
+          {
+            "name": "Ryan Fosso",
+            "position": "Defensive Midfield",
+            "age": 23,
+            "nationality": "Cameroon",
+            "club": "SK Sturm Graz",
+            "appearances": 7,
+            "goals": 1,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "FC Vaduz",
+                "year": "2022"
+              },
+              {
+                "club": "Fortuna Sittard",
+                "year": "2024"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 213,
+              "goals": 18,
+              "assists": 7,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Luca Weinhandl",
+            "position": "Central Midfield",
+            "age": 17,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 5,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Career break",
+                "year": "2014"
+              },
+              {
+                "club": "Stmk.-Sturm U15",
+                "year": "2022"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 73,
+              "goals": 11,
+              "assists": 3,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 6,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Jacob Peter Hödl",
+            "position": "Right Midfield",
+            "age": 19,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 21,
+            "goals": 2,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "JAZ GU-Süd",
+                "year": "2017"
+              },
+              {
+                "club": "Stmk.-Sturm U15",
+                "year": "2021"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 104,
+              "goals": 7,
+              "assists": 6,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 1,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 43
+          },
+          {
+            "name": "Stefan Hierländer",
+            "position": "Right Midfield",
+            "age": 35,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 9,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Spittal Youth",
+                "year": "2002"
+              },
+              {
+                "club": "AKA Kärnten U15",
+                "year": "2005"
+              },
+              {
+                "club": "Austria Kärnten",
+                "year": "2008"
+              },
+              {
+                "club": "Salzburg",
+                "year": "2010"
+              },
+              {
+                "club": "Leipzig",
+                "year": "2014"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2016"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 525,
+              "goals": 42,
+              "assists": 48,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 3,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 25
+          },
+          {
+            "name": "Otar Kiteishvili",
+            "position": "Attacking Midfield",
+            "age": 30,
+            "nationality": "Georgia",
+            "club": "SK Sturm Graz",
+            "appearances": 21,
+            "goals": 12,
+            "assists": 4,
+            "transfer_history": [
+              {
+                "club": "Metalurgi R.",
+                "year": "2014"
+              },
+              {
+                "club": "Dinamo Tbilisi",
+                "year": "2015"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2018"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 405,
+              "goals": 93,
+              "assists": 78,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 52,
+              "goals": 4,
+              "assists": 9,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 10
+          },
+          {
+            "name": "Filip Rózga",
+            "position": "Attacking Midfield",
+            "age": 19,
+            "nationality": "Poland",
+            "club": "SK Sturm Graz",
+            "appearances": 19,
+            "goals": 2,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Cracovia",
+                "year": "2023"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 104,
+              "goals": 12,
+              "assists": 7,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 3,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 8
+          },
+          {
+            "name": "Gizo Mamageishvili",
+            "position": "Attacking Midfield",
+            "age": 23,
+            "nationality": "Georgia",
+            "club": "SK Sturm Graz",
+            "appearances": 5,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Saburtalo Acad.",
+                "year": "2020"
+              },
+              {
+                "club": "Saburtalo",
+                "year": "2021"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 142,
+              "goals": 18,
+              "assists": 23,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ],
+        "attackers": [
+          {
+            "name": "Leon Grgic",
+            "position": "Centre-Forward",
+            "age": 20,
+            "nationality": "Croatia",
+            "club": "SK Sturm Graz",
+            "appearances": 16,
+            "goals": 3,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Stmk.-Sturm U15",
+                "year": "2020"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 123,
+              "goals": 40,
+              "assists": 9,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 4,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 38
+          },
+          {
+            "name": "Axel Kayombo",
+            "position": "Centre-Forward",
+            "age": 20,
+            "nationality": "France",
+            "club": "SK Sturm Graz",
+            "appearances": 12,
+            "goals": 0,
+            "assists": 1,
+            "transfer_history": [
+              {
+                "club": "Basel",
+                "year": "2023"
+              },
+              {
+                "club": "StadeLO",
+                "year": "2024"
+              },
+              {
+                "club": "Basel",
+                "year": "2025"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 143,
+              "goals": 47,
+              "assists": 7,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 0,
+              "goals": 0,
+              "assists": null,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 11
+          },
+          {
+            "name": "Maurice Malone",
+            "position": "Centre-Forward",
+            "age": 25,
+            "nationality": "Germany",
+            "club": "SK Sturm Graz",
+            "appearances": 25,
+            "goals": 3,
+            "assists": 2,
+            "transfer_history": [
+              {
+                "club": "Augsburg",
+                "year": "2019"
+              },
+              {
+                "club": "Wehen Wiesbaden",
+                "year": "2020"
+              },
+              {
+                "club": "Augsburg",
+                "year": "2021"
+              },
+              {
+                "club": "Heidenheim",
+                "year": "2021"
+              },
+              {
+                "club": "Augsburg",
+                "year": "2022"
+              },
+              {
+                "club": "Wolfsberger AC",
+                "year": "2022"
+              },
+              {
+                "club": "Augsburg",
+                "year": "2023"
+              },
+              {
+                "club": "Basel",
+                "year": "2023"
+              },
+              {
+                "club": "Austria Vienna",
+                "year": "2024"
+              },
+              {
+                "club": "Basel",
+                "year": "2025"
+              },
+              {
+                "club": "Austria Vienna",
+                "year": "2025"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 285,
+              "goals": 108,
+              "assists": 45,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 10,
+              "goals": 2,
+              "assists": 2,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Seedy Jatta",
+            "position": "Centre-Forward",
+            "age": 23,
+            "nationality": "Norway",
+            "club": "SK Sturm Graz",
+            "appearances": 24,
+            "goals": 3,
+            "assists": 3,
+            "transfer_history": [
+              {
+                "club": "Vålerenga",
+                "year": "2021"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2023"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 193,
+              "goals": 32,
+              "assists": 9,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 10,
+              "goals": 1,
+              "assists": 1,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "shirt_number": 20
+          },
+          {
+            "name": "Belmin Beganovic",
+            "position": "Centre-Forward",
+            "age": 21,
+            "nationality": "Austria",
+            "club": "SK Sturm Graz",
+            "appearances": 14,
+            "goals": 3,
+            "assists": 3,
+            "transfer_history": [
+              {
+                "club": "AKA SV Ried U15",
+                "year": "2018"
+              },
+              {
+                "club": "SV Ried",
+                "year": "2022"
+              },
+              {
+                "club": "Sturm Graz",
+                "year": "2025"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 141,
+              "goals": 35,
+              "assists": 11,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 4,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          },
+          {
+            "name": "Rory Wilson",
+            "position": "Centre-Forward",
+            "age": 20,
+            "nationality": "Scotland",
+            "club": "SK Sturm Graz",
+            "appearances": 1,
+            "goals": 0,
+            "assists": 0,
+            "transfer_history": [
+              {
+                "club": "Sturm Graz",
+                "year": "2026"
+              }
+            ],
+            "club_career_totals": {
+              "appearances": 73,
+              "goals": 44,
+              "assists": 5,
+              "goals_conceded": null,
+              "clean_sheets": null
+            },
+            "national_team_career_totals": {
+              "appearances": 2,
+              "goals": 0,
+              "assists": 0,
+              "goals_conceded": null,
+              "clean_sheets": null
+            }
+          }
+        ]
+      },
+      "slotPhotoIndexBySlot": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0,
+        "10": 0
+      },
+      "slotFlagScales": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "slotTeamLogoScales": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "slotClubCrestOverrideRelPathBySlot": {},
+      "headerLogoScale": 1,
+      "headerLogoNudgeX": 0,
+      "headerLogoOverrideRelPath": null,
+      "selectedEntry": {
+        "id": ".Storage/Squad Formation/Teams/Austria/Bundesliga/SK Sturm Graz.json",
+        "name": "SK Sturm Graz",
+        "country": "Austria",
+        "league": "Bundesliga",
+        "path": "../.Storage/Squad Formation/Teams/Austria/Bundesliga/SK Sturm Graz.json"
+      },
+      "__revealPhraseByLanguage": {
+        "english": "team-is",
+        "spanish": "and-the-answer"
+      },
+      "teamName": "Sturm Graz",
+      "headerLogoRel": "Images/Teams/Austria/Bundesliga/SK Sturm Graz.png",
+      "slots": [
+        {
+          "name": "Matteo Bignetti",
+          "frontRel": "https://flagcdn.com/w320/at.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Matteo Bignetti/26-268623.ffffd351ed17483501daf25b7b8de3b2dda49202af91d64d8ccebdf6fa774dd4.webp"
+        },
+        {
+          "name": "Arjan Malic",
+          "frontRel": "https://flagcdn.com/w320/ba.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Arjan Malic/26-73113.57c205d9b8e7888255f7aba80cdff9c88fe588ae049a1fe31b1f7a319a138894.webp"
+        },
+        {
+          "name": "Dimitri Lavalée",
+          "frontRel": "https://flagcdn.com/w320/be.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Dimitri Lavalée/26-236712.8a344caa4a4d77d3e693cabf0dea277883921d749df2e800ace76755c273fa92.webp"
+        },
+        {
+          "name": "Paul Koller",
+          "frontRel": "https://flagcdn.com/w320/at.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Paul Koller/26-252252.2049c2ccebe52616612a75e26d493069671d1ad753f056f647ec3a09e6234409.webp"
+        },
+        {
+          "name": "Emir Karic",
+          "frontRel": "https://flagcdn.com/w320/ba.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Emir Karic/26-244940.c2315f72420b0e57870c6aed4946efa27c300a6f123b9918dbf8ef4696d2329f.webp"
+        },
+        {
+          "name": "Jon Gorenc Stankovic",
+          "frontRel": "https://flagcdn.com/w320/si.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Jon Gorenc Stankovic/26-226129.3e6777deca83b9628b6c8a5450aa987fc6379e6343ee29af69374869bca093c5.webp"
+        },
+        {
+          "name": "Jacob Peter Hödl",
+          "frontRel": "https://flagcdn.com/w320/at.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Jacob Peter Hödl/26-74115.bb07fbc994072973f84dd079551090518e91ab0e4705c083c1e9b38351060aa4.webp"
+        },
+        {
+          "name": "Filip Rózga",
+          "frontRel": "https://flagcdn.com/w320/pl.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Filip Rózga/26-276395.0500d93056be9fb2a339de2191128b4c730181909a64e298f5445c9165ca3593.webp"
+        },
+        {
+          "name": "Otar Kiteishvili",
+          "frontRel": "https://flagcdn.com/w320/ge.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Otar Kiteishvili/26-245058.370064fb8cac7f8eca6905fab2a1e7f8eeb525a9e9ea5a8d801119f5606653b1.webp"
+        },
+        {
+          "name": "Maurice Malone",
+          "frontRel": "https://flagcdn.com/w320/de.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Maurice Malone/26-251431.7e6edc488fb9955901bd411688dc2e5961b6810f8d0b97aaf8942b3cecab6cdc.webp"
+        },
+        {
+          "name": "Seedy Jatta",
+          "frontRel": "https://flagcdn.com/w320/no.png",
+          "photoRel": "Images/Players/Club images/Austria/Bundesliga/SK Sturm Graz/Seedy Jatta/26-261293.c4582842d2234f04074e4566ad98fc34a8dbaf91b023837488376b2f03f54901.webp"
+        }
+      ],
+      "revealVoiceRel": "../.Storage/Voices/Team names/english/team-is/Sturm%20Graz.mp3",
+      "progressVoiceRel": ""
+    },
+    {
+      "isLogo": false,
+      "isIntro": false,
+      "isOutro": true,
+      "isBonus": false,
+      "squadType": "club",
+      "displayMode": "nationality",
+      "formationId": "433",
+      "videoMode": true,
+      "teamName": "",
+      "headerLogoRel": "",
+      "slots": [],
+      "slotFlagScales": [],
+      "slotTeamLogoScales": [],
+      "slotClubCrestOverrideRelPathBySlot": {},
+      "headerLogoScale": 1,
+      "headerLogoNudgeX": 0,
+      "headerLogoOverrideRelPath": null,
+      "selectedEntry": null,
+      "__revealPhraseByLanguage": null,
+      "currentSquad": null,
+      "slotPhotoIndexBySlot": {}
+    }
   ]
 }
