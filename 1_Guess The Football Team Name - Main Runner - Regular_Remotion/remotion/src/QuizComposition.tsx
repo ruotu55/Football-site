@@ -113,6 +113,7 @@ export const QuizComposition: React.FC<RemotionProps> = (props) => {
                   skipReveal={!!p.skipReveal}
                   localDurationInFrames={p.durationFrames}
                   assetBase={props.assetBase}
+                  bgStage={effectiveBg?.bgStage}
                 />
               </>
             ) : null;

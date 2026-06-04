@@ -75,6 +75,43 @@ function deriveHeaderLogoRel(lvl, quizType) {
 }
 
 /**
+ * Resolve the team-header COUNTRY FLAG rel/url for a question level.
+ * Mirrors pitch-render.js: resolveTeamHeaderFlagCountryLabel + getTeamHeaderFlagUrl.
+ *   - club    → selectedEntry.country (fallback: teamsIndex lookup by squad name)
+ *   - national → squad name
+ * Then country label → flagcode:
+ *   - England → repo path "Images/Nationality/Europe/England.png"
+ *   - else    → https://flagcdn.com/w320/<code>.png
+ * Returns "" when no country / no flagcode (renderer hides the flag section).
+ */
+function deriveHeaderFlagRel(lvl) {
+  const squad = lvl.currentSquad;
+  if (!squad) return "";
+
+  // resolveTeamHeaderFlagCountryLabel
+  let label = "";
+  if (lvl.squadType === "national") {
+    label = String(squad.name || "").trim();
+  } else if (lvl.squadType === "club") {
+    label = String(lvl.selectedEntry?.country || "").trim();
+    if (!label) {
+      const squadName = String(squad.name || "").trim();
+      const hit = appState.teamsIndex?.clubs?.find((c) => c.name === squadName);
+      label = String(hit?.country || "").trim();
+    }
+  }
+  if (!label) return "";
+
+  // getTeamHeaderFlagUrl: requires a flagcode to exist (even for England).
+  const code = appState.flagcodes[label];
+  if (!code) return "";
+  if (label === "England") {
+    return "Images/Nationality/Europe/England.png";
+  }
+  return `https://flagcdn.com/w320/${String(code).toLowerCase()}.png`;
+}
+
+/**
  * Resolve the front-face (badge) rel-path for one slot.
  *
  * Club XI  → player's nationality flag.
@@ -215,6 +252,14 @@ export function buildRemotionState() {
       }
     } catch { headerLogoRel = ""; }
 
+    // headerFlagRel (team-header country flag)
+    let headerFlagRel = "";
+    try {
+      if (isQuestionLevel) {
+        headerFlagRel = deriveHeaderFlagRel(lvl) || "";
+      }
+    } catch { headerFlagRel = ""; }
+
     // slots[]
     let slots = [];
     try {
@@ -312,6 +357,7 @@ export function buildRemotionState() {
       ...base,
       teamName,
       headerLogoRel,
+      headerFlagRel,
       slots,
       revealVoiceRel,
       progressVoiceRel,

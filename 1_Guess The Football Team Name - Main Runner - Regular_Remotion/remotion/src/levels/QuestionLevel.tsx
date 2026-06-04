@@ -15,6 +15,8 @@ interface QuestionLevelProps {
   skipReveal?: boolean;
   localDurationInFrames: number;
   assetBase: string;
+  /** Resolved theme stage color, forwarded to the team-header panel tint. */
+  bgStage?: string;
 }
 
 export const QuestionLevel: React.FC<QuestionLevelProps> = ({
@@ -23,6 +25,7 @@ export const QuestionLevel: React.FC<QuestionLevelProps> = ({
   skipReveal,
   localDurationInFrames: _localDurationInFrames,
   assetBase,
+  bgStage,
 }) => {
   const { fps } = useVideoConfig();
 
@@ -46,6 +49,7 @@ export const QuestionLevel: React.FC<QuestionLevelProps> = ({
           level={level}
           assetBase={assetBase}
           visibleFromFrame={revealFrame}
+          bgStage={bgStage}
         />
       )}
     </AbsoluteFill>

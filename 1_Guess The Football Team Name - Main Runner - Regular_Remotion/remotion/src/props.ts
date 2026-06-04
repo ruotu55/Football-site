@@ -25,6 +25,9 @@ export interface RemotionLevel {
   // Optional fields filled by the question-level fixture / real flow:
   teamName?: string;
   headerLogoRel?: string;
+  /** Team-header country flag (club → selectedEntry.country; national → squad name).
+   *  flagcdn URL or repo-relative "Images/Nationality/Europe/England.png". Empty = hide. */
+  headerFlagRel?: string;
   slots?: Array<{ name: string; frontRel: string; photoRel: string }>;
   // Optional audio voice paths (Phase 5.3 / real capture Phase 6.1):
   revealVoiceRel?: string;
