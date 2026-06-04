@@ -107,7 +107,10 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
   assetBase,
 }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, height } = useVideoConfig();
+  // Lift toward the viewer must scale with resolution (same basis as the pitch perspective,
+  // 1440px design height) so the 3D look is identical at any render size / in Studio.
+  const zLiftPx = 60 * (height / 1440);
 
   // ── Bob animation (mirrors app's float-up-down 4s ease-in-out infinite) ──
   // t: seconds within the 4s period, cosine gives ease-in-out shape
@@ -151,7 +154,7 @@ export const PlayerSlot: React.FC<PlayerSlotProps> = ({
     width: `${slotWidthPct}%`,
     aspectRatio: "1 / 1",
     // Centre the slot on its (x,y) position, lift off the surface, counter-rotate
-    transform: "translate(-50%, -50%) translateZ(60px) rotateX(-38deg) scale(1)",
+    transform: `translate(-50%, -50%) translateZ(${zLiftPx}px) rotateX(-38deg) scale(1)`,
     transformStyle: "preserve-3d",
     backfaceVisibility: "hidden",
     WebkitBackfaceVisibility: "hidden",

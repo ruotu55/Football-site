@@ -62,8 +62,17 @@ const SURFACE_HEIGHT_VH = 90.35; // vh (≈ 65.34 × 1.383)
  */
 const SLOT_DIAMETER_VH = 11.82; // vh
 
+// Design basis: the composition is authored at 2560×1440. The pitch's apparent SIZE is set
+// in vh/vw (resolution-independent), but the 3D look depends on fixed-px values (perspective,
+// slot translateZ). Those must scale with the actual render height so a 1080p / 1440p / 4K
+// render — and the Studio preview — all produce the IDENTICAL pitch angle and size.
+const DESIGN_HEIGHT = 1440;
+export const pxScaleForHeight = (height: number) => height / DESIGN_HEIGHT;
+
 export const Pitch: React.FC<PitchProps> = ({ level, cues, assetBase, frameOffset = 0 }) => {
-  const { fps } = useVideoConfig();
+  const { fps, height } = useVideoConfig();
+  const pxScale = pxScaleForHeight(height);
+  const perspectivePx = 1200 * pxScale; // was a fixed 1200px → different look per resolution
 
   if (!level) return null;
 
@@ -86,7 +95,7 @@ export const Pitch: React.FC<PitchProps> = ({ level, cues, assetBase, frameOffse
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    perspective: "1200px",
+    perspective: `${perspectivePx}px`,
     // The app's pitch-wrap is height:65.34vh; an AbsoluteFill effectively
     // centres the surface vertically inside this full-bleed wrapper too.
   };
