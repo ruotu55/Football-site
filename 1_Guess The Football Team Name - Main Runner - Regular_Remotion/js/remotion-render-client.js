@@ -6,6 +6,40 @@ function currentLanguage() {
   try { return (localStorage.getItem("voice-tab.language") || "english").toLowerCase(); } catch { return "english"; }
 }
 
+/* ── ETA estimator ──────────────────────────────────────────────────────────
+   Rolling-window rate: keep recent (time, frame) samples and estimate seconds
+   left from the throughput over the last ~10s. A recent window (not the all-time
+   average) keeps the estimate accurate as the render speeds up past the slow,
+   Chromium-booting first frames. */
+let _etaSamples = [];
+function resetEta() { _etaSamples = []; }
+function pushEtaSample(frame) {
+  if (typeof frame !== "number") return;
+  const t = (typeof performance !== "undefined" ? performance.now() : Date.now());
+  const last = _etaSamples[_etaSamples.length - 1];
+  if (last && frame < last.f) return; // ignore out-of-order
+  _etaSamples.push({ t, f: frame });
+  const cutoff = t - 10000; // keep ~10s
+  while (_etaSamples.length > 2 && _etaSamples[0].t < cutoff) _etaSamples.shift();
+}
+function estimateSecondsLeft(frame, total) {
+  if (!total || typeof frame !== "number" || _etaSamples.length < 2) return null;
+  const a = _etaSamples[0], b = _etaSamples[_etaSamples.length - 1];
+  const df = b.f - a.f;
+  const dt = (b.t - a.t) / 1000;
+  if (df <= 0 || dt <= 0.25) return null; // need a little signal first
+  const rate = df / dt; // frames per second
+  if (rate <= 0) return null;
+  return Math.max(0, total - frame) / rate;
+}
+function fmtTime(sec) {
+  if (sec == null || !isFinite(sec)) return "";
+  sec = Math.max(0, Math.round(sec));
+  const m = Math.floor(sec / 60), s = sec % 60;
+  if (m >= 60) { const h = Math.floor(m / 60); return `${h}h ${m % 60}m`; }
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
 /* ── Status box (inline styles so a stale CSS cache can't hide it) ───────── */
 let boxEls = null;
 function ensureBox() {
@@ -41,16 +75,21 @@ function ensureBox() {
 }
 function boxStarting() {
   const b = ensureBox();
+  resetEta();
   b.title.textContent = "Render Video";
   b.dot.style.background = "#e8b500"; b.dot.style.boxShadow = "0 0 10px #e8b500";
   b.stage.textContent = "Starting render…"; b.bar.style.width = "3%";
   b.count.textContent = "frame 0 / ?"; b.msg.style.display = "none"; b.open.style.display = "none";
 }
-function boxProgress(frame, total, pct, stage) {
+function boxProgress(frame, total, pct, stage, etaSec) {
   const b = ensureBox();
   if (typeof pct === "number") b.bar.style.width = Math.max(3, Math.min(100, pct)) + "%";
-  if (total) b.count.textContent = `frame ${frame ?? 0} / ${total}` + (typeof pct === "number" ? `  ·  ${pct}%` : "");
-  else if (frame != null) b.count.textContent = `frame ${frame}`;
+  if (total) {
+    let line = `frame ${frame ?? 0} / ${total}` + (typeof pct === "number" ? `  ·  ${pct}%` : "");
+    const eta = fmtTime(etaSec);
+    if (eta) line += `  ·  ~${eta} left`;
+    b.count.textContent = line;
+  } else if (frame != null) b.count.textContent = `frame ${frame}`;
   if (stage) b.stage.textContent = stage;
 }
 function boxDone(path) {
@@ -100,8 +139,14 @@ function subscribeProgress(jobId) {
   let sawDone = false;
   es.onmessage = (ev) => {
     let m; try { m = JSON.parse(ev.data); } catch { return; }
-    if (m.stage === "render") boxProgress(m.frame, m.total, m.pct, `Rendering — frame ${m.frame ?? "?"} / ${m.total ?? "?"}`);
-    else if (m.stage === "log") boxProgress(undefined, undefined, undefined, m.line ? String(m.line).slice(0, 90) : "Working…");
+    if (m.stage === "render") {
+      // Only the clean frame count + ETA — never raw Remotion log lines (which arrive with
+      // unrendered ANSI escapes). The subtitle stays a plain "Rendering…".
+      pushEtaSample(m.frame);
+      const etaSec = estimateSecondsLeft(m.frame, m.total);
+      boxProgress(m.frame, m.total, m.pct, "Rendering…", etaSec);
+    }
+    else if (m.stage === "log") { /* ignore log lines — they're noisy ANSI; keep the count display clean */ }
     else if (m.stage === "done") { sawDone = true; boxDone(m.path); es.close(); }
     else if (m.stage === "error") { boxError(m.message || "Render error"); es.close(); }
     else if (m.stage === "finished") {
