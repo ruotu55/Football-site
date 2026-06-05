@@ -184,6 +184,7 @@
 .play-video-btn,
 .record-video-btn,
 .render-video-btn,
+.render-test-clips-btn,
 .prod-btn {
   box-sizing: border-box;
   width: 6rem;
@@ -288,7 +289,7 @@ body.play-video-active .prod-btn {
 
 .play-video-btn {
   left: auto;
-  right: calc(15.5rem + 5vw);
+  right: calc(22.5rem + 5vw);
   background: #4da3ff;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(77, 163, 255, 0.4);
@@ -298,13 +299,29 @@ body.play-video-active .prod-btn {
   box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(77, 163, 255, 0.5);
 }
 
-/* Record Video — sits next to PROD on the right end, red.
-   (Render Video is hidden/on-hold, so we close the gap and match the sibling
-   runners' 4-button layout. If Render Video is ever re-enabled, shift these
-   three buttons one slot left and re-instate render-video-btn at 8.5rem.) */
+.render-test-clips-btn {
+  left: auto;
+  right: calc(22.5rem + 5vw);
+  top: calc(1.5rem + 2.65rem);
+  background: #8b5cf6;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(139, 92, 246, 0.45);
+}
+.render-test-clips-btn:hover {
+  background: #a78bfa;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6), 0 4px 10px rgba(167, 139, 250, 0.5);
+}
+.render-test-clips-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Record Video — red. Render Video is re-enabled at 8.5rem, so Record sits one
+   slot left of it at 15.5rem (Play and Video Mode shift left to match). */
 .record-video-btn {
   left: auto;
-  right: calc(8.5rem + 5vw);
+  right: calc(15.5rem + 5vw);
   background: #ef4444;
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(239, 68, 68, 0.4);
@@ -346,7 +363,7 @@ body.play-video-active .prod-btn {
 
 .video-mode-btn {
   left: auto;
-  right: calc(22.5rem + 5vw);
+  right: calc(29.5rem + 5vw);
   background: rgba(255, 255, 255, 0.12);
   color: #000;
   box-shadow: 0 6px 20px rgba(0,0,0,0.5), 0 2px 5px rgba(255, 255, 255, 0.18);
@@ -362,6 +379,7 @@ body.play-video-active .video-mode-btn,
 body.play-video-active .shorts-mode-btn,
 body.play-video-active .record-video-btn,
 body.play-video-active .render-video-btn,
+body.play-video-active .render-test-clips-btn,
 body.play-video-active .btn-save-current-team-fab {
   display: none !important;
 }

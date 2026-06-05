@@ -41,13 +41,10 @@ body:has(#screen-size-overlay:not([hidden])) .ball-preloader {
   transform: translateZ(0);
   will-change: -webkit-mask-image, mask-image;
 }
-/* Layer 1 (top, z-index 2): bg colour — you see this during the bounce, opens to reveal white.
-   overflow:hidden clips the ::before/::after pseudo-elements used to mirror
-   body background effects (sun-rays, spirals, etc.) during the ball bounce. */
+/* Layer 1 (top, z-index 2): flat stage colour during merge/bounce; opens to reveal white. */
 .ball-layer-1 {
   background: var(--bg-stage, #3c6553);
   z-index: 2;
-  overflow: hidden;
 }
 /* Layer 2 (bottom, z-index 1): white — looks like ball expanding, opens to reveal landing */
 .ball-layer-2 {

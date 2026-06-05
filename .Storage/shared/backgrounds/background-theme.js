@@ -1196,33 +1196,22 @@ function getEffectKeyframesCss() {
 }
 
 /**
- * Generate CSS that mirrors the body background effect onto .ball-layer-1
- * so the ball-drop preloader shows the same background instead of flat colour.
- * Only active when the preloader is NOT in reveal mode.
+ * Ball-drop preloader uses a flat stage colour only — no mirrored rays/haze
+ * pseudo-elements (those read as smoky overlays behind the merge animation).
  */
-function getBallPreloaderEffectCss(effectId, colorHex, opacityPercent, background, backgroundSize, animation) {
+function getBallPreloaderEffectCss(_effectId, colorHex) {
   const sel = `.ball-preloader:not(.revealing) .ball-layer-1`;
-  const extraCss = getEffectExtraCss(effectId, colorHex, opacityPercent);
-
-  /* Duplicate body::before / body::after rules for .ball-layer-1::before / ::after */
-  let pseudoCss = "";
-  /* Match   <anything> body::before { ... }  and  <anything> body::after { ... } */
-  const pseudoRe = /([^\n{]*)\bbody::(before|after)\s*\{([^}]+)\}/g;
-  let m;
-  while ((m = pseudoRe.exec(extraCss)) !== null) {
-    const pseudo = m[2]; // "before" or "after"
-    const props = m[3];
-    pseudoCss += `\n${sel}::${pseudo} { ${props} }\n`;
-  }
-
   return `
-/* Ball-preloader background effect mirror */
+/* Ball-preloader: solid stage fill (no background-effect mirror) */
 ${sel} {
-  background: ${background};
-  background-size: ${backgroundSize};
-  animation: ${animation};
+  background: var(--bg-stage, ${colorHex});
+  animation: none;
 }
-${pseudoCss}
+${sel}::before,
+${sel}::after {
+  display: none !important;
+  content: none !important;
+}
 `;
 }
 
@@ -1269,7 +1258,7 @@ function applyTheme(colorId, effectId, opacityPercent = DEFAULT_LINE_OPACITY_PER
 
 ${getEffectKeyframesCss()}
 ${getEffectExtraCss(normalizedEffectId, selectedColor.hex, normalizedOpacity)}
-${getBallPreloaderEffectCss(normalizedEffectId, selectedColor.hex, normalizedOpacity, background, backgroundSize, animation)}
+${getBallPreloaderEffectCss(normalizedEffectId, selectedColor.hex)}
 `;
   syncEmojiEffect(normalizedEffectId);
   syncQuestionMarksEffect(normalizedEffectId);

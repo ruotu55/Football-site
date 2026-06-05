@@ -4,7 +4,17 @@
 
 let overlay = null, titleEl = null, subEl = null, bigBar = null, workersWrap = null;
 let actionsEl = null, closeBtn = null, rerunBtn = null, errBtn = null, errBox = null, copyBtn = null;
+let playBtn = null, deleteBtn = null, playerWrap = null, videoEl = null;
+let lastOutputPath = "";
 const workerBars = []; // { fill, label }
+
+// Absolute output path -> server-relative URL the dev server can serve (it serves the repo root).
+function toWebUrl(absPath) {
+  const p = String(absPath || "").replace(/\\/g, "/");
+  const i = p.indexOf("/Ready videos/");
+  if (i < 0) return null;
+  return p.slice(i).split("/").map(encodeURIComponent).join("/");
+}
 
 function fmtTime(sec) {
   sec = Math.max(0, Math.round(sec));
@@ -34,6 +44,10 @@ function ensureOverlay() {
     #render-progress-overlay .rp-actions{margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
     #render-progress-overlay button{padding:9px 16px;border:0;border-radius:10px;font-weight:700;cursor:pointer}
     #render-progress-overlay .rp-close{background:#3a3f4a;color:#fff;display:none}
+    #render-progress-overlay .rp-play{background:#37d67a;color:#06281a;display:none}
+    #render-progress-overlay .rp-delete{background:#b91c1c;color:#fff;display:none}
+    #render-progress-overlay .rp-player{display:none;margin-top:14px}
+    #render-progress-overlay .rp-player video{width:100%;max-height:50vh;border-radius:10px;background:#000;display:block}
     #render-progress-overlay .rp-rerun{background:#f59e0b;color:#06281a;display:none}
     #render-progress-overlay .rp-errbtn{background:#b91c1c;color:#fff;display:none}
     #render-progress-overlay .rp-copy{background:#3a3f4a;color:#fff;display:none}
@@ -51,11 +65,14 @@ function ensureOverlay() {
       <div class="rp-track"><div class="rp-bar" id="rp-big"></div></div>
       <div class="rp-workers" id="rp-workers"></div>
       <div class="rp-actions">
+        <button class="rp-play" id="rp-play">▶ Play</button>
+        <button class="rp-delete" id="rp-delete">🗑 Delete</button>
         <button class="rp-errbtn" id="rp-errbtn">Show error</button>
         <button class="rp-copy" id="rp-copy">Copy error</button>
         <button class="rp-rerun" id="rp-rerun">Rerun</button>
         <button class="rp-close" id="rp-close">Close</button>
       </div>
+      <div class="rp-player" id="rp-player"><video id="rp-video" controls preload="metadata"></video></div>
       <div class="rp-errbox" id="rp-errbox"><textarea id="rp-errtext" readonly></textarea></div>
     </div>`;
   document.body.appendChild(overlay);
@@ -69,8 +86,61 @@ function ensureOverlay() {
   errBtn = overlay.querySelector("#rp-errbtn");
   copyBtn = overlay.querySelector("#rp-copy");
   errBox = overlay.querySelector("#rp-errbox");
+  playBtn = overlay.querySelector("#rp-play");
+  deleteBtn = overlay.querySelector("#rp-delete");
+  playerWrap = overlay.querySelector("#rp-player");
+  videoEl = overlay.querySelector("#rp-video");
 
-  closeBtn.onclick = () => { overlay.style.display = "none"; };
+  const stopVideo = () => { try { videoEl.pause(); } catch {} };
+  closeBtn.onclick = () => { stopVideo(); overlay.style.display = "none"; };
+
+  playBtn.onclick = () => {
+    const url = toWebUrl(lastOutputPath);
+    if (!url) return;
+    if (playerWrap.style.display !== "block") {
+      if (videoEl.getAttribute("src") !== url) videoEl.src = url;
+      playerWrap.style.display = "block";
+      playBtn.textContent = "⏸ Hide";
+      videoEl.play().catch(() => {});
+    } else {
+      stopVideo();
+      playerWrap.style.display = "none";
+      playBtn.textContent = "▶ Play";
+    }
+  };
+
+  deleteBtn.onclick = async () => {
+    if (!lastOutputPath) return;
+    if (!window.confirm("Delete this rendered clip?")) return;
+    deleteBtn.disabled = true;
+    deleteBtn.textContent = "Deleting…";
+    try {
+      const res = await fetch("/__render-video/delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ path: lastOutputPath }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        stopVideo();
+        videoEl.removeAttribute("src");
+        videoEl.load();
+        playerWrap.style.display = "none";
+        playBtn.style.display = "none";
+        deleteBtn.style.display = "none";
+        lastOutputPath = "";
+        titleEl.textContent = "🗑 Deleted";
+        subEl.textContent = "The clip was deleted.";
+      } else {
+        subEl.textContent = "Delete failed: " + (data.error || ("HTTP " + res.status));
+      }
+    } catch (e) {
+      subEl.textContent = "Delete failed: " + e;
+    } finally {
+      deleteBtn.disabled = false;
+      deleteBtn.textContent = "🗑 Delete";
+    }
+  };
   errBtn.onclick = () => { errBox.style.display = errBox.style.display === "block" ? "none" : "block"; };
   copyBtn.onclick = async () => {
     const t = overlay.querySelector("#rp-errtext");
@@ -81,13 +151,16 @@ function ensureOverlay() {
 }
 
 function resetButtons() {
-  [closeBtn, rerunBtn, errBtn, copyBtn].forEach((b) => (b.style.display = "none"));
+  [closeBtn, rerunBtn, errBtn, copyBtn, playBtn, deleteBtn].forEach((b) => (b.style.display = "none"));
   errBox.style.display = "none";
+  if (playerWrap) playerWrap.style.display = "none";
+  if (videoEl) { try { videoEl.pause(); } catch {} }
+  if (playBtn) playBtn.textContent = "▶ Play";
 }
 
-export function showRenderProgressModal(name) {
+export function showRenderProgressModal(name, title = "Rendering video…") {
   ensureOverlay();
-  titleEl.textContent = "Rendering video…";
+  titleEl.textContent = title;
   subEl.textContent = name ? `“${name}” — preparing…` : "Preparing…";
   bigBar.style.width = "0";
   bigBar.style.background = "linear-gradient(90deg,#37d67a,#2bb673)";
@@ -143,7 +216,13 @@ export function setRenderProgressDone(path) {
   workerBars.forEach((b) => (b.fill.style.width = "100%"));
   subEl.textContent = path || "Saved.";
   resetButtons();
+  lastOutputPath = path || "";
   closeBtn.style.display = "inline-block";
+  // Offer in-place Play + Delete when we can resolve a servable URL for the output.
+  if (toWebUrl(lastOutputPath)) {
+    playBtn.style.display = "inline-block";
+    deleteBtn.style.display = "inline-block";
+  }
 }
 
 // message: full error text. onRerun: callback for the Rerun button (optional).

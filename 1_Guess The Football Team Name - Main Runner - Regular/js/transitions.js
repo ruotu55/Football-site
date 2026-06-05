@@ -384,6 +384,28 @@ function _ensureNewOv(cls, build) {
   return c;
 }
 function _mkDiv(cls) { const d = document.createElement("div"); d.className = cls; return d; }
+
+/**
+ * Hide and kill any in-flight transition overlay. Render mode calls this at the start of
+ * the ball-preloader intro: a forced Cloud Drift fired during boot/script-apply can still
+ * be fading out on the virtual clock when frame capture begins, bleeding clouds over the
+ * intro. Killing the tweens + zeroing opacity guarantees the intro starts on a clean screen.
+ * (The real landing→Level-1 Cloud Drift later still runs normally.)
+ */
+export function resetTransitionOverlays() {
+  const containers = [
+    gridOverlayContainer, barsLeftContainer, barsTopContainer, curtainContainer,
+    ...Object.values(_newOverlays),
+  ].filter(Boolean);
+  const g = window.gsap;
+  for (const c of containers) {
+    try {
+      if (g) { g.killTweensOf(c); g.killTweensOf(c.querySelectorAll("*")); }
+      c.style.opacity = "0";
+      c.style.pointerEvents = "none";
+    } catch (_) { /* ignore */ }
+  }
+}
 function _newRun(cls, build, showFn, hideFn) {
   return async function (updateContentFn) {
     const gsap = await loadGsap();

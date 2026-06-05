@@ -4,22 +4,26 @@
 // with seeded randomness so every run is reproducible.
 //
 // IMPORTANT: import specifiers must match app.js exactly, or the browser loads a second
-// copy of the module with separate state. app.js imports video.js as "./video.js?v=20260601-voicedelay".
+// copy of the module with separate state. app.js imports video.js as "./video.js?v=20260605-3scountdown".
 
 import { appState } from "./state.js";
-import { startVideoFlow } from "./video.js?v=20260601-voicedelay";
+import { startVideoFlow } from "./video.js?v=20260605-3scountdown";
 import { setCurrentLanguage } from "./voice-tab.js";
 import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260601-autoopen5";
 import { switchLevel } from "./levels.js";
-import { renderSeedDurations, renderGetDurations } from "./audio.js";
+import { renderSeedDurations, renderGetDurations, renderPrewarmVoiceDurations } from "./audio.js";
+import { coverLandingForRenderIntro, runRenderTestSegment } from "./render-segments.js";
 
 function parseConfig() {
   const q = new URLSearchParams(location.search);
   if (q.get("render") !== "1") return null;
+  const segmentFromUrl = (q.get("segment") || "").trim();
+  const segmentFromInject = (typeof window.__renderSegmentId === "string" ? window.__renderSegmentId : "").trim();
   return {
     active: true,
     lang: (q.get("lang") || "english").toLowerCase(),
     script: q.get("script") || "",
+    segment: segmentFromUrl || segmentFromInject,
     fps: Number(q.get("fps") || 60),
     seed: q.get("seed") || (q.get("script") || "seed"),
   };
@@ -41,9 +45,23 @@ function makeSeededRandom(seedStr) {
   };
 }
 
+/** Preload GSAP before the driver captures frames (avoids intro frames without ball anim). */
+function preloadGsapForRender() {
+  if (window.gsap) return Promise.resolve(window.gsap);
+  return new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
+    s.onload = () => resolve(window.gsap);
+    s.onerror = () => reject(new Error("GSAP failed to load for render"));
+    document.head.appendChild(s);
+  });
+}
+
 export function initRenderModeIfRequested() {
   const cfg = parseConfig();
   if (!cfg) return null;
+
+  document.body.classList.add("render-mode-active");
 
   // Seed Math.random so GSAP "from:random" staggers, BGM/track picks, ending/phrase
   // picks, emoji jitter, and hatch patterns are all reproducible run-to-run.
@@ -85,9 +103,10 @@ export function initRenderModeIfRequested() {
 
   // Signal natural end of the video (same event Record Video waits for).
   document.addEventListener("recording-naturally-finished", () => {
+    if (render.done) return;
     render.endMs = performance.now();
     render.done = true;
-  }, { once: true });
+  });
 
   (async () => {
     try {
@@ -101,9 +120,13 @@ export function initRenderModeIfRequested() {
 
       // Begin from the landing page (level 1), exactly like Record Video's runRecordingPhase.
       if (appState.currentLevelIndex !== 1) {
-        switchLevel(1);
-        if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
-          await appState._transitionDone.catch(() => {});
+        if (cfg.segment) {
+          switchLevel(1, { instant: true });
+        } else {
+          switchLevel(1);
+          if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
+            await appState._transitionDone.catch(() => {});
+          }
         }
       }
 
@@ -117,6 +140,29 @@ export function initRenderModeIfRequested() {
         toggle.dispatchEvent(new Event("change"));
       }
 
+      // Pre-resolve the ENDING voice NOW, while we're still in real time (the virtual
+      // clock only starts when the driver begins advancing). The in-flow resolver hits
+      // the server (/__ending-voice/status, maybe /generate) — an async gap that, under
+      // the probe's virtual clock, lets time race tens of seconds ahead before it
+      // resolves. That inflated totalFrames into a long dead tail sitting on the ending
+      // screen. Caching the src + duration here makes playCommentBelow resolve instantly
+      // during the flow, so the render ends ~1s after the ending voice like it should.
+      try {
+        const realEndingResolver = window.__resolveEndingVoiceSrc;
+        if (typeof realEndingResolver === "function") {
+          const endingType = typeof window.__getSelectedEndingType === "function"
+            ? window.__getSelectedEndingType() : "think-you-know";
+          const endingSrcCache = new Map();
+          const src = await Promise.resolve(realEndingResolver(endingType)).catch(() => "");
+          if (src) {
+            endingSrcCache.set(endingType, String(src));
+            try { await renderPrewarmVoiceDurations([String(src)]); } catch (_) {}
+          }
+          window.__resolveEndingVoiceSrc = (et) =>
+            endingSrcCache.has(et) ? endingSrcCache.get(et) : realEndingResolver(et);
+        }
+      } catch (_) { /* non-fatal: fall back to the live resolver */ }
+
       if (document.fonts && document.fonts.ready) {
         // Never hang setup on fonts (can stall under heavy parallel load); cap the wait.
         await Promise.race([
@@ -125,7 +171,21 @@ export function initRenderModeIfRequested() {
         ]);
       }
 
-      render._startFn = () => startVideoFlow();
+      await preloadGsapForRender();
+
+      render._startFn = async () => {
+        try {
+          if (cfg.segment) {
+            await runRenderTestSegment(cfg.segment);
+            return;
+          }
+          coverLandingForRenderIntro();
+          startVideoFlow();
+        } catch (err) {
+          render.error = String((err && err.message) || err);
+          document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+        }
+      };
       render.ready = true;
     } catch (err) {
       render.error = String((err && err.message) || err);

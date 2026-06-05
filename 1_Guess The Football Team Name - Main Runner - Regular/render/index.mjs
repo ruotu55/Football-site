@@ -14,6 +14,7 @@ import { cpus } from "node:os";
 const WORKER_PATH = fileURLToPath(new URL("./worker.mjs", import.meta.url));
 import { launchRenderPage, FRAME_MS } from "./lib.mjs";
 import { buildAndMux } from "./audio-mux.mjs";
+import { getSegmentFrameBudget } from "./segment-budgets.mjs";
 
 function arg(n, d) { const a = process.argv; const i = a.indexOf(`--${n}`); return i >= 0 ? a[i + 1] : d; }
 function log(o) { console.log(JSON.stringify(o)); }
@@ -24,6 +25,9 @@ const out = arg("out", "./out/video.mp4");
 const port = Number(arg("port", 8888));
 const repoRoot = arg("repo-root", "");
 const maxFrames = Number(arg("max-frames", Infinity)); // testing cap
+const segment = arg("segment", "");
+const fps = Math.max(1, Number(arg("fps", 60)));      // test clips render at 30 for a quick preview
+const frameHeight = Math.max(1, Number(arg("height", 1440))); // 1440 full, 1080 preview
 // Single continuous pass by default: the only way to stay 100% in sync with the live app.
 // (Parallel windows desync because the flow has real-time deps that don't fast-forward
 //  identically, causing repeated intros / jumpy playback when segments are stitched.)
@@ -45,18 +49,29 @@ await mkdir(work, { recursive: true });
 await mkdir(dirname(out), { recursive: true });
 
 // ---- 1) PROBE ----
-log({ stage: "probe" });
+log({ stage: "probe", segment: segment || null });
 let totalFrames, durations, manifest;
+// Budgets are authored as 60fps frame counts; scale to the actual fps so a clip
+// covers the same wall-clock time at 30fps (half the frames).
+const segmentBudget = segment ? Math.round(getSegmentFrameBudget(segment) * fps / 60) : Infinity;
 {
-  const r = await launchRenderPage({ script, lang, port, scriptObject });
+  const r = await launchRenderPage({ script, lang, port, scriptObject, segment, fps, height: frameHeight });
   try {
     await r.startFlow();
-    let n = 0; const HARD = 60 * 60 * 14;
+    let n = 0; const HARD = segment ? segmentBudget + 60 : 60 * 60 * 14;
     for (; n < HARD; n++) {
       await r.advanceOneFrame();
-      if (n % 120 === 0 && await r.isDone()) break;
+      if (segment) {
+        if (await r.isDone()) break;
+        if (n + 1 >= segmentBudget) break;
+      } else if (n % 120 === 0 && await r.isDone()) {
+        break;
+      }
     }
-    totalFrames = Math.min(n + 18, maxFrames); // small tail to settle final frame
+    const tail = segment ? 12 : 18;
+    totalFrames = segment
+      ? Math.min(n + tail, segmentBudget + tail, maxFrames)
+      : Math.min(n + tail, maxFrames);
     durations = await r.getDurations();
     manifest = await r.getManifest();
   } finally { await r.browser.close(); }
@@ -64,7 +79,7 @@ let totalFrames, durations, manifest;
 const durFile = join(work, "durations.json");
 await writeFile(durFile, JSON.stringify(durations));
 await writeFile(join(work, "manifest.json"), JSON.stringify(manifest));
-log({ stage: "probed", totalFrames, virtualSec: +(totalFrames / 60).toFixed(1), audioEvents: manifest.length, voices: Object.keys(durations).length });
+log({ stage: "probed", totalFrames, fps, height: frameHeight, virtualSec: +(totalFrames / fps).toFixed(1), audioEvents: manifest.length, voices: Object.keys(durations).length });
 
 // ---- 2) PARALLEL CAPTURE (4 workers, each retried up to 3x on failure) ----
 const MAX_ATTEMPTS = 4; // 1 initial + 3 retries
@@ -97,8 +112,10 @@ function spawnWorker(x) {
     WORKER_PATH,
     "--script", script, "--lang", lang, "--start", String(x.s), "--end", String(x.e),
     "--out", x.seg, "--port", String(port), "--durations", durFile, "--w", String(x.w),
+    "--fps", String(fps), "--height", String(frameHeight),
   ];
   if (scriptJson) args.push("--script-json", scriptJson);
+  if (segment) args.push("--segment", segment);
   const p = spawn(process.execPath, args, { stdio: ["ignore", "pipe", "pipe"] });
   let buf = "";
   p.stdout.on("data", (d) => {
@@ -163,7 +180,7 @@ log({ stage: "concat", segments: segs.length });
 if (repoRoot) {
   log({ stage: "audio" });
   // Trim audio events to the rendered video length (matters when --max-frames caps the render).
-  const videoMs = (totalFrames / 60) * 1000;
+  const videoMs = (totalFrames / fps) * 1000;
   const trimmed = manifest.filter((e) => !Number.isFinite(e.atMs) || e.atMs <= videoMs);
   await buildAndMux({ manifest: trimmed, silentVideoPath: silent, outPath: out, repoRoot, workDir: work, videoMs });
 } else {

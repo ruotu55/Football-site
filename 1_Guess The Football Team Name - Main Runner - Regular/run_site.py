@@ -41,9 +41,9 @@ PROJECT_ROOT = RUNNER_DIR.parent
 RUNNER_VARIANT = "Lineups Regular"
 
 # ── Render Video jobs (frame-by-frame headless render via render/index.mjs) ──
-# ON HOLD: set this back to True to re-enable the Render Video feature. While False, the
-# endpoint refuses to spawn anything (no headless Chrome / ffmpeg) so it uses no resources.
-RENDER_FEATURE_ENABLED = False
+# Set to False to put the Render Video feature on hold: the endpoint refuses to spawn
+# anything (no headless Chrome / ffmpeg) so it uses no resources.
+RENDER_FEATURE_ENABLED = True
 _RENDER_JOBS: dict = {}
 
 
@@ -3388,23 +3388,46 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             script = str(body.get("script") or "").strip()
             language = _normalize_language(body.get("language"))
             script_object = body.get("scriptObject")
+            segment = str(body.get("segment") or "").strip()
             if not script:
                 raise ValueError("script is required")
+            # Full-render quality picks from the Render options dialog (test clips ignore these).
+            req_fps = body.get("fps")
+            req_height = body.get("height")
+            render_fps = req_fps if req_fps in (30, 60) else None
+            render_height = req_height if req_height in (1080, 1440, 2160) else None
         except ValueError as exc:
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
         out_dir = PROJECT_ROOT / "Ready videos" / language
+        if segment:
+            out_dir = out_dir / "render-tests"
+            out_path = out_dir / f"{script} - {segment}.mp4"
+        else:
+            out_path = out_dir / f"{script}.mp4"
         out_dir.mkdir(parents=True, exist_ok=True)
-        out_path = out_dir / f"{script}.mp4"
 
         job_id = uuid.uuid4().hex
+        listen_port = int(self.server.server_address[1])
         cmd = [
             _node_exe(), str(RUNNER_DIR / "render" / "index.mjs"),
             "--script", script, "--lang", language,
-            "--out", str(out_path), "--port", str(DEFAULT_PORT),
+            "--out", str(out_path), "--port", str(listen_port),
             "--repo-root", str(PROJECT_ROOT),
         ]
+        if segment:
+            cmd += ["--segment", segment]
+            # Render test clips are quick previews — 1080p @ 30fps (faster to produce;
+            # quality is not important, they're just to see what's going on).
+            cmd += ["--fps", "30", "--height", "1080"]
+        else:
+            # Full render: honour the dialog's FPS / resolution picks (index.mjs defaults
+            # to 60fps / 1440 if either is omitted).
+            if render_fps:
+                cmd += ["--fps", str(render_fps)]
+            if render_height:
+                cmd += ["--height", str(render_height)]
         # Render the user's CURRENT on-screen setup (not the saved-by-name version), exactly
         # like Record Video. The client captures it and we hand it to the driver via a temp file.
         if isinstance(script_object, dict):
@@ -3424,6 +3447,33 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         _RENDER_JOBS[job_id] = {"proc": proc, "lines": [], "done": False, "code": None, "out": str(out_path)}
         threading.Thread(target=_pump_render_job, args=(job_id,), daemon=True).start()
         self._write_json(200, {"ok": True, "jobId": job_id, "out": str(out_path)})
+        return True
+
+    def _try_render_delete(self) -> bool:
+        """POST /__render-video/delete — delete a rendered output file (used by the test-clip preview)."""
+        if urlparse(self.path).path.rstrip("/") != "/__render-video/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            raw = str(body.get("path") or "").strip()
+            if not raw:
+                raise ValueError("path is required")
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+        try:
+            target = Path(raw).resolve()
+            ready_root = (PROJECT_ROOT / "Ready videos").resolve()
+            if not target.is_relative_to(ready_root):
+                self._write_json(403, {"ok": False, "error": "Refusing to delete outside the Ready videos folder."})
+                return True
+            deleted = False
+            if target.exists():
+                target.unlink()
+                deleted = True
+            self._write_json(200, {"ok": True, "deleted": deleted})
+        except Exception as exc:  # noqa: BLE001
+            self._write_json(500, {"ok": False, "error": str(exc)})
         return True
 
     def _try_render_progress(self) -> bool:
@@ -3515,6 +3565,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_aliases_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if self._try_render_video():
+            return
+        if self._try_render_delete():
             return
         if self._try_generate_team_voice():
             return

@@ -29,6 +29,29 @@ function getOrCreateSlotMount(slotEl) {
   return mount;
 }
 
+/**
+ * Render only: the pitch circles bob via `.slot-mount { animation: float-up-down 4s }`,
+ * a composited CSS animation that runs at REAL wall-clock speed under the virtual clock
+ * (the compositor isn't synced to it) — so it looked way too fast in the rendered video.
+ * Drive the identical bob with GSAP (RAF/virtual-time-synced) so it matches Play exactly:
+ * float-up-down keyframes are 0 → -12px → 0 over 4s ease-in-out (half-cycle 2s yoyo).
+ * Flagged per mount so re-renders don't reset the bob (mounts persist across swaps).
+ */
+function applyRenderSlotFloats() {
+  if (!window.__render?.active || !window.gsap) return;
+  const mounts = appState.els.pitchSlots?.querySelectorAll(".player-slot.has-player > .slot-mount");
+  if (!mounts) return;
+  mounts.forEach((mount) => {
+    if (mount.dataset.renderFloat === "1") return; // already bobbing — keep it continuous
+    mount.dataset.renderFloat = "1";
+    mount.style.animation = "none"; // take over the composited CSS bob
+    window.gsap.set(mount, { y: 0, force3D: true });
+    window.gsap.to(mount, {
+      y: -12, duration: 2, ease: "sine.inOut", yoyo: true, repeat: -1, force3D: true,
+    });
+  });
+}
+
 /** Time from flip start until all flips finish (sync with pitch height transition). */
 export function getVideoRevealSyncedPitchTransitionSec(flipSlotCount) {
   const n = Math.max(0, Math.floor(Number(flipSlotCount)) || 0);
@@ -254,6 +277,29 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
     appState.teamSidebarAnimGeneration += 1;
     const gen = appState.teamSidebarAnimGeneration;
     th.classList.remove("team-header--show");
+    // Render: the CSS `transition: transform 0.5s ease-out` slide-in snaps under the
+    // virtual clock (looks instant). Drive the identical translateX(-100%)→0 slide with
+    // GSAP so it eases in smoothly like Play. (Play/Record keep the CSS transition.)
+    if (window.__render?.active && window.gsap) {
+      th.style.transition = "none";
+      window.gsap.killTweensOf(th);
+      window.gsap.fromTo(
+        th,
+        { xPercent: -100 },
+        {
+          xPercent: 0, duration: 0.5, ease: "power1.out", // ~matches CSS ease-out
+          onComplete: () => {
+            if (gen !== appState.teamSidebarAnimGeneration || th.hidden) return;
+            th.classList.add("team-header--show"); // hold final state via the class
+            window.gsap.set(th, { clearProps: "transform" });
+            th.style.transition = "";
+          },
+        },
+      );
+      appState.teamSidebarLastOpen = true;
+      appState.teamSidebarLastKey = slideKey;
+      return;
+    }
     void th.offsetWidth;
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
@@ -1884,6 +1930,7 @@ export function renderPitch() {
     }
     renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
   });
+  applyRenderSlotFloats();
   scheduleSlotNameFit();
 }
 

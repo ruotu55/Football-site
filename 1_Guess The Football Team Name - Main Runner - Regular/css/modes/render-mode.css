@@ -1,0 +1,38 @@
+/* Render Video (?render=1): headless screenshots composite body bg pseudo-layers
+   into the ball intro as a white smoky haze. Play/Record in a normal browser do not.
+   While the preloader runs, force a flat stage fill and hide every bg-effect layer. */
+
+body.render-mode-active.ball-preloader-active {
+  background: var(--bg-stage, #3c6553) !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+body.render-mode-active.ball-preloader-active::before,
+body.render-mode-active.ball-preloader-active::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+body.render-mode-active.ball-preloader-active .ball-preloader:not(.revealing) .ball-layer-1 {
+  background: var(--bg-stage, #3c6553) !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+body.render-mode-active.ball-preloader-active .ball-preloader:not(.revealing) .ball-layer-1::before,
+body.render-mode-active.ball-preloader-active .ball-preloader:not(.revealing) .ball-layer-1::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Hide the landing ONLY during merge/bounce (preloader not yet revealing). Once the
+   ball reveal starts (.revealing), the radial mask must expose the REAL landing + its
+   text underneath so it reveals progressively — exactly like Play. Hiding it the whole
+   time made the reveal show a blank background and the text pop in only after the
+   preloader hid. (Play/Record aren't render-mode-active, so they're unaffected.) */
+body.render-mode-active.ball-preloader-active:has(.ball-preloader:not(.revealing)) .landing-page {
+  visibility: hidden !important;
+}

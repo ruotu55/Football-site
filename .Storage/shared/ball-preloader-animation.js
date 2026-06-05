@@ -15,6 +15,8 @@ export function playBallMerge(gsap, preloader, geom) {
   merge.hidden = false;
   merge.style.opacity = "1";
 
+  /* No gooey SVG blur — it smears ball detail into a white smoky haze. */
+  goo.style.filter = "none";
   gsap.set(goo, { x: 0, y: 0, rotation: 0 });
   const gr = goo.getBoundingClientRect();
   gsap.set(goo, { x: geom.cx - (gr.left + gr.width / 2), y: geom.cy - (gr.top + gr.height / 2) });
@@ -22,8 +24,12 @@ export function playBallMerge(gsap, preloader, geom) {
   const FINAL = geom.scale;
   const R = 116;
   const starts = [[0, -R], [R, 0], [0, R], [-R, 0]];
+  // Render only: hold on the background alone for 0.5s before the 4 balls appear,
+  // then run the merge unchanged. (Keep the budget in render/segment-budgets.mjs +
+  // js/render-segments.js in sync with this hold for the intro test clip.)
+  const HOLD = window.__render?.active ? 0.5 : 0;
   liquids.forEach((el, i) => {
-    gsap.set(el, { x: starts[i][0], y: starts[i][1], scale: 0.2, opacity: 1, force3D: true });
+    gsap.set(el, { x: starts[i][0], y: starts[i][1], scale: 0.2, opacity: HOLD ? 0 : 1, force3D: true });
   });
 
   return new Promise((resolve) => {
@@ -39,10 +45,11 @@ export function playBallMerge(gsap, preloader, geom) {
       resolve();
     };
     const tl = gsap.timeline({ onComplete: handoff });
-    tl.to(liquids, { duration: 0.42, scale: 1.0, ease: "back.out(1.7)", stagger: 0.05, force3D: true }, 0);
-    tl.to(goo, { duration: 1.05, rotation: 360, ease: "power1.inOut" }, 0);
-    tl.to(liquids, { duration: 0.52, x: 0, y: 0, ease: "power2.inOut", force3D: true }, 0.45);
-    tl.to(liquids, { duration: 0.34, scale: FINAL, ease: "power2.in", force3D: true }, 0.63);
+    if (HOLD) tl.set(liquids, { opacity: 1 }, HOLD);
+    tl.to(liquids, { duration: 0.42, scale: 1.0, ease: "back.out(1.7)", stagger: 0.05, force3D: true }, HOLD);
+    tl.to(goo, { duration: 1.05, rotation: 360, ease: "power1.inOut" }, HOLD);
+    tl.to(liquids, { duration: 0.52, x: 0, y: 0, ease: "power2.inOut", force3D: true }, HOLD + 0.45);
+    tl.to(liquids, { duration: 0.34, scale: FINAL, ease: "power2.in", force3D: true }, HOLD + 0.63);
   });
 }
 
@@ -58,20 +65,17 @@ export function playBallPreloader(loadGsap) {
   ball.removeAttribute("style");
   ball.style.opacity = "0";
   preloader.hidden = false;
+  preloader.querySelectorAll(".ball-bg-mirror").forEach((el) => el.remove());
+  document.body.classList.add("ball-preloader-active");
 
-  (function mirrorDomBackgroundOverlays() {
-    preloader.querySelectorAll(".ball-bg-mirror").forEach((el) => el.remove());
-    ["shared-background-emojis", "shared-background-question-marks"].forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) {
-        const clone = el.cloneNode(true);
-        clone.removeAttribute("id");
-        clone.className = "ball-bg-mirror " + el.className;
-        clone.style.zIndex = "2";
-        preloader.appendChild(clone);
-      }
-    });
-  })();
+  const layer1Early = preloader.querySelector(".ball-layer-1");
+  if (window.__render?.active && layer1Early) {
+    const stage = getComputedStyle(document.documentElement).getPropertyValue("--bg-stage").trim()
+      || "#3c6553";
+    layer1Early.style.background = stage;
+    layer1Early.style.backgroundImage = "none";
+    layer1Early.style.animation = "none";
+  }
 
   return loadGsap().then((gsap) => {
     gsap.set(ball, { clearProps: "all" });
@@ -119,7 +123,6 @@ export function playBallPreloader(loadGsap) {
               const cx = Math.round(r.left + r.width / 2) + "px";
               const cy = Math.round(r.top + r.height / 2) + "px";
 
-              preloader.querySelectorAll(".ball-bg-mirror").forEach((el) => el.remove());
               layer1.style.cssText = "";
 
               preloader.style.setProperty("--reveal-cx", cx);
@@ -150,7 +153,7 @@ export function playBallPreloader(loadGsap) {
               onComplete: () => {
                 preloader.hidden = true;
                 preloader.classList.remove("revealing");
-                preloader.querySelectorAll(".ball-bg-mirror").forEach((el) => el.remove());
+                document.body.classList.remove("ball-preloader-active");
                 layer1.removeAttribute("style");
                 gsap.set([ball, layer1, layer2], { clearProps: "all" });
                 resolve();
@@ -162,5 +165,6 @@ export function playBallPreloader(loadGsap) {
   }).catch((err) => {
     console.error("[ball-preloader] GSAP failed:", err);
     preloader.hidden = true;
+    document.body.classList.remove("ball-preloader-active");
   });
 }

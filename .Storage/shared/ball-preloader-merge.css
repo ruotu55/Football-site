@@ -1,5 +1,13 @@
 /* Shared: 4-ball merge intro before landing ball bounce/expand (Regular runners). */
 
+/* Intro is balls-only: hide body particle layers that sit above the preloader. */
+body.ball-preloader-active .shared-bg-emojis,
+body.ball-preloader-active .shared-bg-question-marks,
+body.ball-preloader-active .shared-bg-soccer-balls {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 .ball-merge {
   position: absolute;
   inset: 0;

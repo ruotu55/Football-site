@@ -44,6 +44,9 @@ loadGsap();
 function playBallPreloader() {
   return runSharedBallPreloader(loadGsap);
 }
+/** Per-question countdown length (seconds) for Play/Record/Render. The answer-reveal
+ *  (voice + photo flip) runs AFTER this, unchanged. Single source of truth — retune here. */
+const QUESTION_COUNTDOWN_SECONDS = 3;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 /** Landing-page quiz voice waits this long after the ball animation starts (Regular). */
 const LANDING_QUIZ_VOICE_DELAY_MS = 1000;
@@ -101,6 +104,7 @@ export function stopVideoFlow() {
   /* Hide ball preloader if mid-animation */
   const preloader = document.getElementById("ball-preloader");
   if (preloader) { preloader.hidden = true; }
+  document.body.classList.remove("ball-preloader-active");
   setVideoRevealPostTimerActive(false);
   clearPitchWrapTransitionOverride();
   document.body.classList.remove("play-video-active");
@@ -131,6 +135,9 @@ export function stopVideoFlow() {
 }
 
 export function startVideoFlow() {
+  if (window.__render?.active && window.__render?.config?.segment) {
+    return;
+  }
   const state = getState();
   const { els } = appState;
   const isShorts = document.body.classList.contains("shorts-mode");
@@ -237,7 +244,16 @@ function scheduleAfterTransition(fn, fallbackMs = 0) {
   }
 }
 
-function runVideoStep() {
+function finishRenderTestClip(tailMs = 600) {
+  clearInterval(appState.videoInterval);
+  clearTimeout(appState.videoTimeout);
+  appState.isVideoPlaying = false;
+  setTimeout(() => {
+    document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+  }, tailMs);
+}
+
+export function runVideoStep() {
   const { els } = appState;
   setVideoRevealPostTimerActive(false);
   const isIntro = appState.currentLevelIndex < 2;
@@ -263,21 +279,22 @@ function runVideoStep() {
       revealCurrentLevel(); 
     }, delay);
   } else {
-    let count = 10;
+    let count = QUESTION_COUNTDOWN_SECONDS;
     let totalTime = count;
     const drainTotalTime = totalTime;
     const textEl = document.getElementById("countdown-text");
     const showNumericCountdown = isShorts;
     const circleEl = document.querySelector(".timer-progress");
-    const dashLength = 283; 
+    const dashLength = 283;
+    // Tuned for the 3s countdown: 3 = green, 2 = yellow, 1/0 = red.
     function updateTimerColors(c) {
-      if (isShorts) return; 
-      if (c > 6) { 
-        els.countdownTimer.classList.add("timer-green"); 
-        els.countdownTimer.classList.remove("timer-yellow", "pulse"); 
-      } else if (c > 3) { 
-        els.countdownTimer.classList.add("timer-yellow"); 
-        els.countdownTimer.classList.remove("timer-green", "pulse"); 
+      if (isShorts) return;
+      if (c >= 3) {
+        els.countdownTimer.classList.add("timer-green");
+        els.countdownTimer.classList.remove("timer-yellow", "pulse");
+      } else if (c === 2) {
+        els.countdownTimer.classList.add("timer-yellow");
+        els.countdownTimer.classList.remove("timer-green", "pulse");
       } else {
         els.countdownTimer.classList.remove("timer-green", "timer-yellow");
       }
@@ -287,14 +304,27 @@ function runVideoStep() {
     els.countdownTimer.hidden = false;
     textEl.textContent = showNumericCountdown ? String(count) : "";
     if (circleEl) {
-      circleEl.style.transition = "none"; 
-      circleEl.style.strokeDashoffset = 0; 
-      void circleEl.offsetWidth; 
-      setTimeout(() => {
-        circleEl.style.transition = "stroke-dashoffset 1s linear";
-        const ratio = (drainTotalTime - (count - 1)) / drainTotalTime;
-        circleEl.style.strokeDashoffset = dashLength * ratio;
-      }, 50);
+      if (window.__render?.active && window.gsap) {
+        // Under the render virtual clock, CSS transitions don't interpolate — they snap
+        // to each tick's value, so the ring jumped in 1s steps. Drive one smooth linear
+        // drain with GSAP (RAF/virtual-time-synced) so it moves continuously like Play.
+        window.gsap.killTweensOf(circleEl);
+        circleEl.style.transition = "none";
+        window.gsap.fromTo(
+          circleEl,
+          { strokeDashoffset: 0 },
+          { strokeDashoffset: dashLength, duration: drainTotalTime, ease: "none" },
+        );
+      } else {
+        circleEl.style.transition = "none";
+        circleEl.style.strokeDashoffset = 0;
+        void circleEl.offsetWidth;
+        setTimeout(() => {
+          circleEl.style.transition = "stroke-dashoffset 1s linear";
+          const ratio = (drainTotalTime - (count - 1)) / drainTotalTime;
+          circleEl.style.strokeDashoffset = dashLength * ratio;
+        }, 50);
+      }
     }
     const delayToTick = Math.max(0, (count - (isShorts ? 4.0 : 3.0)) * 1000);
     setTimeout(() => { if (appState.isVideoPlaying) playTicking(); }, delayToTick);
@@ -306,12 +336,12 @@ function runVideoStep() {
         updateTimerColors(count); 
         els.countdownTimer.hidden = false;
         textEl.textContent = showNumericCountdown ? String(count) : "";
-        if (circleEl) {
-          const nextCount = count - 1; 
+        if (circleEl && !window.__render?.active) {
+          const nextCount = count - 1;
           const ratio = (drainTotalTime - nextCount) / drainTotalTime;
           circleEl.style.strokeDashoffset = dashLength * ratio;
         }
-        if (count <= 3) {
+        if (count <= 1) {
           if (!els.countdownTimer.classList.contains("pulse")) {
             els.countdownTimer.classList.add("pulse");
           }
@@ -323,6 +353,10 @@ function runVideoStep() {
         stopTicking();
         els.countdownTimer.hidden = true;
         els.countdownTimer.classList.remove("pulse", "timer-green", "timer-yellow");
+        if (window.__render?.active && window.__renderSegment === "level-countdown") {
+          finishRenderTestClip(500);
+          return;
+        }
         const shortsEndingType = typeof window.__getSelectedEndingType === "function"
           ? window.__getSelectedEndingType() : "think-you-know";
         const skipRevealToOutro =
@@ -388,6 +422,10 @@ function revealCurrentLevel() {
   appState.videoTimeout = setTimeout(() => {
     if (!appState.isVideoPlaying) return;
     setVideoRevealPostTimerActive(false);
+    if (window.__render?.active && (window.__renderSegment === "level-reveal" || window.__renderSegment === "level-full")) {
+      finishRenderTestClip(700);
+      return;
+    }
     let jumpToIndex = appState.currentLevelIndex + 1;
     if (jumpToIndex <= appState.totalLevelsCount) {
       switchLevel(jumpToIndex);
@@ -398,6 +436,12 @@ function revealCurrentLevel() {
       scheduleAfterTransition(() => {
         if (!appState.isVideoPlaying) return;
         if (appState.currentLevelIndex !== jumpToIndex) return;
+        // Render test clip "level-playing": stop once the NEXT level is on screen
+        // (we wanted to capture one level playing out + the move to the next).
+        if (window.__render?.active && window.__renderSegment === "level-playing") {
+          finishRenderTestClip(700);
+          return;
+        }
         if (shouldContinueVideo) {
           runVideoStep();
         } else {
@@ -408,4 +452,9 @@ function revealCurrentLevel() {
       stopVideoFlow();
     }
   }, flipDelay);
+}
+
+/** Render test clip: answer reveal only (no advance to next level). */
+export function revealCurrentLevelForRenderTest() {
+  revealCurrentLevel();
 }
