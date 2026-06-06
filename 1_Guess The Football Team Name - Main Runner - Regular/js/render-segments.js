@@ -2,8 +2,7 @@
 
 import { appState } from "./state.js";
 import { switchLevel } from "./levels.js";
-import { playBallPreloader as runSharedBallPreloader } from "../../.Storage/shared/ball-preloader-animation.js";
-import { runVideoStep, revealCurrentLevelForRenderTest } from "./video.js?v=20260605-3scountdown";
+import { runVideoStep, revealCurrentLevelForRenderTest, runLandingIntro } from "./video.js?v=20260605-3scountdown";
 import { resetTransitionOverlays } from "./transitions.js";
 
 /** Sections shown in the Render Test Clips menu. Exactly three clips. */
@@ -48,7 +47,7 @@ export function finishRenderSegment(tailMs = 300) {
 
 /** @type {Record<string, number>} frames at 60fps — keep in sync with render/segment-budgets.mjs */
 export const SEGMENT_FRAME_BUDGETS = {
-  intro: 300,             // 0.5s background-only hold + ball merge + bounce + circular reveal of Level 1 (~5s; cap-bound, no natural finish)
+  intro: 600,             // 0.5s hold + ball merge/bounce/reveal + quiz-title voice (1s after balls) + switch to Q1 on voice end (~8-9s; natural finish via finishRenderSegment, cap is just a safety)
   "level-playing": 960,   // 10s countdown + 3s reveal + transition into the next level
   ending: 900,            // last level tail + transition + full ending (probe stops early on natural finish)
 };
@@ -125,13 +124,16 @@ function ensureQuestionReady(index, label) {
   }
 }
 
-/** Intro: the 4-ball merge → bounce → reveal of Level 1 (landing). */
+/** Intro test clip: runs the EXACT same intro as the full render (runLandingIntro in
+ *  video.js) — ball merge → reveal Level 1 → quiz-title voice 1s after the balls → switch
+ *  to Q1 when the voice ENDS. The ONLY difference vs the full render is that the clip ends
+ *  after the switch (finishRenderSegment) instead of starting the question. Do NOT duplicate
+ *  intro logic here — keep it in runLandingIntro so the test stays 100% identical. */
 async function runIntro() {
   switchLevel(1, { instant: true });
   prepareRenderPlaybackUi();
   coverLandingForRenderIntro();
-  await runSharedBallPreloader(loadGsap);
-  finishRenderSegment(500);
+  runLandingIntro(() => finishRenderSegment(1200));
 }
 
 /** Level playing: first question plays out (countdown + reveal) then moves to the next level. */

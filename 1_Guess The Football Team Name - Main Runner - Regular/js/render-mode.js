@@ -163,6 +163,25 @@ export function initRenderModeIfRequested() {
         }
       } catch (_) { /* non-fatal: fall back to the live resolver */ }
 
+      // Pre-resolve the QUIZ-TITLE (rules) voice too — same async-gap issue. The intro
+      // plays it 1s after the balls and switches to Level 1 only when it ENDS, so a
+      // resolver gap would throw off BOTH the start time and the switch. Caching the src
+      // + duration here makes playRules() resolve instantly during the flow.
+      try {
+        const realRulesResolver = window.__resolveQuizTitleVoiceSrc;
+        if (typeof realRulesResolver === "function") {
+          const quizType = document.getElementById("in-quiz-type")?.value || "nat-by-club";
+          const rulesSrcCache = new Map();
+          const src = await Promise.resolve(realRulesResolver(quizType)).catch(() => "");
+          if (src) {
+            rulesSrcCache.set(quizType, String(src));
+            try { await renderPrewarmVoiceDurations([String(src)]); } catch (_) {}
+          }
+          window.__resolveQuizTitleVoiceSrc = (qt) =>
+            rulesSrcCache.has(qt) ? rulesSrcCache.get(qt) : realRulesResolver(qt);
+        }
+      } catch (_) { /* non-fatal: fall back to the live resolver */ }
+
       if (document.fonts && document.fonts.ready) {
         // Never hang setup on fonts (can stall under heavy parallel load); cap the wait.
         await Promise.race([

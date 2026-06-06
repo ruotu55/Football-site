@@ -8,6 +8,7 @@ import {
   renderHeader,
   renderPitch,
   resolveHeaderTeamDisplayName,
+  revealSidebarForRender,
   shouldUseVideoQuestionLayout,
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
@@ -50,6 +51,10 @@ const QUESTION_COUNTDOWN_SECONDS = 3;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
 /** Landing-page quiz voice waits this long after the ball animation starts (Regular). */
 const LANDING_QUIZ_VOICE_DELAY_MS = 1000;
+/** Render-only: the ball preloader holds on the background for 0.5s BEFORE the 4 balls
+ *  appear (see ball-preloader-animation.js playBallMerge HOLD). The intro voice must wait
+ *  this out too so it still starts 1s after the 4 BALLS appear (not 1s after the preloader). */
+const BALL_INTRO_RENDER_HOLD_MS = 500;
 /** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
 const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
 
@@ -79,6 +84,8 @@ function refreshCurrentQuestionPreview() {
       const filled = pitchSlots?.querySelectorAll(".player-slot.has-player");
       const n = filled?.length ?? 0;
       syncPitchWrapTransitionToVideoReveal(n);
+      // renderHeader() slides the sidebar in (render: GSAP, same tick as the flip below);
+      // applyVideoQuestionPostTimerFlip() flips the circles. Same synchronous tick → synced.
       renderHeader();
       applyVideoQuestionPostTimerFlip();
       return;
@@ -208,25 +215,44 @@ export function startVideoFlow() {
   /* Landing page: ball-drop animation starts immediately so the landing
      is never visible before it; voice follows shortly after. */
   if (appState.currentLevelIndex === 1) {
-    const quizType = els.inQuizType?.value || "nat-by-club";
-    playBallPreloader();
-    /* Voice starts 1s after the ball animation begins (was immediate — too early). */
-    appState.videoTimeout = setTimeout(() => {
-      if (!appState.isVideoPlaying) return;
-      playRules(quizType, 0).then(() => {
+    // The intro test clip (render-segments.js runIntro) calls this SAME function so the
+    // preview is 100% identical to the full render — only the after-switch step differs.
+    runLandingIntro(() => {
+      scheduleAfterTransition(() => {
         if (!appState.isVideoPlaying) return;
-        /* Skip runVideoStep delays — go straight to level 2 */
-        switchLevel(2);
-        scheduleAfterTransition(() => {
-          if (!appState.isVideoPlaying) return;
-          runVideoStep();
-        }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
-      });
-    }, LANDING_QUIZ_VOICE_DELAY_MS);
+        runVideoStep();
+      }, LEVEL_SWITCH_STAGE_TRANSITION_MS);
+    });
     return;
   }
 
   runVideoStep();
+}
+
+/**
+ * The landing intro, shared by the full render (startVideoFlow) and the `intro` render
+ * TEST CLIP so they can never drift: ball-drop preloader → quiz-title voice 1s after the
+ * 4 balls appear → switch to the first question (Level 2) ONLY when the voice ENDS.
+ * `afterSwitch` runs right after `switchLevel(2)` (full render → runVideoStep; test clip →
+ * finishRenderSegment). Keep ALL intro behavior here; never duplicate it in a runner.
+ */
+export function runLandingIntro(afterSwitch) {
+  const { els } = appState;
+  const quizType = els.inQuizType?.value || "nat-by-club";
+  playBallPreloader();
+  /* Voice starts 1s after the 4 balls appear. In render the preloader holds on the
+     background 0.5s before the balls, so add that so the voice stays 1s after the BALLS. */
+  const introVoiceDelay = LANDING_QUIZ_VOICE_DELAY_MS
+    + (window.__render?.active ? BALL_INTRO_RENDER_HOLD_MS : 0);
+  appState.videoTimeout = setTimeout(() => {
+    if (!appState.isVideoPlaying) return;
+    playRules(quizType, 0).then(() => {
+      if (!appState.isVideoPlaying) return;
+      /* Switch to the first level only once the quiz-title voice has ENDED. */
+      switchLevel(2);
+      if (typeof afterSwitch === "function") afterSwitch();
+    });
+  }, introVoiceDelay);
 }
 
 /** Wait for any running page-transition overlay, then run fn after 200ms.
@@ -404,6 +430,9 @@ function revealCurrentLevel() {
         const teamDisplayName = String(resolveHeaderTeamDisplayName(state, quizType) || "").trim();
         setVideoRevealPostTimerActive(true);
         refreshCurrentQuestionPreview();
+        // Render: slide the team-header bar in HERE, the exact reveal tick (same tick as the
+        // slot flip started inside refreshCurrentQuestionPreview) so they move together.
+        revealSidebarForRender();
         /* Panel opens here; team clip used to wait 600ms for duck — start with the window.
            Read (or lazily roll) the phrase variant chosen for this level so playback
            matches what the voice tab is showing for this team. */

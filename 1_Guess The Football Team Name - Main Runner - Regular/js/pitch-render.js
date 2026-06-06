@@ -1,6 +1,7 @@
 /* js/pitch-render.js */
 
 import { formationById } from "./formations.js";
+import { EASE_FLIP, EASE_OUT } from "./render-ease.js";
 import {
   appState,
   DEFAULT_SLOT_FLAG_SCALE,
@@ -27,6 +28,71 @@ function getOrCreateSlotMount(slotEl) {
     slotEl.appendChild(mount);
   }
   return mount;
+}
+
+/**
+ * Render only: the slot flip ("circles turning", logo->player) is a CSS transition
+ * (`.slot-inner { transition: transform 0.78s cubic-bezier(0.25,1,0.5,1) }`, flipped =
+ * rotateY(180deg)) which SNAPS under the virtual clock. Drive the identical flip with
+ * GSAP so it matches Play exactly. The 3D depth comes from `.pitch-wrap { perspective }`
+ * (an ancestor) — same as the CSS flip — so we only animate rotationY, no transformPerspective.
+ * Returns true when it took over (so callers skip the CSS path). Idempotent per inner.
+ */
+function gsapFlipSlotInner(inner) {
+  if (!inner || !(window.__render?.active && window.gsap)) return false;
+  if (inner.classList.contains("flipped") || inner.dataset.flipping === "1") return true;
+  inner.dataset.flipping = "1";
+  inner.style.transition = "none";
+  inner.style.transitionDelay = "";
+  window.gsap.killTweensOf(inner);
+  window.gsap.fromTo(
+    inner,
+    { rotationY: 0 },
+    {
+      rotationY: 180, duration: SLOT_FLIP_DURATION_SEC, ease: EASE_FLIP, force3D: true,
+      onComplete() {
+        inner.classList.add("flipped");     // hand the final state to CSS
+        delete inner.dataset.flipping;
+        window.gsap.set(inner, { clearProps: "transform" });
+        inner.style.removeProperty("transition");
+      },
+    },
+  );
+  return true;
+}
+
+/**
+ * Render only: slide the team-header bar in NOW — called from revealCurrentLevel() at the
+ * exact reveal tick (the same synchronous tick as the slot flip), so the bar and the
+ * circles start, travel, and finish together. Unconditional: force-shows the header and
+ * always (re)starts the slide, ignoring the fragile teamSidebarLast / needSlideIn state
+ * that kept deferring the slide by ~1.5s. Same 0.78s + EASE_FLIP as the flip.
+ */
+export function revealSidebarForRender() {
+  if (!(window.__render?.active && window.gsap)) return;
+  const th = appState.els.teamHeader;
+  if (!th) return;
+  const state = getState();
+  if (!state?.currentSquad) return; // nothing to reveal (e.g. landing/outro)
+  th.hidden = false;
+  th.classList.remove("team-header--show");
+  th.style.transition = "none";
+  // Drive a PROXY object (not th) so a later killTweensOf(th) — e.g. levels.js' post-
+  // transition renderHeader — can't kill this slide; set th's transform manually each tick.
+  const proxy = { p: -100 };
+  window.gsap.killTweensOf(proxy);
+  window.gsap.to(proxy, {
+    p: 0, duration: SLOT_FLIP_DURATION_SEC, ease: EASE_FLIP,
+    onStart() { th.style.transform = "translateX(-100%)"; },
+    onUpdate() { th.style.transform = "translateX(" + proxy.p + "%)"; },
+    onComplete() {
+      th.style.transform = "";
+      th.classList.add("team-header--show");
+      th.style.transition = "";
+    },
+  });
+  appState.teamSidebarLastOpen = true;
+  appState.teamSidebarLastKey = getTeamSidebarSlideKey(state);
 }
 
 /**
@@ -264,6 +330,29 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
     appState.teamSidebarLastKey = String(slideKey || "");
     return;
   }
+  // Render: drive the bar ENTIRELY with GSAP here (this runs inside renderHeader, the same
+  // synchronous tick as the slot flip in applyVideoQuestionPostTimerFlip, so GSAP gives the
+  // two the same start time → they move together). We must NEVER use the CSS
+  // `.team-header--show` class for motion — under the virtual clock it snaps/pops the bar in
+  // late. Always slide on a reveal (do NOT gate on needSlideIn — stale state left the bar
+  // hidden entirely); only skip if we're already showing this exact team (avoid a re-render
+  // restarting the slide mid-way).
+  if (window.__render?.active && window.gsap) {
+    // ONLY hide here (keep it off-screen during the countdown / between levels). The
+    // slide-IN is driven deterministically by revealSidebarForRender() from
+    // revealCurrentLevel() — the actual reveal tick, same tick as the slot flip. We must
+    // never slide here: this runs at unpredictable times (switchLevel, setup, logo loads)
+    // and was deferring the bar ~1.5s after the circles.
+    if (th.hidden || !wantsOpen) {
+      appState.teamSidebarAnimGeneration += 1;
+      window.gsap.killTweensOf(th);
+      th.classList.remove("team-header--show");
+      window.gsap.set(th, { xPercent: -100 });
+      appState.teamSidebarLastOpen = false;
+      appState.teamSidebarLastKey = "";
+    }
+    return;
+  }
   if (th.hidden || !wantsOpen) {
     appState.teamSidebarAnimGeneration += 1;
     th.classList.remove("team-header--show");
@@ -287,7 +376,9 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
         th,
         { xPercent: -100 },
         {
-          xPercent: 0, duration: 0.5, ease: "power1.out", // ~matches CSS ease-out
+          // Match Play's CSS exactly AND land in sync with the slot flip: same 0.78s,
+          // exact CSS ease-out. (team-header.css is bumped to 0.78s to keep Play in sync.)
+          xPercent: 0, duration: SLOT_FLIP_DURATION_SEC, ease: EASE_OUT,
           onComplete: () => {
             if (gen !== appState.teamSidebarAnimGeneration || th.hidden) return;
             th.classList.add("team-header--show"); // hold final state via the class
@@ -1730,6 +1821,8 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
           inner.style.removeProperty("transition");
           inner.style.removeProperty("transition-delay");
         });
+      } else if (gsapFlipSlotInner(inner)) {
+        // render: GSAP-driven flip (the CSS transition snaps under the virtual clock)
       } else {
         inner.style.transitionDelay = `${slotIndex * SLOT_FLIP_STAGGER_SEC}s`;
         requestAnimationFrame(() => {
@@ -1949,6 +2042,7 @@ export function applyVideoQuestionPostTimerFlip() {
     if (!inner || inner.classList.contains("flipped")) {
       return;
     }
+    if (gsapFlipSlotInner(inner)) return; // render: GSAP-driven flip (CSS transition snaps)
     const slotIndex = Number(slotEl.dataset.slotIndex);
     const idx = Number.isFinite(slotIndex) ? slotIndex : 0;
     inner.style.transitionDelay = `${idx * SLOT_FLIP_STAGGER_SEC}s`;
@@ -2528,6 +2622,12 @@ export function renderHeader() {
      Same during Play Video so the strip opens only after the timer, not between levels. */
   const hideSidebarInVideoHold =
     shouldUseVideoQuestionLayout(state) && state.videoMode && !previewPostTimer;
+  // Render: at the reveal the bar MUST be allowed to open — a stale `hidden` flag would
+  // make sidebarWantsOpen false and the bar would never appear (the all-images-show /
+  // no-sidebar bug). Force it visible here so the slide can run.
+  if (window.__render?.active && previewPostTimer && state.currentSquad && els.teamHeader) {
+    els.teamHeader.hidden = false;
+  }
   const sidebarWantsOpen =
     !!state.currentSquad &&
     !els.teamHeader.hidden &&

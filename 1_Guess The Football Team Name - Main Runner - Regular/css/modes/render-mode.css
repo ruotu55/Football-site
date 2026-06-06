@@ -36,3 +36,15 @@ body.render-mode-active.ball-preloader-active .ball-preloader:not(.revealing) .b
 body.render-mode-active.ball-preloader-active:has(.ball-preloader:not(.revealing)) .landing-page {
   visibility: hidden !important;
 }
+
+/* Countdown timer under the virtual clock: CSS colour/scale transitions snap and the
+   composited `pulse-timer` keyframe free-runs on wall-clock (strobes). Make it
+   deterministic — colours snap exactly at each threshold frame, no strobe. The ring
+   drain itself is GSAP-driven (video.js) so it stays smooth. */
+body.render-mode-active .timer-progress,
+body.render-mode-active #countdown-text {
+  transition: none !important;
+}
+body.render-mode-active .countdown-timer.pulse {
+  animation: none !important;
+}
