@@ -60,7 +60,9 @@ export function buildPhotoLayer(layer, ctx) {
     scale: { x: scale, y: scale },
     transform: { x: transform.x, y: transform.y },
   };
-  segment.uniform_scale = { on: true, value: 1 };
+  // CapCut couples uniform_scale.value with clip.scale; if left at 1 while
+  // clip.scale<1 the image renders full-canvas (scale ignored). Keep them equal.
+  segment.uniform_scale = { on: true, value: scale };
 
   const dur = us((layer.disappearMs ?? 0) - (layer.appearMs ?? 0));
   segment.source_timerange = { start: 0, duration: dur };

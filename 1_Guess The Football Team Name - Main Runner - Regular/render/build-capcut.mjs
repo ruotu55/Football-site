@@ -1,46 +1,38 @@
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
+import { readFileSync, copyFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { assembleDraft } from "./capcut/schema.mjs";
-import { registerDraft, writeDraftMeta } from "./capcut/registry.mjs";
-import { newId } from "./capcut/ids.mjs";
+import { packageDraft } from "./capcut/package.mjs";
+import { registerDraft } from "./capcut/registry.mjs";
 
 const CAPCUT_ROOT =
   "C:/Users/Rom/AppData/Local/CapCut/User Data/Projects/com.lveditor.draft";
 
-export function buildDraftFromScene(scenePath, { capcutRoot = CAPCUT_ROOT, nowMs = Date.now() } = {}) {
+/**
+ * Build an openable CapCut draft from a scene.json.
+ * assembleDraft() -> the timeline; packageDraft() scaffolds the full folder by cloning a
+ * reference draft and rewiring ids; registerDraft() lists it in CapCut's index.
+ * Generates a fresh draft each run (CapCut autosaves & clobbers edits to an open project).
+ */
+export function buildDraftFromScene(scenePath, { capcutRoot = CAPCUT_ROOT, nowMs = Date.now(), referenceDir = null } = {}) {
   const scene = JSON.parse(readFileSync(scenePath, "utf8"));
-  const draft = assembleDraft(scene, { idSeed: (nowMs % 1e9) | 0 });
-  const draftId = newId();
   const name = scene.name || "Football Quiz";
-  const foldPath = join(capcutRoot, name);
-  mkdirSync(foldPath, { recursive: true });
+  const content = assembleDraft(scene, { idSeed: (nowMs % 1e9) | 0 });
 
-  draft.id = draftId;
-  draft.name = name;
-  draft.path = foldPath.replace(/\\/g, "/");
-  writeFileSync(join(foldPath, "draft_content.json"), JSON.stringify(draft));
+  const pkg = packageDraft({ content, name, capcutRoot, referenceDir, nowMs });
 
-  const e = { draftId, name, foldPath, rootPath: capcutRoot,
-    durationUs: draft.duration, createUs: nowMs * 1000, modifyUs: nowMs * 1000 };
-  const media = draft.materials.videos.map((v) => ({
-    create_time: Math.floor(nowMs / 1000), duration: draft.duration, id: v.id.toLowerCase(),
-    file_Path: v.path, height: v.height, width: v.width, metetype: "photo",
-    import_time: Math.floor(nowMs / 1000), import_time_ms: nowMs * 1000, type: 0,
-    roughcut_time_range: { duration: -1, start: -1 }, sub_time_range: { duration: -1, start: -1 },
-  }));
-  writeDraftMeta(foldPath, e, media);
-
-  // Safety: back up the live CapCut index before mutating it.
+  // Register in the live index (back it up first).
   const rootMeta = join(capcutRoot, "root_meta_info.json");
   if (existsSync(rootMeta)) copyFileSync(rootMeta, rootMeta + ".fcbak");
-  registerDraft(rootMeta, e);
-  return { foldPath, draftId };
+  registerDraft(rootMeta, {
+    draftId: pkg.draftId, name, foldPath: pkg.foldPath, rootPath: capcutRoot,
+    durationUs: content.duration, createUs: nowMs * 1000, modifyUs: nowMs * 1000,
+  });
+  return pkg;
 }
 
 // CLI: node render/build-capcut.mjs <scene.json>
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const scenePath = process.argv[2];
-  const r = buildDraftFromScene(scenePath);
-  console.log("WROTE", r.foldPath, r.draftId);
+  const r = buildDraftFromScene(process.argv[2]);
+  console.log("WROTE", r.foldPath, "draft=" + r.draftId, "tid=" + r.timelineId);
 }

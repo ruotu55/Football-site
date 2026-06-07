@@ -26,7 +26,12 @@ export function registerDraft(rootMetaPath, e) {
     tm_draft_create: e.createUs, tm_draft_modified: e.modifyUs, tm_draft_removed: 0,
     tm_duration: e.durationUs,
   };
-  const i = meta.all_draft_store.findIndex((d) => d.draft_id === e.draftId);
+  // Stable identity is the folder path (draft_id is regenerated each build), so match on
+  // either to avoid duplicate stale entries when rebuilding the same-named draft.
+  const foldFwd = fwd(e.foldPath);
+  const i = meta.all_draft_store.findIndex(
+    (d) => d.draft_id === e.draftId || d.draft_fold_path === foldFwd,
+  );
   if (i >= 0) meta.all_draft_store[i] = entry;
   else { meta.all_draft_store.push(entry); meta.draft_ids = (meta.draft_ids || 0) + 1; }
   writeFileSync(rootMetaPath, JSON.stringify(meta));
