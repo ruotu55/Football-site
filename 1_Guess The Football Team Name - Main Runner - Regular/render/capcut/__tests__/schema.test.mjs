@@ -51,3 +51,25 @@ test("assembleDraft yields required top-level keys + microsecond duration + help
   const seg = draft.tracks.find((t) => t.type === "video").segments[0];
   for (const r of seg.extra_material_refs) assert.ok(allIds.has(r), `assembled draft missing helper ${r}`);
 });
+
+test("assembleDraft puts each image layer on its own video track, ordered by z", () => {
+  const scene = {
+    name: "STACK", canvas: { w: 1920, h: 1080 }, fps: 30,
+    layers: [
+      { id: "box", kind: "image", png: "C:/tmp/box.png", pngW: 960, pngH: 540,
+        rect: { x: 480, y: 270, w: 960, h: 540 }, z: 1, appearMs: 0, disappearMs: 5000 },
+      { id: "bg", kind: "image", png: "C:/tmp/bg.png", pngW: 1920, pngH: 1080,
+        rect: { x: 0, y: 0, w: 1920, h: 1080 }, z: 0, appearMs: 0, disappearMs: 5000 },
+    ], audio: [],
+  };
+  const draft = assembleDraft(scene, { idSeed: 5 });
+  const vtracks = draft.tracks.filter((t) => t.type === "video");
+  assert.equal(vtracks.length, 2);
+  // sorted by z asc: first track = bg (full canvas), second = box
+  const firstMat = draft.materials.videos.find((v) => v.id === vtracks[0].segments[0].material_id);
+  const secondMat = draft.materials.videos.find((v) => v.id === vtracks[1].segments[0].material_id);
+  assert.equal(firstMat.material_name, "bg.png");
+  assert.equal(secondMat.material_name, "box.png");
+  assert.equal(vtracks[0].render_index, 0);
+  assert.equal(vtracks[1].render_index, 1);
+});

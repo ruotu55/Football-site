@@ -85,22 +85,24 @@ export function assembleDraft(scene, opts = {}) {
   }
   draft.tracks = [];
 
-  const videoTrack = { type: "video", id: id(), attribute: 0, flag: 0, segments: [],
-    is_default_name: true, name: "", render_index: 0 };
-  draft.tracks.push(videoTrack);
-
   let endMs = 0;
-  const imageLayers = (scene.layers || []).filter((l) => l.kind === "image");
-  for (const layer of imageLayers) {
+  // Each image layer gets its OWN video track so simultaneous layers stack:
+  // CapCut composites later tracks on top. Sort by z ascending = bottom→top.
+  const imageLayers = (scene.layers || [])
+    .filter((l) => l.kind === "image")
+    .sort((a, b) => (a.z ?? 0) - (b.z ?? 0));
+  imageLayers.forEach((layer, ti) => {
     const { material, segment, helpers } = buildPhotoLayer(layer, ctx);
     draft.materials.videos.push(material);
     for (const { arrName, m } of helpers) {
       if (!Array.isArray(draft.materials[arrName])) draft.materials[arrName] = [];
       draft.materials[arrName].push(m);
     }
-    videoTrack.segments.push(segment);
+    const track = { type: "video", id: id(), attribute: 0, flag: 0, segments: [segment],
+      is_default_name: true, name: "", render_index: ti };
+    draft.tracks.push(track);
     endMs = Math.max(endMs, layer.disappearMs ?? 0);
-  }
+  });
 
   draft.duration = us(scene.durationMs || endMs);
   return draft;
