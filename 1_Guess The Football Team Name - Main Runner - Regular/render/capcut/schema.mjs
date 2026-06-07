@@ -97,6 +97,39 @@ export function buildTextLayer(layer, ctx) {
   return { material, segment, helpers };
 }
 
+/** Build an audio layer by cloning the rich template's audio material + segment. */
+export function buildAudioLayer(a, ctx) {
+  const id = ctx.id || makeIdFactory(0);
+  const tplMat = RICH.materials.audios[0];
+  const tplSeg = RICH.tracks.find((t) => t.type === "audio").segments[0];
+
+  const material = clone(tplMat);
+  material.id = id();
+  material.path = String(a.src || "").replace(/\\/g, "/");
+  material.name = material.path.split("/").pop();
+  const dur = us(a.durMs || 0);
+  if ("duration" in material) material.duration = dur;
+  // these tie a material to a specific imported instance; blank so CapCut treats it fresh
+  if ("local_material_id" in material) material.local_material_id = "";
+  if ("music_id" in material) material.music_id = "";
+
+  const helpers = collectHelpers(RICH, tplSeg).map(({ arrName, m }) => {
+    const nm = clone(m); nm.id = id(); return { arrName, m: nm, oldId: m.id };
+  });
+  const oldToNew = new Map(helpers.map((h) => [h.oldId, h.m.id]));
+
+  const segment = clone(tplSeg);
+  segment.id = id();
+  segment.material_id = material.id;
+  segment.extra_material_refs = (tplSeg.extra_material_refs || []).map((rf) => oldToNew.get(rf) || rf);
+  segment.volume = a.volume ?? 1;
+  segment.last_nonzero_volume = a.volume ?? 1;
+  segment.source_timerange = { start: 0, duration: dur };
+  segment.target_timerange = { start: us(a.atMs || 0), duration: dur };
+
+  return { material, segment, helpers };
+}
+
 /** Build one photo layer: returns {material, segment, helpers:[{arrName, m, oldId}]} */
 export function buildPhotoLayer(layer, ctx) {
   const id = ctx.id || makeIdFactory(0);
@@ -190,6 +223,19 @@ export function assembleDraft(scene, opts = {}) {
     draft.tracks.push({ type: "text", id: id(), attribute: 0, flag: 0, segments: [segment],
       is_default_name: true, name: "", render_index: 1000 + ti });
     endMs = Math.max(endMs, layer.disappearMs ?? 0);
+  });
+
+  const audios = scene.audio || [];
+  audios.forEach((a, ti) => {
+    const { material, segment, helpers } = buildAudioLayer(a, ctx);
+    draft.materials.audios.push(material);
+    for (const { arrName, m } of helpers) {
+      if (!Array.isArray(draft.materials[arrName])) draft.materials[arrName] = [];
+      draft.materials[arrName].push(m);
+    }
+    draft.tracks.push({ type: "audio", id: id(), attribute: 0, flag: 0, segments: [segment],
+      is_default_name: true, name: "", render_index: 2000 + ti });
+    endMs = Math.max(endMs, (a.atMs || 0) + (a.durMs || 0));
   });
 
   draft.duration = us(scene.durationMs || endMs);
