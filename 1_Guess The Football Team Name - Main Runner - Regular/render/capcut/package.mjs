@@ -9,10 +9,13 @@ const fwd = (p) => p.split("\\").join("/");
 // known-good reference draft and rewire its 3 structural ids to fresh ones, then
 // inject our generated timeline. See project_capcut_draft_format memory / docs.
 
-/** Newest draft folder under capcutRoot that has a Timelines store + meta (a clonable skeleton). */
-export function findReferenceDraft(capcutRoot) {
+/** Newest draft folder under capcutRoot that has a Timelines store + meta (a clonable
+ *  skeleton). `excludeName` skips a folder (e.g. the draft we're about to overwrite — it
+ *  must not be its own clone source). */
+export function findReferenceDraft(capcutRoot, excludeName = null) {
   let best = null, bestMtime = -1;
   for (const n of readdirSync(capcutRoot)) {
+    if (excludeName && n === excludeName) continue;
     const p = join(capcutRoot, n);
     try {
       if (!statSync(p).isDirectory()) continue;
@@ -46,7 +49,7 @@ function scrubIdsInTree(dir, pairs) {
  * assembleDraft). Returns { foldPath, draftId, timelineId, projectId }.
  */
 export function packageDraft({ content, name, capcutRoot, referenceDir = null, nowMs }) {
-  const ref = referenceDir || findReferenceDraft(capcutRoot);
+  const ref = referenceDir || findReferenceDraft(capcutRoot, name);
   if (!ref) {
     throw new Error(
       "No reference CapCut draft to clone in " + capcutRoot +

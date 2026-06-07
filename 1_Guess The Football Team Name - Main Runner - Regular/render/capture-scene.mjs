@@ -89,6 +89,7 @@ async function captureBackground(r, outDir, name) {
 
 /** Capture the QUESTION phase (background + pitch lines + 11 circle fronts + countdown). */
 export async function captureScene({ script: name, lang = "english", port = 8888, outDir, questionFrame = 48, durMs = 3000 }) {
+  outDir = resolve(outDir); // CapCut needs ABSOLUTE asset paths in the draft
   mkdirSync(join(outDir, "assets"), { recursive: true });
   const { key, script } = resolveBlockScript(name);
   const r = await launchRenderPage({ script: name, scriptObject: script, lang, port, segment: "level-playing", fps: 30, height: CANVAS_H });
