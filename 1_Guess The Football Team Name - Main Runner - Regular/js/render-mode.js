@@ -4,13 +4,13 @@
 // with seeded randomness so every run is reproducible.
 //
 // IMPORTANT: import specifiers must match app.js exactly, or the browser loads a second
-// copy of the module with separate state. app.js imports video.js as "./video.js?v=20260605-3scountdown".
+// copy of the module with separate state. app.js imports video.js as "./video.js?v=20260608-logofade".
 
 import { appState } from "./state.js";
-import { startVideoFlow } from "./video.js?v=20260605-3scountdown";
+import { startVideoFlow } from "./video.js?v=20260608-logofade";
 import { setCurrentLanguage } from "./voice-tab.js";
-import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260601-autoopen5";
-import { switchLevel } from "./levels.js";
+import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260608-rndtest";
+import { switchLevel } from "./levels.js?v=20260608-logofade";
 import {
   renderSeedDurations, renderGetDurations, renderPrewarmVoiceDurations,
   getOrAssignRevealPhrase, buildRevealVoiceCandidates, renderPrewarmRevealClip,
@@ -127,6 +127,45 @@ export function initRenderModeIfRequested() {
       } else if (cfg.script) {
         await loadScriptByName(cfg.script);
       }
+
+      // Apply the user's CURRENT background theme selection (Background Color / Effect /
+      // opacity), captured at click time and piggybacked on the injected script. The runner
+      // boots with forcedDefaults (localStorage is empty in headless), so without this the
+      // render ignored the theme the user picked. Re-set the same control-panel dropdowns the
+      // theme engine listens on and fire `change` → applyCurrentSelection re-applies it
+      // (handles plain color/effect AND competition "comp-…" values). Set opacity first and
+      // fire on the EFFECT select (the COLOR select's change handler would reset opacity).
+      try {
+        const themeOverride = window.__renderScript && window.__renderScript.__themeOverride;
+        if (themeOverride) {
+          const colorSel = document.getElementById("in-background-color");
+          const effectSel = document.getElementById("in-background-effect");
+          const opacityInput = document.getElementById("in-background-opacity");
+          const compSel = document.getElementById("in-competition-background");
+          if (compSel && themeOverride.competition) {
+            // A competition is selected — apply it (its combined color+effect wins).
+            compSel.value = themeOverride.competition;
+            compSel.dispatchEvent(new Event("change"));
+          } else {
+            // Plain theme: set color/effect/opacity and fire change on the EFFECT select
+            // (the COLOR select's handler resets opacity).
+            if (compSel) compSel.value = "";
+            if (colorSel && themeOverride.color) colorSel.value = themeOverride.color;
+            if (opacityInput && themeOverride.opacity) opacityInput.value = themeOverride.opacity;
+            if (effectSel && themeOverride.effect) {
+              effectSel.value = themeOverride.effect;
+              effectSel.dispatchEvent(new Event("change"));
+            } else if (colorSel && themeOverride.color) {
+              colorSel.dispatchEvent(new Event("change"));
+            }
+          }
+          // Apply the picked "QUESTIONS + BONUS" style (data-qstyle) so the render matches the editor.
+          if (themeOverride.qstyle != null) {
+            const qline = document.querySelector(".landing-questions-line");
+            if (qline) qline.setAttribute("data-qstyle", String(themeOverride.qstyle));
+          }
+        }
+      } catch (_) { /* non-fatal: fall back to the runner's default theme */ }
 
       // Begin from the landing page (level 1), exactly like Record Video's runRecordingPhase.
       if (appState.currentLevelIndex !== 1) {

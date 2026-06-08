@@ -2,7 +2,7 @@ import { FORMATIONS } from "./formations.js";
 import { appState, clearSlotPhotoIndices, getState, getQuizQuestionCount, initLevels } from "./state.js";
 import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
-import { switchLevel } from "./levels.js";
+import { switchLevel } from "./levels.js?v=20260608-logofade";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
@@ -21,21 +21,22 @@ import {
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260605-3scountdown";
+import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260608-logofade";
 import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260601-autoopen5";
+import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260608-rndtest";
 import { initRenderModeIfRequested } from "./render-mode.js";
-import { askRenderOptions } from "./render-options-dialog.js";
+import { askRenderOptions } from "./render-options-dialog.js?v=20260608-1440only";
+import { initLandingQStyleSwitcher, getLandingQStyle, applyLandingQStyle } from "./landing-qstyle-switcher.js?v=20260608-qstyle";
 import {
     showRenderProgressModal,
     setRenderWorkers,
     updateRenderProgress,
     setRenderProgressDone,
     setRenderProgressError,
-} from "./render-progress-ui.js";
+} from "./render-progress-ui.js?v=20260608-fps";
 import { initRenderTestClipsUi, setRenderTestClipsBusy } from "./render-test-clips-ui.js";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
 import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529b";
@@ -969,7 +970,12 @@ async function init() {
         document.getElementById("in-background-color"),
         document.getElementById("in-background-effect"),
         document.getElementById("in-background-opacity"),
-        { forcedDefaults: { colorId: "quiz-club-by-nat", effectId: "youtube-thumbnails", opacity: 0.5 } },
+        {
+            forcedDefaults: { colorId: "quiz-club-by-nat", effectId: "youtube-thumbnails", opacity: 0.5 },
+            // Dedicated "Competition background" dropdown — competitions move here (out of the
+            // color/effect selects); picking one locks color/effect/opacity until set to None.
+            competitionSelectEl: document.getElementById("in-competition-background"),
+        },
     );
 
     // Track explicit user selection for PROD validation
@@ -1486,6 +1492,46 @@ async function init() {
         };
     }
 
+    // Pick the FIRST recorded block to preview a render test clip with. The real saves live
+    // in recording-status.json (the /__recording-status blocks store), each with a frozen
+    // `script` object — NOT in the legacy saved-scripts bucket (which is empty). Always the
+    // first usable block so it's deterministic (no flaky random pick). Returns
+    // { name, scriptObject } or null if there are no usable blocks.
+    async function pickTestSave() {
+        try {
+            const r = await fetch("/__recording-status", { cache: "no-store" });
+            if (!r.ok) return null;
+            const data = await r.json();
+            const blocks = (data && data.blocks && typeof data.blocks === "object") ? data.blocks : {};
+            const blk = Object.values(blocks).find(
+                (b) => b && typeof b.name === "string" && b.name.trim()
+                    && b.script && typeof b.script === "object" && Object.keys(b.script).length,
+            );
+            if (!blk) return null;
+            return { name: blk.name.trim(), scriptObject: blk.script };
+        } catch (_) {
+            return null;
+        }
+    }
+
+    // Capture the user's CURRENT background theme selection (the control-panel dropdowns) so
+    // the headless render uses it instead of the runner's forced default. The render boots
+    // with forcedDefaults (localStorage is empty headless), so without this every render —
+    // full or test clip — ignored the Background Color / Effect / opacity the user picked.
+    // render-mode.js re-applies these onto the same dropdowns (→ applyCurrentSelection).
+    function captureCurrentThemeOverride() {
+        const competition = document.getElementById("in-competition-background")?.value || "";
+        const color = document.getElementById("in-background-color")?.value || "";
+        const effect = document.getElementById("in-background-effect")?.value || "";
+        const opacity = document.getElementById("in-background-opacity")?.value || "";
+        // Carry the selected "QUESTIONS + BONUS" style into the render so render-test clips show
+        // the picked design (headless localStorage is empty, so we must pass it explicitly).
+        const qstyle = getLandingQStyle();
+        const hasTheme = !!(competition || color || effect);
+        if (!hasTheme && (!qstyle || qstyle === "0")) return null;
+        return { competition, color, effect, opacity, qstyle };
+    }
+
     // ?? Render Video: build the MP4 frame-by-frame (headless), current language only ??
     async function startRenderJob({ segment = "", segmentLabel = "", fps, height } = {}) {
         if (appState.rendering) return;
@@ -1494,8 +1540,22 @@ async function init() {
             const result = await runProdValidation();
             if (!result.allPassed) { showValidationModal(result); return; }
         }
-        const savedName = (getActiveScriptName() || "").trim();
-        if (!savedName) {
+        // Test clips are throwaway previews — they don't need a loaded save. Grab the FIRST
+        // recorded block (recording-status.json — the real saves) and render its frozen
+        // script object directly (same applyScriptObject path the full render uses). The
+        // legacy saved-scripts bucket is empty, so we must use the blocks store, not a name.
+        const isTestClip = !!segment;
+        let savedName = (getActiveScriptName() || "").trim();
+        let testClipScriptObject = null;
+        if (isTestClip) {
+            const pick = await pickTestSave();
+            if (!pick) {
+                alert("No saved videos found to test with — create a save first.");
+                return;
+            }
+            savedName = pick.name;
+            testClipScriptObject = pick.scriptObject;
+        } else if (!savedName) {
             alert("Load a saved setting first — the rendered file is named after it.");
             return;
         }
@@ -1511,9 +1571,20 @@ async function init() {
         let total = 0;
         let succeeded = false;
         let errored = false;
+        // Effective render fps — both full render and test clips use the dialog's pick (default
+        // 60). The progress UI needs it to convert frame counts → seconds correctly.
+        const progressFps = fps || 60;
         const retryFn = () => startRenderJob({ segment, segmentLabel, fps, height });
         try {
-            const scriptObject = captureCurrentScriptObject(savedName);
+            // Full render previews the CURRENT on-screen setup; test clips send the first
+            // block's frozen script object. Either way the headless page applyScriptObject()s it.
+            // Attach the user's current background theme (color/effect/opacity) so the render
+            // uses THEIR selection, not the runner's forced default (render-mode.js applies it).
+            let scriptObject = isTestClip ? testClipScriptObject : captureCurrentScriptObject(savedName);
+            const themeOverride = captureCurrentThemeOverride();
+            if (themeOverride && scriptObject && typeof scriptObject === "object") {
+                scriptObject = { ...scriptObject, __themeOverride: themeOverride };
+            }
             const res = await fetch("/__render-video", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -1522,9 +1593,10 @@ async function init() {
                     language: getCurrentLanguage(),
                     scriptObject,
                     segment: segment || undefined,
-                    // Full-render quality picks from the Render options dialog (test clips omit these).
-                    fps: segment ? undefined : fps,
-                    height: segment ? undefined : height,
+                    // Quality picks from the Render options dialog — sent for BOTH full render and
+                    // test clips so a test clip matches the full render (same size + frame rate).
+                    fps,
+                    height,
                 }),
             });
             const data = await res.json();
@@ -1547,7 +1619,7 @@ async function init() {
                 }
                 switch (m.stage) {
                     case "probe": updateRenderProgress({ label: segment ? "Analyzing test clip…" : "Analyzing video…" }); break;
-                    case "probed": total = m.totalFrames || 0; updateRenderProgress({ label: segment ? `Rendering test clip (~${m.virtualSec}s)…` : `Rendering ~${m.virtualSec}s video…`, frame: 0, total }); break;
+                    case "probed": total = m.totalFrames || 0; updateRenderProgress({ label: segment ? `Rendering test clip (~${m.virtualSec}s)…` : `Rendering ~${m.virtualSec}s video…`, frame: 0, total, fps: progressFps }); break;
                     case "capture": total = m.total || total; setRenderWorkers(m.workers || 4); updateRenderProgress({ frame: 0, total }); break;
                     case "progress": total = m.total || total; updateRenderProgress({ frame: m.frame, total, workers: m.workers }); break;
                     case "retry": updateRenderProgress({ label: `Part ${m.w + 1} hiccuped — auto-retry ${m.attempt}/${m.max}…` }); break;
@@ -1576,8 +1648,18 @@ async function init() {
         };
     }
 
+    // Editor-only switcher to preview the 5 "QUESTIONS + BONUS" styles (persists the pick).
+    initLandingQStyleSwitcher();
+
     initRenderTestClipsUi({
-        renderClipFn: (segmentId, segmentLabel) => startRenderJob({ segment: segmentId, segmentLabel }),
+        // Test clips now match the full render: ask the same Render options dialog (frame rate;
+        // resolution is fixed at 1440p) so the preview is the same screen size + fps as the video.
+        renderClipFn: async (segmentId, segmentLabel) => {
+            if (appState.rendering || appState.isVideoPlaying || appState.doubleRecording) return;
+            const opts = await askRenderOptions();
+            if (!opts) return; // cancelled
+            startRenderJob({ segment: segmentId, segmentLabel, fps: opts.fps, height: opts.height });
+        },
         isBusyFn: () => appState.rendering || appState.isVideoPlaying || appState.doubleRecording,
     });
 

@@ -7,6 +7,10 @@ let actionsEl = null, closeBtn = null, rerunBtn = null, errBtn = null, errBox = 
 let playBtn = null, deleteBtn = null, playerWrap = null, videoEl = null;
 let lastOutputPath = "";
 const workerBars = []; // { fill, label }
+// FPS used to convert frame counts → seconds for the time readout. Test clips render at 30fps,
+// full renders at the dialog fps (default 60). Set via updateRenderProgress({fps}); without it
+// the time used a hardcoded /60 and showed half the real duration for 30fps test clips.
+let renderFps = 60;
 
 // Absolute output path -> server-relative URL the dev server can serve (it serves the repo root).
 function toWebUrl(absPath) {
@@ -185,8 +189,9 @@ export function setRenderWorkers(count) {
   }
 }
 
-export function updateRenderProgress({ frame, total, workers, label } = {}) {
+export function updateRenderProgress({ frame, total, workers, label, fps } = {}) {
   ensureOverlay();
+  if (Number.isFinite(fps) && fps > 0) renderFps = fps;
   if (Array.isArray(workers)) {
     if (workerBars.length !== workers.length) setRenderWorkers(workers.length);
     workers.forEach((wk, i) => {
@@ -202,7 +207,7 @@ export function updateRenderProgress({ frame, total, workers, label } = {}) {
     const pct = Math.min(100, Math.round((frame / total) * 100));
     bigBar.style.width = pct + "%";
     const count = `${frame.toLocaleString()} / ${total.toLocaleString()} frames (${pct}%)`;
-    const time = `${fmtTime(frame / 60)} / ${fmtTime(total / 60)}`;
+    const time = `${fmtTime(frame / renderFps)} / ${fmtTime(total / renderFps)}`;
     subEl.textContent = (label ? label + " · " : "") + `${count} · ${time}`;
   } else if (label) {
     subEl.textContent = label;

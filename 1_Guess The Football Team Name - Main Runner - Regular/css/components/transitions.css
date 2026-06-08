@@ -101,6 +101,29 @@
   animation: team-header-stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
 }
 
+/* #logo-page (the persistent top-right corner logo) is inside #stage-main but its children
+   (the logo image + the continuously-animating gold shimmer text) sit on their OWN GPU layers
+   (will-change + an always-running animation + isolation:isolate). An ancestor filter/opacity
+   doesn't reliably re-rasterize a promoted descendant in real time, so in LIVE the sharp logo
+   "pokes through" the smoke transition (the static render flattens it, so the render was fine).
+   Fix: fade the logo-page container itself in sync with the stage — opacity on this isolated
+   container composites its whole subtree as a group, so the logo fades regardless of its child
+   layers. So the smoke now covers the FULL screen (logo included), then the next level appears. */
+@keyframes logo-page-stage-exit-video-reveal {
+  0%   { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; filter: blur(8px); }
+}
+@keyframes logo-page-stage-enter-video-reveal {
+  0%   { opacity: 0; filter: blur(8px); }
+  100% { opacity: 1; filter: blur(0); }
+}
+#logo-page.logo-page-stage-exit-video-anim {
+  animation: logo-page-stage-exit-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+#logo-page.logo-page-stage-enter-video-anim {
+  animation: logo-page-stage-enter-video-reveal 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
 /* --- CUSTOM BOUNCE & SHIFT TRANSITIONS --- */
 @keyframes logo-bounce-out {
   0% { transform: scale(1) translate3d(0, 0, 0); opacity: 1; filter: blur(0); }
@@ -123,7 +146,7 @@
 /* NEW: Cool Shift Animation for Regular Mode */
 @keyframes logo-shift-top-right {
   0% { transform: scale(1) translate3d(0, 0, 0); opacity: 1; filter: blur(0px); }
-  100% { transform: translate3d(40vw, -39.5vh, 0) scale(0.3); opacity: 0.85; filter: blur(0px); }
+  100% { transform: translate3d(44.7vw, -40.6vh, 0) scale(0.375); opacity: 0.85; filter: blur(0px); }
 }
 .logo-img-anim.shift-top-right {
   animation: logo-shift-top-right 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;

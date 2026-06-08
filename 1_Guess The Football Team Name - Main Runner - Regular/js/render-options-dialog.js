@@ -1,27 +1,24 @@
 /**
  * render-options-dialog.js — "Render options" modal for the main Render Video button.
  *
- * Lets the user pick FPS (30 / 60) and resolution (1080p / 2560×1440 / 4K) before a
- * full render. Test-clip renders do NOT use this — they stay 1080p @ 30fps.
+ * Lets the user pick FPS (30 / 60) before a full render. Resolution is FIXED at 1440p
+ * (2560×1440) — the resolution picker was removed; 1440p is the sweet spot (unlocks YouTube's
+ * higher-bitrate codec tier, crisp text, doesn't over-upscale the raster crests/photos).
+ * Test-clip renders don't use this — they stay 1080p @ 30fps.
  *
- *   const opts = await askRenderOptions();   // { fps, height } | null
+ *   const opts = await askRenderOptions();   // { fps, height } | null  (height always 1440)
  *   if (!opts) return;   // user cancelled
  *
  * height maps straight to the render driver's --height (16:9 width is derived there):
- *   1080 → 1920×1080, 1440 → 2560×1440 (current default), 2160 → 3840×2160.
+ *   1440 → 2560×1440.
  */
 
 const FPS_OPTIONS = [
   { value: 30, label: "30 fps" },
   { value: 60, label: "60 fps" },
 ];
-const RES_OPTIONS = [
-  { value: 1080, label: "1080p", sub: "1920×1080" },
-  { value: 1440, label: "Current", sub: "2560×1440" },
-  { value: 2160, label: "4K", sub: "3840×2160" },
-];
 const DEFAULT_FPS = 60;
-const DEFAULT_HEIGHT = 1440;
+const DEFAULT_HEIGHT = 1440; // fixed — resolution picker removed
 
 export function askRenderOptions() {
   return new Promise((resolve) => {
@@ -55,17 +52,10 @@ export function askRenderOptions() {
         box-shadow:0 22px 70px rgba(0,0,0,.55); font-family:inherit;">
         <h3 style="margin:0 0 18px; font-size:21px;">Render options</h3>
 
-        <div style="text-align:left; margin:0 0 16px;">
+        <div style="text-align:left; margin:0 0 22px;">
           <div style="font-size:13px; font-weight:700; letter-spacing:.04em; opacity:.65; margin:0 0 8px; text-transform:uppercase;">Frame rate</div>
           <div data-row="fps" style="display:flex; gap:10px;">
             ${FPS_OPTIONS.map((o) => chip("fps", o.value, o.label, "", o.value === fps)).join("")}
-          </div>
-        </div>
-
-        <div style="text-align:left; margin:0 0 22px;">
-          <div style="font-size:13px; font-weight:700; letter-spacing:.04em; opacity:.65; margin:0 0 8px; text-transform:uppercase;">Resolution</div>
-          <div data-row="height" style="display:flex; gap:10px;">
-            ${RES_OPTIONS.map((o) => chip("height", o.value, o.label, o.sub, o.value === height)).join("")}
           </div>
         </div>
 
@@ -110,8 +100,8 @@ export function askRenderOptions() {
       if (!chipEl) return;
       const group = chipEl.getAttribute("data-group");
       const value = Number(chipEl.getAttribute("data-value"));
-      if (group === "fps") fps = value; else height = value;
-      refreshGroup(group);
+      if (group === "fps") { fps = value; refreshGroup("fps"); } // resolution is fixed at 1440
+
     });
     document.addEventListener("keydown", onKey);
   });

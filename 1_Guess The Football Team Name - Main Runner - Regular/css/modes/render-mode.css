@@ -1,40 +1,55 @@
-/* Render Video (?render=1): headless screenshots composite body bg pseudo-layers
-   into the ball intro as a white smoky haze. Play/Record in a normal browser do not.
-   While the preloader runs, force a flat stage fill and hide every bg-effect layer. */
+/* Render Video (?render=1): the ball-preloader is an OPAQUE full-screen overlay (z9998) that
+   the reveal "opens" (radial hole) to show the landing. The selected background effect is
+   MIRRORED onto the opaque ball-layer-1 (background + ::before) by the shared theme engine
+   (getBallPreloaderEffectCss, gated body.render-mode-active) for the whole preloader — so the
+   4-ball merge shows the effect for EVERY effect, the layer still covers .app, and the open
+   reveals the landing/title progressively (exactly like Play, just over the effect instead of
+   a flat colour). render-mode.css only does the render-specific neutralizing below. */
 
-body.render-mode-active.ball-preloader-active {
-  background: var(--bg-stage, #3c6553) !important;
-  background-image: none !important;
-  animation: none !important;
-}
-
-body.render-mode-active.ball-preloader-active::before,
-body.render-mode-active.ball-preloader-active::after {
+/* Hide the body bg pseudo-layers during merge ONLY (headless composites them as a smoky haze).
+   Once the reveal starts they must show through the hole with the landing (gated like .landing
+   below). The effect behind the merge comes from the mirror on ball-layer-1, not body::before. */
+body.render-mode-active.ball-preloader-active:has(.ball-preloader:not(.revealing))::before,
+body.render-mode-active.ball-preloader-active:has(.ball-preloader:not(.revealing))::after {
   display: none !important;
   content: none !important;
   opacity: 0 !important;
   visibility: hidden !important;
 }
 
-body.render-mode-active.ball-preloader-active .ball-preloader:not(.revealing) .ball-layer-1 {
-  background: var(--bg-stage, #3c6553) !important;
-  background-image: none !important;
+/* The youtube-thumbnails sunburst spins via a CSS @keyframes on --thumb-rays-angle which is
+   frozen under the virtual clock — GSAP drives the :root var instead (render-segments.js,
+   inherits:true). Kill the dead CSS spin on BOTH the body::before AND the mirrored
+   ball-layer-1::before so the GSAP/inherited value wins and they stay in sync. (Every other
+   effect's ::before animation runs, advanced by the CSS-animation driver.) */
+:root[data-shared-background-effect="youtube-thumbnails"] body.render-mode-active::before,
+:root[data-shared-background-effect="youtube-thumbnails"] body.render-mode-active .ball-preloader .ball-layer-1::before {
   animation: none !important;
 }
 
-body.render-mode-active.ball-preloader-active .ball-preloader:not(.revealing) .ball-layer-1::before,
-body.render-mode-active.ball-preloader-active .ball-preloader:not(.revealing) .ball-layer-1::after {
-  display: none !important;
-  content: none !important;
-}
-
-/* Hide the landing ONLY during merge/bounce (preloader not yet revealing). Once the
-   ball reveal starts (.revealing), the radial mask must expose the REAL landing + its
-   text underneath so it reveals progressively — exactly like Play. Hiding it the whole
-   time made the reveal show a blank background and the text pop in only after the
-   preloader hid. (Play/Record aren't render-mode-active, so they're unaffected.) */
+/* Hide the landing content ONLY during merge/bounce; the reveal exposes it progressively
+   through the hole (the opaque ball-layer-1 covers it until then). Gated to :not(.revealing)
+   so the text reveals with the open, not after (see the render-intro gotcha in the docs). */
 body.render-mode-active.ball-preloader-active:has(.ball-preloader:not(.revealing)) .landing-page {
   visibility: hidden !important;
+}
+
+/* Particle background effects (floating-emojis / rising-question-marks / rising-soccer-balls)
+   are body-level container <div>s, NOT body::before — so they're not covered by the ball-layer-1
+   mirror above. The shared ball-preloader-merge.css hides them for the whole preloader
+   ("balls-only intro"). In render the user wants the SELECTED effect visible behind the WHOLE
+   intro, so un-hide them — the effect's own `:has(.ball-preloader:not([hidden]):not(.revealing))`
+   rule (background-theme.js) already lifts the container to z-index:9999 above the preloader
+   during the merge. The effect's own lift is gated `:not(.revealing)`, so it drops to z-0 the
+   instant the OPEN starts — and the reveal hole is tiny then, so sparse particles (rising balls)
+   vanish and reappear as the hole grows ("disappear then reappear"). So ALSO pin z-index:9999
+   here for the WHOLE preloader (merge AND reveal) — the particles stay full-screen-visible
+   through the open, then drop to z-0 (behind the landing) only when the preloader hides. */
+body.render-mode-active.ball-preloader-active .shared-bg-emojis,
+body.render-mode-active.ball-preloader-active .shared-bg-question-marks,
+body.render-mode-active.ball-preloader-active .shared-bg-soccer-balls {
+  visibility: visible !important;
+  z-index: 9999 !important;
 }
 
 /* Countdown timer under the virtual clock: CSS colour/scale transitions snap and the

@@ -70,11 +70,18 @@ export function playBallPreloader(loadGsap) {
 
   const layer1Early = preloader.querySelector(".ball-layer-1");
   if (window.__render?.active && layer1Early) {
-    const stage = getComputedStyle(document.documentElement).getPropertyValue("--bg-stage").trim()
-      || "#3c6553";
-    layer1Early.style.background = stage;
-    layer1Early.style.backgroundImage = "none";
-    layer1Early.style.animation = "none";
+    // Render-only flat fill so the merge background is clean. SKIP it for competition themes:
+    // those paint their brand pattern on ball-layer-1 (compBallPreloaderCss) and we want it to
+    // show behind the balls — an inline flat fill here would override that CSS. Non-competition
+    // effects keep the flat fill (their effect is mirrored elsewhere, e.g. the rays ::before).
+    const effect = document.documentElement.getAttribute("data-shared-background-effect") || "";
+    if (!effect.startsWith("comp-")) {
+      const stage = getComputedStyle(document.documentElement).getPropertyValue("--bg-stage").trim()
+        || "#3c6553";
+      layer1Early.style.background = stage;
+      layer1Early.style.backgroundImage = "none";
+      layer1Early.style.animation = "none";
+    }
   }
 
   return loadGsap().then((gsap) => {
@@ -111,13 +118,9 @@ export function playBallPreloader(loadGsap) {
         playBallMerge(gsap, preloader, geom).then(() => {
           const tl = gsap.timeline();
 
-          tl.fromTo(
-            ball,
-            { scale: HANDOFF_SCALE },
-            { duration: 1.8, scale: 1.0, ease: "elastic.out(1, 0.5)", force3D: true },
-            0,
-          )
-            .call(() => {
+          // No "bigger then smaller" settle — the merged ball opens directly. (Removed the
+          // elastic scale bounce; the expand + reveal now start immediately from the merged ball.)
+          tl.call(() => {
               const sph = getPreloaderMainSphere(preloader);
               const r = (sph ?? ball).getBoundingClientRect();
               const cx = Math.round(r.left + r.width / 2) + "px";
@@ -130,20 +133,29 @@ export function playBallPreloader(loadGsap) {
               preloader.classList.add("revealing");
               gsap.set(preloader, { "--reveal-r": "0px" });
 
+              // r.width is now the ball at HANDOFF_SCALE (no settle), so multiply the numerator
+              // by HANDOFF_SCALE to keep the same final open size as before.
               const diag = Math.hypot(window.innerWidth, window.innerHeight);
-              ball._expandScale = Math.ceil((diag * 3) / r.width);
+              ball._expandScale = Math.ceil((diag * 3 * HANDOFF_SCALE) / r.width);
 
-              const bRect = ball.getBoundingClientRect();
-              const ox = (r.left + r.width / 2) - bRect.left;
-              const oy = (r.top + r.height / 2) - bRect.top;
-              gsap.set(ball, { transformOrigin: `${ox}px ${oy}px`, force3D: true });
-            }, null, 0.7)
-            .to(ball, {
-              scale: () => ball._expandScale,
-              duration: 1.6,
-              ease: "none",
-              force3D: true,
-            }, 0.7)
+              // NOTE: do NOT recompute transformOrigin here. The original code did, but only
+              // worked because it ran AFTER the elastic settle (ball back at scale 1.0, where the
+              // bounding rect == the local box). With the settle removed the ball is still at
+              // HANDOFF_SCALE, so deriving an origin from the SCALED rects is in the wrong
+              // coordinate space and makes the expand pivot off-centre (ball "flies" sideways).
+              // The correct, sphere-centred origin was already set at scale 1.0 before the merge.
+            }, null, 0)
+            .fromTo(
+              ball,
+              { scale: HANDOFF_SCALE },
+              {
+                scale: () => ball._expandScale,
+                duration: 1.6,
+                ease: "none",
+                force3D: true,
+              },
+              0,
+            )
             .to(preloader, {
               "--reveal-r": maxR,
               duration: 1.3,

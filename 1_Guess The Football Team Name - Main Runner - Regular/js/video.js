@@ -1,5 +1,5 @@
 import { appState, getState } from "./state.js";
-import { switchLevel } from "./levels.js";
+import { switchLevel } from "./levels.js?v=20260608-logofade";
 import { startBgMusic, stopAllAudio, playRules, playTheAnswerIs, playCommentBelow, playTicking, stopTicking, getOrAssignRevealPhrase } from "./audio.js";
 import { renderProgressSteps } from "./progress.js";
 import {
@@ -13,7 +13,7 @@ import {
   syncPitchWrapTransitionToVideoReveal,
 } from "./pitch-render.js";
 import { stopRecordingAndExitFullscreen } from "./recording-flow.js";
-import { playBallPreloader as runSharedBallPreloader } from "../../.Storage/shared/ball-preloader-animation.js";
+import { playBallPreloader as runSharedBallPreloader } from "../../.Storage/shared/ball-preloader-animation.js?v=20260608-ballopen2";
 
 /** After Play Video on the logo page: pause before logo reveal + next step. */
 const LOGO_PAGE_PLAY_VIDEO_DELAY_MS = 2000;
@@ -56,7 +56,7 @@ const LANDING_QUIZ_VOICE_DELAY_MS = 500;
  *  this out too so it still starts 0.5s after the 4 BALLS appear (not after the preloader). */
 const BALL_INTRO_RENDER_HOLD_MS = 500;
 /** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
-const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
+export const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
 
 function setVideoRevealPostTimerActive(isActive) {
   const active = !!isActive;
@@ -120,6 +120,7 @@ export function stopVideoFlow() {
   stopAllAudio(); 
   const { els } = appState;
   els.teamHeader?.classList.remove("team-header-stage-exit-video-anim", "team-header-stage-enter-video-anim");
+  els.logoPage?.classList.remove("logo-page-stage-exit-video-anim", "logo-page-stage-enter-video-anim");
   els.playVideoBtn.hidden = false;
   if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
   els.countdownTimer.hidden = true;
@@ -256,8 +257,9 @@ export function runLandingIntro(afterSwitch) {
 }
 
 /** Wait for any running page-transition overlay, then run fn after 200ms.
- *  Falls back to fallbackMs delay when no custom transition is active. */
-function scheduleAfterTransition(fn, fallbackMs = 0) {
+ *  Falls back to fallbackMs delay when no custom transition is active.
+ *  Exported so the `intro` render test clip can mirror the full render's post-intro flow. */
+export function scheduleAfterTransition(fn, fallbackMs = 0) {
   if (appState._transitionDone) {
     const p = appState._transitionDone;
     appState._transitionDone = null;

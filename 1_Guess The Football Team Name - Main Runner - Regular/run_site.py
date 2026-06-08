@@ -3391,7 +3391,7 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             segment = str(body.get("segment") or "").strip()
             if not script:
                 raise ValueError("script is required")
-            # Full-render quality picks from the Render options dialog (test clips ignore these).
+            # Quality picks from the Render options dialog — used by BOTH full render and test clips.
             req_fps = body.get("fps")
             req_height = body.get("height")
             render_fps = req_fps if req_fps in (30, 60) else None
@@ -3418,16 +3418,14 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         ]
         if segment:
             cmd += ["--segment", segment]
-            # Render test clips are quick previews — 1080p @ 30fps (faster to produce;
-            # quality is not important, they're just to see what's going on).
-            cmd += ["--fps", "30", "--height", "1080"]
-        else:
-            # Full render: honour the dialog's FPS / resolution picks (index.mjs defaults
-            # to 60fps / 1440 if either is omitted).
-            if render_fps:
-                cmd += ["--fps", str(render_fps)]
-            if render_height:
-                cmd += ["--height", str(render_height)]
+        # Both the full render AND test clips honour the dialog's FPS / resolution picks
+        # (index.mjs defaults to 60fps / 1440 if either is omitted). Test clips used to be
+        # forced to 1080p@30, but the user wants the preview to match the full render exactly
+        # (same screen size + chosen frame rate).
+        if render_fps:
+            cmd += ["--fps", str(render_fps)]
+        if render_height:
+            cmd += ["--height", str(render_height)]
         # Render the user's CURRENT on-screen setup (not the saved-by-name version), exactly
         # like Record Video. The client captures it and we hand it to the driver via a temp file.
         if isinstance(script_object, dict):

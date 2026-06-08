@@ -889,7 +889,13 @@ ${vignetteCss("sun-rays-top-left")}
    so just the rays sweep around the center while the element/mask stay perfectly still. */
 @property --thumb-rays-angle {
   syntax: "<angle>";
-  inherits: false;
+  /* inherits:true so a value set on :root reaches BOTH the landing body::before rays AND
+     the render ball-preloader ball-layer-1::before rays (render-mode.css) — the headless
+     render drives this one var with GSAP (the CSS spin below is frozen under the virtual
+     clock) so both ray layers rotate together, identically and continuously. In Play/Record
+     the CSS animation below still sets it locally on body::before (overrides inheritance),
+     so normal playback is unchanged. */
+  inherits: true;
   initial-value: 0deg;
 }
 
@@ -1196,22 +1202,52 @@ function getEffectKeyframesCss() {
 }
 
 /**
- * Ball-drop preloader uses a flat stage colour only — no mirrored rays/haze
- * pseudo-elements (those read as smoky overlays behind the merge animation).
+ * Ball-drop preloader background.
+ * - Play/Record (live browser): a flat stage colour only — no mirrored rays/haze
+ *   pseudo-elements (those read as smoky overlays behind the merge animation).
+ * - Render (body.render-mode-active): MIRROR the full selected effect onto the OPAQUE
+ *   ball-layer-1 (background + a copy of the body::before) for the WHOLE preloader (merge AND
+ *   open). The layer stays opaque so it still covers .app — the reveal hole then opens onto the
+ *   landing/title progressively (like Play) — but now shows the SELECTED effect behind the 4
+ *   balls instead of a flat colour. Works for EVERY effect: background effects via the layer
+ *   background, body::before effects (rays/rings/sun-rays) via the mirrored ::before. Effects
+ *   animate via the render CSS-animation driver (+ GSAP for the youtube-thumbnails rays).
  */
-function getBallPreloaderEffectCss(_effectId, colorHex) {
-  const sel = `.ball-preloader:not(.revealing) .ball-layer-1`;
+function getBallPreloaderEffectCss(effectId, colorHex, opacityPercent = DEFAULT_LINE_OPACITY_PERCENT) {
+  const playSel = `.ball-preloader:not(.revealing) .ball-layer-1`;
+  // Render mirror: copy each `body::before` block from the effect's extra CSS onto the render
+  // ball-layer-1::before (::before blocks have no nested braces, so a flat regex captures them;
+  // `position:fixed` → `absolute` so it's relative to the layer).
+  const rSel = `body.render-mode-active .ball-preloader .ball-layer-1`;
+  const extra = getEffectExtraCss(effectId, colorHex, opacityPercent);
+  let beforeMirror = "";
+  extra.replace(/:root\[[^\]]+\]\s*body::before\s*\{[^}]*\}/g, (block) => {
+    beforeMirror += "\n" + block
+      .replace(/:root\[[^\]]+\]\s*body::before/, `${rSel}::before`)
+      .replace(/position:\s*fixed/gi, "position: absolute");
+    return block;
+  });
   return `
-/* Ball-preloader: solid stage fill (no background-effect mirror) */
-${sel} {
+/* Play/Record (NOT render): solid stage fill, no background-effect mirror/haze behind the
+   merge. Gated to :not(.render-mode-active) so it doesn't hide the render mirror ::before. */
+body:not(.render-mode-active) ${playSel} {
   background: var(--bg-stage, ${colorHex});
   animation: none;
 }
-${sel}::before,
-${sel}::after {
+body:not(.render-mode-active) ${playSel}::before,
+body:not(.render-mode-active) ${playSel}::after {
   display: none !important;
   content: none !important;
 }
+/* Render: opaque ball-layer-1 carries the selected effect behind the 4-ball intro */
+${rSel} {
+  background: ${getEffectBackground(effectId, colorHex, opacityPercent)} !important;
+  background-size: ${getEffectBackgroundSize(effectId)} !important;
+  background-repeat: no-repeat !important;
+  animation: ${getEffectAnimation(effectId)} !important;
+}
+${rSel}::after { display: none !important; content: none !important; }
+${beforeMirror}
 `;
 }
 
@@ -1258,11 +1294,16 @@ function applyTheme(colorId, effectId, opacityPercent = DEFAULT_LINE_OPACITY_PER
 
 ${getEffectKeyframesCss()}
 ${getEffectExtraCss(normalizedEffectId, selectedColor.hex, normalizedOpacity)}
-${getBallPreloaderEffectCss(normalizedEffectId, selectedColor.hex)}
+${getBallPreloaderEffectCss(normalizedEffectId, selectedColor.hex, normalizedOpacity)}
 `;
   syncEmojiEffect(normalizedEffectId);
   syncQuestionMarksEffect(normalizedEffectId);
   syncSoccerBallsEffect(normalizedEffectId);
+  // A plain palette theme supersedes any competition: clear + unlock the dedicated dropdown.
+  if (compSelectEl) {
+    if (compSelectEl.value) compSelectEl.value = "";
+    setCompetitionLock(false);
+  }
   try {
     localStorage.setItem(STORAGE_COLOR_KEY, normalizedColorId);
     localStorage.setItem(STORAGE_EFFECT_KEY, normalizedEffectId);
@@ -1308,6 +1349,22 @@ export const COMPETITION_MIXED = "mixed";
 const STORAGE_COMPETITION_KEY = "football-channel.shared-background-competition";
 let compColorSelectEl = null;
 let compEffectSelectEl = null;
+// Optional dedicated "Competition background" dropdown (runner 1). When present, competitions
+// live ONLY here (not mixed into the color/effect selects), and selecting one locks the
+// color/effect/opacity controls. When absent (other runners), the legacy behaviour applies:
+// competitions appear as comp-<id> options inside both the color and effect dropdowns.
+let compSelectEl = null;
+let compOpacityEl = null;
+
+/** Enable/disable the plain color/effect/opacity controls (locked while a competition is on). */
+function setCompetitionLock(locked) {
+  [compColorSelectEl, compEffectSelectEl, compOpacityEl].forEach((el) => {
+    if (!el) return;
+    el.disabled = !!locked;
+    const field = el.closest && el.closest(".field");
+    if (field) field.classList.toggle("field--locked", !!locked);
+  });
+}
 
 function readSavedCompetition() {
   try {
@@ -1444,9 +1501,16 @@ export function resolveCompetitionId(name) {
   return null;
 }
 
-function compBallPreloaderCss(background, backgroundSize, backgroundRepeat) {
-  const sel = `.ball-preloader:not(.revealing) .ball-layer-1`;
-  return `${sel} { background: ${background}; background-size: ${backgroundSize}; background-repeat: ${backgroundRepeat}; animation: none; }`;
+function compBallPreloaderCss(background, backgroundSize, backgroundRepeat, animation = "none") {
+  // Apply during BOTH merge and the reveal/open (no `:not(.revealing)`) so the competition
+  // pattern stays behind the balls through the WHOLE intro — the balls merge over it and the
+  // reveal opens onto the same pattern on the landing (no flat-colour gap mid-open). The body
+  // background uses the identical recipe, so inside-the-hole and outside match exactly.
+  // Carry the recipe's animation (e.g. stars/chevron drop) onto ball-layer-1 so the pattern
+  // MOVES behind the balls too — same motion as the landing body (render advances it via the
+  // CSS-animation driver; Play runs it natively), so the merge and landing stay in sync.
+  const sel = `.ball-preloader .ball-layer-1`;
+  return `${sel} { background: ${background}; background-size: ${backgroundSize}; background-repeat: ${backgroundRepeat}; animation: ${animation}; }`;
 }
 
 /**
@@ -1482,17 +1546,25 @@ export function applyCompetitionTheme(competitionId) {
   --shorts-stage-background-animation: ${recipe.animation};
 }
 
-${compBallPreloaderCss(recipe.background, recipe.backgroundSize, recipe.backgroundRepeat)}
+${compBallPreloaderCss(recipe.background, recipe.backgroundSize, recipe.backgroundRepeat, recipe.animation)}
 ${COMP_DROP_KEYFRAMES}
 `;
   // Competition themes don't use the particle containers.
   syncEmojiEffect("none");
   syncQuestionMarksEffect("none");
   syncSoccerBallsEffect("none");
-  // Persist (so a refresh restores it) and reflect the choice in both dropdowns.
+  // Persist (so a refresh restores it) and reflect the choice in the UI.
   try { localStorage.setItem(STORAGE_COMPETITION_KEY, theme.id); } catch (_) { /* ignore */ }
-  if (compColorSelectEl) compColorSelectEl.value = attr;
-  if (compEffectSelectEl) compEffectSelectEl.value = attr;
+  if (compSelectEl) {
+    // Dedicated dropdown: select the competition by bare id and LOCK the color/effect/opacity
+    // controls (a competition is a combined color+effect — editing them would be meaningless).
+    compSelectEl.value = theme.id;
+    setCompetitionLock(true);
+  } else {
+    // Legacy: a competition occupies both the color and effect dropdowns as comp-<id>.
+    if (compColorSelectEl) compColorSelectEl.value = attr;
+    if (compEffectSelectEl) compEffectSelectEl.value = attr;
+  }
   return true;
 }
 
@@ -1508,18 +1580,31 @@ export function initSharedBackgroundTheme(
   opacityInputEl,
   options = {},
 ) {
-  const { forcedDefaults = null } = options;
+  const { forcedDefaults = null, competitionSelectEl = null } = options;
   populateSelect(colorSelectEl, COLORS);
   populateSelect(effectSelectEl, EFFECTS);
-  // Add competition themes as options in BOTH dropdowns (value "comp-<id>"), and keep
-  // refs so applyCompetitionTheme can reflect the active competition in them.
   compColorSelectEl = colorSelectEl;
   compEffectSelectEl = effectSelectEl;
-  const compOptionsHtml = COMPETITION_THEMES_LIST
-    .map((t) => `<option value="comp-${t.id}">\u{1F3C6} ${t.label}</option>`)
-    .join("");
-  if (colorSelectEl) colorSelectEl.insertAdjacentHTML("beforeend", compOptionsHtml);
-  if (effectSelectEl) effectSelectEl.insertAdjacentHTML("beforeend", compOptionsHtml);
+  compOpacityEl = opacityInputEl;
+  compSelectEl = competitionSelectEl;
+  if (competitionSelectEl) {
+    // Dedicated "Competition background" dropdown: competitions live ONLY here ("None" +
+    // each competition by bare id), NOT mixed into the color/effect selects. Selecting one
+    // applies its combined color+effect theme and locks the color/effect/opacity controls.
+    competitionSelectEl.innerHTML =
+      `<option value="">None — use Color + Effect</option>` +
+      COMPETITION_THEMES_LIST
+        .map((t) => `<option value="${t.id}">\u{1F3C6} ${t.label}</option>`)
+        .join("");
+  } else {
+    // Legacy (other runners): competitions appear as comp-<id> options in BOTH dropdowns,
+    // and applyCompetitionTheme reflects the active competition in them.
+    const compOptionsHtml = COMPETITION_THEMES_LIST
+      .map((t) => `<option value="comp-${t.id}">\u{1F3C6} ${t.label}</option>`)
+      .join("");
+    if (colorSelectEl) colorSelectEl.insertAdjacentHTML("beforeend", compOptionsHtml);
+    if (effectSelectEl) effectSelectEl.insertAdjacentHTML("beforeend", compOptionsHtml);
+  }
   opacityProfiles = readOpacityProfilesFromLocalStorage();
   const initialTheme = forcedDefaults
     ? {
@@ -1532,14 +1617,20 @@ export function initSharedBackgroundTheme(
       ? normalizeOpacityPercent(forcedDefaults.opacity)
       : readSavedOpacityForColor(initialTheme.colorId);
 
+  const isComp = (v) => typeof v === "string" && v.startsWith("comp-");
+  // Remember the last PLAIN (non-competition) picks so we can restore the other dropdown
+  // when the user escapes a competition (a competition occupies BOTH dropdowns as comp-X).
+  let lastPlainColorId = isComp(initialTheme.colorId) ? (COLORS[0] && COLORS[0].id) : initialTheme.colorId;
+  let lastPlainEffectId = isComp(initialTheme.effectId) ? (EFFECTS[0] && EFFECTS[0].id) : initialTheme.effectId;
+
   const applyCurrentSelection = () => {
     const colorId = colorSelectEl ? colorSelectEl.value : initialTheme.colorId;
     const effectId = effectSelectEl ? effectSelectEl.value : initialTheme.effectId;
     // A competition picked in EITHER dropdown wins — apply its brand theme + reflect
     // it in both selects (applyCompetitionTheme syncs them).
     const compId =
-      (typeof colorId === "string" && colorId.startsWith("comp-") && colorId.slice(5)) ||
-      (typeof effectId === "string" && effectId.startsWith("comp-") && effectId.slice(5)) ||
+      (isComp(colorId) && colorId.slice(5)) ||
+      (isComp(effectId) && effectId.slice(5)) ||
       "";
     if (compId && COMPETITION_THEMES[compId]) {
       applyCompetitionTheme(compId);
@@ -1551,6 +1642,9 @@ export function initSharedBackgroundTheme(
     if (opacityInputEl) {
       opacityInputEl.value = String(opacity);
     }
+    // Both dropdowns are plain here — remember them for competition-escape.
+    lastPlainColorId = colorId;
+    lastPlainEffectId = effectId;
     applyTheme(colorId, effectId, opacity);
   };
 
@@ -1576,6 +1670,12 @@ export function initSharedBackgroundTheme(
 
   if (colorSelectEl) {
     colorSelectEl.addEventListener("change", () => {
+      // Picked a plain COLOR while a competition is still parked in the EFFECT dropdown?
+      // Clear it (restore the last plain effect) so this color actually applies — otherwise
+      // the stale comp- in the effect select re-applies the competition and ignores the pick.
+      if (!isComp(colorSelectEl.value) && effectSelectEl && isComp(effectSelectEl.value)) {
+        effectSelectEl.value = lastPlainEffectId;
+      }
       if (opacityInputEl) {
         opacityInputEl.value = String(readSavedOpacityForColor(colorSelectEl.value));
       }
@@ -1583,7 +1683,29 @@ export function initSharedBackgroundTheme(
     });
   }
   if (effectSelectEl) {
-    effectSelectEl.addEventListener("change", applyCurrentSelection);
+    effectSelectEl.addEventListener("change", () => {
+      // Symmetric: picked a plain EFFECT while a competition is parked in the COLOR dropdown
+      // → clear it (restore the last plain color) so changing the Background Effect works even
+      // after a competition was selected. (This was the "effect dropdown only changes once" bug.)
+      if (!isComp(effectSelectEl.value) && colorSelectEl && isComp(colorSelectEl.value)) {
+        colorSelectEl.value = lastPlainColorId;
+      }
+      applyCurrentSelection();
+    });
+  }
+  // Dedicated "Competition background" dropdown: selecting a competition applies its combined
+  // color+effect and locks the plain controls; "None" unlocks them and restores the plain theme.
+  if (compSelectEl) {
+    compSelectEl.addEventListener("change", () => {
+      const id = compSelectEl.value;
+      if (id && COMPETITION_THEMES[id]) {
+        applyCompetitionTheme(id);            // applies theme + locks color/effect/opacity
+      } else {
+        setCompetitionLock(false);            // unlock first so applyTheme's inputs are live
+        try { localStorage.removeItem(STORAGE_COMPETITION_KEY); } catch (_) { /* ignore */ }
+        applyCurrentSelection();              // re-apply the plain color/effect
+      }
+    });
   }
   if (forcedDefaults) {
     /* Keep `opacityProfiles` warm for color-change handlers, but don't override

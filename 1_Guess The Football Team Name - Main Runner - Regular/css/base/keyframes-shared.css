@@ -4,6 +4,14 @@
   50% { transform: translate3d(0, -12px, 0); }
 }
 
+/* Landing TITLE bob — bigger travel (goes further up AND down around its position) and a bit
+   faster than the shared float. Title-specific so it doesn't change the logo / pitch circles.
+   Keep in sync with the render GSAP take-over in render-segments.js startRenderLandingFloat(). */
+@keyframes float-up-down-title {
+  0%, 100% { transform: translate3d(0, -15px, 0); }
+  50%      { transform: translate3d(0,  15px, 0); }
+}
+
 @keyframes float-up-down-tilted {
   0%, 100% { transform: perspective(500px) rotateX(5deg) translate3d(0, 0, 0); }
   50% { transform: perspective(500px) rotateX(5deg) translate3d(0, -12px, 0); }

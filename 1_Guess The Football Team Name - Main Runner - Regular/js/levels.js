@@ -225,8 +225,14 @@ export function switchLevel(index, options = {}) {
 
     if (appState.isVideoPlaying) {
       if (isLanding) {
-        const quizType = document.getElementById("in-quiz-type").value;
-        playRules(quizType);
+        // The ball-preloader intro (video.js runLandingIntro) OWNS the quiz-title voice while
+        // the preloader is up. Don't replay it from here if updateDOMContent lands on the
+        // landing during the intro — e.g. a level transition that runs mid-preloader (some
+        // particle background effects trigger one) would otherwise fire a SECOND quiz voice.
+        if (!document.body.classList.contains("ball-preloader-active")) {
+          const quizType = document.getElementById("in-quiz-type").value;
+          playRules(quizType);
+        }
       } else if (!isLogo && appState.currentLevelIndex < appState.totalLevelsCount - 1) {
         playProgressVoice(appState.currentLevelIndex, appState.totalLevelsCount);
       }
@@ -416,6 +422,12 @@ export function switchLevel(index, options = {}) {
         teamHeaderEl.classList.remove("team-header-stage-enter-video-anim");
         teamHeaderEl.classList.add("team-header-stage-exit-video-anim");
       }
+      // Fade the persistent corner logo out WITH the smoke (its own child layers escape the
+      // stage's blur/fade in live — see transitions.css logo-page-stage-exit-video-reveal).
+      if (appState.isVideoPlaying && els.logoPage && !els.logoPage.hidden) {
+        els.logoPage.classList.remove("logo-page-stage-enter-video-anim");
+        els.logoPage.classList.add("logo-page-stage-exit-video-anim");
+      }
 
       if (progressContainer) {
         progressContainer.classList.remove("progress-in-reg", "progress-in-shorts");
@@ -436,6 +448,12 @@ export function switchLevel(index, options = {}) {
               void teamHeaderEl.offsetWidth;
               teamHeaderEl.classList.add("team-header-stage-enter-video-anim");
             }
+            // Fade the corner logo back IN with the new level (only if it's shown there).
+            els.logoPage?.classList.remove("logo-page-stage-exit-video-anim");
+            if (appState.isVideoPlaying && els.logoPage && !els.logoPage.hidden) {
+              void els.logoPage.offsetWidth;
+              els.logoPage.classList.add("logo-page-stage-enter-video-anim");
+            }
 
             if (progressContainer) {
               progressContainer.classList.remove("progress-out-reg", "progress-out-shorts");
@@ -446,6 +464,7 @@ export function switchLevel(index, options = {}) {
             setTimeout(() => {
               stageMain.classList.remove("stage-enter-anim", "stage-enter-video-anim");
               teamHeaderEl?.classList.remove("team-header-stage-enter-video-anim");
+              els.logoPage?.classList.remove("logo-page-stage-enter-video-anim");
             }, 820);
           });
         });

@@ -1,6 +1,6 @@
 // js/level-control.js
 import { appState } from "./state.js";
-import { switchLevel } from "./levels.js";
+import { switchLevel } from "./levels.js?v=20260608-logofade";
 import { renderProgressSteps } from "./progress.js";
 
 let draggedLevelIndex = -1;

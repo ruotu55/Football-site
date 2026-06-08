@@ -17,14 +17,14 @@
  * place.
  */
 import { appState } from "./state.js";
-import { switchLevel } from "./levels.js";
+import { switchLevel } from "./levels.js?v=20260608-logofade";
 import {
     applyScriptObject,
     setActiveScriptName,
     getActiveScriptName,
     buildScriptFromImportText,
     captureCurrentScriptObject,
-} from "./saved-scripts.js?v=20260601-autoopen5";
+} from "./saved-scripts.js?v=20260608-rndtest";
 import { frozenScriptForBlock, wireVideoStatusButton } from "../../.Storage/shared/video-status.js";
 import { getLastOutputPath } from "./obs-recorder.js";
 import { generateNameDescription } from "../../.Storage/shared/name-description-generator/name-description-generator.js";

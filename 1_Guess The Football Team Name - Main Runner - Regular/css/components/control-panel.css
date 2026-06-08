@@ -98,6 +98,13 @@
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(255, 202, 40, 0.2);
 }
+/* Color/Effect/Opacity fields are LOCKED while a Competition background is selected
+   (a competition is a combined color+effect — set the Competition dropdown to "None" to edit). */
+.field--locked { opacity: 0.4; }
+.field input:disabled, .field select:disabled {
+  cursor: not-allowed;
+  background: rgba(0,0,0,0.25);
+}
 
 .field input.team-selected {
   background: var(--accent);
