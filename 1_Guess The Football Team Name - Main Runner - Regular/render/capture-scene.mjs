@@ -164,12 +164,12 @@ export async function captureFullScene({ script: name, lang = "english", port = 
   let audio = [];
   let z = 0;
   const add = (cap, kind, appearMs, disappearMs, idPrefix, extra = {}) => { if (cap) layers.push({ id: idPrefix, kind, z: z++, appearMs, disappearMs, ...cap, ...extra }); };
-  // editable text layer: capSize derived from the on-screen px * a visual multiplier
-  const addText = (cap, mul, appearMs, disappearMs, idPrefix, weight) => {
+  // editable text layer with an EXPLICIT CapCut size unit (the px->size mapping is
+  // unreliable; these are calibrated for the 1080 canvas — tune per element).
+  const addText = (cap, capSize, appearMs, disappearMs, idPrefix, weight) => {
     if (!cap) return;
-    const capSize = Math.max(5, Math.round((cap.font.sizePxCanvas || 60) * (mul || 1) / CAPSIZE_PX));
     layers.push({ id: idPrefix, kind: "text", z: z++, appearMs, disappearMs, text: cap.text, rect: cap.rect,
-      font: { capSize, color: cap.font.color, weight: weight || cap.font.weight } });
+      font: { capSize: Math.max(5, Math.round(capSize)), color: cap.font.color, weight: weight || cap.font.weight } });
   };
 
   const introStart = 0;
@@ -192,8 +192,8 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       // badge stays an image (it's a styled pill/graphic, not plain text)
       add(await capturePng(r, ".landing-questions-line", null, outDir, "intro-badge"), "image", introStart, qStart, "intro-badge", { scaleMul: 2.1 });
       // title + season as EDITABLE text (Barlow Condensed), enlarged to match the design
-      addText(await captureText(r, "#landing-title", null), 2.1, introStart, qStart, "intro-title", 900);
-      addText(await captureText(r, ".landing-subtitle", null), 2.1, introStart, qStart, "intro-season", 700);
+      addText(await captureText(r, "#landing-title", null), 13, introStart, qStart, "intro-title", 900);
+      addText(await captureText(r, ".landing-subtitle", null), 11, introStart, qStart, "intro-season", 700);
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), introStart));
     } finally { await r.browser.close(); }
   }
@@ -217,11 +217,11 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       for (let i = 0; i < 24; i++) await r.advanceOneFrame(); // let flip + sidebar finish
       for (let i = 0; i < slots; i++) {
         add(await capturePng(r, ".player-slot .slot-back .slot-avatar", i, outDir, "r-back-" + i), "image", revealStart, endStart, "r-back-" + i);
-        addText(await captureText(r, ".slot-name", i), 1.25, revealStart, endStart, "r-name-" + i, 700);
+        addText(await captureText(r, ".slot-name", i), 7, revealStart, endStart, "r-name-" + i, 700);
       }
       add(await capturePng(r, "#team-header-logo", null, outDir, "r-logo"), "image", revealStart, endStart, "r-logo");
       add(await capturePng(r, "#team-header-flag", null, outDir, "r-flag"), "image", revealStart, endStart, "r-flag");
-      addText(await captureText(r, "#team-header-name", null), 1.25, revealStart, endStart, "r-teamname", 700);
+      addText(await captureText(r, "#team-header-name", null), 14, revealStart, endStart, "r-teamname", 700);
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), qStart));
     } finally { await r.browser.close(); }
   }
@@ -238,8 +238,8 @@ export async function captureFullScene({ script: name, lang = "english", port = 
         add(await capturePng(r, ".logo-img-anim", null, outDir, "end-logo"), "image", endStart, totalMs, "end-logo");
         const acts = await r.page.evaluate(() => document.querySelectorAll(".outro-action, .outro-action-bottom").length);
         for (let i = 0; i < acts; i++) add(await capturePng(r, ".outro-action, .outro-action-bottom", i, outDir, "end-emoji-" + i), "image", endStart, totalMs, "end-emoji-" + i);
-        addText(await captureText(r, "#outro-title", null), 1.25, endStart, totalMs, "end-title", 900);
-        addText(await captureText(r, "#outro-subtitle", null), 1.25, endStart, totalMs, "end-subtitle", 700);
+        addText(await captureText(r, "#outro-title", null), 13, endStart, totalMs, "end-title", 900);
+        addText(await captureText(r, "#outro-subtitle", null), 10, endStart, totalMs, "end-subtitle", 700);
       }
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), endStart));
     } finally { await r.browser.close(); }
