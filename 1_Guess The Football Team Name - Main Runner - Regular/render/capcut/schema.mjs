@@ -24,6 +24,17 @@ function templateFontPath() {
   try { return JSON.parse(RICH.materials.texts[0].content).styles[0].font.path || ""; }
   catch { return ""; }
 }
+// Barlow Condensed (the website's font) vendored in render/capcut/fonts and installed for
+// the user so CapCut can render editable text in the right typeface.
+const FONT_DIR = join(HERE, "fonts");
+function barlowPath(weight) {
+  const w = weight || 700;
+  const f = w >= 850 ? "BarlowCondensed-Black.ttf"
+    : w >= 700 ? "BarlowCondensed-Bold.ttf"
+    : w >= 600 ? "BarlowCondensed-SemiBold.ttf"
+    : "BarlowCondensed-Medium.ttf";
+  return join(FONT_DIR, f).replace(/\\/g, "/");
+}
 // helpers referenced by a template segment, grouped by their material array name
 function collectHelpers(rich, seg) {
   const refIds = new Set(seg.extra_material_refs || []);
@@ -57,19 +68,25 @@ export function buildTextLayer(layer, ctx) {
   const material = clone(tplMat);
   material.id = id();
   const [r, g, b] = hexToRgb01(layer.font?.color);
-  // CapCut text "size" unit: default added text was 15. Map captured px with a heuristic
-  // (~/6); the user fine-tunes fonts afterwards.
-  const size = Math.max(5, Math.round((layer.font?.sizePx || 60) / 6));
+  const weight = layer.font?.weight || 700;
+  const fontPath = barlowPath(weight);
+  // CapCut text size unit. Prefer explicit capSize; else map CSS px (calibrated ~/2.2).
+  const size = Math.max(5, Math.round(layer.font?.capSize || (layer.font?.sizePx || 60) / 2.2));
   const text = String(layer.text ?? "");
   material.content = JSON.stringify({
     text,
     styles: [{
       fill: { content: { render_type: "solid", solid: { color: [r, g, b] } } },
-      font: { path: templateFontPath(), id: "" },
+      font: { path: fontPath, id: "" },
       size,
       range: [0, text.length],
+      bold: weight >= 700,
     }],
   });
+  // point the material's font fields at Barlow Condensed too (CapCut shows the family name)
+  material.font_path = fontPath;
+  if ("font_name" in material) material.font_name = "Barlow Condensed";
+  if ("font_title" in material) material.font_title = "Barlow Condensed";
   if ("text_color" in material) material.text_color = layer.font?.color || "#FFFFFF";
   if ("font_size" in material) material.font_size = size;
   if ("text_size" in material) material.text_size = size;

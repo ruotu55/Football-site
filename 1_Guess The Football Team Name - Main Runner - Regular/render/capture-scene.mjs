@@ -83,22 +83,49 @@ async function captureBackground(r, outDir, name) {
   return { png: file.replace(/\\/g, "/"), pngW: CANVAS_W, pngH: CANVAS_H, rect: { x: 0, y: 0, w: CANVAS_W, h: CANVAS_H } };
 }
 
+// Read an element as editable text: detect the rendered line breaks (so a wrapped title
+// becomes multi-line), font px (canvas space), colour, weight.
 async function captureText(r, sel, idx) {
   const d = await r.page.evaluate(({ sel, idx }) => {
     const els = document.querySelectorAll(sel);
     const el = idx == null ? els[0] : els[idx];
     if (!el) return null;
     const rb = el.getBoundingClientRect();
-    const txt = (el.innerText || el.textContent || "").trim();
-    if (rb.width < 2 || rb.height < 2 || !txt) return null;
+    if (rb.width < 2 || rb.height < 2) return null;
+    // reconstruct visual line breaks by tracking each word's top via Range rects
+    const range = document.createRange();
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+    let lines = [], cur = "", curTop = null, any = false, node;
+    while ((node = walker.nextNode())) {
+      const s = node.nodeValue; if (!s) continue;
+      const toks = s.split(/(\s+)/); let off = 0;
+      for (const tok of toks) {
+        if (tok.length === 0) continue;
+        if (/^\s+$/.test(tok)) { cur += tok; off += tok.length; continue; }
+        range.setStart(node, off); range.setEnd(node, off + tok.length);
+        const rects = range.getClientRects(); const rr = rects[rects.length - 1];
+        off += tok.length;
+        if (!rr) { cur += tok; continue; }
+        any = true;
+        if (curTop === null) curTop = rr.top;
+        if (rr.top - curTop > 4) { lines.push(cur.trim()); cur = ""; curTop = rr.top; }
+        cur += tok;
+      }
+    }
+    if (cur.trim()) lines.push(cur.trim());
+    const text = (any ? lines.join("\n") : (el.innerText || el.textContent || "")).trim();
+    if (!text) return null;
     const cs = getComputedStyle(el);
     const rgb = (cs.color.match(/\d+/g) || [255, 255, 255]).slice(0, 3).map(Number);
     const hex = "#" + rgb.map((n) => n.toString(16).padStart(2, "0")).join("").toUpperCase();
-    return { text: txt, x: rb.x, y: rb.y, w: rb.width, h: rb.height, sizePx: parseFloat(cs.fontSize) || 40, color: hex, align: cs.textAlign, weight: parseInt(cs.fontWeight) || 400 };
+    return { text, x: rb.x, y: rb.y, w: rb.width, h: rb.height, sizePx: parseFloat(cs.fontSize) || 40, color: hex, align: cs.textAlign, weight: parseInt(cs.fontWeight) || 700 };
   }, { sel, idx });
   if (!d) return null;
-  return { text: d.text, rect: { x: d.x * DSF, y: d.y * DSF, w: d.w * DSF, h: d.h * DSF }, font: { sizePx: d.sizePx * DSF, color: d.color, align: d.align, weight: d.weight } };
+  return { text: d.text, rect: { x: d.x * DSF, y: d.y * DSF, w: d.w * DSF, h: d.h * DSF }, font: { sizePxCanvas: d.sizePx * DSF, color: d.color, align: d.align, weight: d.weight } };
 }
+
+// CapCut text "size" unit per on-screen pixel (calibrated; tune if text comes out off).
+const CAPSIZE_PX = 5.6;
 
 // Advance until predicate true (polled in-page) or cap frames.
 async function advanceUntil(r, predicateFn, cap = 600) {
@@ -137,6 +164,13 @@ export async function captureFullScene({ script: name, lang = "english", port = 
   let audio = [];
   let z = 0;
   const add = (cap, kind, appearMs, disappearMs, idPrefix, extra = {}) => { if (cap) layers.push({ id: idPrefix, kind, z: z++, appearMs, disappearMs, ...cap, ...extra }); };
+  // editable text layer: capSize derived from the on-screen px * a visual multiplier
+  const addText = (cap, mul, appearMs, disappearMs, idPrefix, weight) => {
+    if (!cap) return;
+    const capSize = Math.max(5, Math.round((cap.font.sizePxCanvas || 60) * (mul || 1) / CAPSIZE_PX));
+    layers.push({ id: idPrefix, kind: "text", z: z++, appearMs, disappearMs, text: cap.text, rect: cap.rect,
+      font: { capSize, color: cap.font.color, weight: weight || cap.font.weight } });
+  };
 
   const introStart = 0;
   const qStart = PHASE.introMs;
@@ -155,7 +189,11 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       // The whole title+subtitle("2025/6 SEASON")+badge live in .landing-motion-group and
       // float together on the site -> capture as ONE unit, scaled up + flagged to float.
       add(await capturePng(r, ".side-text.left", null, outDir, "intro-side", { forceOpacity: 1, forceColor: "#FFFFFF" }), "image", introStart, qStart, "intro-side", { scaleMul: 2.2 });
-      add(await capturePng(r, ".landing-motion-group", null, outDir, "intro-group"), "image", introStart, qStart, "intro-group", { scaleMul: 2.1, float: true });
+      // badge stays an image (it's a styled pill/graphic, not plain text)
+      add(await capturePng(r, ".landing-questions-line", null, outDir, "intro-badge"), "image", introStart, qStart, "intro-badge", { scaleMul: 2.1 });
+      // title + season as EDITABLE text (Barlow Condensed), enlarged to match the design
+      addText(await captureText(r, "#landing-title", null), 2.1, introStart, qStart, "intro-title", 900);
+      addText(await captureText(r, ".landing-subtitle", null), 2.1, introStart, qStart, "intro-season", 700);
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), introStart));
     } finally { await r.browser.close(); }
   }
@@ -179,11 +217,11 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       for (let i = 0; i < 24; i++) await r.advanceOneFrame(); // let flip + sidebar finish
       for (let i = 0; i < slots; i++) {
         add(await capturePng(r, ".player-slot .slot-back .slot-avatar", i, outDir, "r-back-" + i), "image", revealStart, endStart, "r-back-" + i);
-        add(await capturePng(r, ".slot-name", i, outDir, "r-name-" + i), "image", revealStart, endStart, "r-name-" + i, { scaleMul: 1.25 });
+        addText(await captureText(r, ".slot-name", i), 1.25, revealStart, endStart, "r-name-" + i, 700);
       }
       add(await capturePng(r, "#team-header-logo", null, outDir, "r-logo"), "image", revealStart, endStart, "r-logo");
       add(await capturePng(r, "#team-header-flag", null, outDir, "r-flag"), "image", revealStart, endStart, "r-flag");
-      add(await capturePng(r, "#team-header-name", null, outDir, "r-teamname"), "image", revealStart, endStart, "r-teamname", { scaleMul: 1.25 });
+      addText(await captureText(r, "#team-header-name", null), 1.25, revealStart, endStart, "r-teamname", 700);
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), qStart));
     } finally { await r.browser.close(); }
   }
@@ -200,8 +238,8 @@ export async function captureFullScene({ script: name, lang = "english", port = 
         add(await capturePng(r, ".logo-img-anim", null, outDir, "end-logo"), "image", endStart, totalMs, "end-logo");
         const acts = await r.page.evaluate(() => document.querySelectorAll(".outro-action, .outro-action-bottom").length);
         for (let i = 0; i < acts; i++) add(await capturePng(r, ".outro-action, .outro-action-bottom", i, outDir, "end-emoji-" + i), "image", endStart, totalMs, "end-emoji-" + i);
-        add(await capturePng(r, "#outro-title", null, outDir, "end-title"), "image", endStart, totalMs, "end-title", { scaleMul: 1.25 });
-        add(await capturePng(r, "#outro-subtitle", null, outDir, "end-subtitle"), "image", endStart, totalMs, "end-subtitle", { scaleMul: 1.25 });
+        addText(await captureText(r, "#outro-title", null), 1.25, endStart, totalMs, "end-title", 900);
+        addText(await captureText(r, "#outro-subtitle", null), 1.25, endStart, totalMs, "end-subtitle", 700);
       }
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), endStart));
     } finally { await r.browser.close(); }

@@ -1,8 +1,12 @@
 import { readFileSync, writeFileSync, cpSync, rmSync, existsSync, renameSync, readdirSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { newId } from "./ids.mjs";
 
 const fwd = (p) => p.split("\\").join("/");
+// Vendored draft skeleton — self-contained clone source so the builder never depends on
+// the user's CapCut drafts existing (they delete/rename them).
+const VENDORED_SKELETON = join(dirname(fileURLToPath(import.meta.url)), "templates", "draft-skeleton");
 
 // A CapCut draft is only openable as a COMPLETE folder (Timelines store, configs,
 // virtual store, cover, empty dirs). Rather than hand-author all of that, we clone a
@@ -49,7 +53,9 @@ function scrubIdsInTree(dir, pairs) {
  * assembleDraft). Returns { foldPath, draftId, timelineId, projectId }.
  */
 export function packageDraft({ content, name, capcutRoot, referenceDir = null, nowMs }) {
-  const ref = referenceDir || findReferenceDraft(capcutRoot, name);
+  const ref = referenceDir
+    || (existsSync(join(VENDORED_SKELETON, "Timelines", "project.json")) ? VENDORED_SKELETON : null)
+    || findReferenceDraft(capcutRoot, name);
   if (!ref) {
     throw new Error(
       "No reference CapCut draft to clone in " + capcutRoot +
