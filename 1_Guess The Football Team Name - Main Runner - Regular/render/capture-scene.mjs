@@ -27,8 +27,8 @@ export function resolveBlockScript(name, repoRoot = REPO_ROOT) {
   throw new Error(`no recording-status block named "${name}"`);
 }
 
-async function capturePng(r, sel, idx, outDir, name) {
-  const rect = await r.page.evaluate(({ sel, idx }) => {
+async function capturePng(r, sel, idx, outDir, name, opts = {}) {
+  const rect = await r.page.evaluate(({ sel, idx, forceOpacity, forceColor }) => {
     const els = document.querySelectorAll(sel);
     const el = idx == null ? els[0] : els[idx];
     if (!el) return null;
@@ -40,8 +40,12 @@ async function capturePng(r, sel, idx, outDir, name) {
     document.body.style.visibility = "hidden";
     de.style.background = "transparent"; document.body.style.background = "transparent";
     el.style.visibility = "visible";
+    // some decor elements (side text) are intentionally low-opacity on the site; force
+    // full opacity so they're visible as standalone CapCut layers.
+    if (forceOpacity != null) { el.dataset.capOp = el.style.opacity || ""; el.style.opacity = String(forceOpacity); }
+    if (forceColor) { el.style.color = forceColor; el.style.webkitTextFillColor = forceColor; el.style.textShadow = "none"; }
     return { x: rb.x, y: rb.y, w: rb.width, h: rb.height };
-  }, { sel, idx });
+  }, { sel, idx, forceOpacity: opts.forceOpacity ?? null, forceColor: opts.forceColor ?? null });
   if (!rect) return null;
   await r.client.send("Emulation.setDefaultBackgroundColorOverride", { color: { r: 0, g: 0, b: 0, a: 0 } });
   const shot = await r.client.send("Page.captureScreenshot", {
@@ -53,7 +57,7 @@ async function capturePng(r, sel, idx, outDir, name) {
   await r.page.evaluate(({ sel, idx }) => {
     const els = document.querySelectorAll(sel);
     const el = idx == null ? els[0] : els[idx];
-    if (el) el.style.visibility = "";
+    if (el) { el.style.visibility = ""; if ("capOp" in el.dataset) { el.style.opacity = el.dataset.capOp; delete el.dataset.capOp; } }
     document.body.style.visibility = document.body.dataset.capVis || "";
     document.documentElement.style.background = document.documentElement.dataset.capBg || "";
     document.body.style.background = document.body.dataset.capBg || "";
@@ -150,7 +154,7 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       add(await captureBackground(r, outDir, "intro-bg"), "image", introStart, qStart, "intro-bg");
       // The whole title+subtitle("2025/6 SEASON")+badge live in .landing-motion-group and
       // float together on the site -> capture as ONE unit, scaled up + flagged to float.
-      add(await capturePng(r, ".side-text.left", null, outDir, "intro-side"), "image", introStart, qStart, "intro-side", { scaleMul: 1.8 });
+      add(await capturePng(r, ".side-text.left", null, outDir, "intro-side", { forceOpacity: 1, forceColor: "#FFFFFF" }), "image", introStart, qStart, "intro-side", { scaleMul: 1.8 });
       add(await capturePng(r, ".landing-motion-group", null, outDir, "intro-group"), "image", introStart, qStart, "intro-group", { scaleMul: 2.1, float: true });
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), introStart));
     } finally { await r.browser.close(); }
