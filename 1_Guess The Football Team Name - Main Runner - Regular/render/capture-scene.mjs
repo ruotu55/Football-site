@@ -146,12 +146,12 @@ export async function captureFullScene({ script: name, lang = "english", port = 
     try {
       await r.startFlow();
       await advanceUntil(r, () => !!document.querySelector("#landing-page:not([hidden]) #landing-title"), 300);
-      for (let i = 0; i < 10; i++) await r.advanceOneFrame(); // settle
+      for (let i = 0; i < 30; i++) await r.advanceOneFrame(); // let the scale-in settle
       add(await captureBackground(r, outDir, "intro-bg"), "image", introStart, qStart, "intro-bg");
-      add(await capturePng(r, ".landing-questions-line", null, outDir, "intro-badge"), "image", introStart, qStart, "intro-badge");
-      // titles/labels captured as PNG (exact website look — wrap/font/colour); replaceable in CapCut
-      add(await capturePng(r, "#landing-title", null, outDir, "intro-title"), "image", introStart, qStart, "intro-title");
-      add(await capturePng(r, "#landing-subtitle", null, outDir, "intro-subtitle"), "image", introStart, qStart, "intro-subtitle");
+      // The whole title+subtitle("2025/6 SEASON")+badge live in .landing-motion-group and
+      // float together on the site -> capture as ONE unit, scaled up + flagged to float.
+      add(await capturePng(r, ".side-text.left", null, outDir, "intro-side"), "image", introStart, qStart, "intro-side");
+      add(await capturePng(r, ".landing-motion-group", null, outDir, "intro-group"), "image", introStart, qStart, "intro-group", { scaleMul: 1.7, float: true });
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), introStart));
     } finally { await r.browser.close(); }
   }

@@ -158,16 +158,19 @@ export function buildPhotoLayer(layer, ctx) {
   segment.track_render_index = layer.z ?? 0;
 
   const { scale, transform } = mapRect(layer.rect);
+  // scaleMul (>1) enlarges a layer around its own centre (e.g. blow the intro title group
+  // up to match the recorded video); transform stays at the rect centre so it grows in place.
+  const eff = scale * (layer.scaleMul || 1);
   segment.clip = {
     alpha: layer.alpha ?? 1,
     flip: { horizontal: false, vertical: false },
     rotation: 0,
-    scale: { x: scale, y: scale },
+    scale: { x: eff, y: eff },
     transform: { x: transform.x, y: transform.y },
   };
   // CapCut couples uniform_scale.value with clip.scale; if left at 1 while
   // clip.scale<1 the image renders full-canvas (scale ignored). Keep them equal.
-  segment.uniform_scale = { on: true, value: scale };
+  segment.uniform_scale = { on: true, value: eff };
 
   const dur = us((layer.disappearMs ?? 0) - (layer.appearMs ?? 0));
   segment.source_timerange = { start: 0, duration: dur };
