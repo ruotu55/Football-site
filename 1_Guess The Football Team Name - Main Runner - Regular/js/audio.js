@@ -981,17 +981,61 @@ function buildRevealCandidates(displayName, quizType, phraseKey) {
 }
 
 /** Probe candidates and play first that loads. Returns silently if none. */
+/* Render: which reveal-voice candidate actually exists, resolved in render setup (real time,
+   before the virtual clock) and keyed by the candidate list. The in-flow probe is async and
+   races the virtual clock, so it would delay the reveal voice past the flip — using this
+   pre-resolved src lets the flow play it directly, AT the flip. */
+const __renderRevealResolved = new Map();
+const revealClipKey = (list) => (list || []).join("|");
+
+/** Render-only: probe `candidates` now (real time) to find the first existing clip and cache
+    it by key, so playFirstExistingClip() can play it synchronously during the flow. */
+export async function renderPrewarmRevealClip(candidates) {
+  const list = (candidates || []).filter(Boolean);
+  const key = revealClipKey(list);
+  if (__renderRevealResolved.has(key)) return __renderRevealResolved.get(key);
+  let resolved = "";
+  for (const src of list) {
+    // eslint-disable-next-line no-await-in-loop
+    const exists = await new Promise((res) => {
+      const a = new Audio();
+      const done = (v) => { clearTimeout(to); a.removeEventListener("loadedmetadata", ok); a.removeEventListener("error", err); res(v); };
+      const ok = () => done(true);
+      const err = () => done(false);
+      const to = setTimeout(() => done(false), 4000);
+      a.addEventListener("loadedmetadata", ok, { once: true });
+      a.addEventListener("error", err, { once: true });
+      a.preload = "metadata";
+      a.src = src;
+      a.load();
+    });
+    if (exists) { resolved = src; break; }
+  }
+  __renderRevealResolved.set(key, resolved);
+  return resolved;
+}
+
 function playFirstExistingClip(candidates, delayMs) {
   const list = (candidates || []).filter(Boolean);
   if (list.length === 0) return;
+  // Render: skip the async probe (it races the virtual clock and pushes the voice past the
+  // flip). Use the candidate pre-resolved in setup so the voice plays AT the flip.
+  if (window.__render?.active && __renderRevealResolved.has(revealClipKey(list))) {
+    const src = __renderRevealResolved.get(revealClipKey(list));
+    if (src) playVoice(src, delayMs);
+    return;
+  }
   let i = 0;
   const tryNext = () => {
     if (i >= list.length) return;
     const src = list[i++];
     const probe = new Audio();
+    let to = 0;
     const cleanup = () => {
+      clearTimeout(to);
       probe.removeEventListener("error", onErr);
       probe.removeEventListener("canplay", onOk);
+      probe.removeEventListener("loadedmetadata", onOk);
     };
     const onErr = () => { cleanup(); tryNext(); };
     const onOk = () => {
@@ -1001,6 +1045,12 @@ function playFirstExistingClip(candidates, delayMs) {
     };
     probe.addEventListener("error", onErr, { once: true });
     probe.addEventListener("canplay", onOk, { once: true });
+    // `loadedmetadata` fires reliably for existing files in headless render (where muted
+    // audio often never reaches `canplay`), so the reveal voice resolves instead of hanging.
+    probe.addEventListener("loadedmetadata", onOk, { once: true });
+    // Safety: never hang on a probe that yields neither event (treat as missing → next).
+    to = setTimeout(onErr, 3000);
+    probe.preload = "metadata"; // else headless render never loads → loadedmetadata won't fire
     probe.src = src;
     probe.load();
   };

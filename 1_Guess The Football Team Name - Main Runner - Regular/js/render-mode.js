@@ -11,7 +11,11 @@ import { startVideoFlow } from "./video.js?v=20260605-3scountdown";
 import { setCurrentLanguage } from "./voice-tab.js";
 import { loadScriptByName, applyScriptObject } from "./saved-scripts.js?v=20260601-autoopen5";
 import { switchLevel } from "./levels.js";
-import { renderSeedDurations, renderGetDurations, renderPrewarmVoiceDurations } from "./audio.js";
+import {
+  renderSeedDurations, renderGetDurations, renderPrewarmVoiceDurations,
+  getOrAssignRevealPhrase, buildRevealVoiceCandidates, renderPrewarmRevealClip,
+} from "./audio.js";
+import { resolveHeaderTeamDisplayName } from "./pitch-render.js";
 import { coverLandingForRenderIntro, runRenderTestSegment } from "./render-segments.js";
 
 function parseConfig() {
@@ -98,7 +102,13 @@ export function initRenderModeIfRequested() {
   window.__audioManifest = [];
   window.__audioTap = (event) => {
     if (!window.__render || !window.__render.active) return;
-    window.__audioManifest.push({ atMs: performance.now(), ...event });
+    // Stamp time RELATIVE TO THE FLOW START (frame 0), not raw performance.now(). The
+    // page setup (script apply, voice pre-resolves, fonts, GSAP) runs in real time before
+    // the virtual clock starts, so performance.now() at flow start is already several
+    // seconds in. The video frames start at frame 0, so raw perfnow would place every
+    // sound that many seconds late. __renderFlowStartMs is captured at _startFn start.
+    const base = window.__renderFlowStartMs || 0;
+    window.__audioManifest.push({ atMs: Math.max(0, performance.now() - base), ...event });
   };
 
   // Signal natural end of the video (same event Record Video waits for).
@@ -182,6 +192,37 @@ export function initRenderModeIfRequested() {
         }
       } catch (_) { /* non-fatal: fall back to the live resolver */ }
 
+      // Pre-resolve the REVEAL voice for every question level — same async-gap class as the
+      // ending/quiz-title voices. playFirstExistingClip()'s in-flow probe is async and races
+      // the virtual clock, so without this the reveal voice lands AFTER the slot flip. Probing
+      // here (real time, keyed by the EXACT candidate list the flow builds) lets the flow play
+      // it AT the flip. Mirrors revealCurrentLevel()'s resolution exactly: same quizType, the
+      // same resolveHeaderTeamDisplayName(state)/getOrAssignRevealPhrase(state, i-1) per level,
+      // and the same getCurrentLanguage() (language was set above). We sweep currentLevelIndex
+      // like recording-preflight so the getState()-based resolvers see the right level.
+      try {
+        if (Array.isArray(appState.levelsData)) {
+          const quizType = appState.els?.inQuizType?.value || "nat-by-club";
+          const originalIndex = appState.currentLevelIndex;
+          try {
+            for (let i = 2; i < appState.totalLevelsCount; i++) {
+              const lvl = appState.levelsData[i];
+              if (!lvl || typeof lvl !== "object" || !lvl.currentSquad) continue;
+              appState.currentLevelIndex = i;
+              const displayName = String(resolveHeaderTeamDisplayName(lvl, quizType) || "").trim();
+              if (!displayName) continue;
+              const phraseKey = getOrAssignRevealPhrase(lvl, i - 1);
+              const candidates = buildRevealVoiceCandidates(displayName, quizType, phraseKey);
+              if (candidates.length) {
+                try { await renderPrewarmRevealClip(candidates); } catch (_) {}
+              }
+            }
+          } finally {
+            appState.currentLevelIndex = originalIndex;
+          }
+        }
+      } catch (_) { /* non-fatal: fall back to the live probe */ }
+
       if (document.fonts && document.fonts.ready) {
         // Never hang setup on fonts (can stall under heavy parallel load); cap the wait.
         await Promise.race([
@@ -193,6 +234,9 @@ export function initRenderModeIfRequested() {
       await preloadGsapForRender();
 
       render._startFn = async () => {
+        // Mark the flow start (frame 0) so audio events stamp flow-relative times, not the
+        // real-time setup offset baked into performance.now(). (virtual clock is paused here.)
+        window.__renderFlowStartMs = performance.now();
         try {
           if (cfg.segment) {
             await runRenderTestSegment(cfg.segment);

@@ -19,6 +19,23 @@
 .side-text.left { left: 1rem; transform: translateY(-50%) rotate(180deg); }
 .side-text.right { right: 1rem; transform: translateY(-50%); }
 
+/* Play / Record / Render (all set body.play-video-active): use the FULL screen width.
+   Collapse the "Screen size" safe-zone insets to 0 so everything that's anchored to them
+   uses the true screen edges instead of where the black bands used to be:
+     • the ball-preloader intro clip-path becomes inset(0) → fills the whole screen,
+     • the team-header sidebar rests at left:0 → slides in from the true left edge,
+     • the black side bands collapse to 0 width, and the side text sits at the left edge.
+   The safe-zone overlay still works while editing; only playback/recording/render drop it. */
+body.play-video-active {
+  --screen-size-inset-left: 0px;
+  --screen-size-inset-right: 0px;
+}
+body.play-video-active .screen-size-overlay__margin-left,
+body.play-video-active .screen-size-overlay__margin-right {
+  display: none !important;
+}
+body.play-video-active .side-text.left { left: 1rem !important; }
+
 .top-badge {
   position: absolute;
   top: 2rem;

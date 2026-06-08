@@ -125,7 +125,7 @@ function ensureQuestionReady(index, label) {
 }
 
 /** Intro test clip: runs the EXACT same intro as the full render (runLandingIntro in
- *  video.js) — ball merge → reveal Level 1 → quiz-title voice 1s after the balls → switch
+ *  video.js) — ball merge → reveal Level 1 → quiz-title voice 0.5s after the balls → switch
  *  to Q1 when the voice ENDS. The ONLY difference vs the full render is that the clip ends
  *  after the switch (finishRenderSegment) instead of starting the question. Do NOT duplicate
  *  intro logic here — keep it in runLandingIntro so the test stays 100% identical. */

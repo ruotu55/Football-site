@@ -49,11 +49,11 @@ function playBallPreloader() {
  *  (voice + photo flip) runs AFTER this, unchanged. Single source of truth — retune here. */
 const QUESTION_COUNTDOWN_SECONDS = 3;
 const INTRO_GAME_NAME_VOICE_DELAY_MS = 500;
-/** Landing-page quiz voice waits this long after the ball animation starts (Regular). */
-const LANDING_QUIZ_VOICE_DELAY_MS = 1000;
+/** Quiz-title intro voice starts this long after the 4 balls START animating (0.5s). */
+const LANDING_QUIZ_VOICE_DELAY_MS = 500;
 /** Render-only: the ball preloader holds on the background for 0.5s BEFORE the 4 balls
  *  appear (see ball-preloader-animation.js playBallMerge HOLD). The intro voice must wait
- *  this out too so it still starts 1s after the 4 BALLS appear (not 1s after the preloader). */
+ *  this out too so it still starts 0.5s after the 4 BALLS appear (not after the preloader). */
 const BALL_INTRO_RENDER_HOLD_MS = 500;
 /** Must stay in sync with the question-to-question stage transition in `js/levels.js`. */
 const LEVEL_SWITCH_STAGE_TRANSITION_MS = 820;
@@ -231,7 +231,7 @@ export function startVideoFlow() {
 
 /**
  * The landing intro, shared by the full render (startVideoFlow) and the `intro` render
- * TEST CLIP so they can never drift: ball-drop preloader → quiz-title voice 1s after the
+ * TEST CLIP so they can never drift: ball-drop preloader → quiz-title voice 0.5s after the
  * 4 balls appear → switch to the first question (Level 2) ONLY when the voice ENDS.
  * `afterSwitch` runs right after `switchLevel(2)` (full render → runVideoStep; test clip →
  * finishRenderSegment). Keep ALL intro behavior here; never duplicate it in a runner.
@@ -240,8 +240,8 @@ export function runLandingIntro(afterSwitch) {
   const { els } = appState;
   const quizType = els.inQuizType?.value || "nat-by-club";
   playBallPreloader();
-  /* Voice starts 1s after the 4 balls appear. In render the preloader holds on the
-     background 0.5s before the balls, so add that so the voice stays 1s after the BALLS. */
+  /* Voice starts 0.5s after the 4 balls appear. In render the preloader holds on the
+     background 0.5s before the balls, so add that so the voice stays 0.5s after the BALLS. */
   const introVoiceDelay = LANDING_QUIZ_VOICE_DELAY_MS
     + (window.__render?.active ? BALL_INTRO_RENDER_HOLD_MS : 0);
   appState.videoTimeout = setTimeout(() => {
