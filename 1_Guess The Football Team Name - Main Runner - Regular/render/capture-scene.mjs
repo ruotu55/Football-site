@@ -150,8 +150,8 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       add(await captureBackground(r, outDir, "intro-bg"), "image", introStart, qStart, "intro-bg");
       // The whole title+subtitle("2025/6 SEASON")+badge live in .landing-motion-group and
       // float together on the site -> capture as ONE unit, scaled up + flagged to float.
-      add(await capturePng(r, ".side-text.left", null, outDir, "intro-side"), "image", introStart, qStart, "intro-side");
-      add(await capturePng(r, ".landing-motion-group", null, outDir, "intro-group"), "image", introStart, qStart, "intro-group", { scaleMul: 1.7, float: true });
+      add(await capturePng(r, ".side-text.left", null, outDir, "intro-side"), "image", introStart, qStart, "intro-side", { scaleMul: 1.8 });
+      add(await capturePng(r, ".landing-motion-group", null, outDir, "intro-group"), "image", introStart, qStart, "intro-group", { scaleMul: 2.1, float: true });
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), introStart));
     } finally { await r.browser.close(); }
   }
@@ -175,11 +175,11 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       for (let i = 0; i < 24; i++) await r.advanceOneFrame(); // let flip + sidebar finish
       for (let i = 0; i < slots; i++) {
         add(await capturePng(r, ".player-slot .slot-back .slot-avatar", i, outDir, "r-back-" + i), "image", revealStart, endStart, "r-back-" + i);
-        add(await capturePng(r, ".slot-name", i, outDir, "r-name-" + i), "image", revealStart, endStart, "r-name-" + i);
+        add(await capturePng(r, ".slot-name", i, outDir, "r-name-" + i), "image", revealStart, endStart, "r-name-" + i, { scaleMul: 1.25 });
       }
       add(await capturePng(r, "#team-header-logo", null, outDir, "r-logo"), "image", revealStart, endStart, "r-logo");
       add(await capturePng(r, "#team-header-flag", null, outDir, "r-flag"), "image", revealStart, endStart, "r-flag");
-      add(await capturePng(r, "#team-header-name", null, outDir, "r-teamname"), "image", revealStart, endStart, "r-teamname");
+      add(await capturePng(r, "#team-header-name", null, outDir, "r-teamname"), "image", revealStart, endStart, "r-teamname", { scaleMul: 1.25 });
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), qStart));
     } finally { await r.browser.close(); }
   }
@@ -196,8 +196,8 @@ export async function captureFullScene({ script: name, lang = "english", port = 
         add(await capturePng(r, ".logo-img-anim", null, outDir, "end-logo"), "image", endStart, totalMs, "end-logo");
         const acts = await r.page.evaluate(() => document.querySelectorAll(".outro-action, .outro-action-bottom").length);
         for (let i = 0; i < acts; i++) add(await capturePng(r, ".outro-action, .outro-action-bottom", i, outDir, "end-emoji-" + i), "image", endStart, totalMs, "end-emoji-" + i);
-        add(await capturePng(r, "#outro-title", null, outDir, "end-title"), "image", endStart, totalMs, "end-title");
-        add(await capturePng(r, "#outro-subtitle", null, outDir, "end-subtitle"), "image", endStart, totalMs, "end-subtitle");
+        add(await capturePng(r, "#outro-title", null, outDir, "end-title"), "image", endStart, totalMs, "end-title", { scaleMul: 1.25 });
+        add(await capturePng(r, "#outro-subtitle", null, outDir, "end-subtitle"), "image", endStart, totalMs, "end-subtitle", { scaleMul: 1.25 });
       }
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), endStart));
     } finally { await r.browser.close(); }
