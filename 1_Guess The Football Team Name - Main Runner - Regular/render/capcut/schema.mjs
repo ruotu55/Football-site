@@ -90,6 +90,16 @@ export function buildTextLayer(layer, ctx) {
   if ("text_color" in material) material.text_color = layer.font?.color || "#FFFFFF";
   if ("font_size" in material) material.font_size = size;
   if ("text_size" in material) material.text_size = size;
+  // drop shadow (match the site's title glow) + tighter line spacing for multi-line titles
+  if ("has_shadow" in material) {
+    material.has_shadow = true;
+    material.shadow_color = "#000000";
+    material.shadow_alpha = layer.font?.shadowAlpha ?? 0.55;
+    material.shadow_smoothing = 0.45;
+    material.shadow_distance = layer.font?.shadowDistance ?? 10;
+    material.shadow_angle = -45;
+  }
+  if ("line_spacing" in material) material.line_spacing = layer.font?.lineSpacing ?? -0.3;
 
   const helpers = collectHelpers(RICH, tplSeg).map(({ arrName, m }) => {
     const nm = clone(m); nm.id = id(); return { arrName, m: nm, oldId: m.id };
