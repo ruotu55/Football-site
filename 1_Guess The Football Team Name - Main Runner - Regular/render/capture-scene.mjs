@@ -154,7 +154,7 @@ export async function captureFullScene({ script: name, lang = "english", port = 
       add(await captureBackground(r, outDir, "intro-bg"), "image", introStart, qStart, "intro-bg");
       // The whole title+subtitle("2025/6 SEASON")+badge live in .landing-motion-group and
       // float together on the site -> capture as ONE unit, scaled up + flagged to float.
-      add(await capturePng(r, ".side-text.left", null, outDir, "intro-side", { forceOpacity: 1, forceColor: "#FFFFFF" }), "image", introStart, qStart, "intro-side", { scaleMul: 1.8 });
+      add(await capturePng(r, ".side-text.left", null, outDir, "intro-side", { forceOpacity: 1, forceColor: "#FFFFFF" }), "image", introStart, qStart, "intro-side", { scaleMul: 2.2 });
       add(await capturePng(r, ".landing-motion-group", null, outDir, "intro-group"), "image", introStart, qStart, "intro-group", { scaleMul: 2.1, float: true });
       audio = audio.concat(audioFromManifest(await r.getManifest(), await r.getDurations(), introStart));
     } finally { await r.browser.close(); }
