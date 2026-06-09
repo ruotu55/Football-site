@@ -258,9 +258,9 @@ body.play-video-active #landing-title-voice-controls {
   will-change: transform, opacity, filter;
 }
 /* ====================================================================
-   "N QUESTIONS + BONUS" — switchable styles via data-qstyle on
-   .landing-questions-line. 0 = original; 1-5 = new looks. The editor-only
-   landing-qstyle-switcher sets the attribute (persisted in localStorage).
+   "N QUESTIONS + BONUS" — the "Ticket Stub" look (formerly data-qstyle 4):
+   a dark slab with side notches, a dashed divider after the count, and an
+   accent-coloured BONUS word. This is now the only style.
    ==================================================================== */
 
 /* ---- Shared text defaults (used by all styles unless overridden) ---- */
@@ -272,6 +272,8 @@ body.play-video-active #landing-title-voice-controls {
   line-height: 1;
   letter-spacing: 0.5px;
   text-shadow: 0 4px 8px rgba(0,0,0,0.7);
+  padding-right: 1.8rem;
+  border-right: 3px dashed color-mix(in srgb, var(--bg-stage, #FFD60A) 75%, #888);
 }
 .landing-questions-label,
 .landing-questions-bonus {
@@ -284,6 +286,7 @@ body.play-video-active #landing-title-voice-controls {
   line-height: 1;
   text-shadow: 0 2px 4px rgba(0,0,0,0.7);
 }
+.landing-questions-bonus { color: var(--bg-stage, #FFD60A); }
 .landing-questions-rest {
   display: inline-flex;
   align-items: center;
@@ -314,98 +317,16 @@ body.play-video-active #landing-title-voice-controls {
 .landing-questions-plus::before { width: 2.21rem; height: 0.52rem; }
 .landing-questions-plus::after  { width: 0.52rem; height: 2.21rem; }
 
-/* ---- Shared line wrapper ---- */
+/* ---- TICKET STUB — dark slab with side notches + dashed divider ---- */
 .landing-questions-line {
   position: relative;
   z-index: 10;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 1.18rem;
-  animation: none;
-}
-
-/* ── 0 · ORIGINAL — dark capsule, accent border, soft drop shadow ── */
-.landing-questions-line[data-qstyle="0"] {
-  background: linear-gradient(180deg, rgba(15,15,15,0.96) 0%, rgba(32,32,32,0.96) 100%);
-  border: 3px solid var(--bg-stage, #FFD60A);
-  border-radius: 999px;
-  padding: 1.18rem 3.04rem;
-  box-shadow: 0 19.5px 45.5px rgba(0,0,0,0.55), inset 0 0 20px rgba(0,0,0,0.35);
-}
-
-/* ── 1 · SCOREBOARD SPLIT — accent number block | dark label block ── */
-.landing-questions-line[data-qstyle="1"] {
-  padding: 0;
-  gap: 0;
-  overflow: hidden;
-  border-radius: 18px;
-  background: #16181d;
-  border: 3px solid rgba(255,255,255,0.14);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.5);
-}
-.landing-questions-line[data-qstyle="1"] .landing-questions-count {
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  background: var(--bg-stage, #FFD60A);
-  padding: 1.1rem 2rem;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.45);
-  box-shadow: inset -6px 0 14px rgba(0,0,0,0.25);
-}
-.landing-questions-line[data-qstyle="1"] .landing-questions-rest { padding: 0 2.2rem; }
-.landing-questions-line[data-qstyle="1"] .landing-questions-plus {
-  width: 3rem; height: 3rem; border-width: 2px;
-}
-.landing-questions-line[data-qstyle="1"] .landing-questions-plus::before { width: 1.6rem; height: 0.4rem; }
-.landing-questions-line[data-qstyle="1"] .landing-questions-plus::after  { width: 0.4rem; height: 1.6rem; }
-
-/* ── 2 · BIG NUMBER HERO — giant number, accent underline, label below ── */
-.landing-questions-line[data-qstyle="2"] {
-  flex-direction: column;
-  gap: 0.6rem;
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-}
-.landing-questions-line[data-qstyle="2"] .landing-questions-count {
-  font-size: 9.5rem;
-  letter-spacing: 1px;
-  padding-bottom: 0.35rem;
-  border-bottom: 0.5rem solid var(--bg-stage, #FFD60A);
-  text-shadow: 0 6px 14px rgba(0,0,0,0.55);
-}
-.landing-questions-line[data-qstyle="2"] .landing-questions-plus {
-  width: 3.4rem; height: 3.4rem;
-}
-.landing-questions-line[data-qstyle="2"] .landing-questions-plus::before { width: 1.8rem; height: 0.45rem; }
-.landing-questions-line[data-qstyle="2"] .landing-questions-plus::after  { width: 0.45rem; height: 1.8rem; }
-
-/* ── 3 · NEON GLOW — dark capsule with a glowing accent ring + accent number ── */
-.landing-questions-line[data-qstyle="3"] {
-  background: rgba(10,12,16,0.92);
-  border: 3px solid var(--bg-stage, #FFD60A);
-  border-radius: 999px;
-  padding: 1.1rem 3rem;
-  box-shadow:
-    0 0 0 4px rgba(0,0,0,0.35),
-    0 0 18px var(--bg-stage, #FFD60A),
-    0 0 40px color-mix(in srgb, var(--bg-stage, #FFD60A) 55%, transparent);
-}
-.landing-questions-line[data-qstyle="3"] .landing-questions-count {
-  color: var(--bg-stage, #FFD60A);
-  text-shadow: 0 0 14px color-mix(in srgb, var(--bg-stage, #FFD60A) 70%, transparent);
-}
-.landing-questions-line[data-qstyle="3"] .landing-questions-plus {
-  background: var(--bg-stage, #fff);
-  box-shadow: 0 0 12px var(--bg-stage, #FFD60A);
-}
-
-/* ── 4 · TICKET STUB — dark slab with side notches + dashed divider ── */
-.landing-questions-line[data-qstyle="4"] {
-  padding: 1.15rem 2.6rem;
   gap: 1.8rem;
+  animation: none;
+  padding: 1.15rem 2.6rem;
   background: linear-gradient(180deg, #1c1f26 0%, #101216 100%);
   border-radius: 12px;
   box-shadow: 0 12px 26px rgba(0,0,0,0.5);
@@ -421,39 +342,6 @@ body.play-video-active #landing-title-voice-controls {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
-.landing-questions-line[data-qstyle="4"] .landing-questions-count {
-  padding-right: 1.8rem;
-  border-right: 3px dashed color-mix(in srgb, var(--bg-stage, #FFD60A) 75%, #888);
-}
-.landing-questions-line[data-qstyle="4"] .landing-questions-bonus { color: var(--bg-stage, #FFD60A); }
-
-/* ── 5 · STACKED CHIPS — separate rounded chips, accent number chip ── */
-.landing-questions-line[data-qstyle="5"] {
-  background: none;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-  gap: 0.85rem;
-}
-.landing-questions-line[data-qstyle="5"] .landing-questions-count {
-  background: var(--bg-stage, #FFD60A);
-  padding: 0.6rem 1.7rem;
-  border-radius: 14px;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.45);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.4);
-}
-.landing-questions-line[data-qstyle="5"] .landing-questions-rest {
-  background: #16181d;
-  padding: 0.95rem 1.9rem;
-  border-radius: 14px;
-  border: 2px solid rgba(255,255,255,0.16);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.4);
-}
-.landing-questions-line[data-qstyle="5"] .landing-questions-plus {
-  width: 3rem; height: 3rem;
-}
-.landing-questions-line[data-qstyle="5"] .landing-questions-plus::before { width: 1.6rem; height: 0.4rem; }
-.landing-questions-line[data-qstyle="5"] .landing-questions-plus::after  { width: 0.4rem; height: 1.6rem; }
 
 /* Logo page → landing: quiz copy stays hidden until logo shift-top-right finishes, then fades in. */
 .landing-page.landing-content-awaiting-shift,

@@ -159,11 +159,6 @@ export function initRenderModeIfRequested() {
               colorSel.dispatchEvent(new Event("change"));
             }
           }
-          // Apply the picked "QUESTIONS + BONUS" style (data-qstyle) so the render matches the editor.
-          if (themeOverride.qstyle != null) {
-            const qline = document.querySelector(".landing-questions-line");
-            if (qline) qline.setAttribute("data-qstyle", String(themeOverride.qstyle));
-          }
         }
       } catch (_) { /* non-fatal: fall back to the runner's default theme */ }
 

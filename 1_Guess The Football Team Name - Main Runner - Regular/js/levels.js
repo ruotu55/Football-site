@@ -81,6 +81,27 @@ export function switchLevel(index, options = {}) {
   }
   els.teamResults.replaceChildren();
 
+  // Ending voice starts the MOMENT the transition into the outro begins (not after the outro
+  // DOM swaps in, which landed it ~820ms late, overlapping the last question). Fire it here, at
+  // transition start. `prevIndex` is the level we're leaving, so this runs once on entry to the
+  // outro. The post-voice chain ends the recording 1s after the voice finishes.
+  if (
+    index === appState.totalLevelsCount &&
+    prevIndex !== appState.totalLevelsCount &&
+    appState.isVideoPlaying
+  ) {
+    playCommentBelow().then(() => {
+      setTimeout(async () => {
+        /* Stop OBS + exit fullscreen first so the post-video UI flip is NOT recorded.
+           exitFullscreenSafe respects the doubleRecording flag (skips during phase 1). */
+        await stopRecordingAndExitFullscreen();
+        stopVideoFlow();
+        /* Tell the orchestrator (if any — Record Video's EN→ES flow) we're done. */
+        document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
+      }, 1000);
+    });
+  }
+
   const stageMain = document.getElementById("stage-main");
   const progressContainer = els.quizProgressContainer;
   const teamHeaderEl = els.teamHeader;
@@ -139,6 +160,7 @@ export function switchLevel(index, options = {}) {
       } else {
         els.teamHeader.hidden = true;
         els.teamHeader.classList.remove("team-header--show");
+        els.teamHeader.classList.add("team-header--offscreen");
         appState.teamSidebarAnimGeneration += 1;
         appState.teamSidebarLastOpen = false;
         appState.teamSidebarLastKey = "";
@@ -210,18 +232,10 @@ export function switchLevel(index, options = {}) {
       sharedBg.hidden = !(isLogo || isLanding || isOutro);
     }
 
-    if (isOutro && prevIndex !== appState.totalLevelsCount && appState.isVideoPlaying) {
-      playCommentBelow().then(() => {
-        setTimeout(async () => {
-          /* Stop OBS + exit fullscreen first so the post-video UI flip is NOT recorded.
-             exitFullscreenSafe respects the doubleRecording flag (skips during phase 1). */
-          await stopRecordingAndExitFullscreen();
-          stopVideoFlow();
-          /* Tell the orchestrator (if any — Record Video's EN→ES flow) we're done. */
-          document.dispatchEvent(new CustomEvent("recording-naturally-finished"));
-        }, 1000);
-      });
-    }
+    // NOTE: the ending voice ("how many did you get?" / "think you know…") is no longer fired
+    // here. It now starts at the START of the transition INTO the outro (see switchLevel below),
+    // not after the outro DOM has swapped in — which made it land ~820ms late, overlapping the
+    // last question. Kept out of updateDOMContent so it can't drift back to the late timing.
 
     if (appState.isVideoPlaying) {
       if (isLanding) {
@@ -392,6 +406,7 @@ export function switchLevel(index, options = {}) {
         if (sidebarPreserved && els.teamHeader) {
           els.teamHeader.style.transition = "none";
           els.teamHeader.classList.remove("team-header--show");
+          els.teamHeader.classList.add("team-header--offscreen"); // snapped off-screen → suppress edge shadow leak
           appState.teamSidebarAnimGeneration += 1;
           appState.teamSidebarLastOpen = false;
           appState.teamSidebarLastKey = "";

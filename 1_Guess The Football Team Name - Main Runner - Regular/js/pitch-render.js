@@ -17,7 +17,7 @@ const HEADER_LOGO_NUDGE_ABS_MAX = 4000;
 /** Seconds between each slot starting the logo→player flip; `0` = all flip together. */
 const SLOT_FLIP_STAGGER_SEC = 0;
 /** Must match `.slot-inner` `transition` duration in css/components/pitch.css */
-const SLOT_FLIP_DURATION_SEC = 0.78;
+const SLOT_FLIP_DURATION_SEC = 0.88;
 
 /** Stable wrapper: float animation runs here so `renderSlot` can replace only inner content without resetting bob. */
 function getOrCreateSlotMount(slotEl) {
@@ -30,13 +30,18 @@ function getOrCreateSlotMount(slotEl) {
   return mount;
 }
 
+function getSlotFlagCircleScale(inner) {
+  if (!inner?.classList.contains("slot-inner--flag-flip")) return 1;
+  const slot = inner.closest(".player-slot");
+  if (!slot) return 1;
+  const cardSize = parseFloat(getComputedStyle(slot).getPropertyValue("--slot-card-size")) || 0.9;
+  return 1.1 / (1.04 * cardSize);
+}
+
 /**
- * Render only: the slot flip ("circles turning", logo->player) is a CSS transition
- * (`.slot-inner { transition: transform 0.78s cubic-bezier(0.25,1,0.5,1) }`, flipped =
- * rotateY(180deg)) which SNAPS under the virtual clock. Drive the identical flip with
- * GSAP so it matches Play exactly. The 3D depth comes from `.pitch-wrap { perspective }`
- * (an ancestor) — same as the CSS flip — so we only animate rotationY, no transformPerspective.
- * Returns true when it took over (so callers skip the CSS path). Idempotent per inner.
+ * Render only: slot flip is a CSS transition on `.slot-inner` (0.88s) which SNAPS under
+ * the virtual clock. Drive the identical flip with GSAP so it matches Play exactly.
+ * Flag flips also morph scale (circle → card) via `.slot-inner--flag-flip`.
  */
 function gsapFlipSlotInner(inner) {
   if (!inner || !(window.__render?.active && window.gsap)) return false;
@@ -45,13 +50,18 @@ function gsapFlipSlotInner(inner) {
   inner.style.transition = "none";
   inner.style.transitionDelay = "";
   window.gsap.killTweensOf(inner);
+  const startScale = getSlotFlagCircleScale(inner);
   window.gsap.fromTo(
     inner,
-    { rotationY: 0 },
+    { rotationY: 0, scale: startScale },
     {
-      rotationY: 180, duration: SLOT_FLIP_DURATION_SEC, ease: EASE_FLIP, force3D: true,
+      rotationY: 180,
+      scale: 1,
+      duration: SLOT_FLIP_DURATION_SEC,
+      ease: EASE_FLIP,
+      force3D: true,
       onComplete() {
-        inner.classList.add("flipped");     // hand the final state to CSS
+        inner.classList.add("flipped");
         delete inner.dataset.flipping;
         window.gsap.set(inner, { clearProps: "transform" });
         inner.style.removeProperty("transition");
@@ -76,6 +86,9 @@ export function revealSidebarForRender() {
   if (!state?.currentSquad) return; // nothing to reveal (e.g. landing/outro)
   th.hidden = false;
   th.classList.remove("team-header--show");
+  // Restore the right-edge shadow/border the instant the slide-in starts so it travels
+  // in with the panel (it was suppressed while parked off-screen — see team-header.css).
+  th.classList.remove("team-header--offscreen");
   th.style.transition = "none";
   // Drive a PROXY object (not th) so a later killTweensOf(th) — e.g. levels.js' post-
   // transition renderHeader — can't kill this slide; set th's transform manually each tick.
@@ -347,6 +360,7 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
       appState.teamSidebarAnimGeneration += 1;
       window.gsap.killTweensOf(th);
       th.classList.remove("team-header--show");
+      th.classList.add("team-header--offscreen"); // parked at x=-100% → suppress edge shadow leak
       window.gsap.set(th, { xPercent: -100 });
       appState.teamSidebarLastOpen = false;
       appState.teamSidebarLastKey = "";
@@ -356,6 +370,7 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
   if (th.hidden || !wantsOpen) {
     appState.teamSidebarAnimGeneration += 1;
     th.classList.remove("team-header--show");
+    th.classList.add("team-header--offscreen"); // parked off-screen → suppress edge shadow leak
     appState.teamSidebarLastOpen = false;
     appState.teamSidebarLastKey = "";
     return;
@@ -366,6 +381,8 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
     appState.teamSidebarAnimGeneration += 1;
     const gen = appState.teamSidebarAnimGeneration;
     th.classList.remove("team-header--show");
+    // Slide-in starting → restore the edge shadow so it travels in with the panel.
+    th.classList.remove("team-header--offscreen");
     // Render: the CSS `transition: transform 0.5s ease-out` slide-in snaps under the
     // virtual clock (looks instant). Drive the identical translateX(-100%)→0 slide with
     // GSAP so it eases in smoothly like Play. (Play/Record keep the CSS transition.)
@@ -407,6 +424,7 @@ function syncTeamSidebarPanel(els, wantsOpen, slideKey) {
     });
   } else {
     th.classList.add("team-header--show");
+    th.classList.remove("team-header--offscreen"); // already open → ensure no stale shadow suppression
     appState.teamSidebarLastOpen = true;
     appState.teamSidebarLastKey = slideKey;
   }
@@ -751,7 +769,6 @@ function applySlotNameEdit(label, player) {
     delete state.customNames[key];
     label.textContent = pitchSlotDisplayLabel(state, player);
   }
-  scheduleSlotNameFit();
 }
 
 function wireSlotNameEditing(label, player) {
@@ -773,7 +790,6 @@ function wireSlotNameEditing(label, player) {
       delete getState().customNames[key];
       label.textContent = pitchSlotDisplayLabel(getState(), player);
     }
-    scheduleSlotNameFit();
   };
   label.onkeydown = (e) => {
     if (e.key === "Enter") {
@@ -978,14 +994,15 @@ function renderSwapLogoList(names) {
 }
 
 function applyStrictAvatarBounds(avatarEl, options = {}) {
-  const clipCircle = options.clipCircle !== false;
-  avatarEl.style.display = "flex";
-  avatarEl.style.justifyContent = "center";
-  avatarEl.style.alignItems = "center";
-  avatarEl.style.overflow = clipCircle ? "hidden" : "visible";
-  avatarEl.style.width = "100%";
-  avatarEl.style.aspectRatio = "1 / 1";
-  avatarEl.style.borderRadius = clipCircle ? "50%" : "0";
+  void options;
+  avatarEl.style.removeProperty("display");
+  avatarEl.style.removeProperty("justifyContent");
+  avatarEl.style.removeProperty("alignItems");
+  avatarEl.style.removeProperty("overflow");
+  avatarEl.style.removeProperty("width");
+  avatarEl.style.removeProperty("height");
+  avatarEl.style.removeProperty("aspect-ratio");
+  avatarEl.style.removeProperty("border-radius");
 }
 
 /** Legacy ingest left some player records with `nationality: "TM nationality id N"`
@@ -1615,12 +1632,17 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
   if (useVideoQuestionLayout) {
     const inner = document.createElement("div");
     inner.className = "slot-inner";
+    if (state.squadType === "club") {
+      inner.classList.add("slot-inner--flag-flip");
+    }
     const shouldFlipToPlayers = getVideoQuestionPreviewState(state).previewPostTimer;
 
     const front = document.createElement("div");
     front.className =
       "slot-face slot-front" +
-      (state.squadType === "national" ? " slot-front--national-crest" : "");
+      (state.squadType === "national"
+        ? " slot-front--national-crest"
+        : " slot-front--club-flag");
 
     const frontAvatar = document.createElement("div");
     frontAvatar.className = "slot-avatar";
@@ -1653,7 +1675,6 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
         img.style.maxHeight = "100%";
         img.style.objectFit = "cover";
         img.style.display = "block";
-        img.style.borderRadius = "50%";
         img.onerror = () => {
           img.remove();
           appendSlotBadgeTextFallback(badgeWrap, natLabel);
@@ -1750,7 +1771,6 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       img.style.maxHeight = "100%";
       img.style.objectFit = "cover";
       img.style.display = "block";
-      img.style.borderRadius = "50%"; 
       img.loading = "lazy";
       img.decoding = "async";
       img.onerror = () => {
@@ -1856,7 +1876,6 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       img.style.maxHeight = "100%";
       img.style.objectFit = "cover";
       img.style.display = "block";
-      img.style.borderRadius = "50%"; 
       img.loading = "lazy";
       img.decoding = "async";
       img.onerror = () => {
@@ -1949,42 +1968,6 @@ export function preloadSquadImages(state) {
   if (urls.length) preloadImages(urls);
 }
 
-let slotNameFitRaf = 0;
-
-function fitSlotNameEl(labelEl) {
-  labelEl.style.removeProperty("font-size");
-  labelEl.style.removeProperty("letter-spacing");
-  const nameLen = String(labelEl.textContent || "").trim().length;
-  if (nameLen >= 15) {
-    labelEl.style.fontSize = "0.4rem";
-    labelEl.style.letterSpacing = "0";
-  } else if (nameLen >= 13) {
-    labelEl.style.fontSize = "0.49rem";
-  } else if (nameLen >= 11) {
-    labelEl.style.fontSize = "0.54rem";
-  } else if (nameLen >= 9) {
-    labelEl.style.fontSize = "0.64rem";
-  }
-}
-
-function fitSlotNamesImpl() {
-  const labels = appState.els.pitchSlots?.querySelectorAll(".slot-name");
-  if (!labels?.length) {
-    return;
-  }
-  labels.forEach((el) => fitSlotNameEl(el));
-}
-
-function scheduleSlotNameFit() {
-  cancelAnimationFrame(slotNameFitRaf);
-  slotNameFitRaf = requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      slotNameFitRaf = 0;
-      fitSlotNamesImpl();
-    });
-  });
-}
-
 export function renderPitch() {
   installSlotControlClickDebug();
   installBulkPhotoButton();
@@ -2024,7 +2007,6 @@ export function renderPitch() {
     renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
   });
   applyRenderSlotFloats();
-  scheduleSlotNameFit();
 }
 
 /**

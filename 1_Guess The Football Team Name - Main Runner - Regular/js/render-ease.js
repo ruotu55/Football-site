@@ -35,7 +35,7 @@ export function cssCubicBezier(x1, y1, x2, y2) {
   return (p) => (p <= 0 ? 0 : p >= 1 ? 1 : fy(solveT(p)));
 }
 
-/** Slot flip + reveal motions — matches `cubic-bezier(0.25, 1, 0.5, 1)` (pitch.css). */
-export const EASE_FLIP = cssCubicBezier(0.25, 1, 0.5, 1);
+/** Slot flip + reveal motions — matches pitch.css `.slot-inner` cubic-bezier. */
+export const EASE_FLIP = cssCubicBezier(0.33, 1, 0.68, 1);
 /** CSS `ease-out` — matches `cubic-bezier(0, 0, 0.58, 1)` (team-header slide). */
 export const EASE_OUT = cssCubicBezier(0, 0, 0.58, 1);

@@ -1096,12 +1096,15 @@ export function playTheAnswerIs(
   phraseKey = "plain"
 ) {
 
-  setTimeout(() => {
+  // Flip/whoosh stinger plays the instant the reveal fires — playTheAnswerIs is called at the
+  // timer-finish tick (countdown == 0, same tick as the slot flip), so 0ms delay = the flip
+  // sound lands exactly when the timer finishes and the circles flip (was 150ms late).
+  {
     const revealStinger = new Audio(paths.revealStinger);
     revealStinger.volume = 0.5;
     if (window.__audioTap) window.__audioTap({ type: "play", kind: "stinger", id: "stinger", src: paths.revealStinger, volume: 0.5 });
     revealStinger.play().catch((err) => console.warn("Reveal stinger play error:", err));
-  }, 150);
+  }
 
   if (includeVoice && appState.isVideoPlaying) {
     const candidates = buildRevealCandidates(teamDisplayName, quizType, phraseKey);

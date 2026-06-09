@@ -29,7 +29,6 @@ import { initLevelControls } from "./level-control.js";
 import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260608-rndtest";
 import { initRenderModeIfRequested } from "./render-mode.js";
 import { askRenderOptions } from "./render-options-dialog.js?v=20260608-1440only";
-import { initLandingQStyleSwitcher, getLandingQStyle, applyLandingQStyle } from "./landing-qstyle-switcher.js?v=20260608-qstyle";
 import {
     showRenderProgressModal,
     setRenderWorkers,
@@ -1524,12 +1523,9 @@ async function init() {
         const color = document.getElementById("in-background-color")?.value || "";
         const effect = document.getElementById("in-background-effect")?.value || "";
         const opacity = document.getElementById("in-background-opacity")?.value || "";
-        // Carry the selected "QUESTIONS + BONUS" style into the render so render-test clips show
-        // the picked design (headless localStorage is empty, so we must pass it explicitly).
-        const qstyle = getLandingQStyle();
         const hasTheme = !!(competition || color || effect);
-        if (!hasTheme && (!qstyle || qstyle === "0")) return null;
-        return { competition, color, effect, opacity, qstyle };
+        if (!hasTheme) return null;
+        return { competition, color, effect, opacity };
     }
 
     // ?? Render Video: build the MP4 frame-by-frame (headless), current language only ??
@@ -1647,9 +1643,6 @@ async function init() {
             startRenderJob({ fps: opts.fps, height: opts.height });
         };
     }
-
-    // Editor-only switcher to preview the 5 "QUESTIONS + BONUS" styles (persists the pick).
-    initLandingQStyleSwitcher();
 
     initRenderTestClipsUi({
         // Test clips now match the full render: ask the same Render options dialog (frame rate;

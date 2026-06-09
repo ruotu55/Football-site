@@ -41,7 +41,7 @@
   /* Same duration AND curve as the slot flip (pitch.css .slot-inner) so the bar and the
      circles move as one synchronized motion. Render mirrors this exactly via GSAP
      (forceRenderSidebarSlideIn), started in the same tick as the flip. */
-  transition: transform 0.78s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.88s cubic-bezier(0.33, 1, 0.68, 1);
   will-change: transform;
 }
 
@@ -84,6 +84,16 @@
 .team-header.team-header--show {
   transform: translateX(0);
   pointer-events: auto;
+}
+
+/* Parked off-screen (translateX(-100%)) during the question hold: the panel body
+   is off-screen but its right-edge box-shadow/border would otherwise bleed onto the
+   LEFT screen edge (the panel's right edge sits at x=0). Kill them while parked so no
+   shadow band leaks; they're restored the instant a slide-in starts (see pitch-render.js
+   revealSidebarForRender / syncTeamSidebarPanel), so the shadow still slides in with the panel. */
+.team-header.team-header--offscreen {
+  box-shadow: none;
+  border-right-color: transparent;
 }
 
 .team-header[hidden] {
