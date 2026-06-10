@@ -1,48 +1,25 @@
 import React from "react";
-import { AbsoluteFill, Img, interpolate, spring, staticFile } from "remotion";
+import { AbsoluteFill, Img, staticFile } from "remotion";
 import { COLORS, fontFamily } from "../theme";
 import { DESIGN_FPS, useDesignFrame } from "../timing";
 
 const BADGE_GREEN = "#37a84d"; // green "+" circle + "BONUS" in the ticket badge
 const NOTCH_COLOR = "#33564a"; // approximates the page bg behind the badge
 
-const rise = (frame: number, delay: number, fps: number) => {
-  const s = spring({
-    frame: frame - delay,
-    fps,
-    config: { damping: 16, mass: 0.8, stiffness: 120 },
-    durationInFrames: 30,
-  });
-  return {
-    opacity: interpolate(s, [0, 0.7], [0, 1], { extrapolateRight: "clamp" }),
-    y: interpolate(s, [0, 1], [40, 0]),
-  };
-};
-
 export const Intro: React.FC = () => {
   const frame = useDesignFrame();
 
-  // Logo pops in (top-right) with a little overshoot.
-  const logoPop = spring({
-    frame,
-    fps: DESIGN_FPS,
-    config: { damping: 10, mass: 0.7, stiffness: 130 },
-    durationInFrames: 30,
-  });
-  const logoScale = interpolate(logoPop, [0, 1], [0.4, 1]);
+  // The quiz type is ALREADY fully present — the opening ball (iris transition)
+  // reveals the finished title, exactly like the runner's "Play video" landing.
+  // So everything renders at its final state; no per-element entrance.
+  const logoScale = 1;
+  const watermarkOpacity = 0.13;
+  const title1 = { opacity: 1, y: 0 };
+  const title2 = { opacity: 1, y: 0 };
+  const subtitle = { opacity: 1, y: 0 };
+  const chip = { opacity: 1, y: 0 };
 
-  // Left vertical watermark fades in.
-  const watermarkOpacity = interpolate(frame, [4, 24], [0, 0.13], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  const title1 = rise(frame, 8, DESIGN_FPS);
-  const title2 = rise(frame, 14, DESIGN_FPS);
-  const subtitle = rise(frame, 22, DESIGN_FPS);
-  const chip = rise(frame, 30, DESIGN_FPS);
-
-  // Whole title block breathes gently.
+  // Whole title block breathes gently (continuous, present in the runner too).
   const float = Math.sin((frame / DESIGN_FPS) * 1.4) * 8;
 
   return (

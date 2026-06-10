@@ -1,17 +1,21 @@
 import React from "react";
-import { Img, interpolate, spring, staticFile } from "remotion";
+import { Img, interpolate, spring, staticFile, useVideoConfig } from "remotion";
 import { TEAM } from "../data";
 import { COLORS, fontFamily } from "../theme";
+import { buildHatchUri, HATCH_TILE } from "../effects/hatch";
 import { DESIGN_FPS } from "../timing";
 
-const PANEL_WIDTH = 620;
+const PANEL_WIDTH = 340; // ≈ runner's min(16.35vw, 14.4rem)
 
-// Full-height side panel that slides in from the left to reveal the answer team.
-// Mirrors the runner's #team-header (translateX(-100%) -> 0).
+// Broken-dash crosshatch in the team/flag colours (Spain → red + gold), built once.
+const HATCH = buildHatchUri(["rgba(170,21,27,0.52)", "rgba(241,191,0,0.5)"], 7);
+
 export const RevealPanel: React.FC<{
-  frame: number; // frame local to the level scene
-  startFrame: number; // when the slide begins
-}> = ({ frame, startFrame }) => {
+  frame: number;
+  startFrame: number;
+  panelColor: string; // theme colour; the panel base is a darkened version
+}> = ({ frame, startFrame, panelColor }) => {
+  const { fps } = useVideoConfig();
   const local = frame - startFrame;
 
   const slide = spring({
@@ -22,23 +26,15 @@ export const RevealPanel: React.FC<{
   });
   const x = interpolate(slide, [0, 1], [-PANEL_WIDTH - 40, 0]);
 
-  // Crest flourish: scales up + glow pulse shortly after the panel arrives.
   const crestPop = spring({
-    frame: local - 14,
+    frame: local - 12,
     fps: DESIGN_FPS,
-    config: { damping: 11, mass: 0.7, stiffness: 130 },
-    durationInFrames: 26,
+    config: { damping: 12, mass: 0.7, stiffness: 130 },
+    durationInFrames: 24,
   });
-  const crestScale = interpolate(crestPop, [0, 1], [0.55, 1]);
-  const glow = interpolate(crestPop, [0, 0.5, 1], [0, 0.9, 0.45], {
-    extrapolateRight: "clamp",
-  });
+  const crestScale = interpolate(crestPop, [0, 1], [0.65, 1]);
 
-  const contentFade = interpolate(local, [16, 30], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  const nameY = interpolate(local, [16, 32], [26, 0], {
+  const contentFade = interpolate(local, [14, 28], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -52,126 +48,106 @@ export const RevealPanel: React.FC<{
         left: 0,
         width: PANEL_WIDTH,
         transform: `translateX(${x}px)`,
-        background: `linear-gradient(160deg, #16302a 0%, #0f241e 100%)`,
-        borderRight: `5px solid ${COLORS.accent}`,
-        boxShadow: "18px 0 50px rgba(0,0,0,0.5)",
+        backgroundColor: `color-mix(in srgb, ${panelColor} 78%, #000 22%)`,
+        borderRight: "2px solid rgba(0,0,0,0.55)",
+        boxShadow: "14px 0 40px rgba(0,0,0,0.5)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        gap: 26,
-        padding: "0 48px",
         overflow: "hidden",
       }}
     >
-      {/* Diagonal hatch texture (static background image, not an animation) */}
+      {/* Broken-dash crosshatch in team/flag colours (runner team-header-hatch) */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          backgroundImage: `repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 16px)`,
-          opacity: 0.7,
+          backgroundImage: HATCH,
+          backgroundRepeat: "repeat",
+          backgroundSize: `${HATCH_TILE}px ${HATCH_TILE}px`,
         }}
       />
 
-      {/* "THE TEAM IS" eyebrow */}
-      <div
-        style={{
-          fontFamily,
-          fontWeight: 600,
-          fontSize: 34,
-          letterSpacing: 6,
-          color: COLORS.accent,
-          opacity: contentFade,
-          textTransform: "uppercase",
-          zIndex: 2,
-        }}
-      >
-        And it's…
-      </div>
-
-      {/* Crest */}
+      {/* Crest + name (centered in the upper area) */}
       <div
         style={{
           position: "relative",
-          transform: `scale(${crestScale})`,
           zIndex: 2,
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 22,
+          padding: "44px 28px 36%",
+          transform: "translateY(-20%)",
+        }}
+      >
+        <Img
+          src={staticFile(TEAM.crest)}
+          style={{
+            width: 220,
+            height: 220,
+            objectFit: "contain",
+            transform: `scale(${crestScale})`,
+            filter: "drop-shadow(0 10px 22px rgba(0,0,0,0.5))",
+          }}
+        />
+        <div
+          style={{
+            fontFamily,
+            fontWeight: 800,
+            fontSize: 52,
+            lineHeight: 0.95,
+            color: COLORS.white,
+            textAlign: "center",
+            letterSpacing: 1,
+            textShadow: "0 4px 14px rgba(0,0,0,0.7)",
+            opacity: contentFade,
+          }}
+        >
+          {TEAM.name}
+        </div>
+      </div>
+
+      {/* Flag — slanted (-8°), filling the bottom 35% (runner flag-section) */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "35%",
+          zIndex: 2,
+          overflow: "hidden",
+          opacity: contentFade,
         }}
       >
         <div
           style={{
             position: "absolute",
-            inset: -30,
-            borderRadius: "50%",
-            background: COLORS.accent,
-            filter: "blur(40px)",
-            opacity: glow,
-          }}
-        />
-        <Img
-          src={staticFile(TEAM.crest)}
-          style={{
-            position: "relative",
-            width: 300,
-            height: 300,
-            objectFit: "contain",
-            filter: "drop-shadow(0 12px 26px rgba(0,0,0,0.55))",
-          }}
-        />
-      </div>
-
-      {/* Team name */}
-      <div
-        style={{
-          fontFamily,
-          fontWeight: 800,
-          fontSize: 72,
-          lineHeight: 0.95,
-          color: COLORS.white,
-          textAlign: "center",
-          letterSpacing: 1,
-          textShadow: "0 5px 16px rgba(0,0,0,0.7)",
-          opacity: contentFade,
-          transform: `translateY(${nameY}px)`,
-          zIndex: 2,
-        }}
-      >
-        {TEAM.name}
-      </div>
-
-      {/* Flag + country */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 16,
-          opacity: contentFade,
-          transform: `translateY(${nameY}px)`,
-          zIndex: 2,
-        }}
-      >
-        <Img
-          src={staticFile(TEAM.flag)}
-          style={{
-            width: 96,
-            height: 64,
-            objectFit: "cover",
-            borderRadius: 6,
-            border: "2px solid rgba(255,255,255,0.6)",
-            boxShadow: "0 6px 16px rgba(0,0,0,0.45)",
-          }}
-        />
-        <span
-          style={{
-            fontFamily,
-            fontWeight: 600,
-            fontSize: 40,
-            letterSpacing: 4,
-            color: COLORS.white,
+            bottom: "-10%",
+            left: "-10%",
+            width: "120%",
+            height: "100%",
+            transform: "rotate(-8deg)",
+            transformOrigin: "center center",
+            boxSizing: "border-box",
+            borderTop: "6px solid #0a0a0a",
           }}
         >
-          {TEAM.flagLabel}
-        </span>
+          <Img
+            src={staticFile(TEAM.flag)}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+        </div>
       </div>
     </div>
   );

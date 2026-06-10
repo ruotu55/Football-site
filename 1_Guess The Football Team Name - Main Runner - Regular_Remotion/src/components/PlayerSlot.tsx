@@ -1,111 +1,153 @@
-import React from "react";
-import { Img, interpolate, spring, staticFile } from "remotion";
+import { Easing, Img, interpolate, spring, staticFile } from "remotion";
 import type { Player } from "../data";
-import { COLORS, fontFamily } from "../theme";
+import { fontFamily } from "../theme";
 import { DESIGN_FPS } from "../timing";
 
-const DIAMETER = 132;
+const FLAG_CIRCLE_SCALE = 1.175;
+const FLIP_DURATION = 26; // 0.88s @30fps
+const EASE_FLIP = Easing.bezier(0.33, 1, 0.68, 1);
 
-// Map a formation coordinate (0..100) into a padded field inside the pitch box
-// so edge slots (especially the GK at y=100) keep room for their name plate.
-const fieldX = (x: number) => 4 + x * 0.92;
-const fieldY = (y: number) => 6 + y * 0.8;
-
+// A child of the tilted 3D pitch plane: positioned at the exact formation %
+// (so it lands on the field like the runner), counter-rotated to stand upright,
+// and scaled by `sizeComp` to cancel the perspective shrink → uniform size.
 export const PlayerSlot: React.FC<{
   player: Player;
-  frame: number; // frame local to the level scene
-  delay: number; // pop-in delay in frames
-}> = ({ player, frame, delay }) => {
+  frame: number;
+  delay: number;
+  revealStart: number;
+  tilt: number; // pitch rotateX in deg
+  sizeComp: number; // per-slot scale that cancels perspective foreshortening
+  widthPct: number; // card width as % of the pitch plane
+  floatPhase: number; // 0..1 phase offset so slots don't bob in unison
+}> = ({ player, frame, delay, revealStart, tilt, sizeComp, widthPct, floatPhase }) => {
   const pop = spring({
     frame: frame - delay,
     fps: DESIGN_FPS,
     config: { damping: 12, mass: 0.6, stiffness: 140 },
     durationInFrames: 28,
   });
-  const scale = interpolate(pop, [0, 1], [0.3, 1]);
-  const opacity = interpolate(pop, [0, 0.6], [0, 1], {
+  const popScale = interpolate(pop, [0, 1], [0.3, 1]);
+  const opacity = interpolate(pop, [0, 0.6], [0, 1], { extrapolateRight: "clamp" });
+
+  const flip = interpolate(frame, [revealStart, revealStart + FLIP_DURATION], [0, 1], {
+    extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
+    easing: EASE_FLIP,
   });
+  const rotateY = flip * 180;
+  const innerScale = interpolate(flip, [0, 1], [FLAG_CIRCLE_SCALE, 1]);
+
+  // Gentle up/down bob (runner: float-up-down 4s, translate3d(0,-12px,0) at 50%).
+  const bob = -6 * (1 - Math.cos(2 * Math.PI * (frame / (4 * DESIGN_FPS) + floatPhase)));
 
   return (
     <div
       style={{
         position: "absolute",
-        left: `${fieldX(player.x)}%`,
-        top: `${fieldY(player.y)}%`,
-        transform: `translate(-50%, -50%) scale(${scale})`,
+        left: `${player.x}%`,
+        top: `${player.y}%`,
+        width: `${widthPct}%`,
+        aspectRatio: "10 / 13.5",
+        transform: `translate(-50%, -50%) translateZ(60px) rotateX(${-tilt}deg) scale(${popScale * sizeComp})`,
+        transformStyle: "preserve-3d",
         opacity,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 6,
       }}
     >
-      {/* Photo disc */}
+      {/* float mount — bobs in screen-vertical (runner .slot-mount) */}
       <div
         style={{
           position: "relative",
-          width: DIAMETER,
-          height: DIAMETER,
-          borderRadius: "50%",
-          background: `radial-gradient(circle at 50% 30%, #ffffff 0%, #e6eef0 100%)`,
-          border: `4px solid ${COLORS.white}`,
-          boxShadow: "0 10px 26px rgba(0,0,0,0.45)",
-          overflow: "hidden",
+          width: "100%",
+          height: "100%",
+          transformStyle: "preserve-3d",
+          transform: `translateY(${bob}px)`,
         }}
       >
-        <Img
-          src={staticFile(`players/${player.slug}.webp`)}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center top",
-          }}
-        />
-        {/* Shirt number badge */}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          transformStyle: "preserve-3d",
+          transform: `rotateY(${rotateY}deg) scale(${innerScale})`,
+        }}
+      >
+        {/* FRONT: nationality flag in a true circle (the clue) */}
         <div
           style={{
             position: "absolute",
-            right: -6,
-            bottom: -6,
-            width: 40,
-            height: 40,
+            top: "50%",
+            left: "50%",
+            width: "100%",
+            aspectRatio: "1 / 1",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
             borderRadius: "50%",
-            background: COLORS.accent,
-            color: COLORS.ink,
-            border: `3px solid ${COLORS.white}`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily,
-            fontWeight: 800,
-            fontSize: 22,
-            lineHeight: 1,
-            boxShadow: "0 4px 10px rgba(0,0,0,0.4)",
+            overflow: "hidden",
+            border: "3px solid rgba(255,255,255,0.9)",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.45)",
+            transform: "translate(-50%, -50%) translateZ(1px)",
           }}
         >
-          {player.number}
+          <Img
+            src={staticFile(`natflags/${player.flag}.png`)}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+
+        {/* BACK: player trading card (photo + red name band) */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+            transform: "rotateY(180deg) translateZ(1px)",
+            display: "flex",
+            flexDirection: "column",
+            border: "2px solid #14121f",
+            borderRadius: "14%",
+            overflow: "hidden",
+            background: "#0e1a14",
+            boxShadow: "0 8px 20px rgba(0,0,0,0.45)",
+          }}
+        >
+          <Img
+            src={staticFile(`players/${player.slug}.webp`)}
+            style={{
+              flex: 1,
+              width: "100%",
+              objectFit: "cover",
+              objectPosition: "center 12%",
+              minHeight: 0,
+            }}
+          />
+          <div
+            style={{
+              flex: "0 0 24%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "linear-gradient(180deg, #ef5350 0%, #c62828 100%)",
+              borderTop: "2px solid #14121f",
+              boxShadow: "0 -1px 0 rgba(255,255,255,0.12) inset",
+              fontFamily,
+              fontWeight: 800,
+              color: "#ffffff",
+              textTransform: "uppercase",
+              letterSpacing: 0.2,
+              fontSize: 18,
+              lineHeight: 1,
+              padding: "0 4%",
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              textShadow: "0 1px 2px rgba(0,0,0,0.5)",
+            }}
+          >
+            {player.display}
+          </div>
         </div>
       </div>
-
-      {/* Name plate */}
-      <div
-        style={{
-          fontFamily,
-          fontWeight: 700,
-          fontSize: 26,
-          color: COLORS.white,
-          letterSpacing: 0.5,
-          padding: "3px 14px",
-          borderRadius: 7,
-          background: "rgba(13,28,21,0.82)",
-          border: "1px solid rgba(255,255,255,0.18)",
-          textShadow: "0 2px 6px rgba(0,0,0,0.6)",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {player.display}
       </div>
     </div>
   );

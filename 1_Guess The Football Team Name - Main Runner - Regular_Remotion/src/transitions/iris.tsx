@@ -14,18 +14,21 @@ const IrisPresentation: React.FC<
 > = ({ children, presentationProgress, presentationDirection }) => {
   const p = Math.max(0, Math.min(1, presentationProgress));
 
-  // Entering scene (the quiz type) renders normally on top.
+  // Entering scene (the finished quiz type) sits BENEATH the cover, fully
+  // rendered, waiting to be uncovered.
   if (presentationDirection === "entering") {
-    return <AbsoluteFill>{children}</AbsoluteFill>;
+    return <AbsoluteFill style={{ zIndex: 1 }}>{children}</AbsoluteFill>;
   }
 
-  // Exiting scene (the ball) gets a growing transparent hole from the centre,
-  // so the ball "opens" outward to reveal what's beneath.
+  // Exiting scene (the opaque ball cover) sits ON TOP and gets a growing
+  // transparent hole from the centre, so it "opens" to reveal the page beneath.
   const r = p * 108; // % of farthest-corner distance; >100 = fully open
   const mask = `radial-gradient(circle at 50% 50%, transparent ${r}%, black ${r + 0.4}%)`;
 
   return (
-    <AbsoluteFill style={{ WebkitMaskImage: mask, maskImage: mask }}>
+    <AbsoluteFill
+      style={{ zIndex: 2, WebkitMaskImage: mask, maskImage: mask }}
+    >
       {children}
     </AbsoluteFill>
   );

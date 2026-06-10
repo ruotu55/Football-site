@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill } from "remotion";
+import { AbsoluteFill, interpolate } from "remotion";
 import type {
   TransitionPresentation,
   TransitionPresentationComponentProps,
@@ -7,38 +7,46 @@ import type {
 
 type FogProps = Record<string, unknown>;
 
-// A soft "fog" dissolve: the outgoing scene blurs and brightens into a white
-// mist that peaks mid-transition; the incoming scene resolves out of the mist.
+// A soft "fog" dissolve: the outgoing scene blurs, brightens and FADES OUT into a
+// white mist that peaks mid-transition; the incoming scene resolves out of it.
+// (The exiting scene must fully fade so its text never lingers underneath the
+// next, partly-transparent scene.)
 const FogPresentation: React.FC<
   TransitionPresentationComponentProps<FogProps>
 > = ({ children, presentationProgress, presentationDirection }) => {
   const p = Math.max(0, Math.min(1, presentationProgress));
   const entering = presentationDirection === "entering";
 
-  // Mist density peaks at the midpoint of the transition.
-  const mist = Math.sin(p * Math.PI);
+  const mist = Math.sin(p * Math.PI); // 0 → 1 → 0
+  const blur = entering ? (1 - p) * 22 : p * 22;
+  const scale = entering ? 1.04 - p * 0.04 : 1 + p * 0.04;
 
-  const blur = entering ? (1 - p) * 24 : p * 24;
-  const scale = entering ? 1.06 - p * 0.06 : 1 + p * 0.05;
-  const opacity = entering ? Math.min(1, p * 1.35) : 1;
+  const opacity = entering
+    ? interpolate(p, [0.15, 0.6], [0, 1], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      })
+    : interpolate(p, [0.4, 0.95], [1, 0], {
+        extrapolateLeft: "clamp",
+        extrapolateRight: "clamp",
+      });
 
   return (
     <AbsoluteFill style={{ opacity }}>
       <AbsoluteFill
         style={{
-          filter: `blur(${blur}px) brightness(${1 + mist * 0.22})`,
+          filter: `blur(${blur}px) brightness(${1 + mist * 0.2})`,
           transform: `scale(${scale})`,
         }}
       >
         {children}
       </AbsoluteFill>
 
-      {/* White mist veil */}
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(130% 130% at 50% 45%, rgba(244,251,255,1) 0%, rgba(225,236,233,0.9) 60%, rgba(210,224,221,0.8) 100%)",
-          opacity: mist * 0.6,
+            "radial-gradient(130% 130% at 50% 45%, rgba(244,251,255,1) 0%, rgba(228,238,236,0.92) 60%, rgba(214,226,224,0.85) 100%)",
+          opacity: mist * 0.7,
         }}
       />
     </AbsoluteFill>

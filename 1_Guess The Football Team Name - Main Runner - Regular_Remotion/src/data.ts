@@ -8,6 +8,7 @@ export type Player = {
   slug: string; // matches public/players/<slug>.webp
   display: string; // short name shown on the plate
   number: number;
+  flag: string; // matches public/natflags/<flag>.png (the clue shown before the flip)
   x: number;
   y: number;
 };
@@ -20,15 +21,15 @@ export const TEAM = {
 } as const;
 
 export const FORMATION: Player[] = [
-  { slug: "courtois", display: "Courtois", number: 1, x: 50, y: 100 },
-  { slug: "carvajal", display: "Carvajal", number: 2, x: 88, y: 75 },
-  { slug: "militao", display: "Militão", number: 3, x: 63, y: 80 },
-  { slug: "huijsen", display: "Huijsen", number: 24, x: 37, y: 80 },
-  { slug: "mendy", display: "Mendy", number: 23, x: 12, y: 75 },
-  { slug: "valverde", display: "Valverde", number: 15, x: 75, y: 52 },
-  { slug: "tchouameni", display: "Tchouaméni", number: 14, x: 50, y: 52 },
-  { slug: "bellingham", display: "Bellingham", number: 5, x: 25, y: 52 },
-  { slug: "rodrygo", display: "Rodrygo", number: 11, x: 80, y: 22 },
-  { slug: "mbappe", display: "Mbappé", number: 9, x: 50, y: 22 },
-  { slug: "vinicius", display: "Vinícius Jr", number: 7, x: 20, y: 22 },
+  { slug: "courtois", display: "Courtois", number: 1, flag: "belgium", x: 50, y: 100 },
+  { slug: "carvajal", display: "Carvajal", number: 2, flag: "spain", x: 88, y: 75 },
+  { slug: "militao", display: "Militão", number: 3, flag: "brazil", x: 63, y: 80 },
+  { slug: "huijsen", display: "Huijsen", number: 24, flag: "spain", x: 37, y: 80 },
+  { slug: "mendy", display: "Mendy", number: 23, flag: "france", x: 12, y: 75 },
+  { slug: "valverde", display: "Valverde", number: 15, flag: "uruguay", x: 75, y: 52 },
+  { slug: "tchouameni", display: "Tchouaméni", number: 14, flag: "france", x: 50, y: 52 },
+  { slug: "bellingham", display: "Bellingham", number: 5, flag: "england", x: 25, y: 52 },
+  { slug: "rodrygo", display: "Rodrygo", number: 11, flag: "brazil", x: 80, y: 22 },
+  { slug: "mbappe", display: "Mbappé", number: 9, flag: "france", x: 50, y: 22 },
+  { slug: "vinicius", display: "Vinícius Jr", number: 7, flag: "brazil", x: 20, y: 22 },
 ];

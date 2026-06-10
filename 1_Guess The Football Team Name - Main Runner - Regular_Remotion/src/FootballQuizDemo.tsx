@@ -17,7 +17,7 @@ export const INTRO_FRAMES = 120; // 4.0s
 export const LEVEL_FRAMES = 320; // ~10.7s
 export const OUTRO_FRAMES = 130; // ~4.3s
 export const TRANSITION_FRAMES = 18;
-export const IRIS_FRAMES = 40; // ball expands while a circular reveal opens (matches runner)
+export const IRIS_FRAMES = 32; // opens AFTER the ball has filled the screen (frame 46 of BallIntro)
 
 // Transitions overlap adjacent scenes, so they subtract from the total.
 export const TOTAL_DESIGN_FRAMES =
@@ -47,7 +47,7 @@ export const FootballQuizDemo: React.FC<DemoProps> = (props) => {
       <AbsoluteFill>
         <TransitionSeries>
           <TransitionSeries.Sequence durationInFrames={f(BALL_INTRO_FRAMES)}>
-            <BallIntro />
+            <BallIntro bg={background} />
           </TransitionSeries.Sequence>
 
           {/* Ball opens to reveal the quiz type */}
@@ -66,7 +66,7 @@ export const FootballQuizDemo: React.FC<DemoProps> = (props) => {
           />
 
           <TransitionSeries.Sequence durationInFrames={f(LEVEL_FRAMES)}>
-            <Level />
+            <Level bg={background} />
           </TransitionSeries.Sequence>
 
           <TransitionSeries.Transition

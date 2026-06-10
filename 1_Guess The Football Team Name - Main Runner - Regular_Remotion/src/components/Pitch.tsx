@@ -1,37 +1,22 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { COLORS } from "../theme";
 
-// SVG pitch markings copied verbatim from the runner's html/pitch.html
-// (viewBox 0 0 160 100). Drawn over a green gradient surface with mown stripes.
+// The runner's pitch markings (html/pitch.html, viewBox 0 0 160 100). The surface
+// is TRANSPARENT — the themed background behind shows through as the "grass" —
+// exactly like the runner. Only the white lines are drawn here.
 export const Pitch: React.FC = () => {
   return (
-    <AbsoluteFill
-      style={{
-        background: `linear-gradient(180deg, #4a7a63 0%, #3c6553 50%, #305344 100%)`,
-      }}
-    >
-      {/* Mown grass stripes */}
-      <AbsoluteFill style={{ opacity: 0.18 }}>
-        {Array.from({ length: 10 }).map((_, i) => (
-          <div
-            key={i}
-            style={{
-              position: "absolute",
-              top: `${i * 10}%`,
-              left: 0,
-              right: 0,
-              height: "10%",
-              background: i % 2 === 0 ? "#ffffff" : "transparent",
-            }}
-          />
-        ))}
-      </AbsoluteFill>
-
+    <AbsoluteFill>
       <svg
         viewBox="0 0 160 100"
         preserveAspectRatio="none"
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "block",
+          borderRadius: 4,
+          filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.22))",
+        }}
         aria-hidden
       >
         <rect
@@ -40,12 +25,13 @@ export const Pitch: React.FC = () => {
           width="160"
           height="100"
           fill="transparent"
-          stroke="rgba(232,244,255,0.30)"
-          strokeWidth="0.5"
+          stroke="rgba(232,244,255,0.28)"
+          strokeWidth="0.45"
         />
         <g
+          className="pitch-lines"
           fill="none"
-          stroke={COLORS.line}
+          stroke="rgba(255,255,255,0.28)"
           strokeWidth="0.42"
           strokeLinecap="square"
           strokeLinejoin="miter"
@@ -63,10 +49,10 @@ export const Pitch: React.FC = () => {
           <path d="M 0 99.048 A 2.353 0.952 0 0 0 2.353 100" />
           <path d="M 160 99.048 A 2.353 0.952 0 0 1 157.647 100" />
         </g>
-        <g fill="rgba(255,255,255,0.30)">
-          <circle cx="80" cy="50" r="0.6" />
-          <circle cx="80" cy="13.5" r="0.45" />
-          <circle cx="80" cy="86.5" r="0.45" />
+        <g className="pitch-marks" fill="rgba(255,255,255,0.28)">
+          <circle cx="80" cy="50" r="0.55" />
+          <circle cx="80" cy="13.5" r="0.42" />
+          <circle cx="80" cy="86.5" r="0.42" />
         </g>
       </svg>
     </AbsoluteFill>

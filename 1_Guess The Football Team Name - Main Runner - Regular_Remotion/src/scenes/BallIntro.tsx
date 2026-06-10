@@ -1,6 +1,10 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate } from "remotion";
 import { SoccerBall } from "../components/SoccerBall";
+import {
+  AnimatedBackground,
+  type ResolvedBackground,
+} from "../effects/AnimatedBackground";
 import { DESIGN_HEIGHT, DESIGN_WIDTH, useDesignFrame } from "../timing";
 
 const CX = DESIGN_WIDTH / 2;
@@ -16,7 +20,9 @@ const ORBIT_END = 31; // 1.05s
 const MOVE_START = 13; // 0.45s
 const MERGE_DONE = 29; // 0.97s
 const FINAL_START = 19; // 0.63s
-const EXPAND_END = 77; // ball fully expanded (~1.6s after handoff)
+const EXPAND_END = 46; // ball has grown to fully cover the screen by here
+// Diameter that more than covers a 1920x1080 frame (half-diagonal ≈ 1101 -> r ≥ 1101).
+const FULL_COVER_D = 2900;
 
 export const BALL_INTRO_FRAMES = 78;
 
@@ -25,7 +31,7 @@ const BASE_ANGLES = [-90, 0, 90, 180];
 
 const backOut = Easing.bezier(0.34, 1.56, 0.64, 1); // ≈ gsap back.out(1.7)
 
-export const BallIntro: React.FC = () => {
+export const BallIntro: React.FC<{ bg: ResolvedBackground }> = ({ bg }) => {
   const f = useDesignFrame();
 
   // Whole cluster orbits once (goo rotation 0 -> 360, power1.inOut).
@@ -46,15 +52,20 @@ export const BallIntro: React.FC = () => {
     extrapolateRight: "clamp",
   });
 
-  // Single crisp ball takes over at the handoff and expands (linear), while the
-  // iris (the BallIntro -> Intro transition) opens a circular reveal at the same time.
-  const single = interpolate(f, [MERGE_DONE, EXPAND_END], [MERGE_D * HANDOFF_SCALE, 2700], {
+  // The merged ball grows until it FILLS the whole screen (the ball itself is the
+  // cover). Only after it covers everything does the iris open a hole through it,
+  // so the ball opens all the way — no background visible around it.
+  const single = interpolate(f, [MERGE_DONE, EXPAND_END], [MERGE_D * HANDOFF_SCALE, FULL_COVER_D], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
+    easing: Easing.in(Easing.quad),
   });
 
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
+      {/* Themed background behind the merging balls (visible only until the ball fills). */}
+      <AnimatedBackground bg={bg} />
+
       {/* 4 crisp soccer balls orbit inward and merge (NO blur — matches the runner) */}
       {clusterOpacity > 0 && (
         <AbsoluteFill style={{ opacity: clusterOpacity }}>
