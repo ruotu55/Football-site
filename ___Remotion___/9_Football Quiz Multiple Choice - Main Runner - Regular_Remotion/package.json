@@ -1,0 +1,30 @@
+{
+  "name": "football-quiz-multiple-choice-remotion",
+  "version": "1.0.0",
+  "description": "Remotion demo of the Football Quiz Multiple Choice (A/B/C) runner: intro + levels + ending",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/build-data.mjs",
+    "build-data": "node scripts/build-data.mjs",
+    "studio": "remotion studio",
+    "render": "node scripts/render.mjs",
+    "render:draft": "remotion render Football-Quiz-Multiple-Choice-Regular out/draft.mp4 --scale=0.5",
+    "still": "remotion still Football-Quiz-Multiple-Choice-Regular out/still.png",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.474",
+    "@remotion/google-fonts": "4.0.474",
+    "@remotion/transitions": "4.0.474",
+    "@remotion/zod-types": "^4.0.474",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "remotion": "4.0.474",
+    "sharp": "^0.35.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.8.3"
+  }
+}

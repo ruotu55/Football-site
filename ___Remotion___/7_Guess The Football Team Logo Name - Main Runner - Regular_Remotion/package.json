@@ -1,0 +1,30 @@
+{
+  "name": "guess-the-team-logo-name-remotion",
+  "version": "1.0.0",
+  "description": "Remotion project for Guess The Football Team Logo Name runner",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/build-data.mjs",
+    "build-data": "node scripts/build-data.mjs",
+    "studio": "remotion studio",
+    "render": "node scripts/render.mjs",
+    "render:draft": "remotion render Guess-The-Football-Team-Logo-Name-Regular out/draft.mp4 --scale=0.5",
+    "still": "remotion still Guess-The-Football-Team-Logo-Name-Regular out/still.png",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.474",
+    "@remotion/google-fonts": "4.0.474",
+    "@remotion/transitions": "4.0.474",
+    "@remotion/zod-types": "^4.0.474",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "remotion": "4.0.474",
+    "sharp": "^0.35.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.7",
+    "typescript": "5.8.3"
+  }
+}
