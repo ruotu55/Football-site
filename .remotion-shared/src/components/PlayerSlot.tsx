@@ -57,17 +57,17 @@ export const PlayerSlot: React.FC<{
 
   // Crests (contain) sit on a slightly padded white disc; flags (cover) fill it edge-to-edge.
   const isCrest = player.frontFit === "contain";
-  const frontImgStyle: React.CSSProperties = isCrest
-    ? { position: "absolute", inset: "14%", width: "72%", height: "72%", objectFit: "contain" }
-    : {
-        position: "absolute",
-        inset: "3.2%",
-        width: "93.6%",
-        height: "93.6%",
-        objectFit: "cover",
-        WebkitMaskImage: CIRCLE_MASK,
-        maskImage: CIRCLE_MASK,
-      };
+  // Flag front fills the disc edge-to-edge (cover, soft-masked). Crest front sits big
+  // inside a TRANSPARENT frosted-glass ring (styled inline in the FRONT branch below).
+  const flagImgStyle: React.CSSProperties = {
+    position: "absolute",
+    inset: "3.2%",
+    width: "93.6%",
+    height: "93.6%",
+    objectFit: "cover",
+    WebkitMaskImage: CIRCLE_MASK,
+    maskImage: CIRCLE_MASK,
+  };
 
   return (
     <div
@@ -92,26 +92,64 @@ export const PlayerSlot: React.FC<{
             transform: `scaleX(${flipX}) scale(${innerScale})`,
           }}
         >
-          {/* FRONT: the clue in a circle (flag fills it; crest sits padded inside).
-              Clipped with a SOFT-EDGE radial mask so the edge stays anti-aliased even
-              under the GPU rasterizer in the 3D plane. */}
-          <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              width: "100%",
-              aspectRatio: "1 / 1",
-              transform: "translate(-50%, -50%)",
-              opacity: showBack ? 0 : 1,
-              background: "rgba(255,255,255,0.92)",
-              WebkitMaskImage: CIRCLE_MASK,
-              maskImage: CIRCLE_MASK,
-              filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.45))",
-            }}
-          >
-            {player.frontSrc ? <Img src={staticFile(player.frontSrc)} style={frontImgStyle} /> : null}
-          </div>
+          {/* FRONT: the clue.
+              • CREST (contain): a big logo sitting inside a TRANSPARENT frosted-glass ring
+                (no solid white plate) — translucent fill + bright thin rim + soft shadow.
+              • FLAG (cover): fills a white disc edge-to-edge, soft-masked for clean edges. */}
+          {isCrest ? (
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: "100%",
+                aspectRatio: "1 / 1",
+                transform: "translate(-50%, -50%)",
+                opacity: showBack ? 0 : 1,
+                borderRadius: "50%",
+                // see-through glass: a faint fill so the background shows through, with a
+                // crisp light rim + depth shadows so it reads as a premium badge holder.
+                background:
+                  "radial-gradient(circle at 50% 34%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.07) 55%, rgba(255,255,255,0.03) 100%)",
+                border: "2.5px solid rgba(255,255,255,0.62)",
+                boxShadow:
+                  "0 14px 30px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.35), inset 0 2px 8px rgba(255,255,255,0.28), inset 0 -10px 20px rgba(0,0,0,0.16)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {player.frontSrc ? (
+                <Img
+                  src={staticFile(player.frontSrc)}
+                  style={{
+                    width: "84%",
+                    height: "84%",
+                    objectFit: "contain",
+                    filter: "drop-shadow(0 5px 12px rgba(0,0,0,0.6))",
+                  }}
+                />
+              ) : null}
+            </div>
+          ) : (
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                width: "100%",
+                aspectRatio: "1 / 1",
+                transform: "translate(-50%, -50%)",
+                opacity: showBack ? 0 : 1,
+                background: "rgba(255,255,255,0.92)",
+                WebkitMaskImage: CIRCLE_MASK,
+                maskImage: CIRCLE_MASK,
+                filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.45))",
+              }}
+            >
+              {player.frontSrc ? <Img src={staticFile(player.frontSrc)} style={flagImgStyle} /> : null}
+            </div>
+          )}
 
           {/* BACK: player photo card + red name band */}
           <div
