@@ -110,6 +110,60 @@ export const buildClubCrestIndex = (IMAGES) => {
   };
 };
 
+// ── squad player records: resolve a "PlayerName - Club" line → full record ────
+// Player quizzes (runners 3/4/5/6/8) store teamsImportText lines "Name - Club"; the
+// full player data (position, nationality, age, transfer_history, club_career_totals,
+// national_team_career_totals) lives in the club squad JSON under Squad Formation/Teams.
+// Returns findPlayer(club, name) → the player object (+ __group), or null.
+export const buildSquadPlayerIndex = (SQUAD_FORMATION) => {
+  const GROUPS = ["goalkeepers", "defenders", "midfielders", "attackers"];
+  const byClub = new Map(); // norm(club basename) → squad json path
+  walkDirs(path.join(SQUAD_FORMATION, "Teams"), (dir, entries) => {
+    for (const e of entries) {
+      if (!e.isFile() || !/\.json$/i.test(e.name)) continue;
+      const k = norm(e.name.replace(/\.json$/i, ""));
+      if (!byClub.has(k)) byClub.set(k, path.join(dir, e.name));
+    }
+  });
+  const cache = new Map();
+  const loadSquad = (file) => {
+    if (cache.has(file)) return cache.get(file);
+    let j = null;
+    try { j = JSON.parse(fs.readFileSync(file, "utf-8")); } catch {}
+    cache.set(file, j);
+    return j;
+  };
+  const playerFromSquad = (j, name) => {
+    if (!j) return null;
+    for (const g of GROUPS) for (const p of j[g] || []) if (norm(p.name) === norm(name)) return { ...p, __group: g };
+    return null;
+  };
+  // Lazy global by-name index (fallback when the club name doesn't match a file).
+  let global = null;
+  const buildGlobal = () => {
+    if (global) return;
+    global = new Map();
+    for (const file of byClub.values()) {
+      const j = loadSquad(file);
+      if (!j) continue;
+      for (const g of GROUPS) for (const p of j[g] || []) {
+        const k = norm(p.name);
+        if (!global.has(k)) global.set(k, { ...p, __group: g });
+      }
+    }
+  };
+  const findPlayer = (club, name) => {
+    const file = byClub.get(norm(club));
+    if (file) {
+      const hit = playerFromSquad(loadSquad(file), name);
+      if (hit) return hit;
+    }
+    buildGlobal();
+    return global.get(norm(name)) || null;
+  };
+  return { findPlayer };
+};
+
 // ── flags: country → ISO code → Images/Flags/<code>.png (synced locally) ──────
 export const buildFlagResolver = (FLAGCODES_JSON) => {
   const FLAGCODES = (JSON.parse(fs.readFileSync(FLAGCODES_JSON, "utf-8")).codes) || {};
