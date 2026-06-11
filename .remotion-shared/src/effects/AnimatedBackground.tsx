@@ -315,8 +315,9 @@ const CompetitionBg: React.FC<{ recipe: CompetitionRecipe; f: number }> = ({ rec
             position: "absolute",
             width: size,
             height: size,
+            // Converge dead-centre (was 0.42*H, which pushed the rays above the middle).
             left: W / 2 - size / 2,
-            top: 0.42 * H - size / 2,
+            top: H / 2 - size / 2,
             background: `repeating-conic-gradient(from 0deg at 50% 50%, ${ray} 0deg 5deg, rgba(255,255,255,0) 5deg 13deg)`,
             transform: `rotate(${a}deg)`,
           }}
