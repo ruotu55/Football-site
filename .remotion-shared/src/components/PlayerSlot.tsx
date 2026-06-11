@@ -117,8 +117,9 @@ export const PlayerSlot: React.FC<{
                 <Img
                   src={staticFile(player.frontSrc)}
                   style={{
-                    width: "94%",
-                    height: "94%",
+                    // 15% smaller than the previous 94%.
+                    width: "80%",
+                    height: "80%",
                     objectFit: "contain",
                     filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.6))",
                   }}
