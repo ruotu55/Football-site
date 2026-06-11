@@ -33,6 +33,22 @@ Tracks live in `.Storage/Voices/Ringhton/` (~31 MP3s). Engine in `js/audio.js` (
 - `.Storage/Squad Formation/Teams/<Country>/<League>/<Team>.json` — squad with players by position; each player: name, position, age, nationality, club, current + career totals, transfer history, shirt number, Transfermarkt id.
 
 ## Thumbnail studio
-`js/thumbnail-studio.js` — per-runner 1280×720 YouTube thumbnail builder. `initThumbnailStudio()` opens an overlay. Composition: red banner (top ~25%, "GUESS THE" white + quiz line yellow, Impact font) + green pitch (bottom ~75%) with an 11-flag formation (slot coords normalized [0..1]) + procedural effect + optional competition icon (`Images/Icons/specific-title/<Comp>.png`, or a user-dropped data-URL). 5 palettes × 5 effects; "Regenerate visuals" re-rolls; "Download PNG" exports. Static (no animation).
+`js/thumbnail-studio.js` — per-runner 1280×720 YouTube thumbnail builder on **all Regular runners**. `initThumbnailStudio()` opens an overlay from **Generate Thumbnail** in `html/controls.html`. Each runner renders a layout that mirrors its quiz type (not one shared pitch template):
+
+| Runner | Thumbnail composition |
+|--------|----------------------|
+| 1 Team name | Red banner + video-mode background + perspective pitch + first level flags (fixed 4-3-3) |
+| 2 National team | Same pitch engine; club logos instead of flags |
+| 3 Career path | Player photo + square club crests with year pills and arrow connectors (first level) |
+| 4 Career stats | Stat cards (appearances/goals/assists) + player photo |
+| 5 Four parameters | 2×2 parameter cards + player photo |
+| 6 Fake info | Info chips + one "FAKE?" stamp + player photo |
+| 7 Team logo | Giant centered team crest |
+| 8 Player name | Single mystery player photo + club/flag chips |
+| 9 MCQ | Question text + trivia (topic image + A/B/C pills) or which-player (three photo cards) |
+
+Runners 1–2 share the pitch engine (competition themes via `getCompetitionPatternTileDataUri`, `youtube-thumbnails` sunburst, live theme dropdown re-render). **All runners** share the same title bar via `.Storage/shared/thumbnail/thumbnail-banner.js`: flat `#FF0000` bar (top ~20%), Anton word-by-word title (white + yellow), white 4px divider — no gradient banner, no season badge. Runners 3–9 use runner-specific canvas layouts below that bar.
+
+Styles: `css/thumbnail-studio.css` (overlay + rail). Cache-bust `thumbnail-studio.js` import in each runner’s `app.js`.
 
 Note: the **team-logo + player-name** quiz runners (folders 7 & 8) use `.career-team-quiz-card`, not `.career-portrait-card` (the four-params portrait CSS is dead code there).

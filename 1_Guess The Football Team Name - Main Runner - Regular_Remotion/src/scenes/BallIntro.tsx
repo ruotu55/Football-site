@@ -1,10 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Easing, interpolate } from "remotion";
 import { SoccerBall } from "../components/SoccerBall";
-import {
-  AnimatedBackground,
-  type ResolvedBackground,
-} from "../effects/AnimatedBackground";
+import { type ResolvedBackground } from "../effects/AnimatedBackground";
 import { DESIGN_HEIGHT, DESIGN_WIDTH, useDesignFrame } from "../timing";
 
 const CX = DESIGN_WIDTH / 2;
@@ -12,19 +9,27 @@ const CY = DESIGN_HEIGHT / 2;
 
 const MERGE_D = 150; // diameter of each merging ball at scale 1.0
 const HANDOFF_SCALE = 1.6; // matches the runner: merge ends at 1.6x, ball continues
-const START_R = 240; // start offset of the 4 balls from center
+// Start offset of the 4 balls from center. Matched to the runner's ratio: it uses
+// R=116 against a ~139px ball (radius/ball ≈ 0.83). With our 150px ball that's ~125,
+// so the orbit sweeps at the same (slower) speed as the play video — not 2× faster.
+const START_R = 125;
+// Runner expands the ball to 3× the screen diagonal (diag*3) so it more than fills
+// the frame at the end of the open.
+const EXPAND_TARGET = Math.ceil(Math.hypot(DESIGN_WIDTH, DESIGN_HEIGHT) * 3);
 
-// Timeline (design frames @30fps) — mapped 1:1 from the runner's GSAP timings:
-//  scale-up 0-0.42s, orbit 0-1.05s, move-to-center 0.45-0.97s, final-scale 0.63-0.97s.
-const ORBIT_END = 31; // 1.05s
-const MOVE_START = 13; // 0.45s
-const MERGE_DONE = 29; // 0.97s
-const FINAL_START = 19; // 0.63s
-const EXPAND_END = 46; // ball has grown to fully cover the screen by here
-// Diameter that more than covers a 1920x1080 frame (half-diagonal ≈ 1101 -> r ≥ 1101).
-const FULL_COVER_D = 2900;
+// Timeline (design frames @30fps) — mapped from the runner's GSAP timings, shifted
+// by HOLD so the balls appear 0.5s into the video (not at frame 0).
+const HOLD = 15; // 0.5s @30fps before the 4 balls appear
+const ORBIT_END = HOLD + 31;
+const MOVE_START = HOLD + 13;
+const MERGE_DONE = HOLD + 29;
+const FINAL_START = HOLD + 19;
 
-export const BALL_INTRO_FRAMES = 78;
+// Single merged ball then expands LINEARLY for 1.6s (matches the runner's GSAP
+// `ease:"none"` expand). The reveal (iris) starts 0.3s into that expand and runs
+// 1.3s — both end together at BALL_INTRO_FRAMES. See FootballQuizDemo IRIS_FRAMES.
+const EXPAND_FRAMES = 48; // 1.6s @30fps
+export const BALL_INTRO_FRAMES = MERGE_DONE + EXPAND_FRAMES;
 
 // Each ball starts at top / right / bottom / left (runner: starts = [0,-R],[R,0],[0,R],[-R,0]).
 const BASE_ANGLES = [-90, 0, 90, 180];
@@ -35,7 +40,7 @@ export const BallIntro: React.FC<{ bg: ResolvedBackground }> = ({ bg }) => {
   const f = useDesignFrame();
 
   // Whole cluster orbits once (goo rotation 0 -> 360, power1.inOut).
-  const orbit = interpolate(f, [0, ORBIT_END], [0, 360], {
+  const orbit = interpolate(f, [HOLD, ORBIT_END], [0, 360], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: Easing.inOut(Easing.quad),
@@ -52,28 +57,27 @@ export const BallIntro: React.FC<{ bg: ResolvedBackground }> = ({ bg }) => {
     extrapolateRight: "clamp",
   });
 
-  // The merged ball grows until it FILLS the whole screen (the ball itself is the
-  // cover). Only after it covers everything does the iris open a hole through it,
-  // so the ball opens all the way — no background visible around it.
-  const single = interpolate(f, [MERGE_DONE, EXPAND_END], [MERGE_D * HANDOFF_SCALE, FULL_COVER_D], {
+  // The merged ball expands LINEARLY (ease "none") to 3× the screen diagonal, exactly
+  // like the runner (ball._expandScale = diag*3 / width). No easing → constant speed.
+  const single = interpolate(f, [MERGE_DONE, BALL_INTRO_FRAMES], [MERGE_D * HANDOFF_SCALE, EXPAND_TARGET], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
-    easing: Easing.in(Easing.quad),
   });
 
   return (
     <AbsoluteFill style={{ alignItems: "center", justifyContent: "center" }}>
-      {/* Themed background behind the merging balls (visible only until the ball fills). */}
-      <AnimatedBackground bg={bg} />
+      {/* No cover here — the composition-level AnimatedBackground shows through,
+          so the ball intro sits on the SAME continuous themed background as the
+          levels (it never restarts). */}
 
       {/* 4 crisp soccer balls orbit inward and merge (NO blur — matches the runner) */}
-      {clusterOpacity > 0 && (
+      {f >= HOLD && clusterOpacity > 0 && (
         <AbsoluteFill style={{ opacity: clusterOpacity }}>
           {BASE_ANGLES.map((base, i) => {
             // scale-up with overshoot, then grow to HANDOFF_SCALE as it reaches center
             const appear = interpolate(
               f,
-              [i * 1.5, i * 1.5 + 13],
+              [HOLD + i * 1.5, HOLD + i * 1.5 + 13],
               [0.2, 1],
               { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: backOut },
             );

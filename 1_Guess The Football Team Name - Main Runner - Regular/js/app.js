@@ -38,7 +38,7 @@ import {
 } from "./render-progress-ui.js?v=20260608-fps";
 import { initRenderTestClipsUi, setRenderTestClipsBusy } from "./render-test-clips-ui.js";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
-import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529b";
+import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260611v";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";

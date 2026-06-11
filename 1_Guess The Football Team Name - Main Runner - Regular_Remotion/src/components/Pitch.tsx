@@ -19,15 +19,8 @@ export const Pitch: React.FC = () => {
         }}
         aria-hidden
       >
-        <rect
-          x="0"
-          y="0"
-          width="160"
-          height="100"
-          fill="transparent"
-          stroke="rgba(232,244,255,0.28)"
-          strokeWidth="0.45"
-        />
+        {/* No outer touchline rect here — the panel div's rounded border IS the
+            single field boundary (one clean window, no square-inside-a-square). */}
         <g
           className="pitch-lines"
           fill="none"

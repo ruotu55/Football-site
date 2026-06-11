@@ -49,3 +49,8 @@ Runner **`1_Guess The Football Team Name - Main Runner - Regular`** renders each
 
 ## i18n
 `i18n.js` `t(key)` over `TRANSLATIONS.{english,spanish}` + `translateCountry()`. `voice-tab.js` **forces language back to english on every page load** (record phase 2 left it spanish); runtime switches via `setCurrentLanguage()` still work. Shorts intro title is language-aware (`SHORTS_INTRO_QUIZ_TITLE_*`).
+
+## Runner 1 — Remotion variant (`1_Guess The Football Team Name - Main Runner - Regular_Remotion`)
+Separate [Remotion](https://www.remotion.dev/) project (not the browser play/record/render pipeline). Composition `Guess-The-Football-Team-Name-Regular` in `src/FootballQuizDemo.tsx`; props in `src/schema.ts` (save, levels, formation, language, **ending**, background, transition). Data built by `scripts/build-data.mjs` → `src/generated/saves.json` + `audio.json`; voices synced to `<repo>/.remotion-shared/public/Voices/`.
+
+**Ending voice (mirrors Regular play video):** two clips per language (`think-you-know` / `how-many`) from `.Storage/Voices/Ending Guess/`; chosen by the **Ending** prop. **Random** resolves once per save via `src/ending.ts` `resolveEndingKey()` (deterministic hash) so voice + `Outro.tsx` title stay matched. The voice `<Sequence>` starts **0.5s after** `outroStart` (`ENDING_VOICE_DELAY_SEC` in `FootballQuizDemo.tsx`) — i.e. half a second into the transition into the outro. Outro scene length is `outroFramesForEnding()` (voice duration + ~1s tail). Re-run `npm run build-data` after ending voice files change (updates `endingDurationSec` in `audio.json`).

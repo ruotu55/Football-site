@@ -1,96 +1,91 @@
-# Guess The Football Team Name — Remotion demo
+# Guess The Football Team Name — Remotion
 
-A small [Remotion](https://www.remotion.dev/) recreation of the
-**1_Guess The Football Team Name - Main Runner - Regular** runner's video flow:
+A [Remotion](https://www.remotion.dev/) recreation of the
+**Guess The Football Team Name** runner, driven by the project's real saves and
+shared image library. One composition:
 
-**Ball intro → quiz-type intro → 1 level → ending** (~20s), available as two
-compositions:
+| Composition id | Resolution | fps |
+|---|---|---|
+| `Guess-The-Football-Team-Name-Regular` | 3840×2160 | 60 |
 
-The **ball intro** (`src/scenes/BallIntro.tsx`) ports the runner's ball-preloader:
-4 soccer balls orbit inward and gooey-merge (SVG goo filter) into one ball
-(`src/components/SoccerBall.tsx`), which expands to fill the screen and then
-"opens" via a circular iris (`src/transitions/iris.tsx`) to reveal the quiz type.
+**Flow:** ball intro → quiz-type intro → level (pitch) → ending (~19s).
 
-
-| Composition id | Resolution | fps | Output |
-|---|---|---|---|
-| `FootballQuizDemo` | 1920×1080 | 30 | `out/demo.mp4` |
-| `FootballQuizDemo4K60` | 3840×2160 | 60 | `out/demo-4k60.mp4` |
-
-Both run from the same scene code. Everything is authored in a 1920×1080 /
-30fps "design space" (`src/timing.ts`): a `Stage` wrapper scales the layout to
-any resolution, and a virtual design-frame keeps the animation playing at the
-same real-time speed at any fps. So a single codebase renders crisply at 1080p30
-or native 4K60.
-
-The single level uses real save data: level 2 of the **"Champion League"** save
-(`recording-status.json → blocks["1|long|1"]`), i.e. **Real Madrid** in a 4-3-3.
-
-## What it shows
-
-1. **Intro** — animated title, "2025/6 SEASON", "30 QUESTIONS + BONUS", logo.
-2. **Level** — SVG football pitch (the runner's real 4-3-3 coordinates), 11 Real
-   Madrid players (real photos) popping in, then a side panel slides in from the
-   left to reveal the answer: **Real Madrid** crest + Spain flag.
-3. **Ending** — like/subscribe emojis, logo, "THINK YOU KNOW THE ANSWER?".
-
-All animation is Remotion-native (`spring` / `interpolate`) per the
-remotion-best-practices skill. CSS transitions/keyframes are intentionally avoided.
-
-## Studio controls (props)
-
-Open `npm run studio` and use the **right sidebar** to edit these live (no
-re-render needed). They're a Zod schema (`src/schema.ts`) and the option lists
-are ported 1:1 from the runner's `.Storage/shared/backgrounds/background-theme.js`
-(`src/effects/effects-data.ts`). The animated background renders at the
-composition level so it stays continuous across scene cuts
-(`src/effects/AnimatedBackground.tsx`).
-
-> Remotion forbids CSS `@keyframes`, so every effect is driven by
-> `useCurrentFrame()` instead — and **every effect moves**.
-
-- **Competition Background** — `None — use Color + Effect`, or one of 11
-  competitions (Champions League, Europa, Conference, Premier League, La Liga,
-  Bundesliga, Serie A, Ligue 1, World Cup, Euro). Picking one **overrides**
-  Color + Effect with that competition's gradient + moving pattern
-  (stars drift / chevrons drift / diagonal slide / rotating rays).
-- **Background Color** — all **16** runner colors (labelled hex).
-- **Background Effect** — all **10** runner effects, all animated: Sun effect
-  middle / top-right / top-left, Sun spiral middle, Center circles, Floating
-  emojis, Rising question marks, Diagonal flow, YouTube thumbnails, Rising
-  soccer balls.
-- **Opacity** — 0–1 (effect intensity).
-- **Transition Effect** — applied to both cut points. Default **Fog** (a blurred
-  white-mist dissolve, used between the intro and the first level). Other
-  options: Fade, Slide, Wipe, Flip, Clock Wipe. `src/transitions/`.
-
-## Real assets
-
-Copied into `public/` from the repo (`/Images`):
-
-- `brand/logo.png` — Football Quiz logo
-- `brand/crest.png` — Real Madrid crest
-- `brand/flag.png` — Spain flag
-- `brand/like.png`, `brand/subscribe.png` — outro emojis
-- `players/*.webp` — the 11 starting-XI player photos
-
-Font: **Barlow Condensed** (the runner's title font) via `@remotion/google-fonts`.
-
-## Commands
+## Setup
 
 ```bash
 npm install
-npm run studio          # live preview at http://localhost:3000
-npm run render          # 1080p30 -> out/demo.mp4
-npm run render:4k60     # 4K 60fps -> out/demo-4k60.mp4
-npm run still           # single still -> out/still.png
+npm run setup     # builds src/generated/saves.json AND syncs the referenced
+                  # image subset into the ONE shared folder all projects use:
+                  # <repo>/.remotion-shared/public
+npm run studio    # live preview at http://localhost:3000
 ```
 
-## Source layout
+`npm run setup` (= `npm run build-data`) must be run once, and again whenever the
+saves or image library change. It reads `../.Storage/storage/recording-status.json`
+and walks `../Images/`, so the repo must stay one level above this project.
 
-- `src/Root.tsx` — registers the `FootballQuizDemo` composition
-- `src/FootballQuizDemo.tsx` — `TransitionSeries` stitching the 3 scenes
-- `src/scenes/{Intro,Level,Outro}.tsx`
-- `src/components/{Pitch,PlayerSlot,RevealPanel}.tsx`
-- `src/data.ts` — the XI + team (formation coords from the runner)
-- `src/theme.ts` — brand colors + font
+## Studio controls (right sidebar, grouped)
+
+Driven by a Zod schema (`src/schema.ts`):
+
+- **Quiz**
+  - **Save** — which saved block to load (Champion League, Premier League, …).
+  - **Level** — `1..N`; picks which level (team) of that save to show.
+  - **Formation** — `Auto (from save)` or any of 13 (4-3-3, 4-4-2, 3-5-2, …).
+  - **Language** — English / Spanish (logo, intro title, ending text).
+  - **Ending** — Random / Think you know the answer? / How many did you get?
+    (plays the matching ending voice when the transition into the outro starts —
+    same two clips as Regular play video, from `.Storage/Voices/Ending Guess/`)
+  - **Questions count** — the intro's "N QUESTIONS" number.
+- **Look**
+  - **Background** — competition / color / effect / opacity (16 colors, 10 moving
+    effects, 11 competitions; a competition overrides color+effect).
+  - **Transition** — Fog (default), Fade, Slide, Wipe, Flip, Clock Wipe.
+
+## Render
+
+```bash
+npm run render    # -> out/demo-4k60.mp4 (uses the saved default props)
+```
+
+Render a specific config by passing props, e.g.:
+
+```bash
+npx remotion render Guess-The-Football-Team-Name-Regular out/arsenal.mp4 \
+  --props='{"quiz":{"save":"Premier league","level":3,"formation":"4-4-2","language":"English","ending":"Random","questionsCount":30},"look":{...}}'
+```
+
+## Architecture
+
+- **Data** — `scripts/build-data.mjs` reads the runner-1 saves + walks the image
+  library, resolving each level's squad (player photos by name, nationality
+  flags, team crest) into `src/generated/saves.json`. `src/level-data.ts` loads
+  it and, for a chosen save+level+formation, picks the XI (preferring players
+  that have a photo) laid out on the formation.
+- **Shared assets (one copy for all projects)** — `remotion.config.ts` sets
+  `publicDir` to `<repo>/.remotion-shared/public`, a SINGLE shared folder used by
+  every Remotion project (no per-project duplication). `build-data` syncs only
+  the *referenced* files into it (union; skips already-synced). The repo's
+  `Images/` is the source; the shared folder is a git-ignored cache. Studio serves
+  it in place; renders copy just this bounded subset (~140 MB), not the 624 MB
+  library. `src/paths.ts` resolves `staticFile("Teams/…")` etc.
+- **Scenes** — `src/scenes/{BallIntro,Intro,Level,Outro}.tsx`,
+  components `src/components/{SoccerBall,Pitch,PlayerSlot,RevealPanel,Stage}.tsx`,
+  effects `src/effects/`, transitions `src/transitions/`.
+- **Resolution/fps independence** — everything is authored in a 1920×1080 / 30fps
+  design space (`src/timing.ts`): a `Stage` wrapper scales the layout, a virtual
+  design-frame keeps timing constant. Renders crisply at 4K60.
+- All animation is Remotion-native (`spring`/`interpolate`); CSS keyframes are
+  avoided (they don't render).
+- **Audio** — `src/generated/audio.json` (from `build-data`): BGM, quiz-title,
+  per-level reveal voices, ticking/stinger, and **ending voice** (`think-you-know`
+  / `how-many`). `src/ending.ts` resolves Random; `FootballQuizDemo.tsx` stamps
+  the ending `<Audio>` at the outro-transition start frame.
+
+## Reusing for new quiz types
+
+The build script + `saves.json` model + `src/paths.ts` + `public/shared` sync are
+the shared core. A new quiz type: copy the project, run `npm run setup`, reuse
+the data/paths, and swap only the quiz-specific scenes.
+
+Design notes: [docs/2026-06-10-shared-data-controls-design.md](docs/2026-06-10-shared-data-controls-design.md).

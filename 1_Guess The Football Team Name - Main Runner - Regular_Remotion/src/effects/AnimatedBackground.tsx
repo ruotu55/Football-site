@@ -1,5 +1,6 @@
 import React from "react";
-import { AbsoluteFill, Img, staticFile } from "remotion";
+import { AbsoluteFill, Img } from "remotion";
+import { emojiSrc } from "../paths";
 import { DESIGN_HEIGHT, DESIGN_WIDTH, useDesignFrame } from "../timing";
 import {
   chevronTileUri,
@@ -177,7 +178,7 @@ const FloatingEmojis: React.FC<{ f: number; opacity: number }> = ({ f, opacity }
       sprites.push(
         <Img
           key={idx}
-          src={staticFile(`emojis/e${idx % 7}.png`)}
+          src={emojiSrc(idx)}
           style={{
             position: "absolute",
             left: x,

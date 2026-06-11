@@ -278,6 +278,11 @@ function svgDataUri(svg) {
   return `url("data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}")`;
 }
 
+/** Plain data URI for canvas / Image() (not wrapped in CSS url()). */
+function svgPlainDataUri(svg) {
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
 function createSunSpiralSvgDataUri(opacityPercent) {
   const whiteAlpha = normalizeOpacityPercent(opacityPercent) / 100;
   const cx = 500;
@@ -1380,7 +1385,7 @@ function compGradient(angle, c1, c2) {
 }
 
 /** Tiled SVG of scattered 5-point stars (Champions-League look). */
-function starsTileDataUri(starHex, alpha) {
+function starsTileSvg(starHex, alpha) {
   const { r, g, b } = hexToRgb(starHex);
   const fill = `rgb(${r}, ${g}, ${b})`;
   const star = (cx, cy, rad, rot, a) => {
@@ -1392,22 +1397,28 @@ function starsTileDataUri(starHex, alpha) {
     }
     return `<polygon points="${pts.join(" ")}" fill="${fill}" fill-opacity="${a.toFixed(3)}"/>`;
   };
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
     ${star(62, 70, 36, 0.1, alpha)}${star(212, 52, 22, 0.5, alpha * 0.8)}
     ${star(150, 168, 48, 0.2, alpha)}${star(252, 212, 26, 0.0, alpha * 0.75)}
     ${star(72, 244, 20, 0.4, alpha * 0.7)}</svg>`;
-  return svgDataUri(svg);
+}
+
+function starsTileDataUri(starHex, alpha) {
+  return svgDataUri(starsTileSvg(starHex, alpha));
 }
 
 /** Tiled SVG of bold chevrons / zigzags (Premier-League look). */
-function chevronTileDataUri(lineHex, alpha) {
+function chevronTileSvg(lineHex, alpha) {
   const { r, g, b } = hexToRgb(lineHex);
   const stroke = `rgb(${r}, ${g}, ${b})`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="170" height="170" viewBox="0 0 170 170">
     <g fill="none" stroke="${stroke}" stroke-opacity="${alpha.toFixed(3)}" stroke-width="26">
       <path d="M-30,46 L85,-26 L200,46"/><path d="M-30,128 L85,56 L200,128"/>
       <path d="M-30,210 L85,138 L200,210"/></g></svg>`;
-  return svgDataUri(svg);
+}
+
+function chevronTileDataUri(lineHex, alpha) {
+  return svgDataUri(chevronTileSvg(lineHex, alpha));
 }
 
 /* Infinite downward drop for tiled patterns: moves only the pattern tile layer by
@@ -1479,6 +1490,24 @@ const COMPETITION_THEMES_LIST = [
 const COMPETITION_THEMES = Object.fromEntries(
   COMPETITION_THEMES_LIST.map((t) => [t.id, t]),
 );
+
+/** Full competition theme (dominantHex + recipe) for static canvas snapshots (e.g. thumbnail studio). */
+export function getCompetitionThemeById(competitionId) {
+  return COMPETITION_THEMES[competitionId] || null;
+}
+
+/** Tiled SVG data URI for competition star/chevron patterns (static canvas Image src). */
+export function getCompetitionPatternTileDataUri(recipe) {
+  if (!recipe) return null;
+  const { pattern, patternHex, patternAlpha } = recipe;
+  if (pattern === "stars") {
+    return { uri: svgPlainDataUri(starsTileSvg(patternHex, patternAlpha)), size: 300 };
+  }
+  if (pattern === "chevron") {
+    return { uri: svgPlainDataUri(chevronTileSvg(patternHex, patternAlpha)), size: 170 };
+  }
+  return null;
+}
 
 /** The persisted active competition id (survives refresh), or "" if none / palette. */
 export function getSavedCompetition() {

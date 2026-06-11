@@ -23,12 +23,19 @@ import {
     careerReadyPhotoStemForVariant,
 } from "./paths.js";
 import { getClubLogoUrl, getClubLogoOtherTeamsUrl } from "./photo-helpers.js";
+import {
+    THUMB_W,
+    THUMB_H,
+    STAGE_TOP,
+    STAGE_H,
+    ensureBannerFonts,
+    drawThumbnailBanner,
+} from "../../.Storage/shared/thumbnail/thumbnail-banner.js";
 
 // ─── Per-runner config ─────────────────────────────────────────────────────
 const RUNNER_CONFIG = {
     titleWhite: "GUESS THE",
     titleYellow: "PLAYER NAME",
-    seasonLabel: "2025/6",
 };
 
 // ─── Palette pool — Regenerate cycles one of these ─────────────────────────
@@ -204,14 +211,14 @@ function updateIconStatus(text) {
 }
 
 // ─── Rendering ─────────────────────────────────────────────────────────────
-const W = 1280;
-const H = 720;
-const BANNER_H = Math.round(H * 0.25);   // 180px
-const BODY_TOP = BANNER_H;
-const BODY_H = H - BANNER_H;             // 540px
+const W = THUMB_W;
+const H = THUMB_H;
+const BODY_TOP = STAGE_TOP;
+const BODY_H = STAGE_H;
 
 async function render() {
     if (!canvas) return;
+    await ensureBannerFonts();
     const ctx = canvas.getContext("2d");
     const palette = PALETTES[state.paletteIdx % PALETTES.length];
     const effect = EFFECTS[state.effectIdx % EFFECTS.length];
@@ -223,8 +230,7 @@ async function render() {
     await drawPlayerPhoto(ctx, palette);
     await drawClubLogoChip(ctx);
     await drawFlagChip(ctx);
-    drawBanner(ctx, palette);
-    drawSeasonBadge(ctx);
+    drawThumbnailBanner(ctx, RUNNER_CONFIG);
     await drawSpecificTitle(ctx);
 }
 
@@ -492,77 +498,6 @@ function drawChipCircle(ctx, cx, cy, r, img) {
     ctx.lineWidth = 3;
     ctx.strokeStyle = "rgba(0,0,0,0.45)";
     ctx.stroke();
-    ctx.restore();
-}
-
-// ─── Banner (top 25%) + season + specific-title pill ───────────────────────
-function drawBanner(ctx, palette) {
-    const grd = ctx.createLinearGradient(0, 0, 0, BANNER_H);
-    grd.addColorStop(0, palette.banner);
-    grd.addColorStop(1, palette.bannerEdge);
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, W, BANNER_H);
-
-    ctx.fillStyle = "rgba(0,0,0,0.35)";
-    ctx.fillRect(0, BANNER_H - 6, W, 6);
-
-    drawImpactTitle(
-        ctx,
-        RUNNER_CONFIG.titleWhite,
-        RUNNER_CONFIG.titleYellow,
-        W / 2,
-        BANNER_H / 2,
-        BANNER_H - 30,
-        W - 180,
-    );
-}
-
-function drawImpactTitle(ctx, white, yellow, cx, cy, maxH, maxW) {
-    ctx.save();
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "left";
-    ctx.fillStyle = "#FFFFFF";
-    ctx.lineJoin = "round";
-    ctx.miterLimit = 2;
-
-    const fullText = `${white} ${yellow}`;
-    let fontSize = maxH;
-    let measured;
-    do {
-        ctx.font = `900 ${fontSize}px Impact, "Anton", "Oswald", sans-serif`;
-        measured = ctx.measureText(fullText);
-        if (measured.width <= maxW) break;
-        fontSize -= 4;
-    } while (fontSize > 24);
-
-    const totalW = measured.width;
-    const startX = cx - totalW / 2;
-
-    const strokeAndFill = (text, x, fillColor) => {
-        ctx.lineWidth = Math.max(4, fontSize * 0.08);
-        ctx.strokeStyle = "#000000";
-        ctx.strokeText(text, x, cy);
-        ctx.fillStyle = fillColor;
-        ctx.fillText(text, x, cy);
-    };
-    strokeAndFill(white, startX, "#FFFFFF");
-    strokeAndFill(" " + yellow, startX + ctx.measureText(white).width, "#FACC15");
-
-    ctx.restore();
-}
-
-function drawSeasonBadge(ctx) {
-    ctx.save();
-    ctx.translate(W - 50, BANNER_H / 2);
-    ctx.rotate(Math.PI / 2);
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.font = `900 ${Math.round(BANNER_H * 0.45)}px Impact, "Anton", "Oswald", sans-serif`;
-    ctx.lineWidth = Math.max(3, BANNER_H * 0.03);
-    ctx.strokeStyle = "#000000";
-    ctx.strokeText(RUNNER_CONFIG.seasonLabel, 0, 0);
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillText(RUNNER_CONFIG.seasonLabel, 0, 0);
     ctx.restore();
 }
 

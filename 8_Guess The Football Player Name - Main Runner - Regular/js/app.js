@@ -31,7 +31,7 @@ import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
-import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529a";
+import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260612d";
 import {
     isProdMode,
     toggleProdMode,

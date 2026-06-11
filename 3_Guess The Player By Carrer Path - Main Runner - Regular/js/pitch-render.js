@@ -1270,6 +1270,8 @@ export function resolveClubAlias(clubName) {
     "sporting lisbon": "sporting",
     "real": "real madrid",
     "real madrid cf": "real madrid",
+    "monaco": "as monaco",
+    "as monaco fc": "as monaco",
     "everton": "everton fc"
   };
   return aliases[c] || c;
@@ -1503,6 +1505,54 @@ export function collectCareerClubLogoUnits(state) {
     if (urls.length) units.push({ label: `club logo: ${clubName}`, urls });
   }
   return units;
+}
+
+/** Same URL chain as renderCareer / preloadCareerAssets — for thumbnail canvas. */
+export function resolveCareerClubLogoUrls(clubName, customImage = null) {
+  const urls = [];
+  const seen = new Set();
+  const push = (url) => {
+    const u = String(url || "").trim();
+    if (!u || seen.has(u)) return;
+    seen.add(u);
+    urls.push(u);
+  };
+
+  if (customImage) {
+    const raw = String(customImage).trim();
+    if (/^(https?:|data:|blob:)/i.test(raw)) push(raw);
+    else push(projectAssetUrlFresh(raw.replace(/^\.?\/+/, "")));
+    return urls;
+  }
+
+  const rawClub = String(clubName || "").trim();
+  if (!rawClub) return urls;
+
+  const searchName = resolveClubAlias(rawClub);
+  const foundClub = searchName ? findBestCareerClubEntry(searchName) : null;
+  if (foundClub?.path) {
+    push(projectAssetUrlFresh(
+      foundClub.path.replace(".Storage/Squad Formation/Teams/", "Images/Teams/").replace(".json", ".png"),
+    ));
+  }
+
+  const nameCandidates = Array.from(new Set([
+    String(foundClub?.name || "").trim(),
+    rawClub,
+    searchName,
+    /\bfc\b/i.test(rawClub) ? rawClub.replace(/\s*\bfc\b\s*/i, "").trim() : `${rawClub} FC`.trim(),
+  ].filter(Boolean)));
+
+  for (const name of nameCandidates) {
+    const rel = getClubLogoOtherTeamsRelPath(name);
+    if (rel) push(projectAssetUrlFresh(rel));
+    const entry = findBestCareerClubEntry(resolveClubAlias(name));
+    if (entry?.country && entry?.league && entry?.name) {
+      push(projectAssetUrlFresh(`Images/Teams/${entry.country}/${entry.league}/${entry.name}.png`));
+    }
+  }
+
+  return urls;
 }
 
 export function renderCareer() {

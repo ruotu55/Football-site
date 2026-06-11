@@ -29,7 +29,7 @@ import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
 import { getActiveScriptName } from "./saved-scripts.js?v=20260601-autoopen5";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
-import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529a";
+import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260612d";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";

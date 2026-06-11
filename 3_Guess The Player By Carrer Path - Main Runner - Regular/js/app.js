@@ -30,7 +30,7 @@ import { startRecordingAndFullscreen } from "./recording-flow.js";
 import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
-import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260529b";
+import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260612e";
 import { isProdMode, toggleProdMode, runProdValidation, showValidationModal, markBackgroundColorConfirmed, markBackgroundEffectConfirmed } from "./prod-validation.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";

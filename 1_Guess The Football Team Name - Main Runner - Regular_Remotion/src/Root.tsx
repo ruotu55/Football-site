@@ -1,40 +1,21 @@
 import React from "react";
 import { Composition } from "remotion";
-import { FootballQuizDemo, totalFramesForFps } from "./FootballQuizDemo";
+import { FootballQuizDemo, calculateMetadata, totalFramesForFps } from "./FootballQuizDemo";
 import { demoSchema } from "./schema";
 
 export const RemotionRoot: React.FC = () => {
+  // 1080p (Full HD) @ 60fps. Duration is computed from the save + level count.
   return (
-    <>
-      {/* Original: 1080p @ 30fps */}
-      <Composition
-        id="FootballQuizDemo"
-        component={FootballQuizDemo}
-        durationInFrames={totalFramesForFps(30)}
-        fps={30}
-        width={1920}
-        height={1080}
-        schema={demoSchema}
-        defaultProps={{
-          competitionBackground: "None — use Color + Effect",
-          backgroundColor: "#2E7D32 - Club by Nationality",
-          backgroundEffect: "YouTube thumbnails",
-          opacity: 0.5,
-          transitionEffect: "Fog",
-        }}
-      />
-
-      {/* New: 4K (2160p) @ 60fps */}
-      <Composition
-        id="FootballQuizDemo4K60"
-        component={FootballQuizDemo}
-        durationInFrames={totalFramesForFps(60)}
-        fps={60}
-        width={3840}
-        height={2160}
-        schema={demoSchema}
-        defaultProps={{"competitionBackground":"Champions League" as const,"backgroundColor":"#2E7D32 - Club by Nationality" as const,"backgroundEffect":"Sun effect middle" as const,"opacity":0,"transitionEffect":"Fog" as const}}
-      />
-    </>
+    <Composition
+      id="Guess-The-Football-Team-Name-Regular"
+      component={FootballQuizDemo}
+      durationInFrames={totalFramesForFps(60, 5)}
+      calculateMetadata={calculateMetadata}
+      fps={60}
+      width={1920}
+      height={1080}
+      schema={demoSchema}
+      defaultProps={{"save":"Champion League" as const,"levels":"1" as const,"formation":"Auto (from save)" as const,"language":"English" as const,"ending":"Random" as const,"competition":"Champions League" as const,"color":"#2E7D32 - Club by Nationality" as const,"effect":"Sun effect middle" as const,"opacity":0.5,"transition":"Soft Iris" as const}}
+    />
   );
 };

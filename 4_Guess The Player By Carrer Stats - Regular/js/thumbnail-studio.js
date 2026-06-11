@@ -24,12 +24,25 @@
 import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
+import {
+    THUMB_W,
+    THUMB_H,
+    STAGE_TOP,
+    STAGE_H,
+    ensureBannerFonts,
+    drawThumbnailBanner,
+} from "../../.Storage/shared/thumbnail/thumbnail-banner.js";
+import {
+    readThumbnailTheme,
+    wireThumbnailThemeListeners,
+    drawThumbnailStageBackground,
+    getThumbnailStageArea,
+} from "../../.Storage/shared/thumbnail/thumbnail-stage-background.js";
 
 // ─── Per-runner config ─────────────────────────────────────────────────────
 const RUNNER_CONFIG = {
     titleWhite: "GUESS BY",
     titleYellow: "CAREER STATS",
-    seasonLabel: "2025/6",
 };
 
 // ─── Palette pool — vibrant orange/red ─────────────────────────────────────
@@ -39,15 +52,6 @@ const PALETTES = [
     { banner: "#EF4444", bannerEdge: "#991B1B", bgTop: "#FB923C", bgBot: "#9A3412", rays: "rgba(255,200,0,0.12)", cardBg: "#FFF7ED", cardLabel: "#7C2D12" },
     { banner: "#9F1239", bannerEdge: "#4C0519", bgTop: "#F59E0B", bgBot: "#7C2D12", rays: "rgba(255,255,255,0.10)", cardBg: "#FFFFFF", cardLabel: "#7F1D1D" },
     { banner: "#991B1B", bannerEdge: "#3F0A0A", bgTop: "#F97316", bgBot: "#451A03", rays: "rgba(255,255,255,0.07)", cardBg: "#FFF7ED", cardLabel: "#7F1D1D" },
-];
-
-// ─── Effect-variant pool — extra layers drawn on top of the background ────
-const EFFECTS = [
-    "rays-from-top",
-    "rays-from-banner",
-    "vignette",
-    "diagonal-stripes",
-    "spotlight-center",
 ];
 
 // ─── Known competition icons ───────────────────────────────────────────────
@@ -79,7 +83,6 @@ function resolveIconPath(title) {
 const state = {
     open: false,
     paletteIdx: 0,
-    effectIdx: 0,
     sourceLevelIdx: -1,
     specificTitle: "",
     customIconDataUrl: null,
@@ -93,6 +96,9 @@ export function initThumbnailStudio() {
     const btn = document.getElementById("btn-generate-thumbnail");
     if (!btn) return;
     btn.addEventListener("click", openStudio);
+    wireThumbnailThemeListeners(() => {
+        if (state.open) void render();
+    });
 }
 
 function openStudio() {
@@ -112,7 +118,6 @@ function closeStudio() {
 
 function rollRandom() {
     state.paletteIdx = Math.floor(Math.random() * PALETTES.length);
-    state.effectIdx = Math.floor(Math.random() * EFFECTS.length);
     state.sourceLevelIdx = pickRandomQuestionLevelIdx();
 }
 
@@ -193,78 +198,23 @@ function updateIconStatus(text) {
 }
 
 // ─── Rendering ────────────────────────────────────────────────────────────
-const W = 1280;
-const H = 720;
-const BANNER_H = Math.round(H * 0.25);   // 180px
-const BG_TOP = BANNER_H;
-const BG_H = H - BANNER_H;               // 540px
+const W = THUMB_W;
+const H = THUMB_H;
+const BG_TOP = STAGE_TOP;
+const BG_H = STAGE_H;
 
 async function render() {
     if (!canvas) return;
+    await ensureBannerFonts();
     const ctx = canvas.getContext("2d");
     const palette = PALETTES[state.paletteIdx % PALETTES.length];
-    const effect = EFFECTS[state.effectIdx % EFFECTS.length];
+    const theme = readThumbnailTheme();
 
     ctx.clearRect(0, 0, W, H);
-    drawBackground(ctx, palette);
-    drawEffectLayer(ctx, effect, palette);
+    await drawThumbnailStageBackground(ctx, theme, getThumbnailStageArea());
     await drawPlayerAndCards(ctx, palette);
-    drawBanner(ctx, palette);
-    drawSeasonBadge(ctx);
+    drawThumbnailBanner(ctx, RUNNER_CONFIG);
     await drawSpecificTitle(ctx);
-}
-
-function drawBackground(ctx, palette) {
-    const grd = ctx.createLinearGradient(0, BG_TOP, 0, H);
-    grd.addColorStop(0, palette.bgTop);
-    grd.addColorStop(1, palette.bgBot);
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, BG_TOP, W, BG_H);
-}
-
-function drawEffectLayer(ctx, effect, palette) {
-    ctx.save();
-    if (effect === "rays-from-top" || effect === "rays-from-banner") {
-        const cx = W / 2;
-        const cy = effect === "rays-from-banner" ? BG_TOP - 10 : 0;
-        const rayCount = 18;
-        ctx.fillStyle = palette.rays;
-        for (let i = 0; i < rayCount; i++) {
-            const a1 = (i / rayCount) * Math.PI * 2;
-            const a2 = ((i + 0.5) / rayCount) * Math.PI * 2;
-            ctx.beginPath();
-            ctx.moveTo(cx, cy);
-            ctx.lineTo(cx + Math.cos(a1) * 1600, cy + Math.sin(a1) * 1600);
-            ctx.lineTo(cx + Math.cos(a2) * 1600, cy + Math.sin(a2) * 1600);
-            ctx.closePath();
-            ctx.fill();
-        }
-    } else if (effect === "vignette") {
-        const grd = ctx.createRadialGradient(W / 2, H / 2, 200, W / 2, H / 2, W * 0.75);
-        grd.addColorStop(0, "rgba(0,0,0,0)");
-        grd.addColorStop(1, "rgba(0,0,0,0.55)");
-        ctx.fillStyle = grd;
-        ctx.fillRect(0, BG_TOP, W, BG_H);
-    } else if (effect === "diagonal-stripes") {
-        ctx.fillStyle = "rgba(255,255,255,0.05)";
-        const stripeW = 60;
-        for (let x = -BG_H; x < W + BG_H; x += stripeW * 2) {
-            ctx.beginPath();
-            ctx.moveTo(x, BG_TOP);
-            ctx.lineTo(x + stripeW, BG_TOP);
-            ctx.lineTo(x + stripeW + BG_H, H);
-            ctx.lineTo(x + BG_H, H);
-            ctx.closePath();
-            ctx.fill();
-        }
-    } else if (effect === "spotlight-center") {
-        const grd = ctx.createRadialGradient(W / 2, BG_TOP + BG_H / 2, 50, W / 2, BG_TOP + BG_H / 2, 600);
-        grd.addColorStop(0, "rgba(255,255,255,0.20)");
-        grd.addColorStop(1, "rgba(255,255,255,0)");
-        ctx.fillStyle = grd;
-        ctx.fillRect(0, BG_TOP, W, BG_H);
-    }
-    ctx.restore();
 }
 
 // ─── Player + cards (bottom 75%) ──────────────────────────────────────────
@@ -493,77 +443,6 @@ function drawSilhouetteFallback(ctx, player, x, y, w, h, palette) {
     ctx.strokeText(name, x + w / 2, ny);
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText(name, x + w / 2, ny);
-    ctx.restore();
-}
-
-// ─── Banner / season / sub-pill ───────────────────────────────────────────
-function drawBanner(ctx, palette) {
-    const grd = ctx.createLinearGradient(0, 0, 0, BANNER_H);
-    grd.addColorStop(0, palette.banner);
-    grd.addColorStop(1, palette.bannerEdge);
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, W, BANNER_H);
-
-    ctx.fillStyle = "rgba(0,0,0,0.35)";
-    ctx.fillRect(0, BANNER_H - 6, W, 6);
-
-    drawImpactTitle(
-        ctx,
-        RUNNER_CONFIG.titleWhite,
-        RUNNER_CONFIG.titleYellow,
-        W / 2,
-        BANNER_H / 2,
-        BANNER_H - 30,
-        W - 180,
-    );
-}
-
-function drawImpactTitle(ctx, white, yellow, cx, cy, maxH, maxW) {
-    ctx.save();
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "left";
-    ctx.fillStyle = "#FFFFFF";
-    ctx.lineJoin = "round";
-    ctx.miterLimit = 2;
-
-    const fullText = `${white} ${yellow}`;
-    let fontSize = maxH;
-    let measured;
-    do {
-        ctx.font = `900 ${fontSize}px Impact, "Anton", "Oswald", sans-serif`;
-        measured = ctx.measureText(fullText);
-        if (measured.width <= maxW) break;
-        fontSize -= 4;
-    } while (fontSize > 24);
-
-    const totalW = measured.width;
-    const startX = cx - totalW / 2;
-
-    const strokeAndFill = (text, x, fillColor) => {
-        ctx.lineWidth = Math.max(4, fontSize * 0.08);
-        ctx.strokeStyle = "#000000";
-        ctx.strokeText(text, x, cy);
-        ctx.fillStyle = fillColor;
-        ctx.fillText(text, x, cy);
-    };
-    strokeAndFill(white, startX, "#FFFFFF");
-    strokeAndFill(" " + yellow, startX + ctx.measureText(white).width, "#FACC15");
-
-    ctx.restore();
-}
-
-function drawSeasonBadge(ctx) {
-    ctx.save();
-    ctx.translate(W - 50, BANNER_H / 2);
-    ctx.rotate(Math.PI / 2);
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.font = `900 ${Math.round(BANNER_H * 0.45)}px Impact, "Anton", "Oswald", sans-serif`;
-    ctx.lineWidth = Math.max(3, BANNER_H * 0.03);
-    ctx.strokeStyle = "#000000";
-    ctx.strokeText(RUNNER_CONFIG.seasonLabel, 0, 0);
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillText(RUNNER_CONFIG.seasonLabel, 0, 0);
     ctx.restore();
 }
 

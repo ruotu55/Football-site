@@ -1,70 +1,37 @@
-// js/thumbnail-studio.js — YouTube thumbnail generator (1280×720) for Runner 6 Regular (Fake Info).
+// js/thumbnail-studio.js — YouTube thumbnail generator (1280×720) for Runner 9 Regular (MCQ).
 //
-// Opens a full-screen overlay with a canvas, a control rail (Regenerate, Specific
-// title + icon, Download PNG, Back), and renders a static thumbnail composed of:
-//   • Top 25% red banner with "GUESS THE FAKE INFO" (yellow accent on "FAKE INFO"),
-//     Impact font.
-//   • "2025/6" season badge (vertical, top-right corner).
-//   • Bottom 75% dark teal/magenta panel with the player's photo on the right and
-//     4 stacked info chips (club / position / country / age) on the left. One chip
-//     is stamped with a red "FAKE?" badge to telegraph the quiz premise.
-//   • Optional secondary title bar (e.g. "Champion League") with auto-resolved
-//     icon from Images/Icons/specific-title/ — or user-dropped custom icon.
-//
-// Regenerate cycles random palette + effect variant + which save's level is the
-// source player. The composition stays static — no animation, no DOM dependencies
-// in the rendered canvas (so toBlob → PNG is clean).
+// Static thumbnail mirroring the in-quiz MCQ layout:
+//   • Top 25% red banner — "GUESS THE FOOTBALL QUIZ" (yellow accent).
+//   • Bottom 75% stage with the first quiz level's MCQ question:
+//       - "trivia"        → topic image (left) + three A/B/C text answer pills (right)
+//       - "which-player"  → three player photo cards with letter badges
+//   • Optional secondary title pill + competition icon.
 
 import { appState } from "./state.js";
 import { projectAssetUrl } from "./paths.js";
-import { playerPhotoPaths } from "./photo-helpers.js";
+import { getMcq, localized } from "./mcq-mode.js";
+import {
+    THUMB_W,
+    THUMB_H,
+    STAGE_TOP,
+    STAGE_H,
+    ensureBannerFonts,
+    drawThumbnailBanner,
+} from "../../.Storage/shared/thumbnail/thumbnail-banner.js";
 
-// ─── Per-runner config (everything that distinguishes this runner) ──────────
 const RUNNER_CONFIG = {
     titleWhite: "GUESS THE",
-    titleYellow: "FAKE INFO",
-    seasonLabel: "2025/6",
+    titleYellow: "FOOTBALL QUIZ",
 };
 
-// ─── Palette pool — Regenerate cycles one of these.
-//  Per spec: distinctive dark teal / magenta scheme — sets this runner apart
-//  from the green-pitch / blue / orange runners. The banner stays a red→deep-red
-//  gradient (Impact title rule across all runners) but the bottom 75% swaps
-//  teal/magenta hues so the thumbnail reads as "fake info" at a glance.
 const PALETTES = [
-    {
-        banner: "#DC2626", bannerEdge: "#7F1D1D",
-        bg1: "#0F3D44", bg2: "#1F1235",
-        accent: "#E11D74", chipFill: "rgba(15,40,55,0.86)",
-        chipStroke: "#22D3EE", rays: "rgba(225,29,116,0.10)",
-    },
-    {
-        banner: "#B91C1C", bannerEdge: "#450A0A",
-        bg1: "#134E4A", bg2: "#3B0764",
-        accent: "#F472B6", chipFill: "rgba(10,40,40,0.88)",
-        chipStroke: "#A78BFA", rays: "rgba(244,114,182,0.08)",
-    },
-    {
-        banner: "#EF4444", bannerEdge: "#991B1B",
-        bg1: "#0E7490", bg2: "#86198F",
-        accent: "#F0ABFC", chipFill: "rgba(8,40,55,0.86)",
-        chipStroke: "#67E8F9", rays: "rgba(240,171,252,0.10)",
-    },
-    {
-        banner: "#991B1B", bannerEdge: "#3F0A0A",
-        bg1: "#082F49", bg2: "#581C3F",
-        accent: "#FB7185", chipFill: "rgba(8,30,50,0.86)",
-        chipStroke: "#F472B6", rays: "rgba(251,113,133,0.10)",
-    },
-    {
-        banner: "#7F1D1D", bannerEdge: "#1F0606",
-        bg1: "#155E75", bg2: "#701A75",
-        accent: "#E879F9", chipFill: "rgba(12,40,55,0.88)",
-        chipStroke: "#E879F9", rays: "rgba(232,121,249,0.10)",
-    },
+    { banner: "#DC2626", bannerEdge: "#7F1D1D", stage: "#1E3A8A", stageEdge: "#0B1437", rays: "rgba(180,200,255,0.10)" },
+    { banner: "#B91C1C", bannerEdge: "#450A0A", stage: "#3730A3", stageEdge: "#1E1B4B", rays: "rgba(255,255,255,0.10)" },
+    { banner: "#EF4444", bannerEdge: "#991B1B", stage: "#4338CA", stageEdge: "#1E1B4B", rays: "rgba(200,160,255,0.12)" },
+    { banner: "#991B1B", bannerEdge: "#3F0A0A", stage: "#2563EB", stageEdge: "#0B1437", rays: "rgba(255,210,120,0.08)" },
+    { banner: "#7F1D1D", bannerEdge: "#1F0606", stage: "#5B21B6", stageEdge: "#2E1065", rays: "rgba(255,255,255,0.10)" },
 ];
 
-// ─── Effect-variant pool — extra layers drawn on top of the bottom panel ───
 const EFFECTS = [
     "rays-from-top",
     "rays-from-banner",
@@ -73,11 +40,6 @@ const EFFECTS = [
     "spotlight-center",
 ];
 
-// ─── Known competition icons (auto-resolved from secondary title text) ─────
-//
-// Keys are lowercased, whitespace-collapsed competition names. Values are
-// project-asset paths under Images/Icons/specific-title/ that we know exist
-// in this repo (mirrors the canonical Runner 1 map).
 const KNOWN_ICONS = {
     "champion league":         "Images/Icons/specific-title/Champions League.png",
     "champions league":        "Images/Icons/specific-title/Champions League.png",
@@ -102,21 +64,18 @@ function resolveIconPath(title) {
     return KNOWN_ICONS[key] || null;
 }
 
-// ─── State ─────────────────────────────────────────────────────────────────
 const state = {
     open: false,
     paletteIdx: 0,
     effectIdx: 0,
-    sourceLevelIdx: -1,        // index into appState.levelsData; -1 = no usable level
-    fakeChipIdx: 0,            // which chip gets the "FAKE?" stamp (0..3)
+    sourceLevelIdx: -1,
     specificTitle: "",
-    customIconDataUrl: null,   // dropped by the user; takes precedence over auto-resolved
+    customIconDataUrl: null,
 };
 
 let canvas = null;
 let overlay = null;
 
-// ─── Public API ────────────────────────────────────────────────────────────
 export function initThumbnailStudio() {
     const btn = document.getElementById("btn-generate-thumbnail");
     if (!btn) return;
@@ -126,7 +85,6 @@ export function initThumbnailStudio() {
 function openStudio() {
     if (state.open) return;
     state.open = true;
-    // Randomize on open so each session starts fresh.
     rollRandom();
     buildOverlay();
     void render();
@@ -142,32 +100,49 @@ function closeStudio() {
 function rollRandom() {
     state.paletteIdx = Math.floor(Math.random() * PALETTES.length);
     state.effectIdx = Math.floor(Math.random() * EFFECTS.length);
-    state.sourceLevelIdx = pickRandomQuestionLevelIdx();
-    state.fakeChipIdx = Math.floor(Math.random() * 4);
+    state.sourceLevelIdx = pickRandomMcqLevelIdx();
 }
 
-function pickRandomQuestionLevelIdx() {
+function isQuestionLevel(lvl) {
+    return !!(lvl && !lvl.isIntro && !lvl.isOutro && !lvl.isLogo && !lvl.isBonus);
+}
+
+function levelHasMcq(lvl) {
+    const mcq = lvl?.mcq;
+    return !!(mcq && Array.isArray(mcq.answers) && mcq.answers.length > 0);
+}
+
+function pickFirstMcqLevelIdx() {
+    const levels = Array.isArray(appState.levelsData) ? appState.levelsData : [];
+    for (let i = 0; i < levels.length; i++) {
+        if (!isQuestionLevel(levels[i])) continue;
+        if (levelHasMcq(levels[i])) return i;
+    }
+    return -1;
+}
+
+function pickRandomMcqLevelIdx() {
     const levels = Array.isArray(appState.levelsData) ? appState.levelsData : [];
     const candidates = [];
     for (let i = 0; i < levels.length; i++) {
-        const lvl = levels[i];
-        if (!lvl || lvl.isIntro || lvl.isOutro || lvl.isLogo || lvl.isBonus) continue;
-        const player = lvl.careerPlayer;
-        if (!player || !player.name) continue;
-        candidates.push(i);
+        if (!isQuestionLevel(levels[i])) continue;
+        if (levelHasMcq(levels[i])) candidates.push(i);
     }
     if (candidates.length === 0) return -1;
     return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
-function getCurrentPlayer() {
+function getCurrentLevel() {
     const levels = Array.isArray(appState.levelsData) ? appState.levelsData : [];
-    const idx = state.sourceLevelIdx;
-    const lvl = idx >= 0 && idx < levels.length ? levels[idx] : null;
-    return lvl?.careerPlayer || null;
+    const idx = state.sourceLevelIdx >= 0 ? state.sourceLevelIdx : pickFirstMcqLevelIdx();
+    return idx >= 0 && idx < levels.length ? levels[idx] : null;
 }
 
-// ─── Overlay DOM ──────────────────────────────────────────────────────────
+function getCurrentMcq() {
+    const lvl = getCurrentLevel();
+    return lvl ? getMcq(lvl) : null;
+}
+
 function buildOverlay() {
     overlay = document.createElement("div");
     overlay.className = "ts-overlay";
@@ -230,15 +205,15 @@ function updateIconStatus(text) {
     if (el) el.textContent = text;
 }
 
-// ─── Rendering ────────────────────────────────────────────────────────────
-const W = 1280;
-const H = 720;
-const BANNER_H = Math.round(H * 0.25);   // 180px
-const PANEL_TOP = BANNER_H;
-const PANEL_H = H - BANNER_H;            // 540px
+const W = THUMB_W;
+const H = THUMB_H;
+const PANEL_TOP = STAGE_TOP;
+const PANEL_H = STAGE_H;
+const THUMB_LANG = "english";
 
 async function render() {
     if (!canvas) return;
+    await ensureBannerFonts();
     const ctx = canvas.getContext("2d");
     const palette = PALETTES[state.paletteIdx % PALETTES.length];
     const effect = EFFECTS[state.effectIdx % EFFECTS.length];
@@ -246,27 +221,20 @@ async function render() {
     ctx.clearRect(0, 0, W, H);
     drawPanelBackground(ctx, palette);
     drawEffectLayer(ctx, effect, palette);
-    await drawPlayerPhoto(ctx, palette);
-    drawInfoChips(ctx, palette);
-    drawBanner(ctx, palette);
-    drawSeasonBadge(ctx);
+    await drawMcqComposition(ctx);
+    drawThumbnailBanner(ctx, RUNNER_CONFIG);
     await drawSpecificTitle(ctx);
 }
 
 function drawPanelBackground(ctx, palette) {
-    // Diagonal teal → magenta gradient for the bottom 75%.
-    const grd = ctx.createLinearGradient(0, PANEL_TOP, W, H);
-    grd.addColorStop(0, palette.bg1);
-    grd.addColorStop(1, palette.bg2);
+    const grd = ctx.createRadialGradient(
+        W / 2, PANEL_TOP + PANEL_H * 0.5, 80,
+        W / 2, PANEL_TOP + PANEL_H * 0.5, Math.max(W, PANEL_H),
+    );
+    grd.addColorStop(0, palette.stage);
+    grd.addColorStop(1, palette.stageEdge);
     ctx.fillStyle = grd;
     ctx.fillRect(0, PANEL_TOP, W, PANEL_H);
-
-    // Subtle horizontal gloss highlight near the top of the panel.
-    const gloss = ctx.createLinearGradient(0, PANEL_TOP, 0, PANEL_TOP + 80);
-    gloss.addColorStop(0, "rgba(255,255,255,0.08)");
-    gloss.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = gloss;
-    ctx.fillRect(0, PANEL_TOP, W, 80);
 }
 
 function drawEffectLayer(ctx, effect, palette) {
@@ -305,11 +273,8 @@ function drawEffectLayer(ctx, effect, palette) {
             ctx.fill();
         }
     } else if (effect === "spotlight-center") {
-        // Spotlight biased toward the right (where the player photo lives).
-        const cx = W * 0.7;
-        const cy = PANEL_TOP + PANEL_H / 2;
-        const grd = ctx.createRadialGradient(cx, cy, 50, cx, cy, 600);
-        grd.addColorStop(0, "rgba(255,255,255,0.20)");
+        const grd = ctx.createRadialGradient(W / 2, PANEL_TOP + PANEL_H * 0.45, 50, W / 2, PANEL_TOP + PANEL_H * 0.45, 600);
+        grd.addColorStop(0, "rgba(255,255,255,0.22)");
         grd.addColorStop(1, "rgba(255,255,255,0)");
         ctx.fillStyle = grd;
         ctx.fillRect(0, PANEL_TOP, W, PANEL_H);
@@ -317,284 +282,269 @@ function drawEffectLayer(ctx, effect, palette) {
     ctx.restore();
 }
 
-// ─── Player photo (right side) ────────────────────────────────────────────
-async function drawPlayerPhoto(ctx, palette) {
-    const player = getCurrentPlayer();
-    if (!player) return;
-
-    // Resolve photo via the project's helper. playerPhotoPaths reads from
-    // appState.playerImages — when nothing has been loaded yet the array will
-    // be empty, in which case we draw a neutral silhouette block.
-    let photoUrl = null;
-    try {
-        const paths = playerPhotoPaths(player, "club");
-        if (paths.length > 0) {
-            // First path wins (consistent with how renderCareer picks photos).
-            photoUrl = projectAssetUrl(paths[0]);
-        }
-    } catch {
-        photoUrl = null;
+async function drawMcqComposition(ctx) {
+    const mcq = getCurrentMcq();
+    if (!mcq) {
+        drawMcqEmpty(ctx);
+        return;
     }
 
-    // Box on the right ~45% of the canvas width.
-    const boxW = Math.round(W * 0.45);
-    const boxH = Math.round(PANEL_H * 0.95);
-    const boxX = W - boxW - 20;
-    const boxY = PANEL_TOP + (PANEL_H - boxH) / 2;
+    const qText = (localized(mcq.questionText, THUMB_LANG) || "WHO IS IT?").toUpperCase();
+    const qBottom = drawMcqQuestionText(ctx, qText, W / 2, PANEL_TOP + 28, W - 120);
 
-    // Backplate disc behind the photo (gives it a poster-portrait feel).
-    ctx.save();
-    const cx = boxX + boxW / 2;
-    const cy = boxY + boxH / 2;
-    const r = Math.min(boxW, boxH) * 0.55;
-    const discGrd = ctx.createRadialGradient(cx, cy - r * 0.3, r * 0.2, cx, cy, r);
-    discGrd.addColorStop(0, "rgba(255,255,255,0.18)");
-    discGrd.addColorStop(1, "rgba(0,0,0,0.45)");
-    ctx.fillStyle = discGrd;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fill();
-    // Accent ring
-    ctx.lineWidth = 6;
-    ctx.strokeStyle = palette.accent;
-    ctx.shadowColor = palette.accent;
-    ctx.shadowBlur = 18;
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.restore();
-
-    if (photoUrl) {
-        try {
-            const img = await loadImage(photoUrl);
-            // Fit "contain" inside the box, preserving aspect.
-            const ratio = Math.min(boxW / img.width, boxH / img.height);
-            const w = img.width * ratio;
-            const h = img.height * ratio;
-            const x = cx - w / 2;
-            const y = cy - h / 2 + 10;  // nudge down so head clears the banner
-            ctx.drawImage(img, x, y, w, h);
-        } catch {
-            drawPhotoFallback(ctx, cx, cy, r, player);
-        }
+    if (mcq.questionType === "which-player") {
+        await drawMcqPlayerCards(ctx, mcq, qBottom + 16);
     } else {
-        drawPhotoFallback(ctx, cx, cy, r, player);
+        await drawMcqTrivia(ctx, mcq, qBottom + 16);
     }
 }
 
-function drawPhotoFallback(ctx, cx, cy, r, player) {
-    // Simple silhouette + last-name label.
+function drawMcqEmpty(ctx) {
     ctx.save();
-    ctx.fillStyle = "rgba(255,255,255,0.18)";
-    // Head + shoulders rough silhouette
-    ctx.beginPath();
-    ctx.arc(cx, cy - r * 0.25, r * 0.35, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(cx, cy + r * 0.35, r * 0.65, r * 0.45, 0, 0, Math.PI * 2);
-    ctx.fill();
-    // Name underneath
-    const lastName = String(player?.name || "")
-        .trim()
-        .split(/\s+/)
-        .pop() || "";
-    if (lastName) {
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.font = `900 36px Impact, "Anton", "Oswald", sans-serif`;
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "#000";
-        ctx.strokeText(lastName.toUpperCase(), cx, cy + r * 0.95);
-        ctx.fillStyle = "#FACC15";
-        ctx.fillText(lastName.toUpperCase(), cx, cy + r * 0.95);
-    }
-    ctx.restore();
-}
-
-// ─── Info chips (left side) ────────────────────────────────────────────────
-function drawInfoChips(ctx, palette) {
-    const player = getCurrentPlayer();
-    // Even with no player we draw placeholders so the layout still makes sense.
-    const chips = buildChips(player);
-
-    // Stack on the left half. Allow ~52% of the canvas width.
-    const chipX = 40;
-    const chipW = Math.round(W * 0.48);
-    const totalH = PANEL_H - 80;            // leave room for the sub-title pill
-    const gap = 16;
-    const chipH = Math.floor((totalH - gap * (chips.length - 1)) / chips.length);
-    const startY = PANEL_TOP + 30;
-
-    const fakeIdx = state.fakeChipIdx % chips.length;
-
-    for (let i = 0; i < chips.length; i++) {
-        const y = startY + i * (chipH + gap);
-        drawChip(ctx, palette, chipX, y, chipW, chipH, chips[i], i === fakeIdx);
-    }
-}
-
-function buildChips(player) {
-    const p = player || {};
-    const age =
-        p.age != null && Number.isFinite(Number(p.age)) ? String(Number(p.age)) : "—";
-    const goals =
-        p.goals != null && Number.isFinite(Number(p.goals)) ? String(Number(p.goals)) : null;
-
-    const base = [
-        { label: "CLUB",     value: String(p.club || "—") },
-        { label: "POSITION", value: String(p.position || "—") },
-        { label: "COUNTRY",  value: String(p.nationality || "—") },
-        { label: "AGE",      value: age },
-    ];
-    // If the player record actually carries `goals`, surface it as a 5th chip.
-    if (goals != null) {
-        base.push({ label: "GOALS", value: goals });
-    }
-    return base;
-}
-
-function drawChip(ctx, palette, x, y, w, h, chip, isFake) {
-    ctx.save();
-    // Chip background — frosted dark fill with a colored outline.
-    ctx.fillStyle = palette.chipFill;
-    roundRect(ctx, x, y, w, h, 14);
-    ctx.fill();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = palette.chipStroke;
-    roundRect(ctx, x, y, w, h, 14);
-    ctx.stroke();
-
-    // Label (small, top-left)
-    const padX = 22;
-    const labelY = y + h * 0.32;
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "left";
-    ctx.font = `800 ${Math.round(h * 0.22)}px "Barlow Condensed", "Inter", sans-serif`;
-    ctx.fillStyle = "rgba(255,255,255,0.65)";
-    ctx.fillText(chip.label, x + padX, labelY);
-
-    // Value (large, bottom-left). Auto-shrink to fit; reserve room for the FAKE stamp on fake chips.
-    const valueMaxH = Math.round(h * 0.55);
-    const reservedRight = isFake ? Math.round(h * 1.4) : Math.round(h * 0.3);
-    const valueMaxW = w - padX * 2 - reservedRight;
-    let fontSize = valueMaxH;
-    do {
-        ctx.font = `900 ${fontSize}px Impact, "Anton", "Oswald", sans-serif`;
-        if (ctx.measureText(chip.value.toUpperCase()).width <= valueMaxW) break;
-        fontSize -= 2;
-    } while (fontSize > 16);
-
-    const valueY = y + h * 0.7;
-    ctx.lineWidth = Math.max(3, fontSize * 0.07);
-    ctx.strokeStyle = "#000";
-    ctx.strokeText(chip.value.toUpperCase(), x + padX, valueY);
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillText(chip.value.toUpperCase(), x + padX, valueY);
-
-    // FAKE? stamp — tilted red badge on the chip's right edge.
-    if (isFake) {
-        const stampH = Math.round(h * 0.7);
-        const stampW = Math.round(h * 1.25);
-        const sx = x + w - stampW - 16;
-        const sy = y + (h - stampH) / 2;
-        ctx.save();
-        ctx.translate(sx + stampW / 2, sy + stampH / 2);
-        ctx.rotate(-0.18);
-        // Outer red badge
-        ctx.fillStyle = "#DC2626";
-        roundRect(ctx, -stampW / 2, -stampH / 2, stampW, stampH, 10);
-        ctx.fill();
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "#FEF3C7";
-        roundRect(ctx, -stampW / 2, -stampH / 2, stampW, stampH, 10);
-        ctx.stroke();
-        // "FAKE?" text
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.font = `900 ${Math.round(stampH * 0.55)}px Impact, "Anton", "Oswald", sans-serif`;
-        ctx.lineWidth = 4;
-        ctx.strokeStyle = "#000";
-        ctx.strokeText("FAKE?", 0, 0);
-        ctx.fillStyle = "#FACC15";
-        ctx.fillText("FAKE?", 0, 0);
-        ctx.restore();
-    }
-    ctx.restore();
-}
-
-function drawBanner(ctx, palette) {
-    // Banner background — vertical gradient + dark bottom edge for separation.
-    const grd = ctx.createLinearGradient(0, 0, 0, BANNER_H);
-    grd.addColorStop(0, palette.banner);
-    grd.addColorStop(1, palette.bannerEdge);
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, W, BANNER_H);
-
-    // Subtle highlight stripe along the bottom edge.
-    ctx.fillStyle = "rgba(0,0,0,0.35)";
-    ctx.fillRect(0, BANNER_H - 6, W, 6);
-
-    // Title text — Impact-style, two-color "GUESS THE FAKE INFO".
-    drawImpactTitle(
-        ctx,
-        RUNNER_CONFIG.titleWhite,
-        RUNNER_CONFIG.titleYellow,
-        W / 2,
-        BANNER_H / 2,
-        BANNER_H - 30,   // available height
-        W - 180,          // leave room for season badge
-    );
-}
-
-function drawImpactTitle(ctx, white, yellow, cx, cy, maxH, maxW) {
-    // Fit-to-width with Impact. Walk down font size until both fits.
-    ctx.save();
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "left";
-    ctx.fillStyle = "#FFFFFF";
-    ctx.lineJoin = "round";
-    ctx.miterLimit = 2;
-
-    const fullText = `${white} ${yellow}`;
-    let fontSize = maxH;
-    let measured;
-    do {
-        ctx.font = `900 ${fontSize}px Impact, "Anton", "Oswald", sans-serif`;
-        measured = ctx.measureText(fullText);
-        if (measured.width <= maxW) break;
-        fontSize -= 4;
-    } while (fontSize > 24);
-
-    const totalW = measured.width;
-    const startX = cx - totalW / 2;
-
-    // Stroke first for outline, then fill for text on top.
-    const strokeAndFill = (text, x, fillColor) => {
-        ctx.lineWidth = Math.max(4, fontSize * 0.08);
-        ctx.strokeStyle = "#000000";
-        ctx.strokeText(text, x, cy);
-        ctx.fillStyle = fillColor;
-        ctx.fillText(text, x, cy);
-    };
-    strokeAndFill(white, startX, "#FFFFFF");
-    strokeAndFill(" " + yellow, startX + ctx.measureText(white).width, "#FACC15");
-
-    ctx.restore();
-}
-
-function drawSeasonBadge(ctx) {
-    // Right edge of banner: rotated 90° "2025/6" label.
-    ctx.save();
-    ctx.translate(W - 50, BANNER_H / 2);
-    ctx.rotate(Math.PI / 2);
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = `900 ${Math.round(BANNER_H * 0.45)}px Impact, "Anton", "Oswald", sans-serif`;
-    ctx.lineWidth = Math.max(3, BANNER_H * 0.03);
-    ctx.strokeStyle = "#000000";
-    ctx.strokeText(RUNNER_CONFIG.seasonLabel, 0, 0);
+    ctx.font = `900 36px Impact, "Anton", sans-serif`;
+    ctx.fillStyle = "rgba(255,255,255,0.75)";
+    ctx.fillText("LOAD A SAVE WITH MCQ QUESTIONS", W / 2, PANEL_TOP + PANEL_H / 2);
+    ctx.restore();
+}
+
+function drawMcqQuestionText(ctx, text, cx, topY, maxW) {
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
     ctx.fillStyle = "#FFFFFF";
-    ctx.fillText(RUNNER_CONFIG.seasonLabel, 0, 0);
+    ctx.lineJoin = "round";
+
+    let fontSize = 52;
+    let lines = wrapText(ctx, text, maxW, fontSize);
+    while (fontSize > 28 && lines.some((ln) => {
+        ctx.font = `900 ${fontSize}px Impact, "Anton", sans-serif`;
+        return ctx.measureText(ln).width > maxW;
+    })) {
+        fontSize -= 2;
+        lines = wrapText(ctx, text, maxW, fontSize);
+    }
+    ctx.font = `900 ${fontSize}px Impact, "Anton", sans-serif`;
+
+    const lineH = fontSize * 1.08;
+    let y = topY;
+    for (const line of lines) {
+        ctx.lineWidth = Math.max(3, fontSize * 0.07);
+        ctx.strokeStyle = "rgba(0,0,0,0.55)";
+        ctx.strokeText(line, cx, y);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillText(line, cx, y);
+        y += lineH;
+    }
+    ctx.restore();
+    return y;
+}
+
+function wrapText(ctx, text, maxW, fontSize) {
+    ctx.font = `900 ${fontSize}px Impact, "Anton", sans-serif`;
+    const words = String(text || "").split(/\s+/).filter(Boolean);
+    if (words.length === 0) return [""];
+    const lines = [];
+    let line = words[0];
+    for (let i = 1; i < words.length; i++) {
+        const test = `${line} ${words[i]}`;
+        if (ctx.measureText(test).width <= maxW) line = test;
+        else {
+            lines.push(line);
+            line = words[i];
+        }
+    }
+    lines.push(line);
+    return lines.slice(0, 3);
+}
+
+async function drawMcqTrivia(ctx, mcq, bodyTop) {
+    const bodyH = H - bodyTop - 90;
+    const gap = 36;
+    const topicW = Math.round(W * 0.44);
+    const topicH = Math.min(bodyH - 20, Math.round(topicW * 11 / 16));
+    const topicX = 50;
+    const topicY = bodyTop + (bodyH - topicH) / 2;
+
+    ctx.save();
+    ctx.shadowColor = "rgba(0,0,0,0.45)";
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetY = 8;
+    roundRect(ctx, topicX, topicY, topicW, topicH, 26);
+    ctx.fillStyle = "rgba(255,255,255,0.12)";
+    ctx.fill();
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "rgba(255,255,255,0.92)";
+    roundRect(ctx, topicX, topicY, topicW, topicH, 26);
+    ctx.stroke();
+    ctx.restore();
+
+    if (mcq.topicImage) {
+        try {
+            const img = await loadImage(projectAssetUrl(String(mcq.topicImage).replace(/^\.?\/+/, "")));
+            ctx.save();
+            roundRect(ctx, topicX + 6, topicY + 6, topicW - 12, topicH - 12, 20);
+            ctx.clip();
+            const ratio = Math.max((topicW - 12) / img.width, (topicH - 12) / img.height);
+            const w = img.width * ratio;
+            const h = img.height * ratio;
+            ctx.drawImage(img, topicX + (topicW - w) / 2, topicY + (topicH - h) / 2, w, h);
+            ctx.restore();
+        } catch { /* empty topic card */ }
+    }
+
+    const answers = Array.isArray(mcq.answers) ? mcq.answers : [];
+    const ansX = topicX + topicW + gap;
+    const ansW = W - ansX - 50;
+    const rowGap = 18;
+    const rowH = Math.floor((bodyH - rowGap * (answers.length - 1)) / Math.max(1, answers.length));
+
+    for (let i = 0; i < answers.length; i++) {
+        const ans = answers[i];
+        const y = bodyTop + i * (rowH + rowGap);
+        drawMcqAnswerRow(
+            ctx,
+            String(ans?.id || "?"),
+            (localized(ans?.text, THUMB_LANG) || "").toUpperCase(),
+            ansX,
+            y,
+            ansW,
+            rowH,
+        );
+    }
+}
+
+function drawMcqAnswerRow(ctx, letter, text, x, y, w, h) {
+    ctx.save();
+    ctx.shadowColor = "rgba(0,0,0,0.28)";
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetY = 6;
+    roundRect(ctx, x, y, w, h, h / 2);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fill();
+    ctx.restore();
+
+    const badgeR = Math.min(h * 0.38, 36);
+    const badgeCX = x + 24 + badgeR;
+    const badgeCY = y + h / 2;
+    const badgeGrd = ctx.createRadialGradient(badgeCX - badgeR * 0.3, badgeCY - badgeR * 0.3, 2, badgeCX, badgeCY, badgeR);
+    badgeGrd.addColorStop(0, "#FFD66B");
+    badgeGrd.addColorStop(1, "#E8A13A");
+    ctx.beginPath();
+    ctx.arc(badgeCX, badgeCY, badgeR, 0, Math.PI * 2);
+    ctx.fillStyle = badgeGrd;
+    ctx.fill();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "rgba(255,255,255,0.75)";
+    ctx.stroke();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = `900 ${Math.round(badgeR * 0.95)}px Impact, "Anton", sans-serif`;
+    ctx.fillStyle = "#7A0E37";
+    ctx.fillText(letter, badgeCX, badgeCY + 1);
+
+    const textX = badgeCX + badgeR + 18;
+    const textMaxW = x + w - textX - 16;
+    let fontSize = Math.round(h * 0.42);
+    ctx.textAlign = "left";
+    do {
+        ctx.font = `900 ${fontSize}px Impact, "Anton", sans-serif`;
+        if (ctx.measureText(text).width <= textMaxW) break;
+        fontSize -= 2;
+    } while (fontSize > 14);
+    ctx.fillStyle = "#15151C";
+    ctx.fillText(text, textX, y + h / 2 + 1);
+}
+
+async function drawMcqPlayerCards(ctx, mcq, bodyTop) {
+    const answers = Array.isArray(mcq.answers) ? mcq.answers : [];
+    const count = Math.max(1, answers.length);
+    const bodyH = H - bodyTop - 90;
+    const gap = 28;
+    const cardW = Math.floor((W - 100 - gap * (count - 1)) / count);
+    const cardH = Math.min(bodyH - 10, Math.round(cardW * 1.35));
+    const startX = (W - (cardW * count + gap * (count - 1))) / 2;
+    const cardY = bodyTop + (bodyH - cardH) / 2;
+
+    for (let i = 0; i < count; i++) {
+        const ans = answers[i] || {};
+        const x = startX + i * (cardW + gap);
+        await drawMcqPlayerCard(
+            ctx,
+            String(ans.id || "?"),
+            (localized(ans.text, THUMB_LANG) || "").toUpperCase(),
+            ans.photoPath,
+            x,
+            cardY,
+            cardW,
+            cardH,
+        );
+    }
+}
+
+async function drawMcqPlayerCard(ctx, letter, name, photoPath, x, y, w, h) {
+    const nameH = Math.max(44, Math.round(h * 0.16));
+    const photoH = h - nameH;
+
+    ctx.save();
+    ctx.shadowColor = "rgba(0,0,0,0.4)";
+    ctx.shadowBlur = 16;
+    ctx.shadowOffsetY = 8;
+    roundRect(ctx, x, y, w, h, 24);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fill();
+    ctx.restore();
+
+    const badgeR = 28;
+    const badgeCX = x + 8 + badgeR;
+    const badgeCY = y + 8 + badgeR;
+    const badgeGrd = ctx.createRadialGradient(badgeCX - 8, badgeCY - 8, 2, badgeCX, badgeCY, badgeR);
+    badgeGrd.addColorStop(0, "#FF6B6B");
+    badgeGrd.addColorStop(1, "#C2185B");
+    ctx.beginPath();
+    ctx.arc(badgeCX, badgeCY, badgeR, 0, Math.PI * 2);
+    ctx.fillStyle = badgeGrd;
+    ctx.fill();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = `900 26px Impact, "Anton", sans-serif`;
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText(letter, badgeCX, badgeCY + 1);
+
+    ctx.save();
+    roundRect(ctx, x, y, w, photoH, 24);
+    ctx.clip();
+    const photoGrd = ctx.createLinearGradient(x, y, x, y + photoH);
+    photoGrd.addColorStop(0, "#E9EDF2");
+    photoGrd.addColorStop(1, "#C9D2DC");
+    ctx.fillStyle = photoGrd;
+    ctx.fillRect(x, y, w, photoH);
+
+    if (photoPath) {
+        try {
+            const img = await loadImage(projectAssetUrl(String(photoPath).replace(/^\.?\/+/, "")));
+            const ratio = Math.max(w / img.width, photoH / img.height);
+            const iw = img.width * ratio;
+            const ih = img.height * ratio;
+            ctx.drawImage(img, x + (w - iw) / 2, y + photoH - ih, iw, ih);
+        } catch { /* gradient fallback */ }
+    }
+    ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(x, y + photoH, w, nameH);
+    let fontSize = Math.round(nameH * 0.46);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    do {
+        ctx.font = `900 ${fontSize}px Impact, "Anton", sans-serif`;
+        if (ctx.measureText(name).width <= w - 16) break;
+        fontSize -= 2;
+    } while (fontSize > 12);
+    ctx.fillStyle = "#15151C";
+    ctx.fillText(name, x + w / 2, y + photoH + nameH / 2 + 1);
     ctx.restore();
 }
 
@@ -602,7 +552,6 @@ async function drawSpecificTitle(ctx) {
     const title = (state.specificTitle || "").trim();
     if (!title) { updateIconStatus("No icon"); return; }
 
-    // Resolve icon — custom upload first, then known catalog.
     let iconSrc = null;
     if (state.customIconDataUrl) {
         iconSrc = state.customIconDataUrl;
@@ -617,12 +566,11 @@ async function drawSpecificTitle(ctx) {
         }
     }
 
-    // Sub-banner: dark pill near the bottom of the panel with title + optional icon.
     const padX = 36;
     const padY = 24;
     const subFontSize = 60;
     ctx.save();
-    ctx.font = `900 ${subFontSize}px Impact, "Anton", "Oswald", sans-serif`;
+    ctx.font = `900 ${subFontSize}px Impact, "Anton", sans-serif`;
     const textW = ctx.measureText(title.toUpperCase()).width;
     let iconImg = null;
     try {
@@ -636,7 +584,6 @@ async function drawSpecificTitle(ctx) {
     const pillY = H - pillH - 28;
     const pillX = (W - pillW) / 2;
 
-    // Pill background
     ctx.fillStyle = "rgba(0,0,0,0.78)";
     roundRect(ctx, pillX, pillY, pillW, pillH, 20);
     ctx.fill();
@@ -645,7 +592,6 @@ async function drawSpecificTitle(ctx) {
     roundRect(ctx, pillX, pillY, pillW, pillH, 20);
     ctx.stroke();
 
-    // Icon
     if (iconImg) {
         const ix = pillX + padX;
         const iy = pillY + (pillH - iconBoxH) / 2;
@@ -655,7 +601,6 @@ async function drawSpecificTitle(ctx) {
         ctx.drawImage(iconImg, ix + (iconBoxW - w) / 2, iy + (iconBoxH - h) / 2, w, h);
     }
 
-    // Text
     ctx.textBaseline = "middle";
     ctx.textAlign = "left";
     ctx.lineWidth = Math.max(3, subFontSize * 0.06);
@@ -682,7 +627,6 @@ function roundRect(ctx, x, y, w, h, r) {
     ctx.closePath();
 }
 
-// ─── Image loading helper ──────────────────────────────────────────────────
 const imageCache = new Map();
 function loadImage(src) {
     if (imageCache.has(src)) return imageCache.get(src);
@@ -697,7 +641,6 @@ function loadImage(src) {
     return p;
 }
 
-// ─── Export ────────────────────────────────────────────────────────────────
 function downloadPng() {
     if (!canvas) return;
     canvas.toBlob((blob) => {
