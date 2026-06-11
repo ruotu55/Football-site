@@ -106,13 +106,8 @@ export const PlayerSlot: React.FC<{
                 aspectRatio: "1 / 1",
                 transform: "translate(-50%, -50%)",
                 opacity: showBack ? 0 : 1,
-                borderRadius: "50%",
-                // very subtle see-through glass: barely-there fill + a faint rim so the
-                // circle is only a hint and the logo is the focus. Soft shadow for depth.
-                background:
-                  "radial-gradient(circle at 50% 38%, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.025) 60%, rgba(255,255,255,0) 100%)",
-                border: "1.25px solid rgba(255,255,255,0.22)",
-                boxShadow: "0 10px 24px rgba(0,0,0,0.4), inset 0 1px 4px rgba(255,255,255,0.12)",
+                // No circle/plate at all — just the logo floating (its own drop-shadow
+                // gives separation from the background).
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -122,10 +117,10 @@ export const PlayerSlot: React.FC<{
                 <Img
                   src={staticFile(player.frontSrc)}
                   style={{
-                    width: "84%",
-                    height: "84%",
+                    width: "94%",
+                    height: "94%",
                     objectFit: "contain",
-                    filter: "drop-shadow(0 5px 12px rgba(0,0,0,0.6))",
+                    filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.6))",
                   }}
                 />
               ) : null}
