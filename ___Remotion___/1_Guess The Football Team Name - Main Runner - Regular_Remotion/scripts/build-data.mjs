@@ -13,7 +13,19 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectDir = path.resolve(__dirname, "..");
-const repoRoot = path.resolve(projectDir, "..");
+// Auto-detect the repo root (walk up to the folder that holds .Storage) so this works
+// regardless of nesting (the project now lives under ___Remotion___/).
+const findRepoRoot = (start) => {
+  let d = path.resolve(start, "..");
+  for (let i = 0; i < 8; i++) {
+    if (fs.existsSync(path.join(d, ".Storage"))) return d;
+    const up = path.resolve(d, "..");
+    if (up === d) break;
+    d = up;
+  }
+  return path.resolve(start, "..");
+};
+const repoRoot = findRepoRoot(projectDir);
 const IMAGES = path.join(repoRoot, "Images");
 const SAVES_JSON = path.join(repoRoot, ".Storage", "storage", "recording-status.json");
 const LAYOUTS_JSON = path.join(repoRoot, ".Storage", "storage", "runner-blobs", "lineups_runner_team_layouts_shared.json");

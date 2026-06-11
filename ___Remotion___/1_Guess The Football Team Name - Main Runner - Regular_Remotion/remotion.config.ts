@@ -14,4 +14,5 @@ Config.setConcurrency(10);
 
 // All Remotion projects in this repo share ONE public folder (single copy of the
 // referenced assets), populated by `npm run build-data`. No per-project duplication.
-Config.setPublicDir(path.resolve(process.cwd(), "..", ".remotion-shared", "public"));
+// Projects live under ___Remotion___/, so the shared cache is two levels up at the repo root.
+Config.setPublicDir(path.resolve(process.cwd(), "..", "..", ".remotion-shared", "public"));
