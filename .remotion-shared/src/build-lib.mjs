@@ -37,9 +37,17 @@ export const walkDirs = (root, fn) => {
   for (const e of entries) if (e.isDirectory()) walkDirs(path.join(root, e.name), fn);
 };
 
-// Build the repo path constants from a project dir (projectDir/.. = repo root).
+// Build the repo path constants from a project dir. Auto-detects the repo root by
+// walking up until it finds the `.Storage` folder — so it works regardless of how
+// deeply the Remotion project is nested (root sibling, or under ___Remotion___/).
 export const repoPaths = (projectDir) => {
-  const repoRoot = path.resolve(projectDir, "..");
+  let repoRoot = path.resolve(projectDir, "..");
+  for (let i = 0; i < 8; i++) {
+    if (fs.existsSync(path.join(repoRoot, ".Storage"))) break;
+    const up = path.resolve(repoRoot, "..");
+    if (up === repoRoot) break;
+    repoRoot = up;
+  }
   return {
     repoRoot,
     IMAGES: path.join(repoRoot, "Images"),

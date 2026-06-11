@@ -1,7 +1,7 @@
 import React from "react";
 import { Img, interpolate } from "remotion";
-import { COLORS, fontFamily } from "../../../.remotion-shared/src/theme";
-import { EASE_FLIP, FLIP_DURATION } from "../../../.remotion-shared/src/components/PlayerSlot";
+import { COLORS, fontFamily } from "@shared/theme";
+import { EASE_FLIP, FLIP_DURATION } from "@shared/components/PlayerSlot";
 
 const PANEL_WIDTH = 380;
 

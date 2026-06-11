@@ -1,14 +1,17 @@
 import path from "node:path";
 import { Config } from "@remotion/cli/config";
 
-// The shared code lives OUTSIDE this project (../.remotion-shared/src), so webpack
-// can't find this project's node_modules when it bundles those files. Add this
-// project's node_modules to the module resolution roots so shared files resolve
-// react / remotion / @remotion/* / zod against it.
+// The shared code lives OUTSIDE this project (../../.remotion-shared/src — at the repo
+// root), imported via the "@shared/*" alias. Two webpack tweaks make that work:
+//  • resolve.alias maps "@shared" → the shared src folder.
+//  • resolve.modules adds this project's node_modules so the shared files (outside the
+//    project root) can resolve react / remotion / @remotion/* / zod against it.
+const SHARED_SRC = path.resolve(process.cwd(), "..", "..", ".remotion-shared", "src");
 Config.overrideWebpackConfig((config) => ({
   ...config,
   resolve: {
     ...config.resolve,
+    alias: { ...(config.resolve?.alias ?? {}), "@shared": SHARED_SRC },
     modules: [path.resolve(process.cwd(), "node_modules"), "node_modules"],
   },
 }));
@@ -28,4 +31,4 @@ Config.setTimeoutInMilliseconds(120000);
 
 // All Remotion projects in this repo share ONE public folder (single copy of the
 // referenced assets), populated by `npm run build-data`. No per-project duplication.
-Config.setPublicDir(path.resolve(process.cwd(), "..", ".remotion-shared", "public"));
+Config.setPublicDir(path.resolve(process.cwd(), "..", "..", ".remotion-shared", "public"));

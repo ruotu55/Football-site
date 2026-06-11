@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { TRANSITION_EFFECTS } from "../../.remotion-shared/src/transitions";
-import type { ResolvedBackground } from "../../.remotion-shared/src/effects/AnimatedBackground";
+import { TRANSITION_EFFECTS } from "@shared/transitions";
+import type { ResolvedBackground } from "@shared/effects/AnimatedBackground";
 import {
   COLOR_LABELS,
   COMPETITION_LABELS,
@@ -8,8 +8,8 @@ import {
   colorHexByLabel,
   competitionByLabel,
   effectIdByLabel,
-} from "../../.remotion-shared/src/effects/effects-data";
-import { FORMATION_LABELS } from "../../.remotion-shared/src/formations";
+} from "@shared/effects/effects-data";
+import { FORMATION_LABELS } from "@shared/formations";
 import { SAVE_NAMES } from "./level-data";
 
 export const NONE_COMPETITION = "None — use Color + Effect";

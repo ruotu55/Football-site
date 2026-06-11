@@ -4,8 +4,8 @@
 // onto the formation here (role-fill, preferring players with a photo) — the same
 // placement logic runner-1 uses, so the lineup looks like the play video.
 import savesData from "./generated/saves.json";
-import { formationById, formationByLabel, type Role } from "../../.remotion-shared/src/formations";
-import type { SlotPlayer } from "../../.remotion-shared/src/components/PlayerSlot";
+import { formationById, formationByLabel, type Role } from "@shared/formations";
+import type { SlotPlayer } from "@shared/components/PlayerSlot";
 
 type RawPlayer = {
   name: string;

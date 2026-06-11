@@ -1,6 +1,6 @@
 // Per-runner config for runner 2 — "Guess the Football National Team by players' club".
 // Everything that differs from the shared template lives here (title/season/theme/voice).
-import type { IntroStringsByLanguage } from "../../.remotion-shared/src/scene-props";
+import type { IntroStringsByLanguage } from "@shared/scene-props";
 
 export const COMPOSITION_ID = "Guess-The-Football-National-Team-Regular";
 

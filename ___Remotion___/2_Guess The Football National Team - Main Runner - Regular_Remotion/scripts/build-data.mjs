@@ -21,7 +21,7 @@ import {
   firstBgm,
   syncAssets,
   syncVoices,
-} from "../../.remotion-shared/src/build-lib.mjs";
+} from "../../../.remotion-shared/src/build-lib.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectDir = path.resolve(__dirname, "..");

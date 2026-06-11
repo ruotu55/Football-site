@@ -1,11 +1,11 @@
 import React from "react";
 import { AbsoluteFill, Audio, Easing, interpolate, Sequence, spring, staticFile } from "remotion";
-import { Pitch } from "../../../.remotion-shared/src/components/Pitch";
-import { PlayerSlot } from "../../../.remotion-shared/src/components/PlayerSlot";
-import type { ResolvedBackground } from "../../../.remotion-shared/src/effects/AnimatedBackground";
-import { sharedSrc, type Language } from "../../../.remotion-shared/src/paths";
-import { COLORS, fontFamily } from "../../../.remotion-shared/src/theme";
-import { DESIGN_FPS, useDesignFrame, useFrameScale } from "../../../.remotion-shared/src/timing";
+import { Pitch } from "@shared/components/Pitch";
+import { PlayerSlot } from "@shared/components/PlayerSlot";
+import type { ResolvedBackground } from "@shared/effects/AnimatedBackground";
+import { sharedSrc, type Language } from "@shared/paths";
+import { COLORS, fontFamily } from "@shared/theme";
+import { DESIGN_FPS, useDesignFrame, useFrameScale } from "@shared/timing";
 import { NationalRevealPanel } from "../components/NationalRevealPanel";
 import type { ResolvedLevel } from "../level-data";
 import audioManifest from "../generated/audio.json";
