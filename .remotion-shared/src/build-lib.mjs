@@ -56,6 +56,37 @@ export const repoPaths = (projectDir) => {
     SAVES_JSON: path.join(repoRoot, ".Storage", "storage", "recording-status.json"),
     FLAGCODES_JSON: path.join(repoRoot, ".Storage", "data", "country-to-flagcode.json"),
     SQUAD_FORMATION: path.join(repoRoot, ".Storage", "Squad Formation"),
+    LAYOUTS_JSON: path.join(repoRoot, ".Storage", "storage", "runner-blobs", "lineups_runner_team_layouts_shared.json"),
+  };
+};
+
+// Position name → squad group bucket (same rule the runner uses).
+export const positionGroup = (pos) => {
+  const p = String(pos || "");
+  if (/Goalkeeper/i.test(p)) return "goalkeepers";
+  if (/Back/i.test(p)) return "defenders";
+  if (/Midfield/i.test(p)) return "midfielders";
+  return "attackers";
+};
+
+// ── saved team layouts (the EXACT formation + chosen XI per team) ──────────────
+// `lineups_runner_team_layouts_shared.json` is keyed by squad path; each entry has
+// `formationId` + `customXi` (11 players in slot order). This is the SAME source the
+// browser runner + runner-1's Remotion build use, so the lineup matches the save.
+export const buildLayoutIndex = (LAYOUTS_JSON) => {
+  let L = {};
+  try { L = JSON.parse(fs.readFileSync(LAYOUTS_JSON, "utf-8")); } catch {}
+  const national = new Map(); // norm(team basename) → { formationId, customXi }
+  const club = new Map();
+  for (const [k, v] of Object.entries(L)) {
+    if (!v || !Array.isArray(v.customXi) || v.customXi.length < 11) continue;
+    const base = norm(String(k).replace(/^.*[/\\]/, "").replace(/\.json$/i, ""));
+    if (/Nationalit/i.test(k)) { if (!national.has(base)) national.set(base, v); }
+    else if (/Teams[/\\]/i.test(k)) { if (!club.has(base)) club.set(base, v); }
+  }
+  return {
+    getNational: (name) => national.get(norm(name)) || null,
+    getClub: (name) => club.get(norm(name)) || null,
   };
 };
 

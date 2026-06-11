@@ -19,6 +19,9 @@ type RawLevel = {
   teamName: string; // national team, e.g. "Brazil"
   countryFlagPath: string | null;
   formationId: string;
+  // true → players[] is the SAVED XI in slot order (player i → formation slot i), so the
+  // lineup + formation match the save file exactly (like runner 1's xiOrdered path).
+  xiOrdered?: boolean;
   players: RawPlayer[];
   revealVoiceEn?: string | null;
   revealVoiceEs?: string | null;
@@ -65,6 +68,22 @@ export const resolveLevel = (
   const save = SAVES.find((s) => s.name === saveName) ?? SAVES[0];
   const lvl = save.levels[clamp(levelNumber - 1, 0, save.levels.length - 1)];
   const formation = formationLabel ? formationByLabel(formationLabel) : formationById(lvl.formationId);
+
+  // SAVED XI: place player i directly at formation slot i — exactly the team + positions
+  // from the save file (unless the formation is being overridden in the Studio props).
+  if (lvl.xiOrdered && !formationLabel) {
+    const players: SlotPlayer[] = formation.slots.map((slot, i) => {
+      const p = lvl.players[i] ?? lvl.players[lvl.players.length - 1];
+      return toSlot(p, slot.x, slot.y);
+    });
+    return {
+      teamName: lvl.teamName,
+      countryFlagPath: lvl.countryFlagPath,
+      players,
+      revealVoiceEn: lvl.revealVoiceEn ?? null,
+      revealVoiceEs: lvl.revealVoiceEs ?? null,
+    };
+  }
 
   // Group players; within each group put ones WITH a photo first (stable order).
   const byGroup: Record<string, RawPlayer[]> = {

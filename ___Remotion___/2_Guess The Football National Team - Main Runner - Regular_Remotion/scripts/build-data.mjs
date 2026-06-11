@@ -10,9 +10,11 @@ import {
   repoPaths,
   norm,
   displayName,
+  positionGroup,
   buildPhotoIndex,
   buildClubCrestIndex,
   buildFlagResolver,
+  buildLayoutIndex,
   makeVoiceHelpers,
   REVEAL_EN,
   REVEAL_ES,
@@ -30,11 +32,16 @@ const P = repoPaths(projectDir);
 const resolvePhoto = buildPhotoIndex(P.IMAGES);
 const resolveClubCrest = buildClubCrestIndex(P.IMAGES);
 const { resolveFlag, usedFlagCodes } = buildFlagResolver(P.FLAGCODES_JSON);
+// Saved team layouts = the EXACT formation + chosen XI per national team (same source the
+// browser runner uses), so the lineup matches the save file (like runner 1).
+const Lay = buildLayoutIndex(P.LAYOUTS_JSON);
 // National-team reveal voices live in "Nationality teams names/<lang>/<phrase>/<Team>.mp3".
 const V = makeVoiceHelpers(P.VOICES_SRC, "Nationality teams names");
 
 const DEFAULT_FORMATION = "433";
 const GROUPS = ["goalkeepers", "defenders", "midfielders", "attackers"];
+let xiFromLayout = 0;
+let xiFromSquad = 0;
 
 // Read a national squad JSON for "<Name> - <Continent>".
 const loadNationalSquad = (name, continent) => {
@@ -91,14 +98,30 @@ for (const key of Object.keys(blocks)) {
     const teamName = parts[0].trim();
     const continent = (parts[1] || "").trim();
     if (!teamName) continue;
-    const squad = loadNationalSquad(teamName, continent);
-    if (!squad) {
-      missingSquads += 1;
-      continue;
+    // Prefer the SAVED team layout (its formationId + customXi = the exact XI in slot
+    // order — the same lineup the save shows). Fall back to assembling from the squad.
+    const layout = Lay.getNational(teamName);
+    let players;
+    let formationId;
+    let xiOrdered;
+    if (layout && Array.isArray(layout.customXi) && layout.customXi.length >= 11) {
+      formationId = layout.formationId || DEFAULT_FORMATION;
+      xiOrdered = true;
+      players = layout.customXi.slice(0, 11).map((p) => toPlayer(p, positionGroup(p.position)));
+      xiFromLayout += 1;
+    } else {
+      const squad = loadNationalSquad(teamName, continent);
+      if (!squad) {
+        missingSquads += 1;
+        continue;
+      }
+      players = [];
+      for (const g of GROUPS) for (const p of squad[g] || []) players.push(toPlayer(p, g));
+      if (players.length < 11) continue;
+      formationId = DEFAULT_FORMATION;
+      xiOrdered = false;
+      xiFromSquad += 1;
     }
-    const players = [];
-    for (const g of GROUPS) for (const p of squad[g] || []) players.push(toPlayer(p, g));
-    if (players.length < 11) continue;
 
     const flagPath = resolveFlag(teamName);
     if (!flagPath) missingFlags += 1;
@@ -109,7 +132,8 @@ for (const key of Object.keys(blocks)) {
     levels.push({
       teamName,
       countryFlagPath: flagPath,
-      formationId: DEFAULT_FORMATION,
+      formationId,
+      xiOrdered,
       players,
       revealVoiceEn,
       revealVoiceEs,
@@ -124,6 +148,7 @@ fs.writeFileSync(OUT, JSON.stringify({ saves }, null, 0));
 const kb = (fs.statSync(OUT).size / 1024).toFixed(0);
 console.log(`✓ ${saves.length} saves, ${saves.reduce((n, s) => n + s.levels.length, 0)} levels -> src/generated/saves.json (${kb} KB)`);
 console.log(`  unresolved: photos ${missingPhotos}, crests ${missingCrests}, flags ${missingFlags}, squads ${missingSquads}`);
+console.log(`  XI source: ${xiFromLayout} from saved layout (exact formation + XI), ${xiFromSquad} from squad fallback`);
 
 // ── audio manifest ────────────────────────────────────────────────────────────
 const bgm = firstBgm(V, P.VOICES_SRC);
