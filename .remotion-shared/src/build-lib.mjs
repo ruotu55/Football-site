@@ -120,7 +120,7 @@ export const buildFlagResolver = (FLAGCODES_JSON) => {
 
 // ── voice helpers (sync into shared public under "Voices/..") ──────────────────
 const VOICE_EXT_RE = /\.(mp3|wav|m4a)$/i;
-export const makeVoiceHelpers = (VOICES_SRC) => {
+export const makeVoiceHelpers = (VOICES_SRC, revealBaseDir = "Team names") => {
   const wantedVoices = new Set();
   const voiceRel = (sub) => {
     if (!sub) return null;
@@ -161,7 +161,7 @@ export const makeVoiceHelpers = (VOICES_SRC) => {
     if (teamDirIndex.has(key)) return teamDirIndex.get(key);
     const m = new Map();
     try {
-      for (const f of fs.readdirSync(path.join(VOICES_SRC, "Team names", lang, phrase))) {
+      for (const f of fs.readdirSync(path.join(VOICES_SRC, revealBaseDir, lang, phrase))) {
         if (VOICE_EXT_RE.test(f)) m.set(norm(f.replace(VOICE_EXT_RE, "")), f);
       }
     } catch {}
@@ -181,7 +181,7 @@ export const makeVoiceHelpers = (VOICES_SRC) => {
       const idx = teamIndexFor(lang, phrase);
       for (const s of stems) {
         const f = idx.get(s);
-        if (f) return voiceRel(`Team names/${lang}/${phrase}/${f}`);
+        if (f) return voiceRel(`${revealBaseDir}/${lang}/${phrase}/${f}`);
       }
     }
     return null;
