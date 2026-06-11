@@ -107,13 +107,12 @@ export const PlayerSlot: React.FC<{
                 transform: "translate(-50%, -50%)",
                 opacity: showBack ? 0 : 1,
                 borderRadius: "50%",
-                // see-through glass: a faint fill so the background shows through, with a
-                // crisp light rim + depth shadows so it reads as a premium badge holder.
+                // very subtle see-through glass: barely-there fill + a faint rim so the
+                // circle is only a hint and the logo is the focus. Soft shadow for depth.
                 background:
-                  "radial-gradient(circle at 50% 34%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.07) 55%, rgba(255,255,255,0.03) 100%)",
-                border: "2.5px solid rgba(255,255,255,0.62)",
-                boxShadow:
-                  "0 14px 30px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.35), inset 0 2px 8px rgba(255,255,255,0.28), inset 0 -10px 20px rgba(0,0,0,0.16)",
+                  "radial-gradient(circle at 50% 38%, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.025) 60%, rgba(255,255,255,0) 100%)",
+                border: "1.25px solid rgba(255,255,255,0.22)",
+                boxShadow: "0 10px 24px rgba(0,0,0,0.4), inset 0 1px 4px rgba(255,255,255,0.12)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
