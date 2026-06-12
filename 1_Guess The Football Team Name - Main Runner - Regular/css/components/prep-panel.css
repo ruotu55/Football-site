@@ -8,7 +8,7 @@
    - everything else (FAB row + level sections) starts right of that band. */
 
 :root {
-  --prep-left-band: calc(5.3vw + 15.4rem); /* header inset + header max width + gap */
+  --prep-left-band: 2.5rem; /* the sliding team-header sidebar is gone */
 }
 
 /* stage.css centers its content (flex + justify-content:center, built for
@@ -213,9 +213,100 @@
   }
 }
 
-/* ── Active-level team header (the designed left sidebar) ──────────────── */
+/* ── The sliding team-header sidebar is REMOVED ──────────────────────────
+   (each level has its own Remotion-scale team panel preview instead). */
 #team-header-mount .team-header {
-  z-index: 470; /* under the FABs (480) and far under modals */
+  display: none !important;
+}
+
+/* ── Section body: players grid (left) + team panel preview (right) ───── */
+.prep-section__body {
+  display: flex;
+  gap: 1.4rem;
+  align-items: stretch;
+}
+.prep-section__body .pitch-slots {
+  flex: 1 1 auto;
+}
+
+/* Team panel preview — the Remotion RevealPanel (380×1080, crest 296,
+   name 56px, flag 232×188) built at REAL pixel sizes inside __inner and
+   scaled as ONE block by JS (fitTeamPanels), so the on-screen proportions
+   are exactly what the rendered video shows. */
+.prep-team-panel {
+  position: relative;
+  flex: 0 0 auto;
+  width: 140px; /* JS overwrites to 380 × scale */
+  min-height: 18rem;
+  align-self: stretch;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.prep-team-panel__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 1080px;
+  transform-origin: top left;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 32px;
+  background: linear-gradient(165deg, rgba(40, 90, 56, 0.55) 0%, rgba(12, 28, 18, 0.72) 62%, rgba(6, 9, 14, 0.6) 100%);
+  border-right: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-top-right-radius: 36px;
+  border-bottom-right-radius: 36px;
+  box-shadow: inset 0 0 70px rgba(255, 255, 255, 0.06);
+}
+.prep-team-panel__crest {
+  width: 296px;
+  height: 296px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.55));
+}
+.prep-team-panel__name {
+  font-family: "Barlow Condensed", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 0.96;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  margin-top: 28px;
+}
+.prep-team-panel__divider {
+  width: 58%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  margin: 30px 0 24px;
+}
+.prep-team-panel__flagbox {
+  width: 232px;
+  height: 188px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+}
+.prep-team-panel__flagbox--missing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0.6;
+  font-size: 22px;
+  text-align: center;
+}
+.prep-team-panel__flag {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ── Top FAB row ──────────────────────────────────────────────────────────

@@ -1,13 +1,22 @@
 /**
  * PREP PANEL — renders EVERY question level of the loaded save as a stacked
- * section of 11 player cards, reusing pitch-render's renderSlot/slot-controls
- * unchanged. Trick: all existing slot/header handlers act on the "current"
- * level (getState() at click time), so each section owns its own .pitch-slots
- * container and we swap appState.currentLevelIndex + appState.els.pitchSlots
- * on pointerdown (capture phase) before any click handler runs.
+ * section: players card grid (left) + a TEAM PANEL PREVIEW (right) that
+ * mirrors the Remotion RevealPanel at the SAME internal scale, reusing
+ * pitch-render's renderSlot/slot-controls unchanged. Trick: all existing slot
+ * handlers act on the "current" level (getState() at click time), so each
+ * section owns its own .pitch-slots container and we swap
+ * appState.currentLevelIndex + appState.els.pitchSlots on pointerdown
+ * (capture phase) before any click handler runs.
  */
 import { appState } from "./state.js";
-import { renderPitch, renderHeader } from "./pitch-render.js";
+import { renderPitch } from "./pitch-render.js";
+import { projectAssetUrl } from "./paths.js";
+
+/* Remotion RevealPanel design constants (components/RevealPanel.tsx) — the
+   preview is built at EXACTLY these pixel sizes and scaled as ONE unit, so
+   the crest/flag/name proportions on screen = the rendered video. */
+const RP_W = 380;
+const RP_H = 1080;
 
 let root = null;
 let sections = []; // [{ levelIndex, sectionEl, slotsEl, headEl }]
@@ -40,6 +49,72 @@ function buildSlotsContainer() {
   return wrap;
 }
 
+/* Country folder from the crest path — same rule as Remotion build-data:
+   "Images/Teams/<Country>/<Team>.png". */
+function countryFromImagePath(imagePath) {
+  const parts = String(imagePath || "").split(/[/\\]/);
+  return parts[1] === "Teams" && parts[2] !== "Competitions" ? (parts[2] || "") : "";
+}
+
+/** The Remotion RevealPanel preview: crest → team name → divider → flag,
+ *  built at the panel's REAL pixel sizes and scaled as one block. */
+function buildTeamPanelPreview(lvl) {
+  const wrap = document.createElement("div");
+  wrap.className = "prep-team-panel";
+  const inner = document.createElement("div");
+  inner.className = "prep-team-panel__inner";
+
+  const cs = lvl?.currentSquad;
+
+  const crest = document.createElement("img");
+  crest.className = "prep-team-panel__crest";
+  crest.alt = "";
+  if (cs?.imagePath) crest.src = projectAssetUrl(cs.imagePath);
+
+  const name = document.createElement("div");
+  name.className = "prep-team-panel__name";
+  name.textContent = cs?.name || "";
+
+  const divider = document.createElement("div");
+  divider.className = "prep-team-panel__divider";
+
+  const flagBox = document.createElement("div");
+  flagBox.className = "prep-team-panel__flagbox";
+  const country = countryFromImagePath(cs?.imagePath);
+  const code = country ? String(appState.flagcodes?.[country] || "") : "";
+  if (code) {
+    const flag = document.createElement("img");
+    flag.className = "prep-team-panel__flag";
+    flag.alt = "";
+    flag.src = projectAssetUrl(`Images/Flags/w320/${code}.png`);
+    flag.onerror = () => {
+      flag.onerror = null;
+      flag.src = `https://flagcdn.com/w320/${code}.png`;
+    };
+    flagBox.appendChild(flag);
+  } else {
+    flagBox.classList.add("prep-team-panel__flagbox--missing");
+    flagBox.textContent = country ? `no flag code: ${country}` : "no country";
+  }
+
+  inner.append(crest, name, divider, flagBox);
+  wrap.appendChild(inner);
+  return wrap;
+}
+
+/** Fit each panel preview to its section height (scale the WHOLE panel). */
+function fitTeamPanels() {
+  for (const s of sections) {
+    const wrap = s.sectionEl.querySelector(".prep-team-panel");
+    const inner = wrap?.querySelector(".prep-team-panel__inner");
+    if (!wrap || !inner) continue;
+    const h = wrap.clientHeight || 0;
+    const scale = h > 0 ? h / RP_H : 0.35;
+    inner.style.transform = `scale(${scale})`;
+    wrap.style.width = `${Math.round(RP_W * scale)}px`;
+  }
+}
+
 export function setActiveLevel(levelIndex) {
   appState.currentLevelIndex = levelIndex;
   const sec = sections.find((s) => s.levelIndex === levelIndex);
@@ -48,18 +123,6 @@ export function setActiveLevel(levelIndex) {
     sections.forEach((s) =>
       s.sectionEl.classList.toggle("prep-section--active", s === sec)
     );
-  }
-  // The single sticky #team-header tracks the active level (crest scale/nudge
-  // controls + dblclick name edit live there).
-  try {
-    renderHeader();
-    const th = appState.els.teamHeader;
-    if (th) {
-      th.hidden = false;
-      th.classList.add("team-header--show");
-    }
-  } catch (e) {
-    console.warn("[prep] renderHeader failed:", e);
   }
 }
 
@@ -100,8 +163,12 @@ export function renderPrepPanel() {
     head.innerHTML = sectionHeadText(lvl, ordinal);
     sectionEl.appendChild(head);
 
+    const body = document.createElement("div");
+    body.className = "prep-section__body";
     const slotsEl = buildSlotsContainer();
-    sectionEl.appendChild(slotsEl);
+    body.append(slotsEl, buildTeamPanelPreview(lvl));
+    sectionEl.appendChild(body);
+
     root.appendChild(sectionEl);
     sections.push({ levelIndex, sectionEl, slotsEl, headEl: head });
   }
@@ -120,6 +187,8 @@ export function renderPrepPanel() {
   // Restore/activate: keep the previously-active level if it still exists.
   const keep = sections.find((s) => s.levelIndex === prevLevel) || sections[0];
   setActiveLevel(keep.levelIndex);
+
+  requestAnimationFrame(fitTeamPanels);
 }
 
 /** Re-render ONLY the active section (used after photo/name edits). */
@@ -150,6 +219,14 @@ export function initPrepPanel() {
      makes getVideoQuestionPreviewState() treat every card as revealed —
      photos + names + slot controls — WITHOUT mutating the save data. */
   appState.videoRevealPostTimerActive = true;
+
+  /* The sliding #team-header sidebar is GONE (the per-level panel preview
+     replaced it) — but "Get all team photos" lives inside it; move the
+     button to <body> so its fixed FAB-row spot still works. */
+  const bulkBtn = document.getElementById("team-header-get-all-photos");
+  if (bulkBtn && bulkBtn.parentElement !== document.body) {
+    document.body.appendChild(bulkBtn);
+  }
 
   // Context switch BEFORE any click handler fires (capture phase).
   root.addEventListener(
@@ -191,6 +268,7 @@ export function initPrepPanel() {
       sec.sectionEl.scrollIntoView({ behavior: "auto", block: "start" });
     }
   });
+  window.addEventListener("resize", () => fitTeamPanels());
 
   renderPrepPanel();
 }
