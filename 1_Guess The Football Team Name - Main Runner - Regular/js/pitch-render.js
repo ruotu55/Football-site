@@ -1640,10 +1640,32 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
       if (!res.ok || !data?.ok) {
         throw new Error(data?.error || "Failed to delete photo.");
       }
-      removeRelPathFromPlayerImagesState(current.relPath);
+      const deletedRel = current.relPath;
+      removeRelPathFromPlayerImagesState(deletedRel);
+      invalidateCachedImage(projectAssetUrl(deletedRel)); // drop the cached bitmap
       const st = getState();
       st.slotPhotoIndexBySlot.set(slotIndex, 0);
       autoPhotoLastSourceBySlot.delete(slotIndex);
+
+      /* Update the SHOWN image immediately (don't rely only on renderPitch —
+         in the prep panel that occasionally targeted a stale container). The
+         remaining photos exclude the one we just deleted. */
+      const remaining = playerPhotoPaths(player, st.displayMode).filter(
+        (p) => String(p || "").trim() !== deletedRel
+      );
+      const slotRoot = controls.closest(".player-slot");
+      const shownImg =
+        slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
+        slotRoot?.querySelector(".slot-avatar .slot-img");
+      if (shownImg) {
+        if (remaining.length) {
+          shownImg.dataset.relpath = remaining[0];
+          applyPlayerPhotoFramingForSourceRelPath(shownImg, remaining[0]);
+          shownImg.src = projectAssetUrlFresh(remaining[0]);
+        } else {
+          shownImg.remove(); // no photos left — renderPitch draws the fallback
+        }
+      }
       appState.suppressPitchSlotFlipAnimation = true;
       renderPitch();
       appState.suppressPitchSlotFlipAnimation = false;
