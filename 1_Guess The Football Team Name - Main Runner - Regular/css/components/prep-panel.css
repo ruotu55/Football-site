@@ -137,7 +137,7 @@
   transform: translateX(-50%) !important;
   display: flex;
   justify-content: center;
-  gap: 0.3rem;
+  gap: 0.25rem;
   padding: 0 !important;
   background: none !important;
   border: none !important;
@@ -146,30 +146,32 @@
 .prep-section .slot-photo-fetch-btn,
 .prep-section .slot-photo-crop-btn,
 .prep-section .slot-photo-delete-btn,
-.prep-section .slot-photo-swap-btn {
+.prep-section .slot-photo-swap-btn,
+.prep-section .slot-photo-name-btn {
   box-sizing: border-box;
-  min-width: 2.3rem !important;
-  width: 2.3rem !important;
-  height: 2.3rem !important;
+  min-width: 2rem !important;
+  width: 2rem !important;
+  height: 2rem !important;
   padding: 0 !important;
   border: 1.5px solid rgba(255, 255, 255, 0.88);
-  border-radius: 0.45rem !important;
+  border-radius: 0.4rem !important;
   background: rgba(0, 0, 0, 0.62);
   color: #fff;
   font-family: system-ui, "Segoe UI", sans-serif;
-  font-size: 0.55rem !important;
+  font-size: 0.48rem !important;
   font-weight: 900;
   line-height: 1.05;
   white-space: normal;
   cursor: pointer;
 }
 .prep-section .slot-photo-delete-btn {
-  font-size: 0.9rem !important;
+  font-size: 0.85rem !important;
 }
 .prep-section .slot-photo-fetch-btn:hover:not(:disabled),
 .prep-section .slot-photo-crop-btn:hover:not(:disabled),
 .prep-section .slot-photo-delete-btn:hover:not(:disabled),
-.prep-section .slot-photo-swap-btn:hover:not(:disabled) {
+.prep-section .slot-photo-swap-btn:hover:not(:disabled),
+.prep-section .slot-photo-name-btn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.22);
   border-color: #fff;
 }
@@ -177,8 +179,9 @@
   opacity: 0.45;
   cursor: not-allowed;
 }
-/* The tiny name-band ⇄ is replaced by the SWAP cube (which proxy-clicks it). */
-.prep-section .slot-swap-btn {
+/* The tiny name-band ⇄ and ✎ are replaced by the SWAP / NAME cubes. */
+.prep-section .slot-swap-btn,
+.prep-section .slot-name-edit-btn {
   display: none !important;
 }
 /* +/- size and crest-swap buttons match the cube look. */

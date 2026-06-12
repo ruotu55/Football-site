@@ -1606,7 +1606,23 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     }
   });
 
-  controls.append(photoBtn, deleteBtn, cropBtn, swapProxyBtn);
+  /* 5th cube: NAME — same edit as the tiny ✎ on the name band (hidden in
+     prep CSS), opened from the control row like everything else. */
+  const nameBtn = document.createElement("button");
+  nameBtn.type = "button";
+  nameBtn.className = "slot-photo-name-btn";
+  nameBtn.textContent = "NAME";
+  nameBtn.title = "Edit player name";
+  nameBtn.dataset.slotControl = "edit-name-cube";
+  nameBtn.dataset.slotIndex = String(slotIndex);
+  nameBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const label = controls.closest(".player-slot")?.querySelector(".slot-name");
+    if (label) applySlotNameEdit(label, player);
+  });
+
+  controls.append(photoBtn, deleteBtn, cropBtn, swapProxyBtn, nameBtn);
   containerEl.appendChild(controls);
   /* Re-parent onto the slot root once the card is in the DOM. */
   requestAnimationFrame(() => {
