@@ -308,6 +308,41 @@
   object-fit: cover;
   display: block;
 }
+.prep-team-panel__rename {
+  position: absolute;
+  left: 50%;
+  bottom: 0.7rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.prep-team-panel__rename:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+
+/* "Revealed" toggle — sits just left of PROD (top-right). */
+.reveal-btn {
+  left: auto !important;
+  right: calc(1.5rem + 5vw + 6rem + 0.7rem) !important;
+  top: 1.5rem !important;
+  background: #fff;
+  color: #000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+.reveal-btn[aria-pressed="true"] {
+  background: #1f8f4d;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(31, 143, 77, 0.5);
+}
 
 /* ── Top FAB row ──────────────────────────────────────────────────────────
    Every .panel-fab shares ONE default fixed position (the old per-button

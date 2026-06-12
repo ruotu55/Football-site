@@ -596,6 +596,34 @@ export function renameCurrentClubByNatTeamName(nextNameRaw) {
 export function isCurrentHeaderTeamNameEditable() {
   return isClubByNatHeaderEditContext(getState(), appState.els.inQuizType?.value);
 }
+
+/** The team name currently shown for the active level (override-aware). */
+export function getCurrentTeamDisplayName() {
+  return resolveHeaderTeamDisplayName(getState(), "club-by-nat");
+}
+
+/**
+ * Rename the active level's team.
+ *  - persistGlobal=true  → save PERMANENTLY (shared team_name_overrides_shared.json,
+ *    pushed to the server so it survives terminal restarts and applies in every
+ *    main runner) + stamp the per-level override so it rides with the save.
+ *  - persistGlobal=false → this save only (per-level override; not global).
+ * Returns the resolved display name.
+ */
+export function applyTeamRename(nextNameRaw, persistGlobal) {
+  const state = getState();
+  if (!state) return "";
+  const baseName = getBaseTeamName(state);
+  const nextName = String(nextNameRaw || "").trim();
+  const isReset = !nextName || nextName.toLowerCase() === baseName.toLowerCase();
+  if (persistGlobal) {
+    // Writes shared overrides + per-level + server-persist (across runners/restarts).
+    renameCurrentClubByNatTeamName(isReset ? "" : nextName);
+  } else {
+    state.headerTeamNameOverride = isReset ? "" : nextName;
+  }
+  return resolveHeaderTeamDisplayName(state, "club-by-nat");
+}
 export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
     return Promise.resolve();

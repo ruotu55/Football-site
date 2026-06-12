@@ -70,6 +70,37 @@ const displayName = (name) => {
   return SUFFIXES.has(last.toLowerCase()) ? words[0] : last;
 };
 
+// Permanent TEAM-name overrides saved from the runner-1 PREP PANEL (panel
+// "✎ Rename team" → "save permanently"). Same file the browser runners use.
+// Keyed `club-by-nat::<selectedEntry.path | name:<lowercased club>>`.
+const TEAM_NAME_OVERRIDES = (() => {
+  try {
+    const raw = fs.readFileSync(
+      path.join(repoRoot, ".Storage", "storage", "runner-blobs", "team_name_overrides_shared.json"),
+      "utf-8",
+    );
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+})();
+
+// Resolve the DISPLAY team name for a level: per-save override first (rides
+// with the saved script), then the shared permanent override, then the club.
+const teamDisplayName = (lvl, club) => {
+  const perSave = String(lvl?.headerTeamNameOverride || "").trim();
+  if (perSave) return perSave;
+  const identity =
+    String(lvl?.selectedEntry?.path || "").trim() ||
+    (club ? `name:${String(club).toLowerCase()}` : "");
+  if (identity) {
+    const v = String(TEAM_NAME_OVERRIDES[`club-by-nat::${identity}`] || "").trim();
+    if (v) return v;
+  }
+  return club;
+};
+
 const walkDirs = (root, fn) => {
   let entries;
   try {
@@ -281,7 +312,7 @@ for (const key of Object.keys(blocks)) {
     if (!revealVoiceEn) missingRevealVoices += 1;
 
     levels.push({
-      teamName: club,
+      teamName: teamDisplayName(lvl, club),
       crestPath: cs.imagePath ? toRel(cs.imagePath) : null,
       country,
       flagPath: resolveFlag(country),

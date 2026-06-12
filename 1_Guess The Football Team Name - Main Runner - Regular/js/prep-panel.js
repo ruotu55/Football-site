@@ -9,7 +9,11 @@
  * (capture phase) before any click handler runs.
  */
 import { appState } from "./state.js";
-import { renderPitch } from "./pitch-render.js";
+import {
+  renderPitch,
+  resolveHeaderTeamDisplayName,
+  applyTeamRename,
+} from "./pitch-render.js";
 import { projectAssetUrl } from "./paths.js";
 
 /* Remotion RevealPanel design constants (components/RevealPanel.tsx) — the
@@ -56,9 +60,19 @@ function countryFromImagePath(imagePath) {
   return parts[1] === "Teams" && parts[2] !== "Competitions" ? (parts[2] || "") : "";
 }
 
+/** Override-aware team name for a specific level (lvl IS a state object). */
+function teamDisplayName(lvl) {
+  try {
+    const resolved = resolveHeaderTeamDisplayName(lvl, "club-by-nat");
+    if (resolved) return resolved;
+  } catch { /* fall through */ }
+  return lvl?.currentSquad?.name || "";
+}
+
 /** The Remotion RevealPanel preview: crest → team name → divider → flag,
- *  built at the panel's REAL pixel sizes and scaled as one block. */
-function buildTeamPanelPreview(lvl) {
+ *  built at the panel's REAL pixel sizes and scaled as one block.
+ *  + a Rename button (override-aware, optionally permanent for all runners). */
+function buildTeamPanelPreview(lvl, levelIndex) {
   const wrap = document.createElement("div");
   wrap.className = "prep-team-panel";
   const inner = document.createElement("div");
@@ -73,7 +87,7 @@ function buildTeamPanelPreview(lvl) {
 
   const name = document.createElement("div");
   name.className = "prep-team-panel__name";
-  name.textContent = cs?.name || "";
+  name.textContent = teamDisplayName(lvl);
 
   const divider = document.createElement("div");
   divider.className = "prep-team-panel__divider";
@@ -99,6 +113,43 @@ function buildTeamPanelPreview(lvl) {
 
   inner.append(crest, name, divider, flagBox);
   wrap.appendChild(inner);
+
+  // Rename button (outside the scaled inner, so it stays a normal size).
+  const renameBtn = document.createElement("button");
+  renameBtn.type = "button";
+  renameBtn.className = "prep-team-panel__rename";
+  renameBtn.textContent = "✎ Rename team";
+  renameBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setActiveLevel(levelIndex); // getState() now points at this level
+    const current = teamDisplayName(appState.levelsData[levelIndex]);
+    const next = window.prompt(
+      "Enter a custom team name.\nLeave empty to reset to the original.",
+      current
+    );
+    if (next === null) return;
+    const clean = String(next).trim();
+    let persistGlobal = false;
+    if (clean && clean.toLowerCase() !== String(current).toLowerCase()) {
+      persistGlobal = window.confirm(
+        `Save "${clean}" PERMANENTLY for this team?\n\n` +
+          "OK — every save and every main runner shows this name from now on " +
+          "(it's saved to disk and survives closing the terminal).\n" +
+          "Cancel — only for THIS save."
+      );
+    }
+    const resolved = applyTeamRename(clean, persistGlobal);
+    name.textContent = resolved;
+    const sec = sections.find((s) => s.levelIndex === levelIndex);
+    if (sec) {
+      sec.headEl.innerHTML = sectionHeadText(
+        appState.levelsData[levelIndex],
+        sections.indexOf(sec) + 1
+      );
+    }
+  });
+  wrap.appendChild(renameBtn);
+
   return wrap;
 }
 
@@ -127,7 +178,7 @@ export function setActiveLevel(levelIndex) {
 }
 
 function sectionHeadText(lvl, ordinal) {
-  const teamName = lvl?.currentSquad?.name || "(no team loaded)";
+  const teamName = teamDisplayName(lvl) || "(no team loaded)";
   return (
     `<span class="prep-section__level">Level ${ordinal}</span>` +
     `<span class="prep-section__team">${teamName}</span>`
@@ -166,7 +217,7 @@ export function renderPrepPanel() {
     const body = document.createElement("div");
     body.className = "prep-section__body";
     const slotsEl = buildSlotsContainer();
-    body.append(slotsEl, buildTeamPanelPreview(lvl));
+    body.append(slotsEl, buildTeamPanelPreview(lvl, levelIndex));
     sectionEl.appendChild(body);
 
     root.appendChild(sectionEl);
@@ -189,6 +240,23 @@ export function renderPrepPanel() {
   setActiveLevel(keep.levelIndex);
 
   requestAnimationFrame(fitTeamPanels);
+}
+
+/** Re-render every section's cards IN PLACE (keeps DOM/scroll) — used by the
+ *  Revealed toggle so cards flip between flag-front and photo-back. */
+function rerenderAllSlots() {
+  const prevLevel = appState.currentLevelIndex;
+  for (const s of sections) {
+    appState.currentLevelIndex = s.levelIndex;
+    appState.els.pitchSlots = s.slotsEl;
+    try {
+      renderPitch();
+    } catch (e) {
+      console.warn("[prep] rerenderAllSlots failed for level", s.levelIndex, e);
+    }
+  }
+  const keep = sections.find((s) => s.levelIndex === prevLevel) || sections[0];
+  if (keep) setActiveLevel(keep.levelIndex);
 }
 
 /** Re-render ONLY the active section (used after photo/name edits). */
@@ -214,11 +282,27 @@ export function initPrepPanel() {
     return;
   }
 
-  /* Saves store videoMode:true per level, which would render the UNREVEALED
-     flip-card front (flag only, hidden player). Forcing the post-timer flag
-     makes getVideoQuestionPreviewState() treat every card as revealed —
-     photos + names + slot controls — WITHOUT mutating the save data. */
-  appState.videoRevealPostTimerActive = true;
+  /* "Revealed" toggle (next to PROD). OFF (default on load) = the cards show
+     the country-flag FRONT, exactly like the quiz before the answer reveal.
+     ON = the photo + name BACK (the answer). Driven by the same
+     videoRevealPostTimerActive flag renderSlot already reads — no save data
+     is mutated either way. */
+  appState.videoRevealPostTimerActive = false;
+  const revealBtn = document.getElementById("reveal-btn");
+  const syncRevealBtn = () => {
+    if (!revealBtn) return;
+    const on = !!appState.videoRevealPostTimerActive;
+    revealBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    revealBtn.textContent = on ? "Revealed ✓" : "Revealed";
+  };
+  if (revealBtn) {
+    revealBtn.onclick = () => {
+      appState.videoRevealPostTimerActive = !appState.videoRevealPostTimerActive;
+      syncRevealBtn();
+      rerenderAllSlots();
+    };
+    syncRevealBtn();
+  }
 
   /* The sliding #team-header sidebar is GONE (the per-level panel preview
      replaced it) — but "Get all team photos" lives inside it; move the
