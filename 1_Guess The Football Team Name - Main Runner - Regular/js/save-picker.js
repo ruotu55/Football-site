@@ -17,7 +17,6 @@ import {
     buildScriptFromImportText,
     captureCurrentScriptObject,
 } from "./saved-scripts.js?v=20260612-prep";
-import { frozenScriptForBlock, isVideoStatusEnabled, wireVideoStatusButton } from "../../.Storage/shared/video-status.js";
 
 const RUNNER_ID = 1;
 const KEY_PREFIX = `${RUNNER_ID}|`;
@@ -26,7 +25,6 @@ const ENDPOINT = "/__recording-status";
 let blocks = Object.create(null);
 let listEl = null;
 let activeBlockKey = null;
-let videoStatusController = null;
 
 export function getActiveBlockKey() {
     return activeBlockKey;
@@ -54,16 +52,6 @@ async function postReplace(allBlocks) {
         body: JSON.stringify({ op: "replace", payload: { blocks: allBlocks } }),
     });
     if (!r.ok) throw new Error("Server rejected the save (HTTP " + r.status + ")");
-}
-
-/** Persist a block's Save Video Status freeze (or pass null to clear). */
-async function postSetVideoStatus(key, videoStatus) {
-    const r = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ op: "setVideoStatus", key, videoStatus: videoStatus || null }),
-    });
-    if (!r.ok) throw new Error("Server rejected setVideoStatus (HTTP " + r.status + ")");
 }
 
 // ---------------------------------------------------------------------------
@@ -199,14 +187,9 @@ async function onRowClick(key) {
     appState.activeBlockKey = key;
     setActiveScriptName(block.name);
     try {
-        const frozen = frozenScriptForBlock(block);
-        if (frozen) {
-            await applyScriptObject(frozen);
-        } else {
-            const script = await resolveScriptForBlock(block);
-            await applyScriptObject(script);
-            await mirrorVoiceFreezeIntoBlock(block, script, key);
-        }
+        const script = await resolveScriptForBlock(block);
+        await applyScriptObject(script);
+        await mirrorVoiceFreezeIntoBlock(block, script, key);
     } catch (err) {
         console.error("[save-picker] load failed:", err);
         alert(err?.message || "Could not load this save.");
@@ -240,7 +223,6 @@ function questionLevelCount(block) {
 
 function render() {
     if (!listEl) return;
-    if (videoStatusController) videoStatusController.refresh();
     listEl.innerHTML = "";
 
     const items = listedSaves();
@@ -275,7 +257,7 @@ function render() {
         meta.className = "rq-meta";
         const epLine = document.createElement("div");
         epLine.className = "rq-meta-ep";
-        epLine.textContent = `#${item.episode}` + (isVideoStatusEnabled(item.block) ? " · ❄ frozen" : "");
+        epLine.textContent = `#${item.episode}`;
         const nameLine = document.createElement("div");
         nameLine.className = "rq-meta-name";
         nameLine.textContent = item.name;
@@ -298,15 +280,6 @@ export async function initSavePicker() {
         return;
     }
     listEl.classList.add("rq-list");
-
-    videoStatusController = wireVideoStatusButton({
-        button: document.getElementById("save-video-status-btn"),
-        getActiveKey: () => activeBlockKey,
-        getBlock: (k) => blocks[k] || null,
-        getActiveName: () => (activeBlockKey && blocks[activeBlockKey] && blocks[activeBlockKey].name) || "Recording",
-        captureScript: (name) => captureCurrentScriptObject(name),
-        persist: async (k, vs) => { await postSetVideoStatus(k, vs); },
-    });
 
     wireSaveToBlockButton();
     blocks = await fetchBlocks();

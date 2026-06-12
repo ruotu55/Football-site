@@ -9,7 +9,6 @@ import {
   getSelectedBundledVariant,
 } from "./bundled-level-voices.js";
 import { renderTeamPhrase, getOrAssignRevealPhrase } from "./audio.js";
-import { buildBgmCrossfadePreviewSection } from "./bgm-crossfade-preview.js";
 
 const FIXED_VOICE = "en-US-AndrewNeural";
 const LANGUAGE_STORAGE_KEY = "voice-tab.language";
@@ -319,7 +318,6 @@ export async function renderVoiceTab() {
   root.innerHTML = "";
   root.appendChild(buildLanguageToggle());
   root.appendChild(buildDownloadAllButton());
-  root.appendChild(buildBgmCrossfadePreviewSection());
 
   // Key the level map under the SAME resolved display name that uniqueTeamNames()
   // produces, otherwise teamLevelMap.get(name) misses and rows fall back to placeholder.
