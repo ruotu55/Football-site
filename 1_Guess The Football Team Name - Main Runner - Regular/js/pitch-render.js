@@ -1314,11 +1314,12 @@ function openBulkTeamPhotoModal() {
 function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   const state = getState();
   if (!containerEl || !player || appState.isVideoPlaying) return;
-  /* PREP PANEL: the controls live on the .player-slot ROOT (the 3D card faces
-     clip anything hanging outside them). Re-renders must REPLACE the row —
-     the old buttons close over the previous player. */
-  const slotRootEl = containerEl.closest(".player-slot") || containerEl;
-  slotRootEl.querySelectorAll(".slot-photo-controls").forEach((el) => el.remove());
+  /* PREP PANEL: the controls must end up on the .player-slot ROOT (the 3D
+     card faces clip anything hanging outside them). containerEl is usually
+     still DETACHED here (renderSlot mounts it later), so the re-parent is
+     deferred to the next frame. Re-renders REPLACE the row — old buttons
+     close over the previous player. */
+  containerEl.querySelectorAll(".slot-photo-controls").forEach((el) => el.remove());
   const controls = document.createElement("div");
   controls.className = "slot-photo-controls";
 
@@ -1564,11 +1565,20 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   swapProxyBtn.dataset.slotIndex = String(slotIndex);
   swapProxyBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    slotRootEl.querySelector(".slot-swap-btn")?.click();
+    controls.closest(".player-slot")?.querySelector(".slot-swap-btn")?.click();
   });
 
   controls.append(photoBtn, deleteBtn, cropBtn, swapProxyBtn);
-  slotRootEl.appendChild(controls);
+  containerEl.appendChild(controls);
+  /* Re-parent onto the slot root once the card is in the DOM. */
+  requestAnimationFrame(() => {
+    const slotRootEl = containerEl.closest(".player-slot");
+    if (!slotRootEl) return;
+    slotRootEl
+      .querySelectorAll(":scope > .slot-photo-controls")
+      .forEach((el) => el.remove());
+    slotRootEl.appendChild(controls);
+  });
 }
 
 function getSlotFrontFaceScale(state, slotIndex) {
