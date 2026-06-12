@@ -11,9 +11,21 @@
   --prep-left-band: calc(5.3vw + 15.4rem); /* header inset + header max width + gap */
 }
 
+/* stage.css centers its content (flex + justify-content:center, built for
+   the one-screen pitch). A taller-than-viewport list inside a centered flex
+   gets its TOP HALF clipped above the scroll origin — "can only scroll
+   down". Make the stage a plain top-anchored scroller instead. */
 .stage {
+  display: block !important;
   overflow-y: auto !important;
   perspective: none !important;
+  height: 100vh;
+}
+.stage-main {
+  display: block !important;
+  height: auto !important;
+  min-height: 100%;
+  transform-style: flat !important;
 }
 
 /* The original pitch stays hidden (its [hidden] attribute is never cleared);
