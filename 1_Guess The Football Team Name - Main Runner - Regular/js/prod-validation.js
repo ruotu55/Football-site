@@ -8,6 +8,7 @@ import {
     getClubLogoUrl,
     getClubLogoOtherTeamsUrl,
     getHeaderLogoUrlChain,
+    playerPhotoPathsForLevel,
 } from "./photo-helpers.js";
 import { projectAssetUrl } from "./paths.js";
 import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js?v=20260530-prodtiming";
@@ -138,6 +139,9 @@ async function validateTeamAssets() {
         getClubLogoUrl,
         getClubLogoOtherTeamsUrl,
         getTeamHeaderFlagUrl,
+        // Use the SAME photo resolver the cards + "Get all photos" use, so PROD
+        // reports exactly the players you see missing a photo (no over/under).
+        collectPlayerPhotoRelPaths: (player, lvl) => playerPhotoPathsForLevel(player, lvl),
     });
 }
 

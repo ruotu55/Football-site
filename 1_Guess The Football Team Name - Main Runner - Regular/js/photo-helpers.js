@@ -198,8 +198,18 @@ export function pitchLabelFromPlayerName(fullName) {
 }
 
 export function playerPhotoPaths(player, displayMode) {
-  const state = getState();
-  if (!player || !state.selectedEntry) return [];
+  return playerPhotoPathsForState(player, getState());
+}
+
+/* Same resolution as playerPhotoPaths but for an EXPLICIT level/state object
+   (no getState()) — so PROD/validation can check any level without racing the
+   global current-level pointer. Mirrors the card's logic exactly. */
+export function playerPhotoPathsForLevel(player, lvl) {
+  return playerPhotoPathsForState(player, lvl);
+}
+
+function playerPhotoPathsForState(player, state) {
+  if (!player || !state || !state.selectedEntry) return [];
   const name = player.name || "";
   
   const paths = new Set();

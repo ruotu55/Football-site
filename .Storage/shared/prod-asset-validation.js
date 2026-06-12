@@ -137,8 +137,13 @@ export async function validateTeamAssetsAsync(opts) {
     getClubLogoUrl,
     getClubLogoOtherTeamsUrl,
     getTeamHeaderFlagUrl,
+    // Optional override so a runner can use its OWN card photo resolver (what
+    // the screen actually shows) instead of the shared heuristic. Signature:
+    // (player, lvl, playerImages) => string[]. Defaults to the shared one.
+    collectPlayerPhotoRelPaths: collectPhotoRelPathsOverride,
     sectionName = "Photos / Logos / Flags",
   } = opts;
+  const resolvePhotoRelPaths = collectPhotoRelPathsOverride || collectPlayerPhotoRelPaths;
 
   const checkFlags = Boolean(
     resolvePlayerNationalityLabel && getClubLogoUrl && getClubLogoOtherTeamsUrl
@@ -157,7 +162,7 @@ export async function validateTeamAssetsAsync(opts) {
       return out;
     }
     const pName = player.name || `slot ${si + 1}`;
-    const photoPaths = collectPlayerPhotoRelPaths(player, lvl, appState.playerImages);
+    const photoPaths = resolvePhotoRelPaths(player, lvl, appState.playerImages);
     if (!photoPaths.length) {
       out.push(`${pName}: no photo`);
     } else {
