@@ -226,14 +226,6 @@ function render() {
     listEl.innerHTML = "";
 
     const items = listedSaves();
-    const header = document.createElement("div");
-    header.className = "rq-header";
-    header.innerHTML = `
-        <span class="rq-header-title">Remotion Saves</span>
-        <span class="rq-header-sub">Runner #${RUNNER_ID} · ${items.length} named saves · same list as build-data</span>
-    `;
-    listEl.appendChild(header);
-
     if (!items.length) {
         const empty = document.createElement("div");
         empty.className = "rq-empty";
@@ -244,26 +236,15 @@ function render() {
 
     for (const item of items) {
         const row = document.createElement("div");
-        row.className = "rq-row rq-row--ready";
+        row.className = "rq-row rq-row--ready prep-save-row";
         if (item.key === activeBlockKey) row.classList.add("rq-row--active");
         row.dataset.key = item.key;
 
-        const statusChip = document.createElement("span");
-        statusChip.className = "rq-status rq-status--ready";
-        const n = questionLevelCount(item.block);
-        statusChip.textContent = n != null ? `${n} lvls` : "list";
-
-        const meta = document.createElement("div");
-        meta.className = "rq-meta";
-        const epLine = document.createElement("div");
-        epLine.className = "rq-meta-ep";
-        epLine.textContent = `#${item.episode}`;
         const nameLine = document.createElement("div");
-        nameLine.className = "rq-meta-name";
+        nameLine.className = "rq-meta-name prep-save-name";
         nameLine.textContent = item.name;
-        meta.append(epLine, nameLine);
 
-        row.append(statusChip, meta);
+        row.append(nameLine);
         row.addEventListener("click", () => onRowClick(item.key));
         listEl.appendChild(row);
     }

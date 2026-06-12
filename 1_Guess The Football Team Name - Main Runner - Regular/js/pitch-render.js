@@ -1473,27 +1473,18 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     const st = getState();
     const paths = playerPhotoPaths(player, st.displayMode);
     if (!paths.length) return { relPath: "", paths: [] };
-    /* X/CROP must target the photo the user SEES. The SWAP cube changes the
-       <img> without a re-render, so trust the displayed src first and only
-       fall back to the stored per-slot index. */
+    /* X/CROP must target the photo the user SEES. The shown <img> carries its
+       exact path on data-relpath (set at render + updated by SWAP), so read
+       that directly — no index/URL guessing. */
     const slotRoot = controls.closest(".player-slot");
     const img =
       slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
       slotRoot?.querySelector(".slot-avatar .slot-img");
-    const shownSrc = decodeURIComponent(
-      String(img?.getAttribute("src") || "").split("?")[0]
-    );
-    if (shownSrc) {
-      const shownIdx = paths.findIndex((p) => {
-        const norm = decodeURIComponent(String(p || "").split("?")[0])
-          .replace(/^(\.\.\/)+/, "")
-          .replace(/^\.?\//, "");
-        return norm && shownSrc.endsWith(norm);
-      });
-      if (shownIdx >= 0) {
-        st.slotPhotoIndexBySlot.set(slotIndex, shownIdx);
-        return { relPath: String(paths[shownIdx] || ""), paths };
-      }
+    const shownRel = String(img?.dataset?.relpath || "").trim();
+    if (shownRel) {
+      const shownIdx = paths.indexOf(shownRel);
+      if (shownIdx >= 0) st.slotPhotoIndexBySlot.set(slotIndex, shownIdx);
+      return { relPath: shownRel, paths };
     }
     let idx = st.slotPhotoIndexBySlot.get(slotIndex) ?? 0;
     idx = ((idx % paths.length) + paths.length) % paths.length;
@@ -1724,13 +1715,17 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     const st = getState();
     const paths = playerPhotoPaths(player, st.displayMode);
     if (paths.length <= 1) return;
-    const next = ((st.slotPhotoIndexBySlot.get(slotIndex) ?? 0) + 1) % paths.length;
-    st.slotPhotoIndexBySlot.set(slotIndex, next);
     const slotRoot = controls.closest(".player-slot");
     const img =
       slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
       slotRoot?.querySelector(".slot-avatar .slot-img");
+    // Advance from the photo CURRENTLY shown (data-relpath), not a stale index.
+    const shownRel = String(img?.dataset?.relpath || "").trim();
+    const curIdx = Math.max(0, paths.indexOf(shownRel));
+    const next = (curIdx + 1) % paths.length;
+    st.slotPhotoIndexBySlot.set(slotIndex, next);
     if (img) {
+      img.dataset.relpath = paths[next];
       applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
       img.src = projectAssetUrlFresh(paths[next]);
     }
@@ -1976,6 +1971,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       const rel = paths[idx];
       const img = document.createElement("img");
       img.className = "slot-img";
+      img.dataset.relpath = rel; // exact photo shown — X/CROP/SWAP read this
       img.alt = "";
       img.style.width = "100%";
       img.style.height = "100%";
@@ -2081,6 +2077,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       const rel = paths[idx];
       const img = document.createElement("img");
       img.className = "slot-img";
+      img.dataset.relpath = rel; // exact photo shown — X/CROP/SWAP read this
       img.alt = "";
       img.style.width = "100%";
       img.style.height = "100%";

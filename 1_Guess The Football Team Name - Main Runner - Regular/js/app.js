@@ -1438,6 +1438,7 @@ async function init() {
             ? slot.querySelector(".slot-back .slot-avatar .slot-img")
             : slot.querySelector(".slot-avatar .slot-img");
         if (img) {
+            img.dataset.relpath = paths[next]; // keep X/CROP targeting the shown photo
             applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
             img.src = projectAssetUrlFresh(paths[next]);
         }
