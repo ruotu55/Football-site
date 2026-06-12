@@ -1337,7 +1337,116 @@ function installBulkPhotoButton() {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    openBulkTeamPhotoModal();
+    openMissingPhotosPickerAllLevels();
+  });
+}
+
+/* "Get all photos" — scans EVERY level of the loaded save (no team needs to be
+   selected), collects only players that DON'T have a photo yet, and opens the
+   bulk candidate picker so you choose one per player. */
+function gatherMissingPhotoPlayers() {
+  const out = [];
+  const prevLevel = appState.currentLevelIndex;
+  (appState.levelsData || []).forEach((lvl, levelIndex) => {
+    if (!lvl || lvl.isLogo || lvl.isIntro || lvl.isOutro || !lvl.currentSquad) return;
+    let xi = Array.isArray(lvl.customXi) && lvl.customXi.length ? lvl.customXi : null;
+    if (!xi) {
+      try {
+        xi = pickStartingXI(formationById(lvl.formationId), lvl.currentSquad);
+      } catch { xi = []; }
+    }
+    // playerPhotoPaths resolves against getState() — point it at this level.
+    appState.currentLevelIndex = levelIndex;
+    xi.forEach((p, slotIndex) => {
+      if (!p || !p.name) return;
+      if (playerPhotoPaths(p, lvl.displayMode).length > 0) return; // already has a photo
+      out.push({
+        levelIndex,
+        slotIndex,
+        name: `${p.name} — ${lvl.currentSquad.name}`,
+        club: p.club || "",
+        nationality: p.nationality || "",
+        photoBodyBase: {
+          playerName: p.name,
+          playerClub: p.club || "",
+          playerNationality: p.nationality || "",
+          squadType: lvl.squadType || "",
+          selectedEntry: lvl.selectedEntry || {},
+          currentSquadName: lvl.currentSquad?.name || "",
+        },
+      });
+    });
+  });
+  appState.currentLevelIndex = prevLevel;
+  return out;
+}
+
+function openMissingPhotosPickerAllLevels() {
+  if (!appState.levelsData?.some((l) => l?.currentSquad)) {
+    window.alert("Load a save first.");
+    return;
+  }
+  const players = gatherMissingPhotoPlayers();
+  if (!players.length) {
+    window.alert("Every player in every level already has a photo. 🎉");
+    return;
+  }
+
+  const applyChosen = (data, item) => {
+    const section = data?.indexSection;
+    const key = data?.indexKey;
+    const rel = data?.relativePath;
+    if (!section || !key || !rel) throw new Error("Invalid image index update payload.");
+    if (!appState.playerImages[section]) appState.playerImages[section] = {};
+    const prev = appState.playerImages[section][key];
+    const paths = Array.isArray(prev)
+      ? prev.filter((x) => typeof x === "string" && x.trim())
+      : typeof prev === "string" && prev.trim() ? [prev.trim()] : [];
+    if (!paths.includes(rel)) paths.unshift(rel);
+    appState.playerImages[section][key] = paths;
+    const lvl = appState.levelsData[item.levelIndex];
+    if (lvl?.slotPhotoIndexBySlot?.set) lvl.slotPhotoIndexBySlot.set(item.slotIndex, 0);
+    document.dispatchEvent(
+      new CustomEvent("prep:refresh-level", { detail: { index: item.levelIndex } })
+    );
+  };
+
+  openBulkPhotoPicker({
+    teamLabel: "Players missing a photo · all levels",
+    players,
+    sources: ["fut.gg", "365scores"],
+    loadCandidates: async ({ player, source }) => {
+      const res = await fetch(LIST_PHOTO_CANDIDATES_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Photo search failed.");
+      return Array.isArray(data.candidates) ? data.candidates : [];
+    },
+    onSelectCandidate: async ({ player, candidate, source }) => {
+      const res = await fetch(SAVE_CHOSEN_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source, imageDataUrl: candidate.dataUrl }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Failed to save photo.");
+      applyChosen(data, player);
+    },
+    onPasteUrl: (player) => {
+      openPlayerPhotoUrlModal(player.photoBodyBase.playerName, async (imageUrl) => {
+        const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...player.photoBodyBase, imageUrl }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.ok) throw new Error(data?.error || "Could not download photo from URL.");
+        applyChosen(data, player);
+      });
+    },
   });
 }
 

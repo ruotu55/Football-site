@@ -351,6 +351,15 @@ export function initPrepPanel() {
     window.scrollTo(0, 0);
   });
   document.addEventListener("prep:levels-changed", () => renderPrepPanel());
+  // Re-render ONE section in place (e.g. after the bulk photo picker assigns a
+  // photo to a player in that level) without rebuilding the whole panel.
+  document.addEventListener("prep:refresh-level", (e) => {
+    const sec = sections.find((s) => s.levelIndex === e.detail?.index);
+    if (!sec) return;
+    appState.currentLevelIndex = sec.levelIndex;
+    appState.els.pitchSlots = sec.slotsEl;
+    try { renderPitch(); } catch (err) { console.warn("[prep] refresh-level failed:", err); }
+  });
   document.addEventListener("prep:level-switched", (e) => {
     const sec = sections.find((s) => s.levelIndex === e.detail?.index);
     if (!sec) return;
