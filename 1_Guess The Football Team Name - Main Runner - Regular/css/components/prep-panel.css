@@ -166,12 +166,16 @@
 .prep-section .slot-photo-delete-btn {
   font-size: 0.9rem !important;
 }
-.prep-section .slot-photo-fetch-btn:hover,
-.prep-section .slot-photo-crop-btn:hover,
-.prep-section .slot-photo-delete-btn:hover,
-.prep-section .slot-photo-swap-btn:hover {
+.prep-section .slot-photo-fetch-btn:hover:not(:disabled),
+.prep-section .slot-photo-crop-btn:hover:not(:disabled),
+.prep-section .slot-photo-delete-btn:hover:not(:disabled),
+.prep-section .slot-photo-swap-btn:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.22);
   border-color: #fff;
+}
+.prep-section .slot-photo-swap-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 /* The tiny name-band ⇄ is replaced by the SWAP cube (which proxy-clicks it). */
 .prep-section .slot-swap-btn {

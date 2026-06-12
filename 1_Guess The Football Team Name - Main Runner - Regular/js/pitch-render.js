@@ -1554,18 +1554,34 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     });
   });
 
-  /* 4th cube: SWAP — proxies the name-band ⇄ button (hidden in prep CSS) so
-     every player has PHOTO / X / CROP / SWAP in one row. */
+  /* 4th cube: SWAP — cycles between the player's saved PHOTOS (same as the
+     old double-click-on-avatar). Disabled when there's only one photo. */
   const swapProxyBtn = document.createElement("button");
   swapProxyBtn.type = "button";
   swapProxyBtn.className = "slot-photo-swap-btn";
   swapProxyBtn.textContent = "SWAP";
-  swapProxyBtn.title = "Swap this player";
-  swapProxyBtn.dataset.slotControl = "swap-proxy";
+  swapProxyBtn.title = "Switch between this player's photos";
+  swapProxyBtn.dataset.slotControl = "swap-photo";
   swapProxyBtn.dataset.slotIndex = String(slotIndex);
+  if (playerPhotoPaths(player, state.displayMode).length <= 1) {
+    swapProxyBtn.disabled = true;
+    swapProxyBtn.title = "This player has only one photo";
+  }
   swapProxyBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    controls.closest(".player-slot")?.querySelector(".slot-swap-btn")?.click();
+    const st = getState();
+    const paths = playerPhotoPaths(player, st.displayMode);
+    if (paths.length <= 1) return;
+    const next = ((st.slotPhotoIndexBySlot.get(slotIndex) ?? 0) + 1) % paths.length;
+    st.slotPhotoIndexBySlot.set(slotIndex, next);
+    const slotRoot = controls.closest(".player-slot");
+    const img =
+      slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
+      slotRoot?.querySelector(".slot-avatar .slot-img");
+    if (img) {
+      applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
+      img.src = projectAssetUrlFresh(paths[next]);
+    }
   });
 
   controls.append(photoBtn, deleteBtn, cropBtn, swapProxyBtn);
