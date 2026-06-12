@@ -96,6 +96,19 @@
   height: auto !important;
   inset: auto !important;
 }
+/* STATIC control page: kill every animation/transition on the cards — the
+   play-video look floats .slot-mount up/down (CSS keyframes), eases flips,
+   and scales on hover. None of that here. */
+.prep-section .player-slot,
+.prep-section .player-slot * {
+  animation: none !important;
+  transition: none !important;
+}
+.prep-section .player-slot:hover,
+.prep-section .slot-mount {
+  transform: none !important;
+}
+
 /* Cards: the base .player-slot width is a % of the PITCH surface (≈8.6%),
    which collapses to ~15px inside a grid cell — size to the cell instead.
    aspect-ratio 10/13.5 + container-type:size from pitch.css then give the
