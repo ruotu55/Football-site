@@ -65,11 +65,9 @@ export function setActiveLevel(levelIndex) {
 
 function sectionHeadText(lvl, ordinal) {
   const teamName = lvl?.currentSquad?.name || "(no team loaded)";
-  const players = lvl?.currentSquad ? "11 players" : "—";
   return (
     `<span class="prep-section__level">Level ${ordinal}</span>` +
-    `<span class="prep-section__team">${teamName}</span>` +
-    `<span class="prep-section__meta">${lvl?.formationId || ""} · ${players}${lvl?.isBonus ? " · BONUS" : ""}</span>`
+    `<span class="prep-section__team">${teamName}</span>`
   );
 }
 
