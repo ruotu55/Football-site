@@ -171,13 +171,26 @@ export function initPrepPanel() {
     true
   );
 
-  document.addEventListener("recording-queue:script-applied", () => renderPrepPanel());
+  document.addEventListener("recording-queue:script-applied", () => {
+    renderPrepPanel();
+    // A fresh save always opens at the TOP (Level 1). Instant, not smooth —
+    // smooth scrolling races the cards' layout/images and lands mid-list.
+    const scroller = root.closest(".stage");
+    if (scroller) scroller.scrollTop = 0;
+    window.scrollTo(0, 0);
+  });
   document.addEventListener("prep:levels-changed", () => renderPrepPanel());
   document.addEventListener("prep:level-switched", (e) => {
     const sec = sections.find((s) => s.levelIndex === e.detail?.index);
-    if (sec) {
-      setActiveLevel(sec.levelIndex);
-      sec.sectionEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!sec) return;
+    setActiveLevel(sec.levelIndex);
+    // First section = top of the list (don't leave the FAB-row padding behind).
+    if (sec === sections[0]) {
+      const scroller = root.closest(".stage");
+      if (scroller) scroller.scrollTop = 0;
+      window.scrollTo(0, 0);
+    } else {
+      sec.sectionEl.scrollIntoView({ behavior: "auto", block: "start" });
     }
   });
 

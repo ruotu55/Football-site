@@ -75,22 +75,35 @@
 .prep-section .pitch-slots {
   position: static !important;
   display: grid !important;
-  grid-template-columns: repeat(6, minmax(110px, 1fr));
-  gap: 2.2rem 0.9rem;
+  grid-template-columns: repeat(6, minmax(8rem, 1fr));
+  gap: 1.2rem 0.9rem;
   width: auto !important;
   height: auto !important;
   inset: auto !important;
 }
+/* Cards: the base .player-slot width is a % of the PITCH surface (≈8.6%),
+   which collapses to ~15px inside a grid cell — size to the cell instead.
+   aspect-ratio 10/13.5 + container-type:size from pitch.css then give the
+   card its real trading-card proportions. */
 .prep-section .player-slot {
   position: relative !important;
   left: auto !important;
   top: auto !important;
   transform: none !important;
+  width: 100% !important;
+  max-width: 13rem;
+  margin: 0 auto;
+}
+
+/* The header's floating "clear team" X re-parents to <body> (old fixed spot
+   collides with the FAB row) — drop it below the row. */
+body > .team-header-clear-team-btn {
+  top: 6.2rem !important;
 }
 
 @media (max-width: 1500px) {
   .prep-section .pitch-slots {
-    grid-template-columns: repeat(4, minmax(110px, 1fr));
+    grid-template-columns: repeat(4, minmax(8rem, 1fr));
   }
 }
 
