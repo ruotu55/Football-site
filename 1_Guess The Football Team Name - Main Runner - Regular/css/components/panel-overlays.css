@@ -537,6 +537,10 @@ body.youtube-thumbnails-mode .countdown-timer {
 .prod-validation-modal__close:hover { opacity: 1; }
 .prod-validation-modal__body {
   padding: 0.8rem;
+  /* flex child must be allowed to shrink (min-height:0) or overflow-y:auto
+     never kicks in — the body grew past max-height and clipped sections. */
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -547,6 +551,7 @@ body.youtube-thumbnails-mode .countdown-timer {
   border-radius: 8px;
   overflow: hidden;
   background: rgba(0,0,0,0.2);
+  flex: 0 0 auto; /* never shrink a section to overlap its neighbour */
 }
 .prod-validation-section__toggle {
   width: 100%;
@@ -587,6 +592,8 @@ body.youtube-thumbnails-mode .countdown-timer {
   font-size: 0.8rem;
   color: rgba(255,255,255,0.75);
   line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .prod-validation-section__details.open { display: block; }
 .prod-validation-section__details ul {
