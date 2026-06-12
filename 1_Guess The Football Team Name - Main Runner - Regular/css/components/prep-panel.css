@@ -362,19 +362,46 @@
   font-size: 0.95rem;
 }
 
-/* "Revealed" toggle — sits just left of PROD (top-right). */
-.reveal-btn {
-  left: auto !important;
-  right: calc(1.5rem + 5vw + 6rem + 0.7rem) !important;
+/* PROD + Revealed: identical pills, top-right (PROD rightmost, Revealed left
+   of it). Override the old narrow .prod-btn sizing. */
+.prod-btn.panel-fab,
+.reveal-btn.panel-fab {
+  box-sizing: border-box;
+  width: 8.5rem !important;
+  padding: 0.6rem 0.8rem !important;
+  font-size: 0.78rem !important;
+  font-weight: 900;
+  text-align: center !important;
+  white-space: nowrap;
   top: 1.5rem !important;
+  left: auto !important;
+  border-radius: 5px;
+}
+.prod-btn.panel-fab {
+  right: calc(1.5rem + 5vw) !important;
   background: #fff;
   color: #000;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
 }
-.reveal-btn[aria-pressed="true"] {
+.reveal-btn.panel-fab {
+  right: calc(1.5rem + 5vw + 8.5rem + 0.7rem) !important;
+  background: #fff;
+  color: #000;
+}
+.reveal-btn.panel-fab[aria-pressed="true"] {
   background: #1f8f4d;
   color: #fff;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(31, 143, 77, 0.5);
+}
+/* PROD result colours (set by the click handler). */
+.prod-btn.panel-fab.prod-ok {
+  background: #1f8f4d !important;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(31, 143, 77, 0.5);
+}
+.prod-btn.panel-fab.prod-fail {
+  background: #dc2626 !important;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(220, 38, 38, 0.5);
 }
 
 /* ── Top FAB row ──────────────────────────────────────────────────────────

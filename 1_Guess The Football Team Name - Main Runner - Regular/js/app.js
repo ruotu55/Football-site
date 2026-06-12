@@ -32,13 +32,11 @@ import { initPrepPanel } from "./prep-panel.js";
 import { initTransitionsUI } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
 import {
-    isProdMode,
-    toggleProdMode,
-    runProdValidation,
+    runProdValidationBoth,
     showValidationModal,
     markBackgroundColorConfirmed,
     markBackgroundEffectConfirmed,
-} from "./prod-validation.js?v=20260530-prodtiming";
+} from "./prod-validation.js?v=20260612-prep";
 import {
     initSavedTeamLayouts,
     refreshSaveTeamButtonUi,
@@ -1254,14 +1252,41 @@ async function init() {
         }
     };
 
-    // ?? PROD button ??
+    // PROD button — run the full readiness check (assets + voices, EN & ES).
+    // Green = everything's there; red + error list = something's missing.
     if (els.prodBtn) {
-        els.prodBtn.onclick = () => {
-            const s = performance.now();
-            toggleProdMode();
-            syncVideoModeButton(!!getState()?.videoMode);
-            syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
-            console.log(`[PROD timing] PROD button click (toggleProdMode): ${(performance.now() - s).toFixed(0)}ms`);
+        let prodBusy = false;
+        els.prodBtn.onclick = async () => {
+            if (prodBusy) return;
+            if (!getState()?.currentSquad) {
+                alert("Load a save first, then run PROD.");
+                return;
+            }
+            prodBusy = true;
+            els.prodBtn.disabled = true;
+            els.prodBtn.classList.remove("prod-ok", "prod-fail");
+            els.prodBtn.textContent = "Checking…";
+            try {
+                const result = await runProdValidationBoth();
+                if (result.allPassed) {
+                    els.prodBtn.classList.add("prod-ok");
+                    els.prodBtn.textContent = "PROD ✓";
+                } else {
+                    els.prodBtn.classList.add("prod-fail");
+                    els.prodBtn.textContent = "PROD ✗";
+                    showValidationModal(result);
+                }
+            } catch (err) {
+                els.prodBtn.classList.add("prod-fail");
+                els.prodBtn.textContent = "PROD ✗";
+                showValidationModal({
+                    allPassed: false,
+                    sections: [{ sectionName: "Validation error", passed: false, failures: [String(err?.message || err)] }],
+                });
+            } finally {
+                prodBusy = false;
+                els.prodBtn.disabled = false;
+            }
         };
     }
 
