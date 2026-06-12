@@ -622,6 +622,7 @@ export function applyTeamRename(nextNameRaw, persistGlobal) {
   } else {
     state.headerTeamNameOverride = isReset ? "" : nextName;
   }
+  markPrepDirty();
   return resolveHeaderTeamDisplayName(state, "club-by-nat");
 }
 export function ensureInternationalClubPoolLoaded() {
@@ -899,6 +900,7 @@ function applySlotNameEdit(label, player) {
     }
     label.textContent = pitchSlotDisplayLabel(state, player);
   }
+  markPrepDirty();
 }
 
 function wireSlotNameEditing(label, player) {
@@ -1941,6 +1943,7 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
       applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
       img.src = projectAssetUrlFresh(paths[next]);
     }
+    markPrepDirty();
   });
 
   /* 5th cube: NAME — same edit as the tiny ✎ on the name band (hidden in
@@ -2428,6 +2431,15 @@ export function renderPitch() {
     renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
   });
   applyRenderSlotFloats();
+  markPrepDirty();
+}
+
+/* Prep panel: signal that the loaded save changed so save-picker auto-saves it
+   into block.script (what Remotion reads). Debounced + idempotent on its side. */
+export function markPrepDirty() {
+  try {
+    document.dispatchEvent(new CustomEvent("prep:dirty"));
+  } catch { /* no DOM (headless) — ignore */ }
 }
 
 /**

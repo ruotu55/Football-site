@@ -148,32 +148,38 @@ async function mirrorVoiceFreezeIntoBlock(block, script, key) {
 }
 
 // ---------------------------------------------------------------------------
-// Save-back — block.script is what Remotion build-data reads
+// AUTO-SAVE — every change is written to block.script (what Remotion reads).
+// No manual button: a debounced save fires whenever the prep panel signals a
+// change (the "prep:dirty" event) and once right after a save loads.
 // ---------------------------------------------------------------------------
 
-async function saveActiveToBlock() {
-    if (!activeBlockKey || !blocks[activeBlockKey]) {
-        alert("Load a save first.");
-        return;
-    }
+let autoSaveTimer = null;
+let autoSaveInFlight = false;
+let autoSaveQueued = false;
+
+async function writeActiveBlockScript() {
+    if (!activeBlockKey || !blocks[activeBlockKey]) return;
     const block = blocks[activeBlockKey];
     const script = captureCurrentScriptObject(block.name || getActiveScriptName() || "Recording");
-    if (!script || !Array.isArray(script.levels) || !script.levels.length) {
-        alert("Nothing to save — the panel is empty.");
-        return;
-    }
+    if (!script || !Array.isArray(script.levels) || !script.levels.length) return;
     block.script = script;
     blocks[activeBlockKey] = block;
-    await postReplace(blocks);
-    alert("Saved ✔ — Remotion build-data will now see these changes.");
+    if (autoSaveInFlight) { autoSaveQueued = true; return; } // coalesce overlapping writes
+    autoSaveInFlight = true;
+    try {
+        await postReplace(blocks);
+    } catch (e) {
+        console.warn("[save-picker] auto-save failed:", e);
+    } finally {
+        autoSaveInFlight = false;
+        if (autoSaveQueued) { autoSaveQueued = false; void writeActiveBlockScript(); }
+    }
 }
 
-function wireSaveToBlockButton() {
-    const btn = document.getElementById("save-to-block-btn");
-    if (!btn) return;
-    btn.onclick = () => {
-        saveActiveToBlock().catch((e) => alert("Couldn't save: " + (e?.message || e)));
-    };
+function scheduleAutoSave() {
+    if (!activeBlockKey) return;
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => { void writeActiveBlockScript(); }, 700);
 }
 
 // ---------------------------------------------------------------------------
@@ -190,6 +196,9 @@ async function onRowClick(key) {
         const script = await resolveScriptForBlock(block);
         await applyScriptObject(script);
         await mirrorVoiceFreezeIntoBlock(block, script, key);
+        // "Take what I have now": persist the freshly-loaded/rebuilt state into
+        // block.script so Remotion sees it even before the first edit.
+        scheduleAutoSave();
     } catch (err) {
         console.error("[save-picker] load failed:", err);
         alert(err?.message || "Could not load this save.");
@@ -262,7 +271,9 @@ export async function initSavePicker() {
     }
     listEl.classList.add("rq-list");
 
-    wireSaveToBlockButton();
+    // Auto-save on every prep-panel change (debounced).
+    document.addEventListener("prep:dirty", scheduleAutoSave);
+
     blocks = await fetchBlocks();
     render();
 }
