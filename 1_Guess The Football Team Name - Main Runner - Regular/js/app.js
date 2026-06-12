@@ -2,7 +2,7 @@ import { FORMATIONS } from "./formations.js";
 import { appState, clearSlotPhotoIndices, getState, getQuizQuestionCount, initLevels } from "./state.js";
 import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
-import { switchLevel } from "./levels.js?v=20260608-logofade";
+import { switchLevel } from "./levels.js?v=20260612-prep";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
@@ -21,27 +21,14 @@ import {
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260608-logofade";
 import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName, captureCurrentScriptObject } from "./saved-scripts.js?v=20260608-rndtest";
-import { initRenderModeIfRequested } from "./render-mode.js";
-import { askRenderOptions } from "./render-options-dialog.js?v=20260608-1440only";
-import {
-    showRenderProgressModal,
-    setRenderWorkers,
-    updateRenderProgress,
-    setRenderProgressDone,
-    setRenderProgressError,
-} from "./render-progress-ui.js?v=20260608-fps";
-import { initRenderTestClipsUi, setRenderTestClipsBusy } from "./render-test-clips-ui.js";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
-import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260611v";
-import { startRecordingAndFullscreen } from "./recording-flow.js";
-import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
-import { initTransitionsUI, transitionSettings } from "./transitions.js";
+import { getActiveScriptName } from "./saved-scripts.js?v=20260612-prep";
+import { initSavePicker } from "./save-picker.js";
+import { initPrepPanel } from "./prep-panel.js";
+import { initTransitionsUI } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
 import {
     isProdMode,
@@ -924,14 +911,11 @@ export function updateLanding() {
     const title = document.getElementById("landing-title");
     const isShorts = document.body.classList.contains("shorts-mode");
 
-    if (type === "club-by-nat") {
-        title.innerHTML = isShorts
-            ? t("landingTitleClubByNatShorts")
-            : t("landingTitleClubByNat");
-    } else {
-        title.innerHTML = isShorts
-            ? t("landingTitleNatByClubShorts")
-            : t("landingTitleNatByClub");
+    if (title) {
+        title.innerHTML =
+            type === "club-by-nat"
+                ? (isShorts ? t("landingTitleClubByNatShorts") : t("landingTitleClubByNat"))
+                : (isShorts ? t("landingTitleNatByClubShorts") : t("landingTitleNatByClub"));
     }
     renderLandingTitleVoiceControls();
     const landingQuestionsCount = document.getElementById("landing-questions-count");
@@ -995,14 +979,11 @@ async function init() {
     // Call initialized modules
     initLevelControls();
     initTransitionsUI();
-    /* The Saved tab is now the calendar-driven recording queue � see
-       recording-queue.js. The legacy savedScripts UI (Save Current Settings,
-       +Folder, Import, freeform list) is gone; the saved-scripts.js module
-       remains for the underlying capture/apply helpers, but its init wiring
-       points at buttons that no longer exist, so we don't call it. */
-    void initRecordingQueue();
+    /* The Saved tab lists the named runner-1 blocks Remotion renders — see
+       save-picker.js. saved-scripts.js remains for the underlying
+       capture/apply helpers. */
+    void initSavePicker();
     initUpdateData();
-    initThumbnailStudio();
 
     FORMATIONS.forEach((f) => {
         const opt = document.createElement("option");
@@ -1105,12 +1086,6 @@ async function init() {
     applyTranslations();
     document.addEventListener('voice-language-change', () => { syncLanguageButtons(); });
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && appState.isVideoPlaying) {
-            stopVideoFlow();
-        }
-    });
-
     wireMainTabs(els);
 
     // Listeners
@@ -1132,7 +1107,6 @@ async function init() {
         els.inHard.value = String(hard);
         els.inImpossible.value = String(impossible);
         updateLanding();
-        renderRecordingQueue();
         renderHeader();
         switchLevel(appState.currentLevelIndex);
     };
@@ -1252,24 +1226,9 @@ async function init() {
     els.videoModeToggle.onchange = (e) => {
         const state = getState();
         state.videoMode = e.target.checked;
-        if (appState.currentLevelIndex === 0) {
-            const logoImg = appState.els?.logoPage?.querySelector(".logo-img-anim");
-            if (logoImg) {
-                if (state.videoMode && !appState.isVideoPlaying) {
-                    logoImg.classList.remove("reveal");
-                } else if (!state.videoMode && !appState.isVideoPlaying) {
-                    logoImg.classList.remove("reveal");
-                    void logoImg.offsetWidth;
-                    logoImg.classList.add("reveal");
-                }
-            }
-        }
         syncVideoModeButton(state.videoMode);
         syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
         refreshSaveTeamButtonUi();
-        if (!e.target.checked && appState.isVideoPlaying) {
-            stopVideoFlow();
-        }
         const isQuestionLevel =
             appState.currentLevelIndex > 1 &&
             appState.currentLevelIndex < appState.totalLevelsCount;
@@ -1280,13 +1239,6 @@ async function init() {
         renderLandingTitleVoiceControls();
         updateLanding();
     };
-
-    if (els.videoModeBtn && els.videoModeToggle) {
-        els.videoModeBtn.onclick = () => {
-            els.videoModeToggle.checked = !els.videoModeToggle.checked;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        };
-    }
 
     els.applyVideoAllBtn.onclick = () => {
         const nextVideoMode = !areAllLevelsVideoModeEnabled();
@@ -1310,351 +1262,6 @@ async function init() {
             console.log(`[PROD timing] PROD button click (toggleProdMode): ${(performance.now() - s).toFixed(0)}ms`);
         };
     }
-
-    /* Pacing for the EN?ES double-record. Tweak here if you want longer/shorter brakes. */
-    const RECORD_LANG_BRAKE_MS = 2000;   // after switching language, before next phase starts
-    const RECORD_BETWEEN_PHASES_MS = 3000; // visual brake between phase 1 finish and phase 2 start
-    const brake = (ms) => new Promise((r) => setTimeout(r, ms));
-
-    /** Hide the top FAB row (Show Controls / Video Mode / Play / Record / Prod)
-     *  so the recording's very first frames are a clean stage, not a UI snapshot.
-     *  Mirrors what `startVideoFlow` does � but we do it earlier (before StartRecord). */
-    function freezeUIForRecording() {
-        document.body.classList.add("play-video-active");
-        if (els.playVideoBtn) els.playVideoBtn.hidden = true;
-        if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
-        if (els.panelFab) els.panelFab.hidden = true;
-    }
-    function unfreezeUIForRecording() {
-        document.body.classList.remove("play-video-active");
-        if (els.playVideoBtn) els.playVideoBtn.hidden = false;
-        if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
-        if (els.panelFab) els.panelFab.hidden = false;
-    }
-
-    /** Run one recording pass: start OBS+fullscreen, kick the level flow, resolve
-     *  when the outro chain in levels.js dispatches `recording-naturally-finished`. */
-    async function runRecordingPhase(savedName, language) {
-        /* Defensive: a legacy session may have left transitionSettings.effect = ""
-           (the old PROD toggle wiped it). Without this guard the recording skips
-           every transition. Empty/null/undefined ? restore to the dropdown's
-           selected value, or fall back to "grid-overlay". */
-        if (!transitionSettings.effect) {
-            const effectSel = document.getElementById("in-transition-effect");
-            transitionSettings.effect = (effectSel?.value && effectSel.value !== "")
-                ? effectSel.value
-                : "grid-overlay";
-            if (effectSel && effectSel.value !== transitionSettings.effect) {
-                effectSel.value = transitionSettings.effect;
-            }
-        }
-
-        /* Always begin from the landing page (ball animation), regardless of which
-           level the user is currently on. This applies to both phase 1 (initial)
-           and phase 2 (after the EN?ES handoff � the user is on the outro page
-           after phase 1's natural finish). */
-        if (appState.currentLevelIndex !== 1) {
-            switchLevel(1);
-            /* Wait for the actual level-switch transition to fully complete before
-               continuing � otherwise `transitionRunning` may still be true when the
-               video flow triggers level 1?2, causing that transition to be skipped. */
-            if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
-                await appState._transitionDone.catch(() => {});
-            }
-            await brake(300); // small settle after transition completes
-        }
-
-        /* Hide FABs BEFORE StartRecord so the recorded file never shows them.
-           startVideoFlow re-asserts the same state right after, so this is idempotent
-           on success; on failure we roll it back. */
-        freezeUIForRecording();
-
-        /* Cover the landing title with the ball-preloader's opaque bg-stage layer
-           BEFORE OBS starts capturing, so the recording's first frames are a clean
-           solid background � never a title flash. The ball element itself sits at
-           `top: -130px` in CSS and ~9px of it pokes into the viewport, so we hide
-           it inline until playBallPreloader (via startVideoFlow) takes over. */
-        const _preloaderForCover = document.getElementById("ball-preloader");
-        const _preloaderBall = _preloaderForCover?.querySelector(".ball-preloader-ball");
-        const _preloaderWasHidden = _preloaderForCover ? _preloaderForCover.hidden : true;
-        if (_preloaderForCover) _preloaderForCover.hidden = false;
-        if (_preloaderBall) _preloaderBall.style.opacity = "0";
-
-        const ok = await startRecordingAndFullscreen(savedName, language);
-        if (!ok) {
-            if (_preloaderForCover && _preloaderWasHidden) _preloaderForCover.hidden = true;
-            if (_preloaderBall) _preloaderBall.style.opacity = "";
-            unfreezeUIForRecording();
-            return false;
-        }
-
-        renderLandingTitleVoiceControls();
-        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
-        if (els.videoModeToggle && !els.videoModeToggle.checked) {
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        }
-
-        /* Subscribe BEFORE startVideoFlow so we never miss the event. */
-        const completion = new Promise((resolve) => {
-            document.addEventListener("recording-naturally-finished", () => resolve(), { once: true });
-        });
-
-        startVideoFlow();
-        setTimeout(() => { renderLandingTitleVoiceControls(); }, 0);
-
-        await completion;
-        return true;
-    }
-
-    /* Play Video: runs the level flow WITHOUT recording or fullscreen.
-       Ignored while a double-record is orchestrating. */
-    els.playVideoBtn.onclick = async () => {
-        if (appState.doubleRecording) return;
-        if (appState.isVideoPlaying) {
-            startVideoFlow(); // toggles to stop
-            return;
-        }
-        if (isProdMode()) {
-            const result = await runProdValidation();
-            if (!result.allPassed) {
-                showValidationModal(result);
-                return;
-            }
-        }
-        /* Fresh random pick per Play click. */
-        resetRandomEndingType();
-        renderLandingTitleVoiceControls();
-        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
-        if (els.videoModeToggle && !els.videoModeToggle.checked) {
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        }
-        startVideoFlow();
-        setTimeout(() => {
-            renderLandingTitleVoiceControls();
-        }, 0);
-    };
-
-    /* Record Video: records once in English, then once in Spanish � both saved under
-       Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen between phases
-       so the browser doesn't need a fresh user gesture to re-enter fullscreen. */
-    if (els.recordVideoBtn) {
-        els.recordVideoBtn.onclick = async () => {
-            if (appState.doubleRecording) return; // already running; ignore duplicate clicks
-            if (appState.isVideoPlaying) {
-                startVideoFlow(); // toggles to stop (also tears down recording)
-                return;
-            }
-            if (isProdMode()) {
-                const result = await runProdValidation();
-                if (!result.allPassed) {
-                    showValidationModal(result);
-                    return;
-                }
-            }
-            const savedName = (getActiveScriptName() || "").trim();
-            if (!savedName) {
-                alert("Load a saved setting first � the OBS file is named after it.");
-                return;
-            }
-
-            /* Pick the random ending ONCE for the whole double-record, so phase 1
-               (English) and phase 2 (Spanish) end with the same chosen type. */
-            resetRandomEndingType();
-
-            const __recLang = await askRecordingLanguage();
-            if (!__recLang) return;
-
-            try {
-                if (__recLang === "english" || __recLang === "both") {
-                    appState.doubleRecording = { phase: 1, savedName, single: __recLang !== "both" };
-                    if (getCurrentLanguage() !== "english") {
-                        setCurrentLanguage("english");
-                        await brake(RECORD_LANG_BRAKE_MS);
-                    }
-                    const ok1 = await runRecordingPhase(savedName, "english");
-                    if (!ok1) return;
-                }
-                if (__recLang === "both") {
-                    await brake(RECORD_BETWEEN_PHASES_MS);
-                }
-                if (__recLang === "spanish" || __recLang === "both") {
-                    appState.doubleRecording = { phase: 2, savedName, single: __recLang !== "both" };
-                    setCurrentLanguage("spanish");
-                    await brake(RECORD_LANG_BRAKE_MS);
-                    await runRecordingPhase(savedName, "spanish");
-                }
-            } finally {
-                appState.doubleRecording = null;
-            }
-        };
-    }
-
-    // Pick the FIRST recorded block to preview a render test clip with. The real saves live
-    // in recording-status.json (the /__recording-status blocks store), each with a frozen
-    // `script` object — NOT in the legacy saved-scripts bucket (which is empty). Always the
-    // first usable block so it's deterministic (no flaky random pick). Returns
-    // { name, scriptObject } or null if there are no usable blocks.
-    async function pickTestSave() {
-        try {
-            const r = await fetch("/__recording-status", { cache: "no-store" });
-            if (!r.ok) return null;
-            const data = await r.json();
-            const blocks = (data && data.blocks && typeof data.blocks === "object") ? data.blocks : {};
-            const blk = Object.values(blocks).find(
-                (b) => b && typeof b.name === "string" && b.name.trim()
-                    && b.script && typeof b.script === "object" && Object.keys(b.script).length,
-            );
-            if (!blk) return null;
-            return { name: blk.name.trim(), scriptObject: blk.script };
-        } catch (_) {
-            return null;
-        }
-    }
-
-    // Capture the user's CURRENT background theme selection (the control-panel dropdowns) so
-    // the headless render uses it instead of the runner's forced default. The render boots
-    // with forcedDefaults (localStorage is empty headless), so without this every render —
-    // full or test clip — ignored the Background Color / Effect / opacity the user picked.
-    // render-mode.js re-applies these onto the same dropdowns (→ applyCurrentSelection).
-    function captureCurrentThemeOverride() {
-        const competition = document.getElementById("in-competition-background")?.value || "";
-        const color = document.getElementById("in-background-color")?.value || "";
-        const effect = document.getElementById("in-background-effect")?.value || "";
-        const opacity = document.getElementById("in-background-opacity")?.value || "";
-        const hasTheme = !!(competition || color || effect);
-        if (!hasTheme) return null;
-        return { competition, color, effect, opacity };
-    }
-
-    // ?? Render Video: build the MP4 frame-by-frame (headless), current language only ??
-    async function startRenderJob({ segment = "", segmentLabel = "", fps, height } = {}) {
-        if (appState.rendering) return;
-        if (appState.isVideoPlaying || appState.doubleRecording) return;
-        if (isProdMode()) {
-            const result = await runProdValidation();
-            if (!result.allPassed) { showValidationModal(result); return; }
-        }
-        // Test clips are throwaway previews — they don't need a loaded save. Grab the FIRST
-        // recorded block (recording-status.json — the real saves) and render its frozen
-        // script object directly (same applyScriptObject path the full render uses). The
-        // legacy saved-scripts bucket is empty, so we must use the blocks store, not a name.
-        const isTestClip = !!segment;
-        let savedName = (getActiveScriptName() || "").trim();
-        let testClipScriptObject = null;
-        if (isTestClip) {
-            const pick = await pickTestSave();
-            if (!pick) {
-                alert("No saved videos found to test with — create a save first.");
-                return;
-            }
-            savedName = pick.name;
-            testClipScriptObject = pick.scriptObject;
-        } else if (!savedName) {
-            alert("Load a saved setting first — the rendered file is named after it.");
-            return;
-        }
-        appState.rendering = true;
-        setRenderTestClipsBusy(true);
-        const modalTitle = segmentLabel
-            ? `Test clip: ${segmentLabel}`
-            : savedName;
-        showRenderProgressModal(
-            modalTitle,
-            segmentLabel ? "Rendering test clip…" : "Rendering video…",
-        );
-        let total = 0;
-        let succeeded = false;
-        let errored = false;
-        // Effective render fps — both full render and test clips use the dialog's pick (default
-        // 60). The progress UI needs it to convert frame counts → seconds correctly.
-        const progressFps = fps || 60;
-        const retryFn = () => startRenderJob({ segment, segmentLabel, fps, height });
-        try {
-            // Full render previews the CURRENT on-screen setup; test clips send the first
-            // block's frozen script object. Either way the headless page applyScriptObject()s it.
-            // Attach the user's current background theme (color/effect/opacity) so the render
-            // uses THEIR selection, not the runner's forced default (render-mode.js applies it).
-            let scriptObject = isTestClip ? testClipScriptObject : captureCurrentScriptObject(savedName);
-            const themeOverride = captureCurrentThemeOverride();
-            if (themeOverride && scriptObject && typeof scriptObject === "object") {
-                scriptObject = { ...scriptObject, __themeOverride: themeOverride };
-            }
-            const res = await fetch("/__render-video", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    script: savedName,
-                    language: getCurrentLanguage(),
-                    scriptObject,
-                    segment: segment || undefined,
-                    // Quality picks from the Render options dialog — sent for BOTH full render and
-                    // test clips so a test clip matches the full render (same size + frame rate).
-                    fps,
-                    height,
-                }),
-            });
-            const data = await res.json();
-            if (!data.ok) {
-                appState.rendering = false;
-                setRenderTestClipsBusy(false);
-                setRenderProgressError(data.error || "Failed to start render", retryFn);
-                return;
-            }
-            const es = new EventSource(`/__render-video/progress?job=${encodeURIComponent(data.jobId)}`);
-            es.onmessage = (ev) => {
-                let m; try { m = JSON.parse(ev.data); } catch { return; }
-                if (m.stage === "done") succeeded = true;
-                if (m.stage === "finished") {
-                    es.close();
-                    appState.rendering = false;
-                    setRenderTestClipsBusy(false);
-                    if (!succeeded && !errored) setRenderProgressError("Render stopped unexpectedly (exit code " + m.code + ").", retryFn);
-                    return;
-                }
-                switch (m.stage) {
-                    case "probe": updateRenderProgress({ label: segment ? "Analyzing test clip…" : "Analyzing video…" }); break;
-                    case "probed": total = m.totalFrames || 0; updateRenderProgress({ label: segment ? `Rendering test clip (~${m.virtualSec}s)…` : `Rendering ~${m.virtualSec}s video…`, frame: 0, total, fps: progressFps }); break;
-                    case "capture": total = m.total || total; setRenderWorkers(m.workers || 4); updateRenderProgress({ frame: 0, total }); break;
-                    case "progress": total = m.total || total; updateRenderProgress({ frame: m.frame, total, workers: m.workers }); break;
-                    case "retry": updateRenderProgress({ label: `Part ${m.w + 1} hiccuped — auto-retry ${m.attempt}/${m.max}…` }); break;
-                    case "concat": updateRenderProgress({ frame: total, total, label: "Joining segments…" }); break;
-                    case "audio": updateRenderProgress({ frame: total, total, label: "Building soundtrack…" }); break;
-                    case "done": setRenderProgressDone(m.path); break;
-                    case "error": errored = true; appState.rendering = false; setRenderTestClipsBusy(false); setRenderProgressError(m.message, retryFn); break;
-                    default:
-                        if (Number.isFinite(m.frame)) updateRenderProgress({ frame: m.frame, total, workers: m.workers });
-                }
-            };
-            es.onerror = () => { es.close(); appState.rendering = false; setRenderTestClipsBusy(false); };
-        } catch (err) {
-            appState.rendering = false;
-            setRenderTestClipsBusy(false);
-            setRenderProgressError(String(err), retryFn);
-        }
-    }
-
-    if (els.renderVideoBtn) {
-        els.renderVideoBtn.onclick = async () => {
-            if (appState.rendering || appState.isVideoPlaying || appState.doubleRecording) return;
-            const opts = await askRenderOptions();
-            if (!opts) return; // cancelled
-            startRenderJob({ fps: opts.fps, height: opts.height });
-        };
-    }
-
-    initRenderTestClipsUi({
-        // Test clips now match the full render: ask the same Render options dialog (frame rate;
-        // resolution is fixed at 1440p) so the preview is the same screen size + fps as the video.
-        renderClipFn: async (segmentId, segmentLabel) => {
-            if (appState.rendering || appState.isVideoPlaying || appState.doubleRecording) return;
-            const opts = await askRenderOptions();
-            if (!opts) return; // cancelled
-            startRenderJob({ segment: segmentId, segmentLabel, fps: opts.fps, height: opts.height });
-        },
-        isBusyFn: () => appState.rendering || appState.isVideoPlaying || appState.doubleRecording,
-    });
 
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
@@ -1800,7 +1407,11 @@ async function init() {
     };
     wireControlPanelToggle(els);
 
-    els.pitchSlots.addEventListener("dblclick", (e) => {
+    /* Prep panel: slots live inside per-level sections under #prep-root; the
+       section's pointerdown already set appState.currentLevelIndex +
+       els.pitchSlots before this dblclick fires. */
+    const prepRootEl = document.getElementById("prep-root");
+    (prepRootEl || els.pitchSlots).addEventListener("dblclick", (e) => {
         if (appState.isVideoPlaying) return;
         const slot = e.target.closest(".player-slot");
         if (
@@ -1876,9 +1487,8 @@ async function init() {
     document.fonts?.ready?.then(() => scheduleShortsTeamNameFit());
     appState.refreshLandingUi = updateLanding;
 
-    // Render mode: when launched headless with ?render=1, drive the flow deterministically.
-    // No-op during normal use. The headless driver calls window.__render.start() once ready.
-    initRenderModeIfRequested();
+    // Prep panel: render all levels of the loaded save as stacked card grids.
+    initPrepPanel();
 }
 
 // START
