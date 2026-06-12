@@ -1343,6 +1343,28 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     const st = getState();
     const paths = playerPhotoPaths(player, st.displayMode);
     if (!paths.length) return { relPath: "", paths: [] };
+    /* X/CROP must target the photo the user SEES. The SWAP cube changes the
+       <img> without a re-render, so trust the displayed src first and only
+       fall back to the stored per-slot index. */
+    const slotRoot = controls.closest(".player-slot");
+    const img =
+      slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
+      slotRoot?.querySelector(".slot-avatar .slot-img");
+    const shownSrc = decodeURIComponent(
+      String(img?.getAttribute("src") || "").split("?")[0]
+    );
+    if (shownSrc) {
+      const shownIdx = paths.findIndex((p) => {
+        const norm = decodeURIComponent(String(p || "").split("?")[0])
+          .replace(/^(\.\.\/)+/, "")
+          .replace(/^\.?\//, "");
+        return norm && shownSrc.endsWith(norm);
+      });
+      if (shownIdx >= 0) {
+        st.slotPhotoIndexBySlot.set(slotIndex, shownIdx);
+        return { relPath: String(paths[shownIdx] || ""), paths };
+      }
+    }
     let idx = st.slotPhotoIndexBySlot.get(slotIndex) ?? 0;
     idx = ((idx % paths.length) + paths.length) % paths.length;
     st.slotPhotoIndexBySlot.set(slotIndex, idx);
