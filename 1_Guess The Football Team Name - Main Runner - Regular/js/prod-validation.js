@@ -488,10 +488,7 @@ export function showValidationModal(result) {
             details.appendChild(ul);
         }
 
-        // Failed sections start EXPANDED so the errors are visible immediately
-        // and the modal looks consistent every time (passed ones stay collapsed).
-        if (!section.passed) details.classList.add("open");
-
+        // All sections start COLLAPSED — click a section to expand its details.
         toggle.onclick = () => {
             details.classList.toggle("open");
         };
