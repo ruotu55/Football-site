@@ -242,23 +242,6 @@ export function renderPrepPanel() {
   requestAnimationFrame(fitTeamPanels);
 }
 
-/** Re-render every section's cards IN PLACE (keeps DOM/scroll) — used by the
- *  Revealed toggle so cards flip between flag-front and photo-back. */
-function rerenderAllSlots() {
-  const prevLevel = appState.currentLevelIndex;
-  for (const s of sections) {
-    appState.currentLevelIndex = s.levelIndex;
-    appState.els.pitchSlots = s.slotsEl;
-    try {
-      renderPitch();
-    } catch (e) {
-      console.warn("[prep] rerenderAllSlots failed for level", s.levelIndex, e);
-    }
-  }
-  const keep = sections.find((s) => s.levelIndex === prevLevel) || sections[0];
-  if (keep) setActiveLevel(keep.levelIndex);
-}
-
 /** Re-render ONLY the active section (used after photo/name edits). */
 export function refreshActiveSection() {
   const sec = sections.find((s) => s.levelIndex === appState.currentLevelIndex);
@@ -282,24 +265,25 @@ export function initPrepPanel() {
     return;
   }
 
-  /* "Revealed" toggle (next to PROD). OFF (default on load) = the cards show
-     the country-flag FRONT, exactly like the quiz before the answer reveal.
-     ON = the photo + name BACK (the answer). Driven by the same
-     videoRevealPostTimerActive flag renderSlot already reads — no save data
-     is mutated either way. */
-  appState.videoRevealPostTimerActive = false;
+  /* Build cards with BOTH faces fully populated (flag front + photo back).
+     The 3D flip is flattened in CSS for the prep panel; the "Revealed" toggle
+     just adds/removes the `prep-revealed` class on #prep-root, which shows the
+     photo back (ON) or the flag front (OFF). No re-render on toggle → no
+     scroll repaint bleeding the wrong face. */
+  appState.videoRevealPostTimerActive = true;
   const revealBtn = document.getElementById("reveal-btn");
   const syncRevealBtn = () => {
     if (!revealBtn) return;
-    const on = !!appState.videoRevealPostTimerActive;
+    const on = root.classList.contains("prep-revealed");
     revealBtn.setAttribute("aria-pressed", on ? "true" : "false");
     revealBtn.textContent = on ? "Revealed ✓" : "Revealed";
   };
+  // Default on load = OFF (flags): no class.
+  root.classList.remove("prep-revealed");
   if (revealBtn) {
     revealBtn.onclick = () => {
-      appState.videoRevealPostTimerActive = !appState.videoRevealPostTimerActive;
+      root.classList.toggle("prep-revealed");
       syncRevealBtn();
-      rerenderAllSlots();
     };
     syncRevealBtn();
   }

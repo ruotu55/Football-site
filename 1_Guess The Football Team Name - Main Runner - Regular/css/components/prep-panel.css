@@ -109,6 +109,29 @@
   transform: none !important;
 }
 
+/* ── Revealed toggle: flatten the 3D flip, pick ONE face by class ─────────
+   The on-pitch card flips in 3D (front=flag, back=photo). In the flattened
+   static grid that flip composites unreliably (scrolling repaints and the
+   back bleeds through). Here we kill the 3D entirely and show exactly one
+   face: OFF (default) = flag front, ON (#prep-root.prep-revealed) = photo. */
+.prep-section .slot-inner,
+.prep-section .slot-inner--flag-flip {
+  transform: none !important;
+}
+.prep-section .slot-face {
+  transform: none !important;
+  backface-visibility: visible !important;
+}
+.prep-section .slot-back {
+  display: none !important;
+}
+#prep-root.prep-revealed .slot-front {
+  display: none !important;
+}
+#prep-root.prep-revealed .slot-back {
+  display: flex !important;
+}
+
 /* Cards: the base .player-slot width is a % of the PITCH surface (≈8.6%),
    which collapses to ~15px inside a grid cell — size to the cell instead.
    aspect-ratio 10/13.5 + container-type:size from pitch.css then give the
