@@ -1337,8 +1337,89 @@ function installBulkPhotoButton() {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    openBulkTeamPhotoModal();
+    autoFetchMissingTeamPhotos(btn);
   });
+}
+
+/* "Get all photos": for the ACTIVE team, auto-fetch a photo for every player
+   that doesn't have one yet (fut.gg, then leaves a report for any not found).
+   No picker — one best photo per player, applied straight away. */
+let bulkPhotoBusy = false;
+async function autoFetchMissingTeamPhotos(btn) {
+  if (bulkPhotoBusy) return;
+  const state = getState();
+  if (!state?.currentSquad) {
+    window.alert("Click a team first, then Get all photos.");
+    return;
+  }
+  const xi = appState.currentXi || [];
+  const targets = [];
+  xi.forEach((p, slotIndex) => {
+    if (!p || !p.name) return;
+    if (playerPhotoPaths(p, state.displayMode).length > 0) return; // already has one
+    targets.push({ p, slotIndex });
+  });
+  if (!targets.length) {
+    window.alert("Every player in this team already has a photo.");
+    return;
+  }
+
+  bulkPhotoBusy = true;
+  const origText = btn.textContent;
+  btn.disabled = true;
+  let got = 0;
+  const fails = [];
+  for (let i = 0; i < targets.length; i++) {
+    const { p, slotIndex } = targets[i];
+    btn.textContent = `Fetching ${i + 1}/${targets.length}…`;
+    try {
+      const res = await fetch(AUTO_FETCH_PLAYER_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          playerName: p.name,
+          playerClub: p.club || "",
+          playerNationality: p.nationality || "",
+          squadType: state.squadType || "",
+          selectedEntry: state.selectedEntry || {},
+          currentSquadName: state.currentSquad?.name || "",
+          preferredSource: "fut.gg",
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      const section = data?.indexSection;
+      const key = data?.indexKey;
+      const rel = data?.relativePath;
+      if (res.ok && data?.ok && section && key && rel) {
+        if (!appState.playerImages[section]) appState.playerImages[section] = {};
+        const prev = appState.playerImages[section][key];
+        const paths = Array.isArray(prev)
+          ? prev.filter((x) => typeof x === "string" && x.trim())
+          : typeof prev === "string" && prev.trim() ? [prev.trim()] : [];
+        if (!paths.includes(rel)) paths.unshift(rel);
+        appState.playerImages[section][key] = paths;
+        state.slotPhotoIndexBySlot.set(slotIndex, 0);
+        got += 1;
+      } else {
+        fails.push(`${p.name}: ${data?.error || "no photo found"}`);
+      }
+    } catch (err) {
+      fails.push(`${p.name}: ${err?.message || err}`);
+    }
+  }
+
+  appState.suppressPitchSlotFlipAnimation = true;
+  renderPitch();
+  appState.suppressPitchSlotFlipAnimation = false;
+  btn.textContent = origText;
+  btn.disabled = false;
+  bulkPhotoBusy = false;
+
+  if (fails.length) {
+    window.alert(`Got ${got}/${targets.length} photos.\n\nStill missing:\n` + fails.join("\n"));
+  } else {
+    window.alert(`Got all ${got} missing photos for this team.`);
+  }
 }
 
 function openBulkTeamPhotoModal() {
