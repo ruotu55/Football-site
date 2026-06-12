@@ -16,6 +16,9 @@ function questionLevelIndexes() {
   const out = [];
   (appState.levelsData || []).forEach((lvl, i) => {
     if (!lvl || lvl.isLogo || lvl.isIntro || lvl.isOutro) return;
+    // Only levels that actually have a team — the 30 empty init levels before
+    // a save is picked would otherwise render as "(no team loaded)" noise.
+    if (!lvl.currentSquad) return;
     out.push(i); // bonus levels are questions too — keep them
   });
   return out;

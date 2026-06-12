@@ -1,6 +1,15 @@
 /* PREP PANEL — stacked level sections with flat card grids.
    The slot cards themselves keep the pitch.css trading-card look; this file
-   only defeats the absolute on-pitch positioning and lays sections out. */
+   only defeats the absolute on-pitch positioning and lays sections out.
+
+   Layout bands (left → right):
+   - #team-header: the designed fixed full-height sidebar (left ≈5.3vw,
+     width ≤14.4rem) = the ACTIVE level's crest/name/controls.
+   - everything else (FAB row + level sections) starts right of that band. */
+
+:root {
+  --prep-left-band: calc(5.3vw + 15.4rem); /* header inset + header max width + gap */
+}
 
 .stage {
   overflow-y: auto !important;
@@ -17,10 +26,9 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  padding: 1.5rem 2rem 4rem;
-  max-width: 1500px;
-  margin: 0 auto;
-  width: 100%;
+  padding: 5.6rem 0 4rem;          /* top padding clears the FAB row */
+  margin: 0 2rem 0 var(--prep-left-band);
+  width: auto;
   box-sizing: border-box;
 }
 
@@ -67,7 +75,7 @@
 .prep-section .pitch-slots {
   position: static !important;
   display: grid !important;
-  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  grid-template-columns: repeat(6, minmax(110px, 1fr));
   gap: 2.2rem 0.9rem;
   width: auto !important;
   height: auto !important;
@@ -80,17 +88,48 @@
   transform: none !important;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1500px) {
   .prep-section .pitch-slots {
-    grid-template-columns: repeat(4, minmax(120px, 1fr));
+    grid-template-columns: repeat(4, minmax(110px, 1fr));
   }
 }
 
-/* The single #team-header (moved to #team-header-mount at boot) acts as the
-   active-level toolbar: keep it visible and out of "slide-in" mode. */
+/* ── Active-level team header (the designed left sidebar) ──────────────── */
 #team-header-mount .team-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 500;
+  z-index: 470; /* under the FABs (480) and far under modals */
+}
+
+/* ── Top FAB row ──────────────────────────────────────────────────────────
+   Every .panel-fab shares ONE default fixed position (the old per-button
+   offset classes died with the play/record/render buttons), so give each
+   surviving FAB its own slot, clear of the header band. PROD keeps its
+   top-right spot from panel-overlays.css. */
+#panel-fab.panel-fab {
+  top: 1.5rem;
+  left: var(--prep-left-band);
+}
+#save-to-block-btn.panel-fab {
+  box-sizing: border-box;
+  top: 1.5rem;
+  left: calc(var(--prep-left-band) + (12.4rem + 0.7rem) * 1);
+  width: 12.4rem;
+  text-align: center;
+  white-space: nowrap;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.8rem;
+  border-radius: 5px;
+}
+#save-video-status-btn.panel-fab {
+  box-sizing: border-box;
+  position: fixed !important;
+  top: 1.5rem !important;
+  left: calc(var(--prep-left-band) + (12.4rem + 0.7rem) * 2) !important;
+  width: 12.4rem !important;
+  border-radius: 5px;
+}
+/* "Save team" FAB shifts one slot further (hidden unless a team save is
+   possible, but must not cover Save Video Status when it appears). */
+.panel-fab.btn-save-current-team-fab {
+  top: 1.5rem;
+  left: calc(var(--prep-left-band) + (12.4rem + 0.7rem) * 3);
 }
