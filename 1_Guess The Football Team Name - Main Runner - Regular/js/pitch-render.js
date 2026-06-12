@@ -733,13 +733,98 @@ function pitchLabelFromPlayerName(fullName) {
   return parts.slice(startIndex).join(" ").toUpperCase();
 }
 
-/** Red name chip: custom edit, else short name, else club (national XIs), else nationality, else em dash. */
+/* ── Shared PLAYER name overrides (mirrors the team-name overrides) ──────
+   Bucket player_name_overrides_shared → .Storage/storage/runner-blobs/
+   player_name_overrides_shared.json. Keyed by the player's canonical squad
+   name (p.name), value = the display name to ALWAYS show. The Remotion
+   build-data reads the same file, so a permanent rename reaches the video. */
+const PLAYER_NAME_OVERRIDES_STORAGE_KEY = "lineups-shared:player-name-overrides:v1";
+const PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT = "/__runner-json-blob/player_name_overrides_shared";
+let playerNameOverridesCache = null;
+let playerNameOverridesServerPushTimer = null;
+
+function readPlayerNameOverrides() {
+  if (playerNameOverridesCache) return playerNameOverridesCache;
+  let parsed = {};
+  try {
+    parsed = JSON.parse(localStorage.getItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY) || "{}");
+  } catch {
+    parsed = {};
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) parsed = {};
+  playerNameOverridesCache = parsed;
+  return playerNameOverridesCache;
+}
+
+export function getPlayerNameOverride(playerName) {
+  const key = String(playerName || "").trim();
+  if (!key) return "";
+  const v = readPlayerNameOverrides()[key];
+  return v != null ? String(v).trim() : "";
+}
+
+export function setPlayerNameOverride(playerName, displayName) {
+  const key = String(playerName || "").trim();
+  if (!key) return;
+  const map = readPlayerNameOverrides();
+  const clean = String(displayName || "").trim();
+  if (clean) map[key] = clean;
+  else delete map[key];
+  persistPlayerNameOverrides();
+}
+
+function persistPlayerNameOverrides() {
+  if (!playerNameOverridesCache || typeof playerNameOverridesCache !== "object") {
+    playerNameOverridesCache = {};
+  }
+  try {
+    localStorage.setItem(
+      PLAYER_NAME_OVERRIDES_STORAGE_KEY,
+      JSON.stringify(playerNameOverridesCache)
+    );
+  } catch { /* storage full — server copy still happens */ }
+  if (!isTeamNameOverridesHttpServerActive()) return;
+  clearTimeout(playerNameOverridesServerPushTimer);
+  playerNameOverridesServerPushTimer = setTimeout(() => {
+    playerNameOverridesServerPushTimer = null;
+    fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(playerNameOverridesCache),
+    }).catch(() => {});
+  }, 350);
+}
+
+export async function initPlayerNameOverridesSharedSync() {
+  readPlayerNameOverrides();
+  if (!isTeamNameOverridesHttpServerActive()) return;
+  try {
+    const r = await fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, { cache: "no-store" });
+    if (r.ok) {
+      const data = await r.json();
+      if (data && typeof data === "object" && !Array.isArray(data)) {
+        playerNameOverridesCache = { ...readPlayerNameOverrides(), ...data };
+        try {
+          localStorage.setItem(
+            PLAYER_NAME_OVERRIDES_STORAGE_KEY,
+            JSON.stringify(playerNameOverridesCache)
+          );
+        } catch { /* non-fatal */ }
+      }
+    }
+  } catch { /* offline — local copy is used */ }
+}
+
+/** Red name chip: custom edit, else PERMANENT shared override, else short name,
+ *  else club (national XIs), else nationality, else em dash. */
 function pitchSlotDisplayLabel(state, player) {
   const nameKey = player?.name != null ? String(player.name) : "";
   const custom = state.customNames[nameKey];
   if (custom != null && String(custom).trim() !== "") {
     return String(custom).trim();
   }
+  const globalOverride = getPlayerNameOverride(nameKey);
+  if (globalOverride) return globalOverride;
   const trimmedName = nameKey.trim();
   if (trimmedName) {
     const fromName = pitchLabelFromPlayerName(trimmedName);
@@ -763,10 +848,27 @@ function applySlotNameEdit(label, player) {
   if (next === null) return;
   const clean = String(next).trim();
   if (clean) {
-    state.customNames[key] = clean;
+    const saveForAll = window.confirm(
+      `Save "${clean}" PERMANENTLY for ${key}?\n\n` +
+        "OK — every save/runner that loads this player shows this name from now on " +
+        "(and Remotion build-data uses it for the video).\n" +
+        "Cancel — only for THIS save."
+    );
+    if (saveForAll) {
+      setPlayerNameOverride(key, clean);
+      delete state.customNames[key]; // the shared override covers it now
+    } else {
+      state.customNames[key] = clean;
+    }
     label.textContent = clean;
   } else {
     delete state.customNames[key];
+    if (
+      getPlayerNameOverride(key) &&
+      window.confirm(`Also remove the PERMANENT name override for ${key}?`)
+    ) {
+      setPlayerNameOverride(key, "");
+    }
     label.textContent = pitchSlotDisplayLabel(state, player);
   }
 }

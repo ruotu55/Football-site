@@ -44,7 +44,26 @@ const toRel = (p) =>
   String(p || "").replace(/^[/\\]*Images[/\\]/i, "").replace(/\\/g, "/");
 
 const SUFFIXES = new Set(["junior", "jr", "jr.", "ii", "iii"]);
+
+// Permanent player-name overrides saved from the runner-1 PREP PANEL
+// (NAME cube → "save permanently"). Keyed by the canonical squad name;
+// the value is the EXACT display name to show on the card.
+const PLAYER_NAME_OVERRIDES = (() => {
+  try {
+    const raw = fs.readFileSync(
+      path.join(repoRoot, ".Storage", "storage", "runner-blobs", "player_name_overrides_shared.json"),
+      "utf-8",
+    );
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+})();
+
 const displayName = (name) => {
+  const override = String(PLAYER_NAME_OVERRIDES[String(name || "").trim()] || "").trim();
+  if (override) return override;
   const words = String(name || "").trim().split(/\s+/);
   if (words.length < 2) return name;
   const last = words[words.length - 1];

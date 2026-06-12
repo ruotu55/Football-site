@@ -7,6 +7,7 @@ import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
     initTeamNameOverridesSharedSync,
+    initPlayerNameOverridesSharedSync,
     isCurrentHeaderTeamNameEditable,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
@@ -1036,6 +1037,7 @@ async function init() {
     syncShortsModeFab();
     initSavedTeamLayouts();
     initTeamNameOverridesSharedSync();
+    void initPlayerNameOverridesSharedSync();
 
     // Expose for pitch-render.js (avoids circular ES module dependency).
     window.__confirmAndDeleteSaveIfPresent = confirmAndDeleteSaveIfPresent;
