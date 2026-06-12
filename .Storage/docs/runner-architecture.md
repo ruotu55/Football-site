@@ -5,7 +5,7 @@ How a runner app is built, what each JS module does, and the shared modules.
 ## The runners (quiz types)
 | # | Quiz | Variants |
 |---|------|----------|
-| 1 | Guess the Team Name (club, by player nationality) | Regular, Shorts, _Remotion |
+| 1 | Guess the Team Name (club, by player nationality) | **Regular = PREP PANEL (Remotion)** — see below, Shorts, _Remotion |
 | 2 | Guess the National Team (by player club) | Regular, Shorts |
 | 3 | Guess the Player by Career Path | Regular, Shorts |
 | 4 | Guess the Player by Career Stats | Regular, Shorts |
@@ -20,7 +20,19 @@ How a runner app is built, what each JS module does, and the shared modules.
 > **Every Regular runner (1–9) also has a Remotion project** that re-creates its play-video look, all grouped under the top-level **`___Remotion___/`** folder on a shared library. See **[Remotion projects — all Regular runners](#remotion-projects--all-regular-runners-_remotion_)** below.
 
 ## Boot sequence
-`index.html` loads shared scripts (debug-overlay, loading-overlay, modal-layer, calendar schedule + recording-status-client), then an inline module fetches `html/*.html` partials into the DOM (`controls, progress, modals, pitch, landing, logo, outro`), moves the team header into its mount, and finally injects `js/app.js?v=<Date.now()>`. `app.js` builds `appState`, wires UI, imports the subsystems.
+`index.html` loads shared scripts (debug-overlay, loading-overlay, modal-layer, calendar schedule + recording-status-client), then an inline module fetches `html/*.html` partials into the DOM (`controls, progress, modals, pitch, landing, logo, outro`), moves the team header into its mount, and finally injects `js/app.js?v=<Date.now()>`. `app.js` builds `appState`, wires UI, imports the subsystems. (**Runner 1 Regular** loads only `controls, modals, pitch` and boots into the prep panel — see its section below.)
+
+## Runner 1 Regular = Remotion prep panel (2026-06-12)
+
+`1_Guess The Football Team Name - Main Runner - Regular` is no longer a playable quiz — it is the **control panel for preparing Remotion videos**. The whole browser play/record/headless-render layer was deleted (git history keeps it): `video.js`, `levels.js` play flow, `progress.js`, `transitions.js` overlays, `obs-recorder.js`, `recording-flow/preflight/queue.js`, all `render-*.js`, `thumbnail-studio.js`, the `render/` Node folder, `html/landing|logo|outro|progress.html`, and the play/record/render FABs. `run_site.py` (all endpoints) is untouched — open it the same way as before.
+
+**How it works:**
+- **Saved tab = `js/save-picker.js`** — lists EXACTLY the saves Remotion renders: named blocks with key prefix `1|` from `/__recording-status` (same filter as `___Remotion___/1_…_Remotion/scripts/build-data.mjs`). Clicking one loads via the old flow: frozen Save Video Status snapshot first, else rebuild from `teamsImportText` + Save Team layouts (`buildScriptFromImportText` → `applyScriptObject`).
+- **Main view = `js/prep-panel.js`** — every question level of the loaded save is a stacked section ("Level N — Team" + 11 player cards). It reuses `pitch-render.js`'s `renderSlot`/slot controls UNCHANGED via a context swap: each section owns a `.pitch-slots` clone, and a capture-phase `pointerdown` sets `appState.currentLevelIndex` + `appState.els.pitchSlots` to that section before any click handler runs (all handlers read the "current" level via `getState()` at click time). `appState.videoRevealPostTimerActive = true` is forced so videoMode saves render the revealed card (photo + name + PHOTO/X/CROP controls). The single `#team-header` is the active-level toolbar (crest zoom/nudge/swap/Get-logo + dblclick name edit). Layout in `css/components/prep-panel.css` (flattens the pitch-formation absolute positioning into a grid).
+- **💾 Save to save** (`#save-to-block-btn` FAB) — writes `captureCurrentScriptObject()` into **`block.script`** via the `replace` op. This is the save-back contract: Remotion `build-data.mjs` reads `block.script.levels`, so panel edits (names, photo picks, scales, XI) only reach the rendered video after this (photos themselves are disk files under `Images/` and are picked up immediately). "Save Video Status" still freezes the load-snapshot separately.
+- **Kept tools:** full Voice tab, Update Data, Name & Description, PROD validation, bulk photo fetch, photo source picker/crop, saved team layouts, BGM 5-song preview (in the voice tab).
+- **Slimmed shims:** `js/levels.js` (`switchLevel` just moves the pointer + fires `prep:level-switched`) and `js/transitions.js` (only `transitionSettings` + capture/apply + the Look-tab select) keep the script-object schema byte-compatible.
+- All importers of `saved-scripts.js`/`levels.js` use the `?v=20260612-prep` token (split-brain rule).
 
 ## A runner's `js/` modules
 **Core/state:** `app.js` (entry/wiring), `state.js` (`appState`), `constants.js`, `dom-bindings.js` (caches DOM into `appState.els`), `ui-panels.js`, `bootstrap-hybrid.js`, `dev-live-reload-state.js`.

@@ -2,6 +2,8 @@
 
 Three ways a quiz becomes a video. All share the same in-browser flow; they differ in how frames are captured.
 
+> ⚠️ **Runner 1 Regular no longer has ANY of this (2026-06-12).** Its whole browser play/record/headless-render pipeline (`video.js`, `obs-recorder.js`, `recording-*`, `render-*`, the `render/` Node folder, landing/logo/outro pages) was **deleted** — the folder is now the **Remotion prep panel** (see [runner-architecture.md](runner-architecture.md), "Runner 1 Regular = Remotion prep panel"). Runner-1 videos are rendered by `___Remotion___/1_…_Remotion`. Everything below still applies to the OTHER runners; the runner-1 references describe code now only in git history.
+
 ## 1. Play (in browser)
 `video.js` `startVideoFlow()` → enables video mode on all levels → ball preloader intro (`.Storage/shared/ball-preloader-animation.js` `playBallPreloader`, GSAP merge→bounce→reveal) → `runVideoStep()` walks levels via `switchLevel()` (`levels.js`) with GSAP grid-overlay transitions (`transitions.js`). Each question: countdown → reveal (pitch/header flip in `pitch-render.js`) → reveal voice (`audio.js`). Pages are `html/{logo,landing,outro}.html`. Natural end fires `recording-naturally-finished` → `stopVideoFlow()`.
 
