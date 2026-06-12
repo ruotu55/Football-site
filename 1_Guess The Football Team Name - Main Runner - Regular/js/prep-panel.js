@@ -86,7 +86,7 @@ function buildTeamPanelPreview(lvl) {
     const flag = document.createElement("img");
     flag.className = "prep-team-panel__flag";
     flag.alt = "";
-    flag.src = projectAssetUrl(`Images/Flags/w320/${code}.png`);
+    flag.src = projectAssetUrl(`Images/Flags/${code}.png`);
     flag.onerror = () => {
       flag.onerror = null;
       flag.src = `https://flagcdn.com/w320/${code}.png`;
