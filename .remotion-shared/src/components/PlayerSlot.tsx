@@ -32,7 +32,9 @@ export const PlayerSlot: React.FC<{
   sizeComp: number;
   widthPct: number;
   floatPhase: number;
-}> = ({ player, frame, delay, revealStart, tilt, sizeComp, widthPct, floatPhase }) => {
+  /** Crest-front logo size, % of the disc (only the logo — the back card is unaffected). */
+  crestImgPct?: number;
+}> = ({ player, frame, delay, revealStart, tilt, sizeComp, widthPct, floatPhase, crestImgPct = 80 }) => {
   const pop = spring({
     frame: frame - delay,
     fps: DESIGN_FPS,
@@ -117,9 +119,9 @@ export const PlayerSlot: React.FC<{
                 <Img
                   src={staticFile(player.frontSrc)}
                   style={{
-                    // 15% smaller than the previous 94%.
-                    width: "80%",
-                    height: "80%",
+                    // Default 80 (= 15% smaller than the original 94%); overridable per runner.
+                    width: `${crestImgPct}%`,
+                    height: `${crestImgPct}%`,
                     objectFit: "contain",
                     filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.6))",
                   }}

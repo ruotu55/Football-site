@@ -22,8 +22,9 @@ export const INTRO_STRINGS: IntroStringsByLanguage = {
   },
 };
 
-// Runner-8 title fits in 2 lines with default size.
-export const TITLE_FONT_SIZE = 104;
+// Intro sizes matched to runner 2 (user request 2026-06-11): title 155, season 126.
+export const TITLE_FONT_SIZE = 155;
+export const SEASON_FONT_SIZE = 126;
 
 // Background default:
 //   colorId "extra-deep-lavender" → label "#9575CD - Football Player Name" (effects-data.ts)

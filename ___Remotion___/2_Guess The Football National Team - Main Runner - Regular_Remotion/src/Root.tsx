@@ -2,13 +2,16 @@ import React from "react";
 import { Composition } from "remotion";
 import { FootballQuizDemo, calculateMetadata, totalFramesForFps } from "./FootballQuizDemo";
 import { demoSchema } from "./schema";
-import { COMPOSITION_ID, THEME_DEFAULT } from "./config";
 
 export const RemotionRoot: React.FC = () => {
   // 1080p (Full HD) @ 60fps. Duration is computed from the save + level count.
+  // NOTE: `id` must be a literal string (= COMPOSITION_ID in config.ts) and defaultProps a
+  // fully inline literal (`as const` ok, no variable refs) or the Studio's "Save default
+  // props" fails with "Could not find or extract defaultProps". Values mirror config.ts
+  // THEME_DEFAULT.
   return (
     <Composition
-      id={COMPOSITION_ID}
+      id="Guess-The-Football-National-Team-Regular"
       component={FootballQuizDemo}
       durationInFrames={totalFramesForFps(60, 5)}
       calculateMetadata={calculateMetadata}
@@ -16,18 +19,7 @@ export const RemotionRoot: React.FC = () => {
       width={1920}
       height={1080}
       schema={demoSchema}
-      defaultProps={{
-        save: "World Cup" as const,
-        levels: "1" as const,
-        formation: "Auto (from save)" as const,
-        language: "English" as const,
-        ending: "Random" as const,
-        competition: "World Cup" as const,
-        color: THEME_DEFAULT.color,
-        effect: THEME_DEFAULT.effect,
-        opacity: THEME_DEFAULT.opacity,
-        transition: "Soft Iris" as const,
-      }}
+      defaultProps={{"save":"World Cup" as const,"levels":"1" as const,"formation":"Auto (from save)" as const,"language":"Spanish" as const,"ending":"Random" as const,"competition":"Generic 1" as const,"transition":"Shine Wipe" as const}}
     />
   );
 };

@@ -4,7 +4,13 @@ import { emojiSrc } from "../paths";
 import { DESIGN_HEIGHT, DESIGN_WIDTH, useDesignFrame } from "../timing";
 import {
   chevronTileUri,
+  circlesTileUri,
+  crownsTileUri,
+  diamondsTileUri,
+  hexTileUri,
   rgba,
+  shieldsTileUri,
+  sparklesTileUri,
   spiralSvgUri,
   starsTileUri,
   type CompetitionRecipe,
@@ -15,10 +21,18 @@ const W = DESIGN_WIDTH;
 const H = DESIGN_HEIGHT;
 const FPS = 30;
 
+// ── ONE global speed for every background motion (benchmark: the CL stars drift) ──
+// Everything on screen moves at this many px/s — drifting tiles, stripes, rings,
+// flying sprites, AND rotations (period derived so the visible mid-screen arc speed
+// equals the same px/s — a fixed "30s per revolution" LOOKS far faster than a drift).
+const DRIFT_PX_PER_SEC = 18.75;
+const ROT_REF_RADIUS = 540; // px from centre where the rotation speed is matched
+const ROT_PERIOD_SEC = (2 * Math.PI * ROT_REF_RADIUS) / DRIFT_PX_PER_SEC; // ≈181s/rev
+
 export type ResolvedBackground = {
   competition: CompetitionRecipe | null;
   colorHex: string;
-  effectId: EffectId;
+  effectId: EffectId | null;
   opacity: number; // 0..1 master intensity
 };
 
@@ -45,9 +59,10 @@ const ConicRays: React.FC<{
   periodSec: number;
   fine?: boolean; // many thin rays (youtube look)
   fadeFromCenter?: boolean; // true = visible center, fade out (sun); false = fade center in (youtube)
-}> = ({ f, colorHex, opacity, originX, originY, periodSec, fine, fadeFromCenter = true }) => {
+  alphaOverride?: number; // direct white-alpha (per-theme effectAlpha)
+}> = ({ f, colorHex, opacity, originX, originY, periodSec, fine, fadeFromCenter = true, alphaOverride }) => {
   const angle = (f / (periodSec * FPS)) * 360;
-  const wA = Math.min(0.9, 0.12 + opacity * 0.55);
+  const wA = alphaOverride ?? Math.min(0.9, 0.12 + opacity * 0.55);
   const size = 4200;
   const rays = fine
     ? `repeating-conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,${wA}) 0deg 1deg, rgba(255,255,255,${wA * 0.3}) 1deg 3.4deg, rgba(255,255,255,0) 3.4deg 8.4deg)`
@@ -76,13 +91,14 @@ const ConicRays: React.FC<{
 };
 
 // ── Sun spiral ──────────────────────────────────────────────────────────────
-const SunSpiral: React.FC<{ f: number; colorHex: string; opacity: number }> = ({
+const SunSpiral: React.FC<{ f: number; colorHex: string; opacity: number; alphaOverride?: number }> = ({
   f,
   colorHex,
   opacity,
+  alphaOverride,
 }) => {
-  const angle = (f / (28 * FPS)) * 360;
-  const wA = Math.min(0.9, 0.12 + opacity * 0.5);
+  const angle = (f / (ROT_PERIOD_SEC * FPS)) * 360;
+  const wA = alphaOverride ?? Math.min(0.9, 0.12 + opacity * 0.5);
   const size = 2600;
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
@@ -113,7 +129,7 @@ const CenterRings: React.FC<{ f: number; colorHex: string; opacity: number }> = 
   colorHex,
   opacity,
 }) => {
-  const off = (f / (8 * FPS)) * 116 % 116;
+  const off = (f / FPS) * DRIFT_PX_PER_SEC % 116;
   const wA = Math.min(0.9, 0.12 + opacity * 0.5);
   const c05 = rgba(colorHex, 0.0);
   const mask =
@@ -137,7 +153,7 @@ const DiagonalFlow: React.FC<{ f: number; colorHex: string; opacity: number }> =
 }) => {
   const wA = Math.min(0.85, 0.1 + opacity * 0.5);
   const period = 132 / Math.sin((28 * Math.PI) / 180);
-  const shift = (f / (6 * FPS)) * period % period;
+  const shift = (f / FPS) * DRIFT_PX_PER_SEC % period;
   return (
     <AbsoluteFill style={{ overflow: "hidden" }}>
       <div
@@ -165,7 +181,7 @@ const FloatingEmojis: React.FC<{ f: number; opacity: number }> = ({ f, opacity }
   const rows = 10;
   const perRow = 8;
   const travel = W + 300;
-  const periodFrames = 24 * FPS;
+  const periodFrames = (travel / DRIFT_PX_PER_SEC) * FPS;
   const speed = travel / periodFrames;
   const op = Math.min(0.9, 0.12 + opacity * 0.7);
   const sprites: React.ReactNode[] = [];
@@ -217,11 +233,9 @@ const RisingGlyphs: React.FC<{
   seedBase: number;
   minSize: number;
   sizeRange: number;
-  minDur: number;
-  durRange: number;
   driftVw: number;
   color?: string;
-}> = ({ f, opacity, glyph, count, seedBase, minSize, sizeRange, minDur, durRange, driftVw, color }) => {
+}> = ({ f, opacity, glyph, count, seedBase, minSize, sizeRange, driftVw, color }) => {
   const travel = H * 2.28;
   const op = Math.min(0.9, 0.12 + opacity * 0.7);
   const sprites: React.ReactNode[] = [];
@@ -229,7 +243,7 @@ const RisingGlyphs: React.FC<{
     const s = seedBase + i;
     const left = rnd(s) * 100;
     const size = minSize + rnd(s + 1) * sizeRange;
-    const durFrames = (minDur + rnd(s + 2) * durRange) * FPS;
+    const durFrames = (travel / DRIFT_PX_PER_SEC) * FPS; // uniform global speed (no per-sprite speed)
     const drift = (rnd(s + 3) - 0.5) * driftVw * (W / 100);
     const rot = (rnd(s + 4) - 0.5) * 18;
     const phase = rnd(s + 5);
@@ -265,18 +279,19 @@ const Effect: React.FC<{
   colorHex: string;
   opacity: number;
   f: number;
-}> = ({ effectId, colorHex, opacity, f }) => {
+  alpha?: number; // per-theme effectAlpha override (rays/spiral)
+}> = ({ effectId, colorHex, opacity, f, alpha }) => {
   switch (effectId) {
     case "sun-rays-center":
-      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={W / 2} originY={H / 2} periodSec={26} />;
+      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={W / 2} originY={H / 2} periodSec={ROT_PERIOD_SEC} alphaOverride={alpha} />;
     case "sun-rays-top-right":
-      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={W} originY={0} periodSec={26} />;
+      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={W} originY={0} periodSec={ROT_PERIOD_SEC} alphaOverride={alpha} />;
     case "sun-rays-top-left":
-      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={0} originY={0} periodSec={26} />;
+      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={0} originY={0} periodSec={ROT_PERIOD_SEC} alphaOverride={alpha} />;
     case "youtube-thumbnails":
-      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={W / 2} originY={H / 2} periodSec={26} fine fadeFromCenter={false} />;
+      return <ConicRays f={f} colorHex={colorHex} opacity={opacity} originX={W / 2} originY={H / 2} periodSec={ROT_PERIOD_SEC} fine fadeFromCenter={false} alphaOverride={alpha} />;
     case "sun-spiral-center":
-      return <SunSpiral f={f} colorHex={colorHex} opacity={opacity} />;
+      return <SunSpiral f={f} colorHex={colorHex} opacity={opacity} alphaOverride={alpha} />;
     case "center-rings":
       return <CenterRings f={f} colorHex={colorHex} opacity={opacity} />;
     case "diagonal-flow":
@@ -286,12 +301,12 @@ const Effect: React.FC<{
     case "rising-question-marks":
       return (
         <RisingGlyphs f={f} opacity={opacity} glyph="?" count={58} seedBase={10}
-          minSize={16} sizeRange={40} minDur={16} durRange={24} driftVw={42} />
+          minSize={16} sizeRange={40} driftVw={42} />
       );
     case "rising-soccer-balls":
       return (
         <RisingGlyphs f={f} opacity={opacity} glyph={"⚽"} count={36} seedBase={200}
-          minSize={18} sizeRange={22} minDur={22} durRange={10} driftVw={5} color="rgba(255,255,255,0.7)" />
+          minSize={18} sizeRange={22} driftVw={5} color="rgba(255,255,255,0.7)" />
       );
     default:
       return null;
@@ -303,9 +318,14 @@ const CompetitionBg: React.FC<{ recipe: CompetitionRecipe; f: number }> = ({ rec
   const angle = recipe.angle ?? 135;
   const gradient = `linear-gradient(${angle}deg, ${recipe.c1} 0%, ${recipe.c2} 100%)`;
 
+  if (recipe.pattern === "none") {
+    // Generic themes: plain gradient — the animated effect is layered by the caller.
+    return <AbsoluteFill style={{ background: gradient }} />;
+  }
+
   if (recipe.pattern === "rays") {
     // rays drop → rotate instead
-    const a = (f / (40 * FPS)) * 360;
+    const a = (f / (ROT_PERIOD_SEC * FPS)) * 360;
     const size = 4200;
     const ray = rgba(recipe.patternHex, recipe.patternAlpha * 6);
     return (
@@ -327,17 +347,36 @@ const CompetitionBg: React.FC<{ recipe: CompetitionRecipe; f: number }> = ({ rec
   }
 
   let tile = "";
-  let tileSize = 300;
+  let tileW = 300;
+  let tileH = 300;
   if (recipe.pattern === "stars") {
     tile = starsTileUri(recipe.patternHex, recipe.patternAlpha);
-    tileSize = 300;
+    tileW = tileH = 300;
   } else if (recipe.pattern === "chevron") {
-    tile = chevronTileUri(recipe.patternHex, recipe.patternAlpha);
-    tileSize = 170;
+    tile = chevronTileUri(recipe.patternHex, recipe.patternAlpha, recipe.patternStroke);
+    tileW = tileH = recipe.patternTile ?? 170;
+  } else if (recipe.pattern === "circles") {
+    tile = circlesTileUri(recipe.patternHex, recipe.patternAlpha);
+    tileW = tileH = 300;
+  } else if (recipe.pattern === "hex") {
+    tile = hexTileUri(recipe.patternHex, recipe.patternAlpha);
+    tileW = tileH = 300;
+  } else if (recipe.pattern === "sparkles") {
+    tile = sparklesTileUri(recipe.patternHex, recipe.patternAlpha);
+    tileW = tileH = 300;
+  } else if (recipe.pattern === "diamonds") {
+    tile = diamondsTileUri(recipe.patternHex, recipe.patternAlpha);
+    tileW = tileH = 300;
+  } else if (recipe.pattern === "shields") {
+    tile = shieldsTileUri(recipe.patternHex, recipe.patternAlpha);
+    tileW = tileH = 300;
+  } else if (recipe.pattern === "crowns") {
+    tile = crownsTileUri(recipe.patternHex, recipe.patternAlpha);
+    tileW = tileH = 300;
   } else {
     // diagonal stripes — render as an inline repeating gradient tile
     const stripe = rgba(recipe.patternHex, recipe.patternAlpha);
-    const drop = (f / (10 * FPS)) * 180 % 180;
+    const drop = (f / FPS) * DRIFT_PX_PER_SEC % 180;
     return (
       <AbsoluteFill style={{ background: gradient, overflow: "hidden" }}>
         <div
@@ -355,19 +394,19 @@ const CompetitionBg: React.FC<{ recipe: CompetitionRecipe; f: number }> = ({ rec
     );
   }
 
-  const drop = (f / (16 * FPS)) * tileSize % tileSize;
+  const drop = (f / FPS) * DRIFT_PX_PER_SEC % tileH;
   return (
     <AbsoluteFill style={{ background: gradient, overflow: "hidden" }}>
       <div
         style={{
           position: "absolute",
           left: 0,
-          top: -tileSize,
+          top: -tileH,
           width: W,
-          height: H + tileSize * 2,
+          height: H + tileH * 2,
           backgroundImage: tile,
           backgroundRepeat: "repeat",
-          backgroundSize: `${tileSize}px ${tileSize}px`,
+          backgroundSize: `${tileW}px ${tileH}px`,
           transform: `translateY(${drop}px)`,
         }}
       />
@@ -380,12 +419,20 @@ export const AnimatedBackground: React.FC<{ bg: ResolvedBackground }> = ({ bg })
   const f = useDesignFrame();
 
   if (bg.competition) {
-    return <CompetitionBg recipe={bg.competition} f={f} />;
+    const effectId = bg.competition.effectId ?? null;
+    return (
+      <AbsoluteFill>
+        <CompetitionBg recipe={bg.competition} f={f} />
+        {effectId ? (
+          <Effect effectId={effectId} colorHex={bg.competition.c2} opacity={bg.opacity} f={f} alpha={bg.competition.effectAlpha} />
+        ) : null}
+      </AbsoluteFill>
+    );
   }
 
   return (
     <AbsoluteFill style={{ backgroundColor: bg.colorHex }}>
-      <Effect effectId={bg.effectId} colorHex={bg.colorHex} opacity={bg.opacity} f={f} />
+      {bg.effectId ? <Effect effectId={bg.effectId} colorHex={bg.colorHex} opacity={bg.opacity} f={f} /> : null}
     </AbsoluteFill>
   );
 };

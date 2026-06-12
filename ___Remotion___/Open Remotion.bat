@@ -15,7 +15,7 @@ echo   Browser: http://localhost:3000
 echo   Keep this window open while you work. Close it to stop the studio.
 echo.
 
-call npx.cmd remotion studio "..\_studio\index.tsx"
+call npx.cmd remotion studio "..\_studio\studio-entry.tsx"
 
 echo.
 echo   Studio stopped.

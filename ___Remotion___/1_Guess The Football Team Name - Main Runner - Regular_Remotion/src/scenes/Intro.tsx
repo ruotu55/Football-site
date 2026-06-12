@@ -58,7 +58,7 @@ export const Intro: React.FC<{ language: Language; questionsCount: number }> = (
           >
             {/* full phrase (matches the voice) — sized to fit the longest line */}
             {t.titleLines.map((line, i) => (
-              <span key={i} style={{ display: "block", fontSize: 104 }}>
+              <span key={i} style={{ display: "block", fontSize: 155 }}>
                 {line}
               </span>
             ))}
@@ -68,7 +68,7 @@ export const Intro: React.FC<{ language: Language; questionsCount: number }> = (
             style={{
               fontFamily,
               fontWeight: 800,
-              fontSize: 84,
+              fontSize: 126,
               letterSpacing: 7,
               color: COLORS.red,
               textShadow: "0 6px 18px rgba(0,0,0,0.6)",

@@ -14,7 +14,9 @@ export const Intro: React.FC<{
   strings: IntroStringsByLanguage;
   /** Title font size (px). Runners with longer titles pass a smaller size. */
   titleFontSize?: number;
-}> = ({ language, questionsCount, strings, titleFontSize = 104 }) => {
+  /** Season line font size (px). */
+  seasonFontSize?: number;
+}> = ({ language, questionsCount, strings, titleFontSize = 104, seasonFontSize = 84 }) => {
   const frame = useDesignFrame();
   const t = strings[language];
   // Bob: plain translateY (sub-pixel, anti-aliased per frame) — NO GPU layer/willChange,
@@ -57,7 +59,7 @@ export const Intro: React.FC<{
             style={{
               fontFamily,
               fontWeight: 800,
-              fontSize: 84,
+              fontSize: seasonFontSize,
               letterSpacing: 7,
               color: COLORS.red,
               textShadow: "0 6px 18px rgba(0,0,0,0.6)",

@@ -13,9 +13,10 @@ const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
   return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
 };
 
-// Runner 2 answer panel — the revealed answer is the NATIONAL TEAM: a large flag on
-// top + the national team name below. Slides in from the left over the SAME time +
-// easing as the player flip (so the bar and the cards move as one synced motion).
+// Runner 2 answer panel — the revealed answer is the NATIONAL TEAM, laid out like
+// runner 1's club reveal: TEAM LOGO (main) → NAME → divider → COUNTRY FLAG.
+// Teams without a logo file fall back to the old look (large flag on top).
+// Slides in from the left over the SAME time + easing as the player flip.
 export const NationalRevealPanel: React.FC<{
   frame: number;
   startFrame: number;
@@ -23,7 +24,8 @@ export const NationalRevealPanel: React.FC<{
   colorBottom: string;
   teamName: string;
   flagSrc: string | null;
-}> = ({ frame, startFrame, colorTop, colorBottom, teamName, flagSrc }) => {
+  logoSrc: string | null;
+}> = ({ frame, startFrame, colorTop, colorBottom, teamName, flagSrc, logoSrc }) => {
   const local = frame - startFrame;
   const slide = interpolate(local, [0, FLIP_DURATION], [0, 1], {
     easing: EASE_FLIP,
@@ -61,6 +63,7 @@ export const NationalRevealPanel: React.FC<{
         overflow: "hidden",
       }}
     >
+      {/* top sheen + faint colour glow for depth */}
       <div
         style={{
           position: "absolute",
@@ -71,51 +74,114 @@ export const NationalRevealPanel: React.FC<{
         }}
       />
 
-      {/* 1 — NATIONAL FLAG (large) */}
-      {flagSrc ? (
-        <div
-          style={{
-            width: 296,
-            height: 216,
-            borderRadius: 20,
-            overflow: "hidden",
-            border: "4px solid rgba(255,255,255,0.9)",
-            boxShadow: "0 16px 32px rgba(0,0,0,0.55)",
-            zIndex: 2,
-          }}
-        >
-          <Img src={flagSrc} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-        </div>
-      ) : null}
+      {logoSrc ? (
+        <>
+          {/* 1 — NATIONAL TEAM LOGO (main) */}
+          <Img
+            src={logoSrc}
+            style={{
+              width: 296,
+              height: 296,
+              objectFit: "contain",
+              filter: "drop-shadow(0 16px 32px rgba(0,0,0,0.55))",
+              zIndex: 2,
+            }}
+          />
 
-      {/* divider */}
-      <div
-        style={{
-          width: "58%",
-          height: 2,
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)",
-          margin: "34px 0 26px",
-          zIndex: 2,
-        }}
-      />
+          {/* 2 — NATIONAL TEAM NAME */}
+          <div
+            style={{
+              fontFamily,
+              fontWeight: 800,
+              fontSize: 56,
+              lineHeight: 0.96,
+              color: COLORS.white,
+              textAlign: "center",
+              letterSpacing: 1,
+              textTransform: "uppercase",
+              textShadow: "0 4px 16px rgba(0,0,0,0.7)",
+              marginTop: 28,
+              zIndex: 2,
+            }}
+          >
+            {teamName}
+          </div>
 
-      {/* 2 — NATIONAL TEAM NAME */}
-      <div
-        style={{
-          fontFamily,
-          fontWeight: 800,
-          fontSize: 58,
-          lineHeight: 0.96,
-          color: COLORS.white,
-          textAlign: "center",
-          letterSpacing: 1,
-          textTransform: "uppercase",
-          textShadow: "0 4px 16px rgba(0,0,0,0.7)",
-          zIndex: 2,
-        }}
-      >
-        {teamName}
-      </div>
+          {/* divider */}
+          <div
+            style={{
+              width: "58%",
+              height: 2,
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)",
+              margin: "30px 0 24px",
+              zIndex: 2,
+            }}
+          />
+
+          {/* 3 — COUNTRY (flag) */}
+          {flagSrc ? (
+            <div
+              style={{
+                width: 232,
+                height: 188,
+                borderRadius: 18,
+                overflow: "hidden",
+                border: "3px solid rgba(255,255,255,0.88)",
+                boxShadow: "0 12px 26px rgba(0,0,0,0.5)",
+                zIndex: 2,
+              }}
+            >
+              <Img src={flagSrc} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            </div>
+          ) : null}
+        </>
+      ) : (
+        <>
+          {/* Fallback (no logo file): large flag on top + name below */}
+          {flagSrc ? (
+            <div
+              style={{
+                width: 296,
+                height: 216,
+                borderRadius: 20,
+                overflow: "hidden",
+                border: "4px solid rgba(255,255,255,0.9)",
+                boxShadow: "0 16px 32px rgba(0,0,0,0.55)",
+                zIndex: 2,
+              }}
+            >
+              <Img src={flagSrc} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+            </div>
+          ) : null}
+
+          <div
+            style={{
+              width: "58%",
+              height: 2,
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent)",
+              margin: "34px 0 26px",
+              zIndex: 2,
+            }}
+          />
+
+          <div
+            style={{
+              fontFamily,
+              fontWeight: 800,
+              fontSize: 58,
+              lineHeight: 0.96,
+              color: COLORS.white,
+              textAlign: "center",
+              letterSpacing: 1,
+              textTransform: "uppercase",
+              textShadow: "0 4px 16px rgba(0,0,0,0.7)",
+              zIndex: 2,
+            }}
+          >
+            {teamName}
+          </div>
+        </>
+      )}
     </div>
   );
 };

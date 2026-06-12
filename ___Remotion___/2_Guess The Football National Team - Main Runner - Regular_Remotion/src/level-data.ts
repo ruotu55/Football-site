@@ -18,6 +18,7 @@ type RawPlayer = {
 type RawLevel = {
   teamName: string; // national team, e.g. "Brazil"
   countryFlagPath: string | null;
+  nationalLogoPath?: string | null;
   formationId: string;
   // true → players[] is the SAVED XI in slot order (player i → formation slot i), so the
   // lineup + formation match the save file exactly (like runner 1's xiOrdered path).
@@ -34,6 +35,7 @@ export const SAVE_NAMES = SAVES.map((s) => s.name);
 export type ResolvedLevel = {
   teamName: string;
   countryFlagPath: string | null;
+  nationalLogoPath: string | null;
   players: SlotPlayer[]; // exactly 11, with x/y from the formation
   revealVoiceEn: string | null;
   revealVoiceEs: string | null;
@@ -79,6 +81,7 @@ export const resolveLevel = (
     return {
       teamName: lvl.teamName,
       countryFlagPath: lvl.countryFlagPath,
+      nationalLogoPath: lvl.nationalLogoPath ?? null,
       players,
       revealVoiceEn: lvl.revealVoiceEn ?? null,
       revealVoiceEs: lvl.revealVoiceEs ?? null,
@@ -114,6 +117,7 @@ export const resolveLevel = (
   return {
     teamName: lvl.teamName,
     countryFlagPath: lvl.countryFlagPath,
+    nationalLogoPath: lvl.nationalLogoPath ?? null,
     players,
     revealVoiceEn: lvl.revealVoiceEn ?? null,
     revealVoiceEs: lvl.revealVoiceEs ?? null,

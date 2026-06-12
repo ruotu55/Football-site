@@ -22,7 +22,9 @@ export const INTRO_STRINGS: IntroStringsByLanguage = {
   },
 };
 
-export const TITLE_FONT_SIZE = 104;
+// Intro sizes matched to runner 2 (user request 2026-06-11): title 155, season 126.
+export const TITLE_FONT_SIZE = 155;
+export const SEASON_FONT_SIZE = 126;
 
 // Background default (matches the runner's app.js forcedDefaults for "career-path").
 export const THEME_DEFAULT = {

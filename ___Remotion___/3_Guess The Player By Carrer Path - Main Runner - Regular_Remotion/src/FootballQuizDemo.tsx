@@ -14,7 +14,7 @@ import { DESIGN_FPS, useFrameScale } from "@shared/timing";
 import { Level } from "./scenes/Level";
 import { AUTO_FORMATION, resolveBackground, type DemoProps } from "./schema";
 import { levelCount, resolveLevel } from "./level-data";
-import { INTRO_STRINGS, TITLE_FONT_SIZE } from "./config";
+import { INTRO_STRINGS, TITLE_FONT_SIZE, SEASON_FONT_SIZE } from "./config";
 
 // Scene durations in DESIGN frames (30fps), scaled to the real fps at render time.
 export const LEVEL_FRAMES = 320;
@@ -119,7 +119,7 @@ export const FootballQuizDemo: React.FC<DemoProps> = (props) => {
   );
   children.push(
     <TransitionSeries.Sequence key="intro" durationInFrames={f(introFrames)}>
-      <Intro language={props.language} questionsCount={n} strings={INTRO_STRINGS} titleFontSize={TITLE_FONT_SIZE} />
+      <Intro language={props.language} questionsCount={n} strings={INTRO_STRINGS} titleFontSize={TITLE_FONT_SIZE} seasonFontSize={SEASON_FONT_SIZE} />
     </TransitionSeries.Sequence>,
   );
   levels.forEach((lvl, i) => {

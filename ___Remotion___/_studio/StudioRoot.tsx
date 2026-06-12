@@ -7,6 +7,12 @@ import { Composition } from "remotion";
 // Remotion + remotion.config.ts: the @shared alias + shared publicDir). No separate install.
 //
 // To add a new runner: add its three imports + one <Composition> below.
+//
+// NOTE: each composition's defaultProps must be a FULLY INLINE object literal (plain
+// literal values + `as const`, no spreads, no variable refs, no `as any`). Remotion's
+// "Save default props" button rewrites this file in place and can only do that when it
+// can statically extract the object — a `...base` spread or a `t2.color` reference makes
+// it fail with "Could not find or extract defaultProps for composition …".
 
 // ── Runner 1 — Guess the Team Name (by player nationality) ──
 import {
@@ -23,7 +29,6 @@ import {
   totalFramesForFps as r2total,
 } from "../2_Guess The Football National Team - Main Runner - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r2schema } from "../2_Guess The Football National Team - Main Runner - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t2 } from "../2_Guess The Football National Team - Main Runner - Regular_Remotion/src/config";
 
 // ── Runner 3 — Player by Career Path ──
 import {
@@ -32,7 +37,6 @@ import {
   totalFramesForFps as r3total,
 } from "../3_Guess The Player By Carrer Path - Main Runner - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r3schema } from "../3_Guess The Player By Carrer Path - Main Runner - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t3 } from "../3_Guess The Player By Carrer Path - Main Runner - Regular_Remotion/src/config";
 
 // ── Runner 4 — Player by Career Stats ──
 import {
@@ -41,7 +45,6 @@ import {
   totalFramesForFps as r4total,
 } from "../4_Guess The Player By Carrer Stats - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r4schema } from "../4_Guess The Player By Carrer Stats - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t4 } from "../4_Guess The Player By Carrer Stats - Regular_Remotion/src/config";
 
 // ── Runner 5 — Player by Club/Position/Country/Age ──
 import {
@@ -50,7 +53,6 @@ import {
   totalFramesForFps as r5total,
 } from "../5_Guess The Player By Club_Position_Country_Age - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r5schema } from "../5_Guess The Player By Club_Position_Country_Age - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t5 } from "../5_Guess The Player By Club_Position_Country_Age - Regular_Remotion/src/config";
 
 // ── Runner 6 — Guess the Fake Information ──
 import {
@@ -59,7 +61,6 @@ import {
   totalFramesForFps as r6total,
 } from "../6_Guess The Fake Informaiton - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r6schema } from "../6_Guess The Fake Informaiton - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t6 } from "../6_Guess The Fake Informaiton - Regular_Remotion/src/config";
 
 // ── Runner 7 — Guess the Team Logo Name ──
 import {
@@ -68,7 +69,6 @@ import {
   totalFramesForFps as r7total,
 } from "../7_Guess The Football Team Logo Name - Main Runner - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r7schema } from "../7_Guess The Football Team Logo Name - Main Runner - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t7 } from "../7_Guess The Football Team Logo Name - Main Runner - Regular_Remotion/src/config";
 
 // ── Runner 8 — Guess the Player Name ──
 import {
@@ -77,7 +77,6 @@ import {
   totalFramesForFps as r8total,
 } from "../8_Guess The Football Player Name - Main Runner - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r8schema } from "../8_Guess The Football Player Name - Main Runner - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t8 } from "../8_Guess The Football Player Name - Main Runner - Regular_Remotion/src/config";
 
 // ── Runner 9 — Football Quiz Multiple Choice (A/B/C) ──
 import {
@@ -86,17 +85,6 @@ import {
   totalFramesForFps as r9total,
 } from "../9_Football Quiz Multiple Choice - Main Runner - Regular_Remotion/src/FootballQuizDemo";
 import { demoSchema as r9schema } from "../9_Football Quiz Multiple Choice - Main Runner - Regular_Remotion/src/schema";
-import { THEME_DEFAULT as t9 } from "../9_Football Quiz Multiple Choice - Main Runner - Regular_Remotion/src/config";
-
-// Shared defaults for the player/team runners (their save lists vary; pick a real one each).
-const base = {
-  levels: "1",
-  formation: "Auto (from save)",
-  language: "English",
-  ending: "Random",
-  competition: "None — use Color + Effect",
-  transition: "Soft Iris",
-} as const;
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -111,17 +99,14 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         schema={r1schema}
         defaultProps={{
-          save: "Champion League",
-          levels: "1",
-          formation: "Auto (from save)",
-          language: "English",
-          ending: "Random",
-          competition: "Champions League",
-          color: "#2E7D32 - Club by Nationality",
-          effect: "Sun effect middle",
-          opacity: 0.5,
-          transition: "Soft Iris",
-        } as any}
+          save: "Champion League" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Champions League" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Guess-The-Football-National-Team-Regular"
@@ -132,7 +117,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r2schema}
-        defaultProps={{ ...base, save: "World Cup", competition: "World Cup", color: t2.color, effect: t2.effect, opacity: t2.opacity } as any}
+        defaultProps={{
+          save: "World Cup" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "World Cup" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Guess-The-Player-By-Career-Path-Regular"
@@ -143,7 +136,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r3schema}
-        defaultProps={{ ...base, save: "Mixed players 1", color: t3.color, effect: t3.effect, opacity: t3.opacity } as any}
+        defaultProps={{
+          save: "Mixed players 1" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Generic 2" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Guess-The-Player-By-Career-Stats-Regular"
@@ -154,7 +155,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r4schema}
-        defaultProps={{ ...base, save: "Mixed players 1", color: t4.color, effect: t4.effect, opacity: t4.opacity } as any}
+        defaultProps={{
+          save: "Mixed players 1" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Generic 3" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Guess-The-Player-By-Club-Position-Country-Age-Regular"
@@ -165,7 +174,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r5schema}
-        defaultProps={{ ...base, save: "Mixed players 1", color: t5.color, effect: t5.effect, opacity: t5.opacity } as any}
+        defaultProps={{
+          save: "Mixed players 1" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Generic 1" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Guess-The-Fake-Information-Regular"
@@ -176,7 +193,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r6schema}
-        defaultProps={{ ...base, save: "Mixed players 1", color: t6.color, effect: t6.effect, opacity: t6.opacity } as any}
+        defaultProps={{
+          save: "Mixed players 1" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Generic 4" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Guess-The-Football-Team-Logo-Name-Regular"
@@ -187,7 +212,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r7schema}
-        defaultProps={{ ...base, save: "Logos 1", color: t7.color, effect: t7.effect, opacity: t7.opacity } as any}
+        defaultProps={{
+          save: "Logos 1" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Generic 2" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Guess-The-Football-Player-Name-Regular"
@@ -198,7 +231,15 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r8schema}
-        defaultProps={{ ...base, save: "Player names 1", color: t8.color, effect: t8.effect, opacity: t8.opacity } as any}
+        defaultProps={{
+          save: "Player names 1" as const,
+          levels: "1" as const,
+          formation: "Auto (from save)" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Generic 1" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
       <Composition
         id="Football-Quiz-Multiple-Choice-Regular"
@@ -209,7 +250,14 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         schema={r9schema}
-        defaultProps={{ save: "World Cup", levels: "1", language: "English", ending: "Random", competition: "None — use Color + Effect", color: t9.color, effect: t9.effect, opacity: t9.opacity, transition: "Soft Iris" } as any}
+        defaultProps={{
+          save: "World Cup" as const,
+          levels: "1" as const,
+          language: "English" as const,
+          ending: "Random" as const,
+          competition: "Generic 4" as const,
+          transition: "Soft Iris" as const,
+        }}
       />
     </>
   );

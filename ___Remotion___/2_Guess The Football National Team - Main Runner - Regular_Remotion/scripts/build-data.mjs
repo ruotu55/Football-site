@@ -38,6 +38,17 @@ const Lay = buildLayoutIndex(P.LAYOUTS_JSON);
 // National-team reveal voices live in "Nationality teams names/<lang>/<phrase>/<Team>.mp3".
 const V = makeVoiceHelpers(P.VOICES_SRC, "Nationality teams names");
 
+// National-team LOGOS (the reveal panel's main image) live in Images/National Team Logos/<Team>.png.
+const LOGOS_DIR = path.join(P.IMAGES, "National Team Logos");
+const logoByNorm = new Map();
+if (fs.existsSync(LOGOS_DIR)) {
+  for (const f of fs.readdirSync(LOGOS_DIR)) {
+    if (!/\.(png|webp|jpg|jpeg)$/i.test(f)) continue;
+    logoByNorm.set(norm(f.replace(/\.[^.]+$/, "")), `National Team Logos/${f}`);
+  }
+}
+const resolveNationalLogo = (team) => logoByNorm.get(norm(team)) || null;
+
 const DEFAULT_FORMATION = "433";
 const GROUPS = ["goalkeepers", "defenders", "midfielders", "attackers"];
 let xiFromLayout = 0;
@@ -57,6 +68,7 @@ const loadNationalSquad = (name, continent) => {
 let missingPhotos = 0;
 let missingCrests = 0;
 let missingFlags = 0;
+let missingLogos = 0;
 let missingRevealVoices = 0;
 let missingSquads = 0;
 
@@ -125,6 +137,8 @@ for (const key of Object.keys(blocks)) {
 
     const flagPath = resolveFlag(teamName);
     if (!flagPath) missingFlags += 1;
+    const nationalLogoPath = resolveNationalLogo(teamName);
+    if (!nationalLogoPath) missingLogos += 1;
     const revealVoiceEn = V.resolveTeamVoice(teamName, REVEAL_EN);
     const revealVoiceEs = V.resolveTeamVoice(teamName, REVEAL_ES) || revealVoiceEn;
     if (!revealVoiceEn) missingRevealVoices += 1;
@@ -132,6 +146,7 @@ for (const key of Object.keys(blocks)) {
     levels.push({
       teamName,
       countryFlagPath: flagPath,
+      nationalLogoPath,
       formationId,
       xiOrdered,
       players,
@@ -147,7 +162,7 @@ fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, JSON.stringify({ saves }, null, 0));
 const kb = (fs.statSync(OUT).size / 1024).toFixed(0);
 console.log(`✓ ${saves.length} saves, ${saves.reduce((n, s) => n + s.levels.length, 0)} levels -> src/generated/saves.json (${kb} KB)`);
-console.log(`  unresolved: photos ${missingPhotos}, crests ${missingCrests}, flags ${missingFlags}, squads ${missingSquads}`);
+console.log(`  unresolved: photos ${missingPhotos}, crests ${missingCrests}, flags ${missingFlags}, national logos ${missingLogos}, squads ${missingSquads}`);
 console.log(`  XI source: ${xiFromLayout} from saved layout (exact formation + XI), ${xiFromSquad} from squad fallback`);
 
 // ── audio manifest ────────────────────────────────────────────────────────────
@@ -164,6 +179,7 @@ const wanted = new Set();
 for (const s of saves) {
   for (const lv of s.levels) {
     wanted.add(lv.countryFlagPath);
+    wanted.add(lv.nationalLogoPath);
     for (const p of lv.players) {
       wanted.add(p.clubCrestPath);
       wanted.add(p.photoPath);

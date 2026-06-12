@@ -22,8 +22,10 @@ export const INTRO_STRINGS: IntroStringsByLanguage = {
   },
 };
 
-// The Spanish 3rd line is long → slightly smaller title than the default 104.
-export const TITLE_FONT_SIZE = 92;
+// Intro sizes matched to runner 2 (user request 2026-06-11): title 155, season 126.
+// WATCH-OUT: the Spanish 3rd line is long (was 92) — check it fits.
+export const TITLE_FONT_SIZE = 155;
+export const SEASON_FONT_SIZE = 126;
 
 // Background default (matches the runner's app.js forcedDefaults for "player-by-fake-info").
 export const THEME_DEFAULT = {

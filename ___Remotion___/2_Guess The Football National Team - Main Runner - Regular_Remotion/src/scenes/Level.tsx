@@ -169,6 +169,7 @@ export const Level: React.FC<{
                   sizeComp={sizeComp(player.y)}
                   widthPct={SLOT_WIDTH_PCT}
                   floatPhase={0}
+                  crestImgPct={72}
                 />
               ))}
             </div>
@@ -186,6 +187,7 @@ export const Level: React.FC<{
         colorBottom={panelBottom}
         teamName={level.teamName}
         flagSrc={sharedSrc(level.countryFlagPath)}
+        logoSrc={sharedSrc(level.nationalLogoPath)}
       />
 
       <Sequence from={f(REVEAL_START - 30)} durationInFrames={f(30)}>
