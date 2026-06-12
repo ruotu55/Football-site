@@ -14,6 +14,10 @@ import {
   resolveHeaderTeamDisplayName,
   applyTeamRename,
 } from "./pitch-render.js";
+import {
+  toggleSaveTeamForCurrentEntry,
+  hasSavedTeamForCurrentEntry,
+} from "./saved-team-layouts.js";
 import { projectAssetUrl } from "./paths.js";
 
 /* Remotion RevealPanel design constants (components/RevealPanel.tsx) — the
@@ -113,6 +117,30 @@ function buildTeamPanelPreview(lvl, levelIndex) {
 
   inner.append(crest, name, divider, flagBox);
   wrap.appendChild(inner);
+
+  // Save Team button — at the TOP of the panel (above the crest). Per team:
+  // saves THIS team's XI layout to the shared store so it loads verbatim.
+  const saveTeamBtn = document.createElement("button");
+  saveTeamBtn.type = "button";
+  saveTeamBtn.className = "prep-team-panel__saveteam";
+  const paintSaveTeamBtn = () => {
+    // hasSavedTeamForCurrentEntry reads getState() — point it at this level first.
+    const prev = appState.currentLevelIndex;
+    appState.currentLevelIndex = levelIndex;
+    let saved = false;
+    try { saved = hasSavedTeamForCurrentEntry(); } catch { /* ignore */ }
+    appState.currentLevelIndex = prev;
+    saveTeamBtn.classList.toggle("is-saved", saved);
+    saveTeamBtn.textContent = saved ? "✓ Team saved" : "Save Team";
+  };
+  saveTeamBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setActiveLevel(levelIndex);
+    toggleSaveTeamForCurrentEntry();
+    paintSaveTeamBtn();
+  });
+  wrap.appendChild(saveTeamBtn);
+  requestAnimationFrame(paintSaveTeamBtn); // initial label after the save store loads
 
   // Rename button (outside the scaled inner, so it stays a normal size).
   const renameBtn = document.createElement("button");

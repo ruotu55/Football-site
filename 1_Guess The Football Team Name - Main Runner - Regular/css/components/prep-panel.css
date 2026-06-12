@@ -351,6 +351,46 @@
   background: rgba(255, 255, 255, 0.22);
   border-color: #fff;
 }
+/* Save Team — top of the panel box, above the crest. Per team. */
+.prep-team-panel__saveteam {
+  position: absolute;
+  left: 50%;
+  top: 0.7rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.45rem;
+  background: rgba(185, 28, 28, 0.85);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.prep-team-panel__saveteam:hover {
+  filter: brightness(1.12);
+}
+.prep-team-panel__saveteam.is-saved {
+  background: #1f8f4d;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+/* The old top-row "Save team" FAB is replaced by the per-team buttons. */
+#btn-save-current-team-fab {
+  display: none !important;
+}
+
+/* SWAP cube: when ENABLED (the player has another photo), colour it so it's
+   obvious a second photo is available. Disabled = the plain dim cube. */
+.prep-section .slot-photo-swap-btn:not(:disabled) {
+  background: #2563eb !important; /* blue = "another photo here" */
+  border-color: #93c5fd !important;
+  color: #fff !important;
+}
+.prep-section .slot-photo-swap-btn:not(:disabled):hover {
+  background: #3b82f6 !important;
+  border-color: #fff !important;
+}
 
 /* Saved tab — name only, clean rows. */
 .prep-save-row {
