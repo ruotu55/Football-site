@@ -1337,7 +1337,7 @@ function installBulkPhotoButton() {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    autoFetchMissingTeamPhotos(btn);
+    openBulkTeamPhotoModal();
   });
 }
 
