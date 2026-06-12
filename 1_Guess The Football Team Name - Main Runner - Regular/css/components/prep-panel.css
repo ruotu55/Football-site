@@ -66,7 +66,7 @@
   display: flex;
   align-items: baseline;
   gap: 0.8rem;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0; /* the slots grid's padding-top provides the spacing */
   flex-wrap: wrap;
 }
 .prep-section__level {
@@ -88,9 +88,10 @@
   position: static !important;
   display: grid !important;
   grid-template-columns: repeat(6, minmax(7rem, 1fr));
-  /* big row gap: the cube control row hangs BELOW each card (absolute) */
-  gap: 3.4rem 0.9rem;
-  padding-bottom: 3rem; /* room for the last row's controls */
+  /* the cube control row hangs ABOVE each card (absolute) */
+  gap: 3rem 0.9rem;
+  padding-top: 2.8rem;   /* room for the FIRST row's controls */
+  padding-bottom: 0.4rem;
   width: auto !important;
   height: auto !important;
   inset: auto !important;
@@ -109,29 +110,59 @@
   margin: 0 auto;
 }
 
-/* ── Edit buttons as big cubes ───────────────────────────────────────────
-   The stock controls are tiny pills (≈1.15rem tall) sized for the on-pitch
-   look; in the prep grid they're the main interaction — square them up. */
+/* ── Edit buttons: 4 IDENTICAL cubes ABOVE each card ─────────────────────
+   pitch-render appends .slot-photo-controls to the .player-slot ROOT (the 3D
+   card faces clip overflow). Row: PHOTO · X · CROP · SWAP. */
+.prep-section .player-slot {
+  overflow: visible;
+}
 .prep-section .slot-photo-controls {
-  gap: 0.35rem;
-  padding: 0.3rem;
+  position: absolute !important;
+  left: 50% !important;
+  top: auto !important;
+  bottom: calc(100% + 0.3rem) !important;
+  transform: translateX(-50%) !important;
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  z-index: 60;
 }
 .prep-section .slot-photo-fetch-btn,
 .prep-section .slot-photo-crop-btn,
-.prep-section .slot-photo-delete-btn {
+.prep-section .slot-photo-delete-btn,
+.prep-section .slot-photo-swap-btn {
   box-sizing: border-box;
-  min-width: 2.7rem !important;
-  width: 2.7rem !important;
-  height: 2.7rem !important;
+  min-width: 2.3rem !important;
+  width: 2.3rem !important;
+  height: 2.3rem !important;
   padding: 0 !important;
-  font-size: 0.6rem !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  border-radius: 0.45rem !important;
+  background: rgba(0, 0, 0, 0.62);
+  color: #fff;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  font-size: 0.55rem !important;
   font-weight: 900;
   line-height: 1.05;
-  border-radius: 0.45rem;
   white-space: normal;
+  cursor: pointer;
 }
 .prep-section .slot-photo-delete-btn {
-  font-size: 0.85rem !important;
+  font-size: 0.9rem !important;
+}
+.prep-section .slot-photo-fetch-btn:hover,
+.prep-section .slot-photo-crop-btn:hover,
+.prep-section .slot-photo-delete-btn:hover,
+.prep-section .slot-photo-swap-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+/* The tiny name-band ⇄ is replaced by the SWAP cube (which proxy-clicks it). */
+.prep-section .slot-swap-btn {
+  display: none !important;
 }
 /* +/- size and crest-swap buttons match the cube look. */
 .prep-section .slot-badge-zoom-btn {
@@ -141,17 +172,22 @@
   font-size: 0.8rem !important;
   border-radius: 0.4rem;
 }
-/* Swap-player arrows on the name band. */
-.prep-section .slot-swap-btn {
-  min-width: 1.7rem;
-  min-height: 1.7rem;
-  border-radius: 0.4rem;
-}
 
-/* The header's floating "clear team" X re-parents to <body> (old fixed spot
-   collides with the FAB row) — drop it below the row. */
-body > .team-header-clear-team-btn {
-  top: 6.2rem !important;
+/* The header's floating "Get all team photos" + "clear team" X hardcode
+   fixed mid-top spots (old play layout) — dock them into the FAB row. */
+.team-header-get-all-photos-btn {
+  position: fixed !important;
+  top: 1.5rem !important;
+  left: calc(var(--prep-left-band) + (12.4rem + 0.7rem) * 4) !important;
+  right: auto !important;
+}
+.team-header-clear-team-btn {
+  position: fixed !important;
+  top: 1.5rem !important;
+  left: calc(var(--prep-left-band) + (12.4rem + 0.7rem) * 4 + 11.5rem) !important;
+  right: auto !important;
+  height: 2.4rem !important;
+  width: 2.4rem !important;
 }
 
 @media (max-width: 1500px) {

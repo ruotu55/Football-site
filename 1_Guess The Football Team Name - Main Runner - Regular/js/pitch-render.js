@@ -1314,7 +1314,11 @@ function openBulkTeamPhotoModal() {
 function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   const state = getState();
   if (!containerEl || !player || appState.isVideoPlaying) return;
-  if (containerEl.querySelector(".slot-photo-controls")) return;
+  /* PREP PANEL: the controls live on the .player-slot ROOT (the 3D card faces
+     clip anything hanging outside them). Re-renders must REPLACE the row —
+     the old buttons close over the previous player. */
+  const slotRootEl = containerEl.closest(".player-slot") || containerEl;
+  slotRootEl.querySelectorAll(".slot-photo-controls").forEach((el) => el.remove());
   const controls = document.createElement("div");
   controls.className = "slot-photo-controls";
 
@@ -1549,8 +1553,22 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     });
   });
 
-  controls.append(cropBtn, photoBtn, deleteBtn);
-  containerEl.appendChild(controls);
+  /* 4th cube: SWAP — proxies the name-band ⇄ button (hidden in prep CSS) so
+     every player has PHOTO / X / CROP / SWAP in one row. */
+  const swapProxyBtn = document.createElement("button");
+  swapProxyBtn.type = "button";
+  swapProxyBtn.className = "slot-photo-swap-btn";
+  swapProxyBtn.textContent = "SWAP";
+  swapProxyBtn.title = "Swap this player";
+  swapProxyBtn.dataset.slotControl = "swap-proxy";
+  swapProxyBtn.dataset.slotIndex = String(slotIndex);
+  swapProxyBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    slotRootEl.querySelector(".slot-swap-btn")?.click();
+  });
+
+  controls.append(photoBtn, deleteBtn, cropBtn, swapProxyBtn);
+  slotRootEl.appendChild(controls);
 }
 
 function getSlotFrontFaceScale(state, slotIndex) {
