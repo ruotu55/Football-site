@@ -144,6 +144,12 @@ export function initPrepPanel() {
     return;
   }
 
+  /* Saves store videoMode:true per level, which would render the UNREVEALED
+     flip-card front (flag only, hidden player). Forcing the post-timer flag
+     makes getVideoQuestionPreviewState() treat every card as revealed —
+     photos + names + slot controls — WITHOUT mutating the save data. */
+  appState.videoRevealPostTimerActive = true;
+
   // Context switch BEFORE any click handler fires (capture phase).
   root.addEventListener(
     "pointerdown",
