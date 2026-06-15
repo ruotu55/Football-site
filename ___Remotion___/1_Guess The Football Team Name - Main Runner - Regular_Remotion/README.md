@@ -33,10 +33,15 @@ Driven by a Zod schema (`src/schema.ts`):
   - **Level** — `1..N`; picks which level (team) of that save to show.
   - **Formation** — `Auto (from save)` or any of 13 (4-3-3, 4-4-2, 3-5-2, …).
   - **Language** — English / Spanish (logo, intro title, ending text).
-  - **Ending** — Random / Think you know the answer? / How many did you get?
-    (plays the matching ending voice when the transition into the outro starts —
-    same two clips as Regular play video, from `.Storage/Voices/Ending Guess/`)
   - **Questions count** — the intro's "N QUESTIONS" number.
+
+There is no Ending control. At **50% of the levels** the BONUS flow plays:
+**BONUS window** (starburst + "BONUS QUESTION!" + one of 5 voice variants from
+`.Storage/Voices/Bonus/<lang>/bonus-01..05.mp3`, picked per save)
+→ the **bonus level** (its sequence is cut at the reveal tick, so the countdown
+runs out but the answer is NEVER revealed) → the **mid-quiz break** ("Think you
+know the answer?" + "Comment below!", voice from `.Storage/Voices/Ending Guess/`)
+→ the quiz continues. The outro is ALWAYS "How many did you get?".
 - **Look**
   - **Background** — competition / color / effect / opacity (16 colors, 10 moving
     effects, 11 competitions; a competition overrides color+effect).
@@ -78,9 +83,11 @@ npx remotion render Guess-The-Football-Team-Name-Regular out/arsenal.mp4 \
 - All animation is Remotion-native (`spring`/`interpolate`); CSS keyframes are
   avoided (they don't render).
 - **Audio** — `src/generated/audio.json` (from `build-data`): BGM, quiz-title,
-  per-level reveal voices, ticking/stinger, and **ending voice** (`think-you-know`
-  / `how-many`). `src/ending.ts` resolves Random; `FootballQuizDemo.tsx` stamps
-  the ending `<Audio>` at the outro-transition start frame.
+  per-level reveal voices, ticking/stinger, the **mid-break voice** (`midBreak`:
+  "Think you know the answer? Comment below… let's continue!") and the **ending
+  voice** (always `how-many`). `src/ending.ts` exposes `breakAfterLevels(n)`;
+  `FootballQuizDemo.tsx` stamps the break + ending `<Audio>` at each
+  transition-start frame.
 
 ## Reusing for new quiz types
 

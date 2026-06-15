@@ -19,6 +19,7 @@ import {
     applyCareerPictureModeToActiveState,
     persistCareerPictureModeFromActiveState,
     preloadCareerAssets,
+    initPlayerNameOverridesSharedSync,
 } from "./pitch-render.js";
 import { loadSquadJson } from "./teams.js";
 import { startVideoFlow, stopVideoFlow } from "./video.js";
@@ -28,6 +29,8 @@ import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
 import { getActiveScriptName } from "./saved-scripts.js?v=20260601-autoopen5";
+import { initSavePicker } from "./save-picker.js";
+import { initPrepPanel, renderPrepPanel } from "./prep-panel.js";
 import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
 import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260612d";
 import { startRecordingAndFullscreen } from "./recording-flow.js";
@@ -642,9 +645,12 @@ export function updateLanding() {
     const title = document.getElementById("landing-title");
     const isShorts = document.body.classList.contains("shorts-mode");
 
-    title.innerHTML = isShorts
-        ? t("landingTitleShorts")
-        : t("landingTitle");
+    // Prep panel: landing.html isn't loaded, so #landing-title is absent — guard it.
+    if (title) {
+        title.innerHTML = isShorts
+            ? t("landingTitleShorts")
+            : t("landingTitle");
+    }
     renderLandingTitleVoiceControls();
 
     const landingQuestionsCount = document.getElementById("landing-questions-count");
@@ -731,7 +737,6 @@ async function init() {
     window.addEventListener("beforeunload", window.__captureRunnerState);
 
     // Call initialized modules
-    initFloatingEmojis();
     initLevelControls();
     initTransitionsUI();
     // Default transition for this quiz type
@@ -743,14 +748,12 @@ async function init() {
             transitionSel.dispatchEvent(new Event("change"));
         }
     }
-    /* The Saved tab is now the calendar-driven recording queue � see
-       recording-queue.js. The legacy savedScripts UI (Save Current Settings,
-       +Folder, Import, freeform list) is gone; the saved-scripts.js module
-       remains for the underlying capture/apply helpers, but its init wiring
-       points at buttons that no longer exist, so we don't call it. */
-    void initRecordingQueue();
+    /* PREP PANEL: the Saved tab lists this runner's blocks (key "4|…") and loads
+       one into the stacked prep sections; every edit auto-saves block.script. No
+       recording queue / thumbnail studio (this runner no longer records). */
+    void initSavePicker();
+    void initPlayerNameOverridesSharedSync();
     initUpdateData();
-    initThumbnailStudio();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
         quizKey: "career-stats",
@@ -855,7 +858,7 @@ async function init() {
         els.inHard.value = String(hard);
         els.inImpossible.value = String(impossible);
         updateLanding();
-        renderRecordingQueue();
+        renderPrepPanel();
         switchLevel(appState.currentLevelIndex);
     };
 
@@ -1185,8 +1188,9 @@ async function init() {
     }
 
     /* Play Video: runs the level flow WITHOUT recording or fullscreen.
-       Ignored while a double-record is orchestrating. */
-    els.playVideoBtn.onclick = async () => {
+       Ignored while a double-record is orchestrating. (Button removed in the prep
+       panel — guarded so init never touches a null element.) */
+    if (els.playVideoBtn) els.playVideoBtn.onclick = async () => {
         if (appState.doubleRecording) return;
         if (appState.isVideoPlaying) {
             startVideoFlow(); // toggles to stop
@@ -1800,6 +1804,9 @@ async function init() {
     applyCustomSelects();
     syncVideoModeButton(!!getState()?.videoMode);
     syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
+
+    // PREP PANEL: mount the stacked per-level editor (wires section context-switch).
+    initPrepPanel();
 }
 
 function renderPictureControls() {

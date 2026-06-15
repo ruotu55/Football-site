@@ -47,7 +47,6 @@ import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initTeamVoiceManager } from "./team-voice-manager.js";
-import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import { initNameDescriptionGenerator } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 import {
     applyDevLiveReloadControls,
@@ -948,17 +947,8 @@ async function init() {
     bindDomElements();
     refreshTeamHeaderHatchGrid(appState.els.teamHeader);
     applyPerformanceModeFromUrl();
-    initSharedBackgroundTheme(
-        document.getElementById("in-background-color"),
-        document.getElementById("in-background-effect"),
-        document.getElementById("in-background-opacity"),
-        {
-            forcedDefaults: { colorId: "quiz-club-by-nat", effectId: "youtube-thumbnails", opacity: 0.5 },
-            // Dedicated "Competition background" dropdown — competitions move here (out of the
-            // color/effect selects); picking one locks color/effect/opacity until set to None.
-            competitionSelectEl: document.getElementById("in-competition-background"),
-        },
-    );
+    // PREP PANEL: the shared background theme is intentionally NOT initialized —
+    // the prep page keeps a flat dark background (see css/components/prep-panel.css).
 
     // Track explicit user selection for PROD validation
     const bgColorSel = document.getElementById("in-background-color");

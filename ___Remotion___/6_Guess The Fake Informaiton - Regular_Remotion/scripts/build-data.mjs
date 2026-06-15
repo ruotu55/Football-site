@@ -339,9 +339,19 @@ const bgm = firstBgm(V, P.VOICES_SRC);
 const quizTitleEn = V.voiceRel(V.findVoiceFile("Game name/Four Params Regular/english", /fake.*information/i));
 const quizTitleEs = V.voiceRel(V.findVoiceFile("Game name/Four Params Regular/spanish", /falsa/i));
 const audio = buildAudioManifest(V, { bgm, quizTitleEn, quizTitleEs });
+// Intro greeting voice ("Welcome to the Ultimate Football Quiz / Bienvenidos…") —
+// plays over the UltimateIntro before the quiz-title voice. Stored in
+// .Storage/Voices/Intro Greeting/fake/<lang>/intro.mp3.
+const introGreetingEn = V.voiceRel(V.findVoiceFile("Intro Greeting/fake/english", /intro/i));
+const introGreetingEs = V.voiceRel(V.findVoiceFile("Intro Greeting/fake/spanish", /intro/i));
+audio.introGreeting = { english: introGreetingEn, spanish: introGreetingEs };
+audio.introGreetingDurationSec = {
+  english: V.audioDurationSec(introGreetingEn),
+  spanish: V.audioDurationSec(introGreetingEs),
+};
 const AUDIO_OUT = path.join(projectDir, "src", "generated", "audio.json");
 fs.writeFileSync(AUDIO_OUT, JSON.stringify(audio, null, 0));
-console.log(`  audio: bgm ${audio.bgm ? "ok" : "MISSING"}, quizTitle EN ${audio.quizTitle.english ? "ok" : "—"}/ES ${audio.quizTitle.spanish ? "ok" : "—"}`);
+console.log(`  audio: bgm ${audio.bgm ? "ok" : "MISSING"}, quizTitle EN ${audio.quizTitle.english ? "ok" : "—"}/ES ${audio.quizTitle.spanish ? "ok" : "—"}, introGreeting EN ${introGreetingEn ? "ok" : "MISSING"}/ES ${introGreetingEs ? "ok" : "MISSING"}`);
 
 // ── sync assets + voices into shared public ───────────────────────────────────
 const wanted = new Set();

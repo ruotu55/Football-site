@@ -8,6 +8,7 @@ import {
     getClubLogoUrl,
     getClubLogoOtherTeamsUrl,
     getHeaderLogoUrlChain,
+    playerPhotoPathsForLevel,
 } from "./photo-helpers.js";
 import { projectAssetUrl } from "./paths.js";
 import { validateTeamAssetsAsync } from "../../.Storage/shared/prod-asset-validation.js";
@@ -138,6 +139,9 @@ async function validateTeamAssets() {
         getClubLogoUrl,
         getClubLogoOtherTeamsUrl,
         getTeamHeaderFlagUrl,
+        // Use the SAME photo resolver the cards + "Get all photos" use, so PROD
+        // reports exactly the players you see missing a photo (no over/under).
+        collectPlayerPhotoRelPaths: (player, lvl) => playerPhotoPathsForLevel(player, lvl),
     });
 }
 
@@ -204,10 +208,9 @@ async function fetchExists(path, params) {
     }
 }
 
-async function validateTeamVoices() {
+async function validateTeamVoices(language = getCurrentLanguage()) {
     const questionLevels = getQuestionLevels();
     const quizType = appState.els?.inQuizType?.value || "nat-by-club";
-    const language = getCurrentLanguage();
     const checks = questionLevels.map(async ({ lvl, index }) => {
         if (!lvl.currentSquad) return null;
         /* Use the resolved display name (post-rename) so we hit the same file path
@@ -237,10 +240,9 @@ async function validateTeamVoices() {
     };
 }
 
-async function validateQuizIntroVoice() {
+async function validateQuizIntroVoice(language = getCurrentLanguage()) {
     const quizType = appState.els?.inQuizType?.value || "nat-by-club";
-    const language = getCurrentLanguage();
-    
+
     const { exists } = await fetchExists("/__quiz-title-voice/status", {
         quizType,
         specificTitle: "",
@@ -254,9 +256,8 @@ async function validateQuizIntroVoice() {
     };
 }
 
-async function validateEndingVoice() {
+async function validateEndingVoice(language = getCurrentLanguage()) {
     const raw = String(appState.els?.inEndingType?.value || "").trim();
-    const language = getCurrentLanguage();
     if (!raw) {
         // The "Ending Type" validator already complains; don't double-fail here.
         return { sectionName: "Ending Voice", passed: true, failures: [] };
@@ -279,8 +280,7 @@ async function validateEndingVoice() {
     };
 }
 
-async function validateLevelVoices() {
-    const language = getCurrentLanguage();
+async function validateLevelVoices(language = getCurrentLanguage()) {
     const variants = appState.bundledVoiceVariants || {};
     const checks = BUNDLED_MILESTONES.map(async (milestone) => {
         const variant = getSelectedBundledVariant(milestone.audioKey, variants);
@@ -377,6 +377,43 @@ export async function runProdValidation() {
     return { allPassed, sections };
 }
 
+/**
+ * PREP-PANEL validation: the asset/data checks once (language-independent) +
+ * EVERY voice check for BOTH English and Spanish. One merged result.
+ *   Players  → photo + club crest                (Team Assets)
+ *   Teams    → national logo + country flag + reveal voice
+ *   Voices   → reveal + quiz-intro + ending + level milestones, EN & ES
+ *   Data     → Update Data within the last week
+ */
+export async function runProdValidationBoth() {
+    const base = await Promise.all([
+        validateTeamsSelected(),
+        validateTeamAssets(),
+        validateEndingType(),
+        validateUpdateDataFreshness(),
+    ]);
+
+    const LANGS = [
+        { id: "english", tag: "EN" },
+        { id: "spanish", tag: "ES" },
+    ];
+    const voiceSections = [];
+    for (const { id, tag } of LANGS) {
+        const v = await Promise.all([
+            validateTeamVoices(id),
+            validateQuizIntroVoice(id),
+            validateEndingVoice(id),
+            validateLevelVoices(id),
+        ]);
+        for (const s of v) {
+            voiceSections.push({ ...s, sectionName: `${s.sectionName} · ${tag}` });
+        }
+    }
+
+    const sections = [...base, ...voiceSections];
+    return { allPassed: sections.every((s) => s.passed), sections };
+}
+
 // ── Show validation modal ──
 export function showValidationModal(result) {
     // Remove existing modal if any
@@ -447,6 +484,7 @@ export function showValidationModal(result) {
             details.appendChild(ul);
         }
 
+        // All sections start COLLAPSED — click a section to expand its details.
         toggle.onclick = () => {
             details.classList.toggle("open");
         };

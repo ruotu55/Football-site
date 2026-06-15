@@ -1,0 +1,854 @@
+/* PREP PANEL (runner 3 — Career Path) — stacked level sections.
+   Each section: LEFT = the career path (crest boxes + arrows), RIGHT = two
+   player boxes (Hidden silhouette + Revealed photo + name). The scaffolding
+   rules (flat green bg, hidden overlays, stage scroller, FAB row, missing-logo
+   copy box) are carried over from runners 1/2; the layout below is custom. */
+
+/* ── Stage scroller (stage.css centers a one-screen pitch; here we want a plain
+   top-anchored vertical scroller for the stacked sections). ──────────────── */
+.stage {
+  display: block !important;
+  overflow-y: auto !important;
+  perspective: none !important;
+  height: 100vh;
+}
+.stage-main {
+  display: block !important;
+  height: auto !important;
+  min-height: 100%;
+  transform-style: flat !important;
+}
+
+/* The hidden #career-wrap / #team-header partials stay in the DOM as the render
+   targets pitch-render expects — keep them invisible in the prep panel. */
+#career-wrap,
+.career-wrap,
+#team-header,
+.team-header,
+.side-text,
+#countdown-timer,
+#player-voice-chrome-mount {
+  display: none !important;
+}
+
+#prep-root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 5.6rem 2rem 4rem; /* top padding clears the FAB row */
+  max-width: 1600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.prep-empty {
+  margin: 4rem auto;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.prep-section {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem 1.15rem;
+  min-height: 44rem; /* EVERY section the same height across all runners */
+  box-sizing: border-box;
+}
+/* No visual "selected level" highlight (matches runners 1/2) — the active level
+   is still tracked under the hood for the edit controls, just not shown. */
+.prep-section--active {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.prep-section__head {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+/* Save player button — pushed to the right edge of the head. */
+.prep-save-player {
+  margin-left: auto;
+  padding: 0.9rem 2.1rem;
+  border-radius: 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font: 800 1.6rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+}
+.prep-save-player:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #fff;
+}
+.prep-save-player.is-saved {
+  background: #1f8f4d;
+  border-color: #29b765;
+  color: #fff;
+}
+.prep-section__level {
+  font-weight: 800;
+  color: var(--accent, #ffca28);
+  letter-spacing: 0.04em;
+}
+.prep-section__team {
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+.prep-section__meta {
+  opacity: 0.65;
+  font-size: 0.85rem;
+}
+
+/* ── Section body: a 3-tab view (Assets / Questions / Answer) ──────────────── */
+.prep-section__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: stretch;
+}
+
+/* ── ONE global tab bar (Assets · Questions · Answer) — controls ALL levels ──
+   Sticky at the top of the scroller so it's reachable while scrolling; buttons
+   centred so they clear the corner FABs. */
+.prep-globaltabbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  margin: -0.6rem 0 0.3rem;
+  background: rgba(28, 42, 35, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0 0 12px 12px;
+}
+.prep-globaltab {
+  padding: 0.6rem 2rem;
+  border-radius: 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.4);
+  color: #cdd6e2;
+  font: 800 1.05rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.prep-globaltab:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+.prep-globaltab.is-active {
+  background: var(--accent, #ffca28);
+  border-color: var(--accent, #ffca28);
+  color: #241500;
+}
+.prep-pane[hidden] {
+  display: none;
+}
+
+/* ════ Text legibility (per user — prep text read blurry: crisper render +
+   bigger / bolder / brighter labels, titles & data). ════ */
+#prep-root,
+#prep-root * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.prep-section__head { gap: 1rem; margin-bottom: 1rem; }
+.prep-section__level { font-size: 1.6rem; letter-spacing: 0.5px; }
+.prep-section__team { font-size: 1.6rem; letter-spacing: 0.3px; }
+.prep-section__meta { font-size: 1.02rem; opacity: 0.85; }
+.prep-asset-card__title,
+.prep-stats-clubs-title { font-size: 1rem; letter-spacing: 0.6px; font-weight: 800; }
+.prep-asset-data__row { font-size: 1.14rem; line-height: 1.45; }
+.prep-asset-data__k { color: #c6d3e2; letter-spacing: 0.5px; }
+.prep-asset-data__v { color: #ffffff; font-weight: 800; }
+.prep-crest-label { font-size: 1.14rem; font-weight: 800; color: #f3f7fc; }
+.prep-crest-year__val { font-size: 1.08rem; }
+.prep-player-name { font-size: 1.32rem; letter-spacing: 0.6px; color: #ffffff; }
+.prep-player-box__title { font-size: 0.98rem; letter-spacing: 0.7px; }
+
+/* The faithful frame fills the pane but is capped so the page stays sane. */
+.prep-pane .prep-frame {
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Assets tab: player box + flag + data + editable career path ───────────── */
+.prep-assets {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.prep-assets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center; /* centred in the section */
+  align-items: stretch; /* every card the SAME height */
+}
+/* All asset cards (crest / flag / data) are the SAME size. */
+.prep-asset-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  flex: 0 0 15rem;
+  width: 15rem;
+  box-sizing: border-box;
+}
+.prep-asset-card__title {
+  font: 800 0.85rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent, #ffca28);
+}
+.prep-asset-card__body {
+  flex: 1 1 auto; /* fill the card so content is vertically centred + equal */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+}
+.prep-asset-crest {
+  max-width: 8rem;
+  max-height: 8rem;
+  object-fit: contain;
+}
+.prep-asset-flag {
+  max-width: 100%;
+  max-height: 8rem;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  object-fit: cover;
+}
+.prep-asset-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  width: 100%;
+}
+.prep-asset-data__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font: 700 0.92rem/1.25 "Barlow Condensed", system-ui, sans-serif;
+}
+.prep-asset-data__k {
+  color: #9fb0c4;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.prep-asset-data__v {
+  color: #f0f4fa;
+  font-weight: 800;
+}
+/* The editable career path, wrapped with a small title inside the Assets pane. */
+.prep-assets-career {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.prep-assets-career-title {
+  font: 800 0.74rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent, #ffca28);
+}
+
+/* ── Faithful Remotion video-frame preview: a 1920×1080 stage scaled into a 16:9
+   box so the level looks EXACTLY as it renders. The stage is built at true
+   1920×1080 px (matching Level.tsx verbatim) and CSS-scaled to the box width via
+   a ResizeObserver (observePrepFrame in prep-panel.js). ─────────────────────── */
+.prep-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #0c1016;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+}
+.prep-frame__stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  /* transform: scale(...) is set by observePrepFrame() in prep-panel.js */
+}
+
+/* ── LEFT: career path — crest boxes with arrows between ──────────────────── */
+.prep-career-path {
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center; /* centred career path */
+  gap: 0.5rem 0.4rem;
+  align-content: center;
+}
+.prep-career-empty {
+  opacity: 0.6;
+  font-style: italic;
+  padding: 1rem 0.6rem;
+  align-self: center;
+}
+/* Connector between two teams: the + is centered like every other +, and the
+   arrow floats ABOVE it (absolute, so it doesn't shift the + position). This
+   keeps EVERY + the same size + on the same vertical line. */
+.prep-career-conn {
+  position: relative;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prep-career-arrow {
+  position: absolute;
+  top: -1.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+/* "+" add-team button — IDENTICAL size + position everywhere (before first,
+   between teams, after last). */
+.prep-career-plus {
+  align-self: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: 900 1.5rem/1 system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prep-career-plus:hover {
+  border-color: #ffca28;
+  color: #ffca28;
+  background: rgba(255, 202, 40, 0.14);
+}
+
+/* Top bar inside a crest box: X to remove the whole team. */
+.prep-crest-topbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.prep-crest-remove {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 120, 120, 0.7);
+  background: rgba(150, 30, 30, 0.55);
+  color: #fff;
+  font: 900 0.85rem/1 system-ui, sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prep-crest-remove:hover {
+  background: rgba(200, 40, 40, 0.85);
+  border-color: #fff;
+}
+
+/* Year box (under the club name) + change button. */
+.prep-crest-year {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.1rem;
+  padding: 0.18rem 0.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+}
+.prep-crest-year__val {
+  font: 800 0.9rem/1 "Barlow Condensed", system-ui, sans-serif;
+  color: #ffd97a;
+  letter-spacing: 0.5px;
+  min-width: 2.4rem;
+  text-align: center;
+}
+.prep-crest-year__btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 5px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.prep-crest-year__btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+/* Add-team picker modal. */
+.prep-add-team-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+}
+.prep-add-team-modal {
+  width: min(28rem, 92vw);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: #15201a;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+}
+.prep-add-team-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.prep-add-team-title {
+  font: 800 1.2rem/1 "Barlow Condensed", system-ui, sans-serif;
+  color: #fff;
+}
+.prep-add-team-close {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+}
+.prep-add-team-mode {
+  border: 1px solid rgba(255, 202, 40, 0.55);
+  border-radius: 6px;
+  background: rgba(255, 202, 40, 0.16);
+  color: #ffca28;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+}
+.prep-add-team-search {
+  padding: 0.55rem;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  outline: none;
+}
+.prep-add-team-list {
+  display: grid;
+  gap: 0.32rem;
+  overflow-y: auto;
+  padding-right: 0.2rem;
+}
+.prep-add-team-item {
+  padding: 0.55rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.prep-add-team-item:hover {
+  background: rgba(255, 202, 40, 0.2);
+  border-color: #ffca28;
+}
+.prep-add-team-empty {
+  color: #bbb;
+  padding: 0.6rem;
+}
+
+/* Player-photo source picker (Champions League / Sorare / Paste URL). */
+.prep-photo-pick-modal {
+  width: min(34rem, 94vw);
+}
+.prep-photo-pick-sub {
+  font: 700 1rem/1.1 "Barlow Condensed", system-ui, sans-serif;
+  color: #ffca28;
+}
+.prep-photo-pick-sources {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+.prep-photo-pick-source {
+  text-align: center;
+}
+.prep-photo-pick-source:hover:not(:disabled) {
+  background: rgba(255, 202, 40, 0.28);
+  border-color: #ffca28;
+}
+.prep-photo-pick-source:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.prep-photo-pick-status {
+  color: #ddd;
+  padding: 0.3rem 0.1rem;
+  font-size: 0.95rem;
+}
+.prep-photo-pick-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  gap: 0.45rem;
+  overflow-y: auto;
+  max-height: 52vh;
+  padding-right: 0.2rem;
+}
+.prep-photo-pick-option {
+  padding: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prep-photo-pick-option:hover:not(:disabled) {
+  border-color: #ffca28;
+  background: rgba(255, 202, 40, 0.18);
+}
+.prep-photo-pick-option:disabled {
+  cursor: default;
+}
+.prep-photo-pick-option--current {
+  border-color: #ffca28;
+  box-shadow: 0 0 0 2px rgba(255, 202, 40, 0.6);
+}
+.prep-photo-pick-option__img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.prep-crest-box {
+  position: relative;
+  width: 9.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.5rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.prep-crest-img-wrap {
+  width: 6.6rem;
+  height: 6.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prep-crest-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.prep-crest-label {
+  font: 700 0.95rem/1.2 "Barlow Condensed", system-ui, sans-serif;
+  text-align: center;
+  color: #e8edf2;
+  letter-spacing: 0.2px;
+  word-break: break-word;
+}
+.prep-crest-controls {
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+}
+.prep-crest-btn {
+  box-sizing: border-box;
+  min-width: 2.5rem;
+  height: 1.9rem;
+  padding: 0 0.5rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font: 900 0.72rem/1 system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+.prep-crest-btn--del {
+  font-size: 0.95rem;
+  min-width: 1.9rem;
+  padding: 0 0.4rem;
+}
+.prep-crest-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+.prep-crest-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Missing crest → copyable club-name text box (mirror runner 1/2). */
+.prep-crest-missing.slot-badge-fallback-copy {
+  width: 100%;
+  padding: 0.3rem 0.25rem;
+  border: 1px dashed rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 700 0.62rem/1.2 "Barlow Condensed", sans-serif;
+  text-align: center;
+  letter-spacing: 0.4px;
+  cursor: text;
+  box-sizing: border-box;
+}
+.prep-crest-missing.slot-badge-fallback-copy:focus {
+  outline: 2px solid #ffca28;
+  outline-offset: 1px;
+}
+
+/* ── RIGHT: two IDENTICAL player boxes (Hidden silhouette + Revealed photo),
+   with a shared name + controls footer BELOW both. ──────────────────────── */
+.prep-player-boxes {
+  flex: 0 0 auto;
+  align-self: center; /* sits at the middle height of the row */
+  display: flex;
+  flex-direction: column; /* boxes row on top, name + controls footer below */
+  align-items: center;
+  gap: 0.7rem;
+}
+.prep-player-boxes-row {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch; /* the two boxes are the SAME size */
+}
+.prep-player-box {
+  width: 13rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: linear-gradient(165deg, rgba(40, 90, 56, 0.4) 0%, rgba(8, 16, 12, 0.55) 100%);
+}
+/* Both boxes are now identical (title + image only) — the image fills the box. */
+.prep-player-box .prep-player-img-wrap {
+  flex: 1 1 auto;
+  aspect-ratio: 3 / 4;
+  min-height: 0;
+}
+/* Shared footer under BOTH boxes: player name + PHOTO/X/RB/NAME. */
+.prep-player-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+.prep-player-box__title {
+  font: 800 0.78rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent, #ffca28);
+}
+.prep-player-box--reveal .prep-player-box__title {
+  color: #7ee0a3;
+}
+.prep-player-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.35);
+}
+.prep-player-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+/* HIDDEN box: same photo, obscured to a dark silhouette (the pre-reveal look). */
+.prep-player-img--silhouette {
+  filter: brightness(0) saturate(0);
+  opacity: 0.92;
+}
+.prep-player-img-wrap--missing::after {
+  content: "no photo";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 0.8rem "Barlow Condensed", sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+}
+.prep-player-name {
+  font: 800 1rem/1 "Barlow Condensed", system-ui, sans-serif;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  word-break: break-word;
+}
+.prep-player-controls {
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.prep-player-btn {
+  box-sizing: border-box;
+  height: 1.8rem;
+  padding: 0 0.55rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.4rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font: 900 0.62rem/1 system-ui, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+.prep-player-btn--del {
+  font-size: 0.8rem;
+  padding: 0 0.45rem;
+}
+/* RB = Remove Background — teal accent so it reads as a distinct action. */
+.prep-player-btn--rb {
+  border-color: rgba(94, 234, 212, 0.8);
+  color: #5eead4;
+}
+.prep-player-btn--rb:hover:not(:disabled) {
+  background: rgba(94, 234, 212, 0.18);
+  border-color: #5eead4;
+}
+.prep-player-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+.prep-player-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Single REVEAL box previews the Remotion full-screen render: a 16:9 video frame
+   (1920×1080) with the player photo bottom-anchored at full height, contain-fit —
+   exactly how Level.tsx draws it (height:100%, objectFit:contain, center bottom). */
+.prep-player-box--reveal {
+  width: 18rem;
+}
+.prep-player-box--reveal .prep-player-img-wrap {
+  aspect-ratio: 16 / 9;
+  align-items: flex-end;
+}
+.prep-player-box--reveal .prep-player-img--reveal {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+@media (max-width: 1200px) {
+  .prep-section__body {
+    flex-direction: column;
+  }
+  .prep-player-boxes {
+    align-self: flex-start;
+  }
+}
+
+/* ── Saved tab — name only, clean rows. ──────────────────────────────────── */
+.prep-save-row {
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+}
+.prep-save-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+/* ── Top FAB row (every .panel-fab shares one default fixed slot now that the
+   play/record/video-mode buttons are gone). ─────────────────────────────── */
+#panel-fab.panel-fab {
+  top: 1.5rem;
+  left: 2.5rem;
+}
+.prod-btn.panel-fab {
+  top: 1.5rem !important;
+  right: calc(1.5rem + 5vw) !important;
+  left: auto !important;
+}
+.save-video-status-btn.panel-fab {
+  top: 1.5rem !important;
+  right: calc(1.5rem + 5vw + 9rem) !important;
+  left: auto !important;
+}
+/* PROD result colours (set by the click handler). */
+.prod-btn.panel-fab.prod-ok {
+  background: #1f8f4d !important;
+  color: #fff !important;
+}
+.prod-btn.panel-fab.prod-fail {
+  background: #dc2626 !important;
+  color: #fff !important;
+}
+
+/* ── Flat dark background — the prep panel paints NO scenery ──────────────── */
+html, body, .app, .stage {
+  background: #3c6553 !important;
+  background-image: none !important;
+}
+body::before, body::after,
+.stage::before, .stage::after {
+  content: none !important;
+  background: none !important;
+}
+#shared-bg-layer,
+#shared-background-emojis,
+#shared-background-question-marks,
+#shared-background-soccer-balls,
+.floating-background {
+  display: none !important;
+}
+
+/* ── Kill the screen-size safe-zone overlay (data editor, not a video frame). */
+#screen-size-overlay,
+.screen-size-overlay {
+  display: none !important;
+}

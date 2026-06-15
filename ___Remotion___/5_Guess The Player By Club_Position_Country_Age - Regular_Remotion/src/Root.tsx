@@ -24,7 +24,6 @@ export const RemotionRoot: React.FC = () => {
         levels: "1" as const,
         formation: "Auto (from save)" as const,
         language: "English" as const,
-        ending: "Random" as const,
         competition: "Generic 1" as const,
         transition: "Soft Iris" as const,
       }}

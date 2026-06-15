@@ -16,6 +16,7 @@ import os
 import re
 import socket
 import ssl
+import subprocess
 import sys
 import threading
 import time
@@ -162,6 +163,87 @@ def _load_recording_status():  # noqa: D401
 
 
 _recording_status_mod = _load_recording_status()
+
+
+def _load_runner_json_blob():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_runner_blob.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_json_blob", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_runner_blob.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_blob_mod = _load_runner_json_blob()
+
+
+# ── auto-rebuild the Remotion project's generated data after prep-panel saves ──
+# The Remotion runner renders from src/generated/{saves,audio}.json — SNAPSHOTS
+# built by scripts/build-data.mjs. EVERY prep edit auto-saves block.script (and
+# names/photos/logos), so a DEBOUNCED rebuild after each mutating save keeps the
+# Remotion data (and Studio's hot-reload) in sync with the editor automatically.
+REMOTION_PROJECT_DIR = (
+    PROJECT_ROOT / "___Remotion___" / "4_Guess The Player By Carrer Stats - Regular_Remotion"
+)
+_REMOTION_BUILD_DEBOUNCE_SEC = 3.0
+_remotion_build_lock = threading.Lock()
+_remotion_build_timer = None
+_remotion_build_running = threading.Event()
+_remotion_build_again = threading.Event()
+
+
+def _remotion_node_exe() -> str:
+    cand = Path(r"C:\Program Files\nodejs\node.exe")
+    return str(cand) if cand.exists() else "node"
+
+
+def _run_remotion_build_data() -> None:
+    global _remotion_build_timer
+    with _remotion_build_lock:
+        _remotion_build_timer = None
+    if _remotion_build_running.is_set():
+        # A build is mid-flight; remember to run once more when it finishes.
+        _remotion_build_again.set()
+        return
+    _remotion_build_running.set()
+    try:
+        script = REMOTION_PROJECT_DIR / "scripts" / "build-data.mjs"
+        if not script.exists():
+            return
+        flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        proc = subprocess.run(
+            [_remotion_node_exe(), str(script)],
+            cwd=str(REMOTION_PROJECT_DIR),
+            capture_output=True,
+            text=True,
+            timeout=300,
+            creationflags=flags,
+        )
+        if proc.returncode == 0:
+            print("[remotion] build-data refreshed (saves.json + audio.json + asset sync)")
+        else:
+            tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-3:]
+            print(f"[remotion] build-data FAILED (exit {proc.returncode}): " + " | ".join(tail))
+    except Exception as exc:  # noqa: BLE001
+        print(f"[remotion] build-data failed: {exc}")
+    finally:
+        _remotion_build_running.clear()
+        if _remotion_build_again.is_set():
+            _remotion_build_again.clear()
+            schedule_remotion_build_data()
+
+
+def schedule_remotion_build_data() -> None:
+    """Debounced: runs build-data ~3s after the LAST mutating save."""
+    global _remotion_build_timer
+    with _remotion_build_lock:
+        if _remotion_build_timer is not None:
+            _remotion_build_timer.cancel()
+        timer = threading.Timer(_REMOTION_BUILD_DEBOUNCE_SEC, _run_remotion_build_data)
+        timer.daemon = True
+        _remotion_build_timer = timer
+        timer.start()
 
 
 def _load_youtube():  # noqa: D401
@@ -1593,6 +1675,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
         if _recording_status_mod.try_handle_get(self, PROJECT_ROOT):
             return
+        if _runner_blob_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if _youtube_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if _runner_update_mod.try_handle_get(self, PROJECT_ROOT):
@@ -1656,6 +1740,10 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
+            return
+        if _runner_blob_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
             return
         if _youtube_mod.try_handle_post(self, PROJECT_ROOT):
             return

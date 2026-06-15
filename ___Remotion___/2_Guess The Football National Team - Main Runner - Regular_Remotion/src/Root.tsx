@@ -19,7 +19,7 @@ export const RemotionRoot: React.FC = () => {
       width={1920}
       height={1080}
       schema={demoSchema}
-      defaultProps={{"save":"World Cup" as const,"levels":"1" as const,"formation":"Auto (from save)" as const,"language":"Spanish" as const,"ending":"Random" as const,"competition":"Generic 1" as const,"transition":"Shine Wipe" as const}}
+      defaultProps={{"save":"World Cup" as const,"levels":"1" as const,"formation":"Auto (from save)" as const,"language":"Spanish" as const,"competition":"Generic 1" as const,"transition":"Shine Wipe" as const}}
     />
   );
 };

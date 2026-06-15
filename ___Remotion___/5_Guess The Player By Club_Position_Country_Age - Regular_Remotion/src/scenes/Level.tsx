@@ -476,7 +476,8 @@ export const Level: React.FC<{
   level: ResolvedLevel;
   levelNumber: number;
   language: Language;
-}> = ({ bg: _bg, level, levelNumber, language }) => {
+  muteReveal?: boolean;
+}> = ({ bg: _bg, level, levelNumber, language, muteReveal }) => {
   const frame = useDesignFrame();
   const k = useFrameScale();
   const f = (designFrames: number) => Math.round(designFrames * k);
@@ -552,10 +553,13 @@ export const Level: React.FC<{
       <Sequence from={f(REVEAL_START - 30)} durationInFrames={f(30)}>
         <Audio src={staticFile(audioManifest.ticking)} volume={0.8} />
       </Sequence>
-      <Sequence from={f(REVEAL_START)}>
-        <Audio src={staticFile(audioManifest.stinger)} volume={0.5} />
-      </Sequence>
-      {revealVoice ? (
+      {/* Bonus level (muteReveal): no flip stinger — the answer stays hidden. */}
+      {muteReveal ? null : (
+        <Sequence from={f(REVEAL_START)}>
+          <Audio src={staticFile(audioManifest.stinger)} volume={0.5} />
+        </Sequence>
+      )}
+      {!muteReveal && revealVoice ? (
         <Sequence from={f(REVEAL_START + 5)}>
           <Audio src={staticFile(revealVoice)} volume={1} />
         </Sequence>

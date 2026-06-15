@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 import difflib
 import ipaddress
 import errno
@@ -433,6 +434,282 @@ def _fetch_external_image_bytes(url: str) -> bytes:
     return b"".join(parts)
 
 
+# ---------------------------------------------------------------------------
+# Player-photo search: Champions League (UEFA) + Sorare.
+# Both resolve a player NAME -> candidate image URL(s); the front-end previews
+# them (as data URLs) and, on click, reuses /__ready-photo/from-url to save the
+# chosen URL. Network-grounded: UEFA's comp API returns imageUrl per player and
+# Sorare's public GraphQL returns pictureUrl unauthenticated.
+# ---------------------------------------------------------------------------
+
+_PHOTO_NAME_TRANSLIT = {
+    "ð": "d", "Ð": "d", "þ": "th", "Þ": "th", "ø": "o", "Ø": "o",
+    "ł": "l", "Ł": "l", "đ": "d", "Đ": "d", "ħ": "h", "Ħ": "h",
+    "æ": "ae", "Æ": "ae", "œ": "oe", "Œ": "oe", "ß": "ss",
+}
+
+
+def _photo_name_key(s: object) -> str:
+    """Accent/diacritic-insensitive comparison key, e.g. 'Désiré Doué' -> 'desire doue'."""
+    t = unicodedata.normalize("NFKD", str(s or ""))
+    t = "".join(_PHOTO_NAME_TRANSLIT.get(c, c) for c in t)
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    t = t.casefold().replace("-", " ").replace("'", " ").replace(".", " ")
+    return " ".join(t.split())
+
+
+def _sorare_slug(name: object) -> str:
+    """Sorare player slug, e.g. 'Désiré Doué' -> 'desire-doue'."""
+    t = unicodedata.normalize("NFKD", str(name or ""))
+    t = "".join(_PHOTO_NAME_TRANSLIT.get(c, c) for c in t)
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    t = t.lower()
+    t = re.sub(r"[^a-z0-9]+", "-", t).strip("-")
+    return t
+
+
+_UEFA_CL_SEASON = "2026"
+_UEFA_CL_PLAYERS_CACHE: dict[str, list[dict]] = {}
+_UEFA_CL_PLAYERS_LOCK = threading.Lock()
+
+
+def _load_uefa_cl_players(season: str = _UEFA_CL_SEASON) -> list[dict]:
+    """All UEFA Champions League players for the season (competitionId=1), cached.
+    The comp API has no name filter, so we page the full squad list (≈500/page)
+    and match locally."""
+    with _UEFA_CL_PLAYERS_LOCK:
+        cached = _UEFA_CL_PLAYERS_CACHE.get(season)
+    if cached is not None:
+        return cached
+    players: list[dict] = []
+    offset = 0
+    for _ in range(20):  # safety cap: 20 * 500 = 10k
+        url = (
+            "https://comp.uefa.com/v2/players"
+            f"?competitionId=1&seasonYear={season}&limit=500&offset={offset}"
+        )
+        req = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": HTTP_USER_AGENT,
+                "Accept": "application/json",
+                "Referer": "https://www.uefa.com/",
+            },
+            method="GET",
+        )
+        with urllib.request.urlopen(req, timeout=30.0, context=SSL_CTX) as r:
+            chunk = json.loads(r.read().decode("utf-8"))
+        if not isinstance(chunk, list) or not chunk:
+            break
+        players.extend(chunk)
+        if len(chunk) < 500:
+            break
+        offset += 500
+    # Only cache a plausibly-complete list. A transient short read (e.g. an empty
+    # page on page 1) must NOT get cached forever, or players on later pages would
+    # be permanently "Not found" for this server's lifetime.
+    if len(players) >= 1000:
+        with _UEFA_CL_PLAYERS_LOCK:
+            _UEFA_CL_PLAYERS_CACHE[season] = players
+    return players
+
+
+def _uefa_player_names(p: dict) -> list[str]:
+    names = [str(p.get("internationalName") or "")]
+    tr = p.get("translations")
+    if isinstance(tr, dict):
+        name_tr = tr.get("name")
+        if isinstance(name_tr, dict):
+            names.append(str(name_tr.get("EN") or ""))
+        first = tr.get("firstName")
+        last = tr.get("lastName")
+        if isinstance(first, dict) and isinstance(last, dict):
+            names.append(f"{first.get('EN') or ''} {last.get('EN') or ''}".strip())
+    return [n for n in names if n]
+
+
+def _uefa_cl_candidate_image_urls(name: str, season: str = _UEFA_CL_SEASON) -> list[str]:
+    """Match a name against the CL squad list -> cutoff .webp (transparent) URLs,
+    with the square .jpg as a per-player fallback (deduped downstream by id)."""
+    qk = _photo_name_key(name)
+    if not qk:
+        return []
+    qtokens = set(qk.split())
+    players = _load_uefa_cl_players(season)
+    exact: list[str] = []
+    partial: list[str] = []
+    for p in players:
+        img = str(p.get("imageUrl") or "")
+        if not img:
+            continue
+        keys = {_photo_name_key(n) for n in _uefa_player_names(p)}
+        keys.discard("")
+        if qk in keys:
+            exact.append(img)
+            continue
+        if qtokens and any(qtokens.issubset(set(k.split())) for k in keys):
+            partial.append(img)
+    ordered: list[str] = []
+    for img in exact + partial:
+        if img not in ordered:
+            ordered.append(img)
+    ordered = ordered[:8]
+    # Prefer cutoff .webp; append the original .jpg as fallback (same id -> deduped).
+    cutoffs = []
+    jpgs = []
+    for img in ordered:
+        cutoff = re.sub(r"/\d+x\d+/", "/cutoff/", img)
+        cutoff = re.sub(r"\.jpe?g$", ".webp", cutoff)
+        cutoffs.append(cutoff)
+        jpgs.append(img)
+    return cutoffs + jpgs
+
+
+_SORARE_ALGOLIA_CFG: dict[str, str] = {}
+_SORARE_ALGOLIA_LOCK = threading.Lock()
+
+
+def _sorare_algolia_config() -> tuple[str, str]:
+    """Sorare's site search is Algolia. The app id + (rotating) search key are
+    exposed by the public GraphQL `config`; fetch + cache them for this process.
+    Sorare's GraphQL has NO unauthenticated name search (slugs are full legal
+    names, e.g. 'kylian-mbappe-lottin'), so Algolia is the only name resolver."""
+    with _SORARE_ALGOLIA_LOCK:
+        if _SORARE_ALGOLIA_CFG:
+            return _SORARE_ALGOLIA_CFG.get("appId", ""), _SORARE_ALGOLIA_CFG.get("key", "")
+    body = json.dumps(
+        {"query": "{ config { algoliaApplicationId algoliaSearchApiKey } }"}
+    ).encode("utf-8")
+    req = urllib.request.Request(
+        "https://api.sorare.com/graphql",
+        data=body,
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": HTTP_USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15.0, context=SSL_CTX) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception:  # noqa: BLE001
+        return "", ""
+    cfg = (((data or {}).get("data") or {}).get("config")) or {}
+    app_id = str(cfg.get("algoliaApplicationId") or "")
+    key = str(cfg.get("algoliaSearchApiKey") or "")
+    if app_id and key:
+        with _SORARE_ALGOLIA_LOCK:
+            _SORARE_ALGOLIA_CFG["appId"] = app_id
+            _SORARE_ALGOLIA_CFG["key"] = key
+    return app_id, key
+
+
+def _sorare_candidate_image_urls(name: str) -> list[str]:
+    """Resolve a name via Sorare's Algolia 'Player' index -> squaredPictureUrl
+    (the square cutout) + avatarUrl, straight from the search record."""
+    qk = _photo_name_key(name)
+    if not qk:
+        return []
+    app_id, key = _sorare_algolia_config()
+    if not app_id or not key:
+        return []
+    qtokens = set(qk.split())
+    params = f"query={quote(str(name))}&hitsPerPage=20"
+    body = json.dumps({"params": params}).encode("utf-8")
+    req = urllib.request.Request(
+        f"https://{app_id}-dsn.algolia.net/1/indexes/Player/query",
+        data=body,
+        headers={
+            "X-Algolia-Application-Id": app_id,
+            "X-Algolia-API-Key": key,
+            "Content-Type": "application/json",
+            "User-Agent": HTTP_USER_AGENT,
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15.0, context=SSL_CTX) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except Exception:  # noqa: BLE001
+        return []
+    hits = data.get("hits") if isinstance(data, dict) else None
+    if not isinstance(hits, list):
+        return []
+    exact_sq: list[str] = []
+    exact_av: list[str] = []
+    partial_sq: list[str] = []
+    partial_av: list[str] = []
+    for h in hits:
+        if not isinstance(h, dict):
+            continue
+        if str(h.get("sport") or "football").lower() != "football":
+            continue
+        dk = _photo_name_key(h.get("display_name"))
+        if not dk:
+            continue
+        sq = h.get("squaredPictureUrl") or h.get("squared_picture_url")
+        av = h.get("avatarUrl") or h.get("avatar_url")
+        if dk == qk:
+            if sq:
+                exact_sq.append(str(sq))
+            if av:
+                exact_av.append(str(av))
+        elif qtokens and qtokens.issubset(set(dk.split())):
+            if sq:
+                partial_sq.append(str(sq))
+            if av:
+                partial_av.append(str(av))
+    urls: list[str] = []
+    for u in exact_sq + partial_sq + exact_av + partial_av:  # squared first (best crop)
+        if u not in urls:
+            urls.append(u)
+    return urls[:8]
+
+
+def _photo_candidate_group_key(url: str) -> str:
+    """Group images that are the same player (so a cutoff + its jpg fallback don't
+    both show). UEFA images are keyed by numeric id; everything else is per-URL."""
+    m = re.search(r"/players/\d+/\d+/[^/]+/(\d+)\.(?:webp|jpe?g|png)", url)
+    if m:
+        return "uefa:" + m.group(1)
+    return url
+
+
+def _photo_mime_for_url(url: str) -> str:
+    u = url.lower().split("?", 1)[0]
+    if u.endswith(".webp"):
+        return "image/webp"
+    if u.endswith(".png"):
+        return "image/png"
+    if u.endswith(".gif"):
+        return "image/gif"
+    return "image/jpeg"
+
+
+def _build_photo_candidates(urls: list[str], cap: int = 10) -> list[dict]:
+    """Fetch each candidate URL server-side (handles UEFA Referer/AVIF quirks) and
+    return [{url, dataUrl}] for preview. One image per player group; skips misses."""
+    out: list[dict] = []
+    seen_groups: set[str] = set()
+    for u in urls:
+        if len(out) >= cap:
+            break
+        grp = _photo_candidate_group_key(u)
+        if grp in seen_groups:
+            continue
+        try:
+            raw = _fetch_external_image_bytes(u)
+        except Exception:  # noqa: BLE001 — a 404/timeout on one URL must not kill the rest
+            continue
+        if not _ready_photo_bytes_look_like_image(raw):
+            continue
+        b64 = base64.b64encode(raw).decode("ascii")
+        out.append({"url": u, "dataUrl": f"data:{_photo_mime_for_url(u)};base64,{b64}"})
+        seen_groups.add(grp)
+    return out
+
+
 def _ready_photo_subdir(player_name: str, club_name: str | None) -> str:
     """Folder under Ready photos: ``{player}_{club}`` (sanitized for Windows paths)."""
     p = _safe_path_component(player_name)
@@ -546,27 +823,41 @@ def _resolve_existing_ready_photo_paths(
     return [p for p in candidates if p.is_file()]
 
 
-_REMBG_SESSION = None
+# ── Background removal — best-quality model with graceful fallbacks ───────────
+# BiRefNet (2024 SOTA) gives far cleaner edges (hair, jersey trims, fingers) than
+# the old u2net_human_seg; isnet-general-use is a strong lighter fallback; the
+# u2net models are last resorts so removal NEVER hard-fails. The list is tried in
+# order for the ACTUAL remove call, so a model that loads but OOMs at inference
+# (BiRefNet is RAM-heavy) automatically steps down. Override the preferred model
+# with env REMBG_MODEL (e.g. REMBG_MODEL=isnet-general-use on low-RAM machines).
+_REMBG_MODELS = [
+    (os.environ.get("REMBG_MODEL", "").strip() or "birefnet-general"),
+    "birefnet-general-lite",
+    "isnet-general-use",
+    "u2net_human_seg",
+    "u2net",
+]
+_REMBG_SESSIONS: dict = {}
+_REMBG_GOOD_MODEL: str | None = None  # first model that actually worked this run
 
 
-def _rembg_session():
-    """Lazily build the rembg `u2net_human_seg` session (matches the batch script)."""
-    global _REMBG_SESSION
-    if _REMBG_SESSION is not None:
-        return _REMBG_SESSION
-    try:
+def _rembg_session_for(model: str):
+    """Cached rembg session for a model name (downloaded on first use)."""
+    if model not in _REMBG_SESSIONS:
         from rembg import new_session  # type: ignore
-    except ImportError as exc:
-        raise ValueError(
-            "rembg is not installed. Run: pip install rembg",
-        ) from exc
-    print("[Ready photo] loading rembg u2net_human_seg model…", flush=True)
-    _REMBG_SESSION = new_session("u2net_human_seg")
-    return _REMBG_SESSION
+
+        print(f"[Ready photo] loading rembg model '{model}'…", flush=True)
+        _REMBG_SESSIONS[model] = new_session(model)
+        print(f"[Ready photo] rembg model '{model}' ready.", flush=True)
+    return _REMBG_SESSIONS[model]
 
 
 def _remove_background_in_place(image_path: Path) -> Path:
-    """Strip background via rembg; write a transparent PNG. Returns the new file path."""
+    """Strip background via rembg (best model available); write a transparent PNG.
+    Tries BiRefNet → isnet → u2net in order, surviving load- AND inference-time
+    failures, and remembers the first model that worked so later calls skip a
+    heavy one that OOMs. Returns the new file path."""
+    global _REMBG_GOOD_MODEL
     try:
         from PIL import Image  # type: ignore
         from rembg import remove  # type: ignore
@@ -575,20 +866,43 @@ def _remove_background_in_place(image_path: Path) -> Path:
             "rembg/Pillow not installed. Run: pip install rembg Pillow",
         ) from exc
 
-    session = _rembg_session()
-    print(f"[Ready photo] rembg processing {image_path.name}", flush=True)
-    with Image.open(image_path) as src:
-        out = remove(src, session=session, post_process_mask=True)
-        png_path = image_path.with_suffix(".png")
-        out.save(png_path, format="PNG")
+    # Preference order: the model that already worked this run, then the configured list.
+    models = list(dict.fromkeys(m for m in _REMBG_MODELS if m))
+    if _REMBG_GOOD_MODEL:
+        models = [_REMBG_GOOD_MODEL] + [m for m in models if m != _REMBG_GOOD_MODEL]
+
+    with Image.open(image_path) as f:
+        src = f.convert("RGBA")  # load pixels now so the file handle can close
+
+    last_err: Exception | None = None
+    for model in models:
         try:
-            out.close()
-        except Exception:  # noqa: BLE001
-            pass
-    if image_path.suffix.lower() != ".png":
-        image_path.unlink(missing_ok=True)
-    print(f"[Ready photo] rembg saved {png_path.name}", flush=True)
-    return png_path
+            session = _rembg_session_for(model)
+            print(f"[Ready photo] rembg ({model}) processing {image_path.name}", flush=True)
+            out = remove(src, session=session, post_process_mask=True)
+            png_path = image_path.with_suffix(".png")
+            out.save(png_path, format="PNG")
+            try:
+                out.close()
+            except Exception:  # noqa: BLE001
+                pass
+            if image_path.suffix.lower() != ".png":
+                image_path.unlink(missing_ok=True)
+            _REMBG_GOOD_MODEL = model
+            print(f"[Ready photo] rembg ({model}) saved {png_path.name}", flush=True)
+            return png_path
+        except Exception as exc:  # noqa: BLE001
+            last_err = exc
+            # Drop a bad session so we don't reuse a broken/half-loaded one.
+            _REMBG_SESSIONS.pop(model, None)
+            print(
+                f"[Ready photo] model '{model}' failed ({type(exc).__name__}: {exc}); trying next…",
+                flush=True,
+            )
+    raise ValueError(
+        "Background removal failed for every model "
+        f"({', '.join(models)}). Last error: {last_err}",
+    )
 
 
 def _portrait_bytes_to_png_bytes(raw: bytes) -> bytes | None:
@@ -1364,6 +1678,88 @@ def _load_runner_saved_scripts():  # noqa: D401
 _runner_saved_mod = _load_runner_saved_scripts()
 
 
+def _load_runner_json_blob():  # noqa: D401
+    path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_runner_blob.py"
+    spec = importlib.util.spec_from_file_location("_fc_runner_json_blob", path)
+    mod = importlib.util.module_from_spec(spec)
+    if spec.loader is None:
+        raise RuntimeError("Cannot load dev_server_runner_blob.py")
+    spec.loader.exec_module(mod)
+    return mod
+
+
+_runner_blob_mod = _load_runner_json_blob()
+
+
+# ── auto-rebuild the Remotion project's generated data after prep-panel saves ──
+# The Remotion runner renders from src/generated/{saves,audio}.json — SNAPSHOTS
+# built by scripts/build-data.mjs. Every data-mutating save from this prep panel
+# (block.script autosave, name overrides, photos, logos, voices) schedules a
+# DEBOUNCED rebuild so Remotion Studio always reflects the latest edits (its
+# webpack watch hot-reloads when the generated json changes).
+REMOTION_PROJECT_DIR = (
+    PROJECT_ROOT / "___Remotion___" / "3_Guess The Player By Carrer Path - Main Runner - Regular_Remotion"
+)
+_REMOTION_BUILD_DEBOUNCE_SEC = 3.0
+_remotion_build_lock = threading.Lock()
+_remotion_build_timer: threading.Timer | None = None
+_remotion_build_running = threading.Event()
+_remotion_build_again = threading.Event()
+
+
+def _remotion_node_exe() -> str:
+    cand = Path(r"C:\Program Files\nodejs\node.exe")
+    return str(cand) if cand.exists() else "node"
+
+
+def _run_remotion_build_data() -> None:
+    global _remotion_build_timer
+    with _remotion_build_lock:
+        _remotion_build_timer = None
+    if _remotion_build_running.is_set():
+        # A build is mid-flight; remember to run once more when it finishes.
+        _remotion_build_again.set()
+        return
+    _remotion_build_running.set()
+    try:
+        script = REMOTION_PROJECT_DIR / "scripts" / "build-data.mjs"
+        if not script.exists():
+            return
+        flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        proc = subprocess.run(
+            [_remotion_node_exe(), str(script)],
+            cwd=str(REMOTION_PROJECT_DIR),
+            capture_output=True,
+            text=True,
+            timeout=300,
+            creationflags=flags,
+        )
+        if proc.returncode == 0:
+            print("[remotion] build-data refreshed (saves.json + audio.json + asset sync)")
+        else:
+            tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-3:]
+            print(f"[remotion] build-data FAILED (exit {proc.returncode}): " + " | ".join(tail))
+    except Exception as exc:  # noqa: BLE001
+        print(f"[remotion] build-data failed: {exc}")
+    finally:
+        _remotion_build_running.clear()
+        if _remotion_build_again.is_set():
+            _remotion_build_again.clear()
+            schedule_remotion_build_data()
+
+
+def schedule_remotion_build_data() -> None:
+    """Debounced: runs build-data ~3s after the LAST mutating save."""
+    global _remotion_build_timer
+    with _remotion_build_lock:
+        if _remotion_build_timer is not None:
+            _remotion_build_timer.cancel()
+        timer = threading.Timer(_REMOTION_BUILD_DEBOUNCE_SEC, _run_remotion_build_data)
+        timer.daemon = True
+        _remotion_build_timer = timer
+        timer.start()
+
+
 def _load_recording_status():  # noqa: D401
     path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_recording_status.py"
     spec = importlib.util.spec_from_file_location("_fc_recording_status", path)
@@ -1622,11 +2018,18 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
 
     def _send_json(self, status: int, payload: object) -> None:
         body = json.dumps(payload, ensure_ascii=True).encode("utf-8")
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Content-Length", str(len(body)))
-        self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+        except (ConnectionAbortedError, ConnectionResetError, BrokenPipeError):
+            # The browser dropped the connection while we were busy (e.g. a slow
+            # background-removal request the page gave up on). The work already
+            # finished server-side; just swallow the write error instead of
+            # spewing a traceback.
+            pass
 
     def _read_json_body(self) -> dict:
         try:
@@ -2054,30 +2457,44 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             country_hint = str(body.get("countryHint") or "").strip()
             league_hint = str(body.get("leagueHint") or "").strip()
             page_url = str(body.get("pageUrl") or "").strip()
+            direct_url = str(body.get("imageUrl") or "").strip()
             target_path, rel_path = _resolve_team_logo_target(body)
         except ValueError as exc:
             self._send_json(400, {"ok": False, "error": str(exc)})
             return True
 
-        try:
-            if page_url:
-                fetched = _try_fetch_football_logo_png_from_user_url(page_url)
-            else:
-                fetched = _try_fetch_football_logo_png_3000(
-                    team_name,
-                    country_hint=country_hint,
-                    league_hint=league_hint,
+        # Direct image URL: download the pasted image and use it verbatim.
+        if direct_url:
+            raw_bytes = b""
+            try:
+                normalized = _normalize_external_image_url(direct_url)
+                raw_bytes = _fetch_external_image_bytes(normalized)
+            except Exception:
+                raw_bytes = b""
+            if not raw_bytes or not _ready_photo_bytes_look_like_image(raw_bytes):
+                self._send_json(404, {"ok": False, "error": "Could not download image from that URL."})
+                return True
+            fetched = (raw_bytes, {"name": team_name, "fromUrl": direct_url})
+        else:
+            try:
+                if page_url:
+                    fetched = _try_fetch_football_logo_png_from_user_url(page_url)
+                else:
+                    fetched = _try_fetch_football_logo_png_3000(
+                        team_name,
+                        country_hint=country_hint,
+                        league_hint=league_hint,
+                    )
+            except Exception:
+                fetched = None
+            if fetched is None:
+                err_msg = (
+                    "Could not download team logo from pasted URL."
+                    if page_url
+                    else "Could not fetch logo from football-logos.cc."
                 )
-        except Exception:
-            fetched = None
-        if fetched is None:
-            err_msg = (
-                "Could not download team logo from pasted URL."
-                if page_url
-                else "Could not fetch logo from football-logos.cc."
-            )
-            self._send_json(404, {"ok": False, "error": err_msg})
-            return True
+                self._send_json(404, {"ok": False, "error": err_msg})
+                return True
 
         image_bytes, entry = fetched
         if not image_bytes:
@@ -2105,6 +2522,78 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 "sha256": hashlib.sha256(image_bytes).hexdigest(),
             },
         )
+        return True
+
+    def _try_delete_team_logo(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__team-logo/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            rel_path_raw = str(body.get("relativePath") or body.get("relPath") or "").strip()
+            if rel_path_raw:
+                rel_path = rel_path_raw.replace("\\", "/").split("?", 1)[0].lstrip("/")
+                if not rel_path or rel_path.startswith("/") or ".." in rel_path:
+                    raise ValueError("Invalid logo path.")
+                target_path = (PROJECT_ROOT / Path(rel_path)).resolve()
+            else:
+                # Fall back to resolving the same file the fetch would write.
+                target_path, rel_path = _resolve_team_logo_target(body)
+                rel_path = rel_path.replace("\\", "/").split("?", 1)[0]
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        # SAFETY: only allow deletes that resolve to a file under Images/Teams/.
+        project_root_resolved = PROJECT_ROOT.resolve()
+        teams_root = (PROJECT_ROOT / "Images" / "Teams").resolve()
+        if teams_root not in target_path.parents:
+            self._send_json(400, {"ok": False, "error": "Refusing to delete outside Images/Teams."})
+            return True
+        if project_root_resolved not in target_path.parents:
+            self._send_json(400, {"ok": False, "error": "Invalid logo path."})
+            return True
+
+        if target_path.exists() and target_path.is_file():
+            try:
+                target_path.unlink()
+            except OSError:
+                self._send_json(500, {"ok": False, "error": "Failed to delete team logo file."})
+                return True
+
+        self._send_json(200, {"ok": True, "relativePath": rel_path.replace("\\", "/")})
+        return True
+
+    def _try_ready_photo_search_candidates(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__ready-photo/search-candidates":
+            return False
+        try:
+            body = self._read_json_body()
+            player_name = str(body.get("playerName") or "").strip()
+            source = str(body.get("source") or "").strip().lower()
+        except ValueError as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return True
+        if not player_name:
+            self._send_json(400, {"ok": False, "error": "Missing player name."})
+            return True
+        if source not in ("uefa", "sorare"):
+            self._send_json(400, {"ok": False, "error": "source must be 'uefa' or 'sorare'."})
+            return True
+        try:
+            if source == "uefa":
+                urls = _uefa_cl_candidate_image_urls(player_name)
+            else:
+                urls = _sorare_candidate_image_urls(player_name)
+        except Exception as exc:  # noqa: BLE001
+            self._send_json(
+                502,
+                {"ok": False, "error": f"Search failed ({type(exc).__name__}: {exc})."},
+            )
+            return True
+        candidates = _build_photo_candidates(urls, cap=10)
+        self._send_json(200, {"ok": True, "source": source, "candidates": candidates})
         return True
 
     def _try_ready_photo_from_url(self) -> bool:
@@ -2334,6 +2823,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         return body[:index] + snippet + b"\n" + body[index:]
 
     def do_GET(self) -> None:  # noqa: N802
+        if _runner_blob_mod.try_handle_get(self, PROJECT_ROOT):
+            return
         if _runner_saved_mod.try_handle_get(self, PROJECT_ROOT):
             return
         if _recording_status_mod.try_handle_get(self, PROJECT_ROOT):
@@ -2398,9 +2889,16 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         return io.BytesIO(body)
 
     def do_POST(self) -> None:  # noqa: N802
+        # Data-mutating saves schedule a debounced Remotion build-data so the
+        # Remotion project's generated snapshot always matches the panel.
+        if _runner_blob_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
+            return
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
             return
         if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
             return
         if _youtube_mod.try_handle_post(self, PROJECT_ROOT):
             return
@@ -2409,28 +2907,43 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if _runner_aliases_mod.try_handle_post(self, PROJECT_ROOT):
             return
         if self._try_generate_player_voice():
+            schedule_remotion_build_data()
             return
         if self._try_delete_player_voice():
+            schedule_remotion_build_data()
             return
         if self._try_generate_quiz_title_voice():
+            schedule_remotion_build_data()
             return
         if self._try_delete_quiz_title_voice():
+            schedule_remotion_build_data()
             return
         if self._try_generate_ending_voice():
+            schedule_remotion_build_data()
             return
         if self._try_delete_ending_voice():
+            schedule_remotion_build_data()
             return
         if self._try_generate_bundled_voice():
             return
         if self._try_delete_bundled_voice():
             return
         if self._try_fetch_team_logo():
+            schedule_remotion_build_data()
+            return
+        if self._try_delete_team_logo():
+            schedule_remotion_build_data()
+            return
+        if self._try_ready_photo_search_candidates():
             return
         if self._try_ready_photo_from_url():
+            schedule_remotion_build_data()
             return
         if self._try_ready_photo_remove_bg():
+            schedule_remotion_build_data()
             return
         if self._try_ready_photo_delete():
+            schedule_remotion_build_data()
             return
         if not self._is_size_favorites_endpoint():
             self._send_json(404, {"error": "Not found"})

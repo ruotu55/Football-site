@@ -24,7 +24,7 @@ export const INTRO_STRINGS: IntroStringsByLanguage = {
 
 // Intro sizes matched to runner 2 (user request 2026-06-11): title 155, season 126.
 export const TITLE_FONT_SIZE = 155;
-export const SEASON_FONT_SIZE = 126;
+export const SEASON_FONT_SIZE = 72;
 
 // Background default — runner 7 uses colorId "extra-soft-green" + effect "center-rings".
 // Color label: "#81C784 - Football Team Name"  (id: extra-soft-green)

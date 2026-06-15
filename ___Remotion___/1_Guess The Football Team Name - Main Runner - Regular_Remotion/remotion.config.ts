@@ -1,6 +1,21 @@
 import path from "node:path";
 import { Config } from "@remotion/cli/config";
 
+// The shared code lives OUTSIDE this project (../../.remotion-shared/src — at the repo
+// root), imported via the "@shared/*" alias. Two webpack tweaks make that work:
+//  • resolve.alias maps "@shared" → the shared src folder.
+//  • resolve.modules adds this project's node_modules so the shared files (outside the
+//    project root) can resolve react / remotion / @remotion/* / zod against it.
+const SHARED_SRC = path.resolve(process.cwd(), "..", "..", ".remotion-shared", "src");
+Config.overrideWebpackConfig((config) => ({
+  ...config,
+  resolve: {
+    ...config.resolve,
+    alias: { ...(config.resolve?.alias ?? {}), "@shared": SHARED_SRC },
+    modules: [path.resolve(process.cwd(), "node_modules"), "node_modules"],
+  },
+}));
+
 Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
 

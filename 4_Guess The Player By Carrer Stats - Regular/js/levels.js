@@ -79,6 +79,13 @@ export function switchLevel(
   appState.currentLevelIndex = index;
   const state = getState();
   const { els } = appState;
+
+  // PREP PANEL: the playable stage (logo/landing/outro/progress pages) isn't in
+  // the DOM, so the full level-switch render below would deref null elements. The
+  // prep panel renders EVERY level itself (renderPrepPanel) and tracks the active
+  // one via its own setActiveLevel — so just record the index and stop here.
+  if (document.getElementById("prep-root")) return;
+
   const isQuestionLevel = index > 1 && index < appState.totalLevelsCount;
   if (isQuestionLevel && !state.careerPlayer) {
     const baselineQuestionState = appState.levelsData[2];

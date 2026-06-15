@@ -119,8 +119,37 @@ const clubStems = (name) => {
   out.add(d.replace(/\s+(FC|CF|BC|SC|AC|SK|FK|KV|AFC|CD|CA)$/i, ""));
   return [...out];
 };
+// Transfermarkt-style abbreviations that no amount of token matching can bridge to
+// the canonical crest filename (different words entirely). Keyed by norm(shortName)
+// → a canonical name that the resolver then matches. Only includes clubs whose crest
+// actually exists in Images/Teams (verified) so we never point at a wrong logo.
+const CREST_ALIASES = {
+  mancity: "Manchester City",
+  manutd: "Manchester United",
+  wolves: "Wolverhampton Wanderers",
+  westbrom: "West Bromwich Albion",
+  nottmforest: "Nottingham Forest",
+  qpr: "Queens Park Rangers",
+  hamburg: "Hamburger SV",
+  sporting: "Sporting CP",
+  uspalermo: "Palermo FC",
+  alhilal: "Al-Hilal SC",
+  unionsg: "Union Saint-Gilloise",
+};
+
+// Split a club name into significant word-tokens (accent-free, lowercased), e.g.
+// "Borussia Dortmund" → ["borussia","dortmund"]. Used for fuzzy crest matching.
+const clubTokens = (name) =>
+  stripAccents(String(name || ""))
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter((t) => t.length >= 2);
+
 export const buildClubCrestIndex = (IMAGES) => {
   const byClub = new Map();
+  const toksByKey = new Map();
   walkDirs(path.join(IMAGES, "Teams"), (dir, entries) => {
     for (const e of entries) {
       if (!e.isFile() || !/\.(png|webp|jpe?g)$/i.test(e.name)) continue;
@@ -129,12 +158,48 @@ export const buildClubCrestIndex = (IMAGES) => {
       const club = e.name.replace(/\.(png|webp|jpe?g)$/i, "");
       const rel = path.relative(IMAGES, path.join(dir, e.name)).replace(/\\/g, "/");
       const k = norm(club);
-      if (!byClub.has(k)) byClub.set(k, rel);
+      if (!byClub.has(k)) {
+        byClub.set(k, rel);
+        toksByKey.set(k, clubTokens(club));
+      }
     }
   });
+  // Flat entry list for the fuzzy fallback (one per unique normalised name).
+  const entries = [...byClub.entries()].map(([k, rel]) => ({ rel, toks: toksByKey.get(k) || [] }));
+  // Token-subset fuzzy match — handles a dropped prefix or added suffix:
+  // "Dortmund" → "Borussia Dortmund", "Birmingham" → "Birmingham City". A file
+  // matches if every query token is in the file name (or vice versa); we keep the
+  // closest one and only accept it when it's UNAMBIGUOUS, so a wrong crest is never
+  // shown (ambiguous → null, i.e. a "?" placeholder).
+  const fuzzy = (name) => {
+    const qt = clubTokens(name);
+    if (!qt.length) return null;
+    const cands = [];
+    for (const en of entries) {
+      if (!en.toks.length) continue;
+      const allQin = qt.every((t) => en.toks.includes(t));
+      const allNin = en.toks.every((t) => qt.includes(t));
+      if (allQin || allNin) cands.push({ rel: en.rel, score: Math.abs(en.toks.length - qt.length) });
+    }
+    if (!cands.length) return null;
+    const min = Math.min(...cands.map((c) => c.score));
+    const top = cands.filter((c) => c.score === min);
+    return top.length === 1 ? top[0].rel : null;
+  };
   return (club) => {
-    for (const s of clubStems(club)) {
-      const hit = byClub.get(norm(s));
+    // Try the raw club name first, then a known abbreviation alias if any.
+    const aliased = CREST_ALIASES[norm(club)];
+    const names = aliased ? [club, aliased] : [club];
+    // 1) exact stem match (strips leading/trailing FC/AC/etc.)
+    for (const nm of names) {
+      for (const s of clubStems(nm)) {
+        const hit = byClub.get(norm(s));
+        if (hit) return hit;
+      }
+    }
+    // 2) token-subset fuzzy fallback
+    for (const nm of names) {
+      const hit = fuzzy(nm);
       if (hit) return hit;
     }
     return null;
@@ -314,28 +379,42 @@ export const buildAudioManifest = (V, { bgm, quizTitleEn, quizTitleEs }) => {
       english: V.audioDurationSec(quizTitleEn),
       spanish: V.audioDurationSec(quizTitleEs),
     },
+    // Outro voice — ALWAYS "How many did you get?".
     ending: {
-      english: {
-        "think-you-know": V.voiceRel(V.findVoiceFile("Ending Guess/english", /think you know/i)),
-        "how-many": V.voiceRel(V.findVoiceFile("Ending Guess/english", /how many/i)),
-      },
-      spanish: {
-        "think-you-know": V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /crees/i)),
-        "how-many": V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /cuantas/i)),
-      },
+      english: { "how-many": V.voiceRel(V.findVoiceFile("Ending Guess/english", /how many/i)) },
+      spanish: { "how-many": V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /cuantas/i)) },
     },
     endingDurationSec: {
-      english: {
-        "think-you-know": V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/english", /think you know/i))),
-        "how-many": V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/english", /how many/i))),
-      },
-      spanish: {
-        "think-you-know": V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /crees/i))),
-        "how-many": V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /cuantas/i))),
-      },
+      english: { "how-many": V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/english", /how many/i))) },
+      spanish: { "how-many": V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /cuantas/i))) },
+    },
+    // Mid-quiz break voice ("Think you know the answer? Comment below … let's continue!").
+    midBreak: {
+      english: V.voiceRel(V.findVoiceFile("Ending Guess/english", /lets continue/i)),
+      spanish: V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /seguimos/i)),
+    },
+    midBreakDurationSec: {
+      english: V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/english", /lets continue/i))),
+      spanish: V.audioDurationSec(V.voiceRel(V.findVoiceFile("Ending Guess/spanish", /seguimos/i))),
+    },
+    // BONUS-window voice VARIANTS (bonus-01..05): one is picked per save
+    // (deterministic hash) so each video gets a random-feeling line.
+    bonus: {
+      english: bonusVariantPaths(V, "english"),
+      spanish: bonusVariantPaths(V, "spanish"),
+    },
+    bonusDurationSec: {
+      english: bonusVariantPaths(V, "english").map((p) => V.audioDurationSec(p)),
+      spanish: bonusVariantPaths(V, "spanish").map((p) => V.audioDurationSec(p)),
     },
   };
 };
+
+export const BONUS_VOICE_VARIANTS = 5;
+const bonusVariantPaths = (V, lang) =>
+  Array.from({ length: BONUS_VOICE_VARIANTS }, (_, i) =>
+    V.voiceRel(`Bonus/${lang}/bonus-${String(i + 1).padStart(2, "0")}.mp3`),
+  );
 
 // Pick a deterministic single BGM track (the runner shuffles 5 per save; one is enough here).
 export const firstBgm = (V, VOICES_SRC) => {

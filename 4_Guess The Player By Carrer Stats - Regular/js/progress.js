@@ -98,6 +98,9 @@ function scrollQuizProgressToActiveStep(scrollEl, stepEl, isShorts) {
 export function renderProgressSteps(totalLevels, switchLevel) {
   const { els } = appState;
 
+  // Prep panel: the quiz-progress bar (progress.html) isn't loaded — no-op.
+  if (!els.quizProgressScroll) return;
+
   quizProgressSwitchLevelRef = switchLevel;
   bindQuizProgressWheelNav(getNavigableLevelIndicesCareerRegular);
 

@@ -445,6 +445,44 @@ export function renameCurrentClubByNatTeamName(nextNameRaw) {
 export function isCurrentHeaderTeamNameEditable() {
   return isClubByNatHeaderEditContext(getState(), appState.els.inQuizType?.value);
 }
+
+/** Quiz type used for rename/display resolution: NATIONAL squads (this
+ *  runner's main mode) are renameable in "nat-by-club"; club-type levels in
+ *  "club-by-nat" (matches isClubByNatHeaderEditContext). */
+function teamRenameQuizType(state = getState()) {
+  return state?.squadType === "national" ? "nat-by-club" : "club-by-nat";
+}
+
+/** The team name currently shown for the active level (override-aware). */
+export function getCurrentTeamDisplayName() {
+  const state = getState();
+  return resolveHeaderTeamDisplayName(state, teamRenameQuizType(state));
+}
+
+/**
+ * Rename the active level's team.
+ *  - persistGlobal=true  → save PERMANENTLY (shared
+ *    team_name_overrides_shared_national.json, pushed to the server so it
+ *    survives terminal restarts and applies in every main runner) + stamp the
+ *    per-level override so it rides with the save.
+ *  - persistGlobal=false → this save only (per-level override; not global).
+ * Returns the resolved display name.
+ */
+export function applyTeamRename(nextNameRaw, persistGlobal) {
+  const state = getState();
+  if (!state) return "";
+  const baseName = getBaseTeamName(state);
+  const nextName = String(nextNameRaw || "").trim();
+  const isReset = !nextName || nextName.toLowerCase() === baseName.toLowerCase();
+  if (persistGlobal) {
+    // Writes shared overrides + per-level + server-persist (across runners/restarts).
+    renameCurrentClubByNatTeamName(isReset ? "" : nextName);
+  } else {
+    state.headerTeamNameOverride = isReset ? "" : nextName;
+  }
+  markPrepDirty();
+  return resolveHeaderTeamDisplayName(state, teamRenameQuizType(state));
+}
 export function ensureInternationalClubPoolLoaded() {
   if (appState.internationalClubPool != null) {
     return Promise.resolve();
@@ -582,13 +620,98 @@ function pitchLabelFromPlayerName(fullName) {
   return parts.slice(startIndex).join(" ").toUpperCase();
 }
 
-/** Red name chip: custom edit, else short name, else club (national XIs), else nationality, else em dash. */
-function pitchSlotDisplayLabel(state, player) {
+/* ── Shared PLAYER name overrides (mirrors the team-name overrides) ──────
+   Bucket player_name_overrides_shared → .Storage/storage/runner-blobs/
+   player_name_overrides_shared.json. Keyed by the player's canonical squad
+   name (p.name), value = the display name to ALWAYS show. The Remotion
+   build-data reads the same file, so a permanent rename reaches the video. */
+const PLAYER_NAME_OVERRIDES_STORAGE_KEY = "lineups-shared:player-name-overrides:v1";
+const PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT = "/__runner-json-blob/player_name_overrides_shared";
+let playerNameOverridesCache = null;
+let playerNameOverridesServerPushTimer = null;
+
+function readPlayerNameOverrides() {
+  if (playerNameOverridesCache) return playerNameOverridesCache;
+  let parsed = {};
+  try {
+    parsed = JSON.parse(localStorage.getItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY) || "{}");
+  } catch {
+    parsed = {};
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) parsed = {};
+  playerNameOverridesCache = parsed;
+  return playerNameOverridesCache;
+}
+
+export function getPlayerNameOverride(playerName) {
+  const key = String(playerName || "").trim();
+  if (!key) return "";
+  const v = readPlayerNameOverrides()[key];
+  return v != null ? String(v).trim() : "";
+}
+
+export function setPlayerNameOverride(playerName, displayName) {
+  const key = String(playerName || "").trim();
+  if (!key) return;
+  const map = readPlayerNameOverrides();
+  const clean = String(displayName || "").trim();
+  if (clean) map[key] = clean;
+  else delete map[key];
+  persistPlayerNameOverrides();
+}
+
+function persistPlayerNameOverrides() {
+  if (!playerNameOverridesCache || typeof playerNameOverridesCache !== "object") {
+    playerNameOverridesCache = {};
+  }
+  try {
+    localStorage.setItem(
+      PLAYER_NAME_OVERRIDES_STORAGE_KEY,
+      JSON.stringify(playerNameOverridesCache)
+    );
+  } catch { /* storage full — server copy still happens */ }
+  if (!isTeamNameOverridesHttpServerActive()) return;
+  clearTimeout(playerNameOverridesServerPushTimer);
+  playerNameOverridesServerPushTimer = setTimeout(() => {
+    playerNameOverridesServerPushTimer = null;
+    fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(playerNameOverridesCache),
+    }).catch(() => {});
+  }, 350);
+}
+
+export async function initPlayerNameOverridesSharedSync() {
+  readPlayerNameOverrides();
+  if (!isTeamNameOverridesHttpServerActive()) return;
+  try {
+    const r = await fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, { cache: "no-store" });
+    if (r.ok) {
+      const data = await r.json();
+      if (data && typeof data === "object" && !Array.isArray(data)) {
+        playerNameOverridesCache = { ...readPlayerNameOverrides(), ...data };
+        try {
+          localStorage.setItem(
+            PLAYER_NAME_OVERRIDES_STORAGE_KEY,
+            JSON.stringify(playerNameOverridesCache)
+          );
+        } catch { /* non-fatal */ }
+      }
+    }
+  } catch { /* offline — local copy is used */ }
+}
+
+/** Red name chip: custom edit, else PERMANENT shared override, else short name,
+ *  else club (national XIs), else nationality, else em dash. */
+export function pitchSlotDisplayLabel(state, player) {
   const nameKey = player?.name != null ? String(player.name) : "";
   const custom = state.customNames[nameKey];
   if (custom != null && String(custom).trim() !== "") {
     return String(custom).trim();
   }
+  const globalOverride = getPlayerNameOverride(nameKey);
+  if (globalOverride) return globalOverride;
   const trimmedName = nameKey.trim();
   if (trimmedName) {
     const fromName = pitchLabelFromPlayerName(trimmedName);
@@ -612,13 +735,31 @@ function applySlotNameEdit(label, player) {
   if (next === null) return;
   const clean = String(next).trim();
   if (clean) {
-    state.customNames[key] = clean;
+    const saveForAll = window.confirm(
+      `Save "${clean}" PERMANENTLY for ${key}?\n\n` +
+        "OK — every save/runner that loads this player shows this name from now on " +
+        "(and Remotion build-data uses it for the video).\n" +
+        "Cancel — only for THIS save."
+    );
+    if (saveForAll) {
+      setPlayerNameOverride(key, clean);
+      delete state.customNames[key]; // the shared override covers it now
+    } else {
+      state.customNames[key] = clean;
+    }
     label.textContent = clean;
   } else {
     delete state.customNames[key];
+    if (
+      getPlayerNameOverride(key) &&
+      window.confirm(`Also remove the PERMANENT name override for ${key}?`)
+    ) {
+      setPlayerNameOverride(key, "");
+    }
     label.textContent = pitchSlotDisplayLabel(state, player);
   }
   scheduleSlotNameFit();
+  markPrepDirty();
 }
 
 function wireSlotNameEditing(label, player) {
@@ -845,14 +986,19 @@ function renderSwapLogoList(names) {
 }
 
 function applyStrictAvatarBounds(avatarEl, options = {}) {
-  const clipCircle = options.clipCircle !== false;
-  avatarEl.style.display = "flex";
-  avatarEl.style.justifyContent = "center";
-  avatarEl.style.alignItems = "center";
-  avatarEl.style.overflow = clipCircle ? "hidden" : "visible";
-  avatarEl.style.width = "100%";
-  avatarEl.style.aspectRatio = "1 / 1";
-  avatarEl.style.borderRadius = clipCircle ? "50%" : "0";
+  // Neutered for the prep panel (matches runner 1): the old version forced the
+  // avatar to a 1:1 circle (aspect-ratio + border-radius:50% + overflow:hidden),
+  // which clipped the player photo into a circle. Strip those inline styles so
+  // the CSS (rectangular trading-card) applies and the photo fills the card.
+  void options;
+  avatarEl.style.removeProperty("display");
+  avatarEl.style.removeProperty("justifyContent");
+  avatarEl.style.removeProperty("alignItems");
+  avatarEl.style.removeProperty("overflow");
+  avatarEl.style.removeProperty("width");
+  avatarEl.style.removeProperty("height");
+  avatarEl.style.removeProperty("aspect-ratio");
+  avatarEl.style.removeProperty("border-radius");
 }
 
 /** Legacy ingest left some player records with `nationality: "TM nationality id N"`
@@ -875,12 +1021,20 @@ export function resolvePlayerNationalityLabel(rawNationality) {
   return raw;
 }
 
-/** Video-mode card front when flag/club image is missing — full name, not initials. */
+/** Card front when the flag/club image is missing: the team name in a COPYABLE
+ *  text box (click selects it) so the logo can be searched + downloaded. */
 function appendSlotBadgeTextFallback(badgeWrap, displayText) {
-  const el = document.createElement("div");
-  el.className = "slot-badge-fallback-text";
   const t = String(displayText ?? "").trim();
-  el.textContent = t.length ? t : "—";
+  const el = document.createElement("input");
+  el.type = "text";
+  el.readOnly = true;
+  el.className = "slot-badge-fallback-text slot-badge-fallback-copy";
+  el.value = t.length ? t : "—";
+  el.title = "Logo missing — click to select the name, then copy it";
+  el.addEventListener("click", (e) => {
+    e.stopPropagation();
+    el.select();
+  });
   badgeWrap.appendChild(el);
 }
 
@@ -1039,8 +1193,198 @@ function installBulkPhotoButton() {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    openBulkTeamPhotoModal();
+    openMissingPhotosPickerAllLevels();
   });
+}
+
+/* "Get all photos" — scans EVERY level of the loaded save (no team needs to be
+   selected), collects only players that DON'T have a photo yet, and opens the
+   bulk candidate picker so you choose one per player. */
+function gatherMissingPhotoPlayers() {
+  const out = [];
+  const prevLevel = appState.currentLevelIndex;
+  (appState.levelsData || []).forEach((lvl, levelIndex) => {
+    if (!lvl || lvl.isLogo || lvl.isIntro || lvl.isOutro || !lvl.currentSquad) return;
+    let xi = Array.isArray(lvl.customXi) && lvl.customXi.length ? lvl.customXi : null;
+    if (!xi) {
+      try {
+        xi = pickStartingXI(formationById(lvl.formationId), lvl.currentSquad);
+      } catch { xi = []; }
+    }
+    // playerPhotoPaths resolves against getState() — point it at this level.
+    appState.currentLevelIndex = levelIndex;
+    xi.forEach((p, slotIndex) => {
+      if (!p || !p.name) return;
+      if (playerPhotoPaths(p, lvl.displayMode).length > 0) return; // already has a photo
+      out.push({
+        levelIndex,
+        slotIndex,
+        name: `${p.name} — ${lvl.currentSquad.name}`,
+        club: p.club || "",
+        nationality: p.nationality || "",
+        photoBodyBase: {
+          playerName: p.name,
+          playerClub: p.club || "",
+          playerNationality: p.nationality || "",
+          squadType: lvl.squadType || "",
+          selectedEntry: lvl.selectedEntry || {},
+          currentSquadName: lvl.currentSquad?.name || "",
+        },
+      });
+    });
+  });
+  appState.currentLevelIndex = prevLevel;
+  return out;
+}
+
+function openMissingPhotosPickerAllLevels() {
+  if (!appState.levelsData?.some((l) => l?.currentSquad)) {
+    window.alert("Load a save first.");
+    return;
+  }
+  const players = gatherMissingPhotoPlayers();
+  if (!players.length) {
+    window.alert("Every player in every level already has a photo. 🎉");
+    return;
+  }
+
+  const applyChosen = (data, item) => {
+    const section = data?.indexSection;
+    const key = data?.indexKey;
+    const rel = data?.relativePath;
+    if (!section || !key || !rel) throw new Error("Invalid image index update payload.");
+    if (!appState.playerImages[section]) appState.playerImages[section] = {};
+    const prev = appState.playerImages[section][key];
+    const paths = Array.isArray(prev)
+      ? prev.filter((x) => typeof x === "string" && x.trim())
+      : typeof prev === "string" && prev.trim() ? [prev.trim()] : [];
+    if (!paths.includes(rel)) paths.unshift(rel);
+    appState.playerImages[section][key] = paths;
+    const lvl = appState.levelsData[item.levelIndex];
+    if (lvl?.slotPhotoIndexBySlot?.set) lvl.slotPhotoIndexBySlot.set(item.slotIndex, 0);
+    document.dispatchEvent(
+      new CustomEvent("prep:refresh-level", { detail: { index: item.levelIndex } })
+    );
+  };
+
+  openBulkPhotoPicker({
+    teamLabel: "Players missing a photo · all levels",
+    players,
+    sources: ["fut.gg", "365scores"],
+    loadCandidates: async ({ player, source }) => {
+      const res = await fetch(LIST_PHOTO_CANDIDATES_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Photo search failed.");
+      return Array.isArray(data.candidates) ? data.candidates : [];
+    },
+    onSelectCandidate: async ({ player, candidate, source }) => {
+      const res = await fetch(SAVE_CHOSEN_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...player.photoBodyBase, source, imageDataUrl: candidate.dataUrl }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) throw new Error(data?.error || "Failed to save photo.");
+      applyChosen(data, player);
+    },
+    onPasteUrl: (player) => {
+      openPlayerPhotoUrlModal(player.photoBodyBase.playerName, async (imageUrl) => {
+        const res = await fetch(PLAYER_PHOTO_FROM_URL_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...player.photoBodyBase, imageUrl }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data?.ok) throw new Error(data?.error || "Could not download photo from URL.");
+        applyChosen(data, player);
+      });
+    },
+  });
+}
+
+/* "Get all photos": for the ACTIVE team, auto-fetch a photo for every player
+   that doesn't have one yet (fut.gg, then leaves a report for any not found).
+   No picker — one best photo per player, applied straight away. */
+let bulkPhotoBusy = false;
+async function autoFetchMissingTeamPhotos(btn) {
+  if (bulkPhotoBusy) return;
+  const state = getState();
+  if (!state?.currentSquad) {
+    window.alert("Click a team first, then Get all photos.");
+    return;
+  }
+  const xi = appState.currentXi || [];
+  const targets = [];
+  xi.forEach((p, slotIndex) => {
+    if (!p || !p.name) return;
+    if (playerPhotoPaths(p, state.displayMode).length > 0) return; // already has one
+    targets.push({ p, slotIndex });
+  });
+  if (!targets.length) {
+    window.alert("Every player in this team already has a photo.");
+    return;
+  }
+
+  bulkPhotoBusy = true;
+  const origText = btn.textContent;
+  btn.disabled = true;
+  let got = 0;
+  const fails = [];
+  for (let i = 0; i < targets.length; i++) {
+    const { p, slotIndex } = targets[i];
+    btn.textContent = `Fetching ${i + 1}/${targets.length}…`;
+    try {
+      const res = await fetch(AUTO_FETCH_PLAYER_PHOTO_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          playerName: p.name,
+          playerClub: p.club || "",
+          playerNationality: p.nationality || "",
+          squadType: state.squadType || "",
+          selectedEntry: state.selectedEntry || {},
+          currentSquadName: state.currentSquad?.name || "",
+          preferredSource: "fut.gg",
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      const section = data?.indexSection;
+      const key = data?.indexKey;
+      const rel = data?.relativePath;
+      if (res.ok && data?.ok && section && key && rel) {
+        if (!appState.playerImages[section]) appState.playerImages[section] = {};
+        const prev = appState.playerImages[section][key];
+        const paths = Array.isArray(prev)
+          ? prev.filter((x) => typeof x === "string" && x.trim())
+          : typeof prev === "string" && prev.trim() ? [prev.trim()] : [];
+        if (!paths.includes(rel)) paths.unshift(rel);
+        appState.playerImages[section][key] = paths;
+        state.slotPhotoIndexBySlot.set(slotIndex, 0);
+        got += 1;
+      } else {
+        fails.push(`${p.name}: ${data?.error || "no photo found"}`);
+      }
+    } catch (err) {
+      fails.push(`${p.name}: ${err?.message || err}`);
+    }
+  }
+
+  appState.suppressPitchSlotFlipAnimation = true;
+  renderPitch();
+  appState.suppressPitchSlotFlipAnimation = false;
+  btn.textContent = origText;
+  btn.disabled = false;
+  bulkPhotoBusy = false;
+
+  if (fails.length) {
+    window.alert(`Got ${got}/${targets.length} photos.\n\nStill missing:\n` + fails.join("\n"));
+  } else {
+    window.alert(`Got all ${got} missing photos for this team.`);
+  }
 }
 
 function openBulkTeamPhotoModal() {
@@ -1146,7 +1490,12 @@ function openBulkTeamPhotoModal() {
 function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
   const state = getState();
   if (!containerEl || !player || appState.isVideoPlaying) return;
-  if (containerEl.querySelector(".slot-photo-controls")) return;
+  /* PREP PANEL: the controls must end up on the .player-slot ROOT (the 3D
+     card faces clip anything hanging outside them). containerEl is usually
+     still DETACHED here (renderSlot mounts it later), so the re-parent is
+     deferred to the next frame. Re-renders REPLACE the row — old buttons
+     close over the previous player. */
+  containerEl.querySelectorAll(".slot-photo-controls").forEach((el) => el.remove());
   const controls = document.createElement("div");
   controls.className = "slot-photo-controls";
 
@@ -1170,6 +1519,19 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     const st = getState();
     const paths = playerPhotoPaths(player, st.displayMode);
     if (!paths.length) return { relPath: "", paths: [] };
+    /* X/CROP must target the photo the user SEES. The shown <img> carries its
+       exact path on data-relpath (set at render + updated by SWAP), so read
+       that directly — no index/URL guessing. */
+    const slotRoot = controls.closest(".player-slot");
+    const img =
+      slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
+      slotRoot?.querySelector(".slot-avatar .slot-img");
+    const shownRel = String(img?.dataset?.relpath || "").trim();
+    if (shownRel) {
+      const shownIdx = paths.indexOf(shownRel);
+      if (shownIdx >= 0) st.slotPhotoIndexBySlot.set(slotIndex, shownIdx);
+      return { relPath: shownRel, paths };
+    }
     let idx = st.slotPhotoIndexBySlot.get(slotIndex) ?? 0;
     idx = ((idx % paths.length) + paths.length) % paths.length;
     st.slotPhotoIndexBySlot.set(slotIndex, idx);
@@ -1324,10 +1686,32 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
       if (!res.ok || !data?.ok) {
         throw new Error(data?.error || "Failed to delete photo.");
       }
-      removeRelPathFromPlayerImagesState(current.relPath);
+      const deletedRel = current.relPath;
+      removeRelPathFromPlayerImagesState(deletedRel);
+      invalidateCachedImage(projectAssetUrl(deletedRel)); // drop the cached bitmap
       const st = getState();
       st.slotPhotoIndexBySlot.set(slotIndex, 0);
       autoPhotoLastSourceBySlot.delete(slotIndex);
+
+      /* Update the SHOWN image immediately (don't rely only on renderPitch —
+         in the prep panel that occasionally targeted a stale container). The
+         remaining photos exclude the one we just deleted. */
+      const remaining = playerPhotoPaths(player, st.displayMode).filter(
+        (p) => String(p || "").trim() !== deletedRel
+      );
+      const slotRoot = controls.closest(".player-slot");
+      const shownImg =
+        slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
+        slotRoot?.querySelector(".slot-avatar .slot-img");
+      if (shownImg) {
+        if (remaining.length) {
+          shownImg.dataset.relpath = remaining[0];
+          applyPlayerPhotoFramingForSourceRelPath(shownImg, remaining[0]);
+          shownImg.src = projectAssetUrlFresh(remaining[0]);
+        } else {
+          shownImg.remove(); // no photos left — renderPitch draws the fallback
+        }
+      }
       appState.suppressPitchSlotFlipAnimation = true;
       renderPitch();
       appState.suppressPitchSlotFlipAnimation = false;
@@ -1381,8 +1765,331 @@ function appendAutoPhotoFetchButton(containerEl, slotIndex, player) {
     });
   });
 
-  controls.append(cropBtn, photoBtn, deleteBtn);
+  /* 4th cube: SWAP — cycles between the player's saved PHOTOS (same as the
+     old double-click-on-avatar). Disabled when there's only one photo. */
+  const swapProxyBtn = document.createElement("button");
+  swapProxyBtn.type = "button";
+  swapProxyBtn.className = "slot-photo-swap-btn";
+  swapProxyBtn.textContent = "SWAP";
+  swapProxyBtn.title = "Switch between this player's photos";
+  swapProxyBtn.dataset.slotControl = "swap-photo";
+  swapProxyBtn.dataset.slotIndex = String(slotIndex);
+  if (playerPhotoPaths(player, state.displayMode).length <= 1) {
+    swapProxyBtn.disabled = true;
+    swapProxyBtn.title = "This player has only one photo";
+  }
+  swapProxyBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const st = getState();
+    const paths = playerPhotoPaths(player, st.displayMode);
+    if (paths.length <= 1) return;
+    const slotRoot = controls.closest(".player-slot");
+    const img =
+      slotRoot?.querySelector(".slot-back .slot-avatar .slot-img") ||
+      slotRoot?.querySelector(".slot-avatar .slot-img");
+    // Advance from the photo CURRENTLY shown (data-relpath), not a stale index.
+    const shownRel = String(img?.dataset?.relpath || "").trim();
+    const curIdx = Math.max(0, paths.indexOf(shownRel));
+    const next = (curIdx + 1) % paths.length;
+    st.slotPhotoIndexBySlot.set(slotIndex, next);
+    if (img) {
+      img.dataset.relpath = paths[next];
+      applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
+      img.src = projectAssetUrlFresh(paths[next]);
+    }
+    markPrepDirty();
+  });
+
+  /* 5th cube: NAME — same edit as the tiny ✎ on the name band (hidden in
+     prep CSS), opened from the control row like everything else. */
+  const nameBtn = document.createElement("button");
+  nameBtn.type = "button";
+  nameBtn.className = "slot-photo-name-btn";
+  nameBtn.textContent = "NAME";
+  nameBtn.title = "Edit player name";
+  nameBtn.dataset.slotControl = "edit-name-cube";
+  nameBtn.dataset.slotIndex = String(slotIndex);
+  nameBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const label = controls.closest(".player-slot")?.querySelector(".slot-name");
+    if (label) applySlotNameEdit(label, player);
+  });
+
+  controls.append(photoBtn, deleteBtn, cropBtn, swapProxyBtn, nameBtn);
   containerEl.appendChild(controls);
+  /* Re-parent onto the slot root once the card is in the DOM. */
+  requestAnimationFrame(() => {
+    const slotRootEl = containerEl.closest(".player-slot");
+    if (!slotRootEl) return;
+    slotRootEl
+      .querySelectorAll(":scope > .slot-photo-controls")
+      .forEach((el) => el.remove());
+    slotRootEl.appendChild(controls);
+  });
+}
+
+const TEAM_LOGO_FETCH_ENDPOINT = "/__team-logo/fetch";
+const TEAM_LOGO_DELETE_ENDPOINT = "/__team-logo/delete";
+
+/* Resolve the repo-relative crest path the club-crest CARD FRONT currently
+   shows for this slot: per-slot override first (its rel path, minus cache-bust),
+   else the canonical league file, else the (1) Other Teams fallback. */
+function resolveSlotClubCrestRelPath(state, slotIndex, player) {
+  const ovRaw = state.slotClubCrestOverrideRelPathBySlot?.[String(slotIndex)];
+  if (ovRaw) {
+    return normalizeLegacyTeamImageRelPath(
+      String(ovRaw).split("?")[0].split("#")[0]
+    );
+  }
+  const club = player?.club || "";
+  const { teamsIndex } = appState;
+  const entry = teamsIndex?.clubs?.find((c) => c.name === club);
+  if (entry && entry.country && entry.league) {
+    return `Images/Teams/${entry.country}/${entry.league}/${entry.name}.png`;
+  }
+  const otRel = getClubLogoOtherTeamsRelPath(club);
+  return otRel ? normalizeLegacyTeamImageRelPath(otRel) : "";
+}
+
+/* PREP STATIC FRAME helper: the club-crest URL fallback chain for a slot in an
+   EXPLICIT level object (no getState()). Mirrors renderSlot's national-crest
+   chain exactly (per-slot override → canonical league file → Other Teams), so
+   the static Question/Answer frame shows the SAME crest the video renders. */
+export function resolveSlotClubCrestUrlsForLevel(lvl, slotIndex, player) {
+  const club = player?.club || "";
+  const urls = [];
+  const push = (u) => { if (u && !urls.includes(u)) urls.push(u); };
+  const rawOverride = lvl?.slotClubCrestOverrideRelPathBySlot?.[String(slotIndex)];
+  if (rawOverride) {
+    const rel = normalizeLegacyTeamImageRelPath(String(rawOverride).split("?")[0].split("#")[0]);
+    if (rel) push(projectAssetUrlFresh(rel));
+  }
+  const primaryLogoUrl = getClubLogoUrl(club);
+  if (primaryLogoUrl) push(withProjectAssetCacheBust(primaryLogoUrl));
+  const otherTeamsLogoUrl = getClubLogoOtherTeamsUrl(club);
+  if (otherTeamsLogoUrl) push(withProjectAssetCacheBust(otherTeamsLogoUrl));
+  return urls;
+}
+
+/* Tiny 2-option chooser shown next to the LOGO button. Resolves to
+   "page" (football-logos.cc), "image" (direct image URL), or null (dismissed).
+   Inline-styled so it needs no CSS and stays consistent across runners. */
+function chooseLogoSource(anchorBtn) {
+  return new Promise((resolve) => {
+    document.getElementById("prep-logo-source-pop")?.remove();
+    const pop = document.createElement("div");
+    pop.id = "prep-logo-source-pop";
+    pop.style.cssText =
+      "position:fixed;z-index:100200;background:#1b1f2a;border:1px solid #3a4256;" +
+      "border-radius:10px;padding:8px;display:flex;flex-direction:column;gap:6px;" +
+      "box-shadow:0 8px 28px rgba(0,0,0,.55);min-width:210px;";
+    const mkBtn = (label) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      b.style.cssText =
+        "appearance:none;border:1px solid #4a5470;background:#262c3b;color:#eef1f8;" +
+        "font:600 13px/1.2 system-ui,sans-serif;padding:9px 10px;border-radius:8px;" +
+        "cursor:pointer;text-align:left;";
+      b.addEventListener("mouseenter", () => { b.style.background = "#323a4e"; });
+      b.addEventListener("mouseleave", () => { b.style.background = "#262c3b"; });
+      return b;
+    };
+    const pageBtn = mkBtn("football-logos.cc (3000px)");
+    const urlBtn = mkBtn("Image URL");
+    pop.append(pageBtn, urlBtn);
+
+    let done = false;
+    const cleanup = (val) => {
+      if (done) return;
+      done = true;
+      document.removeEventListener("mousedown", onOutside, true);
+      window.removeEventListener("resize", onDismiss, true);
+      pop.remove();
+      resolve(val);
+    };
+    const onOutside = (ev) => {
+      if (!pop.contains(ev.target)) cleanup(null);
+    };
+    const onDismiss = () => cleanup(null);
+    pageBtn.addEventListener("click", (ev) => { ev.stopPropagation(); cleanup("page"); });
+    urlBtn.addEventListener("click", (ev) => { ev.stopPropagation(); cleanup("image"); });
+
+    document.body.appendChild(pop);
+    const r = anchorBtn?.getBoundingClientRect?.() || { left: 20, bottom: 20 };
+    const pw = pop.offsetWidth || 210;
+    const ph = pop.offsetHeight || 90;
+    let left = r.left;
+    let top = r.bottom + 6;
+    if (left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
+    if (top + ph > window.innerHeight - 8) top = Math.max(8, r.top - ph - 6);
+    pop.style.left = `${Math.max(8, left)}px`;
+    pop.style.top = `${Math.max(8, top)}px`;
+
+    setTimeout(() => {
+      document.addEventListener("mousedown", onOutside, true);
+      window.addEventListener("resize", onDismiss, true);
+    }, 0);
+  });
+}
+
+/* PREP PANEL (Revealed OFF): club-crest card fronts get a LOGO + X row that
+   downloads / removes the club crest file. Mirrors appendAutoPhotoFetchButton's
+   re-parent timing so the row lands on the .player-slot ROOT. */
+function appendLogoControls(containerEl, slotIndex, player) {
+  const state = getState();
+  if (!containerEl || !player || appState.isVideoPlaying) return;
+  if (state.squadType !== "national") return; // only club-crest fronts
+
+  containerEl.querySelectorAll(".slot-logo-controls").forEach((el) => el.remove());
+  const controls = document.createElement("div");
+  controls.className = "slot-logo-controls";
+
+  const levelIndex = appState.currentLevelIndex;
+  const refresh = () => {
+    document.dispatchEvent(
+      new CustomEvent("prep:refresh-level", { detail: { index: levelIndex } })
+    );
+  };
+
+  const logoBtn = document.createElement("button");
+  logoBtn.type = "button";
+  logoBtn.className = "slot-photo-fetch-btn";
+  logoBtn.textContent = "LOGO";
+  logoBtn.title = "Download the club crest from a football-logos.cc URL";
+  logoBtn.dataset.slotControl = "logo";
+  logoBtn.dataset.slotIndex = String(slotIndex);
+
+  const delBtn = document.createElement("button");
+  delBtn.type = "button";
+  delBtn.className = "slot-photo-delete-btn";
+  delBtn.textContent = "X";
+  delBtn.title = "Remove this club crest";
+  delBtn.dataset.slotControl = "delete-logo";
+  delBtn.dataset.slotIndex = String(slotIndex);
+
+  logoBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (logoBtn.disabled) return;
+    const choice = await chooseLogoSource(logoBtn);
+    if (!choice) return;
+    const club = player?.club || "";
+    const existingRel = resolveSlotClubCrestRelPath(getState(), slotIndex, player);
+    const payload = {
+      squadType: "club",
+      currentSquadName: club,
+      currentSquadImagePath: existingRel || "",
+      selectedEntry: { name: club },
+    };
+    if (choice === "page") {
+      const pasted = window.prompt(
+        "Paste a football-logos.cc URL for this club's crest\n" +
+          "(example: https://football-logos.cc/uae/al-ain/). Leave empty to cancel.",
+        ""
+      );
+      const pageUrl = String(pasted || "").trim();
+      if (!pageUrl) return;
+      payload.pageUrl = pageUrl;
+    } else {
+      const pasted = window.prompt(
+        "Paste a direct image URL for this club's crest\n" +
+          "(https://… .png/.jpg/.webp). Leave empty to cancel.",
+        ""
+      );
+      const imageUrl = String(pasted || "").trim();
+      if (!imageUrl) return;
+      payload.imageUrl = imageUrl;
+    }
+    const prevText = logoBtn.textContent;
+    logoBtn.disabled = true;
+    logoBtn.textContent = "...";
+    try {
+      const res = await fetch(TEAM_LOGO_FETCH_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok || !data?.relativePath) {
+        throw new Error(data?.error || "Could not download the club crest.");
+      }
+      const st = getState();
+      if (!st.slotClubCrestOverrideRelPathBySlot || typeof st.slotClubCrestOverrideRelPathBySlot !== "object") {
+        st.slotClubCrestOverrideRelPathBySlot = {};
+      }
+      const rel = String(data.relativePath);
+      // The file was just written to a path the browser may have cached as a 404
+      // (dev server sends max-age on 404s for image paths). Bump the per-path
+      // cache-bust (both raw + normalized, since renderSlot looks up by the
+      // normalized path) so the re-render fetches a BRAND-NEW URL and the logo
+      // shows immediately — no manual page refresh.
+      bumpAssetCacheBust(rel);
+      bumpAssetCacheBust(normalizeLegacyTeamImageRelPath(rel));
+      st.slotClubCrestOverrideRelPathBySlot[String(slotIndex)] = rel;
+      markPrepDirty();
+      refresh();
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : "Could not download the club crest.");
+    } finally {
+      logoBtn.disabled = false;
+      logoBtn.textContent = prevText;
+    }
+  });
+
+  delBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (delBtn.disabled) return;
+    const relPath = resolveSlotClubCrestRelPath(getState(), slotIndex, player);
+    if (!relPath) {
+      window.alert("No crest file to remove for this slot.");
+      return;
+    }
+    if (!window.confirm(`Remove this club crest?\n${relPath}`)) return;
+    const prevText = delBtn.textContent;
+    delBtn.disabled = true;
+    delBtn.textContent = "...";
+    try {
+      const res = await fetch(TEAM_LOGO_DELETE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ relativePath: relPath }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || "Could not remove the club crest.");
+      }
+      const st = getState();
+      if (st.slotClubCrestOverrideRelPathBySlot) {
+        delete st.slotClubCrestOverrideRelPathBySlot[String(slotIndex)];
+      }
+      // Bump so the now-deleted path isn't served from cache — the card falls
+      // back to the copyable name box immediately.
+      bumpAssetCacheBust(relPath);
+      bumpAssetCacheBust(normalizeLegacyTeamImageRelPath(relPath));
+      markPrepDirty();
+      refresh();
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : "Could not remove the club crest.");
+    } finally {
+      delBtn.disabled = false;
+      delBtn.textContent = prevText;
+    }
+  });
+
+  controls.append(logoBtn, delBtn);
+  containerEl.appendChild(controls);
+  /* Re-parent onto the slot root once the card is in the DOM. */
+  requestAnimationFrame(() => {
+    const slotRootEl = containerEl.closest(".player-slot");
+    if (!slotRootEl) return;
+    slotRootEl
+      .querySelectorAll(":scope > .slot-logo-controls")
+      .forEach((el) => el.remove());
+    slotRootEl.appendChild(controls);
+  });
 }
 
 function getSlotFrontFaceScale(state, slotIndex) {
@@ -1592,6 +2299,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       const rel = paths[idx];
       const img = document.createElement("img");
       img.className = "slot-img";
+      img.dataset.relpath = rel; // exact photo shown — X/CROP/SWAP read this
       img.alt = "";
       img.style.width = "100%";
       img.style.height = "100%";
@@ -1599,7 +2307,6 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       img.style.maxHeight = "100%";
       img.style.objectFit = "cover";
       img.style.display = "block";
-      img.style.borderRadius = "50%"; 
       img.loading = "lazy";
       img.decoding = "async";
       img.onerror = () => {
@@ -1627,6 +2334,10 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       appendAutoPhotoFetchButton(back, slotIndex, player);
     }
     appendAutoPhotoFetchButton(back, slotIndex, player);
+    /* PREP PANEL (Revealed OFF): club-crest fronts get the LOGO + X row that
+       replaces the player-photo row in that reveal state (CSS toggles which
+       row is visible). National squads only (their fronts are club crests). */
+    appendLogoControls(front, slotIndex, player);
 
     const labelContainer = document.createElement("div");
     labelContainer.className = "slot-label-container";
@@ -1696,6 +2407,7 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       const rel = paths[idx];
       const img = document.createElement("img");
       img.className = "slot-img";
+      img.dataset.relpath = rel; // exact photo shown — X/CROP/SWAP read this
       img.alt = "";
       img.style.width = "100%";
       img.style.height = "100%";
@@ -1703,7 +2415,6 @@ function renderSlot(slotEl, player, displayMode, slotIndex, useVideoQuestionLayo
       img.style.maxHeight = "100%";
       img.style.objectFit = "cover";
       img.style.display = "block";
-      img.style.borderRadius = "50%"; 
       img.loading = "lazy";
       img.decoding = "async";
       img.onerror = () => {
@@ -1798,20 +2509,13 @@ export function preloadSquadImages(state) {
 
 let slotNameFitRaf = 0;
 
+/* PREP PANEL (2026-06-12): no more length-based shrinking — runner 1 has no
+   slot-name fitter and its card band sizes every name uniformly via the
+   trading-card CSS (container-query font). Only CLEAR any stale inline sizes
+   so previously-shrunk labels snap back to the uniform band size. */
 function fitSlotNameEl(labelEl) {
   labelEl.style.removeProperty("font-size");
   labelEl.style.removeProperty("letter-spacing");
-  const nameLen = String(labelEl.textContent || "").trim().length;
-  if (nameLen >= 15) {
-    labelEl.style.fontSize = "0.4rem";
-    labelEl.style.letterSpacing = "0";
-  } else if (nameLen >= 13) {
-    labelEl.style.fontSize = "0.49rem";
-  } else if (nameLen >= 11) {
-    labelEl.style.fontSize = "0.54rem";
-  } else if (nameLen >= 9) {
-    labelEl.style.fontSize = "0.64rem";
-  }
 }
 
 function fitSlotNamesImpl() {
@@ -1871,6 +2575,15 @@ export function renderPitch() {
     renderSlot(node, xi[i], displayMode, i, useVideoQuestionLayout);
   });
   scheduleSlotNameFit();
+  markPrepDirty();
+}
+
+/* Prep panel: signal that the loaded save changed so save-picker auto-saves it
+   into block.script (what Remotion reads). Debounced + idempotent on its side. */
+export function markPrepDirty() {
+  try {
+    document.dispatchEvent(new CustomEvent("prep:dirty"));
+  } catch { /* no DOM (headless) — ignore */ }
 }
 
 /**

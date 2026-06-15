@@ -7,11 +7,6 @@ import { FORMATION_LABELS } from "./formations";
 
 export const AUTO_FORMATION = "Auto (from save)";
 export const LANGUAGES = ["English", "Spanish"] as const;
-export const ENDINGS = [
-  "Random",
-  "Think you know the answer?",
-  "How many did you get?",
-] as const;
 
 const asEnum = (arr: readonly string[]) => arr as [string, ...string[]];
 
@@ -32,8 +27,6 @@ export const demoSchema = z.object({
   save: z.enum(asEnum(SAVE_NAMES)),
   levels: z.enum(LEVEL_CHOICES),
   formation: z.enum(asEnum([AUTO_FORMATION, ...FORMATION_LABELS])),
-
-  ending: z.enum(ENDINGS),
 
   competition: z.enum(asEnum(COMPETITION_LABELS)),
 

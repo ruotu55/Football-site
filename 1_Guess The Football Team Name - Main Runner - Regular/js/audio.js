@@ -878,76 +878,68 @@ function shuffleInPlace(arr) {
   return arr;
 }
 
-/* Shuffled queue of sentence phrases. Pop one per odd-question pick so we cycle through
-   every sentence variant before any repeats. Reset whenever `appState.levelsData` is
-   swapped to a new array (saved-script load, level rebuild). `lastSentencePhrase` is
-   tracked across refills so we can swap the first element of a new shuffle if it
-   matches the last pop ג€” prevents the same Spanish sentence appearing on two adjacent
-   levels at the queue boundary (e.g. Nivel 6 and Nivel 7 both "Y la respuesta es..."). */
-let sentenceQueueLevelsRef = null;
-const sentenceQueueStateByLanguage = {
-  english: { queue: [], last: "" },
-  spanish: { queue: [], last: "" },
-};
-
 function sentenceLanguage(language) {
   return language === "spanish" ? "spanish" : "english";
 }
 
-function getSentenceQueueState(language) {
-  const ref = appState.levelsData;
-  if (ref !== sentenceQueueLevelsRef) {
-    sentenceQueueLevelsRef = ref;
-    for (const state of Object.values(sentenceQueueStateByLanguage)) {
-      state.queue = [];
-      state.last = "";
-    }
+/* DETERMINISTIC phrase pick (replaces the old random shuffled queue): the same
+   (team, questionIndex, language) ALWAYS yields the same phrase — across page
+   reloads AND across tools. The Remotion build mirrors this exact rule
+   (___Remotion___/1_…_Remotion/scripts/build-data.mjs `pickRevealPhraseForQuestion`),
+   so the voice tab, PROD validation and the rendered video all use the SAME clip.
+   Seeded by the RAW squad name (not the display rename) so renaming a team changes
+   which FILE is used (display-name stem) but never rerolls the sentence. */
+function phraseSeedHash(seed) {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
   }
-  return sentenceQueueStateByLanguage[sentenceLanguage(language)] || sentenceQueueStateByLanguage.english;
+  return h >>> 0;
 }
 
-function nextSentencePhrase(language = getCurrentLanguage()) {
-  const state = getSentenceQueueState(language);
-  if (state.queue.length === 0) {
-    state.queue = shuffleInPlace(TEAM_SENTENCE_PHRASE_KEYS.slice());
-    if (state.last && state.queue[0] === state.last && state.queue.length > 1) {
-      const swapIdx = 1 + Math.floor(Math.random() * (state.queue.length - 1));
-      [state.queue[0], state.queue[swapIdx]] = [state.queue[swapIdx], state.queue[0]];
-    }
-  }
-  const picked = state.queue.shift() || "plain";
-  state.last = picked;
-  return picked;
+function deterministicSentencePhrase(seedName, questionIndex, lang) {
+  const list = TEAM_SENTENCE_PHRASE_KEYS;
+  const h = phraseSeedHash(`phrase::${lang}::${String(seedName || "").toLowerCase()}::${questionIndex}`);
+  return list[h % list.length];
 }
 
-/** Phrase pick for one reveal slot.
-    - English: odd questionIndex -> sentence (from the shuffled queue), even -> plain.
-    - Spanish: never plain - always pull a sentence so the team name is never spoken alone. */
-function pickRevealPhraseForQuestion(questionIndex, language = getCurrentLanguage()) {
+/** Phrase pick for one reveal slot (DETERMINISTIC).
+    - English: odd questionIndex -> sentence (hash-picked), even -> plain.
+    - Spanish: never plain - always a sentence so the team name is never spoken alone. */
+function pickRevealPhraseForQuestion(questionIndex, language = getCurrentLanguage(), seedName = "") {
   const lang = sentenceLanguage(language);
-  if (lang === "spanish") return nextSentencePhrase(lang);
+  if (lang === "spanish") return deterministicSentencePhrase(seedName, questionIndex, "spanish");
   if (!Number.isFinite(questionIndex)) return "plain";
   if ((questionIndex % 2) === 0) return "plain";
-  return nextSentencePhrase(lang);
+  return deterministicSentencePhrase(seedName, questionIndex, "english");
 }
 
-/** Sticky per-level phrase pick. Stored per language so opening the Voice tab,
-    switching language, recording, or validating cannot reroll another language's
-    selected phrase. A new saved-script load replaces `levelsData`, which naturally
-    creates fresh level objects and fresh phrase picks. */
+/** Raw squad-name seed for the deterministic phrase (NOT the display rename, so a
+    rename never rerolls the sentence). Same chain the voice tab uses as fallback. */
+function revealPhraseSeedName(levelData) {
+  return String(
+    levelData?.currentSquad?.name ||
+    levelData?.team?.name ||
+    levelData?.currentSquadName ||
+    levelData?.teamName ||
+    levelData?.nationalTeamName ||
+    levelData?.clubName ||
+    "",
+  ).trim();
+}
+
+/** Per-level phrase pick — now FULLY DETERMINISTIC (same answer every call, every
+    reload), mirrored 1:1 by the Remotion build-data so the voice tab, PROD
+    validation and the rendered video always agree. The per-level cache fields are
+    still written for compatibility, but they can no longer diverge. */
 export function getOrAssignRevealPhrase(levelData, questionIndex, language = getCurrentLanguage()) {
   if (!levelData || typeof levelData !== "object") return "plain";
   const lang = sentenceLanguage(language);
   const byLanguage = levelData.__revealPhraseByLanguage && typeof levelData.__revealPhraseByLanguage === "object"
     ? levelData.__revealPhraseByLanguage
     : {};
-  const cached = typeof byLanguage[lang] === "string" ? byLanguage[lang] : "";
-  if (cached) return cached;
-
-  const hasLanguageCache = Object.keys(byLanguage).length > 0;
-  const legacy = typeof levelData.__revealPhrase === "string" ? levelData.__revealPhrase : "";
-  const legacyValidForLang = !hasLanguageCache && legacy && !(lang === "spanish" && legacy === "plain");
-  const picked = legacyValidForLang ? legacy : pickRevealPhraseForQuestion(questionIndex, lang);
+  const picked = pickRevealPhraseForQuestion(questionIndex, lang, revealPhraseSeedName(levelData));
   try {
     levelData.__revealPhraseByLanguage = { ...byLanguage, [lang]: picked };
     levelData.__revealPhrase = picked;

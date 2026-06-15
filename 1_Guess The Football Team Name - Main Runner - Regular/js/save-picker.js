@@ -17,6 +17,7 @@ import {
     buildScriptFromImportText,
     captureCurrentScriptObject,
 } from "./saved-scripts.js?v=20260612-prep";
+import { renderPrepPanel } from "./prep-panel.js";
 
 const RUNNER_ID = 1;
 const KEY_PREFIX = `${RUNNER_ID}|`;
@@ -196,6 +197,13 @@ async function onRowClick(key) {
         const script = await resolveScriptForBlock(block);
         await applyScriptObject(script);
         await mirrorVoiceFreezeIntoBlock(block, script, key);
+        // Render the prep panel HERE — after applyScriptObject FULLY completes —
+        // instead of relying only on the "recording-queue:script-applied" event
+        // it fires mid-function (later lines keep mutating state). Fixes "the
+        // level doesn't appear until I refresh." A second pass next frame catches
+        // any async layout/image settling.
+        try { renderPrepPanel(); } catch (e) { console.warn("[save-picker] render failed:", e); }
+        requestAnimationFrame(() => { try { renderPrepPanel(); } catch {} });
         // "Take what I have now": persist the freshly-loaded/rebuilt state into
         // block.script so Remotion sees it even before the first edit.
         scheduleAutoSave();
@@ -220,7 +228,7 @@ function listedSaves() {
         const parts = key.split("|");
         items.push({ key, name, episode: Number(parts[2]) || 0, block });
     }
-    items.sort((a, b) => b.episode - a.episode);
+    items.sort((a, b) => a.episode - b.episode); // ascending: "… 1" at top, "… 10" at bottom
     return items;
 }
 

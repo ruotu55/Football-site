@@ -846,9 +846,9 @@ export async function initPlayerNameOverridesSharedSync() {
 
 /** Red name chip: custom edit, else PERMANENT shared override, else short name,
  *  else club (national XIs), else nationality, else em dash. */
-function pitchSlotDisplayLabel(state, player) {
+export function pitchSlotDisplayLabel(state, player) {
   const nameKey = player?.name != null ? String(player.name) : "";
-  const custom = state.customNames[nameKey];
+  const custom = state?.customNames?.[nameKey];
   if (custom != null && String(custom).trim() !== "") {
     return String(custom).trim();
   }
@@ -1157,12 +1157,20 @@ export function resolvePlayerNationalityLabel(rawNationality) {
   return raw;
 }
 
-/** Video-mode card front when flag/club image is missing — full name, not initials. */
+/** Card front when the flag/club image is missing: the team name in a COPYABLE
+ *  text box (click selects it) so the logo can be searched + downloaded. */
 function appendSlotBadgeTextFallback(badgeWrap, displayText) {
-  const el = document.createElement("div");
-  el.className = "slot-badge-fallback-text";
   const t = String(displayText ?? "").trim();
-  el.textContent = t.length ? t : "—";
+  const el = document.createElement("input");
+  el.type = "text";
+  el.readOnly = true;
+  el.className = "slot-badge-fallback-text slot-badge-fallback-copy";
+  el.value = t.length ? t : "—";
+  el.title = "Logo missing — click to select the name, then copy it";
+  el.addEventListener("click", (e) => {
+    e.stopPropagation();
+    el.select();
+  });
   badgeWrap.appendChild(el);
 }
 

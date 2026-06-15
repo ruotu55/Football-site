@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<!-- PREP PANEL (2026-06-12): this runner no longer plays/records/renders videos —
+﻿<!DOCTYPE html>
+<!-- PREP PANEL (2026-06-12): this runner no longer plays/records/renders videos ג€”
      it prepares saves (photos, names, voices, data) for the Remotion project at
-     ___Remotion___/1_…_Remotion. Run via run_site.bat as always. -->
+     ___Remotion___/1_ג€¦_Remotion. Run via run_site.bat as always. -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -15,16 +15,16 @@
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=20260612-prep19" />
+    <link rel="stylesheet" href="css/styles.css?v=20260617-nameratio" />
   </head>
   <body>
-    <!-- Shared debug overlay: collapsible log panel + 🐞 toggle button (bottom-right). -->
+    <!-- Shared debug overlay: collapsible log panel + נ toggle button (bottom-right). -->
     <script src="../.Storage/shared/debug-overlay.js"></script>
     <script src="../.Storage/shared/loading-overlay.js?v=3"></script>
     <script src="../.Storage/shared/modal-layer.js?v=1"></script>
     <!-- Shared deterministic upload schedule + recording-status client (sets
          window.FCSchedule and window.FCRecordingStatus). save-picker.js in
-         the Saved tab reads the same store — load before app.js. -->
+         the Saved tab reads the same store ג€” load before app.js. -->
     <script src="../999_Calander/js/schedule.js?v=20260602-r9mcq"></script>
     <script src="../999_Calander/js/recording-status-client.js?v=20260601-noconsec"></script>
     <div class="app">
@@ -34,7 +34,6 @@
         Save team
       </button>
       <button type="button" class="panel-fab prod-btn" id="prod-btn" aria-pressed="false">PROD</button>
-      <button type="button" class="panel-fab reveal-btn" id="reveal-btn" aria-pressed="false">Revealed</button>
 
       <!-- #team-header is moved here after load; in the prep panel it is the
            active-level toolbar (crest controls + name edit). -->
@@ -86,7 +85,7 @@
           loadComponent('html/modals.html', 'modal-container', true)
         ]);
 
-        // Only the pitch partial — it carries #team-header (the active-level
+        // Only the pitch partial ג€” it carries #team-header (the active-level
         // toolbar) and the hidden #pitch-wrap shell pitch-render expects.
         await loadComponent('html/pitch.html', 'stage-main');
 

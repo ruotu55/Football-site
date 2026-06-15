@@ -1,99 +1,52 @@
-﻿<!DOCTYPE html>
-<!-- Run (no browser, PowerShell): & "C:\Users\Rom\Desktop\‏‏תיקיה חדשה\Football Channel\Main Runner - Career Path - Regular\run_site.bat" --no-browser -->
-<!-- macOS/Linux: python3 "C:/Users/Rom/Desktop/‏‏תיקיה חדשה/Football Channel/Main Runner - Career Path - Regular/run_site.py" -->
+<!DOCTYPE html>
+<!-- PREP PANEL (2026-06-14): this runner no longer plays/records/renders videos —
+     it prepares saves (career clubs, player stats, photos, names, voices, data) for
+     the Remotion project at ___Remotion___/4_…_Remotion. Run via run_site.bat. -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Football Quiz Studio - Player stats - Regular</title>
+    <title>Football Quiz Studio - Career Stats - PREP PANEL (Remotion)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Shirt numerals: own request so Play 700 wins over body UI font (subset = small file). -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Play:wght@700&display=swap&text=0123456789%3F"
-    />
     <link rel="preconnect" href="https://flagcdn.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css?v=20260530-shotsmodal" />
-    <link rel="stylesheet" href="css/thumbnail-studio.css?v=20260529a" />
+    <link rel="stylesheet" href="css/styles.css?v=20260617-blacknames" />
   </head>
   <body>
-    <!-- Shared debug overlay: collapsible log panel + 🐞 toggle button (bottom-right).
-         Hidden during Play Video / Record Video. Source: .Storage/shared/debug-overlay.js -->
+    <!-- Shared debug overlay: collapsible log panel + toggle button (bottom-right). -->
     <script src="../.Storage/shared/debug-overlay.js"></script>
     <script src="../.Storage/shared/loading-overlay.js?v=3"></script>
     <script src="../.Storage/shared/modal-layer.js?v=1"></script>
+    <!-- Shared deterministic upload schedule + recording-status client (sets
+         window.FCSchedule and window.FCRecordingStatus). save-picker.js in the
+         Saved tab reads the same store — load before app.js. -->
     <script src="../999_Calander/js/schedule.js?v=20260602-r9mcq"></script>
     <script src="../999_Calander/js/recording-status-client.js?v=20260601-noconsec"></script>
     <div class="app">
-      
-      <div id="floating-background" class="floating-background" aria-hidden="true"></div>
-
-      <div class="side-text left" id="side-text-left">ULTIMATE FOOTBALL QUIZ</div>
-      <div class="side-text right" id="side-text-right">ULTIMATE FOOTBALL QUIZ</div>
 
       <button type="button" class="panel-fab" id="panel-fab">Show controls</button>
-      <button type="button" class="panel-fab video-mode-btn" id="video-mode-btn" aria-pressed="false">Video Mode</button>
-            <button type="button" class="panel-fab prod-btn" id="prod-btn" aria-pressed="false">PROD</button>
-            <button type="button" class="panel-fab record-video-btn" id="record-video-btn">Record Video</button>
-            <button type="button" class="panel-fab save-video-status-btn" id="save-video-status-btn" disabled>Save Video Status</button>
-            <button type="button" class="panel-fab play-video-btn" id="play-video-btn">Play Video</button>
-      
-      <div id="countdown-timer" class="countdown-timer" hidden>
-        <svg class="timer-svg" viewBox="0 0 100 100">
-          <circle class="timer-progress" cx="50" cy="50" r="45"></circle>
-        </svg>
-        <span id="countdown-text">3</span>
-      </div>
-      
+      <button type="button" class="panel-fab prod-btn" id="prod-btn" aria-pressed="false">PROD</button>
+
+      <!-- Player-voice chrome mount (Vol / X / Get photo for the Voice tab). -->
+      <div id="player-voice-chrome-mount" class="shorts-chrome-mount"></div>
+
       <aside class="control-panel" id="control-panel"></aside>
       <aside class="control-panel right-panel" id="right-panel" hidden></aside>
 
-      <!-- Same slot as Shorts / Four params: outside `.stage` so fixed clear / Get photo / Switch use the viewport column. -->
-      <div id="player-voice-chrome-mount" class="shorts-chrome-mount"></div>
-
-      <!-- Ball-drop preloader (shown after Play Video on landing) -->
-      <div id="ball-preloader" class="ball-preloader" hidden>
-        <div class="ball-merge" aria-hidden="true" hidden>
-          <div class="ball-merge-goo">
-            <span class="merge-liquid"></span>
-            <span class="merge-liquid"></span>
-            <span class="merge-liquid"></span>
-            <span class="merge-liquid"></span>
-          </div>
-        </div>
-        <div class="ball-layer ball-layer-2"></div>
-        <div class="ball-layer ball-layer-1"></div>
-        <div class="ball-preloader-ball">
-          <div class="ball-preloader-ball-scale">
-            <div class="ball">
-              <div class="ball-sphera">
-                <div class="ball-sphera__patch-top"><div class="line"></div></div>
-                <div class="ball-sphera__patch-middle--left"><div class="line"></div></div>
-                <div class="ball-sphera__patch-middle--right"><div class="line"></div></div>
-                <div class="ball-sphera__patch-center"></div>
-                <div class="ball-sphera__patch-bottom--left"><div class="line"></div></div>
-                <div class="ball-sphera__patch-bottom--right"><div class="line"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <main class="stage">
         <div id="stage-main" class="stage-main">
-            </div>
-        <div class="quiz-progress" id="quiz-progress-container"></div>
+          <div id="prep-root"></div>
+        </div>
       </main>
 
       <div id="modal-container"></div>
-      <!-- Screen safe-zone overlay (toggled via "Screen size" control) -->
+
+      <!-- Screen safe-zone overlay (inert in the prep panel; hidden via CSS). -->
       <div id="screen-size-overlay" class="screen-size-overlay">
         <div class="screen-size-overlay__frame">
           <div class="screen-size-overlay__margin-left" aria-hidden="true"></div>
@@ -104,17 +57,6 @@
           <div class="screen-size-overlay__vline screen-size-overlay__vline--right" aria-hidden="true"></div>
         </div>
       </div>
-
-      <!-- Floating shirt with per-level editable number (photo tee; no name) -->
-      <div class="landing-shirt" id="landing-shirt" hidden>
-        <img
-          class="landing-shirt__img"
-          src="https://i.ibb.co/LdRC1wS8/blank-t-shirt.png"
-          alt=""
-        />
-        <span class="landing-shirt__number play-bold" id="landing-shirt-number">?</span>
-      
-    </div>
 
     </div>
 
@@ -137,21 +79,14 @@
       async function init() {
         await Promise.all([
           loadComponent('html/controls.html', 'control-panel', true),
-          loadComponent('html/progress.html', 'quiz-progress-container', true),
           loadComponent('html/modals.html', 'modal-container', true)
         ]);
 
-        const stageComponents = [
-          'html/logo.html',
-          'html/landing.html',
-          'html/outro.html',
-          'html/header.html',
-          'html/career.html'
-        ];
-
-        for (const url of stageComponents) {
-          await loadComponent(url, 'stage-main');
-        }
+        // header.html (#team-header) + career.html (#career-wrap) stay loaded but
+        // HIDDEN — pitch-render's renderHeader()/renderCareer() expect them. The
+        // prep panel builds its own custom layout into #prep-root.
+        await loadComponent('html/header.html', 'stage-main');
+        await loadComponent('html/career.html', 'stage-main');
 
         const script = document.createElement('script');
         script.type = 'module';

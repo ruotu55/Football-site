@@ -13,6 +13,7 @@ const TEXT = {
     "Think you know the answer?": ["Think You Know", "The Answer?"],
     "How many did you get?": ["How Many Did", "You Get?"],
     sub: "Let Us Know In The Comments!",
+    breakSub: "Comment Below!",
     subscribe: "SUBSCRIBE",
     subscribed: "SUBSCRIBED",
   },
@@ -20,6 +21,7 @@ const TEXT = {
     "Think you know the answer?": ["¿Crees Que Sabes", "La Respuesta?"],
     "How many did you get?": ["¿Cuántas", "Acertaste?"],
     sub: "¡Dínoslo En Los Comentarios!",
+    breakSub: "¡Comenta Abajo!",
     subscribe: "SUSCRIBIRSE",
     subscribed: "SUSCRITO",
   },
@@ -107,11 +109,18 @@ const BellIcon: React.FC<{ ring: number }> = ({ ring }) => {
   );
 };
 
-export const Outro: React.FC<{ language: Language; endingKey: EndingKey }> = ({ language, endingKey }) => {
+// isBreak = the MID-QUIZ "Think you know the answer?" pause (voice asks to comment +
+// like & subscribe + "let's continue" — that last part has no on-screen text).
+export const Outro: React.FC<{ language: Language; endingKey: EndingKey; isBreak?: boolean }> = ({
+  language,
+  endingKey,
+  isBreak,
+}) => {
   const frame = useDesignFrame();
   const label = endingLabelForKey(endingKey);
   const lines = TEXT[language][label];
   const copy = TEXT[language];
+  const subText = isBreak ? copy.breakSub : copy.sub;
 
   const logoPop = popIn(frame, 0, DESIGN_FPS);
   const likePop = popIn(frame, 6, DESIGN_FPS);
@@ -287,7 +296,7 @@ export const Outro: React.FC<{ language: Language; endingKey: EndingKey }> = ({ 
               opacity: subtitleOpacity,
             }}
           >
-            {copy.sub}
+            {subText}
           </h2>
         </div>
 

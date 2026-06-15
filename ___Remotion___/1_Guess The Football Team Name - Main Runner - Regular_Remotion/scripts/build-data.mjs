@@ -208,42 +208,147 @@ const audioDurationSec = (voiceRelPath) => {
     return null;
   }
 };
-const VOICE_EXT_RE = /\.(mp3|wav|m4a)$/i;
-const teamDirIndex = new Map();
-const teamIndexFor = (lang, phrase) => {
-  const key = `${lang}/${phrase}`;
-  if (teamDirIndex.has(key)) return teamDirIndex.get(key);
-  const m = new Map();
-  try {
-    for (const f of fs.readdirSync(path.join(VOICES_SRC, "Team names", lang, phrase))) {
-      if (VOICE_EXT_RE.test(f)) m.set(norm(f.replace(VOICE_EXT_RE, "")), f);
-    }
-  } catch {}
-  teamDirIndex.set(key, m);
-  return m;
+/* ── Reveal voice: EXACT mirror of the runner's voice tab (js/audio.js) ─────────
+   Phrase pick is DETERMINISTIC (same FNV hash + rules as getOrAssignRevealPhrase):
+   EN even question -> plain, EN odd -> sentence, ES always a sentence; seeded by the
+   RAW squad name + question index. File stems mirror resolveTeamNameVoiceFileStems
+   (alias map + prefix/suffix variants) over the DISPLAY name, so a renamed team uses
+   the new name's clip. NO cross-phrase fallback: if the assigned phrase's clip is
+   missing the level is silent — generate it in the voice tab. KEEP IN SYNC with
+   1_…Regular/js/audio.js (phrase + stem logic). */
+const TEAM_SENTENCE_PHRASE_KEYS = ["correct-answer", "right-answer", "and-the-answer", "answer-is", "and-its", "team-is"];
+const phraseSeedHash = (seed) => {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
 };
-const teamStems = (display) => {
-  const d = String(display || "").trim();
-  const out = new Set([d]);
-  out.add(d.replace(/^(AC|FC|AS|SSC|RC|SL|SK|FK)\s+/i, ""));
-  out.add(d.replace(/\s+(FC|CF|BC|SC|AC|SK|FK|KV|AFC)$/i, ""));
-  return [...out];
+const deterministicSentencePhrase = (seedName, questionIndex, lang) =>
+  TEAM_SENTENCE_PHRASE_KEYS[
+    phraseSeedHash(`phrase::${lang}::${String(seedName || "").toLowerCase()}::${questionIndex}`) %
+      TEAM_SENTENCE_PHRASE_KEYS.length
+  ];
+const pickRevealPhraseForQuestion = (questionIndex, lang, seedName) => {
+  if (lang === "spanish") return deterministicSentencePhrase(seedName, questionIndex, "spanish");
+  if (!Number.isFinite(questionIndex)) return "plain";
+  if ((questionIndex % 2) === 0) return "plain";
+  return deterministicSentencePhrase(seedName, questionIndex, "english");
 };
-// Reveal voice: team display → mp3 under Team names/<lang>/<phrase>/ (first that exists).
-const resolveTeamVoice = (display, pairs) => {
-  const stems = teamStems(display).map(norm);
-  for (const { lang, phrase } of pairs) {
-    const idx = teamIndexFor(lang, phrase);
-    for (const s of stems) {
-      const f = idx.get(s);
-      if (f) return voiceRel(`Team names/${lang}/${phrase}/${f}`);
+
+const TEAM_NAME_VOICE_FILE_ALIASES = {
+  "arsenal fc": "Arsenal",
+  "as monaco": "Monaco",
+  "atalanta bc": "Atalanta",
+  "ajax amsterdam": "Ajax",
+  "atlético de madrid": "Atletico Madrid",
+  "bayer 04 leverkusen": "Bayer Leverkusen",
+  "chelsea fc": "Chelsea",
+  "club brugge kv": "Club Brugge",
+  "fc barcelona": "Barcelona",
+  "fc copenhagen": "Copenhagen",
+  "fk bodø/glimt": "Bodo Glimt",
+  "juventus fc": "Juventus",
+  "liverpool fc": "Liverpool",
+  "olympiacos piraeus": "Olympiacos",
+  "pafos fc": "Pafos",
+  "qarabağ fk": "Qarabag",
+  "sk slavia prague": "Slavia Prague",
+  "sl benfica": "Benfica Lisbon",
+  "ssc napoli": "Napoli",
+  "sporting cp": "Sporting Lisbon",
+  "villarreal cf": "Villarreal",
+};
+const TEAM_NAME_VOICE_PREFIXES = ["FC", "FK", "SK", "SL", "AS", "SSC", "RC"];
+const TEAM_NAME_VOICE_SUFFIXES = ["FC", "CF", "BC", "SC", "AC", "SK", "FK", "KV", "AFC"];
+const TEAM_NAME_VOICE_TRAILING_LOCATION_WORDS = ["Amsterdam", "Piraeus"];
+const normalizeVoiceStemText = (value) =>
+  String(value || "")
+    .trim()
+    .replace(/[Øø]/g, "o")
+    .replace(/[Ðð]/g, "d")
+    .replace(/[Þþ]/g, "th")
+    .replace(/[Ææ]/g, "ae")
+    .replace(/[Œœ]/g, "oe")
+    .replace(/[Łł]/g, "l")
+    .replace(/[Ğğ]/g, "g")
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[’'`´]/g, "")
+    .replace(/[\/\\]+/g, " ")
+    .replace(/[._-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+const pushUniqueExactVoiceStem = (out, value) => {
+  const clean = String(value || "").trim().replace(/\s+/g, " ");
+  if (clean && !out.includes(clean)) out.push(clean);
+};
+const pushUniqueVoiceStem = (out, value) => {
+  const clean = normalizeVoiceStemText(value);
+  if (clean && !out.includes(clean)) out.push(clean);
+};
+const addShortVoiceStemVariants = (out, stem) => {
+  const clean = normalizeVoiceStemText(stem);
+  if (!clean) return;
+  for (const prefix of TEAM_NAME_VOICE_PREFIXES) {
+    pushUniqueVoiceStem(out, clean.replace(new RegExp(`^${prefix}\\s+`, "i"), ""));
+  }
+  for (const suffix of TEAM_NAME_VOICE_SUFFIXES) {
+    pushUniqueVoiceStem(out, clean.replace(new RegExp(`\\s+${suffix}$`, "i"), ""));
+  }
+  for (const word of TEAM_NAME_VOICE_TRAILING_LOCATION_WORDS) {
+    pushUniqueVoiceStem(out, clean.replace(new RegExp(`\\s+${word}$`, "i"), ""));
+  }
+  pushUniqueVoiceStem(out, clean.replace(/\b0+[0-9]+\b/g, "").replace(/\s+/g, " "));
+  pushUniqueVoiceStem(out, clean.replace(/\bde\s+/gi, ""));
+};
+const resolveTeamNameVoiceFileStems = (displayName) => {
+  const trimmed = String(displayName || "").trim();
+  if (!trimmed) return [];
+  const stems = [];
+  const alias = TEAM_NAME_VOICE_FILE_ALIASES[trimmed.toLowerCase()];
+  if (alias) pushUniqueExactVoiceStem(stems, alias);
+  pushUniqueExactVoiceStem(stems, trimmed);
+  if (alias) pushUniqueVoiceStem(stems, alias);
+  pushUniqueVoiceStem(stems, trimmed);
+  const baseCount = stems.length;
+  for (let i = 0; i < baseCount; i++) addShortVoiceStemVariants(stems, stems[i]);
+  return stems;
+};
+const TEAM_NAME_VOICE_EXTS = [".mp3", ".wav", ".m4a"];
+const findRevealClip = (lang, phrase, stems) => {
+  for (const stem of stems) {
+    for (const ext of TEAM_NAME_VOICE_EXTS) {
+      const rel = `Team names/${lang}/${phrase}/${stem}${ext}`;
+      if (fs.existsSync(path.join(VOICES_SRC, rel))) return voiceRel(rel);
     }
   }
   return null;
 };
-// EN prefers "plain" (just the name); ES prefers a sentence (never bare "plain" in the runner).
-const REVEAL_EN = ["plain", "answer-is", "correct-answer", "and-the-answer"].map((phrase) => ({ lang: "english", phrase }));
-const REVEAL_ES = ["answer-is", "and-the-answer", "correct-answer", "plain"].map((phrase) => ({ lang: "spanish", phrase }));
+const findLegacyPlainClip = (stems) => {
+  for (const stem of stems) {
+    for (const ext of TEAM_NAME_VOICE_EXTS) {
+      const rel = `Team names/${stem}${ext}`;
+      if (fs.existsSync(path.join(VOICES_SRC, rel))) return voiceRel(rel);
+    }
+  }
+  return null;
+};
+// displayName drives the FILE stem (renamed team -> new name's clip); rawName seeds
+// the phrase (a rename never rerolls the sentence). Candidate order = the browser's
+// buildRevealVoiceCandidates: EN phrase dir (+ legacy flat for plain); ES = spanish
+// phrase dir, then english SAME-phrase dir.
+const resolveRevealVoiceExact = (displayName, rawName, questionIndex) => {
+  const stems = resolveTeamNameVoiceFileStems(displayName);
+  if (!stems.length) return { en: null, es: null };
+  const phraseEn = pickRevealPhraseForQuestion(questionIndex, "english", rawName);
+  const phraseEs = pickRevealPhraseForQuestion(questionIndex, "spanish", rawName);
+  let en = findRevealClip("english", phraseEn, stems);
+  if (!en && phraseEn === "plain") en = findLegacyPlainClip(stems);
+  const es = findRevealClip("spanish", phraseEs, stems) || findRevealClip("english", phraseEs, stems);
+  return { en, es };
+};
 let missingRevealVoices = 0;
 
 // ── read saves, build output ──────────────────────────────────────────────────
@@ -277,9 +382,14 @@ for (const key of Object.keys(blocks)) {
       const flagPath = resolveFlag(p.nationality);
       if (!photoPath) missingPhotos += 1;
       if (!flagPath) missingFlags += 1;
+      // Per-save custom name (NAME cube → "only for THIS save") wins, then the
+      // permanent override / short-name. Keeps the video == the prep preview.
+      const perSave = lvl.customNames && typeof lvl.customNames === "object"
+        ? String(lvl.customNames[p.name] || "").trim()
+        : "";
       return {
         name: p.name,
-        display: displayName(p.name),
+        display: perSave || displayName(p.name),
         position: p.position || "",
         group,
         nationality: p.nationality || "",
@@ -307,8 +417,11 @@ for (const key of Object.keys(blocks)) {
       xiFromSquad += 1;
     }
 
-    const revealVoiceEn = resolveTeamVoice(club, REVEAL_EN);
-    const revealVoiceEs = resolveTeamVoice(club, REVEAL_ES) || revealVoiceEn;
+    // questionIndex mirrors the voice tab (levelIdx - 1; the landing level is index 0)
+    // = how many question levels were already pushed for this save.
+    const reveal = resolveRevealVoiceExact(teamDisplayName(lvl, club), club, levels.length);
+    const revealVoiceEn = reveal.en;
+    const revealVoiceEs = reveal.es;
     if (!revealVoiceEn) missingRevealVoices += 1;
 
     levels.push({
@@ -340,6 +453,11 @@ const bgmFiles = (() => {
   try { return fs.readdirSync(path.join(VOICES_SRC, "Ringhton")).filter((f) => /\.mp3$/i.test(f)).sort(); }
   catch { return []; }
 })();
+const BONUS_VOICE_VARIANTS = 5;
+const bonusVariantPaths = (lang) =>
+  Array.from({ length: BONUS_VOICE_VARIANTS }, (_, i) =>
+    voiceRel(`Bonus/${lang}/bonus-${String(i + 1).padStart(2, "0")}.mp3`),
+  );
 const audio = {
   bgm: voiceRel(bgmFiles.length ? `Ringhton/${bgmFiles[0]}` : null),
   ticking: voiceRel("Ticking sound/ticking sound.mp3"),
@@ -352,30 +470,49 @@ const audio = {
     english: audioDurationSec(voiceRel(findVoiceFile("Game name/Lineups Regular/english", /nationality/i))),
     spanish: audioDurationSec(voiceRel(findVoiceFile("Game name/Lineups Regular/spanish", /nacionalidad/i))),
   },
+  // Outro voice — ALWAYS "How many did you get?".
   ending: {
-    english: {
-      "think-you-know": voiceRel(findVoiceFile("Ending Guess/english", /think you know/i)),
-      "how-many": voiceRel(findVoiceFile("Ending Guess/english", /how many/i)),
-    },
-    spanish: {
-      "think-you-know": voiceRel(findVoiceFile("Ending Guess/spanish", /crees/i)),
-      "how-many": voiceRel(findVoiceFile("Ending Guess/spanish", /cuantas/i)),
-    },
+    english: { "how-many": voiceRel(findVoiceFile("Ending Guess/english", /how many/i)) },
+    spanish: { "how-many": voiceRel(findVoiceFile("Ending Guess/spanish", /cuantas/i)) },
   },
   endingDurationSec: {
-    english: {
-      "think-you-know": audioDurationSec(voiceRel(findVoiceFile("Ending Guess/english", /think you know/i))),
-      "how-many": audioDurationSec(voiceRel(findVoiceFile("Ending Guess/english", /how many/i))),
-    },
-    spanish: {
-      "think-you-know": audioDurationSec(voiceRel(findVoiceFile("Ending Guess/spanish", /crees/i))),
-      "how-many": audioDurationSec(voiceRel(findVoiceFile("Ending Guess/spanish", /cuantas/i))),
-    },
+    english: { "how-many": audioDurationSec(voiceRel(findVoiceFile("Ending Guess/english", /how many/i))) },
+    spanish: { "how-many": audioDurationSec(voiceRel(findVoiceFile("Ending Guess/spanish", /cuantas/i))) },
   },
+  // Mid-quiz break voice ("Think you know the answer? Comment below … let's continue!").
+  midBreak: {
+    english: voiceRel(findVoiceFile("Ending Guess/english", /lets continue/i)),
+    spanish: voiceRel(findVoiceFile("Ending Guess/spanish", /seguimos/i)),
+  },
+  midBreakDurationSec: {
+    english: audioDurationSec(voiceRel(findVoiceFile("Ending Guess/english", /lets continue/i))),
+    spanish: audioDurationSec(voiceRel(findVoiceFile("Ending Guess/spanish", /seguimos/i))),
+  },
+  // BONUS-window voice VARIANTS (bonus-01..05): one is picked per save
+  // (deterministic hash) so each video gets a random-feeling line.
+  bonus: {
+    english: bonusVariantPaths("english"),
+    spanish: bonusVariantPaths("spanish"),
+  },
+  bonusDurationSec: {
+    english: bonusVariantPaths("english").map((p) => audioDurationSec(p)),
+    spanish: bonusVariantPaths("spanish").map((p) => audioDurationSec(p)),
+  },
+};
+// Intro greeting voice (combined clip: "Welcome … let's get started. Guess the football
+// team name by players' nationality.") — plays over the Ultimate intro, replaces the
+// separate quiz-title voice. Stored in .Storage/Voices/Intro Greeting/teamname/<lang>/.
+audio.introGreeting = {
+  english: voiceRel(findVoiceFile("Intro Greeting/teamname/english", /intro/i)),
+  spanish: voiceRel(findVoiceFile("Intro Greeting/teamname/spanish", /intro/i)),
+};
+audio.introGreetingDurationSec = {
+  english: audioDurationSec(voiceRel(findVoiceFile("Intro Greeting/teamname/english", /intro/i))),
+  spanish: audioDurationSec(voiceRel(findVoiceFile("Intro Greeting/teamname/spanish", /intro/i))),
 };
 const AUDIO_OUT = path.join(projectDir, "src", "generated", "audio.json");
 fs.writeFileSync(AUDIO_OUT, JSON.stringify(audio, null, 0));
-console.log(`  audio: bgm ${audio.bgm ? "ok" : "MISSING"}, quizTitle EN ${audio.quizTitle.english ? "ok" : "—"}/ES ${audio.quizTitle.spanish ? "ok" : "—"}, reveal-voice missing: ${missingRevealVoices}`);
+console.log(`  audio: bgm ${audio.bgm ? "ok" : "MISSING"}, quizTitle EN ${audio.quizTitle.english ? "ok" : "—"}/ES ${audio.quizTitle.spanish ? "ok" : "—"}, introGreeting EN ${audio.introGreeting.english ? "ok" : "—"}/ES ${audio.introGreeting.spanish ? "ok" : "—"}, reveal-voice missing: ${missingRevealVoices}`);
 
 // ── sync referenced library files into the shared public folder (union) ───────
 const wanted = new Set();

@@ -97,6 +97,25 @@ function validateTeamsSelected() {
     };
 }
 
+/* Every level must be explicitly SAVED in the prep panel ("Save player" button,
+   which only succeeds when all logos + years are present and in ascending order). */
+function validatePlayersSaved() {
+    const questionLevels = getQuestionLevels();
+    const failures = [];
+    for (const { lvl, index } of questionLevels) {
+        if (!lvl.careerPlayer) continue; // teams-selected validator handles empty levels
+        if (!lvl.careerPlayerSaved) {
+            const nm = String(lvl.careerPlayer?.name || "").trim() || "player";
+            failures.push(`${getLevelLabel(index, lvl)} (${nm}): not saved — press "Save player".`);
+        }
+    }
+    return {
+        sectionName: "Players Saved",
+        passed: failures.length === 0,
+        failures,
+    };
+}
+
 /* This quiz shows ONE player per level — the player PHOTO plus the club logos along
    the career PATH. Validate exactly those: the ready-photo candidates the card loads,
    plus each displayed career club logo (via pitch-render's own resolver). NOT a squad XI. */
@@ -352,6 +371,7 @@ async function validateUpdateDataFreshness() {
 export async function runProdValidation() {
     const sections = await Promise.all([
         Promise.resolve(validateTeamsSelected()),
+        Promise.resolve(validatePlayersSaved()),
         validateTeamAssets(),
         Promise.resolve(validateEndingType()),
         validateUpdateDataFreshness(),

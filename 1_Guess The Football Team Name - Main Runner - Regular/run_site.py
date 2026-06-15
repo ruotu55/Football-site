@@ -2183,6 +2183,75 @@ def _load_recording_status():  # noqa: D401
 _recording_status_mod = _load_recording_status()
 
 
+# ── auto-rebuild the Remotion project's generated data after prep-panel saves ──
+# The Remotion runner renders from src/generated/{saves,audio}.json — SNAPSHOTS
+# built by scripts/build-data.mjs. Every data-mutating save from this prep panel
+# (block.script autosave, name overrides, layouts, photos, voices) schedules a
+# DEBOUNCED rebuild so Remotion Studio always reflects the latest edits (its
+# webpack watch hot-reloads when the generated json changes).
+REMOTION_PROJECT_DIR = (
+    PROJECT_ROOT / "___Remotion___" / "1_Guess The Football Team Name - Main Runner - Regular_Remotion"
+)
+_REMOTION_BUILD_DEBOUNCE_SEC = 3.0
+_remotion_build_lock = threading.Lock()
+_remotion_build_timer: threading.Timer | None = None
+_remotion_build_running = threading.Event()
+_remotion_build_again = threading.Event()
+
+
+def _node_exe() -> str:
+    cand = Path(r"C:\Program Files\nodejs\node.exe")
+    return str(cand) if cand.exists() else "node"
+
+
+def _run_remotion_build_data() -> None:
+    global _remotion_build_timer
+    with _remotion_build_lock:
+        _remotion_build_timer = None
+    if _remotion_build_running.is_set():
+        # A build is mid-flight; remember to run once more when it finishes.
+        _remotion_build_again.set()
+        return
+    _remotion_build_running.set()
+    try:
+        script = REMOTION_PROJECT_DIR / "scripts" / "build-data.mjs"
+        if not script.exists():
+            return
+        flags = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+        proc = subprocess.run(
+            [_node_exe(), str(script)],
+            cwd=str(REMOTION_PROJECT_DIR),
+            capture_output=True,
+            text=True,
+            timeout=300,
+            creationflags=flags,
+        )
+        if proc.returncode == 0:
+            print("[remotion] build-data refreshed (saves.json + audio.json + asset sync)")
+        else:
+            tail = (proc.stderr or proc.stdout or "").strip().splitlines()[-3:]
+            print(f"[remotion] build-data FAILED (exit {proc.returncode}): " + " | ".join(tail))
+    except Exception as exc:  # noqa: BLE001
+        print(f"[remotion] build-data failed: {exc}")
+    finally:
+        _remotion_build_running.clear()
+        if _remotion_build_again.is_set():
+            _remotion_build_again.clear()
+            schedule_remotion_build_data()
+
+
+def schedule_remotion_build_data() -> None:
+    """Debounced: runs build-data ~3s after the LAST mutating save."""
+    global _remotion_build_timer
+    with _remotion_build_lock:
+        if _remotion_build_timer is not None:
+            _remotion_build_timer.cancel()
+        timer = threading.Timer(_REMOTION_BUILD_DEBOUNCE_SEC, _run_remotion_build_data)
+        timer.daemon = True
+        _remotion_build_timer = timer
+        timer.start()
+
+
 def _load_youtube():  # noqa: D401
     path = PROJECT_ROOT / ".Storage" / "Scripts" / "dev_server_youtube.py"
     spec = importlib.util.spec_from_file_location("_fc_youtube", path)
@@ -2966,7 +3035,8 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             body = self._read_json_body()
             squad_name = str(body.get("currentSquadName") or "").strip()
             page_url = str(body.get("pageUrl") or "").strip()
-            if not squad_name and not page_url:
+            direct_url = str(body.get("imageUrl") or "").strip()
+            if not squad_name and not page_url and not direct_url:
                 raise ValueError("Missing team name.")
             squad_type = str(body.get("squadType") or "").strip().lower()
             selected_entry = body.get("selectedEntry") if isinstance(body.get("selectedEntry"), dict) else {}
@@ -2982,29 +3052,41 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             self._write_json(400, {"ok": False, "error": str(exc)})
             return True
 
-        fetched: tuple[bytes, dict] | None = None
-        try:
-            if page_url:
-                fetched = _try_fetch_football_logo_png_from_user_url(page_url)
-            else:
-                if not squad_name:
-                    self._write_json(400, {"ok": False, "error": "Missing team name."})
-                    return True
-                fetched = _try_fetch_football_logo_png_3000(
-                    squad_name,
-                    country_hint=country_hint,
-                    league_hint=league_hint,
-                )
-        except Exception:
+        # Direct image URL: download the pasted image and use it verbatim.
+        if direct_url:
+            raw_bytes = b""
+            try:
+                raw_bytes = _fetch_bytes(direct_url)
+            except Exception:
+                raw_bytes = b""
+            if not raw_bytes:
+                self._write_json(404, {"ok": False, "error": "Could not download image from that URL."})
+                return True
+            fetched = (raw_bytes, {"name": squad_name, "fromUrl": direct_url})
+        else:
             fetched = None
-        if fetched is None:
-            err = (
-                "Could not download logo from the pasted URL."
-                if page_url
-                else "Could not fetch logo from football-logos.cc."
-            )
-            self._write_json(404, {"ok": False, "error": err})
-            return True
+            try:
+                if page_url:
+                    fetched = _try_fetch_football_logo_png_from_user_url(page_url)
+                else:
+                    if not squad_name:
+                        self._write_json(400, {"ok": False, "error": "Missing team name."})
+                        return True
+                    fetched = _try_fetch_football_logo_png_3000(
+                        squad_name,
+                        country_hint=country_hint,
+                        league_hint=league_hint,
+                    )
+            except Exception:
+                fetched = None
+            if fetched is None:
+                err = (
+                    "Could not download logo from the pasted URL."
+                    if page_url
+                    else "Could not fetch logo from football-logos.cc."
+                )
+                self._write_json(404, {"ok": False, "error": err})
+                return True
 
         image_bytes, entry = fetched
         if not image_bytes:
@@ -3032,6 +3114,46 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
                 "fromPageUrl": str(entry.get("fromUrl") or page_url or ""),
             },
         )
+        return True
+
+    def _try_delete_team_logo(self) -> bool:
+        parsed = urlparse(self.path)
+        if parsed.path.rstrip("/") != "/__team-logo/delete":
+            return False
+        try:
+            body = self._read_json_body()
+            rel_path_raw = str(body.get("relativePath") or body.get("relPath") or "").strip()
+            if rel_path_raw:
+                rel_path = rel_path_raw.replace("\\", "/").split("?", 1)[0].lstrip("/")
+                if not rel_path or rel_path.startswith("/") or ".." in rel_path:
+                    raise ValueError("Invalid logo path.")
+                target_path = (PROJECT_ROOT / Path(rel_path)).resolve()
+            else:
+                # Fall back to resolving the same file the fetch would write.
+                target_path, rel_path = _resolve_team_logo_target(body)
+                rel_path = rel_path.replace("\\", "/").split("?", 1)[0]
+        except ValueError as exc:
+            self._write_json(400, {"ok": False, "error": str(exc)})
+            return True
+
+        # SAFETY: only allow deletes that resolve to a file under Images/Teams/.
+        project_root_resolved = PROJECT_ROOT.resolve()
+        teams_root = (PROJECT_ROOT / "Images" / "Teams").resolve()
+        if teams_root not in target_path.parents:
+            self._write_json(400, {"ok": False, "error": "Refusing to delete outside Images/Teams."})
+            return True
+        if project_root_resolved not in target_path.parents:
+            self._write_json(400, {"ok": False, "error": "Invalid logo path."})
+            return True
+
+        if target_path.exists() and target_path.is_file():
+            try:
+                target_path.unlink()
+            except OSError:
+                self._write_json(500, {"ok": False, "error": "Failed to delete team logo file."})
+                return True
+
+        self._write_json(200, {"ok": True, "relativePath": rel_path.replace("\\", "/")})
         return True
 
     def _try_auto_fetch_player_photo(self) -> bool:
@@ -3550,11 +3672,16 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
             return
 
     def do_POST(self) -> None:  # noqa: N802
+        # Data-mutating saves schedule a debounced Remotion build-data so the
+        # Remotion project's generated snapshot always matches the panel.
         if _runner_blob_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
             return
         if _runner_saved_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
             return
         if _recording_status_mod.try_handle_post(self, PROJECT_ROOT):
+            schedule_remotion_build_data()
             return
         if _youtube_mod.try_handle_post(self, PROJECT_ROOT):
             return
@@ -3567,36 +3694,52 @@ class RunnerRequestHandler(SimpleHTTPRequestHandler):
         if self._try_render_delete():
             return
         if self._try_generate_team_voice():
+            schedule_remotion_build_data()
             return
         if self._try_delete_team_voice():
+            schedule_remotion_build_data()
             return
         if self._try_rename_team_voice():
+            schedule_remotion_build_data()
             return
         if self._try_generate_quiz_title_voice():
+            schedule_remotion_build_data()
             return
         if self._try_delete_quiz_title_voice():
+            schedule_remotion_build_data()
             return
         if self._try_generate_ending_voice():
+            schedule_remotion_build_data()
             return
         if self._try_delete_ending_voice():
+            schedule_remotion_build_data()
             return
         if self._try_generate_bundled_voice():
             return
         if self._try_delete_bundled_voice():
             return
         if self._try_fetch_team_logo():
+            schedule_remotion_build_data()
+            return
+        if self._try_delete_team_logo():
+            schedule_remotion_build_data()
             return
         if self._try_delete_player_photo():
+            schedule_remotion_build_data()
             return
         if self._try_auto_fetch_player_photo():
+            schedule_remotion_build_data()
             return
         if self._try_list_player_photo_candidates():
             return
         if self._try_save_chosen_player_photo():
+            schedule_remotion_build_data()
             return
         if self._try_player_photo_from_url():
+            schedule_remotion_build_data()
             return
         if self._try_save_player_photo_crop():
+            schedule_remotion_build_data()
             return
         self.send_error(404, "Not found")
 

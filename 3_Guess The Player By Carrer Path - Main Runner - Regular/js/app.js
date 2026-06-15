@@ -19,18 +19,16 @@ import {
     applyCareerPictureModeToActiveState,
     persistCareerPictureModeFromActiveState,
     preloadCareerAssets,
+    initPlayerNameOverridesSharedSync,
 } from "./pitch-render.js";
 import { loadSquadJson } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js";
 import { applyCustomSelects } from "./custom-selects.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName } from "./saved-scripts.js?v=20260601-autoopen5";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
-import { startRecordingAndFullscreen } from "./recording-flow.js";
-import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
+import { getActiveScriptName } from "./saved-scripts.js?v=20260613-prep3";
+import { initSavePicker } from "./save-picker.js";
+import { initPrepPanel, renderPrepPanel } from "./prep-panel.js";
 import { initTransitionsUI, transitionSettings } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
-import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260612e";
 import { isProdMode, toggleProdMode, runProdValidation, showValidationModal, markBackgroundColorConfirmed, markBackgroundEffectConfirmed } from "./prod-validation.js";
 import { bindDomElements } from "./dom-bindings.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
@@ -38,7 +36,6 @@ import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initPlayerVoiceManager } from "./player-voice-manager.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
-import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import { initNameDescriptionGenerator } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 import {
     clearCareerPictureFavorite,
@@ -633,7 +630,7 @@ export function updateLanding() {
     const { els } = appState;
     const title = document.getElementById("landing-title");
 
-    title.innerHTML = t("landingTitle");
+    if (title) title.innerHTML = t("landingTitle");
     renderLandingTitleVoiceControls();
     const landingQuestionsCount = document.getElementById("landing-questions-count");
     if (landingQuestionsCount) {
@@ -693,12 +690,8 @@ async function init() {
 
     bindDomElements();
     applyPerformanceModeFromUrl();
-    initSharedBackgroundTheme(
-        document.getElementById("in-background-color"),
-        document.getElementById("in-background-effect"),
-        document.getElementById("in-background-opacity"),
-        { forcedDefaults: { colorId: "quiz-career-path", effectId: "sun-rays-center", opacity: 4 } },
-    );
+    /* PREP PANEL: no shared background theme (flat green bg from prep-panel.css);
+       the hidden background selects still satisfy markBackground*Confirmed for PROD. */
     document.getElementById("in-background-color")?.addEventListener("change", () => markBackgroundColorConfirmed());
     document.getElementById("in-background-effect")?.addEventListener("change", () => markBackgroundEffectConfirmed());
     await initPlayerVoiceManager();
@@ -727,14 +720,12 @@ async function init() {
             transitionSel.dispatchEvent(new Event("change"));
         }
     }
-    /* The Saved tab is now the calendar-driven recording queue � see
-       recording-queue.js. The legacy savedScripts UI (Save Current Settings,
-       +Folder, Import, freeform list) is gone; the saved-scripts.js module
-       remains for the underlying capture/apply helpers, but its init wiring
-       points at buttons that no longer exist, so we don't call it. */
-    void initRecordingQueue();
+    /* PREP PANEL: the Saved tab lists the named 3| blocks Remotion renders
+       (save-picker.js). The prep panel (prep-panel.js) renders all levels and
+       auto-saves every edit into block.script. */
+    void initSavePicker();
+    void initPlayerNameOverridesSharedSync();
     initUpdateData();
-    initThumbnailStudio();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
         quizKey: "career-path",
@@ -814,12 +805,6 @@ async function init() {
     applyTranslations();
     document.addEventListener('voice-language-change', () => { syncLanguageButtons(); });
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && appState.isVideoPlaying) {
-            stopVideoFlow();
-        }
-    });
-
     wireMainTabs(els);
 
     // Listeners
@@ -840,7 +825,7 @@ async function init() {
         els.inHard.value = String(hard);
         els.inImpossible.value = String(impossible);
         updateLanding();
-        renderRecordingQueue();
+        renderPrepPanel();
         switchLevel(appState.currentLevelIndex);
     };
 
@@ -1018,9 +1003,6 @@ async function init() {
         if (!state.videoMode) {
             clearVideoModePreviewFx();
         }
-        if (!e.target.checked && appState.isVideoPlaying) {
-            stopVideoFlow();
-        }
         const isQuestionLevel =
             appState.currentLevelIndex > 1 &&
             appState.currentLevelIndex < appState.totalLevelsCount;
@@ -1053,173 +1035,6 @@ async function init() {
 
     if (els.prodBtn) {
         els.prodBtn.onclick = () => toggleProdMode();
-    }
-
-    /* Pacing for the EN?ES double-record. Tweak here if you want longer/shorter brakes. */
-    const RECORD_LANG_BRAKE_MS = 2000;   // after switching language, before next phase starts
-    const RECORD_BETWEEN_PHASES_MS = 3000; // visual brake between phase 1 finish and phase 2 start
-    const brake = (ms) => new Promise((r) => setTimeout(r, ms));
-
-    /** Hide the top FAB row (Show Controls / Video Mode / Play / Record / Prod)
-     *  so the recording's very first frames are a clean stage, not a UI snapshot.
-     *  Mirrors what `startVideoFlow` does � but we do it earlier (before StartRecord). */
-    function freezeUIForRecording() {
-        document.body.classList.add("play-video-active");
-        if (els.playVideoBtn) els.playVideoBtn.hidden = true;
-        if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
-        if (els.panelFab) els.panelFab.hidden = true;
-    }
-    function unfreezeUIForRecording() {
-        document.body.classList.remove("play-video-active");
-        if (els.playVideoBtn) els.playVideoBtn.hidden = false;
-        if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
-        if (els.panelFab) els.panelFab.hidden = false;
-    }
-
-    /** Run one recording pass: start OBS+fullscreen, kick the level flow, resolve
-     *  when the outro chain in levels.js dispatches `recording-naturally-finished`. */
-    async function runRecordingPhase(savedName, language) {
-        /* Defensive: a legacy session may have left transitionSettings.effect = ""
-           (the old PROD toggle wiped it). Without this guard the recording skips
-           every transition. Empty/null/undefined ? restore to the dropdown's
-           selected value, or fall back to "grid-overlay". */
-        if (!transitionSettings.effect) {
-            const effectSel = document.getElementById("in-transition-effect");
-            transitionSettings.effect = (effectSel?.value && effectSel.value !== "")
-                ? effectSel.value
-                : "grid-overlay";
-            if (effectSel && effectSel.value !== transitionSettings.effect) {
-                effectSel.value = transitionSettings.effect;
-            }
-        }
-
-        /* Always begin from the landing page (ball animation), regardless of which
-           level the user is currently on. This applies to both phase 1 (initial)
-           and phase 2 (after the EN?ES handoff � the user is on the outro page
-           after phase 1's natural finish). */
-        if (appState.currentLevelIndex !== 1) {
-            switchLevel(1);
-            /* Wait for the actual level-switch transition to fully complete before
-               continuing � otherwise `transitionRunning` may still be true when the
-               video flow triggers level 1?2, causing that transition to be skipped. */
-            if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
-                await appState._transitionDone.catch(() => {});
-            }
-            await brake(300); // small settle after transition completes
-        }
-
-        /* Hide FABs BEFORE StartRecord so the recorded file never shows them.
-           startVideoFlow re-asserts the same state right after, so this is idempotent
-           on success; on failure we roll it back. */
-        freezeUIForRecording();
-
-        const ok = await startRecordingAndFullscreen(savedName, language);
-        if (!ok) {
-            unfreezeUIForRecording();
-            return false;
-        }
-
-        renderLandingTitleVoiceControls();
-        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
-        if (els.videoModeToggle && !els.videoModeToggle.checked) {
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        }
-
-        /* Subscribe BEFORE startVideoFlow so we never miss the event. */
-        const completion = new Promise((resolve) => {
-            document.addEventListener("recording-naturally-finished", () => resolve(), { once: true });
-        });
-
-        startVideoFlow();
-        setTimeout(() => { renderLandingTitleVoiceControls(); }, 0);
-
-        await completion;
-        return true;
-    }
-
-    /* Play Video: runs the level flow WITHOUT recording or fullscreen.
-       Ignored while a double-record is orchestrating. */
-    els.playVideoBtn.onclick = async () => {
-        if (appState.doubleRecording) return;
-        if (appState.isVideoPlaying) {
-            startVideoFlow(); // toggles to stop
-            return;
-        }
-        if (isProdMode()) {
-            const result = await runProdValidation();
-            if (!result.allPassed) {
-                showValidationModal(result);
-                return;
-            }
-        }
-        /* Fresh random pick per Play click. */
-        resetRandomEndingType();
-        renderLandingTitleVoiceControls();
-        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
-        if (els.videoModeToggle && !els.videoModeToggle.checked) {
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        }
-        startVideoFlow();
-        setTimeout(() => {
-            renderLandingTitleVoiceControls();
-        }, 0);
-    };
-
-    /* Record Video: records once in English, then once in Spanish � both saved under
-       Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen between phases
-       so the browser doesn't need a fresh user gesture to re-enter fullscreen. */
-    if (els.recordVideoBtn) {
-        els.recordVideoBtn.onclick = async () => {
-            if (appState.doubleRecording) return; // already running; ignore duplicate clicks
-            if (appState.isVideoPlaying) {
-                startVideoFlow(); // toggles to stop (also tears down recording)
-                return;
-            }
-            if (isProdMode()) {
-                const result = await runProdValidation();
-                if (!result.allPassed) {
-                    showValidationModal(result);
-                    return;
-                }
-            }
-            const savedName = (getActiveScriptName() || "").trim();
-            if (!savedName) {
-                alert("Load a saved setting first � the OBS file is named after it.");
-                return;
-            }
-
-            /* Pick the random ending ONCE for the whole double-record, so phase 1
-               (English) and phase 2 (Spanish) end with the same chosen type. */
-            resetRandomEndingType();
-
-            const __recLang = await askRecordingLanguage();
-            if (!__recLang) return;
-
-            try {
-                if (__recLang === "english" || __recLang === "both") {
-                    appState.doubleRecording = { phase: 1, savedName, single: __recLang !== "both" };
-                    if (getCurrentLanguage() !== "english") {
-                        setCurrentLanguage("english");
-                        await brake(RECORD_LANG_BRAKE_MS);
-                    }
-                    const ok1 = await runRecordingPhase(savedName, "english");
-                    if (!ok1) return;
-                }
-                if (__recLang === "both") {
-                    await brake(RECORD_BETWEEN_PHASES_MS);
-                }
-                if (__recLang === "spanish" || __recLang === "both") {
-                    appState.doubleRecording = { phase: 2, savedName, single: __recLang !== "both" };
-                    setCurrentLanguage("spanish");
-                    await brake(RECORD_LANG_BRAKE_MS);
-                    await runRecordingPhase(savedName, "spanish");
-                }
-            } finally {
-                appState.doubleRecording = null;
-            }
-        };
     }
 
     // --- CAREER EDIT MODAL EVENT HANDLERS ---
@@ -1756,6 +1571,10 @@ async function init() {
     syncVideoModeButton(!!getState()?.videoMode);
     syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
     appState.refreshLandingUi = updateLanding;
+
+    // PREP PANEL: boot the stacked-levels editor (context-swap per section,
+    // listens for script-applied / levels-changed / refresh-level).
+    initPrepPanel();
 }
 
 function renderPictureControls() {

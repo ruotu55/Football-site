@@ -243,6 +243,7 @@ function buildLevelsSnapshotForCapture() {
         currentSquad: jsonSafeClone(lvl.currentSquad),
         careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
         careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
+        careerPlayerSaved: !!lvl.careerPlayerSaved,
         formationId: lvl.formationId,
         lastFormationId: lvl.lastFormationId,
         displayMode: lvl.displayMode,
@@ -969,6 +970,7 @@ export function initSavedScripts(callbacks) {
             currentSquad: jsonSafeClone(lvl.currentSquad),
             careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
             careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
+        careerPlayerSaved: !!lvl.careerPlayerSaved,
             formationId: lvl.formationId,
             lastFormationId: lvl.lastFormationId,
             displayMode: lvl.displayMode,
@@ -1646,6 +1648,7 @@ async function loadScript(script) {
             slotPhotoIndexBySlot: new Map(lvl.slotPhotoIndexEntries || []),
             careerPlayer: cloneCareerPlayerForStorage(lvl.careerPlayer),
             careerHistory: cloneCareerHistoryForStorage(lvl.careerHistory),
+        careerPlayerSaved: !!lvl.careerPlayerSaved,
         };
         // The Adjust Picture offsets/scales above were saved explicitly, so tell
         // renderPitch to KEEP them on this load instead of resetting to defaults

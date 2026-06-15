@@ -12,8 +12,8 @@
   position: relative;
   margin: 0;
   /* Duration overridden in play video reveal to match flip-card timing (see syncPitchWrapTransitionToVideoReveal). */
-  transition: height var(--pitch-wrap-height-duration, 0.78s) cubic-bezier(0.25, 1, 0.5, 1),
-    transform var(--pitch-wrap-height-duration, 0.78s) cubic-bezier(0.25, 1, 0.5, 1);
+  transition: height var(--pitch-wrap-height-duration, 0.88s) cubic-bezier(0.33, 1, 0.68, 1),
+    transform var(--pitch-wrap-height-duration, 0.88s) cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 /* One frame / stage-in: land new level at final pitch height with no height animation (Play Video level change). */
@@ -240,9 +240,17 @@ body:not(.shorts-mode) .pitch-wrap {
 
 .player-slot {
   position: absolute;
-  /* Base 9.11% * 1.02, then +10% diameter; .slot-name font unchanged */
-  width: calc(9.11% * 1.02 * 1.1);
-  aspect-ratio: 1 / 1;
+  /* Portrait trading-card footprint (was circular 1:1). */
+  --slot-card-size: 0.9;
+  /* Old square slot width was 9.11% * 1.02 * 1.1 — flag circle keeps that diameter. */
+  --slot-flag-circle-scale: calc(1.1 / (1.04 * var(--slot-card-size)));
+  width: calc(9.11% * 1.02 * 1.04 * var(--slot-card-size));
+  aspect-ratio: 10 / 13.5;
+  --slot-card-radius: 14%;
+  --slot-card-border: clamp(1.5px, 2.2%, 2.5px);
+  --slot-name-band-ratio: 18%;
+  container-type: size;
+  container-name: player-slot;
   --slot-scale: 1;
   transform: translate(-50%, -50%) translateZ(60px) rotateX(-38deg) scale(var(--slot-scale));
   border-radius: 0;
@@ -288,8 +296,7 @@ body:not(.shorts-mode) .pitch-wrap {
   align-items: center;
   justify-content: center;
   flex: 1 1 auto;
-  border-radius: 50%;
-  /* Clip children: scaling the element itself painted over the black padding ring */
+  border-radius: inherit;
   overflow: hidden;
 }
 
@@ -412,6 +419,11 @@ body.play-video-active .pitch-swap-logo-btn {
   display: none !important;
 }
 
+.slot-mount:has(> .slot-inner) {
+  perspective: 1100px;
+  transform-style: preserve-3d;
+}
+
 .slot-inner {
   position: absolute;
   inset: 0;
@@ -420,38 +432,157 @@ body.play-video-active .pitch-swap-logo-btn {
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform;
-  transition: transform 0.78s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center center;
+  transition: transform 0.88s cubic-bezier(0.33, 1, 0.68, 1);
 }
+
 .slot-inner.flipped {
   transform: rotateY(180deg);
 }
+
+/* Club flag → player card: circle scales into portrait card while flipping. */
+.slot-inner.slot-inner--flag-flip:not(.flipped) {
+  transform: scale(var(--slot-flag-circle-scale));
+}
+
+.slot-inner.slot-inner--flag-flip.flipped {
+  transform: rotateY(180deg) scale(1);
+}
+
 .slot-face {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  transform: translateZ(0);
-  will-change: transform;
-}
-.slot-back {
-  transform: rotateY(180deg) translateZ(0);
+  transform: translateZ(2px);
   will-change: transform;
 }
 
-/* National XI flip-card front only: club crests on the pitch — no white disc / circle clip.
-   Club XI (guess by nationality): flags keep circular badge + ring like before. */
-.slot-front--national-crest .slot-avatar {
-  background-color: transparent;
-  padding: 0;
+.slot-back {
+  transform: rotateY(180deg) translateZ(2px);
+  will-change: transform;
+}
+
+/* Trading-card frame (not on club flag video front). */
+.slot-back,
+.player-slot.has-player:not(:has(.slot-inner)) > .slot-mount,
+.slot-front:not(.slot-front--club-flag) {
+  display: flex;
+  flex-direction: column;
+  border: var(--slot-card-border) solid #14121f;
+  border-radius: var(--slot-card-radius);
+  overflow: hidden;
+  background: #fff;
+  box-sizing: border-box;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.slot-front .slot-avatar,
+.slot-back .slot-avatar,
+.player-slot.has-player:not(:has(.slot-inner)) > .slot-mount > .slot-avatar {
+  position: relative;
+  flex: 1 1 auto;
+  inset: auto;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.slot-back .slot-label-container,
+.player-slot.has-player:not(:has(.slot-inner)) > .slot-mount > .slot-label-container {
+  position: relative;
+  flex: 0 0 var(--slot-name-band-ratio);
+  width: 100%;
+  height: var(--slot-name-band-ratio);
+  min-height: var(--slot-name-band-ratio);
+  max-height: var(--slot-name-band-ratio);
+  transform: none;
+  left: auto;
+  right: auto;
+  bottom: auto;
+}
+
+/* Club XI video front: flag only — circular badge, no trading-card box. */
+.slot-front--club-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
   overflow: visible;
-  border-radius: 0;
+}
+
+.slot-front--club-flag .slot-avatar {
+  position: relative;
+  flex: 0 0 auto;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: none;
+  --slot-ring: clamp(2px, 1.7%, 2.35px);
+  padding: var(--slot-ring);
+  box-sizing: border-box;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
+.slot-front--club-flag .slot-badge-scale-wrap {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.slot-front--club-flag .slot-badge-scale-wrap > *,
+.slot-front--club-flag .slot-avatar > * {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.slot-front--club-flag .slot-badge-scale-wrap .slot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.player-slot.has-player .slot-front--club-flag .slot-avatar::before {
+  content: "";
+  position: absolute;
+  inset: var(--slot-ring);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, transparent 55%);
+}
+
+/* National XI flip-card front: club crests inside the trading-card frame. */
+.slot-front--national-crest .slot-avatar {
+  background-color: #ffffff;
+  padding: 0;
+  overflow: hidden;
 }
 
 .slot-front--national-crest .slot-badge-scale-wrap {
-  border-radius: 0;
-  overflow: visible;
+  border-radius: inherit;
+  overflow: hidden;
 }
 
 .slot-front--national-crest .slot-avatar > * {
@@ -473,17 +604,18 @@ body.play-video-active .pitch-swap-logo-btn {
 .slot-avatar {
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  border: none;
-  /* White ring: padding gutter is solid (no compositing with the image). */
-  /* % is of the circle’s width so every slot gets the same proportion; clamp avoids chunky rings on large/shorts slots. */
-  --slot-ring: clamp(2px, 1.7%, 2.35px);
-  padding: var(--slot-ring);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--slot-card-radius);
+  border: var(--slot-card-border) solid #14121f;
+  padding: 0;
   box-sizing: border-box;
   background-color: #ffffff;
   overflow: hidden;
-  /* No inset shadow — it read as extra black/bevel and looked uneven (esp. national / club-logo video front). */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.28);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .slot-avatar > * {
@@ -494,31 +626,21 @@ body.play-video-active .pitch-swap-logo-btn {
   min-height: 0;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 0;
   overflow: hidden;
   background: #fff;
 }
 
 .slot-avatar--no-photo {
-  background-color: #ffffff;
+  background-color: #f3f4f6;
 }
 
-/* Gloss only inside the inner disc (inset matches ring so it never tints the white band) */
 .slot-avatar::before {
-  content: '';
-  position: absolute;
-  inset: var(--slot-ring);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 1;
+  content: none;
 }
 
-.player-slot.has-player .slot-avatar:not(.slot-avatar--no-photo)::before {
-  background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, transparent 55%);
-}
-
-.player-slot.has-player .slot-avatar.slot-avatar--no-photo::before {
-  background: linear-gradient(165deg, #e8ecf0 0%, #cfd6de 55%, #c5ccd5 100%);
+.player-slot.has-player .slot-avatar.slot-avatar--no-photo {
+  background: linear-gradient(180deg, #f7f8fa 0%, #e4e8ee 100%);
 }
 
 .player-slot.has-player { cursor: pointer; }
@@ -526,8 +648,7 @@ body.play-video-active .pitch-swap-logo-btn {
 .slot-photo-controls {
   position: absolute;
   left: 50%;
-  /* Below the player name (name sits at top:88%, ~1.05rem tall) instead of above the card. */
-  top: calc(88% + 1.45rem);
+  top: calc(100% + 0.35rem);
   transform: translateX(-50%);
   display: flex;
   align-items: center;
@@ -579,100 +700,97 @@ body.play-video-active .pitch-swap-logo-btn {
   cursor: wait;
 }
 
-.slot-img { width: 100%; height: 100%; object-fit: cover; }
+.slot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 12%;
+  display: block;
+}
 
 .slot-label-container {
   position: absolute;
-  top: 88%;
-  left: 50%;
-  transform: translateX(-50%) translateZ(30px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateZ(30px);
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  z-index: 10;
+  z-index: 12;
+  pointer-events: none;
 }
 
 .slot-name {
   position: relative;
-  margin-top: 0; 
-  padding: 0.1em 0.3em; 
-  background-color: #ef5350; 
-  border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+  flex: 0 0 100%;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #ef5350 0%, #c62828 100%);
+  border: none;
+  border-top: var(--slot-card-border) solid #14121f;
+  border-radius: 0;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.12) inset;
   font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
   font-weight: 800;
-  /* Scaled up the font size by 10% */
-  font-size: clamp(0.61rem, 0.92vw, 1.02rem); 
-  line-height: 1.15;
-  letter-spacing: 0.04em;
+  font-style: italic;
+  font-size: 13.2cqh;
+  line-height: 1;
+  letter-spacing: 0.03em;
   text-align: center;
   text-transform: uppercase;
-  color: #ffffff;
-  -webkit-text-stroke: clamp(0.45px, 0.07em, 1.1px) #000;
-  paint-order: stroke fill;
-  text-shadow:
-    -0.05em -0.05em 0 #000,
-    0.05em -0.05em 0 #000,
-    -0.05em 0.05em 0 #000,
-    0.05em 0.05em 0 #000,
-    0 -0.05em 0 #000,
-    0 0.05em 0 #000,
-    -0.05em 0 0 #000,
-    0.05em 0 0 #000,
-    0 2px 4px rgba(0, 0, 0, 0.45);
+  color: #111111;
   white-space: nowrap;
   pointer-events: auto;
   cursor: text;
   outline: none;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.35rem;
-  min-width: 3.35rem;
-  max-width: 3.35rem;
-  height: 1.05rem;
-  min-height: 1.05rem;
-  padding: 0 0.3rem;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  max-height: 100%;
   box-sizing: border-box;
   overflow: hidden;
-  line-height: 1;
 }
 
 .slot-name:focus {
-  background-color: #d32f2f;
-  box-shadow: 0 0 0 2px #fff;
+  background: linear-gradient(180deg, #ff6659 0%, #d32f2f 100%);
+  box-shadow: 0 0 0 2px #14121f;
 }
 
 .slot-name-edit-btn,
 .slot-swap-btn {
   position: absolute;
-  /* Scaled up the button sizing and margin by 10% */
-  background: rgba(0,0,0,0.8);
+  bottom: calc(100% + 0.12rem);
+  background: rgba(0, 0, 0, 0.82);
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
   border-radius: 50%;
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1.05rem;
+  height: 1.05rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.66rem;
+  font-size: 0.58rem;
   cursor: pointer;
   pointer-events: auto;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
   transition: background 0.2s, transform 0.2s;
   padding: 0;
   flex-shrink: 0;
+  z-index: 14;
 }
 
 .slot-name-edit-btn {
-  right: 100%;
-  margin-right: 5.5px;
+  left: -0.15rem;
 }
 
 .slot-swap-btn {
-  left: 100%;
-  margin-left: 5.5px;
+  right: -0.15rem;
 }
 
 .slot-name-edit-btn:hover,
@@ -769,7 +887,6 @@ body:has(#lineups-inline-team-picker:not([hidden])) #pitch-container {
 }
 .pcrop-btn-secondary { background: #39424f; color: #fff; }
 .pcrop-btn-primary { background: #ffd24a; color: #1b212b; }
-.pcrop-btn:disabled { opacity: 0.6; cursor: wait; }
 
 /* Add-photo source chooser */
 .psrc-modal { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; }
@@ -821,3 +938,4 @@ body:has(#lineups-inline-team-picker:not([hidden])) #pitch-container {
 .ppick-actions { display: flex; justify-content: flex-end; margin-top: 1rem; }
 .ppick-btn { padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid #333; cursor: pointer; }
 .ppick-btn-secondary { background: #1d2027; color: #fff; }
+.pcrop-btn:disabled { opacity: 0.6; cursor: wait; }

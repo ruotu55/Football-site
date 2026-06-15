@@ -148,6 +148,14 @@ function buildReadyPhotoIndex(IMAGES) {
 
 const resolvePlayerPhoto = buildReadyPhotoIndex(P.IMAGES);
 
+// ── prep-panel PLAYER-name overrides (NAME edit → "save permanently") ─────────
+// Shared across all runners: canonical squad player name → EXACT display name,
+// NOTE: the shared player-name overrides (player_name_overrides_shared.json) are
+// INTENTIONALLY NOT applied here. That rename feature is scoped to the lineup
+// runners 1 & 2; runners 3 & 4 ALWAYS show the player's FULL real name on the
+// reveal, so the override must not reach them.
+const playerDisplay = (name) => name; // FULL real name — no override
+
 let missingPhotos = 0;
 let missingCrests = 0;
 let missingRevealVoices = 0;
@@ -168,6 +176,17 @@ for (const key of Object.keys(blocks)) {
     .filter(Boolean);
   if (!lines.length) continue;
 
+  // Per-save edited career history rides in block.script.levels[i].careerHistory
+  // (the prep panel auto-saves added teams / removed teams / changed years /
+  // custom crests there). Key it by player name so it survives line reordering.
+  const editedCareerByPlayer = new Map();
+  for (const lvl of Array.isArray(block.script?.levels) ? block.script.levels : []) {
+    const pn = String(lvl?.careerPlayer?.name || "").trim().toLowerCase();
+    if (pn && Array.isArray(lvl?.careerHistory) && !editedCareerByPlayer.has(pn)) {
+      editedCareerByPlayer.set(pn, lvl.careerHistory);
+    }
+  }
+
   const levels = [];
   for (const line of lines) {
     // format: "PlayerName - Club"
@@ -179,14 +198,19 @@ for (const key of Object.keys(blocks)) {
 
     // Resolve full player record (for transfer_history)
     const rec = sq.findPlayer(club, playerName);
-    const display = displayName(playerName);
+    const display = playerDisplay(playerName);
 
     // Photo: try Ready photos first, then club images
     const photoPath = resolvePlayerPhoto(playerName, club);
     if (!photoPath) missingPhotos += 1;
 
-    // Career history from transfer_history
-    const rawHistory = Array.isArray(rec?.transfer_history) ? rec.transfer_history : [];
+    // Career history: PREFER the per-save edited list (block.script) so prep-panel
+    // edits (added/removed teams, years) reach the video; else rebuild from the
+    // squad JSON transfer_history.
+    const edited = editedCareerByPlayer.get(playerName.toLowerCase());
+    const rawHistory = Array.isArray(edited) && edited.length
+      ? edited.map((h) => ({ club: h.club, year: h.year }))
+      : Array.isArray(rec?.transfer_history) ? rec.transfer_history : [];
     const cleanedHistory = cleanHistory(rawHistory);
     const careerHistory = cleanedHistory.map((h) => {
       const crestPath = resolveClubCrest(h.club);
@@ -234,6 +258,16 @@ const quizTitleEs = V.voiceRel(
   V.findVoiceFile("Game name/Career Path Regular/spanish", /trayectoria/i),
 );
 const audio = buildAudioManifest(V, { bgm, quizTitleEn, quizTitleEs });
+// Intro greeting voice ("Welcome to the Ultimate Football Quiz") — runner-3-only,
+// plays over the Ultimate intro before the quiz-title voice. Stored in
+// .Storage/Voices/Intro Greeting/<lang>/.
+const introGreetingEn = V.voiceRel(V.findVoiceFile("Intro Greeting/english", /welcome/i));
+const introGreetingEs = V.voiceRel(V.findVoiceFile("Intro Greeting/spanish", /bienvenidos/i));
+audio.introGreeting = { english: introGreetingEn, spanish: introGreetingEs };
+audio.introGreetingDurationSec = {
+  english: V.audioDurationSec(introGreetingEn),
+  spanish: V.audioDurationSec(introGreetingEs),
+};
 const AUDIO_OUT = path.join(projectDir, "src", "generated", "audio.json");
 fs.writeFileSync(AUDIO_OUT, JSON.stringify(audio, null, 0));
 console.log(

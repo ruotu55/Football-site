@@ -24,7 +24,7 @@ export const INTRO_STRINGS: IntroStringsByLanguage = {
 
 // Intro sizes matched to runner 2 (user request 2026-06-11): title 155, season 126.
 export const TITLE_FONT_SIZE = 155;
-export const SEASON_FONT_SIZE = 126;
+export const SEASON_FONT_SIZE = 72;
 
 // Background default — magenta accent matching runner-9 app.js forcedDefaults.
 // Color id "quiz-football-mcq" → label "#C2185B - Football Quiz (Multiple Choice)"

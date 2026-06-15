@@ -24,7 +24,7 @@ export const INTRO_STRINGS: IntroStringsByLanguage = {
 
 // Intro sizes matched to runner 2 (user request 2026-06-11): title 155, season 126.
 export const TITLE_FONT_SIZE = 155;
-export const SEASON_FONT_SIZE = 126;
+export const SEASON_FONT_SIZE = 72;
 
 // Background default (matches runner 4's colorId "quiz-career-stats", effect "rising-question-marks").
 export const THEME_DEFAULT = {

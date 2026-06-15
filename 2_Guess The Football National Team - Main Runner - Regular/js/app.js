@@ -2,11 +2,12 @@ import { FORMATIONS } from "./formations.js";
 import { appState, clearSlotPhotoIndices, getState, getQuizQuestionCount, initLevels } from "./state.js";
 import { migratePlayerImages, projectAssetUrl, projectAssetUrlFresh } from "./paths.js";
 import { playerPhotoPaths } from "./photo-helpers.js";
-import { switchLevel } from "./levels.js";
+import { switchLevel } from "./levels.js?v=20260612-prep2";
 import {
     applySwapSearchAllNationality,
     applyPlayerPhotoFramingForSourceRelPath,
     initTeamNameOverridesSharedSync,
+    initPlayerNameOverridesSharedSync,
     isCurrentHeaderTeamNameEditable,
     openSwapLogoModal,
     refreshSwapLogoListFromSearch,
@@ -21,26 +22,21 @@ import {
     syncTeamHeaderLogoVarsFromLevel,
 } from "./pitch-render.js";
 import { filterTeams, showResults } from "./teams.js";
-import { startVideoFlow, stopVideoFlow } from "./video.js?v=20260416-ball";
 import { applyCustomSelects } from "./custom-selects.js";
 import { getCurrentLanguage, setCurrentLanguage, renderVoiceTab } from "./voice-tab.js";
 import { applyTranslations, t, endingTitleText } from "./i18n.js";
 import { initLevelControls } from "./level-control.js";
-import { getActiveScriptName } from "./saved-scripts.js?v=20260601-autoopen5";
-import { initRecordingQueue, renderRecordingQueue } from "./recording-queue.js?v=20260601-autoopen6";
-import { startRecordingAndFullscreen } from "./recording-flow.js";
-import { askRecordingLanguage } from "../../.Storage/shared/record-language-chooser.js";
-import { initTransitionsUI, transitionSettings } from "./transitions.js";
+import { getActiveScriptName } from "./saved-scripts.js?v=20260612-prep2";
+import { initSavePicker } from "./save-picker.js";
+import { initPrepPanel } from "./prep-panel.js";
+import { initTransitionsUI } from "./transitions.js";
 import { initUpdateData } from "./update-data.js";
-import { initThumbnailStudio } from "./thumbnail-studio.js?v=20260612b";
 import {
-    isProdMode,
-    toggleProdMode,
-    runProdValidation,
+    runProdValidationBoth,
     showValidationModal,
     markBackgroundColorConfirmed,
     markBackgroundEffectConfirmed,
-} from "./prod-validation.js";
+} from "./prod-validation.js?v=20260612-prep2";
 import {
     initSavedTeamLayouts,
     refreshSaveTeamButtonUi,
@@ -51,7 +47,6 @@ import { refreshTeamHeaderHatchGrid } from "./team-header-hatch.js";
 import { wireMainTabs, wireControlPanelToggle } from "./ui-panels.js";
 import { initOptionalBootstrapUtilities } from "./bootstrap-hybrid.js";
 import { initTeamVoiceManager } from "./team-voice-manager.js";
-import { initSharedBackgroundTheme } from "../../.Storage/shared/backgrounds/background-theme.js";
 import { initNameDescriptionGenerator } from "../../.Storage/shared/name-description-generator/name-description-generator.js";
 import {
     applyDevLiveReloadControls,
@@ -921,14 +916,11 @@ export function updateLanding() {
     const title = document.getElementById("landing-title");
     const isShorts = document.body.classList.contains("shorts-mode");
 
-    if (type === "club-by-nat") {
-        title.innerHTML = isShorts
-            ? t("landingTitleClubByNatShorts")
-            : t("landingTitleClubByNat");
-    } else {
-        title.innerHTML = isShorts
-            ? t("landingTitleNatByClubShorts")
-            : t("landingTitleNatByClub");
+    if (title) {
+        title.innerHTML =
+            type === "club-by-nat"
+                ? (isShorts ? t("landingTitleClubByNatShorts") : t("landingTitleClubByNat"))
+                : (isShorts ? t("landingTitleNatByClubShorts") : t("landingTitleNatByClub"));
     }
     renderLandingTitleVoiceControls();
     const landingQuestionsCount = document.getElementById("landing-questions-count");
@@ -961,12 +953,8 @@ async function init() {
     bindDomElements();
     refreshTeamHeaderHatchGrid(appState.els.teamHeader);
     applyPerformanceModeFromUrl();
-    initSharedBackgroundTheme(
-        document.getElementById("in-background-color"),
-        document.getElementById("in-background-effect"),
-        document.getElementById("in-background-opacity"),
-        { forcedDefaults: { colorId: "quiz-nat-by-club", effectId: "youtube-thumbnails", opacity: 0.5 } },
-    );
+    // PREP PANEL: the shared background theme is intentionally NOT initialized —
+    // the prep page keeps a flat dark background (see css/components/prep-panel.css).
 
     // Track explicit user selection for PROD validation
     const bgColorSel = document.getElementById("in-background-color");
@@ -986,11 +974,11 @@ async function init() {
     // Call initialized modules
     initLevelControls();
     initTransitionsUI();
-    /* Migrated from initSavedScripts(...) � the freeform Saved tab is now a
-       calendar-driven recording queue. See js/recording-queue.js. */
-    void initRecordingQueue();
+    /* The Saved tab lists the named runner-2 blocks Remotion renders — see
+       save-picker.js. saved-scripts.js remains for the underlying
+       capture/apply helpers. */
+    void initSavePicker();
     initUpdateData();
-    initThumbnailStudio();
     initNameDescriptionGenerator({
         buttonId: "btn-name-description",
         quizKey: "nat-by-club",
@@ -1052,6 +1040,7 @@ async function init() {
     syncShortsModeFab();
     initSavedTeamLayouts();
     initTeamNameOverridesSharedSync();
+    void initPlayerNameOverridesSharedSync();
 
     // Expose for pitch-render.js (avoids circular ES module dependency).
     window.__confirmAndDeleteSaveIfPresent = confirmAndDeleteSaveIfPresent;
@@ -1102,12 +1091,6 @@ async function init() {
     applyTranslations();
     document.addEventListener('voice-language-change', () => { syncLanguageButtons(); });
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && appState.isVideoPlaying) {
-            stopVideoFlow();
-        }
-    });
-
     wireMainTabs(els);
 
     // Listeners
@@ -1129,7 +1112,6 @@ async function init() {
         if (els.inHard) els.inHard.value = String(hard);
         if (els.inImpossible) els.inImpossible.value = String(impossible);
         updateLanding();
-        renderRecordingQueue();
         renderHeader();
         switchLevel(appState.currentLevelIndex);
     };
@@ -1243,24 +1225,9 @@ async function init() {
     els.videoModeToggle.onchange = (e) => {
         const state = getState();
         state.videoMode = e.target.checked;
-        if (appState.currentLevelIndex === 0) {
-            const logoImg = appState.els?.logoPage?.querySelector(".logo-img-anim");
-            if (logoImg) {
-                if (state.videoMode && !appState.isVideoPlaying) {
-                    logoImg.classList.remove("reveal");
-                } else if (!state.videoMode && !appState.isVideoPlaying) {
-                    logoImg.classList.remove("reveal");
-                    void logoImg.offsetWidth;
-                    logoImg.classList.add("reveal");
-                }
-            }
-        }
         syncVideoModeButton(state.videoMode);
         syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
         refreshSaveTeamButtonUi();
-        if (!e.target.checked && appState.isVideoPlaying) {
-            stopVideoFlow();
-        }
         const isQuestionLevel =
             appState.currentLevelIndex > 1 &&
             appState.currentLevelIndex < appState.totalLevelsCount;
@@ -1271,13 +1238,6 @@ async function init() {
         renderLandingTitleVoiceControls();
         updateLanding();
     };
-
-    if (els.videoModeBtn && els.videoModeToggle) {
-        els.videoModeBtn.onclick = () => {
-            els.videoModeToggle.checked = !els.videoModeToggle.checked;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        };
-    }
 
     els.applyVideoAllBtn.onclick = () => {
         const nextVideoMode = !areAllLevelsVideoModeEnabled();
@@ -1291,181 +1251,44 @@ async function init() {
         }
     };
 
-    // ?? PROD button ??
+    // PROD button — run the full readiness check (assets + voices, EN & ES).
+    // Green = everything's there; red + error list = something's missing.
     if (els.prodBtn) {
-        els.prodBtn.onclick = () => {
-            toggleProdMode();
-            syncVideoModeButton(!!getState()?.videoMode);
-            syncApplyVideoAllButton(areAllLevelsVideoModeEnabled());
-        };
-    }
-
-    /* Pacing for the EN?ES double-record. Tweak here if you want longer/shorter brakes. */
-    const RECORD_LANG_BRAKE_MS = 2000;   // after switching language, before next phase starts
-    const RECORD_BETWEEN_PHASES_MS = 3000; // visual brake between phase 1 finish and phase 2 start
-    const brake = (ms) => new Promise((r) => setTimeout(r, ms));
-
-    /** Hide the top FAB row (Show Controls / Video Mode / Play / Record / Prod)
-     *  so the recording's very first frames are a clean stage, not a UI snapshot.
-     *  Mirrors what `startVideoFlow` does � but we do it earlier (before StartRecord). */
-    function freezeUIForRecording() {
-        document.body.classList.add("play-video-active");
-        if (els.playVideoBtn) els.playVideoBtn.hidden = true;
-        if (els.recordVideoBtn) els.recordVideoBtn.hidden = true;
-        if (els.panelFab) els.panelFab.hidden = true;
-    }
-    function unfreezeUIForRecording() {
-        document.body.classList.remove("play-video-active");
-        if (els.playVideoBtn) els.playVideoBtn.hidden = false;
-        if (els.recordVideoBtn) els.recordVideoBtn.hidden = false;
-        if (els.panelFab) els.panelFab.hidden = false;
-    }
-
-    /** Run one recording pass: start OBS+fullscreen, kick the level flow, resolve
-     *  when the outro chain in levels.js dispatches `recording-naturally-finished`. */
-    async function runRecordingPhase(savedName, language) {
-        /* Defensive: a legacy session may have left transitionSettings.effect = ""
-           (the old PROD toggle wiped it). Without this guard the recording skips
-           every transition. Empty/null/undefined ? restore to the dropdown's
-           selected value, or fall back to "grid-overlay". */
-        if (!transitionSettings.effect) {
-            const effectSel = document.getElementById("in-transition-effect");
-            transitionSettings.effect = (effectSel?.value && effectSel.value !== "")
-                ? effectSel.value
-                : "grid-overlay";
-            if (effectSel && effectSel.value !== transitionSettings.effect) {
-                effectSel.value = transitionSettings.effect;
-            }
-        }
-
-        /* Always begin from the landing page (ball animation), regardless of which
-           level the user is currently on. This applies to both phase 1 (initial)
-           and phase 2 (after the EN?ES handoff � the user is on the outro page
-           after phase 1's natural finish). */
-        if (appState.currentLevelIndex !== 1) {
-            switchLevel(1);
-            /* Wait for the actual level-switch transition to fully complete before
-               continuing � otherwise `transitionRunning` may still be true when the
-               video flow triggers level 1?2, causing that transition to be skipped. */
-            if (appState._transitionDone && typeof appState._transitionDone.then === "function") {
-                await appState._transitionDone.catch(() => {});
-            }
-            await brake(300); // small settle after transition completes
-        }
-
-        /* Hide FABs BEFORE StartRecord so the recorded file never shows them.
-           startVideoFlow re-asserts the same state right after, so this is idempotent
-           on success; on failure we roll it back. */
-        freezeUIForRecording();
-
-        const ok = await startRecordingAndFullscreen(savedName, language);
-        if (!ok) {
-            unfreezeUIForRecording();
-            return false;
-        }
-
-        renderLandingTitleVoiceControls();
-        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
-        if (els.videoModeToggle && !els.videoModeToggle.checked) {
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        }
-
-        /* Subscribe BEFORE startVideoFlow so we never miss the event. */
-        const completion = new Promise((resolve) => {
-            document.addEventListener("recording-naturally-finished", () => resolve(), { once: true });
-        });
-
-        startVideoFlow();
-        setTimeout(() => { renderLandingTitleVoiceControls(); }, 0);
-
-        await completion;
-        return true;
-    }
-
-    /* Play Video: runs the level flow WITHOUT recording or fullscreen.
-       Ignored while a double-record is orchestrating. */
-    els.playVideoBtn.onclick = async () => {
-        if (appState.doubleRecording) return;
-        if (appState.isVideoPlaying) {
-            startVideoFlow(); // toggles to stop
-            return;
-        }
-        if (isProdMode()) {
-            const result = await runProdValidation();
-            if (!result.allPassed) {
-                showValidationModal(result);
+        let prodBusy = false;
+        els.prodBtn.onclick = async () => {
+            if (prodBusy) return;
+            if (!getState()?.currentSquad) {
+                alert("Load a save first, then run PROD.");
                 return;
             }
-        }
-        /* Fresh random pick per Play click. */
-        resetRandomEndingType();
-        renderLandingTitleVoiceControls();
-        appState.levelsData.forEach((lvl) => { lvl.videoMode = true; });
-        if (els.videoModeToggle && !els.videoModeToggle.checked) {
-            els.videoModeToggle.checked = true;
-            els.videoModeToggle.dispatchEvent(new Event("change"));
-        }
-        startVideoFlow();
-        setTimeout(() => {
-            renderLandingTitleVoiceControls();
-        }, 0);
-    };
-
-    /* Record Video: records once in English, then once in Spanish � both saved under
-       Ready videos/<language>/<saved-setting>.<ext>. Stays fullscreen between phases
-       so the browser doesn't need a fresh user gesture to re-enter fullscreen. */
-    if (els.recordVideoBtn) {
-        els.recordVideoBtn.onclick = async () => {
-            if (appState.doubleRecording) return; // already running; ignore duplicate clicks
-            if (appState.isVideoPlaying) {
-                startVideoFlow(); // toggles to stop (also tears down recording)
-                return;
-            }
-            if (isProdMode()) {
-                const result = await runProdValidation();
-                if (!result.allPassed) {
-                    showValidationModal(result);
-                    return;
-                }
-            }
-            const savedName = (getActiveScriptName() || "").trim();
-            if (!savedName) {
-                alert("Load a saved setting first � the OBS file is named after it.");
-                return;
-            }
-
-            /* Pick the random ending ONCE for the whole double-record, so phase 1
-               (English) and phase 2 (Spanish) end with the same chosen type. */
-            resetRandomEndingType();
-
-            const __recLang = await askRecordingLanguage();
-            if (!__recLang) return;
-
+            prodBusy = true;
+            els.prodBtn.disabled = true;
+            els.prodBtn.classList.remove("prod-ok", "prod-fail");
+            els.prodBtn.textContent = "Checking…";
             try {
-                if (__recLang === "english" || __recLang === "both") {
-                    appState.doubleRecording = { phase: 1, savedName, single: __recLang !== "both" };
-                    if (getCurrentLanguage() !== "english") {
-                        setCurrentLanguage("english");
-                        await brake(RECORD_LANG_BRAKE_MS);
-                    }
-                    const ok1 = await runRecordingPhase(savedName, "english");
-                    if (!ok1) return;
+                const result = await runProdValidationBoth();
+                if (result.allPassed) {
+                    els.prodBtn.classList.add("prod-ok");
+                    els.prodBtn.textContent = "PROD ✓";
+                } else {
+                    els.prodBtn.classList.add("prod-fail");
+                    els.prodBtn.textContent = "PROD ✗";
+                    showValidationModal(result);
                 }
-                if (__recLang === "both") {
-                    await brake(RECORD_BETWEEN_PHASES_MS);
-                }
-                if (__recLang === "spanish" || __recLang === "both") {
-                    appState.doubleRecording = { phase: 2, savedName, single: __recLang !== "both" };
-                    setCurrentLanguage("spanish");
-                    await brake(RECORD_LANG_BRAKE_MS);
-                    await runRecordingPhase(savedName, "spanish");
-                }
+            } catch (err) {
+                els.prodBtn.classList.add("prod-fail");
+                els.prodBtn.textContent = "PROD ✗";
+                showValidationModal({
+                    allPassed: false,
+                    sections: [{ sectionName: "Validation error", passed: false, failures: [String(err?.message || err)] }],
+                });
             } finally {
-                appState.doubleRecording = null;
+                prodBusy = false;
+                els.prodBtn.disabled = false;
             }
         };
     }
+
     els.swapClose.onclick = () => els.swapModal.hidden = true;
 
     els.swapSearch.oninput = () => {
@@ -1610,7 +1433,11 @@ async function init() {
     };
     wireControlPanelToggle(els);
 
-    els.pitchSlots.addEventListener("dblclick", (e) => {
+    /* Prep panel: slots live inside per-level sections under #prep-root; the
+       section's pointerdown already set appState.currentLevelIndex +
+       els.pitchSlots before this dblclick fires. */
+    const prepRootEl = document.getElementById("prep-root");
+    (prepRootEl || els.pitchSlots).addEventListener("dblclick", (e) => {
         if (appState.isVideoPlaying) return;
         const slot = e.target.closest(".player-slot");
         if (
@@ -1635,6 +1462,7 @@ async function init() {
             ? slot.querySelector(".slot-back .slot-avatar .slot-img")
             : slot.querySelector(".slot-avatar .slot-img");
         if (img) {
+            img.dataset.relpath = paths[next]; // keep X/CROP targeting the shown photo
             applyPlayerPhotoFramingForSourceRelPath(img, paths[next]);
             img.src = projectAssetUrlFresh(paths[next]);
         }
@@ -1691,6 +1519,9 @@ async function init() {
     initHeaderLogoZoom(clearCurrentTeamSelection);
     document.fonts?.ready?.then(() => scheduleShortsTeamNameFit());
     appState.refreshLandingUi = updateLanding;
+
+    // Prep panel: render all levels of the loaded save as stacked card grids.
+    initPrepPanel();
 }
 
 // START

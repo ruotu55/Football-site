@@ -155,7 +155,8 @@ export const PlayerSlot: React.FC<{
                 boxShadow: "0 -1px 0 rgba(255,255,255,0.12) inset",
                 fontFamily,
                 fontWeight: 800,
-                color: "#ffffff",
+                // Black name on the red band — matches the prep-panel Assets card.
+                color: "#111111",
                 textTransform: "uppercase",
                 letterSpacing: 0,
                 fontSize: 30,
@@ -163,11 +164,7 @@ export const PlayerSlot: React.FC<{
                 padding: "0 2%",
                 textAlign: "center",
                 whiteSpace: "nowrap",
-                // Solid black OUTLINE built from 8 offset shadows (this renders reliably
-                // even inside the card's 3D/GPU layer, unlike -webkit-text-stroke) + a
-                // soft drop shadow underneath for separation from the red band.
-                textShadow:
-                  "-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000, 2px 0 0 #000, 0 3px 6px rgba(0,0,0,0.55)",
+                textShadow: "none",
               }}
             >
               {player.display}

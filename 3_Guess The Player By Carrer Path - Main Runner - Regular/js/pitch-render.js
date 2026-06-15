@@ -10,6 +10,7 @@ import {
   getState,
 } from "./state.js";
 import {
+  projectAssetUrl,
   projectAssetUrlFresh,
   careerReadyPhotoClubName,
   careerReadyPhotoRelCandidates,
@@ -36,6 +37,115 @@ import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCache
 
 const AUTO_FETCH_TEAM_LOGO_ENDPOINT = "/__team-logo/fetch";
 const READY_PHOTO_FROM_URL_ENDPOINT = "/__ready-photo/from-url";
+
+/**
+ * PREP PANEL — signal that something changed so the Saved tab auto-saves the
+ * active block.script (debounced). save-picker.js listens for "prep:dirty".
+ * No-op outside the prep panel.
+ */
+export function markPrepDirty() {
+  try {
+    document.dispatchEvent(new CustomEvent("prep:dirty"));
+  } catch {
+    /* ignore */
+  }
+}
+
+/**
+ * PREP PANEL — resolve the first LOADABLE Ready-photo URL for a player at the
+ * given variant (falls back to variant 1), or "" if none. Reuses the same
+ * candidate list the career silhouette uses, so the prep boxes match the video.
+ */
+export async function resolveCareerPlayerPhotoUrlForPrep(playerName, clubName, variantIndex = 1) {
+  return pickLoadableReadyPhotoUrlForVariant(playerName, clubName ?? "", variantIndex);
+}
+
+/* ── Shared PLAYER-name overrides (prep panel ✎ NAME) ───────────────────────
+   Bucket player_name_overrides_shared → .Storage/storage/runner-blobs/
+   player_name_overrides_shared.json (served via /__runner-json-blob/…). Keyed
+   by the player's canonical squad name (careerPlayer.name); value = the display
+   name to ALWAYS show. The Remotion build-data reads the SAME file, so a rename
+   here reaches the rendered video. */
+const PLAYER_NAME_OVERRIDES_STORAGE_KEY = "career-path-shared:player-name-overrides:v1";
+const PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT = "/__runner-json-blob/player_name_overrides_shared";
+let playerNameOverridesCache = null;
+let playerNameOverridesServerPushTimer = null;
+
+function playerNameOverridesServerActive() {
+  return typeof location !== "undefined" && location.protocol === "http:" && location.hostname !== "";
+}
+
+function readPlayerNameOverrides() {
+  if (playerNameOverridesCache) return playerNameOverridesCache;
+  let parsed = {};
+  try {
+    parsed = JSON.parse(localStorage.getItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY) || "{}");
+  } catch {
+    parsed = {};
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) parsed = {};
+  playerNameOverridesCache = parsed;
+  return playerNameOverridesCache;
+}
+
+export function getPlayerNameOverride(playerName) {
+  const key = String(playerName || "").trim();
+  if (!key) return "";
+  const v = readPlayerNameOverrides()[key];
+  return v != null ? String(v).trim() : "";
+}
+
+function persistPlayerNameOverrides() {
+  if (!playerNameOverridesCache || typeof playerNameOverridesCache !== "object") {
+    playerNameOverridesCache = {};
+  }
+  try {
+    localStorage.setItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY, JSON.stringify(playerNameOverridesCache));
+  } catch {
+    /* storage full — server copy still happens */
+  }
+  if (!playerNameOverridesServerActive()) return;
+  clearTimeout(playerNameOverridesServerPushTimer);
+  playerNameOverridesServerPushTimer = setTimeout(() => {
+    playerNameOverridesServerPushTimer = null;
+    fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(playerNameOverridesCache),
+    }).catch(() => {});
+  }, 350);
+}
+
+export function setPlayerNameOverride(playerName, displayName) {
+  const key = String(playerName || "").trim();
+  if (!key) return;
+  const map = readPlayerNameOverrides();
+  const clean = String(displayName || "").trim();
+  if (clean) map[key] = clean;
+  else delete map[key];
+  persistPlayerNameOverrides();
+}
+
+export async function initPlayerNameOverridesSharedSync() {
+  readPlayerNameOverrides();
+  if (!playerNameOverridesServerActive()) return;
+  try {
+    const r = await fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, { cache: "no-store" });
+    if (r.ok) {
+      const data = await r.json();
+      if (data && typeof data === "object" && !Array.isArray(data)) {
+        playerNameOverridesCache = { ...readPlayerNameOverrides(), ...data };
+        try {
+          localStorage.setItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY, JSON.stringify(playerNameOverridesCache));
+        } catch {
+          /* non-fatal */
+        }
+      }
+    }
+  } catch {
+    /* offline — local copy is used */
+  }
+}
 
 const CAREER_REVEAL_NAME_FIT_ABS_MIN_PX = 11;
 let careerRevealNameFitResizeHooked = false;
@@ -186,7 +296,7 @@ async function requestDeleteReadyPhoto(playerName, clubName, variantIndex) {
  * @param {string} playerName
  * @param {string} [clubName]
  */
-function createCareerGetPhotoControls(playerName, clubName) {
+export function createCareerGetPhotoControls(playerName, clubName) {
   const host = document.createElement("div");
   host.className = "career-get-photo-actions";
   host.hidden = true;
@@ -565,6 +675,31 @@ function fitCareerRevealNameLines(revealNameEl) {
   };
   fitLine(revealNameEl.querySelector(".career-reveal-name-top"));
   fitLine(revealNameEl.querySelector(".career-reveal-name-bottom"));
+}
+
+/** Map demonyms / variants to `data/country-to-flagcode.json` keys. */
+function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
+  const raw = String(nationalityRaw || "").trim();
+  if (!raw) return "";
+  const n = raw
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+  if (n === "portuguese") return "Portugal";
+  if (n === "english") return "England";
+  return raw;
+}
+
+/** Regular flag image URL: repo England asset or flagcdn. Used by the prep panel. */
+export function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
+  const natLabel = playerStatsNationalityLabelForFlagcode(nationalityRaw);
+  if (!natLabel) return null;
+  if (natLabel === "England") {
+    return projectAssetUrl("Images/Nationality/Europe/England.png");
+  }
+  const code = appState.flagcodes[natLabel];
+  if (!code) return null;
+  return `https://flagcdn.com/w320/${String(code).toLowerCase()}.png`;
 }
 
 export const CAREER_BADGE_SCALE_MIN = 0.5;

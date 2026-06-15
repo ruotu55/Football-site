@@ -26,7 +26,7 @@ export const INTRO_STRINGS: IntroStringsByLanguage = {
 // WATCH-OUT: the Spanish 3rd title line is long — check it fits at this size.
 export const TITLE_FONT_SIZE = 155;
 // Season line, 50% bigger than the shared default 84.
-export const SEASON_FONT_SIZE = 126;
+export const SEASON_FONT_SIZE = 72;
 
 // Background default (matches the runner's app.js forcedDefaults for "nat-by-club").
 export const THEME_DEFAULT = {

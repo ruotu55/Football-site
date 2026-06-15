@@ -1,7 +1,6 @@
 // js/level-control.js
 import { appState } from "./state.js";
-import { switchLevel } from "./levels.js";
-import { renderProgressSteps } from "./progress.js";
+import { switchLevel } from "./levels.js?v=20260612-prep2";
 
 let draggedLevelIndex = -1;
 
@@ -85,7 +84,7 @@ export function renderLevelsReorderList() {
                 }
 
                 renderLevelsReorderList();
-                renderProgressSteps(appState.totalLevelsCount, switchLevel);
+                document.dispatchEvent(new CustomEvent("prep:levels-changed"));
             }
         };
 

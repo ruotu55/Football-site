@@ -5,7 +5,7 @@ import {
     DEFAULT_SLOT_TEAM_LOGO_SCALE,
     ensureSlotFrontFaceScales,
 } from "./state.js";
-import { switchLevel } from "./levels.js";
+import { switchLevel } from "./levels.js?v=20260612-prep2";
 import { applyCustomSelects } from "./custom-selects.js";
 import { createSavedScriptsServerSync } from "./runner-saved-server-sync.js";
 import { captureTransitionSettings, applyTransitionSettings } from "./transitions.js";

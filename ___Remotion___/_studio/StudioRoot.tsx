@@ -103,7 +103,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Champions League" as const,
           transition: "Soft Iris" as const,
         }}
@@ -122,7 +121,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "World Cup" as const,
           transition: "Soft Iris" as const,
         }}
@@ -141,7 +139,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Generic 2" as const,
           transition: "Soft Iris" as const,
         }}
@@ -160,7 +157,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Generic 3" as const,
           transition: "Soft Iris" as const,
         }}
@@ -179,7 +175,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Generic 1" as const,
           transition: "Soft Iris" as const,
         }}
@@ -198,7 +193,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Generic 4" as const,
           transition: "Soft Iris" as const,
         }}
@@ -217,7 +211,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Generic 2" as const,
           transition: "Soft Iris" as const,
         }}
@@ -236,7 +229,6 @@ export const RemotionRoot: React.FC = () => {
           levels: "1" as const,
           formation: "Auto (from save)" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Generic 1" as const,
           transition: "Soft Iris" as const,
         }}
@@ -254,7 +246,6 @@ export const RemotionRoot: React.FC = () => {
           save: "World Cup" as const,
           levels: "1" as const,
           language: "English" as const,
-          ending: "Random" as const,
           competition: "Generic 4" as const,
           transition: "Soft Iris" as const,
         }}

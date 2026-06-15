@@ -1,0 +1,964 @@
+/* PREP PANEL ג€” stacked level sections with flat card grids.
+   The slot cards themselves keep the pitch.css trading-card look; this file
+   only defeats the absolute on-pitch positioning and lays sections out.
+
+   Layout bands (left ג†’ right):
+   - #team-header: the designed fixed full-height sidebar (left ג‰ˆ5.3vw,
+     width ג‰₪14.4rem) = the ACTIVE level's crest/name/controls.
+   - everything else (FAB row + level sections) starts right of that band. */
+
+:root {
+  --prep-left-band: 2.5rem; /* the sliding team-header sidebar is gone */
+}
+
+/* stage.css centers its content (flex + justify-content:center, built for
+   the one-screen pitch). A taller-than-viewport list inside a centered flex
+   gets its TOP HALF clipped above the scroll origin ג€” "can only scroll
+   down". Make the stage a plain top-anchored scroller instead. */
+.stage {
+  display: block !important;
+  overflow-y: auto !important;
+  perspective: none !important;
+  height: 100vh;
+}
+.stage-main {
+  display: block !important;
+  height: auto !important;
+  min-height: 100%;
+  transform-style: flat !important;
+}
+
+/* The original pitch stays hidden (its [hidden] attribute is never cleared);
+   belt-and-braces in case some code unhides it. */
+#pitch-wrap {
+  display: none !important;
+}
+
+#prep-root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 4.8rem 2rem 4rem;       /* top padding aligns the tab bar under the centred buttons */
+  max-width: 1600px;               /* centred + capped, same as runners 3/4 */
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.prep-empty {
+  margin: 4rem auto;
+  font-size: 1.1rem;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.prep-section {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.8rem 1rem 1.1rem;
+  min-height: 44rem; /* EVERY section the same height across all runners */
+  box-sizing: border-box;
+}
+/* No visual "selected level" highlight (user request) — the active level is
+   still tracked under the hood for the card controls, just not shown. */
+.prep-section--active {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+
+.prep-section__head {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0; /* the slots grid's padding-top provides the spacing */
+  flex-wrap: wrap;
+}
+/* "Save Level" button — pushed to the top-right of the section head. */
+.prep-save-player {
+  margin-left: auto;
+  padding: 0.9rem 2.1rem;
+  border-radius: 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font: 800 1.6rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+}
+.prep-save-player:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #fff;
+}
+.prep-save-player.is-saved {
+  background: #1f8f4d;
+  border-color: #29b765;
+  color: #fff;
+}
+/* "✎ Rename team" — sits right after the team name in the section head. */
+.prep-rename-team {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font: 800 1.05rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.prep-rename-team:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #fff;
+}
+.prep-section__level {
+  font-weight: 800;
+  color: var(--accent, #ffd54f);
+  letter-spacing: 0.04em;
+}
+.prep-section__team {
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+.prep-section__meta {
+  opacity: 0.65;
+  font-size: 0.85rem;
+}
+
+/* Defeat the absolute pitch-formation positioning: flat responsive grid. */
+.prep-section .pitch-slots {
+  position: static !important;
+  display: grid !important;
+  grid-template-columns: repeat(11, 1fr);  /* ONE row of 11 players */
+  justify-content: stretch;
+  /* LOGO/X row ABOVE each card; the photo control block BELOW each card */
+  gap: 0.6rem;
+  padding-top: 3.4rem;   /* room for the LOGO/X row above each card */
+  padding-bottom: 6rem;  /* room for the photo controls below each card */
+  width: 100% !important;
+  height: auto !important;
+  inset: auto !important;
+}
+/* STATIC control page: kill every animation/transition on the cards ג€” the
+   play-video look floats .slot-mount up/down (CSS keyframes), eases flips,
+   and scales on hover. None of that here. */
+.prep-section .player-slot,
+.prep-section .player-slot * {
+  animation: none !important;
+  transition: none !important;
+}
+.prep-section .player-slot:hover,
+.prep-section .slot-mount {
+  transform: none !important;
+}
+
+/* BOTH faces STACKED: club crest on top, photo+name box below.
+   We kill the 3D flip and show BOTH faces stacked vertically inside the slot
+   so the grid reads as "11 crests above 11 player boxes" in aligned columns. */
+.prep-section .slot-inner,
+.prep-section .slot-inner--flag-flip {
+  transform: none !important;
+  position: static !important;   /* flow so the stacked faces give the slot height */
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0.35rem;
+}
+.prep-section .slot-face {
+  transform: none !important;
+  backface-visibility: visible !important;
+  position: static !important;
+  width: 100% !important;
+}
+/* BOTH faces always visible (override the prep-revealed single-face hide). */
+.prep-section .slot-front,
+.prep-section .slot-back,
+#prep-root.prep-revealed .slot-front,
+#prep-root.prep-revealed .slot-back {
+  display: flex !important;
+}
+/* Crest (front) sits small on top. */
+.prep-section .slot-front {
+  height: 3.2rem !important;
+  flex: 0 0 auto !important;
+  align-items: center;
+  justify-content: center;
+}
+.prep-section .slot-front .slot-avatar {
+  width: 3.2rem !important;
+  height: 3.2rem !important;
+  max-width: 3.2rem !important;
+  max-height: 3.2rem !important;
+}
+/* Photo + name box (back) — IDENTICAL to runner 1's player card: aspect
+   10/13.5 + the proportional 18% name band (pitch.css default) + `container-type:
+   size` so the `13.2cqh` name scales with the card exactly like runner 1 / the
+   rendered video. (Was 10/12 with a fixed 1.5rem band, which looked different.) */
+.prep-section .slot-back {
+  flex: 0 0 auto !important;
+  flex-direction: column;
+  width: 100% !important;
+  /* Match the Remotion player card EXACTLY (PlayerSlot.tsx + the Answer frame):
+     slot aspect 10/12 and a 28% name band — so the name's size relative to the
+     card (and where a long name overflows) is 100% the same as the rendered
+     video. */
+  aspect-ratio: 10 / 12;
+  --slot-name-band-ratio: 28%;
+  height: auto !important;
+  container-type: size;
+}
+.prep-section .slot-back .slot-avatar {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+.prep-section .slot-back .slot-name {
+  /* Match the Remotion band's TEXT metrics exactly so a name overflows at the
+     same point: 30px≈13.3cqh, upright (not italic), no letter-spacing, 2% side
+     padding. (pitch.css default was italic + 0.03em + no padding = different.) */
+  font-size: 13.3cqh !important;
+  font-style: normal !important;
+  letter-spacing: 0 !important;
+  padding: 0 2% !important;
+  line-height: 1 !important;
+  overflow: hidden !important;
+}
+/* renderSlot gives the back photo `border-radius:50%` (runner-2 legacy = a
+   circular avatar), which on the rectangular prep trading-card showed the photo
+   as an ELLIPSE with white corners → looked smaller/floated. Square it off so
+   the photo fills the card exactly like runner 1. */
+.prep-section .slot-back .slot-img {
+  border-radius: 0 !important;
+}
+
+/* Cards: the base .player-slot width is a % of the PITCH surface (ג‰ˆ8.6%),
+   which collapses to ~15px inside a grid cell ג€” size to the cell instead.
+   aspect-ratio 10/13.5 + container-type:size from pitch.css then give the
+   card its real trading-card proportions. */
+.prep-section .player-slot {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: none;
+  margin: 0 auto;
+  /* The base slot is a fixed aspect-ratio box sized by container-type; with both
+     faces stacked we need it to GROW to its content height instead. */
+  aspect-ratio: auto !important;
+  container-type: normal !important;
+  height: auto !important;
+}
+/* The slot-mount is absolute inset:0 on the pitch; make it flow so the stacked
+   faces define the slot's height. */
+.prep-section .slot-mount {
+  position: static !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* ג”€ג”€ Edit buttons: 4 IDENTICAL cubes ABOVE each card ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€
+   pitch-render appends .slot-photo-controls to the .player-slot ROOT (the 3D
+   card faces clip overflow). Row: PHOTO ֲ· X ֲ· CROP ֲ· SWAP. */
+.prep-section .player-slot {
+  overflow: visible;
+}
+.prep-section .slot-photo-controls {
+  position: absolute !important;
+  left: 50% !important;
+  bottom: auto !important;
+  top: calc(100% + 0.45rem) !important;   /* BELOW the card now */
+  transform: translateX(-50%) !important;
+  display: flex;
+  flex-wrap: wrap;            /* 3 per row → "Photo X Crop", then "Swap Name" centred */
+  justify-content: center;
+  align-content: flex-start;
+  gap: 0.3rem;
+  max-width: 100%;
+  width: 100%;               /* fill the card width so the buttons get as big as possible */
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  z-index: 60;
+}
+.prep-section .slot-photo-fetch-btn,
+.prep-section .slot-photo-crop-btn,
+.prep-section .slot-photo-delete-btn,
+.prep-section .slot-photo-swap-btn,
+.prep-section .slot-photo-name-btn {
+  box-sizing: border-box;
+  flex: 0 0 calc(33.333% - 0.2rem);  /* exactly 3 buttons fill a row */
+  min-width: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 2.4rem;
+  padding: 0.3rem 0.1rem !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  border-radius: 0.45rem !important;
+  background: rgba(0, 0, 0, 0.62);
+  color: #fff;
+  font-family: "Barlow Condensed", system-ui, "Segoe UI", sans-serif;
+  font-size: 0.92rem !important;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1.02;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+.prep-section .slot-photo-delete-btn {
+  font-size: 0.92rem !important;
+}
+.prep-section .slot-photo-fetch-btn:hover:not(:disabled),
+.prep-section .slot-photo-crop-btn:hover:not(:disabled),
+.prep-section .slot-photo-delete-btn:hover:not(:disabled),
+.prep-section .slot-photo-swap-btn:hover:not(:disabled),
+.prep-section .slot-photo-name-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+.prep-section .slot-photo-swap-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+/* The tiny name-band ג‡„ and ג are replaced by the SWAP / NAME cubes. */
+.prep-section .slot-swap-btn,
+.prep-section .slot-name-edit-btn {
+  display: none !important;
+}
+/* The +/- flag-size and crest-swap mini-buttons are play-video chrome ג€”
+   only the 5 cubes belong on a card here. */
+.prep-section .slot-badge-controls {
+  display: none !important;
+}
+
+/* ג”€ג”€ LOGO row (club-crest fronts) ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€
+   pitch-render appends .slot-logo-controls (LOGO ֲ· X) to the .player-slot ROOT
+   the same way as the photo row. When Revealed is OFF we show THIS row in place
+   of the player-photo row; when ON the photo row returns. Same position as the
+   photo row (centered above the card). */
+.prep-section .slot-logo-controls {
+  position: absolute !important;
+  left: 50% !important;
+  top: auto !important;
+  bottom: calc(100% + 0.45rem) !important;   /* ABOVE the card (by the club crest) */
+  transform: translateX(-50%) !important;
+  display: flex;
+  flex-wrap: wrap;               /* LOGO + X centred on one row */
+  justify-content: center;
+  align-content: flex-end;
+  gap: 0.3rem;
+  max-width: 100%;
+  width: 100%;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  z-index: 60;
+}
+/* The LOGO row reuses the cube button classes so it looks identical. */
+
+/* BOTH faces show, so BOTH control rows are visible (no reveal-state swap). */
+#prep-root .slot-photo-controls,
+#prep-root.prep-revealed .slot-photo-controls,
+#prep-root .slot-logo-controls,
+#prep-root.prep-revealed .slot-logo-controls {
+  display: flex !important;
+}
+
+/* The header's floating "Get all team photos" + "clear team" X hardcode
+   fixed mid-top spots (old play layout) ג€” dock them into the FAB row. */
+/* "Get all photos" + clear-team "X" — grouped in ONE fixed, CENTRED wrapper
+   (js dockTopActions) so the PAIR's bounding box is centred above the tab bar;
+   they stay stuck while scrolling. */
+#prep-top-actions {
+  position: fixed;
+  top: 0.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 40;
+}
+#prep-top-actions .team-header-get-all-photos-btn,
+#prep-top-actions .team-header-clear-team-btn {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  margin: 0 !important;
+  transform: none !important;   /* clear the X's `.career-clear-player-btn` translateX(-50%) — it was overlapping "Get all photos" */
+}
+#prep-top-actions .team-header-clear-team-btn {
+  height: 2.4rem !important;
+  width: 2.4rem !important;
+}
+
+@media (max-width: 1500px) {
+  /* Stay 11-wide; just tighten the gap so the row still fits. */
+  .prep-section .pitch-slots {
+    grid-template-columns: repeat(11, 1fr);
+    gap: 0.4rem;
+  }
+  .prep-section .player-slot {
+    max-width: none;
+  }
+}
+
+/* ג”€ג”€ The sliding team-header sidebar is REMOVED ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€
+   (each level has its own Remotion-scale team panel preview instead). */
+#team-header-mount .team-header {
+  display: none !important;
+}
+
+/* ── Section body now wraps the 3-tab block (Assets · Questions · Answer). ── */
+.prep-section__body {
+  display: block;
+}
+
+/* ── ONE global tab bar (Assets · Questions · Answer) — controls ALL levels ──
+   Sticky at the top of the scroller so it's reachable while scrolling; buttons
+   centred so they clear the corner FABs. (Copied from runner 4's prep panel.) */
+.prep-globaltabbar {
+  position: sticky;
+  top: 4.2rem;   /* sticks clearly BELOW the centred Get-all-photos / X row */
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  margin: -0.6rem 0 0.3rem;
+  background: rgba(28, 42, 35, 0.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0 0 12px 12px;
+}
+.prep-globaltab {
+  padding: 0.6rem 2rem;
+  border-radius: 0.6rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  background: rgba(0, 0, 0, 0.4);
+  color: #cdd6e2;
+  font: 800 1.05rem/1 "Barlow Condensed", system-ui, sans-serif;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.prep-globaltab:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+.prep-globaltab.is-active {
+  background: var(--accent, #ffca28);
+  border-color: var(--accent, #ffca28);
+  color: #241500;
+}
+.prep-pane[hidden] {
+  display: none;
+}
+
+/* ════ Text legibility (per user — prep text read blurry: crisper render +
+   bigger / bolder / brighter labels, titles & data). ════ */
+#prep-root,
+#prep-root * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+.prep-section__head { gap: 1rem; margin-bottom: 1rem; }
+.prep-section__level { font-size: 1.6rem; letter-spacing: 0.5px; }
+.prep-section__team { font-size: 1.6rem; letter-spacing: 0.3px; }
+.prep-section__meta { font-size: 1.02rem; opacity: 0.85; }
+.prep-asset-card__title,
+.prep-stats-clubs-title { font-size: 1rem; letter-spacing: 0.6px; font-weight: 800; }
+.prep-asset-data__row { font-size: 1.14rem; line-height: 1.45; }
+.prep-asset-data__k { color: #c6d3e2; letter-spacing: 0.5px; }
+.prep-asset-data__v { color: #ffffff; font-weight: 800; }
+.prep-crest-label { font-size: 1.14rem; font-weight: 800; color: #f3f7fc; }
+.prep-crest-year__val { font-size: 1.08rem; }
+.prep-player-name { font-size: 1.32rem; letter-spacing: 0.6px; color: #ffffff; }
+.prep-player-box__title { font-size: 0.98rem; letter-spacing: 0.7px; }
+/* The faithful static frame fills the pane but is capped so the page stays sane.
+   margin:0 auto CENTRES the capped frame in the pane so the pitch sits in the
+   middle of the 1920-wide stage (no empty band on the right) — user request. */
+.prep-pane .prep-frame {
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Assets tab: editable slot grid + team panel (row) + small asset cards ── */
+/* The pitch is a single row of 11 players, so it needs the FULL width. Stack the
+   layout vertically: main (cards + 11-wide pitch) on top, team panel BELOW it. */
+.prep-assets {
+  display: flex;
+  flex-direction: column; /* main (top) + team panel (below) */
+  align-items: stretch;
+  gap: 1.6rem;
+}
+.prep-assets-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+.prep-assets-side {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center; /* team panel centred below the pitch */
+  align-items: center;
+}
+.prep-assets-edit {
+  display: block; /* the 11-wide pitch fills the full row width */
+  width: 100%;
+}
+.prep-assets-edit .pitch-slots {
+  width: 100% !important; /* 11 equal columns across the full width */
+  max-width: none;
+}
+.prep-assets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center; /* centred in the section */
+  align-items: stretch; /* every card the SAME height (copied from runner 4) */
+  margin-top: 2.6rem; /* room for the LOGO/X row floating above the Logo card */
+}
+/* All asset cards (national logo / flag / data) are the SAME size. */
+.prep-asset-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  flex: 0 0 15rem;
+  width: 15rem;
+  box-sizing: border-box;
+}
+.prep-asset-card__title {
+  font: 800 1.7rem/1 "Barlow Condensed", system-ui, sans-serif;  /* 2× (was 0.85rem) */
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent, #ffd54f);
+}
+.prep-asset-card__body {
+  flex: 1 1 auto; /* fill the card so content is vertically centred + equal */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+}
+.prep-asset-flag {
+  max-width: 100%;
+  max-height: 8rem;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  object-fit: cover;
+}
+.prep-asset-logo {
+  max-width: 8rem;
+  max-height: 8rem;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.5));
+}
+/* Logo card content: just the logo image (the LOGO/X row floats ABOVE the box). */
+.prep-asset-crest-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+/* The LOGO card is the positioning context for the floating button row. */
+.prep-asset-card--logo {
+  position: relative;
+  overflow: visible;
+}
+/* LOGO + X sit ABOVE the card box (out of flow) so they DON'T change its size. */
+.prep-asset-crest-logo-row {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.4rem);   /* just above the card's top edge */
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  z-index: 5;
+}
+.prep-asset-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  width: 100%;
+}
+.prep-asset-data__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font: 700 0.92rem/1.25 "Barlow Condensed", system-ui, sans-serif;
+}
+.prep-asset-data__k {
+  color: #9fb0c4;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.prep-asset-data__v {
+  color: #f0f4fa;
+  font-weight: 800;
+}
+
+/* ── Faithful Remotion video-frame preview: a 1920×1080 stage scaled into a
+   16:9 box so the level looks EXACTLY as it renders. Built at true 1920×1080 px
+   (Level.tsx verbatim) and CSS-scaled to the box width via a ResizeObserver. ── */
+.prep-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #0c1016;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+}
+.prep-frame__stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  /* transform: scale(...) is set by observePrepFrame() in prep-panel.js */
+}
+
+/* Team panel preview ג€” the Remotion RevealPanel (380ֳ—1080, crest 296,
+   name 56px, flag 232ֳ—188) built at REAL pixel sizes inside __inner and
+   scaled as ONE block by JS (fitTeamPanels), so the on-screen proportions
+   are exactly what the rendered video shows. */
+.prep-team-panel {
+  position: relative;
+  flex: 0 0 auto;
+  width: 140px; /* JS overwrites to 380 × scale */
+  height: 38rem; /* BIG — fills the box; fitTeamPanels scales the inner to this */
+  align-self: center;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.prep-team-panel__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  height: 1080px;
+  transform-origin: top left;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 32px;
+  background: linear-gradient(165deg, rgba(40, 90, 56, 0.55) 0%, rgba(12, 28, 18, 0.72) 62%, rgba(6, 9, 14, 0.6) 100%);
+  border-right: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-top-right-radius: 36px;
+  border-bottom-right-radius: 36px;
+  box-shadow: inset 0 0 70px rgba(255, 255, 255, 0.06);
+}
+.prep-team-panel__crest {
+  width: 296px;
+  height: 296px;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.55));
+}
+.prep-team-panel__name {
+  font-family: "Barlow Condensed", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 56px;
+  line-height: 0.96;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+  margin-top: 28px;
+}
+.prep-team-panel__divider {
+  width: 58%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  margin: 30px 0 24px;
+}
+.prep-team-panel__flagbox {
+  width: 232px;
+  height: 188px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5);
+}
+.prep-team-panel__flagbox--missing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  opacity: 0.6;
+  font-size: 22px;
+  text-align: center;
+}
+.prep-team-panel__flag {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.prep-team-panel__rename {
+  position: absolute;
+  left: 50%;
+  bottom: 0.7rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.prep-team-panel__rename:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+/* Save Team ג€” top of the panel box, above the crest. Per team. */
+.prep-team-panel__saveteam {
+  position: absolute;
+  left: 50%;
+  top: 0.7rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.45rem;
+  background: rgba(185, 28, 28, 0.85);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.prep-team-panel__saveteam:hover {
+  filter: brightness(1.12);
+}
+.prep-team-panel__saveteam.is-saved {
+  background: #1f8f4d;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+/* The old top-row "Save team" FAB is replaced by the per-team buttons. */
+#btn-save-current-team-fab {
+  display: none !important;
+}
+
+/* LOGO + X team-crest controls (runner 1 team panel only; inert elsewhere) ג€”
+   just under the Save Team button at the top of the panel box. */
+.prep-team-panel__logo-row {
+  position: absolute;
+  left: 50%;
+  top: 3.2rem;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 0.35rem;
+}
+.prep-team-panel__logo-btn,
+.prep-team-panel__logo-del-btn {
+  box-sizing: border-box;
+  height: 1.9rem;
+  padding: 0 0.7rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 0.45rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.68rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.prep-team-panel__logo-del-btn {
+  padding: 0 0.55rem;
+  font-size: 0.85rem;
+}
+.prep-team-panel__logo-btn:hover:not(:disabled),
+.prep-team-panel__logo-del-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #fff;
+}
+.prep-team-panel__logo-btn:disabled,
+.prep-team-panel__logo-del-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* SWAP cube: when ENABLED (the player has another photo), colour it so it's
+   obvious a second photo is available. Disabled = the plain dim cube. */
+.prep-section .slot-photo-swap-btn:not(:disabled) {
+  background: #2563eb !important; /* blue = "another photo here" */
+  border-color: #93c5fd !important;
+  color: #fff !important;
+}
+.prep-section .slot-photo-swap-btn:not(:disabled):hover {
+  background: #3b82f6 !important;
+  border-color: #fff !important;
+}
+
+/* Saved tab ג€” name only, clean rows. */
+.prep-save-row {
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+}
+.prep-save-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+/* PROD + Revealed: identical pills, top-right (PROD rightmost, Revealed left
+   of it). Override the old narrow .prod-btn sizing. */
+.prod-btn.panel-fab,
+.reveal-btn.panel-fab {
+  box-sizing: border-box;
+  width: 8.5rem !important;
+  padding: 0.6rem 0.8rem !important;
+  font-size: 0.78rem !important;
+  font-weight: 900;
+  text-align: center !important;
+  white-space: nowrap;
+  top: 1.5rem !important;
+  left: auto !important;
+  border-radius: 5px;
+}
+.prod-btn.panel-fab {
+  right: calc(1.5rem + 5vw) !important;
+  background: #fff;
+  color: #000;
+}
+.reveal-btn.panel-fab {
+  right: calc(1.5rem + 5vw + 8.5rem + 0.7rem) !important;
+  background: #fff;
+  color: #000;
+}
+.reveal-btn.panel-fab[aria-pressed="true"] {
+  background: #1f8f4d;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(31, 143, 77, 0.5);
+}
+/* PROD result colours (set by the click handler). */
+.prod-btn.panel-fab.prod-ok {
+  background: #1f8f4d !important;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(31, 143, 77, 0.5);
+}
+.prod-btn.panel-fab.prod-fail {
+  background: #dc2626 !important;
+  color: #fff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 2px 5px rgba(220, 38, 38, 0.5);
+}
+
+/* ג”€ג”€ Top FAB row ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€
+   Every .panel-fab shares ONE default fixed position (the old per-button
+   offset classes died with the play/record/render buttons), so give each
+   surviving FAB its own slot, clear of the header band. PROD keeps its
+   top-right spot from panel-overlays.css. */
+#panel-fab.panel-fab {
+  top: 1.5rem;
+  left: var(--prep-left-band);
+}
+/* "Save team" FAB is hidden (per-team buttons replace it). */
+
+/* ג”€ג”€ Flat dark background ג€” the prep panel paints NO scenery ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€
+   The play-video green stage (--bg-stage on html/body in base/layout.css)
+   and the shared background theme (initSharedBackgroundTheme ג€” its call was
+   removed from js/app.js; it used to inject a style tag painting body via
+   :root[data-shared-background-*] rules + emoji/thumbnail layers) are both
+   neutralized: ONE flat pitch green (user request 2026-06-12), no patterns/effects. */
+html, body, .app, .stage {
+  background: #3c6553 !important;
+  background-image: none !important;
+}
+body::before, body::after,
+.stage::before, .stage::after {
+  content: none !important;
+  background: none !important;
+}
+/* Belt-and-braces: kill any leftover theme/emoji layers if something
+   re-injects them (stale localStorage, cached style tag). */
+#shared-background-emojis,
+#shared-background-question-marks,
+#shared-background-soccer-balls,
+.floating-background {
+  display: none !important;
+}
+
+
+/* ── Club-crest card fronts (national XIs): LOGO ONLY (user request) ──────────
+   No white trading-card frame behind the club logo — transparent face, no
+   border/shadow; the crest stands alone in the grid cell. Scoped to #prep-root
+   and inert in runner 1 (its prep fronts are flags, not national-crest faces). */
+#prep-root .slot-front.slot-front--national-crest {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+#prep-root .slot-front--national-crest .slot-avatar {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+#prep-root .slot-front--national-crest .slot-badge-scale-wrap {
+  overflow: visible !important;
+}
+
+
+/* ── Missing-logo fallback: team/country name in a COPYABLE text box ──────────
+   Rendered by pitch-render's appendSlotBadgeTextFallback when a card front has
+   no image. Click selects the whole name for easy copy → download the logo. */
+#prep-root .slot-badge-fallback-copy {
+  width: 92%;
+  max-width: 92%;
+  padding: 0.32rem 0.3rem;
+  border: 1px dashed rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font: 700 0.72rem/1.25 "Barlow Condensed", sans-serif;
+  text-align: center;
+  letter-spacing: 0.4px;
+  cursor: text;
+  box-sizing: border-box;
+}
+#prep-root .slot-badge-fallback-copy:focus {
+  outline: 2px solid #ffd54f;
+  outline-offset: 1px;
+}
+
+
+/* ── Kill the screen-size safe-zone overlay ──────────────────────────────────
+   #screen-size-overlay paints solid BLACK side bands (z-index 1000000) for
+   video framing. The prep panel is a data editor, not a video preview, and its
+   "Screen size" toggle was stripped — so the bands would be permanently on,
+   showing as black bars at the screen edges. Hide it. */
+#screen-size-overlay,
+.screen-size-overlay {
+  display: none !important;
+}

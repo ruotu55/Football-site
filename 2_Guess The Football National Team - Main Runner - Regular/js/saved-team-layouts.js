@@ -543,24 +543,28 @@ export function refreshSaveTeamButtonUi() {
     targets.forEach((el) => applySaveTeamButtonState(el, vm, hasTeam, saved));
 }
 
+/** Save (or, if already saved, remove) the CURRENT team's layout snapshot.
+ *  Returns true if the team is saved after the toggle. */
+export function toggleSaveTeamForCurrentEntry() {
+    const state = getState();
+    if (!state) return false;
+    const path = canonicalizePath(state.selectedEntry && state.selectedEntry.path);
+    if (!path) return false;
+    if (layoutsByPath[path]) {
+        const ok = window.confirm("Are you sure you want to remove the saved team?");
+        if (!ok) return true;
+        delete layoutsByPath[path];
+    } else {
+        layoutsByPath[path] = serializeTeamLayoutSnapshot(state);
+    }
+    persist();
+    refreshSaveTeamButtonUi();
+    return !!layoutsByPath[path];
+}
+
 function wireSaveTeamToggleClick() {
-    const handler = () => {
-        const state = getState();
-        if (!state) return;
-        const path = canonicalizePath(state.selectedEntry && state.selectedEntry.path);
-        if (!path) return;
-        if (layoutsByPath[path]) {
-            const ok = window.confirm("Are you sure you want to remove the saved team?");
-            if (!ok) return;
-            delete layoutsByPath[path];
-        } else {
-            layoutsByPath[path] = serializeTeamLayoutSnapshot(state);
-        }
-        persist();
-        refreshSaveTeamButtonUi();
-    };
     saveTeamToggleTargets().forEach((el) => {
-        el.onclick = handler;
+        el.onclick = () => toggleSaveTeamForCurrentEntry();
     });
 }
 

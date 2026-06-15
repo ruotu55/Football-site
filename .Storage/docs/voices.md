@@ -31,6 +31,8 @@ Phrase keys (`audio.js` `TEAM_PHRASE_TEMPLATES`): `plain, correct-answer, right-
 
 `getOrAssignRevealPhrase(level, idx, lang)` picks a **sticky** phrase per level, cached on `level.__revealPhraseByLanguage[lang]` (legacy `level.__revealPhrase`). Frozen at recording preflight so the voice tab, playback, and PROD all agree. **No plain fallback when a sentence phrase was assigned** (validation contract). National names are localized (`translateCountry`) for `nat-by-club`.
 
+**Runner 1 Regular is DETERMINISTIC (2026-06-12):** its `audio.js` replaced the random shuffled sentence queue with an FNV-hash pick seeded by `(raw squad name, questionIndex, language)` — same phrase on every reload. EN: even questionIndex → `plain`, odd → hash-picked sentence; ES: always a sentence. The runner-1 **Remotion build** (`___Remotion___/1_…_Remotion/scripts/build-data.mjs`) mirrors the exact same hash + the voice tab's full filename-stem logic (`resolveTeamNameVoiceFileStems` aliases/prefixes/suffixes) over the **display name** (so a renamed team uses the new name's clip, while the phrase is seeded by the RAW name and never rerolls on rename). So what the voice tab shows = what the rendered video plays, including "The team is …" sentences. Keep `audio.js` and that build-data copy in sync. Missing assigned-phrase clips stay silent in the render (no cross-phrase fallback) — generate them in the voice tab.
+
 Spanish sentence phrases get a leading `¡`; prompts end in `!` for an excited read.
 
 ## Server endpoints (`run_site.py`)

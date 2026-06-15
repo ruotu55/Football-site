@@ -23,7 +23,6 @@ export const RemotionRoot: React.FC = () => {
         save: "World Cup" as const,
         levels: "1" as const,
         language: "English" as const,
-        ending: "Random" as const,
         competition: "Generic 4" as const,
         transition: "Soft Iris" as const,
       }}

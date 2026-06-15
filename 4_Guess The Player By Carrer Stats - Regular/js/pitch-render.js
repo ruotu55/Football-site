@@ -37,6 +37,160 @@ import { preloadImage, preloadImages, getCachedImage, putCachedImage, applyCache
 import { STAGE_VIDEO_LEVEL_ENTER_MS } from "./constants.js";
 import { t, translatePositionBucket } from "./i18n.js";
 
+/* ── PREP PANEL helpers (this runner is a prep/data editor, not a player) ───── */
+
+/** Signal that something changed so the Saved tab auto-saves the active
+ *  block.script (debounced). save-picker.js listens for "prep:dirty". */
+export function markPrepDirty() {
+  try {
+    document.dispatchEvent(new CustomEvent("prep:dirty"));
+  } catch {
+    /* ignore */
+  }
+}
+
+/** Resolve the first LOADABLE Ready-photo URL for a player at the given variant
+ *  (falls back to variant 1), or "" if none. Reuses the same candidate list the
+ *  video uses, so the prep box matches the rendered video. */
+export async function resolveCareerPlayerPhotoUrlForPrep(playerName, clubName, variantIndex = 1) {
+  return pickLoadableReadyPhotoUrlForVariant(playerName, clubName ?? "", variantIndex);
+}
+
+/* ── Shared PLAYER-name overrides (prep panel ✎ NAME) ───────────────────────
+   Bucket player_name_overrides_shared (served via /__runner-json-blob/…), keyed
+   by the player's canonical squad name; the Remotion build-data reads the SAME
+   file, so a rename here reaches the rendered video. */
+const PLAYER_NAME_OVERRIDES_STORAGE_KEY = "career-stats-shared:player-name-overrides:v1";
+const PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT = "/__runner-json-blob/player_name_overrides_shared";
+let playerNameOverridesCache = null;
+let playerNameOverridesServerPushTimer = null;
+
+function playerNameOverridesServerActive() {
+  return typeof location !== "undefined" && location.protocol === "http:" && location.hostname !== "";
+}
+
+function readPlayerNameOverrides() {
+  if (playerNameOverridesCache) return playerNameOverridesCache;
+  let parsed = {};
+  try {
+    parsed = JSON.parse(localStorage.getItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY) || "{}");
+  } catch {
+    parsed = {};
+  }
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) parsed = {};
+  playerNameOverridesCache = parsed;
+  return playerNameOverridesCache;
+}
+
+export function getPlayerNameOverride(playerName) {
+  const key = String(playerName || "").trim();
+  if (!key) return "";
+  const v = readPlayerNameOverrides()[key];
+  return v != null ? String(v).trim() : "";
+}
+
+function persistPlayerNameOverrides() {
+  if (!playerNameOverridesCache || typeof playerNameOverridesCache !== "object") {
+    playerNameOverridesCache = {};
+  }
+  try {
+    localStorage.setItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY, JSON.stringify(playerNameOverridesCache));
+  } catch {
+    /* storage full — server copy still happens */
+  }
+  if (!playerNameOverridesServerActive()) return;
+  clearTimeout(playerNameOverridesServerPushTimer);
+  playerNameOverridesServerPushTimer = setTimeout(() => {
+    playerNameOverridesServerPushTimer = null;
+    fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(playerNameOverridesCache),
+    }).catch(() => {});
+  }, 350);
+}
+
+export function setPlayerNameOverride(playerName, displayName) {
+  const key = String(playerName || "").trim();
+  if (!key) return;
+  const map = readPlayerNameOverrides();
+  const clean = String(displayName || "").trim();
+  if (clean) map[key] = clean;
+  else delete map[key];
+  persistPlayerNameOverrides();
+}
+
+export async function initPlayerNameOverridesSharedSync() {
+  readPlayerNameOverrides();
+  if (!playerNameOverridesServerActive()) return;
+  try {
+    const r = await fetch(PLAYER_NAME_OVERRIDES_SERVER_ENDPOINT, { cache: "no-store" });
+    if (r.ok) {
+      const data = await r.json();
+      if (data && typeof data === "object" && !Array.isArray(data)) {
+        playerNameOverridesCache = { ...readPlayerNameOverrides(), ...data };
+        try {
+          localStorage.setItem(PLAYER_NAME_OVERRIDES_STORAGE_KEY, JSON.stringify(playerNameOverridesCache));
+        } catch {
+          /* non-fatal */
+        }
+      }
+    }
+  } catch {
+    /* offline — local copy is used */
+  }
+}
+
+/** Ordered list of candidate crest URLs for a club (custom image wins; else
+ *  found-club path + name-based candidates). Mirrors the video crest resolution
+ *  so the prep boxes match the rendered logos. */
+export function resolveCareerClubLogoUrls(clubName, customImage = null) {
+  const urls = [];
+  const seen = new Set();
+  const push = (url) => {
+    const u = String(url || "").trim();
+    if (!u || seen.has(u)) return;
+    seen.add(u);
+    urls.push(u);
+  };
+
+  if (customImage) {
+    const raw = String(customImage).trim();
+    if (/^(https?:|data:|blob:)/i.test(raw)) push(raw);
+    else push(projectAssetUrlFresh(raw.replace(/^\.?\/+/, "")));
+    return urls;
+  }
+
+  const rawClub = String(clubName || "").trim();
+  if (!rawClub) return urls;
+
+  const searchName = resolveClubAlias(rawClub);
+  const foundClub = searchName ? findBestCareerClubEntry(searchName) : null;
+  if (foundClub?.path) {
+    push(projectAssetUrlFresh(
+      foundClub.path.replace(".Storage/Squad Formation/Teams/", "Images/Teams/").replace(".json", ".png"),
+    ));
+  }
+
+  const nameCandidates = Array.from(new Set([
+    String(foundClub?.name || "").trim(),
+    rawClub,
+    searchName,
+    /\bfc\b/i.test(rawClub) ? rawClub.replace(/\s*\bfc\b\s*/i, "").trim() : `${rawClub} FC`.trim(),
+  ].filter(Boolean)));
+
+  for (const name of nameCandidates) {
+    const rel = getClubLogoOtherTeamsRelPath(name);
+    if (rel) push(projectAssetUrlFresh(rel));
+    const entry = findBestCareerClubEntry(resolveClubAlias(name));
+    if (entry?.country && entry?.league && entry?.name) {
+      push(projectAssetUrlFresh(`Images/Teams/${entry.country}/${entry.league}/${entry.name}.png`));
+    }
+  }
+
+  return urls;
+}
+
 const READY_PHOTO_FROM_URL_ENDPOINT = "/__ready-photo/from-url";
 const READY_PHOTO_FROM_URL_FETCH_MS = 120000;
 
@@ -486,7 +640,7 @@ function playerStatsNationalityLabelForFlagcode(nationalityRaw) {
 }
 
 /** Regular flag image URL: repo England asset or flagcdn (regular layout, centered overlay). */
-function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
+export function resolvePlayerStatsNationalityFlagUrl(nationalityRaw) {
   const natLabel = playerStatsNationalityLabelForFlagcode(nationalityRaw);
   if (!natLabel) return null;
   if (natLabel === "England") {
@@ -1399,13 +1553,13 @@ function mapSquadPositionToBucket(positionRaw) {
   return inferPositionBucketFromText(key);
 }
 
-function isCareerPlayerGoalkeeper(player) {
+export function isCareerPlayerGoalkeeper(player) {
   if (!player) return false;
   return mapSquadPositionToBucket(player.position) === "Goalkeeper";
 }
 
 /** Sum a numeric field from club + national career totals (squad JSON). Missing sides count as 0; both missing → "". */
-function formatPlayerCareerTotalStat(player, key) {
+export function formatPlayerCareerTotalStat(player, key) {
   if (!player) return "";
   const club = player.club_career_totals;
   const nat = player.national_team_career_totals;
@@ -1417,7 +1571,7 @@ function formatPlayerCareerTotalStat(player, key) {
   return String((nClub ?? 0) + (nNat ?? 0));
 }
 
-function formatPlayerPositionLabel(player) {
+export function formatPlayerPositionLabel(player) {
   if (!player) return "";
   return translatePositionBucket(mapSquadPositionToBucket(player.position));
 }
