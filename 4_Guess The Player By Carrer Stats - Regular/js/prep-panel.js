@@ -1321,16 +1321,16 @@ function buildPlayerBoxes(lvl, levelIndex) {
   ctrls.append(photoBtn, delBtn, rbBtn);
 
   // The single revealed player box (16:9 video-frame preview).
+  // Photo controls go INSIDE the reveal box (at the bottom) so the box is one
+  // complete unit, the same height as the Flag box.
+  ctrls.classList.add("prep-player-box__ctrls");
+  revealBox.append(ctrls);
+
   const boxesRow = document.createElement("div");
   boxesRow.className = "prep-player-boxes-row";
   boxesRow.append(revealBox);
 
-  // … with the photo controls in a footer BELOW the box (name removed).
-  const footer = document.createElement("div");
-  footer.className = "prep-player-footer";
-  footer.append(ctrls);
-
-  wrap.append(boxesRow, footer);
+  wrap.append(boxesRow);
   return wrap;
 }
 

@@ -715,16 +715,17 @@
    with a shared name + controls footer BELOW both. ──────────────────────── */
 .prep-player-boxes {
   flex: 0 0 auto;
-  align-self: center; /* sits at the middle height of the row */
+  align-self: stretch; /* match the Flag/Data card height in the row */
   display: flex;
-  flex-direction: column; /* boxes row on top, name + controls footer below */
+  flex-direction: column;
   align-items: center;
   gap: 0.7rem;
 }
 .prep-player-boxes-row {
   display: flex;
   gap: 1rem;
-  align-items: stretch; /* the two boxes are the SAME size */
+  align-items: stretch;
+  flex: 1 1 auto;      /* fill the player-boxes height */
 }
 .prep-player-box {
   width: 13rem;
@@ -845,11 +846,13 @@
   width: 22rem;
 }
 .prep-player-box--reveal .prep-player-img-wrap {
-  /* The box = ONLY the photo region of the screen: from the CLUBS/info box bottom
-     (cluster top 40 + STACK_H 272 = 312) down to the page bottom (1080). That
-     region is 1920 × 768 → aspect 2.5:1. (Was the full 16:9 screen, so the player
-     looked tiny with a big empty top.) */
-  aspect-ratio: 2.5 / 1;
+  /* The box now stretches to the Flag-box height; the photo region FILLS the space
+     between the REVEALED title and the buttons, with the player bottom-anchored.
+     (No fixed aspect — it grows with the box; the player still fills it like the
+     render: from just under the clubs box down to the page bottom.) */
+  aspect-ratio: auto;
+  flex: 1 1 auto;
+  min-height: 0;
   align-items: flex-end;
 }
 .prep-player-box--reveal .prep-player-img--reveal {

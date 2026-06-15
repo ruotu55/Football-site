@@ -235,6 +235,21 @@
   border: 2px solid rgba(255, 255, 255, 0.7);
   object-fit: cover;
 }
+/* Flag box: nationality name ABOVE the flag image (black, like runner 4). */
+.prep-flag-with-nat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+.prep-flag-nat {
+  font: 800 1.4rem/1.1 "Barlow Condensed", system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #000000;
+  text-align: center;
+}
 .prep-asset-data {
   display: flex;
   flex-direction: column;
@@ -263,7 +278,7 @@
   gap: 0.45rem;
 }
 .prep-assets-career-title {
-  font: 800 0.74rem/1 "Barlow Condensed", system-ui, sans-serif;
+  font: 800 1.48rem/1 "Barlow Condensed", system-ui, sans-serif;  /* 2× (was 0.74rem) */
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--accent, #ffca28);
@@ -643,16 +658,17 @@
    with a shared name + controls footer BELOW both. ──────────────────────── */
 .prep-player-boxes {
   flex: 0 0 auto;
-  align-self: center; /* sits at the middle height of the row */
+  align-self: stretch; /* match the Flag/Data card height in the row */
   display: flex;
-  flex-direction: column; /* boxes row on top, name + controls footer below */
+  flex-direction: column;
   align-items: center;
   gap: 0.7rem;
 }
 .prep-player-boxes-row {
   display: flex;
   gap: 1rem;
-  align-items: stretch; /* the two boxes are the SAME size */
+  align-items: stretch;
+  flex: 1 1 auto;      /* fill the player-boxes height */
 }
 .prep-player-box {
   width: 13rem;
@@ -685,7 +701,8 @@
   color: var(--accent, #ffca28);
 }
 .prep-player-box--reveal .prep-player-box__title {
-  color: #7ee0a3;
+  color: #ffca28;          /* yellow */
+  font-size: 1.56rem;      /* 2× (was 0.78rem) */
 }
 .prep-player-img-wrap {
   position: relative;
@@ -769,17 +786,21 @@
    (1920×1080) with the player photo bottom-anchored at full height, contain-fit —
    exactly how Level.tsx draws it (height:100%, objectFit:contain, center bottom). */
 .prep-player-box--reveal {
-  width: 18rem;
+  width: 22rem;
 }
 .prep-player-box--reveal .prep-player-img-wrap {
-  aspect-ratio: 16 / 9;
+  /* The box stretches to the Flag-box height; the photo region FILLS the space
+     between the REVEALED title and the buttons, player bottom-anchored. */
+  aspect-ratio: auto;
+  flex: 1 1 auto;
+  min-height: 0;
   align-items: flex-end;
 }
 .prep-player-box--reveal .prep-player-img--reveal {
-  height: 100%;
+  height: 97.9%;
   width: auto;
   max-width: 100%;
-  max-height: 100%;
+  max-height: 97.9%;
   object-fit: contain;
   object-position: center bottom;
 }

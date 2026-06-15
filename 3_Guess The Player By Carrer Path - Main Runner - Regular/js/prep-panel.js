@@ -969,39 +969,22 @@ function buildAssetsPane(lvl, levelIndex) {
 
   top.appendChild(buildPlayerBoxes(lvl, levelIndex));
 
-  // Flag card.
+  // Flag card — nationality name ABOVE the flag (Data box removed).
   const flagUrl = resolvePlayerStatsNationalityFlagUrl(player?.nationality);
-  let flagContent = null;
+  const flagWrap = document.createElement("div");
+  flagWrap.className = "prep-flag-with-nat";
+  const natLabel = document.createElement("div");
+  natLabel.className = "prep-flag-nat";
+  natLabel.textContent = player?.nationality || "—";
+  flagWrap.appendChild(natLabel);
   if (flagUrl) {
     const fImg = document.createElement("img");
     fImg.className = "prep-asset-flag";
     fImg.alt = "";
     fImg.src = flagUrl;
-    flagContent = fImg;
+    flagWrap.appendChild(fImg);
   }
-  top.appendChild(buildAssetCard(player?.nationality ? `Flag — ${player.nationality}` : "Flag", flagContent));
-
-  // Data card.
-  const data = document.createElement("div");
-  data.className = "prep-asset-data";
-  const rows = [
-    ["Player", displayPlayerNameFor(lvl) || playerNameFor(lvl) || "—"],
-    ["Nationality", player?.nationality || "—"],
-    ["Clubs", String(displayedCareer(lvl).length)],
-  ];
-  for (const [k, v] of rows) {
-    const r = document.createElement("div");
-    r.className = "prep-asset-data__row";
-    const kk = document.createElement("span");
-    kk.className = "prep-asset-data__k";
-    kk.textContent = k;
-    const vv = document.createElement("span");
-    vv.className = "prep-asset-data__v";
-    vv.textContent = v == null || v === "" ? "—" : String(v);
-    r.append(kk, vv);
-    data.appendChild(r);
-  }
-  top.appendChild(buildAssetCard("Data", data));
+  top.appendChild(buildAssetCard("Flag", flagWrap));
 
   pane.appendChild(top);
 
@@ -1153,10 +1136,7 @@ function buildPlayerBoxes(lvl, levelIndex) {
   revealImg.alt = "";
   revealImgWrap.appendChild(revealImg);
   revealBox.append(revealTitle, revealImgWrap);
-  // Name lives in the shared footer BELOW both boxes (so the two boxes stay identical).
-  const nameEl = document.createElement("div");
-  nameEl.className = "prep-player-name";
-  nameEl.textContent = displayPlayerNameFor(lvl);
+  // (Player name under the Revealed box removed per request.)
 
   // Resolve the photo for the reveal box.
   const applyPhoto = (url) => {
@@ -1214,17 +1194,16 @@ function buildPlayerBoxes(lvl, levelIndex) {
   // rename/override feature is scoped to the lineup runners 1 & 2.
   ctrls.append(photoBtn, delBtn, rbBtn);
 
-  // The single revealed player box (16:9 video-frame preview).
+  // Photo controls go INSIDE the reveal box (at the bottom) so the box is one
+  // complete unit, the same height as the Flag box.
+  ctrls.classList.add("prep-player-box__ctrls");
+  revealBox.append(ctrls);
+
   const boxesRow = document.createElement("div");
   boxesRow.className = "prep-player-boxes-row";
   boxesRow.append(revealBox);
 
-  // … with the name + all controls in a shared footer BELOW both of them.
-  const footer = document.createElement("div");
-  footer.className = "prep-player-footer";
-  footer.append(nameEl, ctrls);
-
-  wrap.append(boxesRow, footer);
+  wrap.append(boxesRow);
   return wrap;
 }
 
