@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import {
   repoPaths,
   displayName,
+  norm,
   buildPhotoIndex,
   buildClubCrestIndex,
   buildFlagResolver,
@@ -54,6 +55,64 @@ const toPositionAbbrev = (raw) => {
 };
 
 const resolvePhoto = buildPhotoIndex(P.IMAGES);
+
+// Resolve the NO-BACKGROUND "Ready photos" the prep panel manages
+// (Images/Players No Background/Ready photos/{Player}_{Club}/{Player}.png|webp),
+// falling back to the standard club-image folder. This MUST match what the prep
+// panel + the silhouette/reveal expect — the SAME full-body cutout resolver
+// runners 3 & 4 use (ported verbatim so runner 5 shows the same photo).
+function buildReadyPhotoIndex(IMAGES) {
+  const READY_DIR = path.join(IMAGES, "Players No Background", "Ready photos");
+  const byKey = new Map(); // norm(playerName) → relative path
+  if (!fs.existsSync(READY_DIR)) return (playerName, club) => resolvePhoto(club, playerName);
+  let entries = [];
+  try {
+    entries = fs.readdirSync(READY_DIR, { withFileTypes: true });
+  } catch {
+    return (playerName, club) => resolvePhoto(club, playerName);
+  }
+  // Subdirectories: "{Player}_{Club}/" → look for {Player}.png/webp
+  for (const e of entries) {
+    if (!e.isDirectory()) continue;
+    const dirName = e.name;
+    const underscoreIdx = dirName.lastIndexOf("_");
+    if (underscoreIdx < 1) continue;
+    const pName = dirName.slice(0, underscoreIdx).trim();
+    if (!pName) continue;
+    const dirPath = path.join(READY_DIR, dirName);
+    let subEntries = [];
+    try {
+      subEntries = fs.readdirSync(dirPath);
+    } catch {
+      continue;
+    }
+    for (const ext of ["png", "webp", "PNG", "WebP"]) {
+      const candidate = subEntries.find(
+        (f) => f.toLowerCase() === `${pName.toLowerCase()}.${ext.toLowerCase()}` || norm(f).startsWith(norm(pName)),
+      );
+      if (candidate) {
+        const k = norm(pName);
+        if (!byKey.has(k)) byKey.set(k, path.relative(IMAGES, path.join(dirPath, candidate)).replace(/\\/g, "/"));
+        break;
+      }
+    }
+  }
+  // Flat files in the Ready photos root: "{Player}.png/webp"
+  for (const e of entries) {
+    if (!e.isFile()) continue;
+    const match = e.name.match(/^(.+)\.(png|webp)$/i);
+    if (!match) continue;
+    const k = norm(match[1]);
+    if (!byKey.has(k)) byKey.set(k, path.relative(IMAGES, path.join(READY_DIR, e.name)).replace(/\\/g, "/"));
+  }
+  return (playerName, club) => {
+    const k = norm(playerName);
+    if (byKey.has(k)) return byKey.get(k);
+    return resolvePhoto(club, playerName);
+  };
+}
+const resolvePlayerPhoto = buildReadyPhotoIndex(P.IMAGES);
+
 const resolveClubCrest = buildClubCrestIndex(P.IMAGES);
 const { resolveFlag, usedFlagCodes } = buildFlagResolver(P.FLAGCODES_JSON);
 const sq = buildSquadPlayerIndex(P.SQUAD_FORMATION);
@@ -93,7 +152,7 @@ for (const key of Object.keys(blocks)) {
     // Try to resolve full player record from squad JSON
     const rec = sq.findPlayer(club, playerName);
 
-    const photo = resolvePhoto(club, playerName);
+    const photo = resolvePlayerPhoto(playerName, club);
     const crest = resolveClubCrest(club);
     const position = toPositionAbbrev(rec?.position || "");
     const country = rec?.nationality || "";

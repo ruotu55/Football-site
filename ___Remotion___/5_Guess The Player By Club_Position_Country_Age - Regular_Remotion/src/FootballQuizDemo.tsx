@@ -228,10 +228,10 @@ export const FootballQuizDemo: React.FC<DemoProps> = (props) => {
       >
         {isBonus ? (
           <FrozenAfter at={f(BONUS_LEVEL_FRAMES)}>
-            <Level bg={background} level={lvl} levelNumber={i + 1} language={props.language} muteReveal />
+            <Level bg={background} level={lvl} levelNumber={i + 1} language={props.language} template={props.template} muteReveal />
           </FrozenAfter>
         ) : (
-          <Level bg={background} level={lvl} levelNumber={i + 1} language={props.language} />
+          <Level bg={background} level={lvl} levelNumber={i + 1} language={props.language} template={props.template} />
         )}
       </TransitionSeries.Sequence>,
     );

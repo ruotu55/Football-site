@@ -4,6 +4,7 @@ import type { ResolvedBackground } from "@shared/effects/AnimatedBackground";
 import { COMPETITION_LABELS, competitionByLabel } from "@shared/effects/effects-data";
 import { FORMATION_LABELS } from "@shared/formations";
 import { SAVE_NAMES } from "./level-data";
+import { TEMPLATE_IDS } from "./templates";
 
 export const AUTO_FORMATION = "Auto (from save)";
 export const LANGUAGES = ["English", "Spanish"] as const;
@@ -24,6 +25,9 @@ export const demoSchema = z.object({
   competition: z.enum(asEnum(COMPETITION_LABELS)),
 
   transition: z.enum(TRANSITION_EFFECTS),
+
+  // Which of the 5 hidden-player templates to use for every level.
+  template: z.enum(asEnum(TEMPLATE_IDS)),
 });
 
 export type DemoProps = z.infer<typeof demoSchema>;
